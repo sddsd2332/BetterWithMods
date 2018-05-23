@@ -39,12 +39,14 @@ repositories {
     maven { url "http://maven.amadornes.com/" }
     maven { url "http://www.ryanliptak.com/maven/" }
     maven { url "http://maven.tterrag.com" }
+    maven { url "https://maven.thiakil.com/"}
     mavenCentral()
 }
 dependencies {
     deobfCompile "mezz.jei:jei_1.12.2:+"
     deobfCompile "applecore:AppleCore:1.12.2-3.1.0:deobf"
     deobfCompile "team.chisel.ctm:CTM:+"
+    deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2:deobf"
     compile "MCMultiPart2:MCMultiPart:2.4.1"
     runtime "MCMultiPart2:MCMultiPart:2.4.1"
 
