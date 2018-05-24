@@ -270,9 +270,9 @@ tile.bwm:nether_growth.name=Nether Growth Spore
 
 tile.bwm:steel_saw.name=Soulforged Steel Saw
 
-tile.bwm:blood_log.name=Bloody Wood
-tile.bwm:blood_leaves.name=Bloody Leaves
-tile.bwm:blood_sapling.name=Bloody Sapling
+tile.bwm:blood_log.name=Bloodwood
+tile.bwm:blood_leaves.name=Bloodwood Leaves
+tile.bwm:blood_sapling.name=Bloodwood Sapling
 
 tile.bwm:nether_clay.name=Nether Sludge Block
 
@@ -394,7 +394,7 @@ item.bwm:bark.birch.name=Birch Bark
 item.bwm:bark.jungle.name=Jungle Bark
 item.bwm:bark.acacia.name=Acacia Bark
 item.bwm:bark.dark_oak.name=Dark Oak Bark
-item.bwm:bark.bloody.name=Bloody Bark
+item.bwm:bark.bloody.name=Bloodwood Bark
 item.bwm:bark.olive.name=Olive Bark
 item.bwm:bark.ironwood.name=Ironwood Bark
 
