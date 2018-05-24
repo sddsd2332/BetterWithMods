@@ -36,8 +36,7 @@ public class BlockBloodSapling extends BlockBush {
     }
 
     @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos)
-    {
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return SAPLING_AABB;
     }
 
@@ -61,21 +60,12 @@ public class BlockBloodSapling extends BlockBush {
         return state.getBlock() == Blocks.SOUL_SAND || (state.getBlock() == BWMBlocks.PLANTER && state.getValue(BlockPlanter.TYPE) == BlockPlanter.EnumType.SOULSAND);
     }
 
-    @Override
-    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-        if (!world.isRemote && world.provider.isNether()) {
-            super.updateTick(world, pos, state, rand);
-            if (rand.nextInt(7) == 0) {
-
-            }
-        }
-    }
-
     public void grow(World world, BlockPos pos, IBlockState state, Random rand) {
-        if (state.getValue(STAGE) == 0)
+        if (state.getValue(STAGE) == 0) {
             world.setBlockState(pos, state.cycleProperty(STAGE), 4);
-        else
+        } else {
             this.generateTree(world, pos, state, rand);
+        }
     }
 
     public boolean generateTree(World world, BlockPos pos, IBlockState state, Random rand) {

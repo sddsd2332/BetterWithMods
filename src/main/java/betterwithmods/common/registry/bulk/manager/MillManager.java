@@ -82,8 +82,8 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
             if (recipe != null) {
                 mill.grindMax = recipe.getTicks();
                 //Play sounds
-                if (mill.getBlockWorld().rand.nextInt(25) < 2)
-                    mill.getBlockWorld().playSound(null, mill.getBlockPos(), recipe.getSound(), SoundCategory.BLOCKS, 1F, mill.getBlockWorld().rand.nextFloat() * 0.4F + 0.8F);
+                if (mill.getBlockWorld().rand.nextInt(40) < 2)
+                    mill.getBlockWorld().playSound(null, mill.getBlockPos(), recipe.getSound(), SoundCategory.BLOCKS,  0.75F, mill.getWorld().rand.nextFloat() * 0.4F + 0.8F);
 
                 if (canCraft(tile, inv)) {
                     mill.ejectRecipe(BWRegistry.MILLSTONE.craftItem(world, tile, inv));

@@ -14,6 +14,7 @@ public class DirUtils {
     public static final EnumFacing[] X_AXIS = new EnumFacing[]{EnumFacing.WEST, EnumFacing.EAST};
     public static final EnumFacing[] Y_AXIS = new EnumFacing[]{EnumFacing.DOWN, EnumFacing.UP};
     public static final EnumFacing[] Z_AXIS = new EnumFacing[]{EnumFacing.SOUTH, EnumFacing.NORTH};
+    public static final EnumFacing[] NOT_DOWN = new EnumFacing[]{EnumFacing.SOUTH, EnumFacing.NORTH, EnumFacing.WEST, EnumFacing.EAST, EnumFacing.UP};
     public static final EnumFacing[][] AXIS_DIRECTIONS = new EnumFacing[][]{X_AXIS, Y_AXIS, Z_AXIS};
 
     public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class);

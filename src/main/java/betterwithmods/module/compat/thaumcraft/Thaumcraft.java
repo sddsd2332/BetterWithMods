@@ -70,17 +70,17 @@ public class Thaumcraft extends CompatFeature {
         for (IRecipe recipe : AnvilCraftingManager.ANVIL_CRAFTING) {
 
             AspectList tmp = null;
-
-            Method method = ReflectionHelper.findMethod(ThaumcraftCraftingManager.class, "getAspectsFromIngredients", "getAspectsFromIngredients", NonNullList.class, ItemStack.class, IRecipe.class, ArrayList.class);
-            method.setAccessible(true);
-
-            try {
-                tmp = (AspectList) method.invoke(null, recipe.getIngredients(), recipe.getRecipeOutput(), recipe, history);
-            } catch (IllegalAccessException | InvocationTargetException e) {
-                e.printStackTrace();
-            }
-            if (tmp != null)
-                ThaumcraftApi.registerComplexObjectTag(recipe.getRecipeOutput(), tmp);
+            //TODO temp disable this until I actually decide to fix it
+//            Method method = ReflectionHelper.findMethod(ThaumcraftCraftingManager.class, "getAspectsFromIngredients", "getAspectsFromIngredients", NonNullList.class, ItemStack.class, IRecipe.class, ArrayList.class);
+//            method.setAccessible(true);
+//
+//            try {
+//                tmp = (AspectList) method.invoke(null, recipe.getIngredients(), recipe.getRecipeOutput(), recipe, history);
+//            } catch (IllegalAccessException | InvocationTargetException e) {
+//                e.printStackTrace();
+//            }
+//            if (tmp != null)
+//                ThaumcraftApi.registerComplexObjectTag(recipe.getRecipeOutput(), tmp);
         }
         ThaumcraftApi.registerObjectTag(new ItemStack(BWMBlocks.STEEL_BROKEN_GEARBOX), new AspectList(new ItemStack(BWMBlocks.STEEL_GEARBOX)));
         ThaumcraftApi.registerComplexObjectTag(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCKBLOOD), new AspectList(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK)).add(Aspect.DEATH, 5));
