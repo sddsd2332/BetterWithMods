@@ -1,5 +1,6 @@
 package betterwithmods.module.compat.thaumcraft;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
@@ -71,16 +72,22 @@ public class Thaumcraft extends CompatFeature {
 
             AspectList tmp = null;
             //TODO temp disable this until I actually decide to fix it
-//            Method method = ReflectionHelper.findMethod(ThaumcraftCraftingManager.class, "getAspectsFromIngredients", "getAspectsFromIngredients", NonNullList.class, ItemStack.class, IRecipe.class, ArrayList.class);
-//            method.setAccessible(true);
-//
-//            try {
-//                tmp = (AspectList) method.invoke(null, recipe.getIngredients(), recipe.getRecipeOutput(), recipe, history);
-//            } catch (IllegalAccessException | InvocationTargetException e) {
-//                e.printStackTrace();
-//            }
-//            if (tmp != null)
-//                ThaumcraftApi.registerComplexObjectTag(recipe.getRecipeOutput(), tmp);
+
+            try {
+                Method method = ReflectionHelper.findMethod(ThaumcraftCraftingManager.class, "getAspectsFromIngredients", "getAspectsFromIngredients", NonNullList.class, ItemStack.class, IRecipe.class, ArrayList.class);
+                method.setAccessible(true);
+
+                try {
+                    tmp = (AspectList) method.invoke(null, recipe.getIngredients(), recipe.getRecipeOutput(), null, history);
+                } catch (IllegalAccessException | InvocationTargetException e) {
+                    e.printStackTrace();
+                }
+                if (tmp != null)
+                    ThaumcraftApi.registerComplexObjectTag(recipe.getRecipeOutput(), tmp);
+            }
+            catch(ReflectionHelper.UnableToFindMethodException error) {
+                BWMod.logger.warn(error);
+            }
         }
         ThaumcraftApi.registerObjectTag(new ItemStack(BWMBlocks.STEEL_BROKEN_GEARBOX), new AspectList(new ItemStack(BWMBlocks.STEEL_GEARBOX)));
         ThaumcraftApi.registerComplexObjectTag(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCKBLOOD), new AspectList(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK)).add(Aspect.DEATH, 5));
