@@ -36,6 +36,7 @@ public class Tweaks extends Module {
         registerFeature(new VisibleStorms());
         registerFeature(new LongBoi());
         registerFeature(new MobEating());
+        registerFeature(new DetectorRail());
     }
 
     @Override
