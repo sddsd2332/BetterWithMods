@@ -321,7 +321,7 @@ public class HCHunger extends CompatFeature {
     //Shake Hunger bar whenever any exhaustion is given?
     @SubscribeEvent
     public void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
-        if (event.player.world.getTotalWorldTime() % 20 == 0 && event.deltaExhaustion > 0.05) {
+        if (event.deltaExhaustion > 0.05) {
             if (event.player instanceof EntityPlayerMP)
                 NetworkHandler.INSTANCE.sendTo(new MessageGuiShake(), (EntityPlayerMP) event.player);
             else
