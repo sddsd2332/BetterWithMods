@@ -1,6 +1,7 @@
 {
   "result": {
-    "item": "betterwithmods:detector_rail_steel"
+    "item": "betterwithmods:detector_rail_steel",
+    "count": 6
   },
   "pattern": [
     "I I",

@@ -225,4 +225,12 @@ public class Feature {
         return ConfigHelper.loadPropRLList(propName, configCategory, comment, default_);
     }
 
+    public void overrideBlock(String str) {
+        BWMod.proxy.addResourceOverride("textures", "blocks", str, "png");
+    }
+
+    public void overrideItem(String str) {
+        BWMod.proxy.addResourceOverride("textures", "items", str, "png");
+    }
+
 }

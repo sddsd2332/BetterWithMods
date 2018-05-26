@@ -110,8 +110,6 @@ public final class BWMBlocks {
 
     public static final Block BOOSTER = new BlockGearBoostedRail().setRegistryName("booster");
 
-    public static final Block DETECTOR_RAIL_WOOD = new BlockRailDetectorBase(cart -> true).setRegistryName("detector_rail_wood");
-
     public static final Block DETECTOR_RAIL_STEEL = new BlockRailDetectorBase(cart -> BlockRailDetectorBase.isRider(cart, rider -> rider instanceof EntityPlayer)).setRegistryName("detector_rail_steel");
 
     private static final List<Block> BLOCKS = new ArrayList<>();
@@ -210,7 +208,6 @@ public final class BWMBlocks {
 //		registerBlock(MERGER);
         registerBlock(SHAFT);
         registerBlock(BUCKET);
-        registerBlock(DETECTOR_RAIL_WOOD);
 
         registerBlock(DETECTOR_RAIL_STEEL);
 

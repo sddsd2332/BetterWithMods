@@ -1,12 +1,6 @@
 {
-  "conditions": [
-    {
-      "type": "config",
-      "enabled": "detectorrail"
-    }
-  ],
   "result": {
-    "item": "minecraft:detector_rail",
+    "item": "betterwithmods:detector_rail_stone",
     "count": 6
   },
   "pattern": [
@@ -25,7 +19,7 @@
       "type": "forge:ore_dict"
     },
     "P": {
-      "item": "minecraft:wooden_pressure_plate"
+      "item": "minecraft:stone_pressure_plate"
     }
   }
 }

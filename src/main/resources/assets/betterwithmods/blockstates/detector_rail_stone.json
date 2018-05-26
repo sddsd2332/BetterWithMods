@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "rail": "betterwithmods:blocks/detector_rail_wood",
+      "rail": "betterwithmods:blocks/detector_rail_stone",
       "particle": "#rail"
     },
     "model": "rail_flat",
@@ -41,7 +41,7 @@
       "false": {},
       "true": {
         "textures": {
-          "rail": "betterwithmods:blocks/detector_rail_wood_powered"
+          "rail": "betterwithmods:blocks/detector_rail_stone_powered"
         }
       }
     }
