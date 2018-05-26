@@ -3,6 +3,7 @@ package betterwithmods.common.blocks;
 import com.google.common.base.Predicate;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockRailDetector;
+import net.minecraft.block.SoundType;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -19,6 +20,8 @@ public class BlockRailDetectorBase extends BlockRailDetector {
 
     public BlockRailDetectorBase(Predicate<Entity> cart) {
         this.filter = cart;
+        setHardness(0.7F);
+        setSoundType(SoundType.METAL);
     }
 
     public static boolean isRider(Entity entity, Predicate<Entity> rider) {
