@@ -179,7 +179,10 @@ public class BWOreDictionary {
         registerOre("meatMutton", Items.MUTTON, Items.COOKED_MUTTON);
         registerOre("meatChicken", Items.CHICKEN, Items.COOKED_CHICKEN);
         registerOre("meatRotten", Items.ROTTEN_FLESH);
-        registerOre("meatFish", new ItemStack(Items.FISH, 1, ItemFishFood.FishType.SALMON.getMetadata()));
+        registerOre("meatFish",
+                new ItemStack(Items.FISH, 1, ItemFishFood.FishType.COD.getMetadata()),
+                new ItemStack(Items.FISH, 1, ItemFishFood.FishType.SALMON.getMetadata())
+        );
 
         registerOre("cookedPotato", Items.BAKED_POTATO);
         registerOre("cookedCarrot", Items.CARROT);
