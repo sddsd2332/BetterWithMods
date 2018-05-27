@@ -49,7 +49,7 @@ public class Gameplay extends Module {
         registerFeature(new TurntableRecipes());
         registerFeature(new HopperRecipes());
         registerFeature(new NetherGrowth());
-        registerFeature(new BreedingHarness());
+        registerFeature(new BreedingHarness().recipes());
         registerFeature(new PlayerDataHandler());
         registerFeature(new ReadTheFingManual());
         registerFeature(new MiniBlocks());
