@@ -24,7 +24,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class CreeperShearing extends Feature {
 
-    public static ResourceLocation CREEPER = new ResourceLocation("minecraft:creeper");
+    public static ResourceLocation CREEPER = new ResourceLocation("minecraft","creeper");
 
     @SubscribeEvent
     public void mobDrops(LivingDropsEvent event) {
@@ -41,7 +41,7 @@ public class CreeperShearing extends Feature {
     public void shearCreeper(PlayerInteractEvent.EntityInteractSpecific e) {
         if (e.getTarget() instanceof EntityLivingBase) {
             EntityLivingBase creeper = (EntityLivingBase) e.getTarget();
-            if(EntityList.isMatchingName(e.getEntity(), CREEPER)) {
+            if(EntityList.isMatchingName(creeper, CREEPER)) {
                 if (e.getSide().isServer() && creeper.isEntityAlive() && !e.getItemStack().isEmpty()) {
                     Item item = e.getItemStack().getItem();
                     if (item instanceof ItemShears) {
