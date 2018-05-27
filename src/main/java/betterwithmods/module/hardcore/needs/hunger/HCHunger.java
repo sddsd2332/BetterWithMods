@@ -71,7 +71,6 @@ public class HCHunger extends CompatFeature {
     public static float passiveExhaustion;
     public static int passiveExhaustionTick;
     public static boolean rawMeatDangerous;
-//	public static boolean fat;
 
     public static boolean overridePumpkinSeeds;
     public static boolean overrideMushrooms;
@@ -86,13 +85,13 @@ public class HCHunger extends CompatFeature {
     @Override
     public void setupConfig() {
         blockBreakExhaustion = (float) loadPropDouble("Block Breaking Exhaustion", "Set Exhaustion from breaking a block", 0.1);
-        passiveExhaustion = (float) loadPropDouble("Passive Exhaustion", "Passive Exhaustion value", 4f);
+        passiveExhaustion = (float) loadPropDouble("Passive Exhaustion", "Passive Exhaustion value", 3f);
         passiveExhaustionTick = loadPropInt("Passive Exhaustion Tick", "Passive exhaustion tick time", 900);
         rawMeatDangerous = loadPropBool("Raw Meat is Unhealthy", "Gives food poisoning", true);
 
         overrideMushrooms = loadPropBool("Edible Mushrooms", "Override Mushrooms to be edible, be careful with the red one ;)", true);
         overridePumpkinSeeds = loadPropBool("Edible Pumpkin Seeds", "Override Pumpkin Seeds to be edible", true);
-//		fat = loadPropBool("Fat", "Fat replaces saturation and only decreases when hunger is depleted completely", true);
+
     }
 
     @Override
@@ -321,7 +320,7 @@ public class HCHunger extends CompatFeature {
     //Shake Hunger bar whenever any exhaustion is given?
     @SubscribeEvent
     public void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
-        if (event.deltaExhaustion > 0.05) {
+        if (event.deltaExhaustion >= blockBreakExhaustion) {
             if (event.player instanceof EntityPlayerMP)
                 NetworkHandler.INSTANCE.sendTo(new MessageGuiShake(), (EntityPlayerMP) event.player);
             else
