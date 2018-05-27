@@ -22,6 +22,7 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.*;
+import java.util.regex.Pattern;
 
 public final class BWMRecipes {
     private static final boolean GENERATE_RECIPES = false;
@@ -33,6 +34,7 @@ public final class BWMRecipes {
     public static final List<ItemStack> REMOVE_RECIPE_BY_OUTPUT = Lists.newArrayList();
     public static final List<List<Ingredient>> REMOVE_RECIPE_BY_INPUT = Lists.newArrayList();
     public static final List<ResourceLocation> REMOVE_RECIPE_BY_RL = Lists.newArrayList();
+    public static final List<Pattern> REMOVE_BY_REGEX = Lists.newArrayList();
 
     public static List<IRecipe> getHardcoreRecipes(String ID) {
         if (HARDCORE_RECIPES.containsKey(ID))
@@ -80,6 +82,10 @@ public final class BWMRecipes {
 
     public static void removeRecipe(String loc) {
         removeRecipe(new ResourceLocation(loc));
+    }
+
+    public static void removeRecipe(Pattern pattern) {
+        REMOVE_BY_REGEX.add(pattern);
     }
 
     // Replace calls to GameRegistry.addShapeless/ShapedRecipe with these methods, which will dump it to a json in your dir of choice

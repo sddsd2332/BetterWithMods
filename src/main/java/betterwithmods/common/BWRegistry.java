@@ -72,6 +72,8 @@ import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
@@ -127,7 +129,14 @@ public class BWRegistry {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
+
         for (IRecipe recipe : reg) {
+            for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {
+                Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
+                if(matcher.matches()) {
+                    reg.remove(recipe.getRegistryName());
+                }
+            }
             for (ResourceLocation loc : BWMRecipes.REMOVE_RECIPE_BY_RL) {
                 if (loc.equals(recipe.getRegistryName()))
                     reg.remove(recipe.getRegistryName());
