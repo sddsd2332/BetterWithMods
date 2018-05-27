@@ -31,7 +31,7 @@ public class CreeperShearing extends Feature {
         EntityLivingBase entity = event.getEntityLiving();
         if(EntityList.isMatchingName(entity, CREEPER)) {
             double chance = entity.getRNG().nextDouble() + (0.1 * event.getLootingLevel());
-            if (chance <= 0.25) {
+            if (chance <= 0.05) {
                 WorldUtils.addDrop(event,new ItemStack(BWMItems.CREEPER_OYSTER));
             }
         }
