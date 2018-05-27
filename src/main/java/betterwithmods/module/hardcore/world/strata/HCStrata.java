@@ -16,23 +16,16 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
-import static betterwithmods.util.ReflectionLib.*;
 
 public class HCStrata extends Feature {
     private static final Pattern PATTERN = Pattern.compile("^([\\-]?\\d+)=(\\d{1,255}),(\\d{1,255}).*");
@@ -90,7 +83,7 @@ public class HCStrata extends Feature {
                 (float) loadPropDouble("Medium Strata", "Speed for Medium Strata", 1.0),
                 (float) loadPropDouble("Dark Strata", "Speed for Dark Strata", 1.0)
         };
-        INCORRECT_STRATA_SCALE = (float) loadPropDouble("Incorrect Strata", "Speed scale for when the Strata is higher than the tool", 0.35);
+        INCORRECT_STRATA_SCALE = (float) loadPropDouble("Incorrect Strata", "Speed scale for when the Strata is higher than the tool", 0.10);
 
         Arrays.stream(loadPropStringList("Strata Configs", "Set the strata levels for a given dimension, <dim>=< medium start y>,<hard start y>", new String[]{
                 "0=42,21"
@@ -141,7 +134,7 @@ public class HCStrata extends Feature {
         BlockPos pos = event.getPos();
         if (shouldStratify(world, pos)) {
             ItemStack stack = BrokenToolRegistry.findItem(event.getEntityPlayer(), event.getState());
-            float scale = ToolsManager.getSpeed(stack, event.getState());
+            float scale = 1; //ToolsManager.getSpeed(stack, event.getState());
             int strata = getStratification(pos.getY(), world.provider.getDimension()).ordinal();
             if (STATES.getOrDefault(event.getState(), BlockType.STONE) == BlockType.STONE) {
                 int level = Math.max(1, stack.getItem().getHarvestLevel(stack, "pickaxe", event.getEntityPlayer(), event.getState()));
