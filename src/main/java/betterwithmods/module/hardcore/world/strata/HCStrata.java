@@ -144,7 +144,6 @@ public class HCStrata extends Feature {
             }
             event.setNewSpeed(scale * STRATA_SPEEDS[strata] * event.getOriginalSpeed());
         }
-
     }
 
     @Override
