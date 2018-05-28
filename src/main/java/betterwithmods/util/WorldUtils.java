@@ -21,6 +21,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import java.util.Calendar;
 import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
@@ -46,7 +47,7 @@ public final class WorldUtils {
     }
 
     public static boolean isSolid(World world, BlockPos pos, EnumFacing facing, IBlockState state) {
-        return SOLID_MATERIALS.contains(state.getMaterial()) && state.getBlockFaceShape(world,pos,facing.getOpposite()) == BlockFaceShape.SOLID;
+        return SOLID_MATERIALS.contains(state.getMaterial()) && state.getBlockFaceShape(world, pos, facing.getOpposite()) == BlockFaceShape.SOLID;
     }
 
     /**
@@ -214,6 +215,10 @@ public final class WorldUtils {
         return date.get(Calendar.MONTH) == Calendar.APRIL && date.get(Calendar.DAY_OF_MONTH) == 1;
     }
 
+    public static int getCurrentDay(World world) {
+        return (int) (world.getTotalWorldTime() / Time.DAY.getTicks());
+    }
+
     public enum MoonPhase {
         Full,
         WaningGibbous,
@@ -225,6 +230,22 @@ public final class WorldUtils {
         WaxingGibbous
     }
 
+    public enum Time {
+        SECOND(0.27),
+        MINUTE(16.6),
+        HOUR(1000),
+        DAY(24000);
+        private double ticks;
+
+        Time(double ticks) {
+            this.ticks = ticks;
+        }
+
+        public double getTicks() {
+            return ticks;
+        }
+    }
+
     public enum TimeFrame {
         DAWN(0, 3600),
         NOON(5000, 7000),
@@ -232,7 +253,7 @@ public final class WorldUtils {
         MIDNIGHT(17000, 19000),
         NIGHT(13001, 24000),
         DAY(0, 13000);
-
+        private static final Random rand = new Random();
         private int start, end;
 
         TimeFrame(int start, int end) {
@@ -242,6 +263,10 @@ public final class WorldUtils {
 
         public boolean isBetween(int time) {
             return time >= start && time <= end;
+        }
+
+        public int randomBetween() {
+            return rand.nextInt((end - start) + 1) + start;
         }
     }
 
