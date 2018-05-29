@@ -117,6 +117,7 @@ public abstract class TileEntityCookingPot extends TileEntityVisibleInventory im
 
     @Override
     public void update() {
+
         if (getBlock() instanceof BlockCookingPot) {
             IBlockState state = this.getBlockWorld().getBlockState(this.pos);
             if (isPowered()) {
@@ -131,17 +132,21 @@ public abstract class TileEntityCookingPot extends TileEntityVisibleInventory im
                 spawnParticles();
 
                 entityCollision();
-                int heat = findHeat(getPos());
-                if (this.heat != heat) {
-                    this.heat = heat;
-                    this.cookProgress = 0;
-                    this.markDirty();
+
+                //Only do crafting on the server
+                if(!world.isRemote) {
+
+                    int heat = findHeat(getPos());
+                    if (this.heat != heat) {
+                        this.heat = heat;
+                        this.cookProgress = 0;
+                    }
+                    int time = findCookTime();
+                    if (this.cookTime != time) {
+                        this.cookTime = time;
+                    }
+                    manager.craftRecipe(world, this, inventory);
                 }
-                int time = findCookTime();
-                if (this.cookTime != time) {
-                    this.cookTime = time;
-                }
-                manager.craftRecipe(world, this, inventory);
             }
             if (facing != state.getValue(DirUtils.TILTING)) {
                 world.setBlockState(pos, state.withProperty(DirUtils.TILTING, facing));
@@ -180,6 +185,7 @@ public abstract class TileEntityCookingPot extends TileEntityVisibleInventory im
         }
     }
 
+    //TODO move this to Block#onEntityCollision by lowering the bounding box a bit, like the filtered hopper
     private void entityCollision() {
         if (captureDroppedItems()) {
             getBlockWorld().scheduleBlockUpdate(pos, this.getBlockType(), this.getBlockType().tickRate(getBlockWorld()), 5);

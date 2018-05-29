@@ -24,7 +24,6 @@ public abstract class GuiProgress extends GuiBase {
                     getTextureY() - progress,
                     getWidth(),
                     getHeight());
-
         }
     }
 
