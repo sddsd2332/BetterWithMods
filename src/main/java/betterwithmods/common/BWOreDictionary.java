@@ -181,7 +181,9 @@ public class BWOreDictionary {
         registerOre("meatRotten", Items.ROTTEN_FLESH);
         registerOre("meatFish",
                 new ItemStack(Items.FISH, 1, ItemFishFood.FishType.COD.getMetadata()),
-                new ItemStack(Items.FISH, 1, ItemFishFood.FishType.SALMON.getMetadata())
+                new ItemStack(Items.FISH, 1, ItemFishFood.FishType.SALMON.getMetadata()),
+                new ItemStack(Items.COOKED_FISH, 1, ItemFishFood.FishType.COD.getMetadata()),
+                new ItemStack(Items.COOKED_FISH, 1, ItemFishFood.FishType.SALMON.getMetadata())
         );
 
         registerOre("cookedPotato", Items.BAKED_POTATO);
