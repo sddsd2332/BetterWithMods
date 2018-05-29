@@ -27,7 +27,7 @@ public class HCInjury extends Feature {
             if (PlayerHelper.isSurvival(player)) {
                 HealthPenalty healthPenalty = PlayerHelper.getHealthPenalty(player);
                 double mod = healthPenalty.getModifier();
-                if (mod <= 0.75) {
+                if (mod < 0.75) {
                     player.playSound(BWSounds.OOF, 0.75f, 1f);
                     event.setCanceled(true);
                     event.setResult(Event.Result.DENY);
@@ -51,7 +51,7 @@ public class HCInjury extends Feature {
                 HealthPenalty healthPenalty = PlayerHelper.getHealthPenalty(player);
                 double mod = healthPenalty.getModifier();
                 if (mod <= 0.25) {
-                    if (player.world.getWorldTime() % 60 == 0) {
+                    if (PlayerHelper.isMoving(player) && player.world.getWorldTime() % 60 == 0) {
                         player.playSound(BWSounds.OOF, 0.75f, 1f);
                         if (mod <= 0.20)
                             player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 80, 0, false, false));
