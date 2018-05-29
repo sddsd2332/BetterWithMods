@@ -52,6 +52,8 @@ dependencies {
 
     compile 'org.easytesting:fest-assert:1.4'
     compile 'org.easytesting:fest-util:1.1.6'
+
+    compile files('libs/*')
 }
 
 
