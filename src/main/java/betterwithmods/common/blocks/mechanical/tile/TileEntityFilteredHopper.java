@@ -358,26 +358,13 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
     }
 
     @Override
-    public boolean showProgress() {
-        return isPowered();
-    }
-
-    @Override
     public int getMax() {
         return 1;
     }
 
     @Override
-    public void setMax(int max) { /* NOOP */ }
-
-    @Override
     public int getProgress() {
         return Math.min(power, 1);
-    }
-
-    @Override
-    public void setProgress(int progress) {
-        this.power = (byte) progress;
     }
 
     private class HopperHandler extends SimpleStackHandler {

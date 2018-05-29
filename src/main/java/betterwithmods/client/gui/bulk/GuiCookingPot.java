@@ -14,7 +14,7 @@ public class GuiCookingPot extends GuiProgress {
     private final ContainerCookingPot container;
 
     public GuiCookingPot(EntityPlayer player, TileEntityCookingPot tile) {
-        super(new ContainerCookingPot(player, tile), TEXTURE, tile);
+        super(new ContainerCookingPot(player, tile), TEXTURE);
         this.container = (ContainerCookingPot) this.inventorySlots;
         this.ySize = 193;
         this.tile = tile;

@@ -20,8 +20,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -211,11 +209,6 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
     }
 
     @Override
-    public boolean showProgress() {
-        return isGrinding();
-    }
-
-    @Override
     public int getMax() {
         return grindMax;
     }
@@ -223,17 +216,6 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
     @Override
     public int getProgress() {
         return this.grindCounter;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void setProgress(int progress) {
-        this.grindCounter = progress;
-    }
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void setMax(int max) {
-        this.grindMax = max;
     }
 
 }

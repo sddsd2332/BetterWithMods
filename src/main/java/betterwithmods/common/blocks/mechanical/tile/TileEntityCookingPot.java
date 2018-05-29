@@ -30,8 +30,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.List;
 import java.util.Random;
@@ -307,25 +305,9 @@ public abstract class TileEntityCookingPot extends TileEntityVisibleInventory im
         return cookProgress;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void setProgress(int progress) {
-        this.cookProgress = progress;
-    }
-
     @Override
     public int getMax() {
         return cookTime;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void setMax(int max) {
-        this.cookTime = max;
-    }
-
-    @Override
-    public boolean showProgress() {
-        return cookProgress > 0;
-    }
 }

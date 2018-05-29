@@ -80,7 +80,8 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
                 mill.getBlockWorld().playSound(null, mill.getBlockPos(), BWSounds.STONEGRIND, SoundCategory.BLOCKS, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F);
 
             if (recipe != null) {
-                mill.grindMax = recipe.getTicks();
+                if(mill.grindMax != recipe.getTicks())
+                    mill.grindMax = recipe.getTicks();
                 //Play sounds
                 if (mill.getBlockWorld().rand.nextInt(40) < 2)
                     mill.getBlockWorld().playSound(null, mill.getBlockPos(), recipe.getSound(), SoundCategory.BLOCKS,  0.75F, mill.getWorld().rand.nextFloat() * 0.4F + 0.8F);
@@ -90,7 +91,8 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
                     mill.grindCounter = 0;
                     return true;
                 } else {
-                    mill.grindCounter += mill.getIncrement();
+
+                    mill.grindCounter = Math.min(mill.grindMax, mill.grindCounter + mill.getIncrement());
                 }
                 mill.markDirty();
             } else {

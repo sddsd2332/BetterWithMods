@@ -30,7 +30,7 @@ public class MillRecipe extends BulkRecipe {
     }
 
     public MillRecipe(@Nonnull List<Ingredient> inputs, @Nonnull List<ItemStack> outputs) {
-        this(inputs, outputs,200);
+        this(inputs, outputs, 200);
 
     }
 
@@ -38,19 +38,20 @@ public class MillRecipe extends BulkRecipe {
         return sound;
     }
 
-    public MillRecipe setSound(String sound) {
-        SoundEvent s = null;
-        if(sound != null && !sound.isEmpty()) {
-            try {
-                s = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(sound));
-            } catch(Throwable ignore) {}
-        }
-        return setSound(s);
-    }
-
     public MillRecipe setSound(SoundEvent sound) {
         this.sound = sound;
         return this;
+    }
+
+    public MillRecipe setSound(String sound) {
+        SoundEvent s = null;
+        if (sound != null && !sound.isEmpty()) {
+            try {
+                s = ForgeRegistries.SOUND_EVENTS.getValue(new ResourceLocation(sound));
+            } catch (Throwable ignore) {
+            }
+        }
+        return setSound(s);
     }
 
     @Override

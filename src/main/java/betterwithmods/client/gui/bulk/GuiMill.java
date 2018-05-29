@@ -16,7 +16,7 @@ public class GuiMill extends GuiProgress {
     private ContainerMill container;
 
     public GuiMill(EntityPlayer player, TileEntityMill mill) {
-        super(new ContainerMill(player, mill), TEXTURE, mill);
+        super(new ContainerMill(player, mill), TEXTURE);
         this.container = (ContainerMill) inventorySlots;
         this.ySize = 158;
     }
