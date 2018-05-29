@@ -115,7 +115,7 @@ public class BlockHemp extends BlockCrops implements IPlantable, IMultiLocations
             }
         } else if (age == 7 && world.isAirBlock(up) && !isTop) {
             if (world.getLightFromNeighbors(up) > 12) {
-                if (rand.nextInt(MathHelper.floor(growthChance)) == 0)
+                if (rand.nextInt(MathHelper.floor(growthChance*growthChance)) == 0)
                     world.setBlockState(up, state.withProperty(AGE, 7).withProperty(TOP, true));
             }
         }
