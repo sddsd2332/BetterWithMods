@@ -36,7 +36,6 @@ public class HCMobEquipment extends CompatFeature {
 
 
     private static void skeleton(EntityLivingBase entity) {
-        armor(entity, IRON_ARMOR);
         entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
     }
 
