@@ -7,7 +7,7 @@ package betterwithmods.util.player;
  */
 public enum HungerPenalty implements IPlayerPenalty {
     NO_PENALTY(1, "", true, true),
-    PECKISH(0.75F, "Peckish", true, false),
+    PECKISH(0.90F, "Peckish", true, false),
     HUNGRY(0.75F, "Hungry", true, false),
     FAMISHED(0.5F, "Famished", false, false),
     STARVING(0.25F, "Starving", false, false),
