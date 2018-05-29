@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -30,7 +31,7 @@ import java.util.stream.Collectors;
 
 //TODO move to a singleton in 1.13
 public class HopperInteractions {
-    public static final List<HopperRecipe> RECIPES = Lists.newArrayList();
+    public static final ArrayList<HopperRecipe> RECIPES = Lists.newArrayList();
 
     public static List<HopperRecipe> getDisplayRecipes() {
         List<HopperRecipe> display = Lists.newArrayList();
