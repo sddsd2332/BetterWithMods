@@ -1,5 +1,6 @@
 package betterwithmods.common;
 
+import betterwithmods.util.InvUtils;
 import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -72,6 +73,7 @@ public final class BWMRecipes {
     public static void removeRecipe(Ingredient... inputs) {
         REMOVE_RECIPE_BY_INPUT.add(Lists.newArrayList(inputs));
     }
+
     public static void removeRecipe(ItemStack output) {
         REMOVE_RECIPE_BY_OUTPUT.add(output);
     }
@@ -101,7 +103,7 @@ public final class BWMRecipes {
 
     public static boolean removeFurnaceRecipe(ItemStack input) {
         //for some reason mojang put fucking wildcard for their ore meta
-        return FurnaceRecipes.instance().getSmeltingList().entrySet().removeIf(next -> next.getKey().isItemEqual(input) || (next.getKey().getItem() == input.getItem() && next.getKey().getMetadata() == OreDictionary.WILDCARD_VALUE));
+        return FurnaceRecipes.instance().getSmeltingList().entrySet().removeIf(next -> InvUtils.matches(next.getKey(), input));
     }
 
     public static Set<IBlockState> getStatesFromStack(ItemStack stack) {
@@ -123,7 +125,7 @@ public final class BWMRecipes {
     }
 
     public static ItemStack getStackFromState(IBlockState state) {
-        if(state == null)
+        if (state == null)
             return ItemStack.EMPTY;
         Block block = state.getBlock();
         int meta = block.damageDropped(state);
