@@ -38,6 +38,7 @@ public class Tweaks extends Module {
         registerFeature(new MobEating());
         registerFeature(new DetectorRail().recipes());
         registerFeature(new SaddleRecipe().recipes());
+        registerFeature(new LlamaDrops());
     }
 
     @Override
