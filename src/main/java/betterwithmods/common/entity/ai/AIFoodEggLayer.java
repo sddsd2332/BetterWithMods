@@ -1,6 +1,7 @@
 package betterwithmods.common.entity.ai;
 
-import betterwithmods.module.hardcore.creatures.HCChickens;
+import betterwithmods.module.hardcore.creatures.chicken.EggLayer;
+import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -14,13 +15,13 @@ import java.util.List;
 
 public class AIFoodEggLayer extends EntityAIBase {
     private final EntityAnimal entity;
-    private final HCChickens.IEggLayer layer;
+    private final EggLayer layer;
     private EntityItem targetItem;
     private int timeoutCounter;
 
     public AIFoodEggLayer(EntityAnimal creature) {
         this.entity = creature;
-        this.layer = creature.getCapability(HCChickens.EGG_LAYER_CAP, EnumFacing.DOWN);
+        this.layer = creature.getCapability(EggLayer.EGG_LAYER_CAP, EnumFacing.DOWN);
     }
 
     /**
