@@ -34,7 +34,8 @@ public class HCOres extends Feature {
     private static Set<String> oreExclude, dustExclude;
     private static int oreProductionCount, dustProductionCount;
 
-    public HCOres() {    }
+    public HCOres() {
+    }
 
     @Override
     public void setupConfig() {
@@ -80,7 +81,7 @@ public class HCOres extends Feature {
     }
 
     private void addMeltingRecipeWithoutReturn(ItemStack input, ItemStack output) {
-        BWRegistry.CRUCIBLE.addRecipe(new CookingPotRecipe(Lists.newArrayList(Ingredient.fromStacks(input)),Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT){
+        BWRegistry.CRUCIBLE.addRecipe(new CookingPotRecipe(Lists.newArrayList(Ingredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {
             @Override
             protected boolean consumeIngredients(ItemStackHandler inventory, NonNullList<ItemStack> containItems) {
                 boolean success = super.consumeIngredients(inventory, containItems);
@@ -102,7 +103,6 @@ public class HCOres extends Feature {
     }
 
 
-
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         Set<String> oreExcludes = Sets.union(oreExclude, Sets.newHashSet("oreDiamond"));
@@ -121,11 +121,15 @@ public class HCOres extends Feature {
 
     private void replaceRecipe(Set<String> oreExcludes, BWOreDictionary.Ore ore, int oreProductionCount) {
         if (!oreExcludes.contains(ore.getOre())) {
-            Optional<ItemStack> nugget = BWOreDictionary.nuggetNames.stream().filter(o -> o.getSuffix().equals(ore.getSuffix())).flatMap(o -> o.getOres().stream()).findFirst();
-            if (nugget.isPresent() && ore.getOres().stream().anyMatch(BWMRecipes::removeFurnaceRecipe)) {
-                ItemStack n = nugget.get().copy();
-                n.setCount(oreProductionCount);
-                ore.getOres().forEach(s -> BWMRecipes.addFurnaceRecipe(s, n));
+            Optional<ItemStack> optionalNugget = BWOreDictionary.nuggetNames.stream().filter(o -> o.getSuffix().equals(ore.getSuffix())).flatMap(o -> o.getOres().stream()).findFirst();
+            if (optionalNugget.isPresent()) {
+                for (ItemStack oreStack : ore.getOres()) {
+                    if (BWMRecipes.removeFurnaceRecipe(oreStack)) {
+                        ItemStack nugget = optionalNugget.get().copy();
+                        nugget.setCount(oreProductionCount);
+                        BWMRecipes.addFurnaceRecipe(oreStack, nugget);
+                    }
+                }
             }
         }
     }
