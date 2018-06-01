@@ -33,4 +33,10 @@ public class ReflectionLib {
     public static final String[] ENCHANTMENT_APPLICIBLE_EQUIPMENT_TYPES = new String[]{"field_185263_a", "applicableEquipmentTypes"};
 
     public static final Pair<String, String> SILK_TOUCH_DROP = Pair.of("getSilkTouchDrop", "func_180643_i");
+
+    public static final String[] ZOMBIE_BABY_SPEED_BOOST = new String[]{"BABY_SPEED_BOOST", "field_110188_br"};
+
+    public static final String[] ENTITY_JUMP_MOTION = new String[]{"getJumpUpwardsMotion", "func_175134_bD"};
+
+
 }
