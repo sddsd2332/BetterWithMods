@@ -2,6 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.module.Feature;
 import betterwithmods.util.ReflectionLib;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraftforge.event.entity.living.LivingEvent;
@@ -13,16 +14,17 @@ public class BabyJumping extends Feature {
     @SubscribeEvent
     public void onJump(LivingEvent.LivingJumpEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
+        if(entity instanceof EntityLiving) {
+            if (entity.isChild())
+                return;
 
-        if(entity.isChild())
-            return;
+            double motionY = ReflectionHelper.getPrivateValue(EntityLivingBase.class, entity, ReflectionLib.ENTITY_JUMP_MOTION);
 
-        double motionY = ReflectionHelper.getPrivateValue(EntityLivingBase.class, entity, ReflectionLib.ENTITY_JUMP_MOTION);
-
-        if (entity.isPotionActive(MobEffects.JUMP_BOOST)) {
-            motionY += (double) ((float) (entity.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F);
+            if (entity.isPotionActive(MobEffects.JUMP_BOOST)) {
+                motionY += (double) ((float) (entity.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F);
+            }
+            entity.motionY -= motionY;
         }
-        entity.motionY -= motionY;
     }
 
     @Override
