@@ -289,9 +289,7 @@ public class HCFishing extends Feature {
     public static class FishingBait implements ICapabilitySerializable<NBTTagCompound> {
         private boolean bait;
 
-        public FishingBait() {
-
-        }
+        public FishingBait() {}
 
         public boolean hasBait() {
             return bait;

@@ -202,6 +202,10 @@ public final class WorldUtils {
         evt.getDrops().add(item);
     }
 
+    public static boolean isPast(World world, TimeFrame frame) {
+        return frame.start > world.getWorldTime();
+    }
+
     public static boolean isTimeFrame(World world, TimeFrame frame) {
         return frame.isBetween((int) world.getWorldTime());
     }

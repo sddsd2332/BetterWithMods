@@ -4,7 +4,7 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.ai.EntityAISearchFood;
 import betterwithmods.module.Feature;
 import betterwithmods.module.ModuleLoader;
-import betterwithmods.module.hardcore.creatures.HCChickens;
+import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.util.ReflectionLib;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.Entity;

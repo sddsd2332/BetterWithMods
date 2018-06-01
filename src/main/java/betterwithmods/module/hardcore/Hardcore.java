@@ -6,6 +6,7 @@ import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.hardcore.beacons.HCBeacons;
 import betterwithmods.module.hardcore.crafting.*;
 import betterwithmods.module.hardcore.creatures.*;
+import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.module.hardcore.needs.*;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import betterwithmods.module.hardcore.world.*;
