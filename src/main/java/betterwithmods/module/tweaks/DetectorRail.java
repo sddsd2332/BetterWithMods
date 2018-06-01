@@ -5,6 +5,7 @@ import betterwithmods.common.blocks.BlockRailDetectorBase;
 import betterwithmods.module.Feature;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartEmpty;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -15,8 +16,7 @@ import static betterwithmods.common.BWMBlocks.registerBlock;
 public class DetectorRail extends Feature {
 
     public static final Block DETECTOR_RAIL_STONE = new BlockRailDetectorBase(cart -> !(cart instanceof EntityMinecartEmpty) || BlockRailDetectorBase.isRider(cart, Objects::nonNull)).setRegistryName("detector_rail_stone");
-
-
+    public static final Block DETECTOR_RAIL_STEEL = new BlockRailDetectorBase(cart -> BlockRailDetectorBase.isRider(cart, rider -> rider instanceof EntityPlayer)).setRegistryName("detector_rail_steel");
 
     @Override
     public String getFeatureDescription() {
@@ -31,7 +31,9 @@ public class DetectorRail extends Feature {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        registerBlock(DETECTOR_RAIL_STEEL);
         registerBlock(DETECTOR_RAIL_STONE);
+
         Blocks.DETECTOR_RAIL.setUnlocalizedName("detector_rail_wood");
 
         BWMRecipes.removeRecipe(Blocks.DETECTOR_RAIL.getRegistryName());
