@@ -10,8 +10,8 @@
   },
   "pattern": [
     "LLL",
-    "LSL",
-    " n "
+    "SLS",
+    "n n"
   ],
   "type": "forge:ore_shaped",
   "key": {
