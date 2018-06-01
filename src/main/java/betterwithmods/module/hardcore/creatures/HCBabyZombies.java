@@ -34,7 +34,7 @@ public class HCBabyZombies extends Feature {
                     movement.applyModifier(BABY_SLOWNESS);
 
                 IAttributeInstance damage = entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-                if (damage.hasModifier(BABY_DAMAGE))
+                if (!damage.hasModifier(BABY_DAMAGE))
                     damage.applyModifier(BABY_DAMAGE);
             }
         }
