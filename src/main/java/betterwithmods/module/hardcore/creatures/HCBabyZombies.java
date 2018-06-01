@@ -27,11 +27,16 @@ public class HCBabyZombies extends Feature {
     public void onJoinWorld(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntityZombie) {
             EntityZombie entity = (EntityZombie) event.getEntity();
-            IAttributeInstance movement = entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
-            movement.applyModifier(BABY_SLOWNESS);
+            if(entity.isChild()) {
 
-            IAttributeInstance damage = entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
-            damage.applyModifier(BABY_DAMAGE);
+                IAttributeInstance movement = entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
+                if (!movement.hasModifier(BABY_SLOWNESS))
+                    movement.applyModifier(BABY_SLOWNESS);
+
+                IAttributeInstance damage = entity.getEntityAttribute(SharedMonsterAttributes.ATTACK_DAMAGE);
+                if (damage.hasModifier(BABY_DAMAGE))
+                    damage.applyModifier(BABY_DAMAGE);
+            }
         }
     }
 

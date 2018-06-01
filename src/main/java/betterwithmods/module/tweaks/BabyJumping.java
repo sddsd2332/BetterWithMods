@@ -18,7 +18,7 @@ public class BabyJumping extends Feature {
             if (entity.isChild())
                 return;
 
-            double motionY = ReflectionHelper.getPrivateValue(EntityLivingBase.class, entity, ReflectionLib.ENTITY_JUMP_MOTION);
+            double motionY = 0.42;
 
             if (entity.isPotionActive(MobEffects.JUMP_BOOST)) {
                 motionY += (double) ((float) (entity.getActivePotionEffect(MobEffects.JUMP_BOOST).getAmplifier() + 1) * 0.1F);
