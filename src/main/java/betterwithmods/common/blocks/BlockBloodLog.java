@@ -5,6 +5,7 @@ import betterwithmods.common.world.gen.feature.WorldGenBloodTree;
 import betterwithmods.util.DirUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -27,11 +28,12 @@ public class BlockBloodLog extends BlockLog {
         this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y).withProperty(EXPANDABLE, false));
         this.setTickRandomly(true);
         this.setCreativeTab(BWCreativeTabs.BWTAB);
+        this.setSoundType(SoundType.SLIME);
     }
 
     @Override
     public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
-        world.playSound(null, pos, SoundEvents.ENTITY_GHAST_SCREAM, SoundCategory.BLOCKS, 1f,0.2f);
+        world.playSound(null, pos, SoundEvents.ENTITY_GHAST_HURT, SoundCategory.BLOCKS, 1f,0.2f);
         return super.removedByPlayer(state, world, pos, player, willHarvest);
     }
 
