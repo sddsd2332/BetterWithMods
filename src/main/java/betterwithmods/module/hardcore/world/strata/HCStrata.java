@@ -17,10 +17,10 @@ import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
+import net.minecraftforge.oredict.OreDictionary;
+
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -63,12 +63,8 @@ public class HCStrata extends Feature {
         return STRATA_CONFIGS.containsKey(world.provider.getDimension()) && STATES.keySet().stream().anyMatch(s -> s.equals(state));
     }
 
-    public static Stratification getStratification(BlockPos pos, int dimension) {
-        Stratification s = STRATA_CONFIGS.getOrDefault(dimension, DEFAULT).getStrata(pos.getY());
-        if(s.ordinal() > Stratification.NORMAL.ordinal()) {
-            return STRATA_CONFIGS.getOrDefault(dimension, DEFAULT).getStrata(pos.getY()+(int)STRATA_NOISE2.getValue(pos.getX(),pos.getZ()));
-        }
-        return STRATA_CONFIGS.getOrDefault(dimension, DEFAULT).getStrata(pos.getY()+(int)STRATA_NOISE1.getValue(pos.getX(),pos.getZ()));
+    public static Stratification getStratification(World world, BlockPos pos, int dimension) {
+        return STRATA_CONFIGS.getOrDefault(dimension, DEFAULT).getStrata(pos.getY() + (int) getNoise(world, pos.getY()).getValue(pos.getX(), pos.getZ()));
     }
 
     private static void loadStrataConfig(String entry) {
@@ -81,13 +77,24 @@ public class HCStrata extends Feature {
         }
     }
 
+    public static NoiseGeneratorPerlin getNoise(World world, int y) {
+        if (y < 50) {
+            if (STRATA_NOISE2 == null)
+                STRATA_NOISE2 = new NoiseGeneratorPerlin(world.rand, 3);
+            return STRATA_NOISE2;
+        } else {
+            if (STRATA_NOISE1 == null)
+                STRATA_NOISE1 = new NoiseGeneratorPerlin(world.rand, 2);
+            return STRATA_NOISE1;
+        }
+    }
+
     @SubscribeEvent
-    public void onJoinWorld(PlayerLoggedInEvent event)  {
+    public void onJoinWorld(PlayerLoggedInEvent event) {
         Random seed = event.player.getEntityWorld().rand;
         STRATA_NOISE1 = new NoiseGeneratorPerlin(seed, 2);
         STRATA_NOISE2 = new NoiseGeneratorPerlin(seed, 3);
     }
-
 
     @Override
     public void setupConfig() {
@@ -130,7 +137,7 @@ public class HCStrata extends Feature {
         IBlockState state = event.getState();
         if (shouldStratify(world, state)) {
             ItemStack stack = BrokenToolRegistry.findItem(event.getHarvester(), event.getState());
-            int strata = getStratification(pos, world.provider.getDimension()).ordinal();
+            int strata = getStratification(world,pos, world.provider.getDimension()).ordinal();
             if (STATES.getOrDefault(event.getState(), BlockType.STONE) == BlockType.STONE) {
                 int level = Math.max(1, stack.getItem().getHarvestLevel(stack, "pickaxe", event.getHarvester(), event.getState()));
                 if (level <= strata) {
@@ -147,7 +154,7 @@ public class HCStrata extends Feature {
         if (shouldStratify(world, pos)) {
             ItemStack stack = BrokenToolRegistry.findItem(event.getEntityPlayer(), event.getState());
             float scale = 1; //ToolsManager.getSpeed(stack, event.getState());
-            int strata = getStratification(pos, world.provider.getDimension()).ordinal();
+            int strata = getStratification(world,pos, world.provider.getDimension()).ordinal();
             if (STATES.getOrDefault(event.getState(), BlockType.STONE) == BlockType.STONE) {
                 int level = Math.max(1, stack.getItem().getHarvestLevel(stack, "pickaxe", event.getEntityPlayer(), event.getState()));
                 if (level <= strata) {
