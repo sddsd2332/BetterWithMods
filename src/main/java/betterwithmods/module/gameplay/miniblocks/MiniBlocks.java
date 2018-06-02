@@ -149,7 +149,7 @@ public class MiniBlocks extends Feature {
         NBTUtil.writeBlockState(texture, state);
         tag.setTag("texture", texture);
         stack.setTagCompound(tag);
-        return stack;
+        return stack.copy();
     }
 
     public static void addWhitelistedBlock(ResourceLocation resloc) {
