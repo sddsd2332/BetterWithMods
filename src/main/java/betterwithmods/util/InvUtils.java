@@ -448,7 +448,7 @@ public class InvUtils {
     }
 
     public static int getFirstOccupiedStackOfItem(IItemHandler inv, ItemStack stack) {
-        return getFirstOccupiedStackOfItem(inv, Ingredient.fromStacks(stack));
+        return getFirstOccupiedStackOfItem(inv, StackIngredient.fromStacks(stack));
     }
 
     public static int getFirstOccupiedStackOfItem(IItemHandler inv, Ingredient ingred) {

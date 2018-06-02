@@ -4,6 +4,7 @@ import betterwithmods.common.BWRegistry;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityMill;
 import betterwithmods.common.registry.bulk.recipes.MillRecipe;
+import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -35,11 +36,11 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
     }
 
     public MillRecipe addMillRecipe(ItemStack input, List<ItemStack> outputs, SoundEvent type) {
-        return addMillRecipe(Ingredient.fromStacks(input), outputs, type);
+        return addMillRecipe(StackIngredient.fromStacks(input), outputs, type);
     }
 
     public MillRecipe addMillRecipe(ItemStack input, ItemStack output, SoundEvent type) {
-        return addMillRecipe(Ingredient.fromStacks(input), output, type);
+        return addMillRecipe(StackIngredient.fromStacks(input), output, type);
     }
 
     public MillRecipe addMillRecipe(Ingredient input, List<ItemStack> outputs) {
@@ -51,11 +52,11 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
     }
 
     public MillRecipe addMillRecipe(ItemStack input, List<ItemStack> outputs) {
-        return addMillRecipe(Ingredient.fromStacks(input), outputs);
+        return addMillRecipe(StackIngredient.fromStacks(input), outputs);
     }
 
     public MillRecipe addMillRecipe(ItemStack input, ItemStack output) {
-        return addMillRecipe(Ingredient.fromStacks(input), output);
+        return addMillRecipe(StackIngredient.fromStacks(input), output);
     }
 
     @Override

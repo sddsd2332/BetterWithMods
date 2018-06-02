@@ -46,7 +46,7 @@ public class StackIngredient extends Ingredient {
 
     public static StackIngredient mergeStacked(List<StackIngredient> ingredients) {
         HashMap<Ingredient,Integer> map = new HashMap<>();
-        ingredients.stream().forEach(stackIngredient -> map.putAll(stackIngredient.internal));
+        ingredients.forEach(stackIngredient -> map.putAll(stackIngredient.internal));
         return new StackIngredient(map);
     }
 

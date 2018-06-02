@@ -6,6 +6,7 @@ import betterwithmods.common.BWRegistry;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.module.Feature;
+import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.init.Blocks;
@@ -81,7 +82,7 @@ public class HCOres extends Feature {
     }
 
     private void addMeltingRecipeWithoutReturn(ItemStack input, ItemStack output) {
-        BWRegistry.CRUCIBLE.addRecipe(new CookingPotRecipe(Lists.newArrayList(Ingredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {
+        BWRegistry.CRUCIBLE.addRecipe(new CookingPotRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {
             @Override
             protected boolean consumeIngredients(ItemStackHandler inventory, NonNullList<ItemStack> containItems) {
                 boolean success = super.consumeIngredients(inventory, containItems);

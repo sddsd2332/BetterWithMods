@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.damagesource.BWDamageSource;
 import betterwithmods.module.Feature;
+import betterwithmods.util.StackIngredient;
 import betterwithmods.util.player.GloomPenalty;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -74,7 +75,7 @@ public class HCGloom extends Feature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        gloomOverrideItems = Ingredient.fromStacks(loadItemStackArray("Gloom Override Items", "Items in this list will override the gloom effect while held in your hand, this allows support for Dynamic Lightning and similar. Add one item per line  (ex minecraft:torch:0)", new ItemStack[0]));
+        gloomOverrideItems = StackIngredient.fromStacks(loadItemStackArray("Gloom Override Items", "Items in this list will override the gloom effect while held in your hand, this allows support for Dynamic Lightning and similar. Add one item per line  (ex minecraft:torch:0)", new ItemStack[0]));
     }
 
     @SubscribeEvent

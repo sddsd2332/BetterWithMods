@@ -6,6 +6,7 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.entity.EntityHCFishHook;
 import betterwithmods.common.registry.crafting.BaitingRecipe;
 import betterwithmods.module.Feature;
+import betterwithmods.util.StackIngredient;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
@@ -74,7 +75,7 @@ public class HCFishing extends Feature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        BAIT = Ingredient.fromStacks(loadItemStackArray("Bait", "Add items as valid fishing bait", new ItemStack[]{
+        BAIT = StackIngredient.fromStacks(loadItemStackArray("Bait", "Add items as valid fishing bait", new ItemStack[]{
                 new ItemStack(Items.SPIDER_EYE),
                 new ItemStack(BWMItems.CREEPER_OYSTER),
                 new ItemStack(Items.FISH, 1, 2),

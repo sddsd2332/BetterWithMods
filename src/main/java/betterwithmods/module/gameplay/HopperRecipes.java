@@ -14,6 +14,7 @@ import betterwithmods.common.registry.HopperInteractions;
 import betterwithmods.common.registry.SoulsandFilter;
 import betterwithmods.common.registry.block.recipe.IngredientSpecial;
 import betterwithmods.module.Feature;
+import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Blocks;
@@ -45,14 +46,14 @@ public class HopperRecipes extends Feature {
     @Override
     public void init(FMLInitializationEvent event) {
 
-        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":ladder", Ingredient.fromStacks(new ItemStack(Blocks.LADDER)), Lists.newArrayList(
+        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":ladder", StackIngredient.fromStacks(new ItemStack(Blocks.LADDER)), Lists.newArrayList(
                 new IngredientSpecial(stack -> !(stack.getItem() instanceof ItemBlock)),
                 new OreIngredient("treeSapling")
         )));
 
-        BWRegistry.HOPPER_FILTERS.addFilter(new SoulsandFilter(Ingredient.fromStacks(new ItemStack(Blocks.SOUL_SAND)), Lists.newArrayList(Ingredient.fromStacks(new ItemStack(Blocks.SOUL_SAND)))));
+        BWRegistry.HOPPER_FILTERS.addFilter(new SoulsandFilter(StackIngredient.fromStacks(new ItemStack(Blocks.SOUL_SAND)), Lists.newArrayList(StackIngredient.fromStacks(new ItemStack(Blocks.SOUL_SAND)))));
 
-        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":wicker", Ingredient.fromStacks(new ItemStack(BWMBlocks.WICKER)), Lists.newArrayList(
+        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":wicker", StackIngredient.fromStacks(new ItemStack(BWMBlocks.WICKER)), Lists.newArrayList(
                 new OreIngredient("sand"),
                 new OreIngredient("listAllseeds"),
                 new OreIngredient("foodFlour"),
@@ -60,7 +61,7 @@ public class HopperRecipes extends Feature {
                 new IngredientSpecial(stack -> BWOreDictionary.dustNames.stream().anyMatch(ore -> ore.apply(stack)))
         )));
 
-        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":trapdoor", Ingredient.fromStacks(new ItemStack(Blocks.TRAPDOOR)), Lists.newArrayList(
+        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":trapdoor", StackIngredient.fromStacks(new ItemStack(Blocks.TRAPDOOR)), Lists.newArrayList(
                 new IngredientSpecial(stack -> stack.getItem() instanceof ItemBlock)
         )));
 
@@ -68,7 +69,7 @@ public class HopperRecipes extends Feature {
                 new IngredientSpecial(stack -> stack.getMaxStackSize() == 1)
         )));
 
-        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":iron_bar", Ingredient.fromStacks(new ItemStack(Blocks.IRON_BARS)), Lists.newArrayList(
+        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":iron_bar", StackIngredient.fromStacks(new ItemStack(Blocks.IRON_BARS)), Lists.newArrayList(
                 new IngredientSpecial(stack -> stack.getMaxStackSize() > 1)
         )));
 
@@ -86,7 +87,7 @@ public class HopperRecipes extends Feature {
         }
 
         HopperInteractions.addHopperRecipe(new HopperInteractions.HopperRecipe(BWMod.MODID + ":wicker",
-                Ingredient.fromStacks(new ItemStack(Blocks.GRAVEL)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.GRAVEL)),
                 new WeightedOutputs(new ChanceOutput(new ItemStack(Blocks.SAND), 0.5), new ChanceOutput(new ItemStack(Blocks.SAND, 1, 1), 0.5)),
                 new ListOutputs(new ItemStack(Items.FLINT))
         ));

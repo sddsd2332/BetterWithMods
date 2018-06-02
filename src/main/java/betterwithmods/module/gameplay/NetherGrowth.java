@@ -20,11 +20,11 @@ public class NetherGrowth extends Feature {
     @Override
     public void init(FMLInitializationEvent event) {
         BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
-                Ingredient.fromStacks(new ItemStack(Blocks.BROWN_MUSHROOM)),
-                Ingredient.fromStacks(new ItemStack(Blocks.RED_MUSHROOM)),
-                Ingredient.fromStacks(new ItemStack(Blocks.MYCELIUM)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.BROWN_MUSHROOM)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.RED_MUSHROOM)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.MYCELIUM)),
                 new OreIngredient("cropNetherWart"),
-                Ingredient.fromStacks(new ItemStack(Items.ROTTEN_FLESH)),
+                StackIngredient.fromStacks(new ItemStack(Items.ROTTEN_FLESH)),
                 StackIngredient.fromOre(8,"blockSoulUrn")
 
         ), Lists.newArrayList(new ItemStack(BWMBlocks.NETHER_GROWTH)));

@@ -4,6 +4,7 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.gameplay.miniblocks.blocks.BlockMini;
+import betterwithmods.util.StackIngredient;
 import com.google.gson.JsonObject;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -37,7 +38,7 @@ public class MiniBlockIngredient extends BlockIngredient {
     }
 
     public MiniBlockIngredient(String type, ItemStack stack) {
-        this(type,Ingredient.fromStacks(stack));
+        this(type,StackIngredient.fromStacks(stack));
     }
 
     @Override

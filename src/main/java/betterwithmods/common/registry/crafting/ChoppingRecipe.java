@@ -3,6 +3,7 @@ package betterwithmods.common.registry.crafting;
 import betterwithmods.BWMod;
 import betterwithmods.api.util.IWood;
 import betterwithmods.module.hardcore.crafting.HCLumber;
+import betterwithmods.util.StackIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -26,7 +27,7 @@ public class ChoppingRecipe extends ToolDamageRecipe {
     private IWood wood;
 
     public ChoppingRecipe(IWood wood, int planks) {
-        super(new ResourceLocation(BWMod.MODID, "chopping"), wood.getPlank(planks), Ingredient.fromStacks(wood.getLog(1)), ChoppingRecipe::isAxe);
+        super(new ResourceLocation(BWMod.MODID, "chopping"), wood.getPlank(planks), StackIngredient.fromStacks(wood.getLog(1)), ChoppingRecipe::isAxe);
         this.wood = wood;
         MinecraftForge.EVENT_BUS.register(this);
     }

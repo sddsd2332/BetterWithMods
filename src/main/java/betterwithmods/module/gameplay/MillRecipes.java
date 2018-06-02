@@ -8,6 +8,7 @@ import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.Feature;
 import betterwithmods.util.ColorUtils;
+import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -42,7 +43,7 @@ public class MillRecipes extends Feature {
         if (grindingOnly) {
             BWMRecipes.removeRecipe(new ItemStack(Items.SUGAR));
             BWMRecipes.removeRecipe(new ItemStack(Items.BLAZE_POWDER));
-            BWMRecipes.removeRecipe(Ingredient.fromStacks(new ItemStack(Items.BEETROOT)));
+            BWMRecipes.removeRecipe(StackIngredient.fromStacks(new ItemStack(Items.BEETROOT)));
             for (BlockIngredient flower : ColorUtils.FLOWER_TO_DYES.keySet()) {
                 BWMRecipes.removeRecipe(flower);
             }

@@ -2,6 +2,7 @@ package betterwithmods.common.registry;
 
 import betterwithmods.BWMod;
 import betterwithmods.api.tile.IHopperFilter;
+import betterwithmods.util.StackIngredient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 
@@ -10,7 +11,7 @@ public class SelfHopperFilter implements IHopperFilter {
     private Ingredient filter;
 
     public SelfHopperFilter(ItemStack stack) {
-        this(Ingredient.fromStacks(stack));
+        this(StackIngredient.fromStacks(stack));
     }
 
     public SelfHopperFilter(Ingredient filter) {
