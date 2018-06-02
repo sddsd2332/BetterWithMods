@@ -39,7 +39,7 @@ repositories {
     maven { url "http://maven.amadornes.com/" }
     maven { url "http://www.ryanliptak.com/maven/" }
     maven { url "http://maven.tterrag.com" }
-    maven { url "https://maven.thiakil.com/"}
+    maven { url "https://maven.thiakil.com/" }
     mavenCentral()
 }
 dependencies {
@@ -56,7 +56,13 @@ dependencies {
     compile files('libs/BetterWithLib.*')
 }
 
-
+sourceSets {
+    main {
+        java {
+            exclude '**/Thaumcraft.java'
+        }
+    }
+}
 
 jar {
     manifest {
