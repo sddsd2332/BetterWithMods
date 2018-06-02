@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
-
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
@@ -81,14 +81,13 @@ public class HCStrata extends Feature {
         }
     }
 
-    @Override
-    public void serverStarting(FMLServerStartingEvent event) {
-        Random seed = event.getServer().getWorld(0).rand;
+    @SubscribeEvent
+    public void onJoinWorld(PlayerLoggedInEvent event)  {
+        Random seed = event.player.getEntityWorld().rand;
         STRATA_NOISE1 = new NoiseGeneratorPerlin(seed, 2);
         STRATA_NOISE2 = new NoiseGeneratorPerlin(seed, 3);
-
-        super.serverStarting(event);
     }
+
 
     @Override
     public void setupConfig() {
