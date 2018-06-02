@@ -6,6 +6,7 @@ import betterwithmods.common.blocks.mechanical.tile.TileEntityCookingPot;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -28,15 +29,15 @@ public class CookingPotManager extends CraftingManagerBulk<CookingPotRecipe> {
     }
 
     public CookingPotRecipe addStokedRecipe(ItemStack input, ItemStack... output) {
-        return addStokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input.copy())), Lists.newArrayList(output));
+        return addStokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input.copy())), Lists.newArrayList(output));
     }
 
     public CookingPotRecipe addStokedRecipe(ItemStack input, List<ItemStack> output) {
-        return addStokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input.copy())), output);
+        return addStokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input.copy())), output);
     }
 
     public CookingPotRecipe addStokedRecipe(ItemStack input, ItemStack output) {
-        return addStokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input)), Lists.newArrayList(output));
+        return addStokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output));
     }
 
     public CookingPotRecipe addStokedRecipe(Ingredient ingredient, ItemStack output) {
@@ -61,15 +62,15 @@ public class CookingPotManager extends CraftingManagerBulk<CookingPotRecipe> {
     }
 
     public CookingPotRecipe addUnstokedRecipe(ItemStack input, ItemStack... output) {
-        return addUnstokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input.copy())), Lists.newArrayList(output));
+        return addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input.copy())), Lists.newArrayList(output));
     }
 
     public CookingPotRecipe addUnstokedRecipe(ItemStack input, List<ItemStack> output) {
-        return addUnstokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input)), output);
+        return addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), output);
     }
 
     public CookingPotRecipe addUnstokedRecipe(ItemStack input, ItemStack output) {
-        return addUnstokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input)), Lists.newArrayList(output));
+        return addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output));
     }
 
     public CookingPotRecipe addUnstokedRecipe(Ingredient ingredient, ItemStack output) {
