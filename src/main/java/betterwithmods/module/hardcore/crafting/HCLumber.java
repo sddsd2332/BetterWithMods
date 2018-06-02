@@ -32,7 +32,7 @@ public class HCLumber extends Feature {
     public static int axePlankAmount, axeBarkAmount, axeSawDustAmount;
 
     public static boolean hasAxe(EntityPlayer harvester, BlockPos pos, IBlockState state) {
-        if(harvester == null)
+        if (harvester == null)
             return false;
         return PlayerHelper.isCurrentToolEffectiveOnBlock(harvester, pos, state);
     }
@@ -60,25 +60,21 @@ public class HCLumber extends Feature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        if (!Loader.isModLoaded("primal")) {
-            for (IRecipe recipe : BWOreDictionary.logRecipes) {
-                ItemStack plank = recipe.getRecipeOutput();
-                BWOreDictionary.woods.stream().filter(w -> w.getPlank(axePlankAmount).isItemEqual(plank) && hasLog(recipe, w.getLog(1))).forEach(wood -> {
-                    addHardcoreRecipe(new ChoppingRecipe(wood, axePlankAmount).setRegistryName(Objects.requireNonNull(recipe.getRegistryName())));
-                });
-            }
+        for (IRecipe recipe : BWOreDictionary.logRecipes) {
+            ItemStack plank = recipe.getRecipeOutput();
+            BWOreDictionary.woods.stream().filter(w -> w.getPlank(axePlankAmount).isItemEqual(plank) && hasLog(recipe, w.getLog(1))).forEach(wood -> {
+                addHardcoreRecipe(new ChoppingRecipe(wood, axePlankAmount).setRegistryName(Objects.requireNonNull(recipe.getRegistryName())));
+            });
         }
     }
 
     @Override
     public void disabledPostInit(FMLPostInitializationEvent event) {
-        if (!Loader.isModLoaded("primal")) {
-            for (IRecipe recipe : BWOreDictionary.logRecipes) {
-                ItemStack plank = recipe.getRecipeOutput();
-                BWOreDictionary.woods.stream().filter(w -> w.getPlank(4).isItemEqual(plank) && hasLog(recipe, w.getLog(1))).forEach(wood -> {
-                    addHardcoreRecipe(new ChoppingRecipe(wood, 4).setRegistryName(Objects.requireNonNull(recipe.getRegistryName())));
-                });
-            }
+        for (IRecipe recipe : BWOreDictionary.logRecipes) {
+            ItemStack plank = recipe.getRecipeOutput();
+            BWOreDictionary.woods.stream().filter(w -> w.getPlank(4).isItemEqual(plank) && hasLog(recipe, w.getLog(1))).forEach(wood -> {
+                addHardcoreRecipe(new ChoppingRecipe(wood, 4).setRegistryName(Objects.requireNonNull(recipe.getRegistryName())));
+            });
         }
     }
 
