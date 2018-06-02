@@ -1,13 +1,11 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.module.Feature;
-import betterwithmods.util.ReflectionLib;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class BabyJumping extends Feature {
 
@@ -15,7 +13,7 @@ public class BabyJumping extends Feature {
     public void onJump(LivingEvent.LivingJumpEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
         if(entity instanceof EntityLiving) {
-            if (entity.isChild())
+            if (!entity.isChild())
                 return;
 
             double motionY = 0.42;
