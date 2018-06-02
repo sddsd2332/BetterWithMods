@@ -29,7 +29,7 @@ public class SawRecipe extends BlockRecipe {
     public boolean craftRecipe(World world, BlockPos pos, Random rand, IBlockState state) {
         List<ItemStack> output = onCraft(world, pos);
         world.setBlockToAir(pos);
-        InvUtils.ejectStackWithOffset(world, pos, output);
+        InvUtils.spawnStack(world, pos, output);
         world.playSound(null, pos, SoundEvents.ENTITY_MINECART_RIDING, SoundCategory.BLOCKS, 1.5F + rand.nextFloat() * 0.1F, 2.0F + rand.nextFloat() * 0.1F);
         return true;
     }
