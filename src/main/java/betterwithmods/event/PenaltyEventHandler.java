@@ -66,7 +66,7 @@ public class PenaltyEventHandler {
             }
             //Pain
             if (BWRegistry.PENALTY_HANDLERS.inPain(player)) {
-                if (player.world.getWorldTime() % 60 == 0) {
+                if (PlayerHelper.isMoving(player) && player.world.getWorldTime() % 60 == 0) {
                     player.playSound(BWSounds.OOF, 0.75f, 1f);
                 }
             }
