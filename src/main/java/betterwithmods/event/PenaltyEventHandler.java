@@ -60,9 +60,9 @@ public class PenaltyEventHandler {
             if (!PlayerHelper.isSurvival(player))
                 return;
             //Speed
-            double speed = BWRegistry.PENALTY_HANDLERS.getSpeed(player);
+            double speed = BWRegistry.PENALTY_HANDLERS.getSpeedModifier(player);
             if (speed != 0) {
-                PlayerHelper.changeSpeed(player, "Hunger Speed Modifier", speed, PlayerHelper.PENALTY_SPEED_UUID);
+                PlayerHelper.changeSpeed(player, "Penalty Speed Modifier", speed, PlayerHelper.PENALTY_SPEED_UUID);
             }
             //Pain
             if (BWRegistry.PENALTY_HANDLERS.inPain(player)) {
