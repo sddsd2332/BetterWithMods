@@ -92,7 +92,6 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
                     mill.grindCounter = 0;
                     return true;
                 } else {
-
                     mill.grindCounter = Math.min(mill.grindMax, mill.grindCounter + mill.getIncrement());
                 }
                 mill.markDirty();

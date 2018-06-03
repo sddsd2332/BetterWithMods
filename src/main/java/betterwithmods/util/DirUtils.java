@@ -9,6 +9,9 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
+import java.util.List;
+import java.util.Random;
+
 public class DirUtils {
 
     public static final EnumFacing[] X_AXIS = new EnumFacing[]{EnumFacing.WEST, EnumFacing.EAST};
@@ -29,6 +32,10 @@ public class DirUtils {
     public static final PropertyBool EAST = PropertyBool.create("east");
     public static final PropertyBool[] DIR_PROP_HORIZ = new PropertyBool[]{NORTH, SOUTH, WEST, EAST};
     public static final PropertyBool[] DIR_PROP = new PropertyBool[]{DOWN, UP, NORTH, SOUTH, EAST, WEST};
+
+    public static EnumFacing getRandomFacing(List<EnumFacing> validDirections, Random random) {
+        return validDirections.get(random.nextInt(validDirections.size()));
+    }
 
     public static void setEntityOrientationFacing(EntityLivingBase entity, EnumFacing side) {
         float pitch = 0.0F;
