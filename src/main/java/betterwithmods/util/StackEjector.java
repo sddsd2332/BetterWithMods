@@ -2,6 +2,7 @@ package betterwithmods.util;
 
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import org.lwjgl.util.vector.Vector3f;
 
@@ -9,17 +10,17 @@ public class StackEjector {
 
     private final World world;
     private final ItemStack stack;
-    private Vector3f position, motion;
+    private Vec3d position, motion;
     private int pickupDelay;
 
-    public StackEjector(World world, ItemStack stack, Vector3f position, Vector3f motion) {
+    public StackEjector(World world, ItemStack stack, Vec3d position, Vec3d motion) {
         this.world = world;
         this.stack = stack;
         this.position = position;
         this.motion = motion;
     }
 
-    public StackEjector(World world, ItemStack stack, Vector3f position) {
+    public StackEjector(World world, ItemStack stack, Vec3d position) {
         this.world = world;
         this.stack = stack;
         this.position = position;
