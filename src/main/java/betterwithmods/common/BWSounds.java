@@ -28,6 +28,8 @@ public class BWSounds {
     public static SoundEvent MILLSTONE_NETHERRACK = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.saw.cut")
     public static SoundEvent SAW_CUT = null;
+    @GameRegistry.ObjectHolder("betterwithmods:block.bloodwood.break")
+    public static SoundEvent BLOODWOOD_BREAK = null;
 
     @GameRegistry.ObjectHolder("betterwithmods:block.mechanical.overpower")
     public static SoundEvent MECHANICAL_OVERPOWER = null;
