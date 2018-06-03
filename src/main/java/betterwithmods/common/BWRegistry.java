@@ -41,16 +41,12 @@ import betterwithmods.module.hardcore.world.HCTorches;
 import betterwithmods.util.DispenserBehaviorDynamite;
 import betterwithmods.util.InvUtils;
 import betterwithmods.util.MechanicalUtil;
-import betterwithmods.util.VillagerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.passive.EntityChicken;
-import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -76,8 +72,9 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
-import java.awt.*;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
@@ -135,7 +132,14 @@ public class BWRegistry {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
+
         for (IRecipe recipe : reg) {
+            for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {
+                Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
+                if(matcher.matches()) {
+                    reg.remove(recipe.getRegistryName());
+                }
+            }
             for (ResourceLocation loc : BWMRecipes.REMOVE_RECIPE_BY_RL) {
                 if (loc.equals(recipe.getRegistryName()))
                     reg.remove(recipe.getRegistryName());
@@ -143,7 +147,11 @@ public class BWRegistry {
             for (ItemStack output : BWMRecipes.REMOVE_RECIPE_BY_OUTPUT) {
                 if (InvUtils.matches(recipe.getRecipeOutput(), output)) {
                     reg.remove(recipe.getRegistryName());
-                    break;
+                }
+            }
+            for (List<Ingredient> inputs : BWMRecipes.REMOVE_RECIPE_BY_INPUT) {
+                if (InvUtils.containsIngredient(recipe.getIngredients(), inputs)) {
+                    reg.remove(recipe.getRegistryName());
                 }
             }
         }
@@ -152,7 +160,6 @@ public class BWRegistry {
     public static void init() {
         BWRegistry.registerHeatSources();
         BWOreDictionary.registerOres();
-        VillagerUtils.initVillagerInfo();
     }
 
     public static void postInit() {
@@ -178,11 +185,9 @@ public class BWRegistry {
         BWRegistry.registerEntity(EntityFallingBlockCustom.class, "falling_block_custom", 64, 20, true);
         BWRegistry.registerEntity(EntitySpiderWeb.class, "bwm_spider_web", 64, 20, true);
         BWRegistry.registerEntity(EntityHCFishHook.class, "bwm_fishing_hook", 64, 20, true);
-        BWRegistry.registerEntity(EntityJungleSpider.class, "bwm_jungle_spider", 64, 1, true);
         BWRegistry.registerEntity(EntityTentacle.class, "bwm_tentacle", 64, 1, true);
 
-
-        EntityRegistry.registerEgg(new ResourceLocation(BWMod.MODID, "bwm_jungle_spider"), new Color(60, 100, 50).getRGB(), new Color(100, 140, 80).getRGB());
+        BWRegistry.registerEntity(EntityJungleSpider.class, "bwm_jungle_spider", 64, 1, true, 0x3C6432, 0x648C50 );
     }
 
     public static void registerBlockDispenserBehavior() {
@@ -204,23 +209,14 @@ public class BWRegistry {
                     return stack;
                 });
         BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.STONE, new BehaviorSilkTouch());
-        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(EntityWolf.class, (world, pos, entity, stack) -> {
-            if (((EntityAgeable) entity).isChild())
-                return NonNullList.create();
-            InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.STRING, 1 + world.rand.nextInt(3)));
-            world.playSound(null, pos, SoundEvents.ENTITY_WOLF_HURT, SoundCategory.NEUTRAL, 0.75F, 1.0F);
-            entity.setDead();
-            return InvUtils.asNonnullList(new ItemStack(BWMBlocks.WOLF));
-        });
-
-        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(EntitySheep.class, (world, pos, entity, stack) -> {
+        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:sheep"), (world, pos, entity, stack) -> {
             EntitySheep sheep = (EntitySheep) entity;
             if (sheep.isShearable(new ItemStack(Items.SHEARS), world, pos)) {
                 return InvUtils.asNonnullList(sheep.onSheared(new ItemStack(Items.SHEARS), world, pos, 0));
             }
             return NonNullList.create();
         });
-        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(EntityChicken.class, (world, pos, entity, stack) -> {
+        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:chicken"), (world, pos, entity, stack) -> {
             if (((EntityAgeable) entity).isChild())
                 return NonNullList.create();
             InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.FEATHER, 1 + world.rand.nextInt(2)));
@@ -228,7 +224,7 @@ public class BWRegistry {
             entity.setDead();
             return InvUtils.asNonnullList(new ItemStack(Items.EGG));
         });
-        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(EntityCow.class, (world, pos, entity, stack) -> {
+        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:cow"), (world, pos, entity, stack) -> {
             if (((EntityAgeable) entity).isChild())
                 return NonNullList.create();
             if (stack.isItemEqual(new ItemStack(Items.BUCKET))) {
@@ -247,11 +243,17 @@ public class BWRegistry {
      */
     public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int trackingRange,
                                       int updateFrequency, boolean sendsVelocityUpdates) {
-        EntityRegistry.registerModEntity(new ResourceLocation("betterwithmods:" + entityName), entityClass, entityName, availableEntityId, BWMod.instance, trackingRange,
+        EntityRegistry.registerModEntity(new ResourceLocation(BWMod.MODID, entityName), entityClass, entityName, availableEntityId, BWMod.instance, trackingRange,
                 updateFrequency, sendsVelocityUpdates);
         availableEntityId++;
     }
 
+
+    public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates, int primaryColor, int secondaryColor) {
+        EntityRegistry.registerModEntity(new ResourceLocation(BWMod.MODID, entityName), entityClass, entityName, availableEntityId, BWMod.instance, trackingRange,
+                updateFrequency, sendsVelocityUpdates, primaryColor, secondaryColor);
+        availableEntityId++;
+    }
 
     public static void registerHeatSources() {
         BWMHeatRegistry.addHeatSource(new StateIngredient(Blocks.FIRE, Items.AIR), 1);

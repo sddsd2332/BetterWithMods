@@ -11,19 +11,26 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class BWSounds {
     @GameRegistry.ObjectHolder("betterwithmods:block.wood.creak")
-    public final static SoundEvent WOODCREAK = null;
+    public static SoundEvent WOODCREAK = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.stone.grind")
-    public final static SoundEvent STONEGRIND = null;
+    public static SoundEvent STONEGRIND = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.wood.bellow")
-    public final static SoundEvent BELLOW = null;
+    public static SoundEvent BELLOW = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.wood.chime")
-    public final static SoundEvent WOODCHIME = null;
+    public static SoundEvent WOODCHIME = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.metal.chime")
-    public final static SoundEvent METALCHIME = null;
+    public static SoundEvent METALCHIME = null;
     @GameRegistry.ObjectHolder("betterwithmods:entity.player.oof")
-    public final static SoundEvent OOF = null;
+    public static SoundEvent OOF = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.metal.hacksaw")
-    public final static SoundEvent METAL_HACKSAW = null;
+    public static SoundEvent METAL_HACKSAW = null;
+    @GameRegistry.ObjectHolder("betterwithmods:block.millstone.netherrack")
+    public static SoundEvent MILLSTONE_NETHERRACK = null;
+    @GameRegistry.ObjectHolder("betterwithmods:block.saw.cut")
+    public static SoundEvent SAW_CUT = null;
+
+    @GameRegistry.ObjectHolder("betterwithmods:block.mechanical.overpower")
+    public static SoundEvent MECHANICAL_OVERPOWER = null;
 
     @SubscribeEvent
     public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
@@ -33,7 +40,11 @@ public class BWSounds {
         event.getRegistry().register(registerSound("block.wood.chime"));
         event.getRegistry().register(registerSound("block.metal.chime"));
         event.getRegistry().register(registerSound("block.metal.hacksaw"));
+        event.getRegistry().register(registerSound("block.millstone.netherrack"));
+        event.getRegistry().register(registerSound("block.saw.cut"));
+        event.getRegistry().register(registerSound("block.mechanical.overpower"));
         event.getRegistry().register(registerSound("entity.player.oof"));
+
     }
 
     public static SoundEvent registerSound(String soundName) {

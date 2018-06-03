@@ -1,23 +1,21 @@
 package betterwithmods.client.container.bulk;
 
+import betterwithmods.client.container.ContainerProgress;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityFilteredHopper;
 import betterwithmods.common.registry.HopperFilter;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerFilteredHopper extends Container {
+public class ContainerFilteredHopper extends ContainerProgress {
     private final TileEntityFilteredHopper tile;
-    private byte lastMechPower;
 
     public ContainerFilteredHopper(EntityPlayer player, TileEntityFilteredHopper tile) {
+        super(tile);
         this.tile = tile;
-        this.lastMechPower = 0;
 
         for (int i = 0; i < 2; i++) {
             for (int j = 0; j < 9; j++) {
@@ -66,29 +64,6 @@ public class ContainerFilteredHopper extends Container {
 
     public boolean isItemFilter(ItemStack stack) {
         return BWRegistry.HOPPER_FILTERS.getFilter(stack) != HopperFilter.NONE;
-    }
-
-    @Override
-    public void addListener(IContainerListener listener) {
-        super.addListener(listener);
-        listener.sendWindowProperty(this, 0, this.tile.power);
-    }
-
-    @Override
-    public void detectAndSendChanges() {
-        super.detectAndSendChanges();
-
-        for (IContainerListener craft : this.listeners) {
-            if (this.lastMechPower != this.tile.power)
-                craft.sendWindowProperty(this, 0, this.tile.power);
-        }
-        this.lastMechPower = this.tile.power;
-    }
-
-    @Override
-    public void updateProgressBar(int index, int value) {
-        if (index == 0)
-            this.tile.power = (byte) value;
     }
 
     @Override

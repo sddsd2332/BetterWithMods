@@ -2,6 +2,7 @@ package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.BWMod;
 import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.client.resources.I18n;
@@ -43,6 +44,12 @@ public abstract class BWMRecipeCategory<T extends IRecipeWrapper> implements IRe
     @Override
     public String getModName() {
         return BWMod.NAME;
+    }
+
+    public static void createSlotsHorizontal(IGuiIngredientGroup group, boolean input, int count, int start, int x, int y) {
+        for(int i = 0; i < count; i++) {
+            group.init(i + start, input, x + (i * 18), y);
+        }
     }
 
 }

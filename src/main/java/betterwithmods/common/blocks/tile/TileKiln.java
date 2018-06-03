@@ -12,6 +12,9 @@ package betterwithmods.common.blocks.tile;
  */
 
 
+import betterwithmods.common.BWRegistry;
+import betterwithmods.common.blocks.BlockKiln;
+import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -22,6 +25,8 @@ import net.minecraft.network.play.server.SPacketUpdateTileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Random;
+
 //TODO REDO THIS.
 public class TileKiln extends TileBasic {
 
@@ -29,6 +34,45 @@ public class TileKiln extends TileBasic {
     private static final String TAG_CAMO_META = "camoMeta";
 
     public IBlockState camoState;
+
+
+    public void kiln(World world, BlockPos pos, Random rand) {
+        if (getBlockType() instanceof BlockKiln) {
+            BlockKiln block = (BlockKiln) getBlockType();
+            BlockPos kilnPos = pos.down();
+            int oldCookTime = block.getCookCounter(world, kilnPos);
+            int currentTickRate = 20;
+
+            IBlockState state = world.getBlockState(pos);
+            KilnRecipe recipe = BWRegistry.KILN.findRecipe(world, pos, state).orElse(null);
+
+            if (recipe != null) {
+                int newCookTime = oldCookTime + 1;
+                if (newCookTime > 7) {
+                    newCookTime = 0;
+                    recipe.craftRecipe(world, pos, rand, state);
+                    block.setCookCounter(world, kilnPos, 0);
+                } else {
+                    if (newCookTime > 0) {
+                        world.sendBlockBreakProgress(0, pos, newCookTime + 2);
+                    }
+                    currentTickRate = block.calculateTickRate(world, kilnPos);
+                }
+                block.setCookCounter(world, kilnPos, newCookTime);
+                if (newCookTime == 0) {
+                    world.sendBlockBreakProgress(0, pos, -1);
+                    block.setCookCounter(world, kilnPos, 0);
+                    world.scheduleBlockUpdate(kilnPos, block, currentTickRate, 5);
+                }
+
+            } else if (oldCookTime != 0) {
+                world.sendBlockBreakProgress(0, pos, -1);
+                block.setCookCounter(world, kilnPos, 0);
+                world.scheduleBlockUpdate(kilnPos, block, currentTickRate, 5);
+            }
+        }
+
+    }
 
     public void setCamoState(IBlockState camoState) {
         this.camoState = camoState;
@@ -69,6 +113,6 @@ public class TileKiln extends TileBasic {
     public void onBreak() {
         Block block = camoState.getBlock();
         int meta = block.getMetaFromState(camoState);
-        InvUtils.ejectStackWithOffset(world,pos, new ItemStack(block, 1,meta));
+        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(block, 1, meta));
     }
 }

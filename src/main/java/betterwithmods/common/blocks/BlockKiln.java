@@ -1,7 +1,6 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.api.block.PropertyObject;
-import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.tile.TileKiln;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
@@ -67,39 +66,17 @@ public class BlockKiln extends BWMBlock {
             world.setBlockToAir(pos);
             return;
         }
-        int oldCookTime = getCookCounter(world, pos);
-        BlockPos craftPos = pos.up();
-        int currentTickRate = 20;
-        IBlockState craftState = world.getBlockState(craftPos);
-        boolean canCook = BWRegistry.KILN.canCraft(world, craftPos, craftState);
-        if (canCook) {
-            int newCookTime = oldCookTime + 1;
-            if (newCookTime > 7) {
-                newCookTime = 0;
-                BWRegistry.KILN.craftRecipe(world, craftPos, rand, world.getBlockState(craftPos));
-                setCookCounter(world, pos, 0);
-            } else {
-                if (newCookTime > 0) {
-                    world.sendBlockBreakProgress(0, craftPos, newCookTime + 2);
-                }
-                currentTickRate = calculateTickRate(world, pos);
-            }
-            setCookCounter(world, pos, newCookTime);
-            if (newCookTime == 0) {
-                world.sendBlockBreakProgress(0, craftPos, -1);
-                setCookCounter(world, pos, 0);
-                world.scheduleBlockUpdate(pos, this, currentTickRate, 5);
-            }
-        } else if (oldCookTime != 0) {
-            world.sendBlockBreakProgress(0, craftPos, -1);
-            setCookCounter(world, pos, 0);
-            world.scheduleBlockUpdate(pos, this, currentTickRate, 5);
-        }
 
-        world.scheduleBlockUpdate(pos, this, currentTickRate, 5);
+        BlockPos craftPos = pos.up();
+        if (!world.isAirBlock(craftPos)) {
+            TileKiln tile = getTile(world, pos);
+            if (tile != null) {
+                tile.kiln(world, craftPos, rand);
+            }
+        }
     }
 
-    private int calculateTickRate(World world, BlockPos pos) {
+    public int calculateTickRate(World world, BlockPos pos) {
         int secondaryFire = 0;
         int centerFire = BWMHeatRegistry.getHeat(world, pos.down());
         for (int xP = -1; xP < 2; xP++) {
@@ -115,13 +92,6 @@ public class BlockKiln extends BWMBlock {
 
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
-        int cookTime = getCookCounter(world, pos);
-        BlockPos craftPos = pos.up();
-        if (cookTime > 0 && !BWRegistry.KILN.canCraft(world, craftPos, world.getBlockState(craftPos))) {
-            //Reset timer.
-            world.sendBlockBreakProgress(0, craftPos, -1);
-            setCookCounter(world, pos, 0);
-        }
         world.scheduleBlockUpdate(pos, this, 20, 5);
     }
 
@@ -181,5 +151,12 @@ public class BlockKiln extends BWMBlock {
     @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
         return super.getPickBlock(state, target, world, pos, player);
+    }
+
+    public TileKiln getTile(World world, BlockPos pos) {
+        TileEntity tile = world.getTileEntity(pos);
+        if (tile instanceof TileKiln)
+            return (TileKiln) tile;
+        return null;
     }
 }

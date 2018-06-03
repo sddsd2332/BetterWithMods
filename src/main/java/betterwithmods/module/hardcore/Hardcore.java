@@ -6,6 +6,7 @@ import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.hardcore.beacons.HCBeacons;
 import betterwithmods.module.hardcore.crafting.*;
 import betterwithmods.module.hardcore.creatures.*;
+import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.module.hardcore.needs.*;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import betterwithmods.module.hardcore.world.*;
@@ -24,6 +25,7 @@ public class Hardcore extends CompatModule {
     public void addCompatFeatures() {
         registerCompatFeature("applecore", HCHunger.class.getName());
         registerCompatFeature("hardcorebuoy", HCBuoy.class.getName());
+        registerCompatFeature("betterwithlib", HCMobEquipment.class.getName());
     }
 
     @Override
@@ -74,6 +76,7 @@ public class Hardcore extends CompatModule {
         registerFeature(new HCFurnace());
 
         registerFeature(new ExplosiveRecipes());
+        registerFeature(new HCBabyZombies());
 //        registerFeature(new HCSquid());
 //        registerFeature(new HCVillagers());
         this.load();

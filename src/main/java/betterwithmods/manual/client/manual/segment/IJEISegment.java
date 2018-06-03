@@ -1,5 +1,6 @@
 package betterwithmods.manual.client.manual.segment;
 
+import betterwithmods.util.StackIngredient;
 import com.google.common.base.Strings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -27,6 +28,6 @@ public interface IJEISegment {
         final Item item = Item.REGISTRY.getObject(new ResourceLocation(name));
         if (item == null)
             return Ingredient.EMPTY;
-        return Ingredient.fromStacks(new ItemStack(item, 1, meta));
+        return StackIngredient.fromStacks(new ItemStack(item, 1, meta));
     }
 }

@@ -14,7 +14,7 @@ public class TextureContextStrata extends TextureContextPosition{
 
     public int getStrata() {
         WorldClient world = Minecraft.getMinecraft().world;
-        return HCStrata.getStratification(position.getY(), world.provider.getDimension()).ordinal();
+        return HCStrata.getStratification(world,position, world.provider.getDimension()).ordinal();
     }
 
 

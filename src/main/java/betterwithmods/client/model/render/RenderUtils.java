@@ -19,6 +19,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoader;
@@ -78,12 +79,12 @@ public class RenderUtils {
         BufferBuilder renderer = t.getBuffer();
         renderer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
         minecraft.renderEngine.bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        int brightness = minecraft.world.getCombinedLight(pos, Math.max(5, minecraft.world.getLight(pos)));
+
         preRender(x, y, z);
 
         TextureAtlasSprite sprite = minecraft.getTextureMapBlocks().getTextureExtry(textureLocation.toString());
         for (EnumFacing f : facing)
-            drawTexturedQuad(renderer, sprite, minX, minY, minZ, maxX - minX, maxY - minY, maxZ - minZ, brightness, f);
+            drawTexturedQuad(renderer, sprite, minX, minY, minZ, maxX - minX, maxY - minY, maxZ - minZ, pos, f);
 
         t.draw();
         postRender();
@@ -111,10 +112,11 @@ public class RenderUtils {
         RenderHelper.enableStandardItemLighting();
     }
 
-    public static void drawTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, int brightness, EnumFacing facing) {
+    public static void drawTexturedQuad(BufferBuilder renderer, TextureAtlasSprite sprite, double x, double y, double z, double w, double h, double d, BlockPos pos, EnumFacing facing) {
         if (sprite == null) {
             sprite = minecraft.getTextureMapBlocks().getMissingSprite();
         }
+        int brightness = minecraft.world.getCombinedLight(pos.offset(facing), minecraft.world.getLight(pos));
         int light1 = brightness >> 0x10 & 0xFFFF;
         int light2 = brightness & 0xFFFF;
 

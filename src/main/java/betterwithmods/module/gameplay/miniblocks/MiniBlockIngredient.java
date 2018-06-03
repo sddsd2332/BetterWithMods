@@ -1,16 +1,21 @@
 package betterwithmods.module.gameplay.miniblocks;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.gameplay.miniblocks.blocks.BlockMini;
+import betterwithmods.util.StackIngredient;
 import com.google.gson.JsonObject;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.JsonUtils;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.common.crafting.IIngredientFactory;
@@ -33,7 +38,7 @@ public class MiniBlockIngredient extends BlockIngredient {
     }
 
     public MiniBlockIngredient(String type, ItemStack stack) {
-        this(type,Ingredient.fromStacks(stack));
+        this(type,StackIngredient.fromStacks(stack));
     }
 
     @Override
@@ -48,7 +53,16 @@ public class MiniBlockIngredient extends BlockIngredient {
 
     @Override
     public boolean apply(World world, BlockPos pos, @Nullable IBlockState state) {
-        return state != null && apply(state.getBlock().getPickBlock(state, null, world, pos, null));
+        if(state != null) {
+            RayTraceResult rayTraceResult = new RayTraceResult(new Vec3d(pos).addVector(0.5,0.5,0.5), EnumFacing.UP, pos);
+            try {
+                ItemStack stack = state.getBlock().getPickBlock(state, rayTraceResult, world, pos, null);
+                return apply(stack);
+            } catch (NullPointerException e) {
+                BWMod.logger.error("The pick-block for {} was invalid with a raytrace or a null player. Please report to the owner of the block.", state.getBlock().getRegistryName());
+            }
+        }
+        return false;
     }
 
     @Override

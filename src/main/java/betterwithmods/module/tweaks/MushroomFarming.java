@@ -1,6 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockMushroom;
 import betterwithmods.module.Feature;
 import net.minecraft.block.Block;
@@ -125,5 +126,13 @@ public class MushroomFarming extends Feature {
         else if (state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL)
             return true;
         return false;
+    }
+
+    @SubscribeEvent
+    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
+        if(event.getState().getBlock() instanceof BlockMushroom) {
+            event.getDrops().clear();
+            event.getDrops().add(BWMRecipes.getStackFromState(event.getState()));
+        }
     }
 }

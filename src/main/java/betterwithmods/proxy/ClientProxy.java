@@ -23,6 +23,7 @@ import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
 import betterwithmods.module.gameplay.breeding_harness.CapabilityHarness;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
+import betterwithmods.util.ReflectionLib;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.ItemMeshDefinition;
@@ -68,12 +69,11 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = BWMod.MODID, value = Side.CLIENT)
 
 public class ClientProxy implements IProxy {
-    // Minecraft
-    public static final String[] DEFAULT_RESOURCE_PACKS = new String[]{"field_110449_ao", "defaultResourcePacks"};
+
     private static ResourceProxy resourceProxy;
 
     static {
-        List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), DEFAULT_RESOURCE_PACKS);
+        List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), ReflectionLib.DEFAULT_RESOURCE_PACKS);
         resourceProxy = new ResourceProxy();
         packs.add(resourceProxy);
     }
@@ -98,7 +98,7 @@ public class ClientProxy implements IProxy {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), DEFAULT_RESOURCE_PACKS);
+        List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), ReflectionLib.DEFAULT_RESOURCE_PACKS);
         ModuleLoader.initClient(event);
         registerColors();
         ManualAPI.addProvider(new DefinitionPathProvider());
@@ -164,7 +164,6 @@ public class ClientProxy implements IProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntitySpiderWeb.class, manager -> new RenderSnowball<>(manager, Item.getItemFromBlock(Blocks.WEB), Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityJungleSpider.class, RenderJungleSpider::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityTentacle.class, RenderTentacle::new);
-
     }
 
     @Override

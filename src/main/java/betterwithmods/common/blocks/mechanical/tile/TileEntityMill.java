@@ -4,10 +4,14 @@ import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.ICrankable;
 import betterwithmods.api.tile.IMechanicalPower;
+import betterwithmods.api.util.IProgressSource;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.mechanical.BlockMechMachines;
 import betterwithmods.common.blocks.tile.TileBasicInventory;
+import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.StackEjector;
+import betterwithmods.util.VectorBuilder;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,11 +28,11 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TileEntityMill extends TileBasicInventory implements ITickable, IMechanicalPower, ICrankable {
+public class TileEntityMill extends TileBasicInventory implements ITickable, IMechanicalPower, ICrankable, IProgressSource {
     public boolean blocked;
     public int power;
     public int grindCounter;
-    public double progress;
+    public int grindMax;
 
     private int increment;
 
@@ -38,12 +42,12 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
         this.increment = 1;
     }
 
-    public void setIncrement(int increment) {
-        this.increment = increment;
-    }
-
     public int getIncrement() {
         return increment;
+    }
+
+    public void setIncrement(int increment) {
+        this.increment = increment;
     }
 
     public boolean isActive() {
@@ -89,7 +93,7 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
         }
 
         if (isActive()) {
-            BWRegistry.MILLSTONE.craftRecipe(world,this,inventory);
+            BWRegistry.MILLSTONE.craftRecipe(world, this, inventory);
         }
     }
 
@@ -100,6 +104,8 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
             this.blocked = tag.getBoolean("blocked");
         if (tag.hasKey("GrindCounter"))
             this.grindCounter = tag.getInteger("GrindCounter");
+        if (tag.hasKey("GrindMax"))
+            this.grindMax = tag.getInteger("GrindMax");
         if (tag.hasKey("increment"))
             this.increment = tag.getInteger("increment");
         this.power = tag.getInteger("power");
@@ -109,6 +115,7 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);
         tag.setInteger("GrindCounter", this.grindCounter);
+        tag.setInteger("GrindMax", this.grindMax);
         tag.setInteger("power", power);
         tag.setInteger("increment", increment);
         tag.setBoolean("blocked", blocked);
@@ -118,11 +125,6 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
     @Override
     public int getInventorySize() {
         return 3;
-    }
-
-    @Override
-    public void markDirty() {
-        super.markDirty();
     }
 
     private boolean canEject(EnumFacing facing) {
@@ -137,8 +139,9 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
             blocked = true;
             return;
         }
-
-        InvUtils.ejectStackWithOffset(getBlockWorld(), pos.offset(validDirections.get(getBlockWorld().rand.nextInt(validDirections.size()))), stack);
+        VectorBuilder builder = new VectorBuilder();
+        BlockPos offset = pos.offset(DirUtils.getRandomFacing(validDirections, getBlockWorld().rand));
+        new StackEjector(world, stack, builder.set(offset).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f, 0, 0.05f).build()).ejectStack();
     }
 
     public void ejectRecipe(NonNullList<ItemStack> output) {
@@ -151,9 +154,6 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
         }
     }
 
-    public double getGrindProgress() {
-        return this.progress;
-    }
 
     public boolean isGrinding() {
         return this.grindCounter > 0;
@@ -212,4 +212,15 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.getBlockWorld().getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
     }
+
+    @Override
+    public int getMax() {
+        return grindMax;
+    }
+
+    @Override
+    public int getProgress() {
+        return this.grindCounter;
+    }
+
 }

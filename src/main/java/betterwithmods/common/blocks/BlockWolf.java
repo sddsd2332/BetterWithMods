@@ -1,12 +1,15 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.util.DirUtils;
+import betterwithmods.util.InvUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
@@ -18,11 +21,27 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.Random;
 
 public class BlockWolf extends BWMBlock {
-    public BlockWolf() {
+
+    private ResourceLocation entityName;
+
+    public BlockWolf(ResourceLocation entityName) {
         super(Material.CLOTH);
+        this.entityName = entityName;
         this.setHardness(2.0F);
         this.setSoundType(SoundType.CLOTH);
         this.setDefaultState(this.blockState.getBaseState().withProperty(DirUtils.FACING, EnumFacing.NORTH));
+        registerBehavior();
+    }
+
+    private void registerBehavior() {
+        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(entityName, (world, pos, entity, stack) -> {
+            if (((EntityAgeable) entity).isChild())
+                return NonNullList.create();
+            InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.STRING, 1 + world.rand.nextInt(3)));
+            world.playSound(null, pos, SoundEvents.ENTITY_WOLF_HURT, SoundCategory.NEUTRAL, 0.75F, 1.0F);
+            entity.setDead();
+            return InvUtils.asNonnullList(new ItemStack(this));
+        });
     }
 
     @Override

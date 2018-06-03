@@ -136,7 +136,7 @@ public final class ModuleLoader {
             }
         });
 
-        enabledModules = new ArrayList(moduleInstances.values());
+        enabledModules = new ArrayList<>(moduleInstances.values());
         enabledModules.removeIf(module -> !module.enabled);
 
         loadModuleConfigs();

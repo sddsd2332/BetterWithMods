@@ -2,11 +2,9 @@ package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.BWMod;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
 import mezz.jei.util.Translator;
@@ -18,7 +16,7 @@ import java.util.List;
 /**
  * Created by blueyu2 on 11/25/16.
  */
-public class SteelAnvilRecipeCategory implements IRecipeCategory<IRecipeWrapper> {
+public class SteelAnvilRecipeCategory extends BWMRecipeCategory<IRecipeWrapper> {
 
     public static final int WIDTH = 134;
     public static final int HEIGHT = 72;
@@ -26,33 +24,11 @@ public class SteelAnvilRecipeCategory implements IRecipeCategory<IRecipeWrapper>
     private static final int craftOutputSlot = 16;
     private static final int craftInputSlot1 = 0;
 
-    private final IDrawable background;
-    private final String localizedName;
+    public static final String UID = "bwm.steel_anvil";
+    private static final ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/steel_anvil.png");
 
     public SteelAnvilRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/steel_anvil.png");
-        background = guiHelper.createDrawable(location, 0, 0, WIDTH, HEIGHT);
-        localizedName = Translator.translateToLocal("inv.steel_anvil.name");
-    }
-
-    @Override
-    public String getUid() {
-        return "bwm.steel_anvil";
-    }
-
-    @Override
-    public String getTitle() {
-        return localizedName;
-    }
-
-    @Override
-    public String getModName() {
-        return BWMod.NAME;
-    }
-
-    @Override
-    public IDrawable getBackground() {
-        return background;
+        super(guiHelper.createDrawable(location, 0, 0, WIDTH, HEIGHT), UID,  Translator.translateToLocal("inv.steel_anvil.name"));
     }
 
     @Override

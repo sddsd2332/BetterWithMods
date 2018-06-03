@@ -2,6 +2,8 @@ package betterwithmods.util;
 
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockLiquid;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityGhast;
@@ -18,6 +20,8 @@ import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import java.util.Calendar;
+import java.util.HashSet;
+import java.util.Random;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
@@ -27,7 +31,23 @@ import static net.minecraft.world.chunk.Chunk.NULL_BLOCK_STORAGE;
  * @author Koward
  */
 public final class WorldUtils {
+
+    private static final HashSet<Material> SOLID_MATERIALS = Sets.newHashSet(
+            Material.ROCK,
+            Material.ANVIL,
+            Material.GLASS,
+            Material.IRON,
+            Material.ICE,
+            Material.PACKED_ICE,
+            Material.REDSTONE_LIGHT,
+            Material.PISTON
+    );
+
     private WorldUtils() {
+    }
+
+    public static boolean isSolid(World world, BlockPos pos, EnumFacing facing, IBlockState state) {
+        return SOLID_MATERIALS.contains(state.getMaterial()) && state.getBlockFaceShape(world, pos, facing.getOpposite()) == BlockFaceShape.SOLID;
     }
 
     /**
@@ -91,9 +111,9 @@ public final class WorldUtils {
         ExtendedBlockStorage extendedblockstorage = chunkIn.getBlockStorageArray()[j >> 4];
 
         if (extendedblockstorage == NULL_BLOCK_STORAGE) {
-            return !chunkIn.getWorld().provider.isNether() && amount < EnumSkyBlock.SKY.defaultLightValue ? EnumSkyBlock.SKY.defaultLightValue - amount : 0;
+            return chunkIn.getWorld().provider.hasSkyLight() && amount < EnumSkyBlock.SKY.defaultLightValue ? EnumSkyBlock.SKY.defaultLightValue - amount : 0;
         } else {
-            int l = chunkIn.getWorld().provider.isNether() ? 0 : extendedblockstorage.getSkyLight(i, j & 15, k);
+            int l = !chunkIn.getWorld().provider.hasSkyLight() ? 0 : extendedblockstorage.getSkyLight(i, j & 15, k);
             l = l - amount;
 
             if (l < 0) {
@@ -105,8 +125,8 @@ public final class WorldUtils {
     }
 
     public static double getDistance(BlockPos pos1, BlockPos pos2) {
-        assert(pos1!=null);
-        assert(pos2!=null);
+        assert (pos1 != null);
+        assert (pos2 != null);
         return new Vec3d(pos1).distanceTo(new Vec3d(pos2));
     }
 
@@ -114,9 +134,9 @@ public final class WorldUtils {
         EntityGhast ghast = new EntityGhast(world);
         double failures = 1;
         for (int i = 0; i < 200; i++) {
-            double xPos = pos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * Math.max(20,failures);
+            double xPos = pos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * Math.max(20, failures);
             double yPos = pos.getY() + failures;
-            double zPos = pos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * Math.max(20,failures);
+            double zPos = pos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * Math.max(20, failures);
 
             ghast.setLocationAndAngles(xPos, yPos, zPos, world.rand.nextFloat() * 360.0F, 0.0F);
             AxisAlignedBB box = ghast.getEntityBoundingBox().offset(ghast.getPosition().up(5));
@@ -182,19 +202,23 @@ public final class WorldUtils {
         evt.getDrops().add(item);
     }
 
+    public static boolean isPast(World world, TimeFrame frame) {
+        return frame.start < getDayTicks(world);
+    }
+
     public static boolean isTimeFrame(World world, TimeFrame frame) {
-        return frame.isBetween((int) world.getWorldTime());
+        return frame.isBetween((int) getDayTicks(world));
     }
 
     public static boolean isMoonPhase(World world, MoonPhase phase) {
         return phase.ordinal() == world.provider.getMoonPhase(world.getWorldTime());
     }
 
-    public static boolean isSpecialDay()
-    {
-        Calendar date = Calendar.getInstance();
-        return date.get(Calendar.MONTH) == Calendar.APRIL && date.get(Calendar.DAY_OF_MONTH) == 1;
+    public static int getDayTicks(World world) {
+        return (int) (world.getWorldTime() % Time.DAY.getTicks());
     }
+
+
 
     public enum MoonPhase {
         Full,
@@ -207,6 +231,22 @@ public final class WorldUtils {
         WaxingGibbous
     }
 
+    public enum Time {
+        SECOND(0.27),
+        MINUTE(16.6),
+        HOUR(1000),
+        DAY(24000);
+        private double ticks;
+
+        Time(double ticks) {
+            this.ticks = ticks;
+        }
+
+        public double getTicks() {
+            return ticks;
+        }
+    }
+
     public enum TimeFrame {
         DAWN(0, 3600),
         NOON(5000, 7000),
@@ -214,7 +254,7 @@ public final class WorldUtils {
         MIDNIGHT(17000, 19000),
         NIGHT(13001, 24000),
         DAY(0, 13000);
-
+        private static final Random rand = new Random();
         private int start, end;
 
         TimeFrame(int start, int end) {
@@ -224,6 +264,10 @@ public final class WorldUtils {
 
         public boolean isBetween(int time) {
             return time >= start && time <= end;
+        }
+
+        public int randomBetween() {
+            return rand.nextInt((end - start) + 1) + start;
         }
     }
 

@@ -1,24 +1,24 @@
 package betterwithmods.client.container.bulk;
 
+import betterwithmods.client.container.ContainerProgress;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityMill;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerMill extends Container {
-    private final TileEntityMill mill;
+public class ContainerMill extends ContainerProgress {
+    private final TileEntityMill tile;
     public boolean blocked;
-    public int prevProgress, progress;
 
-    public ContainerMill(EntityPlayer player, TileEntityMill mill) {
-        this.mill = mill;
+    public ContainerMill(EntityPlayer player, TileEntityMill tile) {
+        super(tile);
+        this.tile = tile;
 
         for (int j = 0; j < 3; j++) {
-            addSlotToContainer(new SlotItemHandler(mill.inventory, j, 62 + j * 18, 43));
+            addSlotToContainer(new SlotItemHandler(tile.inventory, j, 62 + j * 18, 43));
         }
 
         for (int i = 0; i < 3; i++) {
@@ -34,7 +34,7 @@ public class ContainerMill extends Container {
 
     @Override
     public boolean canInteractWith(EntityPlayer player) {
-        return mill.isUseableByPlayer(player);
+        return tile.isUseableByPlayer(player);
     }
 
     @Override
@@ -59,38 +59,33 @@ public class ContainerMill extends Container {
         return stack;
     }
 
+
     @Override
     public void addListener(IContainerListener listener) {
         super.addListener(listener);
-        int progress = (int) (mill.progress * 100);
-        listener.sendWindowProperty(this, 0, progress);
-        listener.sendWindowProperty(this, 1, this.mill.blocked ? 0 : 1);
+        listener.sendWindowProperty(this, 2, this.tile.blocked ? 1 : 0);
     }
 
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        int progress = (int) (mill.progress * 100);
-        for (IContainerListener craft : this.listeners) {
-
-            if (this.prevProgress != this.mill.progress) {
-                craft.sendWindowProperty(this, 0, progress);
+        boolean b = tile.blocked;
+        if (blocked != b) {
+            blocked = b;
+            for (IContainerListener craft : this.listeners) {
+                craft.sendWindowProperty(this, 2, blocked ? 1 : 0);
             }
-            craft.sendWindowProperty(this, 1, this.mill.blocked ? 1 : 0);
         }
-        this.prevProgress = progress;
-        this.blocked = this.mill.blocked;
     }
 
     @Override
     public void updateProgressBar(int index, int value) {
+        super.updateProgressBar(index, value);
         switch (index) {
-            case 0:
-                progress = value;
-                break;
-            case 1:
+            case 2:
                 blocked = value == 1;
                 break;
         }
     }
+
 }

@@ -2,13 +2,12 @@ package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.module.compat.jei.wrapper.BlockRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.util.Translator;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -20,45 +19,17 @@ import java.util.stream.Collectors;
 /**
  * Created by primetoxinz on 9/5/16.
  */
-public class SteelSawRecipeCategory implements IRecipeCategory<BlockRecipeWrapper> {
-    public static final int width = 82;
-    public static final int height = 50;
+public class SteelSawRecipeCategory extends BWMRecipeCategory<BlockRecipeWrapper<SawRecipe>> {
+    public static final int WIDTH = 82;
+    public static final int HEIGHT = 50;
     public static final String UID = "bwm.saw.steel";
 
-    @Nonnull
-    private final IDrawable background;
-    @Nonnull
-    private final String localizedName;
+    public static final ResourceLocation LOCATION =  new ResourceLocation(BWMod.MODID, "textures/gui/jei/saw.png");
 
-    public SteelSawRecipeCategory(IGuiHelper helper) {
-        ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/saw.png");
-        background = helper.createDrawable(location, 0, 0, width, height);
-        localizedName = Translator.translateToLocal("inv.saw.name");
+    public SteelSawRecipeCategory(IGuiHelper guiHelper) {
+        super(guiHelper.createDrawable(LOCATION, 0, 0, WIDTH, HEIGHT), UID,Translator.translateToLocal("inv.saw.name"));
     }
 
-    @Nonnull
-    @Override
-    public String getUid() {
-        return UID;
-    }
-
-    @Override
-    public String getModName() {
-        return BWMod.NAME;
-    }
-
-
-    @Nonnull
-    @Override
-    public String getTitle() {
-        return localizedName;
-    }
-
-    @Nonnull
-    @Override
-    public IDrawable getBackground() {
-        return background;
-    }
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout layout, @Nonnull BlockRecipeWrapper wrapper, @Nonnull IIngredients ingredients) {

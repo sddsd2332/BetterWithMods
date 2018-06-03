@@ -1,6 +1,8 @@
+
 {
   "result": {
-    "item": "betterwithmods:mining_charge"
+    "item": "betterwithmods:mining_charge",
+    "count": 2
   },
   "pattern": [
     "RSR",

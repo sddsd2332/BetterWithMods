@@ -1,9 +1,9 @@
 package betterwithmods.client.container.bulk;
 
+import betterwithmods.client.container.ContainerProgress;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityCookingPot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
@@ -11,11 +11,12 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerCookingPot extends Container {
+public class ContainerCookingPot extends ContainerProgress {
     private final TileEntityCookingPot tile;
-    private int progress, heat;
+    private int heat;
 
     public ContainerCookingPot(EntityPlayer player, TileEntityCookingPot tile) {
+        super(tile);
         IItemHandler playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
         this.tile = tile;
 
@@ -73,44 +74,29 @@ public class ContainerCookingPot extends Container {
     @Override
     public void addListener(IContainerListener listener) {
         super.addListener(listener);
-        listener.sendWindowProperty(this, 0, this.tile.getPercentProgress());
-        listener.sendWindowProperty(this, 1, this.tile.getHeat(tile.getWorld(), tile.getPos()));
+        listener.sendWindowProperty(this, 2, this.tile.getHeat(tile.getWorld(), tile.getPos()));
     }
 
     @Override
     public void detectAndSendChanges() {
         super.detectAndSendChanges();
-        int p = this.tile.getPercentProgress();
-        if (progress != p) {
-            progress = p;
-            for (IContainerListener craft : this.listeners) {
-                craft.sendWindowProperty(this, 0, progress);
-            }
-        }
-
         int h = this.tile.getHeat(tile.getWorld(), tile.getPos());
         if (heat != h) {
             heat = h;
             for (IContainerListener craft : this.listeners) {
-                craft.sendWindowProperty(this, 1, heat);
+                craft.sendWindowProperty(this, 2, heat);
             }
         }
     }
 
     @Override
     public void updateProgressBar(int index, int value) {
+        super.updateProgressBar(index, value);
         switch (index) {
-            case 0:
-                progress = value;
-                break;
-            case 1:
+            case 2:
                 heat = value;
                 break;
         }
-    }
-
-    public int getProgress() {
-        return progress;
     }
 
     public int getHeat() {

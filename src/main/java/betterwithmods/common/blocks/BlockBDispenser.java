@@ -17,6 +17,7 @@ import net.minecraft.block.BlockSourceImpl;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -24,20 +25,20 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryDefaulted;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
-import java.util.List;
+import java.util.Optional;
 
 public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
     public static final RegistryDefaulted<Item, IBehaviorDispenseItem> BLOCK_DISPENSER_REGISTRY = new RegistryDefaulted<>(new BehaviorDefaultDispenseBlock());
     public static final RegistryDefaulted<Block, IBehaviorCollect> BLOCK_COLLECT_REGISTRY = new RegistryDefaulted<>(new BehaviorBreakBlock());
-    public static final RegistryDefaulted<Class<? extends Entity>, IBehaviorEntity> ENTITY_COLLECT_REGISTRY = new RegistryDefaulted<>(new BehaviorEntity());
+    public static final RegistryDefaulted<ResourceLocation, IBehaviorEntity> ENTITY_COLLECT_REGISTRY = new RegistryDefaulted<>(new BehaviorEntity());
 
     public BlockBDispenser() {
         super();
@@ -87,44 +88,44 @@ public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
         }
     }
 
+    private Optional<Entity> getEntity(World world, BlockPos pos) {
+        return world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Entity::isEntityAlive).stream().findFirst();
+    }
 
     @Override
     protected void dispense(World world, BlockPos pos) {
         BlockSourceImpl impl = new BlockSourceImpl(world, pos);
         TileEntityBlockDispenser tile = impl.getBlockTileEntity();
-        if (tile != null) {
-            if (!world.getBlockState(pos).getValue(TRIGGERED)) {
-                BlockPos check = pos.offset(impl.getBlockState().getValue(FACING));
-                Block block = world.getBlockState(check).getBlock();
+        if (!world.getBlockState(pos).getValue(TRIGGERED)) {
+            BlockPos check = pos.offset(impl.getBlockState().getValue(FACING));
+            Block block = world.getBlockState(check).getBlock();
 
-                if (world.getTileEntity(check) != null || world.getBlockState(check).getBlockHardness(world, check) < 0)
-                    return;
-                IBehaviorCollect behavior = BLOCK_COLLECT_REGISTRY.getObject(block);
+            if (world.getBlockState(check).getBlockHardness(world, check) < 0)
+                return;
+            IBehaviorCollect behavior = BLOCK_COLLECT_REGISTRY.getObject(block);
+            if (!world.isAirBlock(check) || !block.isReplaceable(world, check)) {
+                NonNullList<ItemStack> stacks = behavior.collect(new BlockSourceImpl(world, check));
+                InvUtils.insert(tile.inventory, stacks, false);
+            }
+
+            Optional<Entity> entity = getEntity(world, check);
+            if (entity.isPresent()) {
+                Entity e = entity.get();
+                ResourceLocation name = EntityList.getKey(e);
+                IBehaviorEntity behaviorEntity = ENTITY_COLLECT_REGISTRY.getObject(name);
+                NonNullList<ItemStack> stacks = behaviorEntity.collect(world, check, e, tile.getCurrentSlot());
+                InvUtils.insert(tile.inventory, stacks, false);
+            }
+        } else {
+            int index = tile.nextIndex;
+            ItemStack stack = tile.getNextStackFromInv();
+            if (index == -1 || stack.isEmpty())
+                world.playEvent(1001, pos, 0);
+            else {
+                IBehaviorDispenseItem behavior = this.getBehavior(stack);
                 if (behavior != null) {
-                    if (!world.isAirBlock(check) || !block.isReplaceable(world, check)) {
-                        NonNullList<ItemStack> stacks = behavior.collect(new BlockSourceImpl(world, check));
-                        InvUtils.insert(tile.inventory, stacks, false);
-                    }
-                }
-                List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(check, check.add(1, 1, 1)), entity -> !entity.isDead);
-                if (!entities.isEmpty()) {
-                    IBehaviorEntity behaviorEntity = ENTITY_COLLECT_REGISTRY.getObject(entities.get(0).getClass());
-                    if (behaviorEntity != null) {
-                        NonNullList<ItemStack> stacks = behaviorEntity.collect(world, check, entities.get(0), tile.getCurrentSlot());
-                        InvUtils.insert(tile.inventory, stacks, false);
-                    }
-                }
-            } else {
-                int index = tile.nextIndex;
-                ItemStack stack = tile.getNextStackFromInv();
-                if (index == -1 || stack.isEmpty())
-                    world.playEvent(1001, pos, 0);
-                else {
-                    IBehaviorDispenseItem behavior = this.getBehavior(stack);
-                    if (behavior != null) {
-                        ItemStack stacks = behavior.dispense(impl, stack);
-                        //InvUtils.insert(tile.inventory, stacks, false);
-                    }
+
+                    behavior.dispense(impl, stack);
                 }
             }
         }
@@ -149,7 +150,7 @@ public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
     public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileEntityBlockDispenser();
     }
-    
+
     public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }

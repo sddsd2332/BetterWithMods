@@ -47,8 +47,6 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
 
     @Override
     public ItemStack getCraftingResult(InventoryCrafting inv) {
-
-
         ItemStack first = ItemStack.EMPTY;
         for (int x = 0; x < inv.getSizeInventory(); x++) {
             ItemStack stack = inv.getStackInSlot(x);

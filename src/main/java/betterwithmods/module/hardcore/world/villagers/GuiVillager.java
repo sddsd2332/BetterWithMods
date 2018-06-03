@@ -6,7 +6,6 @@ import net.minecraft.client.gui.GuiMerchant;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.village.MerchantRecipe;
 import net.minecraft.village.MerchantRecipeList;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.lwjgl.opengl.GL11;
 
 public class GuiVillager {
@@ -14,7 +13,8 @@ public class GuiVillager {
     public static void draw(GuiMerchant merchant) {
         GL11.glColor4f(1.0F, 1.0F, 1.0F, 1.0F);
         GlStateManager.disableLighting();
-        int selected = ReflectionHelper.getPrivateValue(GuiMerchant.class, merchant, "selectedMerchantRecipe", "field_147041_z");
+        //TODO MEH
+        int selected = 0; //ReflectionHelper.getPrivateValue(GuiMerchant.class, merchant, "selectedMerchantRecipe", "field_147041_z");
         MerchantRecipeList list = merchant.getMerchant().getRecipes(Minecraft.getMinecraft().player);
         if (list != null) {
             MerchantRecipe recipe = list.get(selected);

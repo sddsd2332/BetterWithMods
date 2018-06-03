@@ -39,6 +39,7 @@ public class PlayerDataHandler extends Feature {
 
     @SubscribeEvent
     public void clone(PlayerEvent.Clone event) {
+
         PlayerInfo o = getPlayerInfo(event.getOriginal());
         PlayerInfo n = getPlayerInfo(event.getEntityPlayer());
         if (o != null && n != null) {
@@ -54,7 +55,7 @@ public class PlayerDataHandler extends Feature {
     }
 
     public static PlayerInfo getPlayerInfo(EntityPlayer player) {
-        if (player.hasCapability(CAP_PLAYER_INFO, null)) {
+        if (player != null && player.hasCapability(CAP_PLAYER_INFO, null)) {
             return player.getCapability(CAP_PLAYER_INFO, null);
         }
         return null;

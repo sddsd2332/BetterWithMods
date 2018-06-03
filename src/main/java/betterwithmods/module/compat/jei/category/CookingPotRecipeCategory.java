@@ -1,10 +1,10 @@
 package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.BWMod;
+import betterwithmods.api.recipe.IOutput;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.module.compat.jei.wrapper.BulkRecipeWrapper;
-import betterwithmods.util.InvUtils;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
@@ -49,14 +49,16 @@ public class CookingPotRecipeCategory extends BWMRecipeCategory<BulkRecipeWrappe
         this.flame = helper.createAnimatedDrawable(flameDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
 
         IGuiItemStackGroup stacks = layout.getItemStacks();
+        IGuiIngredientGroup<IOutput> outputs = layout.getIngredientsGroup(IOutput.class);
 
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 3; j++) {
                 int index = i + (j * 3);
                 stacks.init(inputSlots + index, true, 7 + i * 18, 2 + j * 18);
-                stacks.init(outputSlot + index, false, 105 + i * 18, 2 + j * 18);
+                outputs.init(outputSlot + index, false, 106 + i * 18, 3 + j * 18);
             }
         }
+        outputs.set(ingredients);
 
         int heat = wrapper.getRecipe().getHeat();
         List<ItemStack> heatSources = BWMHeatRegistry.getStacks(heat);
@@ -64,10 +66,7 @@ public class CookingPotRecipeCategory extends BWMRecipeCategory<BulkRecipeWrappe
             stacks.init(19, true, 75, 38);
             stacks.set(19, heatSources);
         }
-        int index = 0;
-        List<List<ItemStack>> outputs = InvUtils.splitIntoBoxes(wrapper.getRecipe().getOutputs(), 9);
-        for (List<ItemStack> outputStacks : outputs)
-            stacks.set(index++, outputStacks);
+
         List<List<ItemStack>> inputList = ingredients.getInputs(ItemStack.class);
         craftingGrid.setInputs(stacks, inputList);
     }

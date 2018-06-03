@@ -3,6 +3,7 @@ package betterwithmods.common;
 import betterwithmods.BWMod;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.module.hardcore.world.HCBonemeal;
+import betterwithmods.util.ReflectionLib;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -47,7 +48,7 @@ public class BWIMCHandler {
                 String k = m.key;
                 log.debug("[BWIMCHandler] %s from %s", k, m.getSender());
                 if (IMC_HANDLER.containsKey(k)) {
-                    IMC_HANDLER.get(k).accept(ObfuscationReflectionHelper.getPrivateValue(IMCMessage.class, m, 3));
+                    IMC_HANDLER.get(k).accept(ObfuscationReflectionHelper.getPrivateValue(IMCMessage.class, m, ReflectionLib.IMC_MESSAGE_VALUE));
                 }
             } catch (Throwable t) {
                 bigWarning(log, Level.ERROR, "Bad IMC message (%s)\nfrom %s", m.key, m.getSender());

@@ -121,8 +121,6 @@ public class TurntableRotationManager {
                 world.setBlockState(newPos, state.withRotation(rotation));
             }
         }
-
-
     }
 
 }

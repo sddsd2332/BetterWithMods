@@ -1,6 +1,7 @@
 package betterwithmods.common.registry.crafting;
 
 import betterwithmods.client.container.anvil.ContainerSteelAnvil;
+import betterwithmods.util.ReflectionLib;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;
@@ -26,7 +27,7 @@ public abstract class ToolDamageRecipe extends ToolBaseRecipe {
         super(group, result, input, isTool);
     }
 
-    public boolean shouldDamage(ItemStack stack, EntityPlayer player, IBlockState state)  {
+    public boolean shouldDamage(ItemStack stack, EntityPlayer player, IBlockState state) {
         return true;
     }
 
@@ -46,15 +47,14 @@ public abstract class ToolDamageRecipe extends ToolBaseRecipe {
     }
 
     public void playSound(InventoryCrafting inv) {
-        Container container = ReflectionHelper.getPrivateValue(InventoryCrafting.class, inv, "eventHandler", "field_70465_c");
+        Container container = ReflectionHelper.getPrivateValue(InventoryCrafting.class, inv, ReflectionLib.INVENTORY_CRAFTING_EVENTHANDLER);
         EntityPlayer player = null;
         if (container instanceof ContainerWorkbench)
-            player = ReflectionHelper.getPrivateValue(ContainerWorkbench.class, (ContainerWorkbench) container, "player", "field_192390_i");
+            player = ReflectionHelper.getPrivateValue(ContainerWorkbench.class, (ContainerWorkbench) container, ReflectionLib.CONTAINER_WORKBENCH_PLAYER);
         if (container instanceof ContainerPlayer)
-            player = ReflectionHelper.getPrivateValue(ContainerPlayer.class, (ContainerPlayer) container, "player", "field_82862_h");
+            player = ReflectionHelper.getPrivateValue(ContainerPlayer.class, (ContainerPlayer) container, ReflectionLib.CONTAINER_PLAYER_PLAYER);
         if (container instanceof ContainerSteelAnvil)
             player = ((ContainerSteelAnvil) container).player;
-
 
         if (player != null) {
             player.world.playSound(null, player.getPosition(), getSound(), SoundCategory.BLOCKS, getSoundValues().getLeft(), getSoundValues().getRight());

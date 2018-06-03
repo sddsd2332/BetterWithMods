@@ -259,7 +259,7 @@ public class BlockGearbox extends BlockRotate implements IBlockActive, IOverpowe
         float hitXFromCenter = hitX - 0.5F;
         float hitYFromCenter = hitY - 0.5F;
         float hitZFromCenter = hitZ - 0.5F;
-        EnumFacing newFacing;
+        EnumFacing newFacing = facing;
         switch (facing.getAxis()) {
             case Y:
                 if (inCenter(hitXFromCenter, hitZFromCenter, 1 / 16f)) {
@@ -267,16 +267,16 @@ public class BlockGearbox extends BlockRotate implements IBlockActive, IOverpowe
                 } else if (isMax(hitXFromCenter, hitZFromCenter)) {
                     newFacing = ((hitXFromCenter > 0) ? EnumFacing.EAST : EnumFacing.WEST);
                 } else {
-                    newFacing = ((hitZFromCenter > 0) ? EnumFacing.SOUTH : EnumFacing.NORTH);
+                    newFacing = ((hitZFromCenter > 0) ? EnumFacing.NORTH : EnumFacing.SOUTH);
                 }
                 break;
             case X:
                 if (inCenter(hitYFromCenter, hitZFromCenter, 1 / 16f)) {
-                    newFacing = facing.getOpposite();
+                    newFacing = facing;
                 } else if (isMax(hitYFromCenter, hitZFromCenter)) {
                     newFacing = ((hitYFromCenter > 0) ? EnumFacing.UP : EnumFacing.DOWN);
                 } else {
-                    newFacing = ((hitZFromCenter > 0) ? EnumFacing.SOUTH : EnumFacing.NORTH);
+                    newFacing = ((hitZFromCenter > 0) ? EnumFacing.NORTH : EnumFacing.SOUTH);
                 }
                 break;
             case Z:
@@ -287,9 +287,6 @@ public class BlockGearbox extends BlockRotate implements IBlockActive, IOverpowe
                 } else {
                     newFacing = ((hitXFromCenter > 0) ? EnumFacing.EAST : EnumFacing.WEST);
                 }
-                break;
-            default:
-                newFacing = facing;
                 break;
         }
 

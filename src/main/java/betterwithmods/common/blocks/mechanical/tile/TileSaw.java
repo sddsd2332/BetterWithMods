@@ -3,21 +3,47 @@ package betterwithmods.common.blocks.mechanical.tile;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
+import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWSounds;
 import betterwithmods.common.blocks.mechanical.BlockSaw;
 import betterwithmods.common.blocks.tile.TileBasic;
+import betterwithmods.common.registry.block.recipe.SawRecipe;
+import betterwithmods.util.WorldUtils;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nonnull;
+import java.util.Random;
 
 /**
  * Created by primetoxinz on 7/24/17.
  */
 public class TileSaw extends TileBasic implements IMechanicalPower {
     private int power;
+
+
+    public void cut(World world, BlockPos pos, Random rand) {
+        if (!(getBlockType() instanceof BlockSaw))
+            return;
+        EnumFacing facing = getBlock().getFacing(world, pos);
+        final BlockPos blockPos = pos.offset(facing);
+        final IBlockState state = world.getBlockState(blockPos);
+        if(world.isAirBlock(blockPos))
+            return;
+        SawRecipe recipe = BWRegistry.WOOD_SAW.findRecipe(world, blockPos, state).orElse(null);
+        if (recipe != null) {
+            if (!recipe.craftRecipe(world, blockPos, rand, state)) {
+                if (!getBlock().isChoppingBlock(state) && WorldUtils.isSolid(world, blockPos, facing, state)) {
+                    world.playSound(null, blockPos, BWSounds.METAL_HACKSAW, SoundCategory.BLOCKS, 1.0f, 0.80f);
+                }
+            }
+        }
+    }
 
     public void onChanged() {
         int power = calculateInput();

@@ -492,7 +492,7 @@ fluid.betterwithmods:hellfire.name=Geschmolzenes Höllenfeuer
 material.soulforged_steel.name=Seelengeschiedeter Stahl
 material.hellfire.name=Höllenfeuer
 modifier.mending.name=Reparatur
-modifier.mending.desc=??oKillsteal!??r\nAbsorbiert Erfahrung, um seine Werkzeuge zu raparieren.
+modifier.mending.desc=??oKillsteal!??r Absorbiert Erfahrung, um seine Werkzeuge zu raparieren.
 
 entity.entity_sheared_creeper.name=Geschorener Creeper
 entity.bwm_jungle_spider.name=Tropenspinne
@@ -553,7 +553,7 @@ tooltip.windmill.name=Windräder drehen sich um Regen und im Sturm schneller. Pa
 tooltip.bwm_book.name=Das Buch des einzelnen.
 
 
-bwm.manual.message=Sie haben ein "Better With Mods"-Handbuch erhalten. Diese Mod mag anders sein, als du es erwatest.\nBitte lese die Einführung.
+bwm.manual.message=Sie haben ein "Better With Mods"-Handbuch erhalten. Diese Mod mag anders sein, als du es erwatest. Bitte lese die Einführung.
 
 bwm.manual.home=Home
 bwm.manual.blocks=Blöcke

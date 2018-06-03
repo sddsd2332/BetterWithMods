@@ -10,9 +10,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 @SideOnly(Side.CLIENT)
 public class LayerCollar implements LayerRenderer<EntityWolf> {
     private static final ResourceLocation WOLF_COLLAR = new ResourceLocation("textures/entity/wolf/wolf_collar.png");
-    private final RenderWolf wolfRenderer;
+    private final RenderLongboi wolfRenderer;
 
-    public LayerCollar(RenderWolf wolfRendererIn) {
+    public LayerCollar(RenderLongboi wolfRendererIn) {
         this.wolfRenderer = wolfRendererIn;
     }
 

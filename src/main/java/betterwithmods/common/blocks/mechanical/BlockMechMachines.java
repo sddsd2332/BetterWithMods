@@ -117,6 +117,11 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
     }
 
     @Override
+    public boolean canConnectRedstone(IBlockState state, IBlockAccess world, BlockPos pos, @Nullable EnumFacing side) {
+        return state.getValue(TYPE) == EnumType.TURNTABLE &&  (side != null && side.getAxis().isHorizontal());
+    }
+
+    @Override
     public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
         super.onBlockAdded(world, pos, state);
         BlockMechMachines.EnumType type = world.getBlockState(pos).getValue(TYPE);

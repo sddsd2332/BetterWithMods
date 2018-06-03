@@ -1,20 +1,15 @@
 package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.BWMod;
+import betterwithmods.api.recipe.IOutput;
 import betterwithmods.module.compat.jei.wrapper.BulkRecipeWrapper;
-import betterwithmods.util.InvUtils;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableStatic;
-import mezz.jei.api.gui.IGuiItemStackGroup;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
-import java.util.List;
 
 public class MillRecipeCategory extends BWMRecipeCategory<BulkRecipeWrapper> {
     public static final String UID = "bwm.mill";
@@ -28,7 +23,7 @@ public class MillRecipeCategory extends BWMRecipeCategory<BulkRecipeWrapper> {
     private final IDrawableAnimated gear;
 
     public MillRecipeCategory(IGuiHelper helper) {
-        super(helper.createDrawable(guiTexture, 0, 0, width, height), UID,"inv.mill.name");
+        super(helper.createDrawable(guiTexture, 0, 0, width, height), UID, "inv.mill.name");
         IDrawableStatic flameDrawable = helper.createDrawable(guiTexture, 150, 0, 14, 14);
         this.gear = helper.createAnimatedDrawable(flameDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
     }
@@ -40,18 +35,15 @@ public class MillRecipeCategory extends BWMRecipeCategory<BulkRecipeWrapper> {
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout layout, @Nonnull BulkRecipeWrapper wrapper, @Nonnull IIngredients ingredients) {
-        IGuiItemStackGroup stacks = layout.getItemStacks();
+        IGuiItemStackGroup guiItemStackGroup = layout.getItemStacks();
+        IGuiIngredientGroup<IOutput> guiOutputs = layout.getIngredientsGroup(IOutput.class);
 
-        List<List<ItemStack>> input = ingredients.getInputs(ItemStack.class);
-        for (int i = 0; i < 3; i++) {
-            stacks.init(inputSlots + i, true, 7 + i * 18, 7);
-            stacks.init(outputSlot + i, false, 89 + i * 18, 7);
-            if (input.size() > i && input.get(i) != null) {
-                stacks.set(inputSlots + i, input.get(i));
-            }
-        }
-        int index = 0;
-        for (List<ItemStack> outputStacks : InvUtils.splitIntoBoxes(wrapper.getRecipe().getOutputs(),3))
-            stacks.set(outputSlot + index++, outputStacks);
+        createSlotsHorizontal(guiItemStackGroup, true, 3, inputSlots, 7, 7);
+        createSlotsHorizontal(guiOutputs, false, 3, outputSlot, 90, 8);
+
+        guiItemStackGroup.set(ingredients);
+        guiOutputs.set(ingredients);
+
+
     }
 }

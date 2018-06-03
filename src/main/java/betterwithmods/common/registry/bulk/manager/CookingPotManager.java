@@ -1,10 +1,12 @@
 package betterwithmods.common.registry.bulk.manager;
 
+import betterwithmods.api.recipe.IRecipeOutputs;
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityCookingPot;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -18,20 +20,24 @@ import java.util.stream.Collectors;
 
 public class CookingPotManager extends CraftingManagerBulk<CookingPotRecipe> {
 
+    public CookingPotRecipe addRecipe(List<Ingredient> inputs, IRecipeOutputs outputs, int heat) {
+        return addRecipe(new CookingPotRecipe(inputs, outputs, heat));
+    }
+
     public CookingPotRecipe addRecipe(List<Ingredient> inputs, List<ItemStack> outputs, int heat) {
         return addRecipe(new CookingPotRecipe(inputs, outputs, heat));
     }
 
     public CookingPotRecipe addStokedRecipe(ItemStack input, ItemStack... output) {
-        return addStokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input.copy())), Lists.newArrayList(output));
+        return addStokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input.copy())), Lists.newArrayList(output));
     }
 
     public CookingPotRecipe addStokedRecipe(ItemStack input, List<ItemStack> output) {
-        return addStokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input.copy())), output);
+        return addStokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input.copy())), output);
     }
 
     public CookingPotRecipe addStokedRecipe(ItemStack input, ItemStack output) {
-        return addStokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input)), Lists.newArrayList(output));
+        return addStokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output));
     }
 
     public CookingPotRecipe addStokedRecipe(Ingredient ingredient, ItemStack output) {
@@ -46,6 +52,9 @@ public class CookingPotManager extends CraftingManagerBulk<CookingPotRecipe> {
         return addRecipe(inputs, outputs, BWMHeatRegistry.STOKED_HEAT);
     }
 
+    public CookingPotRecipe addStokedRecipe(List<Ingredient> inputs, IRecipeOutputs outputs) {
+        return addRecipe(inputs, outputs, BWMHeatRegistry.STOKED_HEAT);
+    }
 
     //Unstoked
     public CookingPotRecipe addUnstokedRecipe(List<Ingredient> inputs, ItemStack output) {
@@ -53,15 +62,15 @@ public class CookingPotManager extends CraftingManagerBulk<CookingPotRecipe> {
     }
 
     public CookingPotRecipe addUnstokedRecipe(ItemStack input, ItemStack... output) {
-        return addUnstokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input.copy())), Lists.newArrayList(output));
+        return addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input.copy())), Lists.newArrayList(output));
     }
 
     public CookingPotRecipe addUnstokedRecipe(ItemStack input, List<ItemStack> output) {
-        return addUnstokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input)), output);
+        return addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), output);
     }
 
     public CookingPotRecipe addUnstokedRecipe(ItemStack input, ItemStack output) {
-        return addUnstokedRecipe(Lists.newArrayList(Ingredient.fromStacks(input)), Lists.newArrayList(output));
+        return addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output));
     }
 
     public CookingPotRecipe addUnstokedRecipe(Ingredient ingredient, ItemStack output) {
@@ -76,6 +85,10 @@ public class CookingPotManager extends CraftingManagerBulk<CookingPotRecipe> {
         return addRecipe(inputs, outputs, BWMHeatRegistry.UNSTOKED_HEAT);
     }
 
+    public CookingPotRecipe addUnstokedRecipe(List<Ingredient> inputs, IRecipeOutputs outputs) {
+        return addRecipe(inputs, outputs, BWMHeatRegistry.UNSTOKED_HEAT);
+    }
+
     public CookingPotRecipe addHeatlessRecipe(List<Ingredient> inputs, List<ItemStack> outputs, int heat) {
         return addRecipe(inputs, outputs, heat).setIgnoreHeat(true);
     }
@@ -85,7 +98,7 @@ public class CookingPotManager extends CraftingManagerBulk<CookingPotRecipe> {
         if (tile instanceof TileEntityCookingPot) {
             TileEntityCookingPot pot = (TileEntityCookingPot) tile;
             if (canCraft(tile, inv)) {
-                if (pot.cookProgress >= pot.getCookTime()) {
+                if (pot.cookProgress >= pot.getMax()) {
                     InvUtils.insert(inv, craftItem(world, tile, inv), false);
                     pot.cookProgress = 0;
                     return true;

@@ -5,6 +5,7 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnumEnchantmentType;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -22,6 +23,11 @@ public class ItemSoulforgedBattleAxe extends ItemAxe {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return HCEnchanting.canEnchantSteel(enchantment) && super.canApplyAtEnchantingTable(stack,enchantment);
+        if(HCEnchanting.canEnchantSteel(enchantment)) {
+            EnumEnchantmentType type = enchantment.type;
+            return type == EnumEnchantmentType.WEAPON || type == EnumEnchantmentType.DIGGER;
+        }
+        return false;
+
     }
 }

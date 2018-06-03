@@ -5,6 +5,7 @@ import betterwithmods.common.world.gen.village.Well;
 import betterwithmods.common.world.gen.village.field.BWFieldBase;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.hardcore.world.HCVillages;
+import betterwithmods.util.ReflectionLib;
 import com.google.common.collect.Lists;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.MathHelper;
@@ -15,7 +16,6 @@ import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
-import java.util.Iterator;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -30,13 +30,8 @@ public class BWMapGenVillage extends MapGenVillage {
     public static List<StructureVillagePieces.PieceWeight> getPiecesAbandoned(Random random, int size) {
         List<StructureVillagePieces.PieceWeight> list = Lists.<StructureVillagePieces.PieceWeight>newArrayList();
         net.minecraftforge.fml.common.registry.VillagerRegistry.addExtraVillageComponents(list, random, size);
-        Iterator<StructureVillagePieces.PieceWeight> iterator = list.iterator();
 
-        while (iterator.hasNext()) {
-            if ((iterator.next()).villagePiecesLimit == 0) {
-                iterator.remove();
-            }
-        }
+        list.removeIf(pieceWeight -> (pieceWeight).villagePiecesLimit == 0);
         return list.stream().filter(piece -> AbandonedVillagePiece.class.isAssignableFrom(piece.villagePieceClass) || Well.class.isAssignableFrom(piece.villagePieceClass)).collect(Collectors.toList());
     }
 
@@ -52,13 +47,7 @@ public class BWMapGenVillage extends MapGenVillage {
 
         net.minecraftforge.fml.common.registry.VillagerRegistry.addExtraVillageComponents(list, random, size);
 
-        Iterator<StructureVillagePieces.PieceWeight> iterator = list.iterator();
-
-        while (iterator.hasNext()) {
-            if ((iterator.next()).villagePiecesLimit == 0) {
-                iterator.remove();
-            }
-        }
+        list.removeIf(pieceWeight -> (pieceWeight).villagePiecesLimit == 0);
         return list.stream().filter(piece -> BWFieldBase.class.isAssignableFrom(piece.villagePieceClass)).collect(Collectors.toList());
     }
 
@@ -74,18 +63,13 @@ public class BWMapGenVillage extends MapGenVillage {
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House2.class, 15, MathHelper.getInt(random, 0, 1 + size)));
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House3.class, 8, MathHelper.getInt(random, 0 + size, 3 + size * 2)));
         net.minecraftforge.fml.common.registry.VillagerRegistry.addExtraVillageComponents(list, random, size);
-        Iterator<StructureVillagePieces.PieceWeight> iterator = list.iterator();
 
-        while (iterator.hasNext()) {
-            if ((iterator.next()).villagePiecesLimit == 0) {
-                iterator.remove();
-            }
-        }
+        list.removeIf(pieceWeight -> (pieceWeight).villagePiecesLimit == 0);
         return list.stream().filter(piece -> !AbandonedVillagePiece.class.isAssignableFrom(piece.villagePieceClass) && !Well.class.isAssignableFrom(piece.villagePieceClass)).collect(Collectors.toList());
     }
 
     public int getSize() {
-        return ObfuscationReflectionHelper.getPrivateValue(MapGenVillage.class, this, 1);
+        return ObfuscationReflectionHelper.getPrivateValue(MapGenVillage.class, this, ReflectionLib.MAP_GEN_VILLAGE_SIZE);
     }
 
     @Override

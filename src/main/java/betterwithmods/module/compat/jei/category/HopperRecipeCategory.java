@@ -1,16 +1,14 @@
 package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.BWMod;
+import betterwithmods.api.recipe.IOutput;
 import betterwithmods.common.blocks.mechanical.BlockMechMachines;
 import betterwithmods.module.compat.jei.wrapper.HopperRecipeWrapper;
-import betterwithmods.util.InvUtils;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawable;
+import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
-import mezz.jei.api.gui.ITooltipCallback;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.util.Translator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -28,45 +26,16 @@ import java.util.List;
  * @author primetoxinz
  * @version 11/20/16
  */
-public class HopperRecipeCategory implements IRecipeCategory<HopperRecipeWrapper> {
+public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper> {
     public static final int width = 145;
     public static final int height = 80;
     public static final String UID = "bwm.hopper";
+    public static final ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/hopper.png");
     int outputSlot = 3;
     int secondaryOutputSlot = 5;
 
-    @Nonnull
-    private final IDrawable background;
-    @Nonnull
-    private final String localizedName;
-
     public HopperRecipeCategory(IGuiHelper guiHelper) {
-        ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/hopper.png");
-        background = guiHelper.createDrawable(location, 0, 0, width, height);
-        localizedName = Translator.translateToLocal("inv.hopper.name");
-    }
-
-    @Nonnull
-    @Override
-    public String getUid() {
-        return UID;
-    }
-
-    @Override
-    public String getModName() {
-        return BWMod.NAME;
-    }
-
-    @Nonnull
-    @Override
-    public String getTitle() {
-        return localizedName;
-    }
-
-    @Nonnull
-    @Override
-    public IDrawable getBackground() {
-        return background;
+        super(guiHelper.createDrawable(location, 0, 0, width, height), UID, Translator.translateToLocal("inv.hopper.name"));
     }
 
     @SideOnly(Side.CLIENT)
@@ -83,36 +52,42 @@ public class HopperRecipeCategory implements IRecipeCategory<HopperRecipeWrapper
     @Override
     public void setRecipe(@Nonnull IRecipeLayout layout, @Nonnull HopperRecipeWrapper wrapper, @Nonnull IIngredients ingredients) {
         IGuiItemStackGroup guiItemStacks = layout.getItemStacks();
-        int x = width / 2 - 18, y = 0;
+        IGuiIngredientGroup<IOutput> outputs = layout.getIngredientsGroup(IOutput.class);
+
 
         guiItemStacks.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
-            if(slotIndex == 2 && !tooltip.isEmpty())
-                tooltip.add(1, TextFormatting.LIGHT_PURPLE+""+TextFormatting.BOLD+Translator.translateToLocal("inv.hopper.place"));
+            if (slotIndex == 2 && !tooltip.isEmpty())
+                tooltip.add(1, TextFormatting.LIGHT_PURPLE + "" + TextFormatting.BOLD + Translator.translateToLocal("inv.hopper.place"));
         });
-
+        int x = width / 2 - 18, y = 0;
         guiItemStacks.init(0, true, x, y); //inputs item
         guiItemStacks.init(1, true, x - 27, y + 27); //filter
         guiItemStacks.init(2, true, x, y + 45); //urn
 
-        for(int i = 0; i < 2; i++) {
-            guiItemStacks.init(outputSlot+i, false, x + 28 + i*18, y + 27); //inventory result
-            guiItemStacks.init(secondaryOutputSlot+i, false, x + 28 + i*18, y); //main output
-        }
+        createSlotsHorizontal(outputs, false, 2, outputSlot, x + 29, y + 1);
+        createSlotsHorizontal(outputs, false, 2, secondaryOutputSlot, x + 29, y + 28);
+
         guiItemStacks.init(7, false, x, y + 27); //hopper
+        guiItemStacks.init(8, false, x + 27, y + 45); //urn
 
-        List<List<ItemStack>> inputs = ingredients.getInputs(ItemStack.class);
-        List<List<ItemStack>> outputs = ingredients.getOutputs(ItemStack.class);
 
-        guiItemStacks.set(0, inputs.get(0));
-        guiItemStacks.set(1, inputs.get(1));
-        guiItemStacks.set(2, inputs.get(2));
-        int index = 0;
-        for (List<ItemStack> outputStacks : InvUtils.splitIntoBoxes(outputs.get(0),2))
-            guiItemStacks.set(outputSlot + index++, outputStacks);
-        index = 0;
-        for (List<ItemStack> outputStacks : InvUtils.splitIntoBoxes(outputs.get(1),2))
-            guiItemStacks.set(secondaryOutputSlot + index++, outputStacks);
+        guiItemStacks.set(ingredients);
         guiItemStacks.set(7, BlockMechMachines.getStack(BlockMechMachines.EnumType.HOPPER));
+
+        List<List<ItemStack>> containers = ingredients.getOutputs(ItemStack.class);
+        if(!containers.isEmpty()) {
+            List<ItemStack> container = containers.get(0);
+            if (container != null)
+                guiItemStacks.set(8, container);
+        }
+
+        outputs.set(ingredients);
+        List<List<IOutput>> o = ingredients.getOutputs(IOutput.class);
+        for (int i = 0; i < 4; i++) {
+            List<IOutput> output = o.get(i);
+            if (output != null)
+                outputs.set(i + 3, output);
+        }
     }
 }
 

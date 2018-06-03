@@ -1,5 +1,6 @@
 package betterwithmods.util.item;
 
+import betterwithmods.util.ReflectionLib;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.*;
@@ -42,7 +43,7 @@ public final class ToolsManager {
     }
 
     public static Set<Block> getEffectiveBlocks(ItemTool tool) {
-        return ReflectionHelper.getPrivateValue(ItemTool.class, tool, "field_150914_c", "effectiveBlocks");
+        return ReflectionHelper.getPrivateValue(ItemTool.class, tool, ReflectionLib.ITEMTOOL_EFFECTIVE_BLOCKS);
     }
 
     public static void setToolAsEffectiveAgainst(ItemTool tool, Block... blocks) {

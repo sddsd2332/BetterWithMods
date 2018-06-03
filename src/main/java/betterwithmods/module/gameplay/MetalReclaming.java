@@ -117,6 +117,9 @@ public class MetalReclaming extends Feature {
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.ANVIL, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_INGOT, 31));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.HOPPER, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_INGOT, 5));
 
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, 1), new ItemStack(Items.IRON_INGOT, 2));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE, 1), new ItemStack(Items.GOLD_INGOT, 2));
+
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMBlocks.STEEL_ANVIL), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 7));
         }
     }

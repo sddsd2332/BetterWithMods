@@ -41,15 +41,22 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
 
         if (GlobalConfig.debug)
             BWMod.logger.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
-        if (stack.getItem() instanceof ItemBlock && (world.isAirBlock(check) || world.getBlockState(check).getBlock().isReplaceable(world, check))) {
-            Block block = ((ItemBlock) stack.getItem()).getBlock();
-            boolean blockAcross = !world.isAirBlock(check.offset(facing));
-            IBlockState state = block.getStateForPlacement(world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), stack.getItemDamage(), fake, fake.getActiveHand());
-            if (block.canPlaceBlockAt(world, check)) {
-                if (((ItemBlock) stack.getItem()).placeBlockAt(stack, fake, world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), state)) {
-                    world.playSound(null, check, state.getBlock().getSoundType(state, world, check, fake).getPlaceSound(), SoundCategory.BLOCKS, 0.7F, 1.0F);
-                    stack.shrink(1);
-                    return stack.isEmpty() ? ItemStack.EMPTY : stack;
+
+        if (!world.isAirBlock(check) && !world.getBlockState(check).getBlock().isReplaceable(world, check))
+            return ItemStack.EMPTY;
+
+        if (stack.getItem() instanceof ItemBlock) {
+            ItemBlock itemblock = (ItemBlock) stack.getItem();
+            if (itemblock.canPlaceBlockOnSide(world, check, facing, fake, stack)) {
+                Block block = ((ItemBlock) stack.getItem()).getBlock();
+                boolean blockAcross = !world.isAirBlock(check.offset(facing));
+                IBlockState state = block.getStateForPlacement(world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), stack.getItemDamage(), fake, fake.getActiveHand());
+                if (block.canPlaceBlockAt(world, check)) {
+                    if (itemblock.placeBlockAt(stack, fake, world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), state)) {
+                        world.playSound(null, check, state.getBlock().getSoundType(state, world, check, fake).getPlaceSound(), SoundCategory.BLOCKS, 0.7F, 1.0F);
+                        stack.shrink(1);
+                        return stack.isEmpty() ? ItemStack.EMPTY : stack;
+                    }
                 }
             }
         } else if (stack.getItem() instanceof ItemBlockSpecial) {

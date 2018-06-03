@@ -5,6 +5,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.crafting.IngredientTool;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.StackIngredient;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockSand;
@@ -264,14 +265,14 @@ public class BlockPlanter extends BWMBlock implements IMultiVariants {
     public enum EnumType implements IStringSerializable {
         EMPTY("empty", new IngredientTool("shovel"), Blocks.AIR.getDefaultState(), 0, new EnumPlantType[0]),
         FARMLAND("farmland", new IngredientTool(s -> s.getItem() instanceof ItemHoe, ItemStack.EMPTY), Blocks.DIRT.getDefaultState(), 1, new EnumPlantType[]{EnumPlantType.Crop, EnumPlantType.Plains}),
-        GRASS("grass", Ingredient.fromStacks(new ItemStack(Blocks.GRASS)), Blocks.GRASS.getDefaultState(), 2, new EnumPlantType[]{EnumPlantType.Plains}),
-        SOULSAND("soul_sand", Ingredient.fromStacks(new ItemStack(Blocks.SOUL_SAND)), Blocks.SOUL_SAND.getDefaultState(), 3, new EnumPlantType[]{EnumPlantType.Nether}),
-        FERTILE("fertile", Ingredient.fromStacks(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage())), Blocks.DIRT.getDefaultState(), 4, new EnumPlantType[]{EnumPlantType.Crop, EnumPlantType.Plains}),
-        SAND("sand", Ingredient.fromStacks(new ItemStack(Blocks.SAND)), Blocks.SAND.getDefaultState(), 5, new EnumPlantType[]{EnumPlantType.Desert, EnumPlantType.Beach}),
-        WATER("water_still", Ingredient.fromStacks(new ItemStack(Items.WATER_BUCKET)), Blocks.WATER.getDefaultState(), 6, new EnumPlantType[]{EnumPlantType.Water}),
-        GRAVEL("gravel", Ingredient.fromStacks(new ItemStack(Blocks.GRAVEL)), Blocks.GRAVEL.getDefaultState(), 7, new EnumPlantType[]{EnumPlantType.Cave}),
-        REDSAND("red_sand", Ingredient.fromStacks(new ItemStack(Blocks.SAND, 1, BlockSand.EnumType.RED_SAND.getMetadata())), Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND), 8, new EnumPlantType[]{EnumPlantType.Desert, EnumPlantType.Beach}),
-        DIRT("dirt", Ingredient.fromStacks(new ItemStack(Blocks.DIRT)), Blocks.DIRT.getDefaultState(), 9, new EnumPlantType[]{EnumPlantType.Plains});
+        GRASS("grass", StackIngredient.fromStacks(new ItemStack(Blocks.GRASS)), Blocks.GRASS.getDefaultState(), 2, new EnumPlantType[]{EnumPlantType.Plains}),
+        SOULSAND("soul_sand", StackIngredient.fromStacks(new ItemStack(Blocks.SOUL_SAND)), Blocks.SOUL_SAND.getDefaultState(), 3, new EnumPlantType[]{EnumPlantType.Nether}),
+        FERTILE("fertile", StackIngredient.fromStacks(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage())), Blocks.DIRT.getDefaultState(), 4, new EnumPlantType[]{EnumPlantType.Crop, EnumPlantType.Plains}),
+        SAND("sand", StackIngredient.fromStacks(new ItemStack(Blocks.SAND)), Blocks.SAND.getDefaultState(), 5, new EnumPlantType[]{EnumPlantType.Desert, EnumPlantType.Beach}),
+        WATER("water_still", StackIngredient.fromStacks(new ItemStack(Items.WATER_BUCKET)), Blocks.WATER.getDefaultState(), 6, new EnumPlantType[]{EnumPlantType.Water}),
+        GRAVEL("gravel", StackIngredient.fromStacks(new ItemStack(Blocks.GRAVEL)), Blocks.GRAVEL.getDefaultState(), 7, new EnumPlantType[]{EnumPlantType.Cave}),
+        REDSAND("red_sand", StackIngredient.fromStacks(new ItemStack(Blocks.SAND, 1, BlockSand.EnumType.RED_SAND.getMetadata())), Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND), 8, new EnumPlantType[]{EnumPlantType.Desert, EnumPlantType.Beach}),
+        DIRT("dirt", StackIngredient.fromStacks(new ItemStack(Blocks.DIRT)), Blocks.DIRT.getDefaultState(), 9, new EnumPlantType[]{EnumPlantType.Plains});
 
         private static final EnumType[] VALUES = values();
 

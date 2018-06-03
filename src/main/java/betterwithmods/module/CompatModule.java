@@ -33,6 +33,7 @@ public class CompatModule extends Module {
         registerCompatFeature("actuallyadditions", "betterwithmods.module.compat.ActuallyAdditions");
         registerCompatFeature("immersiveengineering", "betterwithmods.module.compat.immersiveengineering.ImmersiveEngineering");
         registerCompatFeature("dynamictrees", "betterwithmods.module.compat.DynamicTrees");
+        registerCompatFeature("thaumcraft", "betterwithmods.module.compat.thaumcraft.Thaumcraft");
     }
 
     @Override

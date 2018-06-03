@@ -164,7 +164,7 @@ public abstract class BlockMini extends BlockRotate implements IRenderRotationPl
 
     @Override
     public final void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        getDrops(drops, world, pos, state, null, fortune, false);
+        getDrops(drops, world, pos, state, world.getTileEntity(pos), fortune, false);
     }
 
 

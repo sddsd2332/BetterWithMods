@@ -2,6 +2,7 @@ package betterwithmods.common.blocks.behaviors;
 
 import betterwithmods.api.tile.dispenser.IBehaviorCollect;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.ReflectionLib;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBlockSource;
@@ -17,13 +18,12 @@ import java.lang.reflect.Method;
  */
 public class BehaviorSilkTouch implements IBehaviorCollect {
 
-    private static final Method method = ReflectionHelper.findMethod(Block.class, "getSilkTouchDrop", "func_180643_i", IBlockState.class);
+    private static final Method method = ReflectionHelper.findMethod(Block.class, ReflectionLib.SILK_TOUCH_DROP.getKey(), ReflectionLib.SILK_TOUCH_DROP.getValue(), IBlockState.class);
+
     public static ItemStack getBlockSilkTouchDrop(IBlockState state) {
         try {
             return (ItemStack) method.invoke(state.getBlock(), state);
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        } catch (InvocationTargetException e) {
+        } catch (IllegalAccessException | InvocationTargetException e) {
             e.printStackTrace();
         }
         return null;
@@ -32,7 +32,7 @@ public class BehaviorSilkTouch implements IBehaviorCollect {
     @Override
     public NonNullList<ItemStack> collect(IBlockSource source) {
         NonNullList<ItemStack> list = InvUtils.asNonnullList(getBlockSilkTouchDrop(source.getBlockState()));
-        breakBlock(source.getWorld(),source.getBlockState(),source.getBlockPos());
+        breakBlock(source.getWorld(), source.getBlockState(), source.getBlockPos());
         return list;
     }
 }

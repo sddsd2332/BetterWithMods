@@ -1,14 +1,16 @@
 package betterwithmods.common.registry.block.recipe;
 
+import betterwithmods.api.recipe.IRecipeOutputs;
+import betterwithmods.api.recipe.impl.ListOutputs;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.ArrayUtils;
 
 import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
 
 /**
@@ -17,14 +19,20 @@ import java.util.stream.Collectors;
  * @author primetoxinz
  * @version 03/19/2018
  */
-public class BlockRecipe {
+public abstract class BlockRecipe {
     private final BlockIngredient input;
-    private final NonNullList<ItemStack> outputs;
+    private final IRecipeOutputs recipeOutput;
 
     public BlockRecipe(BlockIngredient input, List<ItemStack> outputs) {
-        this.input = input;
-        this.outputs = outputs == null ? NonNullList.create() : InvUtils.asNonnullList(outputs.stream().filter(s -> !s.isEmpty()).collect(Collectors.toList()));
+        this(input, new ListOutputs(outputs));
     }
+
+    public BlockRecipe(BlockIngredient input, IRecipeOutputs recipeOutput) {
+        this.input = input;
+        this.recipeOutput = recipeOutput;
+    }
+
+    public abstract boolean craftRecipe(World world, BlockPos pos, Random rand, IBlockState state);
 
     public NonNullList<ItemStack> onCraft(World world, BlockPos pos) {
         NonNullList<ItemStack> items = NonNullList.create();
@@ -42,8 +50,12 @@ public class BlockRecipe {
         return input;
     }
 
+    public IRecipeOutputs getRecipeOutput() {
+        return recipeOutput;
+    }
+
     public NonNullList<ItemStack> getOutputs() {
-        return outputs;
+        return recipeOutput.getOutputs();
     }
 
     @Override
@@ -52,10 +64,14 @@ public class BlockRecipe {
     }
 
     public boolean isInvalid() {
-        return (input.isSimple() && ArrayUtils.isEmpty(input.getMatchingStacks())) || (outputs == null || outputs.isEmpty());
+        return (input.isSimple() && InvUtils.isIngredientValid(input) || recipeOutput.isInvalid());
     }
 
     public boolean matches(World world, BlockPos pos, IBlockState state) {
         return getInput().apply(world, pos, state);
+    }
+
+    public boolean isHidden() {
+        return false;
     }
 }

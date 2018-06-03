@@ -2,14 +2,11 @@ package betterwithmods.module.compat.jei.category;
 
 
 import betterwithmods.BWMod;
+import betterwithmods.api.recipe.IOutput;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.module.compat.jei.wrapper.KilnRecipeWrapper;
-import betterwithmods.util.InvUtils;
 import mezz.jei.api.IGuiHelper;
-import mezz.jei.api.gui.IDrawableAnimated;
-import mezz.jei.api.gui.IDrawableStatic;
-import mezz.jei.api.gui.IGuiItemStackGroup;
-import mezz.jei.api.gui.IRecipeLayout;
+import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
@@ -35,11 +32,6 @@ public class KilnRecipeCategory extends BWMRecipeCategory<KilnRecipeWrapper> {
     }
 
     @Override
-    public String getModName() {
-        return BWMod.NAME;
-    }
-
-    @Override
     public void drawExtras(@Nonnull Minecraft minecraft) {
         flame.draw(minecraft, 67, 33);
     }
@@ -50,15 +42,12 @@ public class KilnRecipeCategory extends BWMRecipeCategory<KilnRecipeWrapper> {
         this.flame = helper.createAnimatedDrawable(flameDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
 
         IGuiItemStackGroup stacks = layout.getItemStacks();
+        IGuiIngredientGroup<IOutput> outputs = layout.getIngredientsGroup(IOutput.class);
+
         stacks.init(0, true, 20, 31);
-        int outputSlot = 1;
-        for (int i = 0; i < 2; i++)
-            for (int j = 0; j < 2; j++)
-                stacks.init(outputSlot + i * 2 + j, false, 94 + j * 18, 22 + i * 18);
-        stacks.set(0, ingredients.getInputs(ItemStack.class).get(0));
-        int index = 0;
-        for (List<ItemStack> outputStacks : InvUtils.splitIntoBoxes(ingredients.getOutputs(ItemStack.class).get(0), 2))
-            stacks.set(outputSlot + index++, outputStacks);
+        createSlotsHorizontal(outputs,false, 3, 1, 87,32);
+        stacks.set(ingredients);
+        outputs.set(ingredients);
 
         int heat = wrapper.getRecipe().getHeat();
         List<ItemStack> heatSources = BWMHeatRegistry.getStacks(heat);

@@ -16,7 +16,7 @@ public class BlockWicker extends BlockPane implements IMultiVariants {
         this.setDefaultState(getDefaultState());
         this.setSoundType(SoundType.WOOD);
     }
-
+    
     @Override
     public String[] getVariants() {
         return new String[]{"east=false,north=true,south=true,west=false"};

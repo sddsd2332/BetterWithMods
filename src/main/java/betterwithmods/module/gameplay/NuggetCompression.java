@@ -28,7 +28,6 @@ public class NuggetCompression extends Feature {
                 StackIngredient nugget = StackIngredient.fromOre(9, "nugget" + suffix);
                 BWRegistry.CRUCIBLE.addStokedRecipe(nugget, ingot.getOres().get(0));
             }
-
         }
     }
 }

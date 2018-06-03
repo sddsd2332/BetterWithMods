@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.world;
 
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
+import betterwithmods.util.StackIngredient;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -21,7 +22,7 @@ public class HCTorches extends Feature {
     }
     @Override
     public void init(FMLInitializationEvent event) {
-        addHardcoreRecipe(new ShapedOreRecipe(null, Blocks.TORCH, "C", "S", 'C', Ingredient.fromStacks(new ItemStack(Items.COAL, 1, 0), new ItemStack(Items.COAL, 1, 1)), 'S', "stickWood").setRegistryName(new ResourceLocation("minecraft", "torch")));
+        addHardcoreRecipe(new ShapedOreRecipe(null, Blocks.TORCH, "C", "S", 'C', StackIngredient.fromStacks(new ItemStack(Items.COAL, 1, 0), new ItemStack(Items.COAL, 1, 1)), 'S', "stickWood").setRegistryName(new ResourceLocation("minecraft", "torch")));
         addHardcoreRecipe(new ShapedOreRecipe(null, Blocks.TORCH, "C", "S", 'C', ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.NETHERCOAL), 'S', "stickWood").setRegistryName(new ResourceLocation("betterwithmods", "torch")));
     }
 

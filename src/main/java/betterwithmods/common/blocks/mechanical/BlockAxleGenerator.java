@@ -12,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
@@ -88,11 +89,15 @@ public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActiv
     public abstract ItemStack getItem(World worldIn, BlockPos pos, IBlockState state);
 
     @Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        List<ItemStack> drops = new ArrayList<>();
-        drops.add(new ItemStack(BWMBlocks.WOODEN_AXLE));
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        super.getDrops(drops, world, pos, state, fortune);
+        if(state.getValue(EnumTier.TIER) == EnumTier.WOOD) {
+            drops.add(new ItemStack(BWMBlocks.WOODEN_AXLE));
+        } else {
+            drops.add(new ItemStack(BWMBlocks.STEEL_AXLE));
+        }
         drops.add(getItem((World) world, pos, state));
-        return drops;
+
     }
 
     public IBlockState getAxisState(EnumFacing.Axis axis) {

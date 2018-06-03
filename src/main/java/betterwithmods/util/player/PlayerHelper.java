@@ -301,6 +301,7 @@ public final class PlayerHelper {
         return player.getUniqueID();
     }
 
-
-
+    public static boolean isMoving(EntityPlayer player) {
+        return player.motionX != 0 && player.motionZ != 0;
+    }
 }

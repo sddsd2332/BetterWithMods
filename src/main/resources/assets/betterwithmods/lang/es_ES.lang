@@ -472,7 +472,7 @@ fluid.betterwithmods:hellfire.name=Molten Hellfire
 material.soulforged_steel.name=Acero Forjado de Alma
 material.hellfire.name=Hellfire
 modifier.mending.name=Reparación
-modifier.mending.desc=??oKillsteal!??r\nAbsorbe experiencia para reparar la herramienta.
+modifier.mending.desc=??oKillsteal!??r Absorbe experiencia para reparar la herramienta.
 
 entity.entity_sheared_creeper.name=Creeper Esquilado
 entity.bwm_jungle_spider.name=Araña de la Selva
@@ -534,7 +534,7 @@ tooltip.windmill.name=Los Molinos de Viento giran más rápido cuando llueve o a
 tooltip.bwm_book.name=El libro del Singular.
 
 
-bwm.manual.message=Le han dado un Manual de Mejor con Mods. Este mod puede ser diferente de lo que estás esperando.\nPor favor lee la sección Curso intensivo.
+bwm.manual.message=Le han dado un Manual de Mejor con Mods. Este mod puede ser diferente de lo que estás esperando. Por favor lee la sección Curso intensivo.
 
 bwm.manual.home=Inicio
 bwm.manual.blocks=Bloques

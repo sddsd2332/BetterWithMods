@@ -21,12 +21,13 @@ import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
+@Mod.EventBusSubscriber
 @Mod(modid = BWMod.MODID, name = BWMod.NAME, version = BWMod.VERSION, dependencies = BWMod.DEPENDENCIES, guiFactory = "betterwithmods.client.gui.BWGuiFactory", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class BWMod {
     public static final String MODID = "betterwithmods";
     public static final String VERSION = "${version}";
     public static final String NAME = "Better With Mods";
-    public static final String DEPENDENCIES = "after:natura;before:survivalist;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
+    public static final String DEPENDENCIES = "after:thaumcraft;after:natura;before:survivalist;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
 
     public static Logger logger;
     @SuppressWarnings({"CanBeFinal", "unused"})
@@ -94,4 +95,5 @@ public class BWMod {
     public static boolean isDev() {
         return BWMod.VERSION.equalsIgnoreCase("${version}");
     }
+
 }

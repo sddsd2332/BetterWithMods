@@ -4,8 +4,6 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityTurntable;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
-import betterwithmods.event.FakePlayerHandler;
-import betterwithmods.util.InvUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -14,7 +12,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 import java.util.List;
-import java.util.Random;
 import java.util.stream.Collectors;
 
 public class TurntableManagerBlock extends CraftingManagerBlock<TurntableRecipe> {
@@ -48,13 +45,6 @@ public class TurntableManagerBlock extends CraftingManagerBlock<TurntableRecipe>
     }
 
     @Override
-    public boolean canCraft(World world, BlockPos pos, IBlockState state) {
-        TileEntityTurntable turntable = findTurntable(world, pos);
-        TurntableRecipe recipe = findRecipe(world, pos, state).orElse(null);
-        return turntable != null && recipe != null && turntable.getPotteryRotation() >= recipe.getRotations();
-    }
-
-    @Override
     public TurntableRecipe addRecipe(TurntableRecipe recipe) {
         return super.addRecipe(recipe);
     }
@@ -67,18 +57,5 @@ public class TurntableManagerBlock extends CraftingManagerBlock<TurntableRecipe>
             }
         }
         return null;
-    }
-
-
-    @Override
-    public boolean craftRecipe(World world, BlockPos pos, Random rand, IBlockState state) {
-        TurntableRecipe recipe = findRecipe(world, pos, state).orElse(null);
-        if (recipe != null && canCraft(world, pos, state)) {
-            InvUtils.ejectStackWithOffset(world, pos, craftItem(world, pos, state));
-            state.getBlock().onBlockHarvested(world, pos, state, FakePlayerHandler.getPlayer());
-            world.setBlockState(pos, recipe.getProductState(), world.isRemote ? 11 : 3);
-            return true;
-        }
-        return false;
     }
 }

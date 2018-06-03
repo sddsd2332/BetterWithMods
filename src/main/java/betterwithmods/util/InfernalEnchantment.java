@@ -13,6 +13,6 @@ public class InfernalEnchantment extends Enchantment {
     }
 
     private static EntityEquipmentSlot[] getSlots(Enchantment enchantment) {
-        return ReflectionHelper.getPrivateValue(Enchantment.class, enchantment, "field_185263_a", "applicableEquipmentTypes");
+        return ReflectionHelper.getPrivateValue(Enchantment.class, enchantment, ReflectionLib.ENCHANTMENT_APPLICIBLE_EQUIPMENT_TYPES);
     }
 }

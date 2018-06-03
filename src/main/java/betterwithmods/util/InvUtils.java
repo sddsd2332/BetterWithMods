@@ -25,13 +25,27 @@ import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
+import org.apache.commons.lang3.ArrayUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
+import java.util.function.BiPredicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class InvUtils {
+
+    public static boolean containsIngredient(List<Ingredient> collection, List<Ingredient> ingredient) {
+        return matchesPredicate(collection, ingredient, (a,b) -> {
+            if(a.getMatchingStacks().length > 0)
+                return Arrays.stream(a.getMatchingStacks()).allMatch(b::apply);
+            return false;
+        });
+    }
+
+    public static boolean isIngredientValid(Ingredient ingredient) {
+        return ArrayUtils.isEmpty(ingredient.getMatchingStacks());
+    }
 
     public static boolean containsIngredient(ItemStackHandler handler, Ingredient ingredient) {
         return InventoryIterator.stream(handler).anyMatch(ingredient::apply);
@@ -434,7 +448,7 @@ public class InvUtils {
     }
 
     public static int getFirstOccupiedStackOfItem(IItemHandler inv, ItemStack stack) {
-        return getFirstOccupiedStackOfItem(inv, Ingredient.fromStacks(stack));
+        return getFirstOccupiedStackOfItem(inv, StackIngredient.fromStacks(stack));
     }
 
     public static int getFirstOccupiedStackOfItem(IItemHandler inv, Ingredient ingred) {
@@ -496,35 +510,19 @@ public class InvUtils {
     public static void ejectStackWithOffset(World world, BlockPos pos, ItemStack stack) {
         if (stack.isEmpty())
             return;
-        float xOff = world.rand.nextFloat() * 0.5F + 0.25F;
-        float yOff = world.rand.nextFloat() * 0.5F + 0.25F;
-        float zOff = world.rand.nextFloat() * 0.5F + 0.25F;
-        ejectStack(world, (double) ((float) pos.getX() + xOff), (double) ((float) pos.getY() + yOff), (double) ((float) pos.getZ() + zOff), stack, 10);
+        VectorBuilder builder = new VectorBuilder();
+        new StackEjector(world, stack,builder.set(pos).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f).build()).ejectStack();
     }
 
-    public static void ejectStack(World world, BlockPos pos, List<ItemStack> stacks) {
-        for (ItemStack stack : stacks)
-            ejectStack(world, pos.getX(), pos.getY(), pos.getZ(), stack, 10);
-    }
-
-    public static void ejectStack(World world, BlockPos pos, ItemStack stack) {
-        ejectStack(world, pos.getX(), pos.getY(), pos.getZ(), stack, 10);
-    }
-
-    public static void ejectStack(World world, BlockPos pos, ItemStack stack, int pickupDelay) {
-        ejectStack(world, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, stack, pickupDelay);
-    }
 
     public static void ejectStack(World world, double x, double y, double z, ItemStack stack, int pickupDelay) {
         if (world.isRemote)
             return;
-        EntityItem item = new EntityItem(world, x, y, z, stack);
-        float velocity = 0.05F;
-        item.motionX = (double) ((float) world.rand.nextGaussian() * velocity);
-        item.motionY = (double) ((float) world.rand.nextGaussian() * velocity + 0.2F);
-        item.motionZ = (double) ((float) world.rand.nextGaussian() * velocity);
-        item.setPickupDelay(pickupDelay);
-        world.spawnEntity(item);
+
+        VectorBuilder builder = new VectorBuilder();
+        StackEjector ejector = new StackEjector(world, stack,builder.set(x,y,z).build());
+        ejector.setPickupDelay(pickupDelay);
+        ejector.ejectStack();
     }
 
     public static void ejectStack(World world, double x, double y, double z, ItemStack stack) {
@@ -583,6 +581,8 @@ public class InvUtils {
     }
 
     public static ItemStack setCount(ItemStack input, int count) {
+        if(input.isEmpty())
+            return input;
         ItemStack stack = input.copy();
         stack.setCount(count);
         return stack;
@@ -601,32 +601,28 @@ public class InvUtils {
         return one.getCount() == two.getCount() && matches(one, two);
     }
 
-    public static boolean matchesExact(List<ItemStack> oneList, List<ItemStack> twoList) {
+
+    public static <T> boolean matchesPredicate(List<T> oneList, List<T> twoList, BiPredicate<T,T> matches) {
         if (oneList.size() != twoList.size())
             return false; //trivial case
-        HashSet<ItemStack> alreadyMatched = new HashSet<>();
-        for (ItemStack one : oneList) {
-            Optional<ItemStack> found = twoList.stream().filter(two -> !alreadyMatched.contains(two) && matchesSize(one, two)).findFirst();
+        HashSet<T> alreadyMatched = new HashSet<>();
+        for (T one : oneList) {
+            Optional<T> found = twoList.stream().filter(two -> !alreadyMatched.contains(two) && matches.test(one,two)).findFirst();
             if (found.isPresent())
                 alreadyMatched.add(found.get()); //Don't match twice
             else
-                return false; //This itemstack doesn't match, thus the two lists don't match
+                return false; //This T doesn't match, thus the two lists don't match
         }
         return true;
     }
 
+
+    public static boolean matchesExact(List<ItemStack> oneList, List<ItemStack> twoList) {
+        return matchesPredicate(oneList, twoList, InvUtils::matchesSize);
+    }
+
     public static boolean matches(List<ItemStack> oneList, List<ItemStack> twoList) {
-        if (oneList.size() != twoList.size())
-            return false; //trivial case
-        HashSet<ItemStack> alreadyMatched = new HashSet<>();
-        for (ItemStack one : oneList) {
-            Optional<ItemStack> found = twoList.stream().filter(two -> !alreadyMatched.contains(two) && matches(one, two)).findFirst();
-            if (found.isPresent())
-                alreadyMatched.add(found.get()); //Don't match twice
-            else
-                return false; //This itemstack doesn't match, thus the two lists don't match
-        }
-        return true;
+        return matchesPredicate(oneList,twoList, InvUtils::matches);
     }
 
     public static <T> List<List<T>> splitIntoBoxes(List<T> stacks, int boxes) {
@@ -637,4 +633,6 @@ public class InvUtils {
         }
         return splitStacks;
     }
+
+
 }

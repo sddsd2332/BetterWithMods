@@ -1,5 +1,6 @@
 package betterwithmods.common.entity.ai;
 
+import betterwithmods.util.ReflectionLib;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityVillager;
@@ -33,7 +34,7 @@ public class EntityAIVillagerMate extends EntityAIBase {
 
     public static boolean isWillingToMate(EntityVillager villager) {
         if (villager != null) {
-            return ReflectionHelper.getPrivateValue(EntityVillager.class, villager, "isWillingToMate", "field_175565_bs");
+            return ReflectionHelper.getPrivateValue(EntityVillager.class, villager, ReflectionLib.ENTITY_VILLAGER_ISWILLINGTOMATE);
         }
         return false;
     }

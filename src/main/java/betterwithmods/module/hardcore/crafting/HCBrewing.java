@@ -3,6 +3,8 @@ package betterwithmods.module.hardcore.crafting;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
+import betterwithmods.util.ReflectionLib;
+import betterwithmods.util.StackIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -27,13 +29,11 @@ import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
-import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 import java.util.ListIterator;
@@ -94,23 +94,18 @@ public class HCBrewing extends Feature {
     public void postInit(FMLPostInitializationEvent event) {
         tryChangePotions = true;
 
-        List<MixPredicate<PotionType>> moddedPotions = new ArrayList<>();
-        List<MixPredicate<PotionType>> mixPredicates = new ArrayList<>();
+        List<MixPredicate<PotionType>> moddedPotions;
+        List<MixPredicate<PotionType>> mixPredicates;
 
-        try {
-            mixPredicates = (List<MixPredicate<PotionType>>) ReflectionHelper.findField(PotionHelper.class, "field_185213_a", "POTION_TYPE_CONVERSIONS").get(null);
-            List<MixPredicate<Item>> mixItemPredicates = (List<MixPredicate<Item>>) ReflectionHelper.findField(PotionHelper.class, "field_185214_b", "POTION_ITEM_CONVERSIONS").get(null);
-            //List<PotionHelper.ItemPredicateInstance> potionItems = (List<PotionHelper.ItemPredicateInstance>) ReflectionHelper.findField(PotionHelper.class,"field_185215_c","POTION_ITEMS").get(null);
+        mixPredicates = ReflectionHelper.getPrivateValue(PotionHelper.class, null, ReflectionLib.POTIONHELPER_TYPE_CONVERSIONS);
+        List<MixPredicate<Item>> mixItemPredicates = ReflectionHelper.getPrivateValue(PotionHelper.class, null, ReflectionLib.POTIONHELPER_ITEM_CONVERSIONS);
+        //List<PotionHelper.ItemPredicateInstance> potionItems = (List<PotionHelper.ItemPredicateInstance>) ReflectionHelper.findField(PotionHelper.class,"field_185215_c","POTION_ITEMS").get(null);
 
-            moddedPotions = mixPredicates.stream().filter(this::isModdedPotion).collect(Collectors.toList());
+        moddedPotions = mixPredicates.stream().filter(this::isModdedPotion).collect(Collectors.toList());
 
-            mixPredicates.clear();
-            mixItemPredicates.clear();
-            //potionItems.clear(); //Don't clear this, this is just potion-related crap
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-            tryChangePotions = false;
-        }
+        mixPredicates.clear();
+        mixItemPredicates.clear();
+        //potionItems.clear(); //Don't clear this, this is just potion-related crap
 
         Items.POTIONITEM.setMaxStackSize(potionStackSize);
         Items.SPLASH_POTION.setMaxStackSize(potionStackSize);
@@ -208,59 +203,45 @@ public class HCBrewing extends Feature {
             PotionHelper.addMix(PotionTypes.LONG_NIGHT_VISION, inverter, PotionTypes.LONG_INVISIBILITY);
             PotionHelper.addMix(PotionTypes.INVISIBILITY, extender, PotionTypes.LONG_INVISIBILITY);
 
-        if (modPotionCompat) {
-            ItemStack extenderToReplace = new ItemStack(Items.REDSTONE);
-            ItemStack strengthenerToReplace = new ItemStack(Items.GLOWSTONE_DUST);
-            ItemStack inverterToReplace = new ItemStack(Items.FERMENTED_SPIDER_EYE);
-            ItemStack splashToReplace = new ItemStack(Items.GUNPOWDER);
+            if (modPotionCompat) {
+                ItemStack extenderToReplace = new ItemStack(Items.REDSTONE);
+                ItemStack strengthenerToReplace = new ItemStack(Items.GLOWSTONE_DUST);
+                ItemStack inverterToReplace = new ItemStack(Items.FERMENTED_SPIDER_EYE);
+                ItemStack splashToReplace = new ItemStack(Items.GUNPOWDER);
 
-            for(MixPredicate<PotionType> moddedPotion : moddedPotions)
-            {
-                if(moddedPotion.reagent.apply(extenderToReplace) && isExtended(moddedPotion.input.getEffects(),moddedPotion.output.getEffects()))
-                    moddedPotion.reagent = extender;
-                if(moddedPotion.reagent.apply(strengthenerToReplace) && isStrong(moddedPotion.input.getEffects(),moddedPotion.output.getEffects()))
-                    moddedPotion.reagent = strenthener;
-                if(moddedPotion.reagent.apply(inverterToReplace) && isInverted(moddedPotion.input.getEffects(),moddedPotion.output.getEffects()))
-                    moddedPotion.reagent = inverter;
-                mixPredicates.add(moddedPotion);
-            }
+                for (MixPredicate<PotionType> moddedPotion : moddedPotions) {
+                    if (moddedPotion.reagent.apply(extenderToReplace) && isExtended(moddedPotion.input.getEffects(), moddedPotion.output.getEffects()))
+                        moddedPotion.reagent = extender;
+                    if (moddedPotion.reagent.apply(strengthenerToReplace) && isStrong(moddedPotion.input.getEffects(), moddedPotion.output.getEffects()))
+                        moddedPotion.reagent = strenthener;
+                    if (moddedPotion.reagent.apply(inverterToReplace) && isInverted(moddedPotion.input.getEffects(), moddedPotion.output.getEffects()))
+                        moddedPotion.reagent = inverter;
+                    mixPredicates.add(moddedPotion);
+                }
 
-            try {
-                List<IBrewingRecipe> recipes = (List<IBrewingRecipe>) ReflectionHelper.findField(BrewingRecipeRegistry.class,"recipes").get(null);
+                List<IBrewingRecipe> recipes = ReflectionHelper.getPrivateValue(BrewingRecipeRegistry.class, null,"recipes");
                 ListIterator<IBrewingRecipe> iterator = recipes.listIterator();
 
-                while(iterator.hasNext())
-                {
+                while (iterator.hasNext()) {
                     IBrewingRecipe recipe = iterator.next();
-                    if(recipe instanceof AbstractBrewingRecipe)
-                    {
+                    if (recipe instanceof AbstractBrewingRecipe) {
                         AbstractBrewingRecipe abstractRecipe = (AbstractBrewingRecipe) recipe;
-                        if(abstractRecipe.isIngredient(extenderToReplace) && isExtended(abstractRecipe.getInput(),abstractRecipe.getOutput()))
-                        {
+                        if (abstractRecipe.isIngredient(extenderToReplace) && isExtended(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                             iterator.remove();
-                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(),ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.WITCH_WART),abstractRecipe.getOutput()));
-                        }
-                        else if(abstractRecipe.isIngredient(strengthenerToReplace) && isStrong(abstractRecipe.getInput(),abstractRecipe.getOutput()))
-                        {
+                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.WITCH_WART), abstractRecipe.getOutput()));
+                        } else if (abstractRecipe.isIngredient(strengthenerToReplace) && isStrong(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                             iterator.remove();
-                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(),ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BRIMSTONE),abstractRecipe.getOutput()));
-                        }
-                        else if(abstractRecipe.isIngredient(inverterToReplace) && isInverted(abstractRecipe.getInput(),abstractRecipe.getOutput()))
-                        {
+                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BRIMSTONE), abstractRecipe.getOutput()));
+                        } else if (abstractRecipe.isIngredient(inverterToReplace) && isInverted(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                             iterator.remove();
-                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(),ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.POISON_SAC),abstractRecipe.getOutput()));
-                        }
-                        else if(abstractRecipe.isIngredient(splashToReplace) && isSplash(abstractRecipe.getInput(),abstractRecipe.getOutput()))
-                        {
+                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.POISON_SAC), abstractRecipe.getOutput()));
+                        } else if (abstractRecipe.isIngredient(splashToReplace) && isSplash(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                             iterator.remove();
-                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(),new ItemStack(BWMItems.CREEPER_OYSTER),abstractRecipe.getOutput()));
+                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), new ItemStack(BWMItems.CREEPER_OYSTER), abstractRecipe.getOutput()));
                         }
                     }
                 }
-            } catch (IllegalAccessException e) {
-                e.printStackTrace();
             }
-        }
         }
     }
 
@@ -270,17 +251,15 @@ public class HCBrewing extends Feature {
         return registryName == null || (!registryName.getResourceDomain().toLowerCase().equals("minecraft") && !registryName.getResourceDomain().toLowerCase().equals("betterwithmods"));
     }
 
-    public boolean isExtended(ItemStack potionA, ItemStack potionB)
-    {
+    public boolean isExtended(ItemStack potionA, ItemStack potionB) {
         List<PotionEffect> effectsA = PotionUtils.getEffectsFromStack(potionA);
         List<PotionEffect> effectsB = PotionUtils.getEffectsFromStack(potionB);
 
-        return isExtended(effectsA,effectsB); //Not equal because of fuse potions in Extra Alchemy
+        return isExtended(effectsA, effectsB); //Not equal because of fuse potions in Extra Alchemy
     }
 
-    private boolean isExtended(List<PotionEffect> effectsA, List<PotionEffect> effectsB)
-    {
-        if(effectsA.size() != 1 || effectsB.size() != 1)
+    private boolean isExtended(List<PotionEffect> effectsA, List<PotionEffect> effectsB) {
+        if (effectsA.size() != 1 || effectsB.size() != 1)
             return false;
 
         PotionEffect effectA = effectsA.get(0);
@@ -293,17 +272,15 @@ public class HCBrewing extends Feature {
         return effectA.getPotion().equals(effectB.getPotion()) && effectA.getDuration() != effectB.getDuration();
     }
 
-    public boolean isStrong(ItemStack potionA, ItemStack potionB)
-    {
+    public boolean isStrong(ItemStack potionA, ItemStack potionB) {
         List<PotionEffect> effectsA = PotionUtils.getEffectsFromStack(potionA);
         List<PotionEffect> effectsB = PotionUtils.getEffectsFromStack(potionB);
 
         return isStrong(effectsA, effectsB);
     }
 
-    private boolean isStrong(List<PotionEffect> effectsA, List<PotionEffect> effectsB)
-    {
-        if(effectsA.size() != 1 || effectsB.size() != 1)
+    private boolean isStrong(List<PotionEffect> effectsA, List<PotionEffect> effectsB) {
+        if (effectsA.size() != 1 || effectsB.size() != 1)
             return false;
 
         PotionEffect effectA = effectsA.get(0);
@@ -316,17 +293,15 @@ public class HCBrewing extends Feature {
         return effectA.getPotion().equals(effectB.getPotion()) && effectA.getAmplifier() < effectB.getAmplifier();
     }
 
-    public boolean isInverted(ItemStack potionA, ItemStack potionB)
-    {
+    public boolean isInverted(ItemStack potionA, ItemStack potionB) {
         List<PotionEffect> effectsA = PotionUtils.getEffectsFromStack(potionA);
         List<PotionEffect> effectsB = PotionUtils.getEffectsFromStack(potionB);
 
         return isInverted(effectsA, effectsB);
     }
 
-    private boolean isInverted(List<PotionEffect> effectsA, List<PotionEffect> effectsB)
-    {
-        if(effectsA.size() != 1 || effectsB.size() != 1)
+    private boolean isInverted(List<PotionEffect> effectsA, List<PotionEffect> effectsB) {
+        if (effectsA.size() != 1 || effectsB.size() != 1)
             return false;
 
         PotionEffect effectA = effectsA.get(0);
@@ -339,12 +314,11 @@ public class HCBrewing extends Feature {
         return !effectA.getPotion().equals(effectB.getPotion());
     }
 
-    public boolean isSplash(ItemStack potionA, ItemStack potionB)
-    {
+    public boolean isSplash(ItemStack potionA, ItemStack potionB) {
         List<PotionEffect> effectsA = PotionUtils.getEffectsFromStack(potionA);
         List<PotionEffect> effectsB = PotionUtils.getEffectsFromStack(potionB);
 
-        if(effectsA.size() != 1 || effectsB.size() != 1)
+        if (effectsA.size() != 1 || effectsB.size() != 1)
             return false;
 
         PotionEffect effectA = effectsA.get(0);
@@ -353,19 +327,16 @@ public class HCBrewing extends Feature {
         return effectA.getPotion().equals(effectB.getPotion()) && potionB.getItem() instanceof ItemSplashPotion;
     }
 
-    public Ingredient convertToPotionItem(ItemStack stack)
-    {
+    public Ingredient convertToPotionItem(ItemStack stack) {
 
-        return Ingredient.fromStacks(stack);
+        return StackIngredient.fromStacks(stack);
     }
 
-    public Ingredient convertToPotionItem(Item item)
-    {
+    public Ingredient convertToPotionItem(Item item) {
         return Ingredient.fromItem(item);
     }
 
-    public Ingredient convertToPotionItem(Block block)
-    {
+    public Ingredient convertToPotionItem(Block block) {
         return Ingredient.fromItem(Item.getItemFromBlock(block));
     }
 

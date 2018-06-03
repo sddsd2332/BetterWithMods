@@ -1,10 +1,9 @@
 package betterwithmods.module.compat.jei.wrapper;
 
-import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.BlockUrn;
+import betterwithmods.api.recipe.IOutput;
 import betterwithmods.common.registry.HopperInteractions;
-import com.google.common.collect.Iterables;
 import com.google.common.collect.Lists;
+import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import net.minecraft.item.ItemStack;
@@ -20,34 +19,20 @@ import java.util.List;
 public class HopperRecipeWrapper implements IRecipeWrapper {
 
     public final HopperInteractions.HopperRecipe recipe;
-    protected final List<ItemStack> input;
-    protected final List<ItemStack> filter;
-    protected final List<ItemStack> outputs;
-    protected final List<ItemStack> secondaryOutputs;
-    protected final List<ItemStack> container;
+    private final IJeiHelpers helpers;
 
-    public HopperRecipeWrapper(HopperInteractions.HopperRecipe recipe) {
+    public HopperRecipeWrapper(IJeiHelpers helpers, HopperInteractions.HopperRecipe recipe) {
         this.recipe = recipe;
-        this.input = recipe.getInputs();
-        this.outputs = recipe.getOutputs();
-        this.secondaryOutputs = recipe.getSecondaryOutputs();
-        this.filter = Lists.newArrayList(BWRegistry.HOPPER_FILTERS.getFilter(recipe.getFilterType()).getFilter().getMatchingStacks());
-        this.container = recipe.getContainers();
+        this.helpers = helpers;
     }
 
     @Override
     public void getIngredients(IIngredients ingredients) {
-        ingredients.setInputLists(ItemStack.class, Lists.newArrayList(input,filter,container));
-        ingredients.setOutputLists(ItemStack.class, Lists.newArrayList(outputs,secondaryOutputs));
+        ingredients.setInputLists(ItemStack.class, Lists.newArrayList(helpers.getStackHelper().toItemStackList(recipe.getInputs()), recipe.getFilters(), recipe.getInputContainer()));
+        List<List<IOutput>> outputs = recipe.getRecipeOutputWorld().getExpandedOutputs(2);
+        outputs.addAll(recipe.getRecipeOutputInsert().getExpandedOutputs(2));
+        ingredients.setOutputLists(IOutput.class, outputs);
+        ingredients.setOutputs(ItemStack.class, recipe.getOutputContainer());
     }
 
-    public static class SoulUrn extends HopperRecipeWrapper {
-        public SoulUrn(HopperInteractions.SoulUrnRecipe recipe) {
-            super(recipe);
-            if(recipe.hasUrn())
-                secondaryOutputs.add(BlockUrn.getStack(BlockUrn.EnumType.FULL,1));
-            else
-                container.clear();
-        }
-    }
 }

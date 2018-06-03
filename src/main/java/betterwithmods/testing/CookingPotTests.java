@@ -5,6 +5,7 @@ import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.testing.base.BaseTest;
 import betterwithmods.testing.base.Before;
 import betterwithmods.testing.base.Test;
+import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -19,7 +20,7 @@ public class CookingPotTests extends BaseTest {
 
     private CookingPotManager TEST_MANAGER;
 
-    private List<Ingredient> inputs = Lists.newArrayList(Ingredient.fromStacks(new ItemStack(Blocks.COBBLESTONE)));
+    private List<Ingredient> inputs = Lists.newArrayList(StackIngredient.fromStacks(new ItemStack(Blocks.COBBLESTONE)));
     private List<ItemStack> outputs = Lists.newArrayList(new ItemStack(Items.DIAMOND));
     private CookingPotRecipe recipe = new CookingPotRecipe(inputs, outputs, 1);
 

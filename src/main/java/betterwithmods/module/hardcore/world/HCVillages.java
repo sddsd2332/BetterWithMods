@@ -131,7 +131,6 @@ public class HCVillages extends Feature {
 				event.setCanceled(true);
 			}
 		}
-
 	}
 
 	@Override
