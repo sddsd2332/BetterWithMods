@@ -116,7 +116,7 @@ public class RenderUtils {
         if (sprite == null) {
             sprite = minecraft.getTextureMapBlocks().getMissingSprite();
         }
-        int brightness = minecraft.world.getCombinedLight(pos.offset(facing), 15);
+        int brightness = minecraft.world.getCombinedLight(pos.offset(facing), minecraft.world.getLight(pos));
         int light1 = brightness >> 0x10 & 0xFFFF;
         int light2 = brightness & 0xFFFF;
 
