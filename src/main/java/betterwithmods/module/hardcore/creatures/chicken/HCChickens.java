@@ -83,13 +83,13 @@ public class HCChickens extends Feature {
             chicken.timeUntilNextEgg = 6000000;
         }
         if (entityLiving.hasCapability(EGG_LAYER_CAP, EnumFacing.DOWN)) {
-            World world = entityLiving.getEntityWorld();
             EggLayer layer = entityLiving.getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
             if (layer != null) {
-                if (layer.canLayEgg(world)) {
-                    layer.lay(entityLiving);
-                } else if (layer.isFeed()) {
+                if(layer.isFeed()) {
                     layer.setTicks(layer.getTicks() - 1);
+                    if(layer.canLayEgg()) {
+                        layer.lay(entityLiving);
+                    }
                 }
             }
         }

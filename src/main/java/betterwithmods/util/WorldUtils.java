@@ -203,25 +203,22 @@ public final class WorldUtils {
     }
 
     public static boolean isPast(World world, TimeFrame frame) {
-        return frame.start > world.getWorldTime();
+        return frame.start < getDayTicks(world);
     }
 
     public static boolean isTimeFrame(World world, TimeFrame frame) {
-        return frame.isBetween((int) world.getWorldTime());
+        return frame.isBetween((int) getDayTicks(world));
     }
 
     public static boolean isMoonPhase(World world, MoonPhase phase) {
         return phase.ordinal() == world.provider.getMoonPhase(world.getWorldTime());
     }
 
-    public static boolean isSpecialDay() {
-        Calendar date = Calendar.getInstance();
-        return date.get(Calendar.MONTH) == Calendar.APRIL && date.get(Calendar.DAY_OF_MONTH) == 1;
+    public static int getDayTicks(World world) {
+        return (int) (world.getWorldTime() % Time.DAY.getTicks());
     }
 
-    public static int getCurrentDay(World world) {
-        return (int) (world.getTotalWorldTime() / Time.DAY.getTicks());
-    }
+
 
     public enum MoonPhase {
         Full,

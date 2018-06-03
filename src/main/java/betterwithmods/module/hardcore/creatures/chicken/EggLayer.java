@@ -19,7 +19,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
 
-public class EggLayer implements ICapabilitySerializable<NBTTagCompound>  {
+public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
     @SuppressWarnings("CanBeFinal")
     @CapabilityInject(EggLayer.class)
     public static Capability<EggLayer> EGG_LAYER_CAP = null;
@@ -34,10 +34,11 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound>  {
         this.feedItems = feedItems;
     }
 
-    public EggLayer() {}
+    public EggLayer() {
+    }
 
-    public boolean canLayEgg(World world) {
-        return isFeed() && getTicks() <= world.getTotalWorldTime();
+    public boolean canLayEgg() {
+        return getTicks() <= 0;
     }
 
     public boolean isFeed() {
@@ -74,10 +75,10 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound>  {
                 setFeed(true);
                 World world = entity.world;
 
-                long time = world.getWorldTime();
+                int time = (int) (world.getTotalWorldTime() % WorldUtils.Time.DAY.getTicks());
                 int timeLeft = (int) (WorldUtils.Time.DAY.getTicks() - time);
-                int ticks = timeLeft + WorldUtils.TimeFrame.DAWN.randomBetween()/2;
-                if(WorldUtils.isPast(world, WorldUtils.TimeFrame.NIGHT)) {
+                int ticks = timeLeft + WorldUtils.TimeFrame.DAWN.randomBetween() / 2;
+                if (WorldUtils.isPast(world, WorldUtils.TimeFrame.NIGHT)) {
                     ticks += WorldUtils.Time.DAY.getTicks();
                 }
 
@@ -102,7 +103,7 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound>  {
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if(capability == EGG_LAYER_CAP)
+        if (capability == EGG_LAYER_CAP)
             return EGG_LAYER_CAP.cast(this);
         return null;
     }
