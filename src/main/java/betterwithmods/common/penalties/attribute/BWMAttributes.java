@@ -10,6 +10,9 @@ public class BWMAttributes {
     public static Attribute<Boolean> JUMP, SWIM, HEAL, SPRINT, ATTACK, PAIN;
     public static Attribute<Float> SPEED;
 
+    public static Attribute<Boolean> GRUE;
+    public static Attribute<Float> SPOOKED;
+
 
     public static void registerAttributes() {
         JUMP = new Attribute<>(new ResourceLocation(BWMod.MODID, "jump"), true);
@@ -20,6 +23,9 @@ public class BWMAttributes {
         PAIN = new Attribute<>(new ResourceLocation(BWMod.MODID, "pain"), false);
 
         SPEED = new Attribute<>(new ResourceLocation(BWMod.MODID, "speed"), 1f);
+
+        GRUE = new Attribute<>(new ResourceLocation(BWMod.MODID, "grue"), false);
+        SPOOKED = new Attribute<>(new ResourceLocation(BWMod.MODID, "spooked"), 0f);
     }
 
     public static AttributeInstance<Boolean> getBooleanAttribute(IAttribute<Boolean> parent, String category, String penalty, String desc, Boolean defaultValue) {
@@ -40,8 +46,8 @@ public class BWMAttributes {
             Float lower = (float) ConfigHelper.loadPropDouble("Lower Range", String.join(".", category, penalty), desc, min.doubleValue());
             return (Range<T>) Range.between(upper, lower);
         } else if (max instanceof Integer) {
-            Integer upper = (int) ConfigHelper.loadPropInt("Upper Range", String.join(".", category, penalty), desc, max.intValue());
-            Integer lower = (int) ConfigHelper.loadPropInt("Lower Range", String.join(".", category, penalty), desc, min.intValue());
+            Integer upper = ConfigHelper.loadPropInt("Upper Range", String.join(".", category, penalty), desc, max.intValue());
+            Integer lower = ConfigHelper.loadPropInt("Lower Range", String.join(".", category, penalty), desc, min.intValue());
             return (Range<T>) Range.between(upper, lower);
         }
         return null;

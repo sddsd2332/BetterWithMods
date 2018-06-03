@@ -23,9 +23,16 @@ public class PenaltyHandlerRegistry extends HashSet<PenaltyHandler<?, ?>> {
         return stream().allMatch(handler -> handler.getPenalty(player).getBoolean(BWMAttributes.ATTACK).getValue());
     }
 
-
     public boolean inPain(EntityPlayer player) {
         return stream().anyMatch(handler -> handler.getPenalty(player).getBoolean(BWMAttributes.PAIN).getValue());
+    }
+
+    public float getSpooked(EntityPlayer player) {
+        return (float) stream().mapToDouble(handler -> handler.getPenalty(player).getFloat(BWMAttributes.SPOOKED).getValue().doubleValue()).reduce((a, b)-> a*b).orElse(0);
+    }
+
+    public boolean attackedByGrue(EntityPlayer player) {
+        return stream().anyMatch(handler -> handler.getPenalty(player).getBoolean(BWMAttributes.GRUE).getValue());
     }
 
     public float getSpeedModifier(EntityPlayer player) {

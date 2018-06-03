@@ -1,5 +1,8 @@
 package betterwithmods.module.hardcore.needs;
 
+import betterwithmods.common.BWRegistry;
+import betterwithmods.common.damagesource.BWDamageSource;
+import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.module.Feature;
 import betterwithmods.util.StackIngredient;
 import betterwithmods.util.player.PlayerHelper;
@@ -35,8 +38,6 @@ public class HCGloom extends Feature {
     private static Set<Integer> dimensionWhitelist;
     private static Ingredient gloomOverrideItems;
 
-    private static boolean dangers;
-
     public static int getGloomTime(EntityPlayer player) {
         try {
             return player.getDataManager().get(GLOOM_TICK);
@@ -46,18 +47,8 @@ public class HCGloom extends Feature {
     }
 
     public static void incrementGloomTime(EntityPlayer player) {
-//        int time = getGloomTime(player);
-//        if (dangers) {
-//            if (time >= GloomPenalty.TERROR.getTimeUpper())
-//                setGloomTick(player, GloomPenalty.TERROR.getTimeUpper());
-//            else
-//                setGloomTick(player, time + 1);
-//        } else {
-//            if (time >= GloomPenalty.DREAD.getTimeUpper())
-//                setGloomTick(player, GloomPenalty.DREAD.getTimeUpper());
-//            else
-//                setGloomTick(player, time + 1);
-//        }
+        int time = getGloomTime(player);
+        setGloomTick(player, time + 1);
     }
 
     public static void setGloomTick(EntityPlayer player, int value) {
@@ -67,7 +58,7 @@ public class HCGloom extends Feature {
     @Override
     public void setupConfig() {
         dimensionWhitelist = Sets.newHashSet(ArrayUtils.toObject(loadPropIntList("Gloom Dimension Whitelist", "Gloom is only available in these dimensions", new int[]{0})));
-        dangers = loadPropBool("Deathly Gloom", "Gloom is deadly to the player", true);
+        BWRegistry.PENALTY_HANDLERS.add(new GloomPenalties());
     }
 
     @Override
@@ -111,33 +102,28 @@ public class HCGloom extends Feature {
             }
         }
 
-//        GloomPenalty gloomPenalty = PlayerHelper.getGloomPenalty(player);
-//        if (gloomPenalty != GloomPenalty.NO_PENALTY) {
-//            playRandomSound(gloomPenalty, world, player);
-//            if (gloomPenalty == GloomPenalty.TERROR) {
-//                player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 100, 3));
-//                player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 100, 20));
-//                if (world.getTotalWorldTime() % 40 == 0) {
-//                    if (world.rand.nextInt(2) == 0) {
-//                        if (world.isRemote)
-//                            player.playSound(SoundEvents.ENTITY_ENDERMEN_STARE, 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
-//                        player.attackEntityFrom(BWDamageSource.gloom, 1);
-//                    }
-//                }
-//            }
-//        }
+        //TODO nausea & more sounds
+
+
+        //Random sounds
+        if (world.isRemote) {
+            float spooked = BWRegistry.PENALTY_HANDLERS.getSpooked(player);
+            if (world.rand.nextDouble() <= spooked) {
+                player.playSound(SoundEvents.AMBIENT_CAVE, 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
+                if (spooked > 0.5)
+                    player.playSound(sounds.get(world.rand.nextInt(sounds.size())), 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
+            }
+        }
+
+        if (world.getTotalWorldTime() % 40 == 0) {
+            if (world.rand.nextInt(2) == 0) {
+                if (BWRegistry.PENALTY_HANDLERS.attackedByGrue(player)) {
+                    player.attackEntityFrom(BWDamageSource.gloom, 1);
+                }
+            }
+        }
+
     }
-    //TODO TODO TODO
-//    public void playRandomSound(GloomPenalty gloom, World world, EntityPlayer player) {
-//        if (world.isRemote) {
-//            if (world.rand.nextInt((int) (200 / gloom.getModifier())) == 0) {
-//                player.playSound(SoundEvents.AMBIENT_CAVE, 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
-//                if (gloom != GloomPenalty.GLOOM && world.rand.nextInt((int) (10 / gloom.getModifier())) == 0)
-//                    player.playSound(sounds.get(world.rand.nextInt(sounds.size())), 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
-//
-//            }
-//        }
-//    }
 
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent event) {

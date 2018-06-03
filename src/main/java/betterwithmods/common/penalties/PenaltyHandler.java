@@ -7,7 +7,7 @@ import javax.annotation.Nonnull;
 import java.util.Set;
 
 public abstract class PenaltyHandler<T extends Number & Comparable, P extends Penalty<T>> {
-    private Set<P> penalties = Sets.newHashSet();
+    protected Set<P> penalties = Sets.newHashSet();
     private P defaultPenalty;
 
     public PenaltyHandler() {
