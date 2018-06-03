@@ -236,6 +236,17 @@ public class HCHunger extends CompatFeature {
         }
     }
 
+
+    @SubscribeEvent
+    public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
+        //TODO
+        if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
+            return;
+        //Whether the player can heal
+        Event.Result result = BWRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
+        event.setResult(result);
+    }
+
     //Adds Exhaustion when Jumping and cancels Jump if too exhausted
     @SubscribeEvent
     public void onJump(LivingEvent.LivingJumpEvent event) {

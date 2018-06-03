@@ -10,21 +10,9 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
-import squeek.applecore.api.hunger.HealthRegenEvent;
 
 @Mod.EventBusSubscriber
 public class PenaltyEventHandler {
-
-
-    @SubscribeEvent
-    public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
-        //TODO
-        if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
-            return;
-        //Whether the player can heal
-        Event.Result result = BWRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
-        event.setResult(result);
-    }
 
     @SubscribeEvent
     public static void onJump(LivingEvent.LivingJumpEvent event) {
