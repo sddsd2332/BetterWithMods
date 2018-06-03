@@ -9,6 +9,8 @@ import betterwithmods.util.StackIngredient;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockSand;
+import net.minecraft.block.BlockTallGrass;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -20,6 +22,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -39,7 +42,7 @@ import java.util.Random;
 
 import static betterwithmods.common.blocks.BlockPlanter.EnumType.*;
 
-public class BlockPlanter extends BWMBlock implements IMultiVariants {
+public class BlockPlanter extends BWMBlock implements IMultiVariants, IGrowable {
     public static final PropertyEnum<EnumType> TYPE = PropertyEnum.create("plantertype", EnumType.class);
 
     public BlockPlanter() {
@@ -109,6 +112,9 @@ public class BlockPlanter extends BWMBlock implements IMultiVariants {
 
             case GRASS:
             case DIRT:
+                if (newType == FERTILE) {
+                    ItemDye.applyBonemeal(heldItem, world, pos, player, hand);
+                }
                 if (newType == FARMLAND) {
                     heldItem.damageItem(1, player);
                     player.swingArm(hand);
@@ -117,13 +123,14 @@ public class BlockPlanter extends BWMBlock implements IMultiVariants {
                     break;
                 }
             case SOULSAND:
+                break;
             case FERTILE:
+                break;
             case FARMLAND:
                 if (newType == FERTILE) {
                     if (world.isRemote)
                         return true;
                     if (InvUtils.usePlayerItem(player, EnumFacing.UP, heldItem, 1)) {
-
                         world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.25F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                         world.setBlockState(pos, state.withProperty(TYPE, newType));
                         world.playEvent(2005, pos.up(), 0);
@@ -164,7 +171,7 @@ public class BlockPlanter extends BWMBlock implements IMultiVariants {
                         }
                         break;
                     case GRASS:
-                        if (rand.nextInt(30) == 0) {
+                        if (rand.nextInt(100) == 0) {
                             world.getBiome(pos).plantFlower(world, rand, up);
                             if (world.getLight(up) > 8) {
                                 for (int i = 0; i < 4; i++) {
@@ -259,6 +266,53 @@ public class BlockPlanter extends BWMBlock implements IMultiVariants {
                 return BlockFaceShape.BOWL;
             default:
                 return BlockFaceShape.SOLID;
+        }
+    }
+
+    @Override
+    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+        return state.getValue(TYPE) == GRASS;
+    }
+
+    @Override
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+        return canGrow(worldIn, pos, state, worldIn.isRemote);
+    }
+
+    @Override
+    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+        //Borrowed from BlockGrass
+        BlockPos blockpos = pos.up();
+
+        for (int i = 0; i < 128; ++i) {
+            BlockPos blockpos1 = blockpos;
+            int j = 0;
+
+            while (true) {
+                if (j >= i / 16) {
+                    if (worldIn.isAirBlock(blockpos1)) {
+                        if (rand.nextInt(8) == 0) {
+                            worldIn.getBiome(blockpos1).plantFlower(worldIn, rand, blockpos1);
+                        } else {
+                            IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+
+                            if (Blocks.TALLGRASS.canBlockStay(worldIn, blockpos1, iblockstate1)) {
+                                worldIn.setBlockState(blockpos1, iblockstate1, 3);
+                            }
+                        }
+                    }
+
+                    break;
+                }
+
+                blockpos1 = blockpos1.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+
+                if (worldIn.getBlockState(blockpos1.down()).getBlock() != Blocks.GRASS || worldIn.getBlockState(blockpos1).isNormalCube()) {
+                    break;
+                }
+
+                ++j;
+            }
         }
     }
 
