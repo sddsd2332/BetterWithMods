@@ -5,6 +5,7 @@ import betterwithmods.common.BWIMCHandler;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.event.FakePlayerHandler;
+import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.network.MessageFat;
 import betterwithmods.network.MessageGuiShake;
@@ -12,6 +13,7 @@ import betterwithmods.network.MessageHarnessSync;
 import betterwithmods.network.NetworkHandler;
 import betterwithmods.proxy.IProxy;
 import betterwithmods.testing.BWMTests;
+import betterwithmods.util.commands.HealthCommand;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -83,6 +85,9 @@ public class BWMod {
         ModuleLoader.serverStarting(evt);
         if(isDev()) {
             BWMTests.runTests();
+        }
+        if(GlobalConfig.debug) {
+            evt.registerServerCommand(new HealthCommand());
         }
     }
 

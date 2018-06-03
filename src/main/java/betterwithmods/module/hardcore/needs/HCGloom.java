@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.module.Feature;
 import betterwithmods.util.StackIngredient;
-import betterwithmods.util.player.GloomPenalty;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
