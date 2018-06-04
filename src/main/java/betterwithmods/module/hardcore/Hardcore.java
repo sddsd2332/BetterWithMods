@@ -11,6 +11,7 @@ import betterwithmods.module.hardcore.needs.*;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import betterwithmods.module.hardcore.world.*;
 import betterwithmods.module.hardcore.world.strata.HCStrata;
+import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**

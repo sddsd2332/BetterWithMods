@@ -1,10 +1,12 @@
-package betterwithmods.module.hardcore.world;
+package betterwithmods.module.hardcore.world.stumping;
 
 import betterwithmods.api.util.IWood;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.Feature;
+import betterwithmods.module.ModuleLoader;
+import betterwithmods.module.hardcore.world.strata.HCStrata;
 import betterwithmods.util.item.ToolsManager;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -13,6 +15,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -28,12 +31,14 @@ import java.util.Set;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCStumping extends Feature {
-
+    public static boolean ENABLED;
     public static boolean SPEED_UP_WITH_TOOLS;
     public static float STUMP_BREAK_SPEED;
     public static float ROOT_BREAK_SPEED;
 
     public static Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
+
+
 
     @Override
     public String getFeatureDescription() {
@@ -42,6 +47,7 @@ public class HCStumping extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
+        ENABLED = ModuleLoader.isFeatureEnabled(HCStumping.class);
     }
 
     @Nullable
@@ -67,6 +73,10 @@ public class HCStumping extends Feature {
     }
 
     public static String[] BLACKLIST_CONFIG;
+
+    public static boolean isActualStump(World world, BlockPos pos) {
+        return isStump(world.getBlockState(pos)) && isRoots(world.getBlockState(pos.down()));
+    }
 
     public static boolean isStump(IBlockState state) {
         if (!STUMP_BLACKLIST.contains(state.getBlock()) && state.getBlock() instanceof BlockLog) {
