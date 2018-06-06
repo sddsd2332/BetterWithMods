@@ -239,7 +239,6 @@ public class HCHunger extends CompatFeature {
 
     @SubscribeEvent
     public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
-        //TODO
         if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
             return;
         //Whether the player can heal
