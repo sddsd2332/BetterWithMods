@@ -36,20 +36,21 @@ public class ItemSimpleSlab extends ItemBlock {
             ItemStack stack = playerIn.getHeldItem(hand);
             if (!stack.isEmpty() && playerIn.canPlayerEdit(pos.offset(facing), facing, stack)) {
                 IBlockState iblockstate = worldIn.getBlockState(pos);
-
+                if (iblockstate.getBlock() != this.block) {
+                    pos = pos.offset(facing);
+                    iblockstate = worldIn.getBlockState(pos);
+                }
                 if (iblockstate.getBlock() == this.block) {
-                    if ((facing == EnumFacing.UP)) {
-                        IBlockState iblockstate1 = doubleSlab.getDefaultState();
-                        AxisAlignedBB axisalignedbb = iblockstate1.getCollisionBoundingBox(worldIn, pos);
+                    IBlockState iblockstate1 = doubleSlab.getDefaultState();
+                    AxisAlignedBB axisalignedbb = iblockstate1.getCollisionBoundingBox(worldIn, pos);
 
-                        if (axisalignedbb != Block.NULL_AABB && worldIn.checkNoEntityCollision(axisalignedbb.offset(pos)) && worldIn.setBlockState(pos, iblockstate1, 11)) {
-                            SoundType soundtype = this.doubleSlab.getSoundType(iblockstate1, worldIn, pos, playerIn);
-                            worldIn.playSound(playerIn, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
-                            stack.shrink(1);
-                        }
-
-                        return EnumActionResult.SUCCESS;
+                    if (axisalignedbb != Block.NULL_AABB && worldIn.checkNoEntityCollision(axisalignedbb.offset(pos)) && worldIn.setBlockState(pos, iblockstate1, 11)) {
+                        SoundType soundtype = this.doubleSlab.getSoundType(iblockstate1, worldIn, pos, playerIn);
+                        worldIn.playSound(playerIn, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);
+                        stack.shrink(1);
                     }
+
+                    return EnumActionResult.SUCCESS;
                 }
 
                 return super.onItemUse(playerIn, worldIn, pos, hand, facing, hitX, hitY, hitZ);

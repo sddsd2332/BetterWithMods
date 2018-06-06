@@ -66,6 +66,8 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 
 @SuppressWarnings("unused")
@@ -135,7 +137,14 @@ public class BWRegistry {
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
+
         for (IRecipe recipe : reg) {
+            for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {
+                Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
+                if(matcher.matches()) {
+                    reg.remove(recipe.getRegistryName());
+                }
+            }
             for (ResourceLocation loc : BWMRecipes.REMOVE_RECIPE_BY_RL) {
                 if (loc.equals(recipe.getRegistryName()))
                     reg.remove(recipe.getRegistryName());
@@ -202,6 +211,10 @@ public class BWRegistry {
                     return stack;
                 });
         BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.STONE, new BehaviorSilkTouch());
+        BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.LOG, new BehaviorSilkTouch());
+        BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.LOG2, new BehaviorSilkTouch());
+
+
         BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:sheep"), (world, pos, entity, stack) -> {
             EntitySheep sheep = (EntitySheep) entity;
             if (sheep.isShearable(new ItemStack(Items.SHEARS), world, pos)) {

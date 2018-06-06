@@ -1,5 +1,6 @@
 package betterwithmods.api.block;
 
+import betterwithmods.common.BWSounds;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
@@ -14,7 +15,7 @@ public interface IOverpower {
 
     default void overpowerSound(World world, BlockPos pos) {
         for (int i = 0; i < 10; i++) {
-            world.playSound(null, pos, SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, SoundCategory.BLOCKS, 0.5f, world.rand.nextFloat() * 0.1F + 0.45F);
+            world.playSound(null, pos, BWSounds.MECHANICAL_OVERPOWER, SoundCategory.BLOCKS, 0.5f, world.rand.nextFloat() * 0.1F + 0.45F);
         }
         for (int i = 0; i < 5; i++) {
             float flX = pos.getX() + world.rand.nextFloat();

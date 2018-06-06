@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "config",
+      "enabled": "breedingharness"
+    }
+  ],
   "result": {
     "item": "betterwithmods:breeding_harness"
   },

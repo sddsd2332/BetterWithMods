@@ -7,10 +7,13 @@ import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.hardcore.beacons.HCBeacons;
 import betterwithmods.module.hardcore.crafting.*;
 import betterwithmods.module.hardcore.creatures.*;
+import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.module.hardcore.needs.*;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import betterwithmods.module.hardcore.world.*;
+import betterwithmods.module.hardcore.world.saplings.HCSapling;
 import betterwithmods.module.hardcore.world.strata.HCStrata;
+import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
@@ -79,8 +82,9 @@ public class Hardcore extends CompatModule {
         registerFeature(new HCEnchanting());
         registerFeature(new HCStrata());
         registerFeature(new HCFurnace());
-
+        registerFeature(new HCSapling());
         registerFeature(new ExplosiveRecipes());
+        registerFeature(new HCBabyZombies());
 //        registerFeature(new HCSquid());
 //        registerFeature(new HCVillagers());
         this.load();

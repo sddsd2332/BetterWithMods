@@ -52,5 +52,44 @@
       "betterwithmods:player/oof"
     ],
     "subtitle": "subtitles.bwm.oof"
+  },
+  "block.millstone.netherrack":{
+    "category": "block",
+    "sounds": [
+      "mob/ghast/scream1",
+      "mob/ghast/scream2",
+      "mob/ghast/scream3",
+      "mob/ghast/scream4",
+      "mob/ghast/scream5"
+    ],
+    "subtitle": "subtitles.bwm.millstone.netherrack"
+  },
+  "block.saw.cut": {
+    "category": "block",
+    "sounds": [
+      "minecart/base"
+    ],
+    "subtitle": "subtitle.bwm.saw.cut"
+  },
+  "block.mechanical.overpower": {
+    "category": "block",
+    "sounds": [
+      "mob/zombie/wood1",
+      "mob/zombie/wood2",
+      "mob/zombie/wood3",
+      "mob/zombie/wood4"
+    ],
+    "subtitle": "subtitle.bwm.mechanical.overpower"
+  },
+  "block.bloodwood.break": {
+    "category": "block",
+    "sounds": [
+      "mob/ghast/scream1",
+      "mob/ghast/scream2",
+      "mob/ghast/scream3",
+      "mob/ghast/scream4",
+      "mob/ghast/scream5"
+    ],
+    "subtitle": "subtitles.bwm.bloodwood.break"
   }
 }

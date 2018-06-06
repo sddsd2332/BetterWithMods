@@ -9,7 +9,10 @@ import betterwithmods.api.util.IProgressSource;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.blocks.tile.TileBasicInventory;
+import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.StackEjector;
+import betterwithmods.util.VectorBuilder;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -140,8 +143,9 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
             blocked = true;
             return;
         }
-
-        InvUtils.ejectStackWithOffset(getBlockWorld(), pos.offset(validDirections.get(getBlockWorld().rand.nextInt(validDirections.size()))), stack);
+        VectorBuilder builder = new VectorBuilder();
+        BlockPos offset = pos.offset(DirUtils.getRandomFacing(validDirections, getBlockWorld().rand));
+        new StackEjector(world, stack, builder.set(offset).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f, 0, 0.05f).build()).ejectStack();
     }
 
     public void ejectRecipe(NonNullList<ItemStack> output) {
@@ -153,6 +157,7 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
             }
         }
     }
+
 
     public boolean isGrinding() {
         return this.grindCounter > 0;
@@ -213,11 +218,6 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
     }
 
     @Override
-    public boolean showProgress() {
-        return isGrinding();
-    }
-
-    @Override
     public int getMax() {
         return grindMax;
     }
@@ -227,20 +227,4 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
         return this.grindCounter;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void setProgress(int progress) {
-        this.grindCounter = progress;
-    }
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void setMax(int max) {
-        this.grindMax = max;
-    }
-
-
-    @Override
-    public ItemStackHandler getInventory() {
-        return inventory;
-    }
 }

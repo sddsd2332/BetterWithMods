@@ -179,6 +179,7 @@ public class JEI implements IModPlugin {
 
         IRecipeTransferRegistry recipeTransferRegistry = reg.getRecipeTransferRegistry();
         recipeTransferRegistry.addRecipeTransferHandler(ContainerSteelAnvil.class, SteelAnvilRecipeCategory.UID, 1, 16, 17, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(new AnvilCraftingTransfer());
 
     }
 

@@ -53,22 +53,13 @@ public final class PlayerHelper {
 
     public static ItemStack getHolding(EntityPlayer player, EnumHand hand) {
         if (hand != null) {
-            switch (hand) {
-                case MAIN_HAND:
-                    return player.getHeldItemMainhand();
-                case OFF_HAND:
-                    return player.getHeldItemOffhand();
-            }
             return player.getHeldItem(hand);
         }
         return player.getHeldItem(EnumHand.MAIN_HAND);
     }
 
     public static Set<ItemStack> getHolding(EntityPlayer player) {
-        Set<ItemStack> holding = Sets.newHashSet();
-        holding.add(player.getHeldItem(EnumHand.MAIN_HAND));
-        holding.add(player.getHeldItem(EnumHand.OFF_HAND));
-        return holding.stream().filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+        return Sets.newHashSet(player.getHeldItemMainhand(),player.getHeldItemOffhand()).stream().filter(s -> !s.isEmpty()).collect(Collectors.toSet());
     }
 
     public static boolean isHolding(EntityPlayer player, Ingredient ingredient) {
@@ -310,5 +301,9 @@ public final class PlayerHelper {
         if (profile != null)
             return profile.getId();
         return player.getUniqueID();
+    }
+
+    public static boolean isMoving(EntityPlayer player) {
+        return player.motionX != 0 && player.motionZ != 0;
     }
 }

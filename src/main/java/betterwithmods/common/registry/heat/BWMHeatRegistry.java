@@ -28,7 +28,11 @@ public class BWMHeatRegistry {
     }
 
     public static HeatSource get(World world, BlockPos pos) {
-        return HEAT_SOURCES.stream().filter(bm -> bm.matches(world, pos)).findFirst().orElse(null);
+        for(HeatSource bm: HEAT_SOURCES) {
+            if(bm.matches(world, pos))
+                return bm;
+        }
+        return null;
     }
 
     public static int[] allHeatLevels() {

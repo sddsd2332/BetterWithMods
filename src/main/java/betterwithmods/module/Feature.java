@@ -204,4 +204,12 @@ public class Feature {
         BWMod.proxy.addResourceOverride("textures", "items", str, "png");
     }
 
+    public void overrideBlock(String str) {
+        BWMod.proxy.addResourceOverride("textures", "blocks", str, "png");
+    }
+
+    public void overrideItem(String str) {
+        BWMod.proxy.addResourceOverride("textures", "items", str, "png");
+    }
+
 }

@@ -31,7 +31,7 @@ public class ShooterSpiderWeb extends EntityAIBase {
         if (target != null) {
             this.target = target;
             double d = spider.getDistanceSq(target.posX, target.getEntityBoundingBox().minY, target.posZ);
-            return !(Math.sqrt(d) < 3 || target.isInWater() || target.isInWeb);
+            return !(Math.sqrt(d) < 5 || target.isInWater() || target.isInWeb);
         }
         return false;
     }
@@ -72,7 +72,7 @@ public class ShooterSpiderWeb extends EntityAIBase {
 
     private void shootWeb() {
 	    EntitySpiderWeb web = new EntitySpiderWeb(spider.getEntityWorld(), spider);
-	    double d0 = target.posY + (double)target.getEyeHeight() - 1.100000023841858D;
+	    double d0 = target.posY;
 	    double d1 = target.posX - spider.posX;
 	    double d2 = d0 - web.posY;
 	    double d3 = target.posZ - spider.posZ;

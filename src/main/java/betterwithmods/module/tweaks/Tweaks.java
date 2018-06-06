@@ -40,6 +40,11 @@ public class Tweaks extends Module {
         registerFeature(new MineshaftGeneration());
         registerFeature(new VisibleStorms());
         registerFeature(new LongBoi());
+        registerFeature(new MobEating());
+        registerFeature(new DetectorRail().recipes());
+        registerFeature(new SaddleRecipe().recipes());
+        registerFeature(new LlamaDrops());
+        registerFeature(new BabyJumping());
     }
 
     @Override

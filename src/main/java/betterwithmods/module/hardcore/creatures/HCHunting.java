@@ -1,14 +1,12 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.BWOreDictionary;
-import betterwithmods.common.entity.ai.EntityAIEatFood;
 import betterwithmods.common.entity.ai.ShooterSpiderWeb;
 import betterwithmods.module.Feature;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -31,8 +29,8 @@ public class HCHunting extends Feature {
     @Override
     public void setupConfig() {
         spidersShootWebs = loadPropBool("Spiders Shoot Web", "Spiders shoot webs at targets", true);
-        String[] zombieStrings = loadPropStringList("Mobs Zombies Attack", "List of entity classes which zombies will attack", new String[]{"net.minecraft.entity.passive.EntityCow", "net.minecraft.entity.passive.EntitySheep", "net.minecraft.entity.passive.EntityPig"});
-        String[] spiderStrings = loadPropStringList("Mobs Spider Attack", "List of entity classes which spiders will attack", new String[]{"net.minecraft.entity.passive.EntityChicken",});
+        String[] zombieStrings = loadPropStringList("Mobs Zombies Attack", "List of entity classes which zombies will attack", new String[]{"net.minecraft.entity.passive.EntityCow", "net.minecraft.entity.passive.EntitySheep", "net.minecraft.entity.passive.EntityPig", "net.minecraft.entity.passive.EntityLlama"});
+        String[] spiderStrings = loadPropStringList("Mobs Spider Attack", "List of entity classes which spiders will attack", new String[]{"net.minecraft.entity.passive.EntityChicken","net.minecraft.entity.passive.EntityRabbit",});
         zombiesAttack = Arrays.stream(zombieStrings).map(clazz -> {
             try {
                 return Class.forName(clazz);
@@ -55,7 +53,6 @@ public class HCHunting extends Feature {
         if (evt.getEntity() instanceof EntityCreature) {
             EntityCreature entity = (EntityCreature) evt.getEntity();
             if (entity instanceof EntityZombie) {
-                ((EntityZombie) entity).tasks.addTask(0, new EntityAIEatFood(entity, isMeat));
                 for (Class clazz : zombiesAttack) {
                     ((EntityZombie) entity).targetTasks.addTask(3, new EntityAINearestAttackableTarget(entity, clazz, true));
                 }
@@ -64,7 +61,6 @@ public class HCHunting extends Feature {
                 for (Class clazz : spiderAttack) {
                     ((EntitySpider) entity).targetTasks.addTask(3, new EntityAINearestAttackableTarget(entity, clazz, false));
                 }
-                ((EntitySpider) entity).tasks.addTask(0, new EntityAIEatFood(entity, itemStack -> itemStack.getItem() == Items.CHICKEN || itemStack.getItem() == Items.COOKED_CHICKEN));
                 if (spidersShootWebs) {
                     ((EntitySpider) entity).tasks.addTask(3, new ShooterSpiderWeb((EntitySpider) entity, 200, 15.0F));
                 }

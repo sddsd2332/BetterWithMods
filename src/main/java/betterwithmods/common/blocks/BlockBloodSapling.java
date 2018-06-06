@@ -60,21 +60,12 @@ public class BlockBloodSapling extends BlockBush {
         return true;
     }
 
-    @Override
-    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-        if (!world.isRemote && world.provider.isNether()) {
-            super.updateTick(world, pos, state, rand);
-            if (rand.nextInt(7) == 0) {
-
-            }
-        }
-    }
-
     public void grow(World world, BlockPos pos, IBlockState state, Random rand) {
-        if (state.getValue(STAGE) == 0)
+        if (state.getValue(STAGE) == 0) {
             world.setBlockState(pos, state.cycleProperty(STAGE), 4);
-        else
+        } else {
             this.generateTree(world, pos, state, rand);
+        }
     }
 
     public boolean generateTree(World world, BlockPos pos, IBlockState state, Random rand) {

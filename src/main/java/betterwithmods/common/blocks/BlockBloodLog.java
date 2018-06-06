@@ -1,13 +1,19 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.client.BWCreativeTabs;
+import betterwithmods.common.BWSounds;
 import betterwithmods.common.world.gen.feature.WorldGenBloodTree;
+import betterwithmods.util.DirUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLog;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -19,10 +25,19 @@ import java.util.stream.Collectors;
 public class BlockBloodLog extends BlockLog {
     public static final PropertyBool EXPANDABLE = PropertyBool.create("expandable");
 
+    public static final SoundType BLOODWOOD = new SoundType(1.0F, 1.0F, BWSounds.BLOODWOOD_BREAK, SoundEvents.BLOCK_WOOD_STEP, SoundEvents.BLOCK_WOOD_PLACE, SoundEvents.BLOCK_WOOD_HIT, SoundEvents.BLOCK_WOOD_FALL);
+
     public BlockBloodLog() {
         this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y).withProperty(EXPANDABLE, false));
         this.setTickRandomly(true);
         this.setCreativeTab(BWCreativeTabs.BWTAB);
+        this.setSoundType(SoundType.SLIME);
+    }
+
+    @Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+        world.playSound(null, pos, SoundEvents.ENTITY_GHAST_HURT, SoundCategory.BLOCKS, 1f,0.2f);
+        return super.removedByPlayer(state, world, pos, player, willHarvest);
     }
 
     @Override
@@ -33,8 +48,7 @@ public class BlockBloodLog extends BlockLog {
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
         if (!world.isRemote && world.provider.isNether() && state.getValue(EXPANDABLE)) {
-            List<EnumFacing> values = Lists.newArrayList(EnumFacing.values()).stream().filter(f -> f != EnumFacing.DOWN).collect(Collectors.toList());
-            for (EnumFacing face : values) {
+            for (EnumFacing face : DirUtils.NOT_DOWN) {
                 if (rand.nextInt(20) == 0)
                     expandTree(world, pos, face);
             }
@@ -49,7 +63,6 @@ public class BlockBloodLog extends BlockLog {
     @Override
     public IBlockState getStateFromMeta(int meta) {
         IBlockState state = this.getDefaultState().withProperty(EXPANDABLE, (meta & 3) % 4 == 1);
-
         switch (meta & 12)
         {
             case 0:

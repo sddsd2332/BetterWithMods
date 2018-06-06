@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.world;
 
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
+import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
@@ -23,6 +24,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
@@ -38,9 +40,26 @@ public class HCSpawn extends Feature {
 
     public static int HARDCORE_SPAWN_RADIUS;
     public static int HARDCORE_SPAWN_COOLDOWN_RADIUS;
-    public static int HARDCORE_SPAWN_COOLDOWN;//20 min
+    public static int HARDCORE_SPAWN_COOLDOWN; //20 min
     public static int HARDCORE_SPAWN_MAX_ATTEMPTS = 20;
+    @SuppressWarnings("CanBeFinal")
+    @CapabilityInject(SpawnSaving.class)
+    public static Capability<SpawnSaving> SPAWN_CAP = null;
 
+    public static void setSpawn(EntityPlayer player, BlockPos pos) {
+        if (player.hasCapability(SPAWN_CAP, null)) {
+            SpawnSaving cap = player.getCapability(SPAWN_CAP, null);
+            cap.setPos(pos);
+        }
+    }
+
+    public static BlockPos getSpawn(EntityPlayer player) {
+        if (player.hasCapability(SPAWN_CAP, null)) {
+            SpawnSaving cap = player.getCapability(SPAWN_CAP, null);
+            return cap.getPos();
+        }
+        return player.world.getSpawnPoint();
+    }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -77,27 +96,23 @@ public class HCSpawn extends Feature {
         if (PlayerHelper.isSurvival(player)) {
             int timeSinceDeath = player.getStatFile().readStat(StatList.TIME_SINCE_DEATH);
             boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
-            BlockPos newPos = getRespawnPoint(player, isNew ? player.world.getSpawnPoint() : getSpawn(player), HARDCORE_SPAWN_RADIUS);
+
+            BlockPos newPos = getRespawnPoint(player, isNew ? player.world.getSpawnPoint() : getSpawn(player), isNew ? HARDCORE_SPAWN_RADIUS: HARDCORE_SPAWN_COOLDOWN_RADIUS);
             setSpawn(player, newPos);
             player.setSpawnPoint(newPos, true);
         }
     }
 
-
-//
-//    public void clearConditions(EntityPlayer player) {
-//        World world = player.world;
-//        WorldInfo worldinfo = world.getWorldInfo();
-//        if(!(player.getServer() instanceof DedicatedServer) && world.playerEntities.size() == 1) {
-//            world.setWorldTime(1000); //Early Morning
-//            //Clear Weather
-//            worldinfo.setCleanWeatherTime(18000);
-//            worldinfo.setRainTime(0);
-//            worldinfo.setThunderTime(0);
-//            worldinfo.setRaining(false);
-//            worldinfo.setThundering(false);
-//        }
-//    }
+    public static BlockPos getRandomPoint(World world, BlockPos origin, int spawnFuzz) {
+        BlockPos ret = origin;
+        double fuzzVar = world.rand.nextDouble() * spawnFuzz;
+        double angle = Math.toRadians(world.rand.nextDouble() * 360);
+        double customX = -Math.sin(angle) * fuzzVar;
+        double customZ = Math.cos(angle) * fuzzVar;
+        ret = ret.add(MathHelper.floor(customX) + 0.5D, 1.5D, MathHelper.floor(customZ) + 0.5D);
+        ret = world.getTopSolidOrLiquidBlock(ret);
+        return ret;
+    }
 
     /**
      * Find a random position to respawn. Tries 20 times maximum to find a
@@ -113,20 +128,12 @@ public class HCSpawn extends Feature {
         if (!world.provider.isNether()) {
             boolean found = false;
             for (int tryCounter = 0; tryCounter < HARDCORE_SPAWN_MAX_ATTEMPTS; tryCounter++) {
-                ret = spawnPoint;
-                double fuzzVar = world.rand.nextDouble() * spawnFuzz;
-                double angle = world.rand.nextDouble();
-                double customX = (double) (-MathHelper
-                        .sin((float) (angle * 360.0D))) * fuzzVar;
-                double customZ = (double) MathHelper
-                        .cos((float) (angle * 360.0D)) * fuzzVar;
-                ret = ret.add(MathHelper.floor(customX) + 0.5D, 1.5D, MathHelper.floor(customZ) + 0.5D);
-                ret = world.getTopSolidOrLiquidBlock(ret);
 
+                ret = getRandomPoint(world, spawnPoint, spawnFuzz);
                 // Check if the position is correct
                 int cmp = ret.getY() - world.provider.getAverageGroundLevel();
                 Material check = world.getBlockState(ret).getMaterial();
-                if (cmp >= 0 && (check == null || !check.isLiquid())) {
+                if (cmp >= 0 && !check.isLiquid()) {
                     found = true;
                     break;
                 }
@@ -142,21 +149,6 @@ public class HCSpawn extends Feature {
         return true;
     }
 
-    public static void setSpawn(EntityPlayer player, BlockPos pos) {
-        if (player.hasCapability(SPAWN_CAP, null)) {
-            SpawnSaving cap = player.getCapability(SPAWN_CAP, null);
-            cap.setPos(pos);
-        }
-    }
-
-    public static BlockPos getSpawn(EntityPlayer player) {
-        if (player.hasCapability(SPAWN_CAP, null)) {
-            SpawnSaving cap = player.getCapability(SPAWN_CAP, null);
-            return cap.getPos();
-        }
-        return player.world.getSpawnPoint();
-    }
-
     @SubscribeEvent
     public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer) {
@@ -170,11 +162,6 @@ public class HCSpawn extends Feature {
             setSpawn(event.getEntityPlayer(), getSpawn(event.getOriginal()));
         }
     }
-
-
-    @SuppressWarnings("CanBeFinal")
-    @CapabilityInject(SpawnSaving.class)
-    public static Capability<SpawnSaving> SPAWN_CAP = null;
 
     public static class CapabilitySpawn implements Capability.IStorage<SpawnSaving> {
         @Nullable
@@ -234,4 +221,10 @@ public class HCSpawn extends Feature {
         }
     }
 
+    @Override
+    public void serverStarting(FMLServerStartingEvent event) {
+        if(GlobalConfig.debug) {
+            event.registerServerCommand(new DebugCommand());
+        }
+    }
 }

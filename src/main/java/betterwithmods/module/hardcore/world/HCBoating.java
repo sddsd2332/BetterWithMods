@@ -19,9 +19,12 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 public class HCBoating extends Feature {
 
+    //Quark Boat Sail Compat
+    private static final String TAG_BANNER = "quark:banner";
     public static HashMap<Ingredient, Integer> SPEED_ITEMS;
     public static List<ResourceLocation> BOAT_ENTRIES;
     public static int defaultSpeed;
@@ -58,10 +61,16 @@ public class HCBoating extends Feature {
         EntityPlayer player = event.player;
         Entity riding = player.getRidingEntity();
         if (riding != null && BOAT_ENTRIES.stream().anyMatch(r -> EntityList.isMatchingName(riding, r))) {
-            ItemStack stack = PlayerHelper.getHolding(player, player.getActiveHand());
+            Set<ItemStack> stacks = PlayerHelper.getHolding(player);
             int speed = defaultSpeed;
-            if (!stack.isEmpty())
-                speed = SPEED_ITEMS.entrySet().stream().filter(e -> e.getKey().apply(stack)).mapToInt(Map.Entry::getValue).findAny().orElse(defaultSpeed);
+            for (ItemStack stack : stacks) {
+                if (speed <= defaultSpeed) {
+                    if (!stack.isEmpty()) {
+                        speed = SPEED_ITEMS.entrySet().stream().filter(e -> e.getKey().apply(stack)).mapToInt(Map.Entry::getValue).findAny().orElse(defaultSpeed);
+                    }
+                }
+            }
+
             if (Loader.isModLoaded("quark")) {
                 int quarkCompat = quarkCompatSpeed((EntityBoat) riding);
                 if (quarkCompat > 0)
@@ -72,10 +81,6 @@ public class HCBoating extends Feature {
             riding.motionZ *= (speed / 100f);
         }
     }
-
-
-    //Quark Boat Sail Compat
-    private static final String TAG_BANNER = "quark:banner";
 
     private int quarkCompatSpeed(EntityBoat boat) {
         NBTTagCompound tag = boat.getEntityData();

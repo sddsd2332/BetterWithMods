@@ -36,7 +36,6 @@ public class HCMobEquipment extends CompatFeature {
 
 
     private static void skeleton(EntityLivingBase entity) {
-        armor(entity, IRON_ARMOR);
         entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
     }
 
@@ -45,9 +44,9 @@ public class HCMobEquipment extends CompatFeature {
         if (entity.getRNG().nextFloat() < 0.05F) {
             int i = entity.getRNG().nextInt(3);
             if (i == 0) {
-                entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD));
+                entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SWORD).copy());
             } else {
-                entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SHOVEL));
+                entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.IRON_SHOVEL).copy());
             }
         }
     }
@@ -63,7 +62,7 @@ public class HCMobEquipment extends CompatFeature {
                         continue;
                     }
                     flag = false;
-                    entity.setItemStackToSlot(slot, armor[s]);
+                    entity.setItemStackToSlot(slot, armor[s].copy());
                 }
             }
         }

@@ -1,21 +1,20 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.api.util.IProgressSource;
-import net.minecraft.inventory.Container;
+import betterwithmods.client.container.ContainerProgress;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class GuiProgress extends GuiBase {
 
-    private IProgressSource progressSource;
+    private ContainerProgress container;
 
-    public GuiProgress(Container inventorySlotsIn, ResourceLocation background, IProgressSource progressSource) {
-        super(inventorySlotsIn, background);
-        this.progressSource = progressSource;
+    public GuiProgress(ContainerProgress container, ResourceLocation background) {
+        super(container, background);
+        this.container = container;
     }
 
     @Override
     protected void drawExtras(float partialTicks, int mouseX, int mouseY, int centerX, int centerY) {
-        if (progressSource.showProgress()) {
+        if (container.showProgress()) {
             int progress = toPixels();
             drawTexturedModalRect(
                     centerX + getX(),
@@ -24,13 +23,12 @@ public abstract class GuiProgress extends GuiBase {
                     getTextureY() - progress,
                     getWidth(),
                     getHeight());
-
         }
     }
 
 
     protected double getPercentage() {
-        return (double) progressSource.getProgress() / (double) progressSource.getMax();
+        return (double) container.getProgress() / (double) container.getMax();
     }
 
     protected abstract int toPixels();

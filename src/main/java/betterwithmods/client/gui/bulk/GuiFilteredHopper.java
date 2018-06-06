@@ -12,7 +12,7 @@ public class GuiFilteredHopper extends GuiProgress {
     private final TileFilteredHopper tile;
 
     public GuiFilteredHopper(EntityPlayer player, TileFilteredHopper tile) {
-        super(new ContainerFilteredHopper(player, tile), TEXTURE, tile);
+        super(new ContainerFilteredHopper(player, tile), TEXTURE);
         this.ySize = 193;
         this.tile = tile;
     }

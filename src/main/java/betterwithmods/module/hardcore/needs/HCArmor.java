@@ -59,7 +59,9 @@ public class HCArmor extends Feature {
             return;
         EntityPlayer player = (EntityPlayer) event.getEntityLiving();
         if (PlayerHelper.isSurvival(player) && player.isInWater() && !PlayerHelper.canSwim(player) && !PlayerHelper.isNearBottom(player)) {
-            player.motionY -= 0.02;
+
+            player.motionY -= 0.44F;
+
         }
     }
 

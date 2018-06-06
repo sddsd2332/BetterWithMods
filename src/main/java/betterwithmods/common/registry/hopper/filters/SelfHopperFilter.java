@@ -14,7 +14,7 @@ public class SelfHopperFilter implements IHopperFilter {
     private Ingredient filter;
 
     public SelfHopperFilter(ItemStack stack) {
-        this(Ingredient.fromStacks(stack));
+        this(StackIngredient.fromStacks(stack));
     }
 
     public SelfHopperFilter(Ingredient filter) {

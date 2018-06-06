@@ -10,7 +10,7 @@ public class StackOutput implements IOutput {
     protected ItemStack output;
 
     public StackOutput(ItemStack stack) {
-        this.output = stack;
+        this.output = stack.copy();
     }
 
     @Override

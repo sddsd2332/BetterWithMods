@@ -4,6 +4,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.StackIngredient;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -39,9 +40,9 @@ public class BlockBrokenGearbox extends BWMBlock {
         super(Material.WOOD);
         this.type = type;
         if (type == EnumTier.WOOD) {
-            repairIngredient = Ingredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_GEAR, 2));
+            repairIngredient = StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.GEAR, 2));
         } else {
-            repairIngredient = Ingredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_GEAR, 2));
+            repairIngredient = StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_GEAR, 2));
         }
     }
 

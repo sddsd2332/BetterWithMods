@@ -98,7 +98,8 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     public void insert(Entity entity) {
         if (!InvUtils.isFull(inventory) && entity instanceof EntityItem) {
             EntityItem item = (EntityItem) entity;
-
+            if (item.isDead)
+                return;
             HopperRecipe recipe = BWRegistry.FILTERD_HOPPER.findRecipe(this, item.getItem()).orElse(null);
             if (recipe != null) {
                 if (recipe.craftRecipe(item, world, pos, this)) {
@@ -369,26 +370,13 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     }
 
     @Override
-    public boolean showProgress() {
-        return isPowered();
-    }
-
-    @Override
     public int getMax() {
         return 1;
     }
 
     @Override
-    public void setMax(int max) { /* NOOP */ }
-
-    @Override
     public int getProgress() {
         return Math.min(power, 1);
-    }
-
-    @Override
-    public void setProgress(int progress) {
-        this.power = (byte) progress;
     }
 
     private class HopperHandler extends SimpleStackHandler {

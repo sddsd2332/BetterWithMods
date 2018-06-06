@@ -1,0 +1,10 @@
+{
+   "ctm": {
+     "ctm_version": 1,
+     "type": "bwm_stump",
+     "layer": "SOLID",
+     "textures": [
+        "minecraft:blocks/log_spruce_stump"
+     ]
+   }
+}

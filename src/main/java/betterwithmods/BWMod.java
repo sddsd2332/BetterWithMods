@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.event.FMLInterModComms.IMCEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.Logger;
 
+@Mod.EventBusSubscriber
 @Mod(modid = BWMod.MODID, name = BWMod.NAME, version = BWMod.VERSION, dependencies = BWMod.DEPENDENCIES, guiFactory = "betterwithmods.client.gui.BWGuiFactory", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class BWMod {
     public static final String MODID = "betterwithmods";
@@ -102,4 +103,5 @@ public class BWMod {
     public static boolean isDev() {
         return BWMod.VERSION.equalsIgnoreCase("${version}");
     }
+
 }

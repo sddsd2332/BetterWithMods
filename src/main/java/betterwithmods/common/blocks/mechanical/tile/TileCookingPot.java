@@ -117,6 +117,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
 
     @Override
     public void update() {
+
         if (getBlock() instanceof BlockCookingPot) {
             IBlockState state = this.getBlockWorld().getBlockState(this.pos);
             if (isPowered()) {
@@ -131,25 +132,26 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
                 spawnParticles();
 
                 entityCollision();
-                int heat = findHeat(getPos());
-                if (this.heat != heat) {
-                    this.heat = heat;
-                    this.cookProgress = 0;
-                    this.markDirty();
+                //Only do crafting on the server
+                if(!world.isRemote) {
+
+                    int heat = findHeat(getPos());
+                    if (this.heat != heat) {
+                        this.heat = heat;
+                        this.cookProgress = 0;
+                    }
+                    int time = findCookTime();
+                    if (this.cookTime != time) {
+                        this.cookTime = time;
+                    }
+                    manager.craftRecipe(world, this, inventory);
                 }
-                int time = findCookTime();
-                if (this.cookTime != time) {
-                    this.cookTime = time;
-                }
-                manager.craftRecipe(world, this, inventory);
             }
             if (facing != state.getValue(DirUtils.TILTING)) {
                 world.setBlockState(pos, state.withProperty(DirUtils.TILTING, facing));
             }
         }
     }
-
-    private static final int MAX_TIME = 1000;
 
     private int findCookTime() {
         int divisor = -heat;
@@ -182,6 +184,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
         }
     }
 
+    //TODO move this to Block#onEntityCollision by lowering the bounding box a bit, like the filtered hopper
     private void entityCollision() {
         if (captureDroppedItems()) {
             getBlockWorld().scheduleBlockUpdate(pos, this.getBlockType(), this.getBlockType().tickRate(getBlockWorld()), 5);
@@ -303,30 +306,14 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
         return cookProgress;
     }
 
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void setProgress(int progress) {
-        this.cookProgress = progress;
-    }
-
     @Override
     public int getMax() {
         return cookTime;
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void setMax(int max) {
-        this.cookTime = max;
-    }
-
-    @Override
-    public boolean showProgress() {
-        return cookProgress > 0;
     }
 
     @Override
     public ItemStackHandler getInventory() {
         return inventory;
     }
+
 }

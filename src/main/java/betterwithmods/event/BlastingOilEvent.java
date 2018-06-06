@@ -67,10 +67,14 @@ public class BlastingOilEvent {
     public static void onHitGround(TickEvent.WorldTickEvent event) {
         if (Gameplay.disableBlastingOilEvents)
             return;
+        List<EntityItem> items;
         World world = event.world;
         if (world.isRemote || event.phase != TickEvent.Phase.END)
             return;
-        List<EntityItem> items = world.loadedEntityList.stream().filter(e -> e instanceof EntityItem && ((EntityItem) e).getItem().isItemEqual(ItemMaterial.getStack(ItemMaterial.EnumMaterial.BLASTING_OIL))).map(e -> (EntityItem) e).collect(Collectors.toList());
+
+        synchronized (world.loadedEntityList) {
+            items = world.loadedEntityList.stream().filter(e -> e instanceof EntityItem && ((EntityItem) e).getItem().isItemEqual(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BLASTING_OIL))).map(e -> (EntityItem) e).collect(Collectors.toList());
+        }
         HashSet<EntityItem> toRemove = new HashSet<>();
         items.forEach(item -> {
             boolean ground = item.onGround;

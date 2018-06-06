@@ -13,7 +13,7 @@ public class GuiPulley extends GuiProgress {
     private final TilePulley tile;
 
     public GuiPulley(EntityPlayer player, TilePulley tile) {
-        super(new ContainerPulley(player, tile), TEXTURE, tile);
+        super(new ContainerPulley(player, tile), TEXTURE);
         this.ySize = 193;
         this.tile = tile;
     }

@@ -1,5 +1,7 @@
 package betterwithmods.common;
 
+import betterwithmods.util.InvUtils;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -17,12 +19,18 @@ import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.List;
 import java.util.Set;
+import java.io.File;
+import java.io.FileWriter;
+import java.io.IOException;
+import java.util.*;
+import java.util.regex.Pattern;
 
 public final class BWMRecipes {
 
     public static final List<ItemStack> REMOVE_RECIPE_BY_OUTPUT = Lists.newArrayList();
     public static final List<List<Ingredient>> REMOVE_RECIPE_BY_INPUT = Lists.newArrayList();
     public static final List<ResourceLocation> REMOVE_RECIPE_BY_RL = Lists.newArrayList();
+    public static final List<Pattern> REMOVE_BY_REGEX = Lists.newArrayList();
 
     public static void addRecipe(IRecipe recipe) {
         ForgeRegistries.RECIPES.register(recipe);
@@ -49,6 +57,10 @@ public final class BWMRecipes {
         removeRecipe(new ResourceLocation(loc));
     }
 
+    public static void removeRecipe(Pattern pattern) {
+        REMOVE_BY_REGEX.add(pattern);
+    }
+
     // Replace calls to GameRegistry.addShapeless/ShapedRecipe with these methods, which will dump it to a json in your dir of choice
 // Also works with OD, replace GameRegistry.addRecipe(new ShapedOreRecipe/ShapelessOreRecipe with the same calls
 
@@ -62,7 +74,7 @@ public final class BWMRecipes {
 
     public static boolean removeFurnaceRecipe(ItemStack input) {
         //for some reason mojang put fucking wildcard for their ore meta
-        return FurnaceRecipes.instance().getSmeltingList().entrySet().removeIf(next -> next.getKey().isItemEqual(input) || (next.getKey().getItem() == input.getItem() && next.getKey().getMetadata() == OreDictionary.WILDCARD_VALUE));
+        return FurnaceRecipes.instance().getSmeltingList().entrySet().removeIf(next -> InvUtils.matches(next.getKey(), input));
     }
 
     public static Set<IBlockState> getStatesFromStack(ItemStack stack) {

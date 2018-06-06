@@ -365,7 +365,7 @@ public class InvUtils {
 
 
     public static int getFirstOccupiedStackOfItem(IItemHandler inv, ItemStack stack) {
-        return getFirstOccupiedStackOfItem(inv, Ingredient.fromStacks(stack));
+        return getFirstOccupiedStackOfItem(inv, StackIngredient.fromStacks(stack));
     }
 
     public static int getFirstOccupiedStackOfItem(IItemHandler inv, Ingredient ingred) {
@@ -427,35 +427,19 @@ public class InvUtils {
     public static void ejectStackWithOffset(World world, BlockPos pos, ItemStack stack) {
         if (stack.isEmpty())
             return;
-        float xOff = world.rand.nextFloat() * 0.5F + 0.25F;
-        float yOff = world.rand.nextFloat() * 0.5F + 0.25F;
-        float zOff = world.rand.nextFloat() * 0.5F + 0.25F;
-        ejectStack(world, (double) ((float) pos.getX() + xOff), (double) ((float) pos.getY() + yOff), (double) ((float) pos.getZ() + zOff), stack, 10);
+        VectorBuilder builder = new VectorBuilder();
+        new StackEjector(world, stack,builder.set(pos).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f).build()).ejectStack();
     }
 
-    public static void ejectStack(World world, BlockPos pos, List<ItemStack> stacks) {
-        for (ItemStack stack : stacks)
-            ejectStack(world, pos.getX(), pos.getY(), pos.getZ(), stack, 10);
-    }
-
-    public static void ejectStack(World world, BlockPos pos, ItemStack stack) {
-        ejectStack(world, pos.getX(), pos.getY(), pos.getZ(), stack, 10);
-    }
-
-    public static void ejectStack(World world, BlockPos pos, ItemStack stack, int pickupDelay) {
-        ejectStack(world, pos.getX() + 0.5f, pos.getY() + 0.5f, pos.getZ() + 0.5f, stack, pickupDelay);
-    }
 
     public static void ejectStack(World world, double x, double y, double z, ItemStack stack, int pickupDelay) {
         if (world.isRemote)
             return;
-        EntityItem item = new EntityItem(world, x, y, z, stack);
-        float velocity = 0.05F;
-        item.motionX = (double) ((float) world.rand.nextGaussian() * velocity);
-        item.motionY = (double) ((float) world.rand.nextGaussian() * velocity + 0.2F);
-        item.motionZ = (double) ((float) world.rand.nextGaussian() * velocity);
-        item.setPickupDelay(pickupDelay);
-        world.spawnEntity(item);
+
+        VectorBuilder builder = new VectorBuilder();
+        StackEjector ejector = new StackEjector(world, stack,builder.set(x,y,z).build());
+        ejector.setPickupDelay(pickupDelay);
+        ejector.ejectStack();
     }
 
     public static void ejectStack(World world, double x, double y, double z, ItemStack stack) {

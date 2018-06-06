@@ -10,6 +10,7 @@
  */
 package betterwithmods.module;
 
+import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
@@ -86,7 +87,7 @@ public class ConfigHelper {
             }
             Item item = ForgeRegistries.ITEMS.getValue(new ResourceLocation(split[0], split[1]));
             if (item != null) {
-                return Ingredient.fromStacks(new ItemStack(item, 1, meta));
+                return StackIngredient.fromStacks(new ItemStack(item, 1, meta));
             }
         }
         return Ingredient.EMPTY;

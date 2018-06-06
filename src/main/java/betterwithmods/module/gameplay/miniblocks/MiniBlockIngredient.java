@@ -37,7 +37,7 @@ public class MiniBlockIngredient extends BlockIngredient {
     }
 
     public MiniBlockIngredient(String type, ItemStack stack) {
-        this(type,Ingredient.fromStacks(stack));
+        this(type,StackIngredient.fromStacks(stack));
     }
 
     @Override

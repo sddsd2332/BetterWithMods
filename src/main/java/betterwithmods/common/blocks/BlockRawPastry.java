@@ -4,6 +4,7 @@ import betterwithmods.client.BWCreativeTabs;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -39,6 +40,13 @@ public class BlockRawPastry extends Block {
         for (EnumType type : EnumType.VALUES) {
             BLOCKS.put(type, new BlockRawPastry(type));
         }
+    }
+
+
+
+    @Override
+    public EnumPushReaction getMobilityFlag(IBlockState state) {
+        return EnumPushReaction.NORMAL;
     }
 
     public static ItemStack getStack(EnumType type) {
@@ -91,6 +99,9 @@ public class BlockRawPastry extends Block {
         MELON("raw_melon_pie", new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D));
         public static final BlockRawPastry.EnumType[] VALUES = values();
 
+        private static final BlockRawPastry.EnumType[] VALUES = values();
+
+        private final int meta;
         private final String name;
         private final AxisAlignedBB aabb;
 

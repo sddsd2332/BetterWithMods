@@ -55,7 +55,7 @@ public class CookingPotRecipeCategory extends BWMRecipeCategory<BulkRecipeWrappe
             for (int j = 0; j < 3; j++) {
                 int index = i + (j * 3);
                 stacks.init(inputSlots + index, true, 7 + i * 18, 2 + j * 18);
-                outputs.init(outputSlot + index, false, 105 + i * 18, 2 + j * 18);
+                outputs.init(outputSlot + index, false, 106 + i * 18, 3 + j * 18);
             }
         }
         outputs.set(ingredients);

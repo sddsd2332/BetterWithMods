@@ -4,6 +4,7 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
 import betterwithmods.util.ReflectionLib;
+import betterwithmods.util.StackIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -328,7 +329,7 @@ public class HCBrewing extends Feature {
 
     public Ingredient convertToPotionItem(ItemStack stack) {
 
-        return Ingredient.fromStacks(stack);
+        return StackIngredient.fromStacks(stack);
     }
 
     public Ingredient convertToPotionItem(Item item) {

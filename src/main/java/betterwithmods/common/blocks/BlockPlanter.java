@@ -3,11 +3,14 @@ package betterwithmods.common.blocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.crafting.IngredientTool;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.StackIngredient;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
+import net.minecraft.block.BlockTallGrass;
+import net.minecraft.block.IGrowable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
@@ -16,6 +19,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
+import net.minecraft.item.ItemDye;
 import net.minecraft.item.ItemHoe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -106,7 +110,9 @@ public class BlockPlanter extends BWMBlock {
 
             case GRASS:
             case DIRT:
-                if (itemType == FARMLAND) {
+                if (itemType == FERTILE) {
+                    ItemDye.applyBonemeal(heldItem, world, pos, player, hand);
+                } else if (itemType == FARMLAND) {
                     heldItem.damageItem(1, player);
                     player.swingArm(hand);
                     world.playSound(player, pos, SoundEvents.ITEM_HOE_TILL, SoundCategory.BLOCKS, 1.0F, 1.0F);
@@ -114,7 +120,9 @@ public class BlockPlanter extends BWMBlock {
                     break;
                 }
             case SOULSAND:
+                break;
             case FERTILE:
+                break;
             case FARMLAND:
                 if (itemType == FERTILE) {
                     if (world.isRemote)
@@ -161,7 +169,7 @@ public class BlockPlanter extends BWMBlock {
                     }
                     break;
                 case GRASS:
-                    if (world.isAirBlock(up) && rand.nextInt(30) == 0) {
+                    if (world.isAirBlock(up) && rand.nextInt(100) == 0) {
                         world.getBiome(pos).plantFlower(world, rand, up);
                         if (world.getLight(up) > 8) {
                             for (int i = 0; i < 4; i++) {
@@ -179,7 +187,8 @@ public class BlockPlanter extends BWMBlock {
                         IPlantable plant = (IPlantable) world.getBlockState(up).getBlock();
                         if (this.canSustainPlant(world.getBlockState(pos), world, pos, EnumFacing.UP, plant) && world.getBlockState(up).getBlock().getTickRandomly()) {
                             IBlockState cropState = world.getBlockState(up);
-                            world.getBlockState(up).getBlock().updateTick(world, up, cropState, rand);
+                            if (rand.nextInt(100) == 0)
+                                world.getBlockState(up).getBlock().updateTick(world, up, cropState, rand);
                         }
                     }
             }
@@ -234,17 +243,64 @@ public class BlockPlanter extends BWMBlock {
         }
     }
 
+    @Override
+    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+        return type == GRASS;
+    }
+
+    @Override
+    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+        return canGrow(worldIn, pos, state, worldIn.isRemote);
+    }
+
+    @Override
+    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+        //Borrowed from BlockGrass
+        BlockPos blockpos = pos.up();
+
+        for (int i = 0; i < 128; ++i) {
+            BlockPos blockpos1 = blockpos;
+            int j = 0;
+
+            while (true) {
+                if (j >= i / 16) {
+                    if (worldIn.isAirBlock(blockpos1)) {
+                        if (rand.nextInt(8) == 0) {
+                            worldIn.getBiome(blockpos1).plantFlower(worldIn, rand, blockpos1);
+                        } else {
+                            IBlockState iblockstate1 = Blocks.TALLGRASS.getDefaultState().withProperty(BlockTallGrass.TYPE, BlockTallGrass.EnumType.GRASS);
+
+                            if (Blocks.TALLGRASS.canBlockStay(worldIn, blockpos1, iblockstate1)) {
+                                worldIn.setBlockState(blockpos1, iblockstate1, 3);
+                            }
+                        }
+                    }
+
+                    break;
+                }
+
+                blockpos1 = blockpos1.add(rand.nextInt(3) - 1, (rand.nextInt(3) - 1) * rand.nextInt(3) / 2, rand.nextInt(3) - 1);
+
+                if (worldIn.getBlockState(blockpos1.down()).getBlock() != Blocks.GRASS || worldIn.getBlockState(blockpos1).isNormalCube()) {
+                    break;
+                }
+
+                ++j;
+            }
+        }
+    }
+
     public enum EnumType implements IStringSerializable {
         EMPTY("empty", new IngredientTool("shovel"), Blocks.AIR.getDefaultState(), new EnumPlantType[0]),
         FARMLAND("farmland", new IngredientTool(s -> s.getItem() instanceof ItemHoe, ItemStack.EMPTY), Blocks.DIRT.getDefaultState(), new EnumPlantType[]{EnumPlantType.Crop, EnumPlantType.Plains}),
-        GRASS("grass", Ingredient.fromStacks(new ItemStack(Blocks.GRASS)), Blocks.GRASS.getDefaultState(), new EnumPlantType[]{EnumPlantType.Plains}),
-        SOULSAND("soul_sand", Ingredient.fromStacks(new ItemStack(Blocks.SOUL_SAND)), Blocks.SOUL_SAND.getDefaultState(), new EnumPlantType[]{EnumPlantType.Nether}),
-        FERTILE("fertile", Ingredient.fromStacks(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage())), Blocks.DIRT.getDefaultState(), new EnumPlantType[]{EnumPlantType.Crop, EnumPlantType.Plains}),
-        SAND("sand", Ingredient.fromStacks(new ItemStack(Blocks.SAND)), Blocks.SAND.getDefaultState(), new EnumPlantType[]{EnumPlantType.Desert, EnumPlantType.Beach}),
-        WATER("water_still", Ingredient.fromStacks(new ItemStack(Items.WATER_BUCKET)), Blocks.WATER.getDefaultState(), new EnumPlantType[]{EnumPlantType.Water}),
-        GRAVEL("gravel", Ingredient.fromStacks(new ItemStack(Blocks.GRAVEL)), Blocks.GRAVEL.getDefaultState(), new EnumPlantType[]{EnumPlantType.Cave}),
-        REDSAND("red_sand", Ingredient.fromStacks(new ItemStack(Blocks.SAND, 1, BlockSand.EnumType.RED_SAND.getMetadata())), Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND), new EnumPlantType[]{EnumPlantType.Desert, EnumPlantType.Beach}),
-        DIRT("dirt", Ingredient.fromStacks(new ItemStack(Blocks.DIRT)), Blocks.DIRT.getDefaultState(), new EnumPlantType[]{EnumPlantType.Plains});
+        GRASS("grass", StackIngredient.fromStacks(new ItemStack(Blocks.GRASS)), Blocks.GRASS.getDefaultState(), new EnumPlantType[]{EnumPlantType.Plains}),
+        SOULSAND("soul_sand", StackIngredient.fromStacks(new ItemStack(Blocks.SOUL_SAND)), Blocks.SOUL_SAND.getDefaultState(), new EnumPlantType[]{EnumPlantType.Nether}),
+        FERTILE("fertile", StackIngredient.fromStacks(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage())), Blocks.DIRT.getDefaultState(), new EnumPlantType[]{EnumPlantType.Crop, EnumPlantType.Plains}),
+        SAND("sand", StackIngredient.fromStacks(new ItemStack(Blocks.SAND)), Blocks.SAND.getDefaultState(), new EnumPlantType[]{EnumPlantType.Desert, EnumPlantType.Beach}),
+        WATER("water_still", StackIngredient.fromStacks(new ItemStack(Items.WATER_BUCKET)), Blocks.WATER.getDefaultState(), new EnumPlantType[]{EnumPlantType.Water}),
+        GRAVEL("gravel", StackIngredient.fromStacks(new ItemStack(Blocks.GRAVEL)), Blocks.GRAVEL.getDefaultState(), new EnumPlantType[]{EnumPlantType.Cave}),
+        REDSAND("red_sand", StackIngredient.fromStacks(new ItemStack(Blocks.SAND, 1, BlockSand.EnumType.RED_SAND.getMetadata())), Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND), new EnumPlantType[]{EnumPlantType.Desert, EnumPlantType.Beach}),
+        DIRT("dirt", StackIngredient.fromStacks(new ItemStack(Blocks.DIRT)), Blocks.DIRT.getDefaultState(), new EnumPlantType[]{EnumPlantType.Plains});
 
         private static final EnumType[] VALUES = values();
 

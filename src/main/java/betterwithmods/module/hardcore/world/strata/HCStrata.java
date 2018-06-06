@@ -5,7 +5,7 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.Feature;
-import betterwithmods.util.item.ToolsManager;
+import betterwithmods.module.ModuleLoader;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -14,27 +14,21 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-import static betterwithmods.util.ReflectionLib.*;
-
 public class HCStrata extends Feature {
+
+
     private static final Pattern PATTERN = Pattern.compile("^([\\-]?\\d+)=(\\d{1,255}),(\\d{1,255}).*");
     public static boolean ENABLED;
     public static float[] STRATA_SPEEDS;
@@ -42,6 +36,7 @@ public class HCStrata extends Feature {
     public static HashMap<IBlockState, BlockType> STATES = Maps.newHashMap();
     public static HashMap<Integer, StrataConfig> STRATA_CONFIGS = Maps.newHashMap();
     public static StrataConfig DEFAULT = new StrataConfig(-1, -1);
+    public static NoiseGeneratorPerlin STRATA_NOISE1, STRATA_NOISE2;
 
     public HCStrata() {
         enabledByDefault = false;
@@ -69,12 +64,11 @@ public class HCStrata extends Feature {
         return STRATA_CONFIGS.containsKey(world.provider.getDimension()) && STATES.keySet().stream().anyMatch(s -> s.equals(state));
     }
 
-    public static Stratification getStratification(int y, int dimension) {
-        return STRATA_CONFIGS.getOrDefault(dimension, DEFAULT).getStrata(y);
+    public static Stratification getStratification(World world, BlockPos pos, int dimension) {
+        return STRATA_CONFIGS.getOrDefault(dimension, DEFAULT).getStrata(pos.getY() + (int) getNoise(world, pos.getY()).getValue(pos.getX(), pos.getZ()));
     }
 
     private static void loadStrataConfig(String entry) {
-
         Matcher matcher = PATTERN.matcher(entry);
         if (matcher.matches()) {
             int dim = Integer.parseInt(matcher.group(1));
@@ -84,13 +78,32 @@ public class HCStrata extends Feature {
         }
     }
 
+    public static NoiseGeneratorPerlin getNoise(World world, int y) {
+        if (y < 50) {
+            if (STRATA_NOISE2 == null)
+                STRATA_NOISE2 = new NoiseGeneratorPerlin(world.rand, 3);
+            return STRATA_NOISE2;
+        } else {
+            if (STRATA_NOISE1 == null)
+                STRATA_NOISE1 = new NoiseGeneratorPerlin(world.rand, 2);
+            return STRATA_NOISE1;
+        }
+    }
+
+    @SubscribeEvent
+    public void onJoinWorld(PlayerLoggedInEvent event) {
+        Random seed = event.player.getEntityWorld().rand;
+        STRATA_NOISE1 = new NoiseGeneratorPerlin(seed, 2);
+        STRATA_NOISE2 = new NoiseGeneratorPerlin(seed, 3);
+    }
+
     @Override
     public void setupConfig() {
         STRATA_SPEEDS = new float[]{(float) loadPropDouble("Light Strata", "Speed for Light Strata", 1.0),
                 (float) loadPropDouble("Medium Strata", "Speed for Medium Strata", 1.0),
                 (float) loadPropDouble("Dark Strata", "Speed for Dark Strata", 1.0)
         };
-        INCORRECT_STRATA_SCALE = (float) loadPropDouble("Incorrect Strata", "Speed scale for when the Strata is higher than the tool", 0.35);
+        INCORRECT_STRATA_SCALE = (float) loadPropDouble("Incorrect Strata", "Speed scale for when the Strata is higher than the tool", 0.10);
 
         Arrays.stream(loadPropStringList("Strata Configs", "Set the strata levels for a given dimension, <dim>=< medium start y>,<hard start y>", new String[]{
                 "0=42,21"
@@ -100,21 +113,6 @@ public class HCStrata extends Feature {
     @Override
     public String getFeatureDescription() {
         return "Divides the underground into three strata. Each strata requires the next tool tier to properly mine";
-    }
-
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        if (Loader.isModLoaded("ctm")) {
-            try {
-                Class clazz = Class.forName(CTM_TTR);
-                Class clazz1 = Class.forName(CTM_ITT);
-                Class clazz2 = Class.forName(CTM_TTS);
-                Method register = ReflectionHelper.findMethod(clazz, CTM_REGISTER.getKey(), CTM_REGISTER.getValue(), String.class, clazz1);
-                register.invoke(null, "bwm_strata", clazz2.newInstance());
-            } catch (ClassNotFoundException | IllegalAccessException | InvocationTargetException | InstantiationException e) {
-                e.printStackTrace();
-            }
-        }
     }
 
     @Override
@@ -140,7 +138,7 @@ public class HCStrata extends Feature {
         IBlockState state = event.getState();
         if (shouldStratify(world, state)) {
             ItemStack stack = BrokenToolRegistry.findItem(event.getHarvester(), event.getState());
-            int strata = getStratification(pos.getY(), world.provider.getDimension()).ordinal();
+            int strata = getStratification(world,pos, world.provider.getDimension()).ordinal();
             if (STATES.getOrDefault(event.getState(), BlockType.STONE) == BlockType.STONE) {
                 int level = Math.max(1, stack.getItem().getHarvestLevel(stack, "pickaxe", event.getHarvester(), event.getState()));
                 if (level <= strata) {
@@ -156,8 +154,8 @@ public class HCStrata extends Feature {
         BlockPos pos = event.getPos();
         if (shouldStratify(world, pos)) {
             ItemStack stack = BrokenToolRegistry.findItem(event.getEntityPlayer(), event.getState());
-            float scale = ToolsManager.getSpeed(stack, event.getState());
-            int strata = getStratification(pos.getY(), world.provider.getDimension()).ordinal();
+            float scale = 1; //ToolsManager.getSpeed(stack, event.getState());
+            int strata = getStratification(world,pos, world.provider.getDimension()).ordinal();
             if (STATES.getOrDefault(event.getState(), BlockType.STONE) == BlockType.STONE) {
                 int level = Math.max(1, stack.getItem().getHarvestLevel(stack, "pickaxe", event.getEntityPlayer(), event.getState()));
                 if (level <= strata) {
@@ -166,14 +164,12 @@ public class HCStrata extends Feature {
             }
             event.setNewSpeed(scale * STRATA_SPEEDS[strata] * event.getOriginalSpeed());
         }
-
     }
 
     @Override
     public boolean hasSubscriptions() {
         return true;
     }
-
 
     private enum BlockType {
         STONE(0),
@@ -196,8 +192,6 @@ public class HCStrata extends Feature {
     }
 
     private static class StrataConfig {
-
-
         private int medium;
         private int hard;
 
