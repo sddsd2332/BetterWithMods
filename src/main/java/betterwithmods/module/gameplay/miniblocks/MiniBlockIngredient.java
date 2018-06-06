@@ -4,6 +4,7 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.util.StackIngredient;
 import com.google.gson.JsonObject;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

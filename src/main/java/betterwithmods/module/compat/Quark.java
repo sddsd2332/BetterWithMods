@@ -1,5 +1,6 @@
 package betterwithmods.module.compat;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.module.CompatFeature;
 import betterwithmods.module.ModuleLoader;
@@ -38,7 +39,7 @@ public class Quark extends CompatFeature {
             BWMRecipes.removeRecipe(new ItemStack(Items.STONE_HOE));
             BWMRecipes.removeRecipe(new ItemStack(Items.STONE_SWORD));
         }
-        if (ModuleLoader.isFeatureEnabled(HCSaw.class)) {
+        if (BWMod.MODULE_LOADER.isFeatureEnabled(HCSaw.class)) {
             BWMRecipes.removeRecipe("quark:chest");
             BWMRecipes.removeRecipe("quark:chest_1");
             BWMRecipes.removeRecipe("quark:chest_2");
@@ -49,7 +50,7 @@ public class Quark extends CompatFeature {
             BWMRecipes.removeRecipe(Pattern.compile("quark:.*trapdoor"));
         }
 
-        if(ModuleLoader.isFeatureEnabled(HCRedstone.class)) {
+        if(BWMod.MODULE_LOADER.isFeatureEnabled(HCRedstone.class)) {
             BWMRecipes.removeRecipe("quark:hopper");
         }
     }
@@ -63,10 +64,6 @@ public class Quark extends CompatFeature {
     public void postInit(FMLPostInitializationEvent event) {
 
 
-    }
-
-    private IRecipe addHERecipe(IRecipe recipe) {
-        return BWMRecipes.addHardcoreRecipe("quark", recipe);
     }
 
 }

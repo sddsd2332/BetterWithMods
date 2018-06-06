@@ -39,6 +39,7 @@ import java.util.Random;
 
 
 public abstract class TileCookingPot extends TileVisibleInventory implements IMechanicalPower, IHeated, ICrankable, IProgressSource {
+    private static final int MAX_TIME = 1000;
     public int cookProgress, cookTime;
     public EnumFacing facing;
     public int heat;

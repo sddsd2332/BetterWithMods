@@ -227,4 +227,8 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
         return this.grindCounter;
     }
 
+    @Override
+    public ItemStackHandler getInventory() {
+        return inventory;
+    }
 }

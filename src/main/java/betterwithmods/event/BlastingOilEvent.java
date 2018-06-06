@@ -73,7 +73,7 @@ public class BlastingOilEvent {
             return;
 
         synchronized (world.loadedEntityList) {
-            items = world.loadedEntityList.stream().filter(e -> e instanceof EntityItem && ((EntityItem) e).getItem().isItemEqual(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BLASTING_OIL))).map(e -> (EntityItem) e).collect(Collectors.toList());
+            items = world.loadedEntityList.stream().filter(e -> e instanceof EntityItem && ((EntityItem) e).getItem().isItemEqual(ItemMaterial.getStack(ItemMaterial.EnumMaterial.BLASTING_OIL))).map(e -> (EntityItem) e).collect(Collectors.toList());
         }
         HashSet<EntityItem> toRemove = new HashSet<>();
         items.forEach(item -> {

@@ -1,7 +1,7 @@
 package betterwithmods.common.items;
 
 import betterwithmods.BWMod;
-import betterwithmods.module.hardcore.creatures.HCChickens;
+import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

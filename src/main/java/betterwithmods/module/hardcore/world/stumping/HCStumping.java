@@ -38,16 +38,13 @@ public class HCStumping extends Feature {
 
     public static Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
 
-
+    public HCStumping() {
+        ENABLED = true;
+    }
 
     @Override
     public String getFeatureDescription() {
         return "Makes the bottom block of trees into stumps which cannot be removed by hand, making your mark on the world more obvious";
-    }
-
-    @Override
-    public void init(FMLInitializationEvent event) {
-        ENABLED = ModuleLoader.isFeatureEnabled(HCStumping.class);
     }
 
     @Nullable

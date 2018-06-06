@@ -43,7 +43,7 @@ import java.util.Random;
 
 import static betterwithmods.common.blocks.BlockPlanter.EnumType.*;
 
-public class BlockPlanter extends BWMBlock {
+public class BlockPlanter extends BWMBlock implements IGrowable {
     public static final HashMap<EnumType, Block> BLOCKS = Maps.newHashMap();
     private final EnumType type;
 

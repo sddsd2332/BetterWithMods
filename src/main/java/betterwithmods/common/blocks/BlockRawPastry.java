@@ -99,9 +99,6 @@ public class BlockRawPastry extends Block {
         MELON("raw_melon_pie", new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D));
         public static final BlockRawPastry.EnumType[] VALUES = values();
 
-        private static final BlockRawPastry.EnumType[] VALUES = values();
-
-        private final int meta;
         private final String name;
         private final AxisAlignedBB aabb;
 

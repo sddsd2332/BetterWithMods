@@ -5,6 +5,7 @@ import betterwithmods.api.tile.IHopperFilter;
 import betterwithmods.client.model.filters.ModelTransparent;
 import betterwithmods.client.model.filters.ModelWithResource;
 import betterwithmods.client.model.render.RenderUtils;
+import betterwithmods.util.StackIngredient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
