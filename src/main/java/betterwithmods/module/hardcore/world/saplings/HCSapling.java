@@ -25,7 +25,7 @@ public class HCSapling extends Feature {
 
     @Override
     public String getFeatureDescription() {
-        return "Change saplings to grow in stages";
+        return "Change saplings to grow in stages before becoming a tree";
     }
 
     @Override
