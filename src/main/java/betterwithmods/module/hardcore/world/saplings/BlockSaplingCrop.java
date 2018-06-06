@@ -94,11 +94,7 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
             }
         }
     }
-
-    public void getDrops(net.minecraft.util.NonNullList<ItemStack> drops, net.minecraft.world.IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        drops.add(BWMRecipes.getStackFromState(HCSapling.getSapling(HCSapling.SAPLING_CROPS.inverse().get(state.getBlock()))));
-    }
-
+    
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Items.AIR;
