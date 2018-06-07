@@ -1,5 +1,6 @@
 package betterwithmods.common.penalties;
 
+import betterwithmods.module.hardcore.needs.HCGloom;
 import net.minecraft.entity.player.EntityPlayer;
 import org.apache.commons.lang3.Range;
 
@@ -17,8 +18,7 @@ public class GloomPenalties extends PenaltyHandler<Integer, GloomPenalty> {
 
     @Override
     public GloomPenalty getPenalty(EntityPlayer player) {
-
-        return null;
+        return getPenalty(HCGloom.getGloomTime(player));
     }
 
     public int getMaxTime() {

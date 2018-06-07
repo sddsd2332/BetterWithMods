@@ -7,10 +7,7 @@ import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.event.FakePlayerHandler;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.ModuleLoader;
-import betterwithmods.network.MessageFat;
-import betterwithmods.network.MessageGuiShake;
-import betterwithmods.network.MessageHarnessSync;
-import betterwithmods.network.NetworkHandler;
+import betterwithmods.network.*;
 import betterwithmods.proxy.IProxy;
 import betterwithmods.testing.BWMTests;
 import betterwithmods.util.commands.HealthCommand;
@@ -53,6 +50,7 @@ public class BWMod {
         NetworkHandler.register(MessageGuiShake.class, Side.CLIENT);
         NetworkHandler.register(MessageFat.class, Side.CLIENT);
         NetworkHandler.register(MessageHarnessSync.class, Side.CLIENT);
+        NetworkHandler.register(MessageGloom.class, Side.CLIENT);
         proxy.preInit(evt);
     }
 
