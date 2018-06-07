@@ -38,6 +38,7 @@ import betterwithmods.module.hardcore.crafting.*;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
 import betterwithmods.module.hardcore.needs.HCTools;
 import betterwithmods.module.hardcore.world.HCTorches;
+import betterwithmods.network.BWNetwork;
 import betterwithmods.util.DispenserBehaviorDynamite;
 import betterwithmods.util.InvUtils;
 import betterwithmods.util.MechanicalUtil;
@@ -107,7 +108,7 @@ public class BWRegistry {
 
     public static void preInit() {
         API.manualAPI = ManualAPIImpl.INSTANCE;
-
+        BWNetwork.registerNetworking();
         BWMBlocks.registerBlocks();
         BWMItems.registerItems();
         BWMBlocks.registerTileEntities();

@@ -8,9 +8,8 @@ import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.penalties.HungerPenalties;
 import betterwithmods.module.CompatFeature;
 import betterwithmods.module.hardcore.needs.HCTools;
-import betterwithmods.network.MessageFat;
-import betterwithmods.network.MessageGuiShake;
-import betterwithmods.network.NetworkHandler;
+import betterwithmods.network.BWNetwork;
+import betterwithmods.network.messages.MessageHungerShake;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
@@ -291,8 +290,9 @@ public class HCHunger extends CompatFeature {
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (!event.player.world.isRemote && event.phase == TickEvent.Phase.START) {
             EntityPlayer player = event.player;
-            if (event.player instanceof EntityPlayerMP)
-                NetworkHandler.INSTANCE.sendTo(new MessageFat(event.player.getUniqueID()), (EntityPlayerMP) event.player);
+//            if (event.player instanceof EntityPlayerMP)
+                //TODO fat
+//                BWNetwork.INSTANCE.sendTo(new MessageFat(event.player.getUniqueID()), (EntityPlayerMP) event.player);
             if (!PlayerHelper.isSurvival(player) || player.world.getDifficulty() == EnumDifficulty.PEACEFUL)
                 return;
             int tick = getExhaustionTick(player);
@@ -310,7 +310,7 @@ public class HCHunger extends CompatFeature {
     public void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
         if (event.deltaExhaustion >= blockBreakExhaustion) {
             if (event.player instanceof EntityPlayerMP)
-                NetworkHandler.INSTANCE.sendTo(new MessageGuiShake(), (EntityPlayerMP) event.player);
+                BWNetwork.INSTANCE.sendTo(new MessageHungerShake(), (EntityPlayerMP) event.player);
             else
                 GuiHunger.INSTANCE.shake();
         }

@@ -49,6 +49,8 @@ public class GuiStatus {
                 Penalty p = handler.getPenalty(mc.player);
                 if (p != null) {
                     String status = I18n.format(p.getName());
+                    if(status.isEmpty())
+                        continue;
                     int width = fontRenderer.getStringWidth(status);
                     fontRenderer.drawStringWithShadow(status, left - width, y,
                             16777215);

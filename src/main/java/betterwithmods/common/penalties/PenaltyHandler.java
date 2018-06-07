@@ -1,13 +1,14 @@
 package betterwithmods.common.penalties;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Comparators;
+import com.google.common.collect.Lists;
 import net.minecraft.entity.player.EntityPlayer;
 
 import javax.annotation.Nonnull;
-import java.util.Set;
+import java.util.List;
 
 public abstract class PenaltyHandler<T extends Number & Comparable, P extends Penalty<T>> {
-    protected Set<P> penalties = Sets.newHashSet();
+    protected List<P> penalties = Lists.newArrayList();
     private P defaultPenalty;
 
     public PenaltyHandler() {
@@ -28,4 +29,8 @@ public abstract class PenaltyHandler<T extends Number & Comparable, P extends Pe
     }
 
     public abstract P getPenalty(EntityPlayer player);
+
+    public P getMostSevere() {
+        return penalties.stream().max((a,b) -> Float.compare(a.getSeverity(), b.getSeverity())).orElse(null);
+    }
 }

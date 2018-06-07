@@ -133,7 +133,7 @@ public class TileEntityTurntable extends TileBasic implements IMechSubtype, ITic
 
         for (int i = 1; i < height; i++) {
             pos.setY(pos.getY() + 1);
-            TurntableRotationManager.rotateEntities(world,pos,rotation);
+//            TurntableRotationManager.rotateEntities(world,pos,rotation);
             TurntableRotationManager.IRotation handler = rotateBlock(pos, rotation);
             if (handler == null)
                 break;

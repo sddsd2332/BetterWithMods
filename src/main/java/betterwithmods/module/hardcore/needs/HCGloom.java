@@ -4,9 +4,10 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.damagesource.BWDamageSource;
 import betterwithmods.common.penalties.GloomPenalties;
+import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.module.Feature;
-import betterwithmods.network.MessageGloom;
-import betterwithmods.network.NetworkHandler;
+import betterwithmods.network.BWNetwork;
+import betterwithmods.network.messages.MessageGloom;
 import betterwithmods.util.StackIngredient;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -20,6 +21,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
@@ -49,6 +51,7 @@ public class HCGloom extends Feature {
     private static final List<SoundEvent> sounds = Lists.newArrayList(SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundEvents.ENTITY_ENDERMEN_SCREAM, SoundEvents.ENTITY_SILVERFISH_AMBIENT, SoundEvents.ENTITY_WOLF_GROWL);
     @CapabilityInject(Gloom.class)
     public static Capability<Gloom> GLOOM_CAPABILITY;
+    public static GloomPenalties PENALTIES;
     private static Set<Integer> dimensionWhitelist;
     private static Ingredient gloomOverrideItems;
     private static ResourceLocation PLAYER_GLOOM = new ResourceLocation(BWMod.MODID, "gloom");
@@ -69,7 +72,7 @@ public class HCGloom extends Feature {
         Gloom gloom = getGloom(player);
         if (gloom != null) {
             gloom.setGloom(value);
-            NetworkHandler.INSTANCE.sendTo(new MessageGloom(player.getUniqueID().toString(), value), player);
+            BWNetwork.INSTANCE.sendTo(new MessageGloom(player.getUniqueID().toString(), value), player);
         }
     }
 
@@ -83,7 +86,7 @@ public class HCGloom extends Feature {
     @Override
     public void setupConfig() {
         dimensionWhitelist = Sets.newHashSet(ArrayUtils.toObject(loadPropIntList("Gloom Dimension Whitelist", "Gloom is only available in these dimensions", new int[]{0})));
-        BWRegistry.PENALTY_HANDLERS.add(new GloomPenalties());
+        BWRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties());
     }
 
     @Override
@@ -146,21 +149,25 @@ public class HCGloom extends Feature {
             if (world.getTotalWorldTime() % 40 == 0) {
                 if (world.rand.nextInt(2) == 0) {
                     if (BWRegistry.PENALTY_HANDLERS.attackedByGrue(player)) {
-                        player.attackEntityFrom(BWDamageSource.gloom, 1);
+                        player.attackEntityFrom(BWDamageSource.gloom, 2);
                     }
                 }
             }
         }
 
-        //TODO nausea & more sounds
         //Client Side
         //Random sounds
         if (world.isRemote) {
             float spooked = BWRegistry.PENALTY_HANDLERS.getSpooked(player);
+            GloomPenalty penalty = PENALTIES.getMostSevere();
+
             if (world.rand.nextDouble() <= spooked) {
                 player.playSound(SoundEvents.AMBIENT_CAVE, 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
-                if (spooked > 0.5)
-                    player.playSound(sounds.get(world.rand.nextInt(sounds.size())), 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
+                if (penalty != null && spooked > penalty.getSeverity()) {
+                    if (world.rand.nextInt(5) == 0)
+                        player.playSound(sounds.get(world.rand.nextInt(sounds.size())), 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
+                    player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 100, 1, false, false));
+                }
             }
         }
 

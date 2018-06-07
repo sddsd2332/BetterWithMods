@@ -47,10 +47,6 @@ public class BWMod {
         BWMAttributes.registerAttributes();
         ModuleLoader.preInit(evt);
         BWRegistry.preInit();
-        NetworkHandler.register(MessageGuiShake.class, Side.CLIENT);
-        NetworkHandler.register(MessageFat.class, Side.CLIENT);
-        NetworkHandler.register(MessageHarnessSync.class, Side.CLIENT);
-        NetworkHandler.register(MessageGloom.class, Side.CLIENT);
         proxy.preInit(evt);
     }
 
