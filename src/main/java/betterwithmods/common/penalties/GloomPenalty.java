@@ -11,4 +11,6 @@ public class GloomPenalty extends Penalty<Integer> {
                 BWMAttributes.getFloatAttribute(BWMAttributes.SPOOKED, category, name, "Is the player starting to hear things in the dark?", spooked)
         );
     }
+
+
 }

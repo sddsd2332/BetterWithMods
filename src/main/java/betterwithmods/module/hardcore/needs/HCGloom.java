@@ -5,6 +5,7 @@ import betterwithmods.common.BWRegistry;
 import betterwithmods.common.damagesource.BWDamageSource;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
+import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.module.Feature;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessageGloom;
@@ -159,11 +160,12 @@ public class HCGloom extends Feature {
         //Random sounds
         if (world.isRemote) {
             float spooked = BWRegistry.PENALTY_HANDLERS.getSpooked(player);
-            GloomPenalty penalty = PENALTIES.getMostSevere();
+            GloomPenalty most = PENALTIES.getMostSevere();
 
             if (world.rand.nextDouble() <= spooked) {
                 player.playSound(SoundEvents.AMBIENT_CAVE, 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
-                if (penalty != null && spooked > penalty.getSeverity()) {
+
+                if (most != null && (spooked >= (most.getFloat(BWMAttributes.SPOOKED).getValue()))) {
                     if (world.rand.nextInt(5) == 0)
                         player.playSound(sounds.get(world.rand.nextInt(sounds.size())), 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
                     player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 100, 1, false, false));
@@ -176,15 +178,12 @@ public class HCGloom extends Feature {
 
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent event) {
-//        GloomPenalty penalty = PlayerHelper.getGloomPenalty(event.getEntity());
-//        if (penalty != GloomPenalty.NO_PENALTY) {
-//            float change;
-//            if (penalty != GloomPenalty.TERROR)
-//                change = (getGloomTime(event.getEntity()) / 2400f);
-//            else
-//                change = -(getGloomTime(event.getEntity()) / 100000f);
-//            event.setNewfov(event.getFov() + change);
-//        }
+        float spooked = BWRegistry.PENALTY_HANDLERS.getSpooked(event.getEntity());
+        GloomPenalty most = PENALTIES.getMostSevere();
+        if (most != null && (spooked >= (most.getFloat(BWMAttributes.SPOOKED).getValue()))) {
+            float change = -(getGloomTime(event.getEntity()) / 100000f);
+            event.setNewfov(event.getFov() + change);
+        }
     }
 
     @Override

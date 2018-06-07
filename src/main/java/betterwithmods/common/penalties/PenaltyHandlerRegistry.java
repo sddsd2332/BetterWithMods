@@ -4,6 +4,7 @@ import betterwithmods.common.penalties.attribute.Attribute;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.common.penalties.attribute.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;
@@ -52,11 +53,11 @@ public class PenaltyHandlerRegistry extends HashSet<PenaltyHandler<?, ?>> {
         return (Stream<Penalty<?>>) stream().map(handler -> handler.getPenalty(player)).filter(Objects::nonNull);
     }
 
-    private Stream<Boolean> booleanAttributes(EntityPlayer player, Attribute<Boolean> attribute) {
+    public Stream<Boolean> booleanAttributes(EntityPlayer player, Attribute<Boolean> attribute) {
         return handlers(player).map(penalty -> penalty.getBoolean(attribute)).filter(Objects::nonNull).map(IAttributeInstance::getValue);
     }
 
-    private Stream<Float> floatAttributes(EntityPlayer player, Attribute<Float> attribute) {
+    public Stream<Float> floatAttributes(EntityPlayer player, Attribute<Float> attribute) {
         return handlers(player).map(penalty -> penalty.getFloat(attribute)).filter(Objects::nonNull).map(IAttributeInstance::getValue);
     }
 
