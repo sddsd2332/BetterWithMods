@@ -7,25 +7,20 @@ import org.apache.commons.lang3.Range;
 
 public class BWMAttributes {
 
-    public static Attribute<Boolean> JUMP, SWIM, HEAL, SPRINT, ATTACK, PAIN;
-    public static Attribute<Float> SPEED;
-
-    public static Attribute<Boolean> GRUE;
-    public static Attribute<Float> SPOOKED;
-
+    public static Attribute<Boolean> JUMP, SWIM, HEAL, SPRINT, ATTACK, PAIN, GRUE;
+    public static Attribute<Float> SPEED, SPOOKED;
 
     public static void registerAttributes() {
-        JUMP = new Attribute<>(new ResourceLocation(BWMod.MODID, "jump"), true);
-        SWIM = new Attribute<>(new ResourceLocation(BWMod.MODID, "swim"), true);
-        HEAL = new Attribute<>(new ResourceLocation(BWMod.MODID, "heal"), true);
-        SPRINT = new Attribute<>(new ResourceLocation(BWMod.MODID, "sprint"), true);
-        ATTACK = new Attribute<>(new ResourceLocation(BWMod.MODID, "attack"), true);
-        PAIN = new Attribute<>(new ResourceLocation(BWMod.MODID, "pain"), false);
+        JUMP = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "jump"), true).setDescription("Can the player jump with this penalty active?");
+        SWIM = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "swim"), true).setDescription("Can the player swim with this penalty active?");
+        HEAL = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "heal"), true).setDescription("Can the player heal with this penalty active?");
+        SPRINT = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "sprint"), true).setDescription("Can the player sprint with this penalty active?");
+        ATTACK = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "attack"), true).setDescription( "Can the player attack with this penalty active?");
+        PAIN = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "pain"), false).setDescription("Is the player in pain? (Plays the OOF noise periodically)");
+        GRUE = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "grue"), false).setDescription("Can the player be eaten by the Grue when this is active?");
 
-        SPEED = new Attribute<>(new ResourceLocation(BWMod.MODID, "speed"), 1f);
-
-        GRUE = new Attribute<>(new ResourceLocation(BWMod.MODID, "grue"), false);
-        SPOOKED = new Attribute<>(new ResourceLocation(BWMod.MODID, "spooked"), 0f);
+        SPEED = new FloatAttribute(new ResourceLocation(BWMod.MODID, "speed"), 1f).setDescription("Speed modifier when this penalty is active. (Multiplies the player's existing speed)");
+        SPOOKED = new FloatAttribute(new ResourceLocation(BWMod.MODID, "spooked"), 0f).setDescription("Does the player start to go insane when this is active?");
     }
 
     public static AttributeInstance<Boolean> getBooleanAttribute(IAttribute<Boolean> parent, String category, String penalty, String desc, Boolean defaultValue) {

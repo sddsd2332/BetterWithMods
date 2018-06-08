@@ -4,7 +4,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import org.apache.commons.lang3.Range;
 
 public class HungerPenalties extends PenaltyHandler<Integer, BasicPenalty<Integer>> {
-    private static final String category = "hardcore.hchunger";
+    private static final String category = "hardcore.hchunger.penalties";
 
     public HungerPenalties() {
         super();

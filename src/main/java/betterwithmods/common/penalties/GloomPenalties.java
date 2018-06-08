@@ -6,7 +6,7 @@ import org.apache.commons.lang3.Range;
 
 public class GloomPenalties extends PenaltyHandler<Integer, GloomPenalty> {
 
-    private static final String category = "hardcore.hcgloom";
+    private static final String category = "hardcore.hcgloom.penalties";
 
     public GloomPenalties() {
         super();

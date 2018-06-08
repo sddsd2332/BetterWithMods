@@ -5,8 +5,7 @@ import org.apache.commons.lang3.Range;
 
 public class HealthPenalities extends PenaltyHandler<Float, BasicPenalty<Float>> {
 
-    private static final String category = "hardcore.hcinjury";
-
+    private static final String category = "hardcore.hcinjury.penalties";
 
     public HealthPenalities() {
         super();

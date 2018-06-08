@@ -39,6 +39,10 @@ public class ConfigHelper {
 
     public static HashMap<String, Boolean> CONDITIONS = Maps.newHashMap();
 
+    public static void setDescription(String category, String comment) {
+        ModuleLoader.config.setCategoryComment(category,comment);
+    }
+
     public static boolean loadRecipeCondition(String jsonString, String propName, String category, String desc, boolean default_) {
         boolean value = loadPropBool(propName, category, desc, default_);
         CONDITIONS.put(jsonString, value);
