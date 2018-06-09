@@ -205,6 +205,8 @@ public class HCHunger extends CompatFeature {
 
     @SubscribeEvent
     public void getPlayerFoodValue(FoodEvent.GetPlayerFoodValues event) {
+        if(event.player == null)
+            return;
         FoodStats stats = event.player.getFoodStats();
         int playerFoodLevel = stats.getFoodLevel();
         int foodLevel = event.foodValues.hunger;
