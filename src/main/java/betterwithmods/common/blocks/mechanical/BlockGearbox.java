@@ -263,11 +263,11 @@ public class BlockGearbox extends BlockRotate implements IBlockActive, IOverpowe
         switch (facing.getAxis()) {
             case Y:
                 if (inCenter(hitXFromCenter, hitZFromCenter, 1 / 16f)) {
-                    newFacing = facing;
+                    newFacing = facing.getOpposite();
                 } else if (isMax(hitXFromCenter, hitZFromCenter)) {
                     newFacing = ((hitXFromCenter > 0) ? EnumFacing.EAST : EnumFacing.WEST);
                 } else {
-                    newFacing = ((hitZFromCenter > 0) ? EnumFacing.NORTH : EnumFacing.SOUTH);
+                    newFacing = ((hitZFromCenter > 0) ? EnumFacing.SOUTH : EnumFacing.NORTH);
                 }
                 break;
             case X:
@@ -276,7 +276,7 @@ public class BlockGearbox extends BlockRotate implements IBlockActive, IOverpowe
                 } else if (isMax(hitYFromCenter, hitZFromCenter)) {
                     newFacing = ((hitYFromCenter > 0) ? EnumFacing.UP : EnumFacing.DOWN);
                 } else {
-                    newFacing = ((hitZFromCenter > 0) ? EnumFacing.NORTH : EnumFacing.SOUTH);
+                    newFacing = ((hitZFromCenter > 0) ? EnumFacing.SOUTH : EnumFacing.NORTH);
                 }
                 break;
             case Z:
