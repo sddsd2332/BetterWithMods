@@ -5,6 +5,7 @@ import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
@@ -45,6 +46,11 @@ public class BlockRawPastry extends Block implements IMultiLocations {
         for (EnumType type : EnumType.VALUES) {
             items.add(getStack(type));
         }
+    }
+
+    @Override
+    public EnumPushReaction getMobilityFlag(IBlockState state) {
+        return EnumPushReaction.NORMAL;
     }
 
     @Override

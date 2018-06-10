@@ -17,9 +17,6 @@ import javax.annotation.Nullable;
  * Utility class for rendering related operations.
  */
 public final class RenderUtil {
-    private RenderUtil() {
-    }
-
     /**
      * Bind the texture at the specified location to be used for quad rendering.
      *
@@ -154,8 +151,6 @@ public final class RenderUtil {
         drawQuad(sprite, 0, 0, 1, 1);
     }
 
-    // --------------------------------------------------------------------- //
-
     /**
      * Configure the light map so that whatever is rendered next is rendered at
      * full brightness, regardless of environment brightness. Useful for rendering
@@ -164,5 +159,10 @@ public final class RenderUtil {
     @SideOnly(Side.CLIENT)
     public static void ignoreLighting() {
         OpenGlHelper.setLightmapTextureCoords(OpenGlHelper.lightmapTexUnit, 240, 240);
+    }
+
+    // --------------------------------------------------------------------- //
+
+    private RenderUtil() {
     }
 }

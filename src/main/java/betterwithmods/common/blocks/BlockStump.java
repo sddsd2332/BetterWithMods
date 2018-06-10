@@ -5,7 +5,7 @@ import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.module.hardcore.world.HCStumping;
+import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;

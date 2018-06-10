@@ -36,6 +36,10 @@ public class BWMod {
     @Mod.Instance(BWMod.MODID)
     public static BWMod instance;
 
+    public static Logger getLog() {
+        return logger;
+    }
+
     @Mod.EventHandler
     public void onConstruct(FMLConstructionEvent event) {
         ForgeModContainer.fullBoundingBoxLadders = true;

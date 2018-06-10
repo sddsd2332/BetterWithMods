@@ -3,7 +3,7 @@ package betterwithmods.common.items.tools;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.items.ItemAltName;
 import betterwithmods.module.gameplay.Gameplay;
-import betterwithmods.module.hardcore.world.HCStumping;
+import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;

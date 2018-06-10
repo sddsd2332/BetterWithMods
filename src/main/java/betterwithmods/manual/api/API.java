@@ -2,6 +2,7 @@ package betterwithmods.manual.api;
 
 
 import betterwithmods.BWMod;
+import betterwithmods.manual.api.detail.ManualDefinition;
 
 /**
  * Glue / actual references for the RTFM API.
@@ -12,15 +13,13 @@ public final class API {
      */
     public static final String MOD_ID = BWMod.MODID;
 
-    /**
-     * The current version of the mod.
-     */
-    public static final String MOD_VERSION = "@VERSION@";
+    public static final String MOD_VERSION = BWMod.VERSION;
 
     // --------------------------------------------------------------------- //
 
-    // Set in RTFM pre-init, prefer using static entry point classes instead.
-    public static betterwithmods.manual.api.detail.ManualAPI manualAPI;
+    // The default manual book. Set in RTFM pre-init. You should generally not modify this.
+    public static ManualDefinition manualAPI;
+
 
     private API() {
     }

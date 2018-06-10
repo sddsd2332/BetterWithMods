@@ -105,8 +105,9 @@ public class HCLumber extends Feature {
         if (!event.getWorld().isRemote) {
             IWood wood = BWOreDictionary.getWoodFromState(event.getState());
             if (wood != null) {
-                if (event.isSilkTouching() || hasAxe(event.getHarvester(), event.getPos(), event.getState()) || Loader.isModLoaded("primal"))
+                if (event.isSilkTouching() || hasAxe(event.getHarvester(), event.getPos(), event.getState()))
                     return;
+                event.setDropChance(1);
                 event.getDrops().clear();
                 event.getDrops().addAll(Lists.newArrayList(wood.getPlank(plankAmount), wood.getSawdust(sawDustAmount), wood.getBark(barkAmount)));
             }

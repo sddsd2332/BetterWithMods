@@ -2,6 +2,8 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
+import betterwithmods.common.blocks.BlockBDispenser;
+import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
@@ -35,9 +37,9 @@ public class HCPiles extends Feature {
     }
 
     public static void registerPile(Block block, ItemStack stack) {
+        BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(block, new BehaviorSilkTouch());
         for (IBlockState state : block.getBlockState().getValidStates())
             registerPile(state, stack);
-        //registerPile(block.getDefaultState(), stack);
     }
 
     public static void registerPile(IBlockState block, ItemStack stack) {

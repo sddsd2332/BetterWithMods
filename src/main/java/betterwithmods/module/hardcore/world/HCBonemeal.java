@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.world;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
+import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.items.ItemFertilizer;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
@@ -55,7 +56,7 @@ public class HCBonemeal extends Feature {
     public void onBonemeal(BonemealEvent e) {
         if (!PlayerHelper.isSurvival(e.getEntityPlayer()))
             return;
-        if (!(e.getBlock().getBlock() instanceof BlockGrass) && e.getBlock().getBlock() instanceof IGrowable) {
+        if (!(e.getBlock().getBlock() instanceof BlockGrass) && !(e.getBlock().getBlock() instanceof BlockPlanter) && e.getBlock().getBlock() instanceof IGrowable) {
             IBlockState below = e.getWorld().getBlockState(e.getPos().down());
             below.getBlock().onBlockClicked(e.getWorld(), e.getPos().down(), e.getEntityPlayer());
             e.setCanceled(true);

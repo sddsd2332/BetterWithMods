@@ -114,16 +114,6 @@ public class BWOreDictionary {
         registerOre("hideStrap", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.LEATHER_STRAP));
         registerOre("leather", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.LEATHER_CUT));
 
-
-//        registerOre("slabWood", new ItemStack(BWMBlocks.WOOD_SIDING, 1, OreDictionary.WILDCARD_VALUE));
-//        registerOre("sidingWood", new ItemStack(BWMBlocks.WOOD_SIDING, 1, OreDictionary.WILDCARD_VALUE));
-//        registerOre("mouldingWood", new ItemStack(BWMBlocks.WOOD_MOULDING, 1, OreDictionary.WILDCARD_VALUE));
-//        registerOre("cornerWood", new ItemStack(BWMBlocks.WOOD_CORNER, 1, OreDictionary.WILDCARD_VALUE));
-
-//        registerOre("sidingStone", new ItemStack(BWMBlocks.STONE_SIDING, 1, 0));
-//        registerOre("mouldingStone", new ItemStack(BWMBlocks.STONE_MOULDING, 1, 0));
-//        registerOre("cornerStone", new ItemStack(BWMBlocks.STONE_CORNER, 1, 0));
-
         registerOre("fiberHemp", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HEMP_FIBERS));
         registerOre("fabricHemp", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HEMP_CLOTH));
 
