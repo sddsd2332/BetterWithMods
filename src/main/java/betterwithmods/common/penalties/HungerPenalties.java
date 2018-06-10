@@ -17,7 +17,7 @@ public class HungerPenalties extends PenaltyHandler<Integer, BasicPenalty<Intege
     }
 
     @Override
-    public BasicPenalty getPenalty(EntityPlayer player) {
+    public BasicPenalty<Integer> getPenalty(EntityPlayer player) {
         int level = player.getFoodStats().getFoodLevel();
         return getPenalty(level);
     }

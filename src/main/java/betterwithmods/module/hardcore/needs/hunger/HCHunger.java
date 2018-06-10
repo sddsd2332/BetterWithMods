@@ -76,15 +76,24 @@ public class HCHunger extends CompatFeature {
     public static Item PUMPKIN_SEEDS = new ItemEdibleSeeds(Blocks.PUMPKIN_STEM, Blocks.FARMLAND, 1, 0).setRegistryName("minecraft:pumpkin_seeds").setUnlocalizedName("seeds_pumpkin");
     public static Item BROWN_MUSHROOM = new ItemBlockEdible(Blocks.BROWN_MUSHROOM, 1, 0, false).setRegistryName("minecraft:brown_mushroom");
     public static Item RED_MUSHROOM = new ItemBlockEdible(Blocks.RED_MUSHROOM, 1, 0, false).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1).setRegistryName("minecraft:red_mushroom");
-
+    public static HungerPenalties penalties;
 
     public HCHunger() {
         super("applecore");
     }
 
+    @SubscribeEvent
+    public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
+        if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
+            return;
+        //Whether the player can heal
+        Event.Result result = BWRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
+        event.setResult(result);
+    }
+
     @Override
     public void setupConfig() {
-        BWRegistry.PENALTY_HANDLERS.add(new HungerPenalties());
+        BWRegistry.PENALTY_HANDLERS.add(penalties = new HungerPenalties());
 
         blockBreakExhaustion = (float) loadPropDouble("Block Breaking Exhaustion", "Set Exhaustion from breaking a block", 0.1);
         passiveExhaustion = (float) loadPropDouble("Passive Exhaustion", "Passive Exhaustion value", 3f);
@@ -235,16 +244,6 @@ public class HCHunger extends CompatFeature {
         }
     }
 
-
-    @SubscribeEvent
-    public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
-        if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
-            return;
-        //Whether the player can heal
-        Event.Result result = BWRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
-        event.setResult(result);
-    }
-
     //Adds Exhaustion when Jumping and cancels Jump if too exhausted
     @SubscribeEvent
     public void onJump(LivingEvent.LivingJumpEvent event) {
@@ -291,7 +290,7 @@ public class HCHunger extends CompatFeature {
         if (!event.player.world.isRemote && event.phase == TickEvent.Phase.START) {
             EntityPlayer player = event.player;
 //            if (event.player instanceof EntityPlayerMP)
-                //TODO fat
+            //TODO fat
 //                BWNetwork.INSTANCE.sendTo(new MessageFat(event.player.getUniqueID()), (EntityPlayerMP) event.player);
             if (!PlayerHelper.isSurvival(player) || player.world.getDifficulty() == EnumDifficulty.PEACEFUL)
                 return;
