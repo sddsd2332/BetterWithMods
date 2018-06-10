@@ -62,6 +62,9 @@ sourceSets {
         java {
             exclude '**/Thaumcraft.java'
         }
+        resources {
+            exclude 'assets/betterwithmods/docs/en_us/assets/**'
+        }
     }
 }
 
@@ -69,6 +72,7 @@ jar {
     manifest {
         attributes 'FMLAT': 'bwm_at.cfg'
     }
+    exclude 'assets/betterwithmods/docs/en_us/assets/**'
 }
 
 task deobfJar(type: Jar) {
