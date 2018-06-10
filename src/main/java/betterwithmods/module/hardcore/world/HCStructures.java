@@ -19,11 +19,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCStructures extends Feature {
+    public static int HARDCORE_STRUCTURE_RADIUS;
     private boolean disableRecipes;
 
     public static boolean isInRadius(World world, int x, int z) {
         BlockPos center = world.getSpawnPoint();
-        return Math.sqrt(Math.pow(x - center.getX(), 2) + Math.pow(z - center.getZ(), 2)) < HCSpawn.HARDCORE_SPAWN_RADIUS;
+        return Math.sqrt(Math.pow(x - center.getX(), 2) + Math.pow(z - center.getZ(), 2)) < HARDCORE_STRUCTURE_RADIUS;
     }
 
     @Override
@@ -34,6 +35,7 @@ public class HCStructures extends Feature {
 
     @Override
     public void setupConfig() {
+        HARDCORE_STRUCTURE_RADIUS = loadPropInt("Hardcore Structure Radius", "Radius from original spawn which structures will be abandoned in", 2000);
         disableRecipes = loadPropBool("Disable Recipes", "Disable Recipes for blocks that generate only in structures, including Enchanting Tables and Brewing Stands", true);
     }
 
