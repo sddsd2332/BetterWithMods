@@ -28,6 +28,11 @@ public class PenaltyHandlerRegistry extends HashSet<PenaltyHandler<?, ?>> {
         return booleanAttributes(player, BWMAttributes.SPRINT).allMatch(p);
     }
 
+    public boolean canSwim(EntityPlayer player) {
+        return booleanAttributes(player, BWMAttributes.SWIM).allMatch(p);
+    }
+
+
     public boolean canAttack(EntityPlayer player) {
         return booleanAttributes(player, BWMAttributes.ATTACK).allMatch(p);
     }

@@ -54,7 +54,6 @@ public class Penalty<T extends Number & Comparable> implements Comparable<Penalt
         return name;
     }
 
-
     @Override
     public int compareTo(@Nonnull Penalty penalty) {
         return Float.compare(this.getSeverity(), penalty.getSeverity());

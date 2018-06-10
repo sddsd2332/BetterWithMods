@@ -39,6 +39,12 @@ public class PenaltyEventHandler {
             player.setSprinting(false);
         }
 
+        //Swimming
+        if (player.isInWater() && !BWRegistry.PENALTY_HANDLERS.canSwim(player)) {
+            if (!PlayerHelper.isNearBottom(player)) {
+                player.setJumping(false);
+            }
+        }
     }
 
     @SubscribeEvent
@@ -58,6 +64,7 @@ public class PenaltyEventHandler {
                     player.playSound(BWSounds.OOF, 0.75f, 1f);
                 }
             }
+
         }
     }
 

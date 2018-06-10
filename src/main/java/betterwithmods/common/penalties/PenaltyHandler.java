@@ -33,4 +33,8 @@ public abstract class PenaltyHandler<T extends Number & Comparable, P extends Pe
     public P getMostSevere() {
         return penalties.stream().max((a,b) -> Float.compare(a.getSeverity(), b.getSeverity())).orElse(null);
     }
+
+    public boolean isDisplayed() {
+        return true;
+    }
 }

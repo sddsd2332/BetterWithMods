@@ -46,6 +46,8 @@ public class GuiStatus {
             int y = top;
             FontRenderer fontRenderer = this.mc.fontRenderer;
             for (PenaltyHandler handler : BWRegistry.PENALTY_HANDLERS) {
+                if(!handler.isDisplayed())
+                    continue;
                 Penalty p = handler.getPenalty(mc.player);
                 if (p != null) {
                     String status = I18n.format(p.getName());

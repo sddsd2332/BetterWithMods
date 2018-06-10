@@ -24,6 +24,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
 import java.util.Objects;
@@ -68,70 +69,6 @@ public final class PlayerHelper {
         return player != null && !player.isCreative() && !player.isSpectator() && !player.isSpectator();
     }
 
-
-//    public static GloomPenalty getGloomPenalty(EntityPlayer player) {
-//        if (!ModuleLoader.isFeatureEnabled(HCGloom.class))
-//            return GloomPenalty.NO_PENALTY;
-//        int gloom = HCGloom.getGloomTime(player);
-//        GloomPenalty penalty = GloomPenalty.NO_PENALTY;
-//        for (GloomPenalty p : GloomPenalty.VALUES) {
-//            if (p.isInRange(gloom))
-//                penalty = p;
-//        }
-//        return penalty;
-//    }
-//
-//    public static IPlayerPenalty getWorstPenalty(EntityPlayer player) {
-//        HungerPenalty hungerPenalty = getHungerPenalty(player);
-//        FatPenalty fatPenalty = getFatPenalty(player);
-//        int maximumOrdinal = Math.max(hungerPenalty.ordinal(), fatPenalty.ordinal());
-//        if (maximumOrdinal == hungerPenalty.ordinal()) return hungerPenalty;
-//        else if (maximumOrdinal == fatPenalty.ordinal()) return fatPenalty;
-//        else return hungerPenalty;
-//    }
-
-//    public static HungerPenalty getHungerPenalty(EntityPlayer player) {
-//        if (!ModuleLoader.isFeatureEnabled(HCHunger.class))
-//            return HungerPenalty.NONE;
-//        int level = player.getFoodStats().getFoodLevel();
-//        if (level > 24) return HungerPenalty.NONE;
-//        else if (level > 18) return HungerPenalty.PECKISH;
-//        else if (level > 12) return HungerPenalty.HUNGRY;
-//        else if (level > 6) return HungerPenalty.FAMISHED;
-//        else if (level > 0 || player.getFoodStats().getSaturationLevel() > 0) return HungerPenalty.STARVING;
-//        else return HungerPenalty.DYING;
-//    }
-
-    //    public static FatPenalty getFatPenalty(EntityPlayer player) {
-//        if (!ModuleLoader.isFeatureEnabled(HCHunger.class))
-//            return FatPenalty.NO_PENALTY;
-//        int level = (int) player.getFoodStats().getSaturationLevel();
-//        if (level < 36) return FatPenalty.NO_PENALTY;
-//        else if (level < 42) return FatPenalty.PLUMP;
-//        else if (level < 48) return FatPenalty.CHUBBY;
-//        else if (level < 52) return FatPenalty.FAT;
-//        else return FatPenalty.OBESE;
-//    }
-//
-//    public static HealthPenalty getHealthPenalty(EntityPlayer player) {
-//        if (!ModuleLoader.isFeatureEnabled(HCInjury.class))
-//            return HealthPenalty.NO_PENALTY;
-//        double max = player.getMaxHealth();
-//        double level = player.getHealth();
-//        double frac = level / max;
-//
-//        if (frac > 0.5d) return HealthPenalty.NO_PENALTY;
-////        else if (frac > 0.4d) return HealthPenalty.HURT;
-////        else if (frac > 0.3d) return HealthPenalty.INJURED;
-////        else if (frac > 0.2d) return HealthPenalty.WOUNDED;
-////        else if (frac > 0.1d) return HealthPenalty.CRIPPLED;
-////        else return HealthPenalty.DYING;
-////    }
-//
-//    public static boolean canSwim(EntityPlayer player) {
-//        return (!isWeighted(player)) && canJump(player);
-//    }
-
     /**
      * This will at least keep players from sticking to the bottom of a pool.
      *
@@ -139,9 +76,10 @@ public final class PlayerHelper {
      * @return Whether the player is near the bottom of the pool or not.
      */
     public static boolean isNearBottom(EntityPlayer player) {
-        Block toCheck = player.getEntityWorld().getBlockState(player.getPosition().down()).getBlock();
-        Block toCheck2 = player.getEntityWorld().getBlockState(player.getPosition().down(2)).getBlock();
-        return !toCheck.isReplaceable(player.getEntityWorld(), player.getPosition().down()) || !toCheck2.isReplaceable(player.getEntityWorld(), player.getPosition().down(2));
+        World world = player.getEntityWorld();
+        BlockPos a = player.getPosition().down(1);
+        BlockPos b = player.getPosition().down(2);
+        return !world.getBlockState(a).getMaterial().isReplaceable() && !world.getBlockState(b).getMaterial().isReplaceable();
     }
 
     public static void changeAttack(EntityLivingBase entity,
@@ -177,40 +115,13 @@ public final class PlayerHelper {
         iattributeinstance.applyModifier(speedModifier);
     }
 
-    private static int getWornArmorWeight(EntityPlayer player) {
+    public static int getWornArmorWeight(EntityPlayer player) {
         int weight = 0;
         for (ItemStack stack : player.inventory.armorInventory) {
             if (stack != null)
                 weight += HCArmor.getWeight(stack);
         }
         return weight;
-    }
-
-    private static boolean isWeighted(EntityPlayer player) {
-        return getWornArmorWeight(player) >= 10 || hasHeadCrab(player);
-    }
-
-    private static boolean hasHeadCrab(EntityPlayer player) {
-        return player.isRiding() && player.getRidingEntity() instanceof EntitySquid;
-    }
-
-//    public static float getGloomExhaustionModifier(EntityPlayer player) {
-//        if (!ModuleLoader.isFeatureEnabled(HCGloom.class))
-//            return 1.0f;
-//        GloomPenalty gloom = getGloomPenalty(player);
-//        if (gloom != null)
-//            return gloom.getModifier();
-//        return 1.0f;
-//    }
-
-    public static float getArmorExhaustionModifier(EntityPlayer player) {
-        float modifier = 1.0F;
-        int weight = getWornArmorWeight(player);
-
-        if (weight > 0) {
-            modifier += (float) weight / 44.0F;
-        }
-        return modifier;
     }
 
 
