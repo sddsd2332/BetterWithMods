@@ -42,7 +42,7 @@ public class PenaltyEventHandler {
         //Swimming
         if (player.isInWater() && !BWRegistry.PENALTY_HANDLERS.canSwim(player)) {
             if (!PlayerHelper.isNearBottom(player)) {
-                player.setJumping(false);
+                    player.motionY -= 0.04;
             }
         }
     }
