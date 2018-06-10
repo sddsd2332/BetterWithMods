@@ -1,12 +1,11 @@
-package betterwithmods.client.gui;
+package betterwithmods.manual.client.gui;
 
-import betterwithmods.manual.api.ManualAPI;
 import betterwithmods.manual.client.manual.Document;
 import betterwithmods.manual.client.manual.segment.InteractiveSegment;
 import betterwithmods.manual.client.manual.segment.Segment;
 import betterwithmods.manual.client.renderer.TextureLoader;
-import betterwithmods.manual.common.api.ManualAPIImpl;
-import com.google.common.collect.Lists;
+import betterwithmods.manual.common.api.ManualDefinitionImpl;
+import betterwithmods.manual.common.api.ManualDefinitionImpl.Tab;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.Gui;
@@ -19,6 +18,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
+import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.input.Mouse;
@@ -31,8 +31,7 @@ import java.util.Optional;
 @SuppressWarnings("OptionalUsedAsFieldOrParameterType")
 @SideOnly(Side.CLIENT)
 public final class GuiManual extends GuiScreen {
-    public static final float FONT_SCALE = 0.75f;
-    private static final int documentMaxWidth = 215;
+    private static final int documentMaxWidth = 220;
     private static final int documentMaxHeight = 192;
     private static final int scrollPosX = 250;
     private static final int scrollPosY = 48;
@@ -47,7 +46,6 @@ public final class GuiManual extends GuiScreen {
     private static final int windowWidth = 256;
     private static final int windowHeight = 256;
 
-
     private int guiLeft = 0;
     private int guiTop = 0;
     private int xSize = 0;
@@ -60,9 +58,19 @@ public final class GuiManual extends GuiScreen {
 
     private ImageButton scrollButton = null;
 
+    private final ManualDefinitionImpl myManual;
+
+    public GuiManual() {
+        myManual = ManualDefinitionImpl.INSTANCE;
+    }
+
+    public GuiManual(ManualDefinitionImpl manual) {
+        myManual = manual;
+    }
+
     public void pushPage(final String path) {
-        if (!ManualAPIImpl.peekPath().equals(path)) {
-            ManualAPIImpl.pushPath(path);
+        if (!myManual.peekPath().equals(path)) {
+            myManual.pushPath(path);
             refreshPage();
         }
     }
@@ -79,7 +87,8 @@ public final class GuiManual extends GuiScreen {
         guiTop = midY - guiSize.scaledHeight / 2;
         xSize = guiSize.scaledWidth;
         ySize = guiSize.scaledHeight;
-        for (int i = 0; i < ManualAPIImpl.getTabs().size() && i < maxTabsPerSide; i++) {
+
+        for (int i = 0; i < myManual.getTabs().size() && i < maxTabsPerSide; i++) {
             final int x = guiLeft + tabPosX;
             final int y = guiTop + tabPosY + i * (tabHeight - tabOverlap);
             buttonList.add(new ImageButton(i, x, y, tabWidth, tabHeight - tabOverlap - 1, TextureLoader.LOCATION_MANUAL_TAB).setImageHeight(tabHeight).setVerticalImageOffset(-tabOverlap / 2));
@@ -102,9 +111,9 @@ public final class GuiManual extends GuiScreen {
 
         scrollButton.enabled = canScroll();
         scrollButton.hoverOverride = isDragging;
-        scrollButton.visible = scrollButton.enabled;
-        for (int i = 0; i < ManualAPIImpl.getTabs().size() && i < maxTabsPerSide; i++) {
-            final ManualAPIImpl.Tab tab = ManualAPIImpl.getTabs().get(i);
+
+        for (int i = 0; i < myManual.getTabs().size() && i < maxTabsPerSide; i++) {
+            final Tab tab = myManual.getTabs().get(i);
             final ImageButton button = (ImageButton) buttonList.get(i);
             GlStateManager.pushMatrix();
             GlStateManager.translate(button.x + 30, button.y + 4 - tabOverlap / 2, zLevel);
@@ -112,13 +121,13 @@ public final class GuiManual extends GuiScreen {
             GlStateManager.popMatrix();
         }
 
-        currentSegment = Document.render(document, guiLeft + 20, guiTop + 32, documentMaxWidth, documentMaxHeight, offset(), getFontRenderer(), mouseX, mouseY);
+        currentSegment = Document.render(document, guiLeft + 16, guiTop + 32, documentMaxWidth, documentMaxHeight, offset(), getFontRenderer(), mouseX, mouseY);
 
         if (!isDragging) {
             currentSegment.ifPresent(s -> s.tooltip().ifPresent(t -> drawHoveringText(Collections.singletonList(I18n.format(t)), mouseX, mouseY, getFontRenderer())));
 
-            for (int i = 0; i < ManualAPIImpl.getTabs().size() && i < maxTabsPerSide; i++) {
-                final ManualAPIImpl.Tab tab = ManualAPIImpl.getTabs().get(i);
+            for (int i = 0; i < myManual.getTabs().size() && i < maxTabsPerSide; i++) {
+                final Tab tab = myManual.getTabs().get(i);
                 final ImageButton button = (ImageButton) buttonList.get(i);
                 if (mouseX > button.x && mouseX < button.x + button.width && mouseY > button.y && mouseY < button.y + button.height) {
                     if (tab.tooltip != null) {
@@ -189,8 +198,8 @@ public final class GuiManual extends GuiScreen {
 
     @Override
     protected void actionPerformed(final GuiButton button) throws IOException {
-        if (button.id >= 0 && button.id < ManualAPIImpl.getTabs().size()) {
-            ManualAPI.navigate(ManualAPIImpl.getTabs().get(button.id).path);
+        if (button.id >= 0 && button.id < myManual.getTabs().size()) {
+            myManual.navigate(myManual.getTabs().get(button.id).path);
         }
     }
 
@@ -210,7 +219,7 @@ public final class GuiManual extends GuiScreen {
     }
 
     private int offset() {
-        return ManualAPIImpl.peekOffset();
+        return myManual.peekOffset();
     }
 
     private int maxOffset() {
@@ -218,20 +227,16 @@ public final class GuiManual extends GuiScreen {
     }
 
     private void refreshPage() {
-        final Iterable<String> content = ManualAPI.contentFor(ManualAPIImpl.peekPath());
-        document = Document.parse(content != null ? content :
-                Lists.newArrayList(I18n.format("bwm.manual.error.0"),
-                        "`" + ManualAPIImpl.fixLanguage(ManualAPIImpl.peekPath()) + "`",
-                        I18n.format("bwm.manual.error.1", "[here](https://github.com/BeetoGuy/BetterWithMods/issues)"),
-                        I18n.format("bwm.manual.error.2", " [Online Docs](https://betterwithmods.github.io/Documentation/" + ManualAPIImpl.fixLanguage(ManualAPIImpl.peekPath()) + ")"))
-        );
+        final String language = FMLCommonHandler.instance().getCurrentLanguage();
+        final Iterable<String> content = myManual.contentFor(myManual.peekPath());
+        document = Document.parse(myManual, content != null ? content : Collections.singletonList("Document not found: " + ManualDefinitionImpl.PATTERN_LANGUAGE_KEY.matcher(myManual.peekPath()).replaceAll(language)));
         documentHeight = Document.height(document, documentMaxWidth, getFontRenderer());
         scrollTo(offset());
     }
 
     private void popPage() {
-        if (ManualAPIImpl.getHistorySize() > 1) {
-            ManualAPIImpl.popPath();
+        if (myManual.getHistorySize() > 1) {
+            myManual.popPath();
             refreshPage();
         } else {
             Minecraft.getMinecraft().player.closeScreen();
@@ -251,7 +256,7 @@ public final class GuiManual extends GuiScreen {
     }
 
     private void scrollTo(final int row) {
-        ManualAPIImpl.setOffset(Math.max(0, Math.min(maxOffset(), row)));
+        myManual.setOffset(Math.max(0, Math.min(maxOffset(), row)));
         final int yMin = guiTop + scrollPosY;
         if (maxOffset() > 0) {
             scrollButton.y = yMin + (scrollHeight - 13) * offset() / maxOffset();
@@ -287,7 +292,7 @@ public final class GuiManual extends GuiScreen {
         }
 
         @Override
-        public void drawButton(Minecraft mc, int mouseX, int mouseY, float partialTicks) {
+        public void drawButton(final Minecraft mc, final int mouseX, final int mouseY, float partialTicks) {
             if (visible) {
                 mc.getTextureManager().bindTexture(image);
                 GlStateManager.color(1, 1, 1, 1);

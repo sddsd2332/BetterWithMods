@@ -17,7 +17,8 @@ import betterwithmods.common.blocks.tile.TileEntityBucket;
 import betterwithmods.common.entity.*;
 import betterwithmods.manual.api.ManualAPI;
 import betterwithmods.manual.api.prefab.manual.TextureTabIconRenderer;
-import betterwithmods.manual.client.manual.provider.*;
+import betterwithmods.manual.common.DirectoryDefaultProvider;
+import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
 import betterwithmods.module.gameplay.breeding_harness.CapabilityHarness;
@@ -101,18 +102,14 @@ public class ClientProxy implements IProxy {
         List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), ReflectionLib.DEFAULT_RESOURCE_PACKS);
         ModuleLoader.initClient(event);
         registerColors();
-        ManualAPI.addProvider(new DefinitionPathProvider());
-        ManualAPI.addProvider(new DirectoryDefaultProvider(BWMod.MODID, "documentation/docs/"));
-        ManualAPI.addProvider("", new TextureImageProvider());
-        ManualAPI.addProvider("item", new ItemImageProvider());
-        ManualAPI.addProvider("block", new BlockImageProvider());
-        ManualAPI.addProvider("oredict", new OreDictImageProvider());
+
+        ManualAPI.addProvider(new DirectoryDefaultProvider(new ResourceLocation(BWMod.MODID, "documentation/docs/")));
+        ManualDefinitionImpl.INSTANCE.addDefaultProviders();
         ManualAPI.addTab(new TextureTabIconRenderer(new ResourceLocation(BWMod.MODID, "textures/gui/manual_home.png")), "bwm.manual.home", "%LANGUAGE%/index.md");
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-
         ModuleLoader.postInitClient(event);
         RenderUtils.registerFilters();
     }

@@ -1,12 +1,14 @@
 package betterwithmods.manual.common.api;
 
 import betterwithmods.BWMod;
-import betterwithmods.client.BWGuiHandler;
-import betterwithmods.client.gui.GuiManual;
-import betterwithmods.manual.api.detail.ManualAPI;
+import betterwithmods.manual.api.detail.ManualDefinition;
 import betterwithmods.manual.api.manual.*;
+import betterwithmods.manual.client.gui.GuiManual;
+import betterwithmods.manual.client.manual.provider.BlockImageProvider;
+import betterwithmods.manual.client.manual.provider.ItemImageProvider;
+import betterwithmods.manual.client.manual.provider.OreDictImageProvider;
+import betterwithmods.manual.client.manual.provider.TextureImageProvider;
 import com.google.common.base.Strings;
-import com.google.common.collect.Sets;
 import com.google.common.io.Files;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
@@ -15,126 +17,74 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.FMLCommonHandler;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Pattern;
 
-public final class ManualAPIImpl implements ManualAPI {
-    public static final ManualAPIImpl INSTANCE = new ManualAPIImpl();
+public final class ManualDefinitionImpl implements ManualDefinition {
     // Language placeholder replacement.
-    private static final String LANGUAGE_KEY = "%LANGUAGE%";
-    private static final String FALLBACK_LANGUAGE = "en_us";
-    private static final Pattern PATTERN_LANGUAGE_KEY = Pattern.compile(LANGUAGE_KEY);
+    public static final String LANGUAGE_KEY = "%LANGUAGE%";
+    public static final String FALLBACK_LANGUAGE = "en_us";
+    public static final Pattern PATTERN_LANGUAGE_KEY = Pattern.compile(LANGUAGE_KEY);
+
     // Error messages.
     private static final String MESSAGE_CONTENT_LOOKUP_EXCEPTION = "A content provider threw an error when queried.";
     private static final String MESSAGE_IMAGE_PROVIDER_EXCEPTION = "An image provider threw an error when queried.";
     private static final String MESSAGE_PATH_PROVIDER_ITEM_EXCEPTION = "A path provider threw an error when queried with an item.";
+    private static final String MESSAGE_PATH_PROVIDER_BLOCK_EXCEPTION = "A path provider threw an error when queried with a block.";
 
     // --------------------------------------------------------------------- //
-    private static final String MESSAGE_PATH_PROVIDER_BLOCK_EXCEPTION = "A path provider threw an error when queried with a block.";
+
+    public static final ManualDefinitionImpl INSTANCE = new ManualDefinitionImpl();
+
+    // --------------------------------------------------------------------- //
+
     /**
      * The history of pages the player navigated through (like browser history).
      */
     private final Stack<History> history = new Stack<>();
+
     /**
      * The registered tabs of the manual, which are really just glorified links.
      */
     private final List<Tab> tabs = new ArrayList<>();
+
     /**
      * The list of registered path providers, used for resolving items/blocks to paths.
      */
     private final List<PathProvider> pathProviders = new ArrayList<>();
+
     /**
      * The list of registered content providers, used for resolving paths to page content.
      */
-    private final TreeSet<ContentProvider> contentProviders = Sets.newTreeSet();
+    private final List<ContentProvider> contentProviders = new ArrayList<>();
+
     /**
      * The list of registered image providers, used for drawing images.
      */
     private final List<PrefixedImageProvider> imageProviders = new ArrayList<>();
+
     /**
      * The default page to open when resetting / the history becomes empty.
      */
     private String defaultPage = String.format("%s/index.md", LANGUAGE_KEY);
 
-    private ManualAPIImpl() {
+    // --------------------------------------------------------------------- //
+
+    public ManualDefinitionImpl() {
         reset();
     }
 
     // --------------------------------------------------------------------- //
 
-    public static int getHistorySize() {
-        return INSTANCE.history.size();
-    }
-
-    public static void pushPath(final String path) {
-        INSTANCE.history.push(new ManualAPIImpl.History(path));
-    }
-
-    public static String peekPath() {
-        return INSTANCE.history.peek().path;
-    }
-
-    public static int peekOffset() {
-        return INSTANCE.history.peek().offset;
-    }
-
-    public static void setOffset(final int offset) {
-        INSTANCE.history.peek().offset = offset;
-    }
-
-    public static void popPath() {
-        INSTANCE.history.pop();
-    }
-
-    // --------------------------------------------------------------------- //
-
-    public static List<Tab> getTabs() {
-        return INSTANCE.tabs;
-    }
-
-    // --------------------------------------------------------------------- //
-
-    /**
-     * Makes the specified path relative to the specified base path.
-     *
-     * @param path the path to make relative.
-     * @param base the path to make it relative to.
-     * @return the relative path.
-     */
-    public static String makeRelative(final String path, final String base) {
-        if (path.startsWith("/")) {
-            return path;
-        } else {
-            final int lastSlash = base.lastIndexOf('/');
-            if (lastSlash >= 0) {
-                return base.substring(0, lastSlash + 1) + path;
-            } else {
-                return path;
-            }
-        }
-    }
-
-    public static void setDefaultPage(final String defaultPage) {
-        INSTANCE.defaultPage = defaultPage;
-        INSTANCE.reset();
-    }
-
-    public static String fixLanguage(final String path) {
-        return fixLanguage(path, FMLCommonHandler.instance().getCurrentLanguage());
-    }
-
-    public static String fixLanguage(final String path, String language) {
-        final String cleanPath = Files.simplifyPath(path);
-        return PATTERN_LANGUAGE_KEY.matcher(cleanPath).replaceAll(language);
-    }
-
     @Override
     public void addTab(final TabIconRenderer renderer, @Nullable final String tooltip, final String path) {
         tabs.add(new Tab(renderer, tooltip, path));
         if (tabs.size() > 7) {
-            BWMod.logger.warn("Gosh I'm popular! Too many tabs were added to the in-game manual, so some won't be shown. In case this actually happens, let me know and I'll look into making them scrollable or something...");
+            BWMod.getLog().warn("Gosh I'm popular! Too many tabs were added to the in-game manual, so some won't be shown. In case this actually happens, let me know and I'll look into making them scrollable or something...");
         }
     }
 
@@ -163,6 +113,13 @@ public final class ManualAPIImpl implements ManualAPI {
         imageProviders.add(new PrefixedImageProvider(actualPrefix, provider));
     }
 
+    public void addDefaultProviders() {
+        addProvider("", new TextureImageProvider());
+        addProvider("item", new ItemImageProvider());
+        addProvider("block", new BlockImageProvider());
+        addProvider("oredict", new OreDictImageProvider());
+    }
+
     @Override
     @Nullable
     public String pathFor(final ItemStack stack) {
@@ -178,8 +135,13 @@ public final class ManualAPIImpl implements ManualAPI {
     @Override
     @Nullable
     public Iterable<String> contentFor(final String path) {
-        final Optional<Iterable<String>> result = contentForWithRedirects(fixLanguage(path));
-        return result.orElseGet(() -> contentForWithRedirects(fixLanguage(path, FALLBACK_LANGUAGE)).orElse(null));
+        final String cleanPath = Files.simplifyPath(path);
+        final String language = FMLCommonHandler.instance().getCurrentLanguage();
+        final Optional<Iterable<String>> result = contentForWithRedirects(PATTERN_LANGUAGE_KEY.matcher(cleanPath).replaceAll(language));
+        if (result.isPresent()) {
+            return result.get();
+        }
+        return contentForWithRedirects(PATTERN_LANGUAGE_KEY.matcher(cleanPath).replaceAll(FALLBACK_LANGUAGE)).orElse(null);
     }
 
     @Override
@@ -194,7 +156,7 @@ public final class ManualAPIImpl implements ManualAPI {
                         return image;
                     }
                 } catch (final Throwable t) {
-                    BWMod.logger.warn(MESSAGE_IMAGE_PROVIDER_EXCEPTION, t);
+                    BWMod.getLog().warn(MESSAGE_IMAGE_PROVIDER_EXCEPTION, t);
                 }
             }
         }
@@ -203,13 +165,12 @@ public final class ManualAPIImpl implements ManualAPI {
     }
 
     @Override
+    @SideOnly(Side.CLIENT)
     public void openFor(final EntityPlayer player) {
         if (player.getEntityWorld().isRemote) {
-            player.openGui(BWMod.instance, BWGuiHandler.Gui.MANUAL.ordinal(), player.getEntityWorld(), 0, 0, 0);
+            Minecraft.getMinecraft().displayGuiScreen(new GuiManual(this));
         }
     }
-
-    // --------------------------------------------------------------------- //
 
     @Override
     public void reset() {
@@ -229,6 +190,61 @@ public final class ManualAPIImpl implements ManualAPI {
 
     // --------------------------------------------------------------------- //
 
+    /**
+     * Makes the specified path relative to the specified base path.
+     *
+     * @param path the path to make relative.
+     * @param base the path to make it relative to.
+     * @return the relative path.
+     */
+    public static String makeRelative(final String path, final String base) {
+        if (path.startsWith("/")) {
+            return path;
+        } else {
+            final int lastSlash = base.lastIndexOf('/');
+            if (lastSlash >= 0) {
+                return base.substring(0, lastSlash + 1) + path;
+            } else {
+                return path;
+            }
+        }
+    }
+
+    public void setDefaultPage(final String defaultPage) {
+        this.defaultPage = defaultPage;
+        reset();
+    }
+
+    public int getHistorySize() {
+        return history.size();
+    }
+
+    public void pushPath(final String path) {
+        history.push(new ManualDefinitionImpl.History(path));
+    }
+
+    public String peekPath() {
+        return history.peek().path;
+    }
+
+    public int peekOffset() {
+        return history.peek().offset;
+    }
+
+    public void setOffset(final int offset) {
+        history.peek().offset = offset;
+    }
+
+    public void popPath() {
+        history.pop();
+    }
+
+    public List<Tab> getTabs() {
+        return tabs;
+    }
+
+    // --------------------------------------------------------------------- //
+
     @Nullable
     private String pathFor(final ProviderQuery query, final String warning) {
         for (final PathProvider provider : pathProviders) {
@@ -238,7 +254,7 @@ public final class ManualAPIImpl implements ManualAPI {
                     return path;
                 }
             } catch (final Throwable t) {
-                BWMod.logger.warn(warning, t);
+                BWMod.getLog().warn(warning, t);
             }
         }
         return null;
@@ -274,27 +290,20 @@ public final class ManualAPIImpl implements ManualAPI {
     }
 
     private Optional<Iterable<String>> doContentLookup(final String path) {
-        final String finalPath = (path.startsWith("/") ? path.substring(1) : path);
         for (final ContentProvider provider : contentProviders) {
             try {
-                final Iterable<String> lines = provider.getContent(finalPath);
+                final Iterable<String> lines = provider.getContent(path);
                 if (lines != null) {
                     return Optional.of(lines);
                 }
             } catch (final Throwable t) {
-                BWMod.logger.warn(MESSAGE_CONTENT_LOOKUP_EXCEPTION, t);
+                BWMod.getLog().warn(MESSAGE_CONTENT_LOOKUP_EXCEPTION, t);
             }
         }
         return Optional.empty();
     }
 
     // --------------------------------------------------------------------- //
-
-    @FunctionalInterface
-    private interface ProviderQuery {
-        @Nullable
-        String pathFor(PathProvider provider);
-    }
 
     public static final class History {
         public final String path;
@@ -325,5 +334,11 @@ public final class ManualAPIImpl implements ManualAPI {
             this.prefix = prefix;
             this.provider = provider;
         }
+    }
+
+    @FunctionalInterface
+    private interface ProviderQuery {
+        @Nullable
+        String pathFor(PathProvider provider);
     }
 }

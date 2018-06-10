@@ -4,7 +4,6 @@ import betterwithmods.manual.api.API;
 import betterwithmods.manual.api.manual.ImageProvider;
 import betterwithmods.manual.api.manual.ImageRenderer;
 import betterwithmods.manual.client.manual.segment.render.MissingItemRenderer;
-import betterwithmods.manual.client.manual.segment.render.NoImageRender;
 import betterwithmods.manual.client.manual.segment.render.TextureImageRenderer;
 import net.minecraft.util.ResourceLocation;
 

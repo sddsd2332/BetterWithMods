@@ -1,11 +1,12 @@
-package betterwithmods.manual.client.manual.segment;
+package betterwithmods.manual.custom;
 
 import betterwithmods.manual.api.manual.ImageRenderer;
+import betterwithmods.manual.client.manual.segment.RenderSegment;
+import betterwithmods.manual.client.manual.segment.Segment;
 import betterwithmods.module.compat.jei.JEI;
 import net.minecraft.item.crafting.Ingredient;
 
 public class JEIRenderSegment extends RenderSegment implements IJEISegment {
-
 
     private final String recipeOutput;
 

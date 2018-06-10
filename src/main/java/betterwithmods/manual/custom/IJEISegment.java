@@ -1,4 +1,4 @@
-package betterwithmods.manual.client.manual.segment;
+package betterwithmods.manual.custom;
 
 import betterwithmods.util.StackIngredient;
 import com.google.common.base.Strings;

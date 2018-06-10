@@ -12,21 +12,18 @@ public final class FontRendererNormal extends AbstractFontRenderer {
     // --------------------------------------------------------------------- //
     // FontRenderer
 
-    private FontRendererNormal() {
-    }
-
     @Override
     public int getCharWidth() {
         return 8;
     }
 
-    // --------------------------------------------------------------------- //
-    // AbstractFontRenderer
-
     @Override
     public int getCharHeight() {
         return 16;
     }
+
+    // --------------------------------------------------------------------- //
+    // AbstractFontRenderer
 
     @Override
     protected CharSequence getCharacters() {
@@ -48,10 +45,13 @@ public final class FontRendererNormal extends AbstractFontRenderer {
         return 1;
     }
 
-    // --------------------------------------------------------------------- //
-
     @Override
     protected int getGapV() {
         return 0;
+    }
+
+    // --------------------------------------------------------------------- //
+
+    private FontRendererNormal() {
     }
 }

@@ -26,7 +26,7 @@ import betterwithmods.common.registry.bulk.manager.CookingPotManager;
 import betterwithmods.common.registry.bulk.manager.MillManager;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.manual.api.API;
-import betterwithmods.manual.common.api.ManualAPIImpl;
+import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.module.Feature;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.compat.Quark;
@@ -103,7 +103,8 @@ public class BWRegistry {
     }
 
     public static void preInit() {
-        API.manualAPI = ManualAPIImpl.INSTANCE;
+
+        API.manualAPI = ManualDefinitionImpl.INSTANCE;
 
         BWMBlocks.registerBlocks();
         BWMItems.registerItems();

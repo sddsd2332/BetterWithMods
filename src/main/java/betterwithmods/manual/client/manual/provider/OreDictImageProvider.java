@@ -20,6 +20,18 @@ import java.util.List;
 public final class OreDictImageProvider implements ImageProvider {
     private static final String WARNING_ORE_DICT_MISSING = API.MOD_ID + ".manual.warning.missing.oreDict";
 
+    @Override
+    public ImageRenderer getImage(final String data) {
+        final ItemStack[] stacks = OreDictionary.getOres(data).stream()
+                .flatMap(stack -> getSubtypes(stack).stream())
+                .toArray(ItemStack[]::new);
+        if (stacks != null && stacks.length > 0) {
+            return new ItemStackImageRenderer(stacks);
+        } else {
+            return new MissingItemRenderer(WARNING_ORE_DICT_MISSING);
+        }
+    }
+
     /**
      * Stolen from JEI.
      *
@@ -54,14 +66,14 @@ public final class OreDictImageProvider implements ImageProvider {
             try {
                 item.getSubItems(itemTab, subItems);
             } catch (RuntimeException | LinkageError e) {
-                BWMod.logger.warn("Caught a crash while getting sub-items of {}", item, e);
+                BWMod.getLog().warn("Caught a crash while getting sub-items of {}", item, e);
             }
 
             for (ItemStack subItem : subItems) {
                 if (subItem == null) {
-                    BWMod.logger.warn("Found a null subItem of {}", item);
+                    BWMod.getLog().warn("Found a null subItem of {}", item);
                 } else if (subItem.isEmpty()) {
-                    BWMod.logger.warn("Found an empty subItem of {}", item);
+                    BWMod.getLog().warn("Found an empty subItem of {}", item);
                 } else {
                     if (subItem.getCount() != stackSize) {
                         ItemStack subItemCopy = subItem.copy();
@@ -75,17 +87,5 @@ public final class OreDictImageProvider implements ImageProvider {
         }
 
         return itemStacks;
-    }
-
-    @Override
-    public ImageRenderer getImage(final String data) {
-        final ItemStack[] stacks = OreDictionary.getOres(data).stream()
-                .flatMap(stack -> getSubtypes(stack).stream())
-                .toArray(ItemStack[]::new);
-        if (stacks != null && stacks.length > 0) {
-            return new ItemStackImageRenderer(stacks);
-        } else {
-            return new MissingItemRenderer(WARNING_ORE_DICT_MISSING);
-        }
     }
 }

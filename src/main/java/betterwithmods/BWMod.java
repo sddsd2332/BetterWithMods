@@ -11,6 +11,7 @@ import betterwithmods.network.MessageHarnessSync;
 import betterwithmods.network.NetworkHandler;
 import betterwithmods.proxy.IProxy;
 import betterwithmods.testing.BWMTests;
+import com.sun.org.apache.xpath.internal.Expression;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -35,6 +36,10 @@ public class BWMod {
     @SuppressWarnings({"CanBeFinal", "unused"})
     @Mod.Instance(BWMod.MODID)
     public static BWMod instance;
+
+    public static Logger getLog() {
+        return logger;
+    }
 
     @Mod.EventHandler
     public void onConstruct(FMLConstructionEvent event) {

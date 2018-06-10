@@ -1,6 +1,5 @@
 package betterwithmods.manual.client.manual.segment;
 
-import betterwithmods.client.gui.GuiManual;
 import com.mojang.realmsclient.gui.ChatFormatting;
 import joptsimple.internal.Strings;
 
@@ -18,7 +17,7 @@ public final class HeaderSegment extends TextSegment {
 
     @Override
     protected Optional<Float> scale() {
-        return Optional.of(fontScale * GuiManual.FONT_SCALE);
+        return Optional.of(fontScale);
     }
 
     @Override
