@@ -16,9 +16,6 @@ public final class TextureImageProvider implements ImageProvider {
     @Override
     @Nullable
     public ImageRenderer getImage(final String data) {
-        if (data.startsWith("http://") || data.startsWith("https://")) {
-            return new NoImageRender();
-        }
         try {
             return new TextureImageRenderer(new ResourceLocation(data));
         } catch (final Throwable t) {

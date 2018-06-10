@@ -1,4 +1,0 @@
-[submodule "src/main/resources/assets/betterwithmods/docs"]
-	path = src/main/resources/assets/betterwithmods/docs
-	url = https://gitlab.com/BetterWithMods/Documentation.git
-	branch = master

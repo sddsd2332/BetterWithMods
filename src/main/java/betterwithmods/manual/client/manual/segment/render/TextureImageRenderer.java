@@ -30,7 +30,7 @@ public class TextureImageRenderer implements ImageRenderer {
         if (image instanceof ImageTexture) {
             this.texture = (ImageTexture) image;
         } else {
-            if (image != null && image.getGlTextureId() != -1) {
+            if (image.getGlTextureId() != -1) {
                 TextureUtil.deleteTexture(image.getGlTextureId());
             }
             this.texture = new ImageTexture(location);

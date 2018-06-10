@@ -102,7 +102,7 @@ public class ClientProxy implements IProxy {
         ModuleLoader.initClient(event);
         registerColors();
         ManualAPI.addProvider(new DefinitionPathProvider());
-        ManualAPI.addProvider(new DirectoryDefaultProvider("betterwithmods", "docs/"));
+        ManualAPI.addProvider(new DirectoryDefaultProvider(BWMod.MODID, "documentation/docs/"));
         ManualAPI.addProvider("", new TextureImageProvider());
         ManualAPI.addProvider("item", new ItemImageProvider());
         ManualAPI.addProvider("block", new BlockImageProvider());

@@ -11,10 +11,6 @@ public class DirectoryDefaultProvider extends ResourceContentProvider {
         super(resourceDomain, basePath);
     }
 
-    public DirectoryDefaultProvider(String resourceDomain) {
-        super(resourceDomain);
-    }
-
     @Override
     public Iterable<String> getContent(String path) {
         Iterable<String> content = super.getContent(path);

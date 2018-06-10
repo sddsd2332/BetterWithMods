@@ -1,6 +1,5 @@
 package betterwithmods.manual.client.manual.provider;
 
-import betterwithmods.manual.api.API;
 import betterwithmods.manual.api.manual.ImageProvider;
 import betterwithmods.manual.api.manual.ImageRenderer;
 import betterwithmods.manual.client.manual.segment.render.ItemStackImageRenderer;
@@ -16,7 +15,7 @@ import net.minecraftforge.oredict.OreDictionary;
 import javax.annotation.Nullable;
 
 public final class BlockImageProvider implements ImageProvider {
-    private static final String WARNING_BLOCK_MISSING = API.MOD_ID + ".manual.warning.missing.block";
+    private static final String WARNING_BLOCK_MISSING = "bwm.manual.warning.missing.block";
 
     @Override
     @Nullable
@@ -40,7 +39,7 @@ public final class BlockImageProvider implements ImageProvider {
     }
 
     public int parseMeta(String optMeta) {
-        if(optMeta=="*") {
+        if(optMeta.equals("*")) {
             return OreDictionary.WILDCARD_VALUE;
         } else {
             return Integer.parseInt(optMeta);
