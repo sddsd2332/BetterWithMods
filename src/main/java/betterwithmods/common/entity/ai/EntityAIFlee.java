@@ -34,7 +34,7 @@ public class EntityAIFlee extends EntityAIBase {
         if (this.theEntityCreature.isBurning()) {
             vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 5, 4);
         } else if (this.theEntityCreature.getRevengeTarget() != null) {
-            vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.theEntityCreature, 5, 4,
+            vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.theEntityCreature, 5, 0,
                     new Vec3d(this.theEntityCreature.getRevengeTarget().posX, this.theEntityCreature.getRevengeTarget().posY, this.theEntityCreature.getRevengeTarget().posZ));
         }
 
