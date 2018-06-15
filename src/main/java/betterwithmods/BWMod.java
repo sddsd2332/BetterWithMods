@@ -3,15 +3,14 @@ package betterwithmods;
 import betterwithmods.client.BWGuiHandler;
 import betterwithmods.common.BWIMCHandler;
 import betterwithmods.common.BWRegistry;
+import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.event.FakePlayerHandler;
+import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.ModuleLoader;
-import betterwithmods.network.MessageFat;
-import betterwithmods.network.MessageGuiShake;
-import betterwithmods.network.MessageHarnessSync;
-import betterwithmods.network.NetworkHandler;
+import betterwithmods.network.*;
 import betterwithmods.proxy.IProxy;
 import betterwithmods.testing.BWMTests;
-import com.sun.org.apache.xpath.internal.Expression;
+import betterwithmods.util.commands.HealthCommand;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -49,11 +48,9 @@ public class BWMod {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
         logger = evt.getModLog();
+        BWMAttributes.registerAttributes();
         ModuleLoader.preInit(evt);
         BWRegistry.preInit();
-        NetworkHandler.register(MessageGuiShake.class, Side.CLIENT);
-        NetworkHandler.register(MessageFat.class, Side.CLIENT);
-        NetworkHandler.register(MessageHarnessSync.class, Side.CLIENT);
         proxy.preInit(evt);
     }
 
@@ -86,6 +83,9 @@ public class BWMod {
         ModuleLoader.serverStarting(evt);
         if(isDev()) {
             BWMTests.runTests();
+        }
+        if(GlobalConfig.debug) {
+            evt.registerServerCommand(new HealthCommand());
         }
     }
 

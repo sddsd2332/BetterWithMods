@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.UUID;
 
 public class HCMovement extends Feature {
-    public final static UUID PENALTY_SPEED_UUID = UUID.fromString("aece6a05-d163-4871-aaf3-ebab43b0fcfa");
+    public final static UUID HCMOVEMENT_SPEED_UUID = UUID.fromString("aece6a05-d163-4871-aaf3-ebab43b0fcfa");
 
     public static final HashMap<Material, Float> MATERIAL_MOVEMENT = Maps.newHashMap();
     public static final HashMap<IBlockState, Float> BLOCK_OVERRIDE_MOVEMENT = Maps.newHashMap();
@@ -98,7 +98,7 @@ public class HCMovement extends Feature {
             }
             if (speed == 0)
                 speed = PREVIOUS_SPEED.getOrDefault(player.getGameProfile().getId(), DEFAULT_SPEED);
-            PlayerHelper.changeSpeed(player, "HCMovement", speed, PENALTY_SPEED_UUID);
+            PlayerHelper.changeSpeed(player, "HCMovement", speed, HCMOVEMENT_SPEED_UUID);
         }
     }
 
@@ -122,7 +122,7 @@ public class HCMovement extends Feature {
         IAttributeInstance iattributeinstance = player.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
         double value = iattributeinstance.getAttributeValue();
-        AttributeModifier mod = iattributeinstance.getModifier(HCMovement.PENALTY_SPEED_UUID);
+        AttributeModifier mod = iattributeinstance.getModifier(HCMovement.HCMOVEMENT_SPEED_UUID);
         if (mod != null)
             value /= (1 + mod.getAmount());
         f = (float) ((double) f * ((value / (double) player.capabilities.getWalkSpeed() + 1.0D) / 2.0D));

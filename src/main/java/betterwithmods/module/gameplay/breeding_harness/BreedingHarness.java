@@ -4,8 +4,8 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemBreedingHarness;
 import betterwithmods.module.Feature;
-import betterwithmods.network.MessageHarnessSync;
-import betterwithmods.network.NetworkHandler;
+import betterwithmods.network.BWNetwork;
+import betterwithmods.network.messages.MessageHarness;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.Entity;
@@ -44,6 +44,13 @@ public class BreedingHarness extends Feature {
 
     private static final ResourceLocation CAPABILITY = new ResourceLocation(BWMod.MODID, "harness");
 
+    private static void sendPacket(Entity entity) {
+        CapabilityHarness cap = getCapability(entity);
+        if (cap != null) {
+            BWNetwork.sendToAllAround(new MessageHarness(entity.getEntityId(), cap.getHarness()), entity.getEntityWorld(),entity.getPosition());
+        }
+    }
+
     @SubscribeEvent
     public void onAttach(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
@@ -57,10 +64,7 @@ public class BreedingHarness extends Feature {
         if (event.getEntityPlayer().world.isRemote)
             return;
         Entity entity = event.getTarget();
-        CapabilityHarness cap = getCapability(entity);
-        if (cap != null) {
-            NetworkHandler.sendToAllAround(new MessageHarnessSync(entity.getEntityId(), cap.getHarness()), entity.getEntityWorld(), entity.getPosition());
-        }
+        sendPacket(entity);
     }
 
     @SubscribeEvent
@@ -83,6 +87,7 @@ public class BreedingHarness extends Feature {
                     if (entity instanceof EntitySheep) {
                         ((EntitySheep) entity).setSheared(true);
                     }
+                    sendPacket(entity);
                 }
             } else if (!harness.isEmpty() && event.getEntityPlayer().isSneaking() && hand.isEmpty()) {
                 ItemHandlerHelper.giveItemToPlayer(event.getEntityPlayer(), harness.copy());
@@ -90,8 +95,9 @@ public class BreedingHarness extends Feature {
                 event.getWorld().playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.NEUTRAL, 1, 1);
                 event.getWorld().playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, SoundCategory.NEUTRAL, 1, 1f);
                 event.getEntityPlayer().swingArm(EnumHand.MAIN_HAND);
+                sendPacket(entity);
             }
-            NetworkHandler.sendToAllAround(new MessageHarnessSync(entity.getEntityId(), cap.getHarness()), event.getWorld(), event.getPos());
+
         }
 
     }

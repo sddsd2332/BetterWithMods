@@ -24,4 +24,7 @@ public interface IProxy {
 
     default void syncHarness(int entityId, ItemStack harness) {
     }
+
+    default void syncGloom(String entityId, int gloom) {
+    }
 }

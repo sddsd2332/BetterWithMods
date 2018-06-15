@@ -1,8 +1,8 @@
 package betterwithmods.client.gui;
 
 
-import betterwithmods.util.player.HungerPenalty;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.common.penalties.BasicPenalty;
+import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;
@@ -56,19 +56,20 @@ public class GuiHunger {
             --this.shakeCounter;
         }
 
-	    GlStateManager.enableBlend();
+        GlStateManager.enableBlend();
         for (int i = 0; i < 10; ++i) {
             int y = top;
             int icon = 16;
             byte background = 0;
-	        if (player.isPotionActive(MobEffects.HUNGER)) {
+            if (player.isPotionActive(MobEffects.HUNGER)) {
                 icon += 36;
                 background = 13;
             } else if (i < roll) {
                 background = 1;
             }
 
-            if (PlayerHelper.getHungerPenalty(player) != HungerPenalty.NO_PENALTY && mc.ingameGUI.getUpdateCounter() % (food * 5 + 1) == 0) {
+            BasicPenalty<Integer> p = HCHunger.penalties.getPenalty(player);
+            if (p != null && p.getSeverity() > 0 && mc.ingameGUI.getUpdateCounter() % (food * 5 + 1) == 0) {
                 y = top + (rand.nextInt(3) - 1);
             } else if (shakeCounter > 0) {
                 y = top + (rand.nextInt(3) - 1);
@@ -78,14 +79,14 @@ public class GuiHunger {
 
             mc.ingameGUI.drawTexturedModalRect(x, y, 16 + background * 9, 27, 9, 9);
 
-	        int remainder;
-	        if (i == roll && !player.isPotionActive(MobEffects.HUNGER)) {
-		        remainder = fat % 6;
-		        if (remainder != 0) {
-			        mc.ingameGUI.drawTexturedModalRect(x + 8 - remainder, y, 33 - remainder,
-				        27, 1 + remainder, 9);
-		        }
-	        }
+            int remainder;
+            if (i == roll && !player.isPotionActive(MobEffects.HUNGER)) {
+                remainder = fat % 6;
+                if (remainder != 0) {
+                    mc.ingameGUI.drawTexturedModalRect(x + 8 - remainder, y, 33 - remainder,
+                            27, 1 + remainder, 9);
+                }
+            }
 
             if (i < shank) {
                 mc.ingameGUI.drawTexturedModalRect(x, y, icon + 36, 27, 9, 9);

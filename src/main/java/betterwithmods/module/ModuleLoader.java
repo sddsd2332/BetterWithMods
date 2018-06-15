@@ -165,15 +165,20 @@ public final class ModuleLoader {
         return moduleInstances.get(clazz).enabled;
     }
 
-    public static boolean isFeatureEnabledSimple(String name) {
+
+    public static Feature getFeature(String name) {
         for (Module module : enabledModules) {
             for (Feature feature : module.enabledFeatures) {
                 if (feature.configName.equalsIgnoreCase(name)) {
-                    return true;
+                    return feature;
                 }
             }
         }
-        return false;
+        return null;
+    }
+
+    public static boolean isFeatureEnabledSimple(String name) {
+        return getFeature(name) != null;
     }
 
     public static boolean isFeatureEnabled(String clazzName) {
@@ -187,9 +192,14 @@ public final class ModuleLoader {
     }
 
     public static boolean isFeatureEnabled(Class<? extends Feature> clazz) {
+        Feature f = getFeature(clazz);
+        return f != null && f.enabled;
+    }
+
+    public static Feature getFeature(Class<? extends Feature> clazz) {
         if (featureInstances.containsKey(clazz))
-            return featureInstances.get(clazz).enabled;
-        return false;
+            return featureInstances.get(clazz);
+        return null;
     }
 
     public static void forEachModule(Consumer<Module> consumer) {

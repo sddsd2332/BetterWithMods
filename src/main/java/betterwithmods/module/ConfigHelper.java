@@ -39,18 +39,14 @@ public class ConfigHelper {
 
     public static HashMap<String, Boolean> CONDITIONS = Maps.newHashMap();
 
+    public static void setDescription(String category, String comment) {
+        ModuleLoader.config.setCategoryComment(category,comment);
+    }
+
     public static boolean loadRecipeCondition(String jsonString, String propName, String category, String desc, boolean default_) {
         boolean value = loadPropBool(propName, category, desc, default_);
         CONDITIONS.put(jsonString, value);
         return value;
-    }
-
-    public static class ConditionConfig implements IConditionFactory {
-        @Override
-        public BooleanSupplier parse(JsonContext context, JsonObject json) {
-            String enabled = JsonUtils.getString(json, "enabled");
-            return () -> CONDITIONS.getOrDefault(enabled, false);
-        }
     }
 
     public static int[] loadPropIntList(String propName, String category, String comment, int[] default_) {
@@ -195,7 +191,6 @@ public class ConfigHelper {
         return loadItemStackArray(propName, category, desc, strings_);
     }
 
-
     public static HashMap<Ingredient, Integer> loadItemStackIntMap(String propName, String category, String desc, String[] _default) {
         HashMap<Ingredient, Integer> map = Maps.newHashMap();
         String[] l = loadPropStringList(propName, category, desc, _default);
@@ -227,4 +222,11 @@ public class ConfigHelper {
     }
 
 
+    public static class ConditionConfig implements IConditionFactory {
+        @Override
+        public BooleanSupplier parse(JsonContext context, JsonObject json) {
+            String enabled = JsonUtils.getString(json, "enabled");
+            return () -> CONDITIONS.getOrDefault(enabled, false);
+        }
+    }
 }

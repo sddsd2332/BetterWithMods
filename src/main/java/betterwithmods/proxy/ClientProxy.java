@@ -24,6 +24,7 @@ import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
 import betterwithmods.module.gameplay.breeding_harness.CapabilityHarness;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
+import betterwithmods.module.hardcore.needs.HCGloom;
 import betterwithmods.util.ReflectionLib;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -38,6 +39,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -65,6 +67,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.UUID;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BWMod.MODID, value = Side.CLIENT)
@@ -189,6 +192,24 @@ public class ClientProxy implements IProxy {
         if (world == null)
             return null;
         return world.getEntityByID(id);
+    }
+
+    private EntityPlayer getPlayerById(String id) {
+        World world = Minecraft.getMinecraft().world;
+        if (world == null)
+            return null;
+        return world.getPlayerEntityByUUID(UUID.fromString(id));
+    }
+
+    @Override
+    public void syncGloom(String entityId, int gloom) {
+        EntityPlayer e = getPlayerById(entityId);
+        if(e != null) {
+            HCGloom.Gloom g = HCGloom.getGloom(e);
+            if(g != null) {
+                g.setGloom(gloom);
+            }
+        }
     }
 
     public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition {
