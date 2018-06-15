@@ -13,7 +13,6 @@ public class BasicPenalty<T extends Number & Comparable> extends Penalty<T> {
 
 
     public BasicPenalty(boolean jump, boolean swim, boolean heal, boolean sprint, boolean attack, boolean pain, float speed, float severity, String name, String lang, String category, Range<T> range) {
-        //TODO this needs a better desc
         super(lang, severity, BWMAttributes.getRange(category, name, "Numberic range for whether this penalty it active", range),
                 BWMAttributes.JUMP.fromConfig(category, name, jump),
                 BWMAttributes.SWIM.fromConfig(category, name, swim),
