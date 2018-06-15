@@ -83,7 +83,7 @@ public class BlockAesthetic extends BWMBlock implements IMultiVariants {
 
     @Override
     public String[] getVariants() {
-        return new String[]{"blocktype=chopping", "blocktype=chopping_blood", "blocktype=nether_clay", "blocktype=hellfire", "blocktype=rope", "blocktype=flint", "blocktype=whitestone", "blocktype=whitecobble", "blocktype=enderblock", "blocktype=padding", "blocktype=soap", "blocktype=dung", "blocktype=wicker"};
+        return new String[]{"blocktype=chopping", "blocktype=chopping_blood", "blocktype=nether_clay", "blocktype=hellfire", "blocktype=rope", "blocktype=flint", "blocktype=whitestone", "blocktype=whitecobble", "blocktype=enderblock", "blocktype=padding", "blocktype=soap", "blocktype=dung", "blocktype=wicker", "blocktype=nethercoal"};
     }
 
     @Override
@@ -133,7 +133,8 @@ public class BlockAesthetic extends BWMBlock implements IMultiVariants {
         PADDING(9, "padding", MapColor.CLOTH, Material.CLOTH, SoundType.CLOTH, 1F, 5F),
         SOAP(10, "soap", MapColor.PINK, Material.GROUND, SoundType.GROUND, 1F, 5F),
         DUNG(11, "dung", MapColor.BROWN, Material.GROUND, SoundType.GROUND, 1F, 2F),
-        WICKER(12, "wicker", MapColor.BROWN, Material.WOOD, SoundType.WOOD, 1F, 5F);
+        WICKER(12, "wicker", MapColor.BROWN, Material.WOOD, SoundType.WOOD, 1F, 5F),
+        NETHERCOAL(13, "nethercoal", MapColor.RED, Material.REDSTONE_LIGHT, SoundType.STONE, 5.0F,10.0F);
 
         private static final BlockAesthetic.EnumType[] VALUES = values();
 

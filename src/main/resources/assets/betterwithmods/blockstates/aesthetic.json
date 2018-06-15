@@ -88,6 +88,11 @@
         "textures": {
           "side": "betterwithmods:blocks/dung"
         }
+      },
+      "nethercoal": {
+        "textures": {
+          "side": "betterwithmods:blocks/nethercoal"
+        }
       }
     }
   }

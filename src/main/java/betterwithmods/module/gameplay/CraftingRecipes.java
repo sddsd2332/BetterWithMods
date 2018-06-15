@@ -49,13 +49,7 @@ public class CraftingRecipes extends Feature {
         GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 0), new ItemStack(Blocks.STONE, 1, 1), 0.1F);
         GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 1), new ItemStack(Blocks.STONE, 1, 3), 0.1F);
         GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 2), new ItemStack(Blocks.STONE, 1, 5), 0.1F);
-
-//        for (BlockMini.EnumType type : BlockMini.EnumType.values()) {
-//            addHardcoreRecipe(new SawingRecipe(new ItemStack(BWMBlocks.STONE_SIDING, 2, type.getMetadata()), Ingredient.fromStacks(type.getBlock())).setRegistryName(new ResourceLocation("stone_wall." + type.getMetadata())));
-//            addHardcoreRecipe(new SawingRecipe(new ItemStack(BWMBlocks.STONE_MOULDING, 2, type.getMetadata()), Ingredient.fromStacks(new ItemStack(BWMBlocks.STONE_SIDING, 1, type.getMetadata()))).setRegistryName(new ResourceLocation("stone_moulding." + type.getMetadata())));
-//            addHardcoreRecipe(new SawingRecipe(new ItemStack(BWMBlocks.STONE_CORNER, 2, type.getMetadata()), Ingredient.fromStacks(new ItemStack(BWMBlocks.STONE_MOULDING, 1, type.getMetadata()))).setRegistryName(new ResourceLocation("stone_corner." + type.getMetadata())));
-//        }
-
+        
         BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.NETHERRACK));
     }
 

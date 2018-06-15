@@ -286,6 +286,7 @@ public class BWRegistry {
         Blocks.FIRE.setFireInfo(BWMBlocks.WINDMILL, 5, 20);
         Blocks.FIRE.setFireInfo(BWMBlocks.WATERWHEEL, 5, 20);
         Blocks.FIRE.setFireInfo(BWMBlocks.VINE_TRAP, 5, 20);
+        //TODO 1.13 block of nethercoal
 
         registerFireInfo(new BlockIngredient("blockCandle"), 5, 20);
         registerFireInfo(new BlockIngredient("slats"), 5, 20);
