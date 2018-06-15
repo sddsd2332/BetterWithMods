@@ -25,6 +25,8 @@ import betterwithmods.module.gameplay.breeding_harness.CapabilityHarness;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
 import betterwithmods.module.hardcore.needs.HCGloom;
+import betterwithmods.module.hardcore.world.stumping.HCStumping;
+import betterwithmods.module.hardcore.world.stumping.PlacedCapability;
 import betterwithmods.util.ReflectionLib;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -46,6 +48,7 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
@@ -204,11 +207,22 @@ public class ClientProxy implements IProxy {
     @Override
     public void syncGloom(String entityId, int gloom) {
         EntityPlayer e = getPlayerById(entityId);
-        if(e != null) {
+        if (e != null) {
             HCGloom.Gloom g = HCGloom.getGloom(e);
-            if(g != null) {
+            if (g != null) {
                 g.setGloom(gloom);
             }
+        }
+    }
+
+    @Override
+    public void syncPlaced(BlockPos[] pos) {
+        World world = Minecraft.getMinecraft().world;
+        if (world == null)
+            return;
+        PlacedCapability capability = HCStumping.getCapability(world);
+        if (capability != null) {
+            capability.addAll(pos);
         }
     }
 

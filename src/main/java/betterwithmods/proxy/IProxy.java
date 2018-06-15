@@ -1,6 +1,7 @@
 package betterwithmods.proxy;
 
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -26,5 +27,8 @@ public interface IProxy {
     }
 
     default void syncGloom(String entityId, int gloom) {
+    }
+
+    default void syncPlaced(BlockPos[] pos) {
     }
 }

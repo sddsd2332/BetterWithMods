@@ -1,14 +1,8 @@
 package betterwithmods.network;
 
 import betterwithmods.BWMod;
-import betterwithmods.network.handler.MessageGloomHandler;
-import betterwithmods.network.handler.MessageHarnessHandler;
-import betterwithmods.network.handler.MessageHungerShakeHandler;
-import betterwithmods.network.handler.MessageRotateHandler;
-import betterwithmods.network.messages.MessageGloom;
-import betterwithmods.network.messages.MessageHarness;
-import betterwithmods.network.messages.MessageHungerShake;
-import betterwithmods.network.messages.MessageRotate;
+import betterwithmods.network.handler.*;
+import betterwithmods.network.messages.*;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.network.Packet;
@@ -29,6 +23,7 @@ public class BWNetwork {
         INSTANCE.registerMessage(MessageHarnessHandler.class, MessageHarness.class, i++, Side.CLIENT);
         INSTANCE.registerMessage(MessageRotateHandler.class, MessageRotate.class, i++, Side.CLIENT);
         INSTANCE.registerMessage(MessageGloomHandler.class, MessageGloom.class, i++, Side.CLIENT);
+        INSTANCE.registerMessage(MessagePlacedHandler.class, MessagePlaced.class, i++, Side.CLIENT);
     }
 
     public static void sendPacket(Entity player, Packet<?> packet) {
