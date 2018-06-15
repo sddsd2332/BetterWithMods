@@ -43,7 +43,6 @@ public class HCBuoy extends CompatFeature {
         buoyancy.put(BWMBlocks.VASE, 1.0F);
         buoyancy.put(BWMBlocks.GRATE, 1.0F);
         buoyancy.put(BWMBlocks.URN, 1.0F);
-        buoyancy.put(BWMBlocks.STUMP, 1.0F);
         buoyancy.put(BlockMechMachines.getStack(BlockMechMachines.EnumType.HOPPER), 1.0F);
         buoyancy.put(BlockMechMachines.getStack(BlockMechMachines.EnumType.PULLEY), 1.0F);
 
