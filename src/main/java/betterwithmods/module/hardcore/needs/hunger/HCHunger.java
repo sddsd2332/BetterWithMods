@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.needs.hunger;
 
+import betterwithmods.BWMod;
 import betterwithmods.client.gui.GuiHunger;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWRegistry;
@@ -65,6 +66,7 @@ import java.util.Set;
 public class HCHunger extends CompatFeature {
 
     private static final DataParameter<Integer> EXHAUSTION_TICK = EntityDataManager.createKey(EntityPlayer.class, DataSerializers.VARINT);
+
     public static float blockBreakExhaustion;
     public static float passiveExhaustion;
     public static int passiveExhaustionTick;
@@ -216,7 +218,7 @@ public class HCHunger extends CompatFeature {
 
     @SubscribeEvent
     public void getPlayerFoodValue(FoodEvent.GetPlayerFoodValues event) {
-        if(event.player == null)
+        if (event.player == null)
             return;
         FoodStats stats = event.player.getFoodStats();
         int playerFoodLevel = stats.getFoodLevel();
@@ -291,16 +293,16 @@ public class HCHunger extends CompatFeature {
     public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (!event.player.world.isRemote && event.phase == TickEvent.Phase.START) {
             EntityPlayer player = event.player;
-//            if (event.player instanceof EntityPlayerMP)
-            //TODO fat
-//                BWNetwork.INSTANCE.sendTo(new MessageFat(event.player.getUniqueID()), (EntityPlayerMP) event.player);
+
             if (!PlayerHelper.isSurvival(player) || player.world.getDifficulty() == EnumDifficulty.PEACEFUL)
                 return;
             int tick = getExhaustionTick(player);
             if (tick > passiveExhaustionTick) {
+                BWMod.getLog().debug("Adding Exhaustion ({}) after {} ticks", passiveExhaustion, passiveExhaustionTick);
                 player.addExhaustion(passiveExhaustion);
                 setExhaustionTick(player, 0);
             } else {
+                BWMod.getLog().debug(" {} exhaustion ticks", getExhaustionTick(player));
                 setExhaustionTick(player, getExhaustionTick(player) + 1);
             }
         }
