@@ -140,9 +140,10 @@ public class HCStumping extends Feature {
         World world = event.getWorld();
         if (world.isRemote || !(event.getPlayer() instanceof EntityPlayerMP))
             return;
-        if(event.getPlacedAgainst().getBlock() instanceof BlockAir)
-            return;
+
         if (isLog(event.getState())) {
+            if(event.getPlacedAgainst().getBlock() instanceof BlockAir)
+                return;
             addPlacedLog(world, (EntityPlayerMP) event.getPlayer(), event.getPos());
         }
     }
@@ -162,7 +163,6 @@ public class HCStumping extends Feature {
 
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
-
         if (isStump(event.getWorld(), event.getPos())) {
             IWood wood = BWOreDictionary.getWoodFromState(event.getState());
             if (wood != null) {
