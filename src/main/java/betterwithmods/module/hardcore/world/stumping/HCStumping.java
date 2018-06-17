@@ -7,13 +7,14 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.Feature;
 import betterwithmods.module.ModuleLoader;
+import betterwithmods.module.hardcore.world.HCBonemeal;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessagePlaced;
 import betterwithmods.util.item.ToolsManager;
+import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockAir;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -31,8 +32,6 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Set;
 
@@ -141,9 +140,10 @@ public class HCStumping extends Feature {
         if (world.isRemote || !(event.getPlayer() instanceof EntityPlayerMP))
             return;
 
+        if (PlayerHelper.isHolding(event.getPlayer(), HCBonemeal.FERTILIZERS))
+            return;
+        
         if (isLog(event.getState())) {
-            if(event.getPlacedAgainst().getBlock() instanceof BlockAir)
-                return;
             addPlacedLog(world, (EntityPlayerMP) event.getPlayer(), event.getPos());
         }
     }
