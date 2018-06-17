@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "cross": "minecraft:blocks/sapling_big_oak"
+      "cross": "minecraft:blocks/sapling_roofed_oak"
     },
     "model": "cross"
   },
@@ -51,7 +51,7 @@
       },
       "7": {
         "textures": {
-          "cross": "minecraft:blocks/sapling_big_oak"
+          "cross": "minecraft:blocks/sapling_roofed_oak"
         }
       }
     }
