@@ -97,9 +97,10 @@ public class CookingPotManager extends CraftingManagerBulk<CookingPotRecipe> {
     public boolean craftRecipe(World world, TileEntity tile, ItemStackHandler inv) {
         if (tile instanceof TileEntityCookingPot) {
             TileEntityCookingPot pot = (TileEntityCookingPot) tile;
-            if (canCraft(tile, inv)) {
+            CookingPotRecipe r = findRecipe(tile, inv);
+            if (canCraft(r, tile, inv)) {
                 if (pot.cookProgress >= pot.getMax()) {
-                    InvUtils.insert(inv, craftItem(world, tile, inv), false);
+                    InvUtils.insert(inv, craftItem(r, world, tile, inv), false);
                     pot.cookProgress = 0;
                     return true;
                 }
@@ -115,7 +116,7 @@ public class CookingPotManager extends CraftingManagerBulk<CookingPotRecipe> {
     @Override
     protected Optional<CookingPotRecipe> findRecipe(List<CookingPotRecipe> recipes, TileEntity tile, ItemStackHandler inv) {
         if (tile instanceof IHeated) {
-            List<CookingPotRecipe> r1 = recipes.stream().filter(r -> r.canCraft((IHeated) tile, tile.getWorld(), tile.getPos())).map(CookingPotRecipe.class::cast).collect(Collectors.toList());
+            List<CookingPotRecipe> r1 = recipes.stream().filter(r -> r.canCraft((IHeated) tile, tile.getWorld(), tile.getPos())).collect(Collectors.toList());
             return super.findRecipe(r1, tile, inv);
         }
         return Optional.empty();
