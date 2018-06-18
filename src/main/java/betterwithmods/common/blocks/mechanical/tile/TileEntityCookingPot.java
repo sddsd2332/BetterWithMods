@@ -31,6 +31,7 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -180,7 +181,23 @@ public abstract class TileEntityCookingPot extends TileEntityVisibleInventory im
     }
 
     private int findHeat(BlockPos pos) {
-        return BWMHeatRegistry.getHeat(world, pos.down());
+        return getHeatCached(pos.down());
+    }
+
+    private HashMap<BlockPos, BWMHeatRegistry.HeatSource> heatCache = new HashMap<>();
+    private int getHeatCached(BlockPos pos){
+        BWMHeatRegistry.HeatSource src = heatCache.get(pos);
+        if (src != null && src.matches(world, pos)){
+            return src.getHeat();
+        } else if (src!=null){
+            heatCache.remove(pos);
+        }
+        src = BWMHeatRegistry.get(world, pos);
+        if (src != null){
+            heatCache.put(pos, src);
+            return src.getHeat();
+        }
+        return 0;
     }
 
     private void spawnParticles() {
