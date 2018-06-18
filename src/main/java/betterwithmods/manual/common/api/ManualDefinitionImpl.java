@@ -29,19 +29,16 @@ public final class ManualDefinitionImpl implements ManualDefinition {
     public static final String LANGUAGE_KEY = "%LANGUAGE%";
     public static final String FALLBACK_LANGUAGE = "en_us";
     public static final Pattern PATTERN_LANGUAGE_KEY = Pattern.compile(LANGUAGE_KEY);
-
+    public static final ManualDefinitionImpl INSTANCE = new ManualDefinitionImpl();
     // Error messages.
     private static final String MESSAGE_CONTENT_LOOKUP_EXCEPTION = "A content provider threw an error when queried.";
     private static final String MESSAGE_IMAGE_PROVIDER_EXCEPTION = "An image provider threw an error when queried.";
     private static final String MESSAGE_PATH_PROVIDER_ITEM_EXCEPTION = "A path provider threw an error when queried with an item.";
+
+    // --------------------------------------------------------------------- //
     private static final String MESSAGE_PATH_PROVIDER_BLOCK_EXCEPTION = "A path provider threw an error when queried with a block.";
 
     // --------------------------------------------------------------------- //
-
-    public static final ManualDefinitionImpl INSTANCE = new ManualDefinitionImpl();
-
-    // --------------------------------------------------------------------- //
-
     /**
      * The history of pages the player navigated through (like browser history).
      */
@@ -80,6 +77,26 @@ public final class ManualDefinitionImpl implements ManualDefinition {
 
     // --------------------------------------------------------------------- //
 
+    /**
+     * Makes the specified path relative to the specified base path.
+     *
+     * @param path the path to make relative.
+     * @param base the path to make it relative to.
+     * @return the relative path.
+     */
+    public static String makeRelative(final String path, final String base) {
+        if (path.startsWith("/")) {
+            return path;
+        } else {
+            final int lastSlash = base.lastIndexOf('/');
+            if (lastSlash >= 0) {
+                return base.substring(0, lastSlash + 1) + path;
+            } else {
+                return path;
+            }
+        }
+    }
+
     @Override
     public void addTab(final TabIconRenderer renderer, @Nullable final String tooltip, final String path) {
         tabs.add(new Tab(renderer, tooltip, path));
@@ -114,7 +131,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
     }
 
     public void addDefaultProviders() {
-        addProvider("", new TextureImageProvider());
+        addProvider("", new TextureImageProvider("documentation/docs/img/"));
         addProvider("item", new ItemImageProvider());
         addProvider("block", new BlockImageProvider());
         addProvider("oredict", new OreDictImageProvider());
@@ -178,6 +195,8 @@ public final class ManualDefinitionImpl implements ManualDefinition {
         history.push(new History(defaultPage));
     }
 
+    // --------------------------------------------------------------------- //
+
     @Override
     public void navigate(final String path) {
         final GuiScreen screen = Minecraft.getMinecraft().currentScreen;
@@ -185,28 +204,6 @@ public final class ManualDefinitionImpl implements ManualDefinition {
             ((GuiManual) screen).pushPage(path);
         } else {
             history.push(new History(path));
-        }
-    }
-
-    // --------------------------------------------------------------------- //
-
-    /**
-     * Makes the specified path relative to the specified base path.
-     *
-     * @param path the path to make relative.
-     * @param base the path to make it relative to.
-     * @return the relative path.
-     */
-    public static String makeRelative(final String path, final String base) {
-        if (path.startsWith("/")) {
-            return path;
-        } else {
-            final int lastSlash = base.lastIndexOf('/');
-            if (lastSlash >= 0) {
-                return base.substring(0, lastSlash + 1) + path;
-            } else {
-                return path;
-            }
         }
     }
 
@@ -305,6 +302,12 @@ public final class ManualDefinitionImpl implements ManualDefinition {
 
     // --------------------------------------------------------------------- //
 
+    @FunctionalInterface
+    private interface ProviderQuery {
+        @Nullable
+        String pathFor(PathProvider provider);
+    }
+
     public static final class History {
         public final String path;
         public int offset = 0;
@@ -334,11 +337,5 @@ public final class ManualDefinitionImpl implements ManualDefinition {
             this.prefix = prefix;
             this.provider = provider;
         }
-    }
-
-    @FunctionalInterface
-    private interface ProviderQuery {
-        @Nullable
-        String pathFor(PathProvider provider);
     }
 }

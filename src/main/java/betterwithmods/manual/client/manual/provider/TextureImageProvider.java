@@ -12,11 +12,19 @@ import javax.annotation.Nullable;
 public final class TextureImageProvider implements ImageProvider {
     private static final String WARNING_IMAGE_MISSING = API.MOD_ID + ".manual.warning.missing.image";
 
+    private final String images;
+
+    public TextureImageProvider(String images) {
+        this.images = images;
+    }
+
     @Override
     @Nullable
     public ImageRenderer getImage(final String data) {
         try {
-            return new TextureImageRenderer(new ResourceLocation(data));
+            ResourceLocation loc = new ResourceLocation(data);
+
+            return new TextureImageRenderer(new ResourceLocation(loc.getResourceDomain(), images + loc.getResourcePath()));
         } catch (final Throwable t) {
             return new MissingItemRenderer(WARNING_IMAGE_MISSING);
         }
