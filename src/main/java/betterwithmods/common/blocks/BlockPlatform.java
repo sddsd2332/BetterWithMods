@@ -2,6 +2,7 @@ package betterwithmods.common.blocks;
 
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,6 +27,11 @@ public class BlockPlatform extends BWMBlock {
         super(Material.WOOD);
         this.setHardness(2F);
         this.setSoundType(SoundType.WOOD);
+    }
+
+    @Override
+    public boolean isTopSolid(IBlockState state) {
+        return true;
     }
 
     @Override
@@ -65,6 +71,11 @@ public class BlockPlatform extends BWMBlock {
             return this.equals(state2.getBlock());
         }
         return super.shouldSideBeRendered(blockState, world, pos, side);
+    }
+
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return BlockFaceShape.SOLID;
     }
 
     @Override
