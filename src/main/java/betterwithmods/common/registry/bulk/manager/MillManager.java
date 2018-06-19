@@ -60,13 +60,10 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
     }
 
     @Override
-    public boolean canCraft(TileEntity tile, ItemStackHandler inv) {
-        if (tile instanceof TileEntityMill) {
+    public boolean canCraft(MillRecipe recipe, TileEntity tile, ItemStackHandler inv) {
+        if (recipe != null && tile instanceof TileEntityMill) {
             TileEntityMill mill = (TileEntityMill) tile;
-            MillRecipe recipe = findRecipe(recipes, tile, inv).orElse(null);
-            if (recipe != null) {
-                return mill.grindCounter >= recipe.getTicks();
-            }
+            return mill.grindCounter >= recipe.getTicks();
         }
         return false;
     }
@@ -87,8 +84,8 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
                 if (mill.getBlockWorld().rand.nextInt(40) < 2)
                     mill.getBlockWorld().playSound(null, mill.getBlockPos(), recipe.getSound(), SoundCategory.BLOCKS,  0.75F, mill.getWorld().rand.nextFloat() * 0.4F + 0.8F);
 
-                if (canCraft(tile, inv)) {
-                    mill.ejectRecipe(BWRegistry.MILLSTONE.craftItem(world, tile, inv));
+                if (canCraft(recipe, tile, inv)) {
+                    mill.ejectRecipe(BWRegistry.MILLSTONE.craftItem(recipe, world, tile, inv));
                     mill.grindCounter = 0;
                     return true;
                 } else {
@@ -102,11 +99,5 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
         }
 
         return false;
-    }
-
-    @Nonnull
-    @Override
-    public NonNullList<ItemStack> craftItem(World world, TileEntity tile, ItemStackHandler inv) {
-        return super.craftItem(world, tile, inv);
     }
 }

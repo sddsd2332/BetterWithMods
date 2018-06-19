@@ -31,8 +31,8 @@ public abstract class CraftingManagerBulk<T extends BulkRecipe> {
     public abstract boolean craftRecipe(World world, TileEntity tile, ItemStackHandler inv);
 
     @Nonnull
-    public NonNullList<ItemStack> craftItem(World world, TileEntity tile, ItemStackHandler inv) {
-        return findRecipe(recipes, tile, inv).map(r -> r.onCraft(world, tile, inv)).orElse(NonNullList.create());
+    public NonNullList<ItemStack> craftItem(T recipe, World world, TileEntity tile, ItemStackHandler inv) {
+        return recipe != null ? recipe.onCraft(world, tile, inv) : NonNullList.create();
     }
 
     protected Optional<T> findRecipe(List<T> recipes, TileEntity tile, ItemStackHandler inv) {
@@ -40,6 +40,10 @@ public abstract class CraftingManagerBulk<T extends BulkRecipe> {
             int i = r.matches(inv);
             return Pair.of(r, i);
         }).filter(p -> p.getValue() > -1).sorted(Comparator.comparingInt(Pair::getValue)).map(Pair::getKey).sorted().findFirst();
+    }
+
+    public T findRecipe(TileEntity tile, ItemStackHandler inv){
+        return findRecipe(recipes, tile, inv).orElse(null);
     }
 
     protected List<T> findRecipe(List<ItemStack> outputs) {
@@ -57,8 +61,8 @@ public abstract class CraftingManagerBulk<T extends BulkRecipe> {
         return recipes.stream().filter(r -> r.getRecipeOutput().matches(outputs)).collect(Collectors.toList());
     }
 
-    public boolean canCraft(TileEntity tile, ItemStackHandler inv) {
-        return findRecipe(recipes, tile, inv).isPresent();
+    public boolean canCraft(T recipe, TileEntity tile, ItemStackHandler inv) {
+        return recipe!=null;
     }
 
     public T getRecipe(TileEntity tile, ItemStackHandler inv) {
