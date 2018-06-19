@@ -133,27 +133,17 @@ public abstract class TileEntityCookingPot extends TileEntityVisibleInventory im
                 entityCollision();
 
                 //Only do crafting on the server
-                if(!world.isRemote) {
-	                boolean isEmpty = true;
-	                int inventorySize = getInventorySize();
-	                for (int i = 0; i < inventorySize; i++){
-	                    if (!inventory.getStackInSlot(i).isEmpty()){
-	                        isEmpty = false;
-	                        break;
-	                    }
-	                }
-	                if (!isEmpty) {
-	                    int heat = findHeat(getPos());
-	                    if (this.heat != heat) {
-	                        this.heat = heat;
-	                        this.cookProgress = 0;
-	                    }
-	                    int time = findCookTime();
-	                    if (this.cookTime != time) {
-	                        this.cookTime = time;
-	                    }
-	                    manager.craftRecipe(world, this, inventory);
-	                }
+                if(!world.isRemote && !InvUtils.isEmpty(inventory)) {
+                    int heat = findHeat(getPos());
+                    if (this.heat != heat) {
+                        this.heat = heat;
+                        this.cookProgress = 0;
+                    }
+                    int time = findCookTime();
+                    if (this.cookTime != time) {
+                        this.cookTime = time;
+                    }
+                    manager.craftRecipe(world, this, inventory);
                 }
             }
             if (facing != state.getValue(DirUtils.TILTING)) {
