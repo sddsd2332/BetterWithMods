@@ -123,10 +123,7 @@ public class BreedingHarness extends Feature {
 
 
     public static CapabilityHarness getCapability(Entity entity) {
-        //if (entity.hasCapability(CapabilityHarness.HARNESS_CAPABILITY, null)) {
-            return entity.getCapability(CapabilityHarness.HARNESS_CAPABILITY, null);
-        //}
-        //return null;
+        return entity.getCapability(CapabilityHarness.HARNESS_CAPABILITY, null);
     }
 
     public static boolean hasHarness(Entity entity) {
