@@ -547,6 +547,15 @@ public class InvUtils {
         return splitStacks;
     }
 
+    public static boolean isEmpty(IItemHandler inventory) {
+        int inventorySize = inventory.getSlots();
+        for (int i = 0; i < inventorySize; i++){
+            if (!inventory.getStackInSlot(i).isEmpty()){
+                return false;
+            }
+        }
+        return true;
+    }
     public static boolean applyIngredients(Collection<Ingredient> ingredients, ItemStack stack) {
         return ingredients.stream().anyMatch(i -> i.apply(stack));
     }

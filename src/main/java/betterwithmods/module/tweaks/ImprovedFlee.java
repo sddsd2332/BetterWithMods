@@ -10,7 +10,11 @@ import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.world.BlockEvent;
@@ -23,6 +27,10 @@ public class ImprovedFlee extends Feature {
 
     private static boolean blockPlace, blockBreak, groupFlee;
 
+    public static boolean canSeeBlock(BlockPos pos, EntityLiving entity) {
+        RayTraceResult result = entity.world.rayTraceBlocks(entity.getPositionVector(), new Vec3d(pos).addVector(0.5,0.5,0.5));
+        return result != null && pos.equals(result.getBlockPos());
+    }
 
     @Override
     public void setupConfig() {
@@ -52,7 +60,8 @@ public class ImprovedFlee extends Feature {
             AxisAlignedBB box = event.getPlacedBlock().getBoundingBox(event.getWorld(), event.getPos()).offset(event.getPos()).grow(10);
             for (EntityAnimal animal : event.getWorld().getEntitiesWithinAABB(EntityAnimal.class, box)) {
                 if (cantBeScared(animal)) continue;
-                animal.setRevengeTarget(event.getPlayer());
+                if (canSeeBlock(event.getPos(), animal))
+                    animal.setRevengeTarget(event.getPlayer());
             }
         }
     }
@@ -65,7 +74,8 @@ public class ImprovedFlee extends Feature {
             AxisAlignedBB box = event.getState().getBoundingBox(event.getWorld(), event.getPos()).offset(event.getPos()).grow(10);
             for (EntityAnimal animal : event.getWorld().getEntitiesWithinAABB(EntityAnimal.class, box)) {
                 if (cantBeScared(animal)) continue;
-                animal.setRevengeTarget(event.getPlayer());
+                if (canSeeBlock(event.getPos(), animal))
+                    animal.setRevengeTarget(event.getPlayer());
             }
         }
     }
@@ -79,7 +89,9 @@ public class ImprovedFlee extends Feature {
             AxisAlignedBB box = new AxisAlignedBB(a.posX, a.posY, a.posZ, a.posX + 1, a.posY + 1, a.posZ + 1).grow(10);
             for (EntityAnimal animal : a.getEntityWorld().getEntitiesWithinAABB(EntityAnimal.class, box, entity -> entity != null && entity != a && entity.getRevengeTarget() == null)) {
                 if (cantBeScared(animal)) continue;
-                animal.setRevengeTarget(event.getTarget());
+                if (animal.canEntityBeSeen(a)) {
+                    animal.setRevengeTarget(event.getTarget());
+                }
             }
         }
     }

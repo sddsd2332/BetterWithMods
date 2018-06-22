@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.DamageSource;
@@ -27,9 +28,9 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
     private int ticks;
     private boolean feed;
     private ItemStack egg;
-    private Set<ItemStack> feedItems;
+    private Ingredient feedItems;
 
-    public EggLayer(ItemStack egg, Set<ItemStack> feedItems) {
+    public EggLayer(ItemStack egg, Ingredient feedItems) {
         this.egg = egg;
         this.feedItems = feedItems;
     }
@@ -61,12 +62,12 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
         return egg;
     }
 
-    public Set<ItemStack> getFeedItems() {
+    public Ingredient getFeedItems() {
         return feedItems;
     }
 
     public boolean isBreedingItem(ItemStack stack) {
-        return getFeedItems().stream().anyMatch(s -> s.isItemEqual(stack));
+        return getFeedItems().apply(stack);
     }
 
     public void feed(EntityLiving entity, ItemStack stack) {

@@ -26,7 +26,7 @@ public class StateIngredient extends BlockIngredient {
 
     @Override
     public boolean apply(World world, BlockPos pos, @Nullable IBlockState state) {
-        return state != null && states.stream().anyMatch(state::equals);
+        return state != null && states.contains(state);
     }
 
     @Override

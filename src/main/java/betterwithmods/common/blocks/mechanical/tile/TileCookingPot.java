@@ -34,6 +34,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
 
+import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
@@ -134,8 +135,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
 
                 entityCollision();
                 //Only do crafting on the server
-                if(!world.isRemote) {
-
+                if(!world.isRemote && !InvUtils.isEmpty(inventory)) {
                     int heat = findHeat(getPos());
                     if (this.heat != heat) {
                         this.heat = heat;
@@ -173,7 +173,23 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
     }
 
     private int findHeat(BlockPos pos) {
-        return BWMHeatRegistry.getHeat(world, pos.down());
+        return getHeatCached(pos.down());
+    }
+
+    private HashMap<BlockPos, BWMHeatRegistry.HeatSource> heatCache = new HashMap<>();
+    private int getHeatCached(BlockPos pos){
+        BWMHeatRegistry.HeatSource src = heatCache.get(pos);
+        if (src != null && src.matches(world, pos)){
+            return src.getHeat();
+        } else if (src!=null){
+            heatCache.remove(pos);
+        }
+        src = BWMHeatRegistry.get(world, pos);
+        if (src != null){
+            heatCache.put(pos, src);
+            return src.getHeat();
+        }
+        return 0;
     }
 
     private void spawnParticles() {

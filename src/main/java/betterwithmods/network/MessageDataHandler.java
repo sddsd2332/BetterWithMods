@@ -2,13 +2,13 @@ package betterwithmods.network;
 
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Primitives;
-import com.sun.istack.internal.NotNull;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
+import javax.annotation.Nonnull;
 import javax.annotation.ParametersAreNonnullByDefault;
 import java.util.List;
 import java.util.function.BiConsumer;
@@ -56,7 +56,7 @@ public class MessageDataHandler<DataType> {
         handlers.add(new MessageDataHandler<>(type, reader, writer));
     }
 
-    public static MessageDataHandler getHandler(@NotNull Class type) {
+    public static MessageDataHandler getHandler(@Nonnull Class type) {
         for (MessageDataHandler<?> handler : handlers) {
             if(handler.typeMatches(type)) {
                 return handler;
@@ -68,11 +68,11 @@ public class MessageDataHandler<DataType> {
         throw new RuntimeException("Cannot read packet data! Unsupported data type!");
     }
 
-    public DataType read(@NotNull ByteBuf buf) {
+    public DataType read(@Nonnull ByteBuf buf) {
         return reader.apply(buf);
     }
 
-    public void write(@NotNull ByteBuf buf, @NotNull DataType data) {
+    public void write(@Nonnull ByteBuf buf, @Nonnull DataType data) {
         writer.accept(buf, data);
     }
 

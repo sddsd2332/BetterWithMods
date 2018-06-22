@@ -187,6 +187,9 @@ public class BWOreDictionary {
         registerOre("listAllExplosives", ItemMaterial.getStack(ItemMaterial.EnumMaterial.HELLFIRE_DUST));
         registerOre("listAllExplosives", ItemMaterial.getStack(ItemMaterial.EnumMaterial.CONCENTRATED_HELLFIRE));
 
+
+        registerOre("seed", new ItemStack(BWMBlocks.HEMP), new ItemStack(Items.WHEAT_SEEDS), new ItemStack(Items.MELON_SEEDS), new ItemStack(Items.PUMPKIN_SEEDS), new ItemStack(Items.BEETROOT_SEEDS));
+
     }
 
 

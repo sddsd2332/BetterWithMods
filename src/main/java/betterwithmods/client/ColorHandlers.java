@@ -1,6 +1,8 @@
 package betterwithmods.client;
 
 import betterwithmods.common.blocks.BlockPlanter;
+import betterwithmods.common.blocks.ItemBlockPlanter;
+import betterwithmods.common.items.tools.BWMArmor;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.ItemBlock;
@@ -26,6 +28,9 @@ public class ColorHandlers {
             BlockFoliageColor.colorMultiplier(((ItemBlock) stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
     public static final IItemColor ItemBloodLeafColor = (stack, tintIndex) ->
             BlockBloodLeafColor.colorMultiplier(((ItemBlock) stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
+
+    public static final IItemColor armor = (stack, tintIndex) ->
+            (tintIndex != 1 && stack.getItem() instanceof BWMArmor) ? ((BWMArmor) stack.getItem()).getColor(stack) : -1;
 
 
     public static int blendColors(int main, int blend) {

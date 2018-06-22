@@ -4,6 +4,12 @@ import betterwithmods.BWMod;
 import betterwithmods.client.*;
 import betterwithmods.client.baking.BarkModel;
 import betterwithmods.client.baking.IStateParticleBakedModel;
+import betterwithmods.api.client.IColorable;
+import betterwithmods.client.BWStateMapper;
+import betterwithmods.client.ClientEventHandler;
+import betterwithmods.client.ColorHandlers;
+import betterwithmods.client.ResourceProxy;
+import betterwithmods.client.model.ModelKiln;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.client.render.*;
 import betterwithmods.client.tesr.*;
@@ -18,6 +24,9 @@ import betterwithmods.common.entity.*;
 import betterwithmods.manual.api.ManualAPI;
 import betterwithmods.manual.api.prefab.manual.TextureTabIconRenderer;
 import betterwithmods.manual.client.manual.provider.*;
+import betterwithmods.manual.common.DirectoryDefaultProvider;
+import betterwithmods.manual.common.api.ManualDefinitionImpl;
+import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
 import betterwithmods.module.gameplay.breeding_harness.CapabilityHarness;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
@@ -40,6 +49,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -48,6 +58,8 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -70,6 +82,7 @@ import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BWMod.MODID, value = Side.CLIENT)
@@ -110,14 +123,10 @@ public class ClientProxy implements IProxy {
     public void init(FMLInitializationEvent event) {
         List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), ReflectionLib.DEFAULT_RESOURCE_PACKS);
         BWMod.MODULE_LOADER.initClient(event);
-        registerColors();
-        ManualAPI.addProvider(new DefinitionPathProvider());
-        ManualAPI.addProvider(new DirectoryDefaultProvider("betterwithmods", "docs/"));
-        ManualAPI.addProvider("", new TextureImageProvider());
-        ManualAPI.addProvider("item", new ItemImageProvider());
-        ManualAPI.addProvider("block", new BlockImageProvider());
-        ManualAPI.addProvider("oredict", new OreDictImageProvider());
+        ManualAPI.addProvider(new DirectoryDefaultProvider(new ResourceLocation(BWMod.MODID, "documentation/docs/")));
+        ManualDefinitionImpl.INSTANCE.addDefaultProviders();
         ManualAPI.addTab(new TextureTabIconRenderer(new ResourceLocation(BWMod.MODID, "textures/gui/manual_home.png")), "bwm.manual.home", "%LANGUAGE%/index.md");
+        registerColors();
     }
 
     @Override
@@ -142,7 +151,14 @@ public class ClientProxy implements IProxy {
         }
     }
 
+    private void registerColor(ItemColors registry, Item item) {
+        if(item instanceof IColorable) {
+            registry.registerItemColorHandler(((IColorable) item).getColorHandler(), item);
+        }
+    }
+
     private void registerColors() {
+
         final BlockColors col = Minecraft.getMinecraft().getBlockColors();
         final ItemColors itCol = Minecraft.getMinecraft().getItemColors();
 
@@ -155,6 +171,12 @@ public class ClientProxy implements IProxy {
         itCol.registerItemColorHandler(ColorHandlers.ItemFoliageColor, BWMBlocks.VINE_TRAP);
         itCol.registerItemColorHandler(ColorHandlers.ItemBloodLeafColor, BWMBlocks.BLOOD_LEAVES);
         itCol.registerItemColorHandler(ColorHandlers.ItemGrassColor, BWMBlocks.DIRT_SLAB);
+        BWMItems.getItems().forEach( item -> registerColor(itCol, item));
+        col.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> worldIn != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(worldIn, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D), BWMBlocks.DIRT_SLAB);
+        itCol.registerItemColorHandler((stack, tintIndex) -> {
+            IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
+            return col.colorMultiplier(iblockstate, null, null, tintIndex);
+        }, BWMBlocks.DIRT_SLAB);
     }
 
     private void initRenderers() {
@@ -214,6 +236,35 @@ public class ClientProxy implements IProxy {
         if (world == null)
             return null;
         return world.getEntityByID(id);
+    }
+
+    private EntityPlayer getPlayerById(String id) {
+        World world = Minecraft.getMinecraft().world;
+        if (world == null)
+            return null;
+        return world.getPlayerEntityByUUID(UUID.fromString(id));
+    }
+
+    @Override
+    public void syncGloom(String entityId, int gloom) {
+        EntityPlayer e = getPlayerById(entityId);
+        if (e != null) {
+            HCGloom.Gloom g = HCGloom.getGloom(e);
+            if (g != null) {
+                g.setGloom(gloom);
+            }
+        }
+    }
+
+    @Override
+    public void syncPlaced(BlockPos[] pos) {
+        World world = Minecraft.getMinecraft().world;
+        if (world == null)
+            return;
+        PlacedCapability capability = HCStumping.getCapability(world);
+        if (capability != null) {
+            capability.addAll(pos);
+        }
     }
 
     @Override

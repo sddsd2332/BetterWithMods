@@ -74,12 +74,15 @@ import java.util.regex.Pattern;
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class BWRegistry {
 
+    public static final PenaltyHandlerRegistry PENALTY_HANDLERS = new PenaltyHandlerRegistry();
+
     public static final CraftingManagerPot CAULDRON = new CraftingManagerPot();
     public static final CraftingManagerPot CRUCIBLE = new CraftingManagerPot();
     public static final CraftingManagerMill MILLSTONE = new CraftingManagerMill();
     public static final CraftingManagerSaw WOOD_SAW = new CraftingManagerSaw();
     public static final CrafingManagerKiln KILN = new CrafingManagerKiln();
     public static final CraftingManagerTurntable TURNTABLE = new CraftingManagerTurntable();
+    //TODO rename
     public static final CraftingManagerHopper FILTERD_HOPPER = new CraftingManagerHopper();
     public static final CraftingManagerAnvil ANVIL = new CraftingManagerAnvil();
 
@@ -101,8 +104,8 @@ public class BWRegistry {
     }
 
     public static void preInit() {
-        API.manualAPI = ManualAPIImpl.INSTANCE;
-
+        API.manualAPI = ManualDefinitionImpl.INSTANCE;
+        BWNetwork.registerNetworking();
         BWFluidRegistry.registerFluids();
         BWAdvancements.registerAdvancements();
         BWNetwork.registerNetworking();
@@ -135,8 +138,11 @@ public class BWRegistry {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
+
+        for(IRecipe recipe: BWMRecipes.getRecipes()) {
+            event.getRegistry().register(recipe);
+        }
 
         for (IRecipe recipe : reg) {
             for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {
@@ -168,7 +174,6 @@ public class BWRegistry {
     }
 
     public static void postInit() {
-
         BellowsManager.postInit();
     }
 
@@ -289,6 +294,7 @@ public class BWRegistry {
         Blocks.FIRE.setFireInfo(BWMBlocks.VERTICAL_WINDMILL, 5, 20);
         Blocks.FIRE.setFireInfo(BWMBlocks.WATERWHEEL, 5, 20);
         Blocks.FIRE.setFireInfo(BWMBlocks.VINE_TRAP, 5, 20);
+        //TODO 1.13 block of nethercoal
 
         registerFireInfo(new BlockIngredient("blockCandle"), 5, 20);
         registerFireInfo(new BlockIngredient("slats"), 5, 20);

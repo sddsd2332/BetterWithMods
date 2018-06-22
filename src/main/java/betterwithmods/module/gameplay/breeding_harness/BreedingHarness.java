@@ -8,6 +8,8 @@ import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessageHarness;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Sets;
+import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
+import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -15,6 +17,7 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -123,10 +126,7 @@ public class BreedingHarness extends Feature {
 
 
     public static CapabilityHarness getCapability(Entity entity) {
-        if (entity.hasCapability(CapabilityHarness.HARNESS_CAPABILITY, null)) {
-            return entity.getCapability(CapabilityHarness.HARNESS_CAPABILITY, null);
-        }
-        return null;
+        return entity.getCapability(CapabilityHarness.HARNESS_CAPABILITY, null);
     }
 
     public static boolean hasHarness(Entity entity) {
@@ -135,13 +135,32 @@ public class BreedingHarness extends Feature {
     }
 
     public static final Set<Class<? extends EntityAnimal>> HARNESS_ANIMALS = Sets.newHashSet();
+    private static Object2BooleanMap<Class<? extends Entity>> HARNESS_CACHE = new Object2BooleanOpenHashMap<>();
     static {
         HARNESS_ANIMALS.add(EntityCow.class);
         HARNESS_ANIMALS.add(EntitySheep.class);
         HARNESS_ANIMALS.add(EntityPig.class);
+        for (Class<? extends EntityAnimal> c : HARNESS_ANIMALS){
+            HARNESS_CACHE.put(c, true);
+        }
     }
     public static boolean harnessEntity(Entity entity) {
-        return HARNESS_ANIMALS.stream().anyMatch( c -> c.isAssignableFrom(entity.getClass()));
+        if (!(entity instanceof EntityAnimal)){
+            return false;
+        }
+        Class<? extends Entity> c = entity.getClass();
+        Boolean harness = HARNESS_CACHE.get(c);
+        if (harness != null){
+            return harness;
+        }
+        boolean canHarness = false;
+        for (Class<? extends EntityAnimal> cTest : HARNESS_ANIMALS){
+            if (cTest.isAssignableFrom(c)){
+                canHarness = true;
+                break;
+            }
+        }
+        return HARNESS_CACHE.put(c, canHarness);
     }
 
     @Override

@@ -5,7 +5,10 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.items.ItemFertilizer;
 import betterwithmods.module.Feature;
+import betterwithmods.util.InvUtils;
+import betterwithmods.util.StackIngredient;
 import betterwithmods.util.player.PlayerHelper;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;
@@ -15,6 +18,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
@@ -29,11 +33,13 @@ import java.util.Set;
  * Created by primetoxinz on 5/14/17.
  */
 public class HCBonemeal extends Feature {
-    public static Set<ItemStack> FERTILIZERS = Sets.newHashSet(new ItemStack(BWMItems.FERTILIZER), new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()));
+    public static StackIngredient FERTILIZERS = StackIngredient.fromStacks(new ItemStack(BWMItems.FERTILIZER), new ItemStack(Items.DYE, 1,EnumDyeColor.WHITE.getDyeDamage()));
     private static boolean removeBonemealRecipe;
 
+    //TODO find a better solution to adding valid stacks to an ingredient.
+    @Deprecated
     public static void registerFertilizer(ItemStack stack) {
-        FERTILIZERS.add(stack);
+        FERTILIZERS = StackIngredient.mergeStacked(Lists.newArrayList(FERTILIZERS, StackIngredient.fromStacks(stack)));
     }
 
     @Override
@@ -67,7 +73,7 @@ public class HCBonemeal extends Feature {
     public void onItemUse(PlayerInteractEvent.RightClickBlock e) {
         ItemStack stack = e.getItemStack();
 
-        if (FERTILIZERS.stream().noneMatch(stack::isItemEqual))
+        if (FERTILIZERS.apply(stack))
             return;
 
         World world = e.getWorld();

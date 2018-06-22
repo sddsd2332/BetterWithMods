@@ -19,6 +19,7 @@ public class RenderSegment extends AbstractSegment implements InteractiveSegment
     private int lastY = 0;
 
     public RenderSegment(final Segment parent, final String title, final ImageRenderer imageRenderer) {
+        super(parent.getManual());
         this.parent = parent;
         this.title = title;
         this.imageRenderer = imageRenderer;
@@ -80,7 +81,7 @@ public class RenderSegment extends AbstractSegment implements InteractiveSegment
         GlStateManager.enableAlpha();
 
         if (hovered.isPresent()) {
-            GlStateManager.color(0.5f, 0.5f, 0.5f, 0.15f);
+            GlStateManager.color(1, 1, 1, 0.15f);
             GlStateManager.disableTexture2D();
             GL11.glBegin(GL11.GL_QUADS);
             GL11.glVertex2f(0, 0);

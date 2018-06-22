@@ -47,6 +47,10 @@ public class BWMod {
         }
     };
 
+    public static Logger getLog() {
+        return logger;
+    }
+
     @Mod.EventHandler
     public void onConstruct(FMLConstructionEvent event) {
         ForgeModContainer.fullBoundingBoxLadders = true;
@@ -55,6 +59,7 @@ public class BWMod {
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
         logger = evt.getModLog();
+        BWMAttributes.registerAttributes();
         MODULE_LOADER.preInit(evt);
         BWRegistry.preInit();
         proxy.preInit(evt);
@@ -90,6 +95,9 @@ public class BWMod {
     public void serverStarted(FMLServerStartedEvent evt) {
         if(isDev()) {
             BWMTests.runTests();
+        }
+        if(GlobalConfig.debug) {
+            evt.registerServerCommand(new HealthCommand());
         }
     }
 

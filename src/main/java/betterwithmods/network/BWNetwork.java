@@ -26,6 +26,8 @@ public class BWNetwork {
         INSTANCE.registerMessage(MessageHungerShakeHandler.class, MessageHungerShake.class, i++, Side.CLIENT);
         INSTANCE.registerMessage(MessageHarnessHandler.class, MessageHarness.class, i++, Side.CLIENT);
         INSTANCE.registerMessage(MessageRotateHandler.class, MessageRotate.class, i++, Side.CLIENT);
+        INSTANCE.registerMessage(MessageGloomHandler.class, MessageGloom.class, i++, Side.CLIENT);
+        INSTANCE.registerMessage(MessagePlacedHandler.class, MessagePlaced.class, i++, Side.CLIENT);
     }
 
     public static void sendPacket(Entity player, Packet<?> packet) {

@@ -8,6 +8,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -16,6 +17,7 @@ import java.util.Random;
 
 public interface IProxy {
     default void preInit(FMLPreInitializationEvent event) {
+
     }
 
     default void init(FMLInitializationEvent event) {
@@ -44,5 +46,10 @@ public interface IProxy {
 
     default NonNullList<ItemStack> getSubItems(Item item) {
         return NonNullList.withSize(1,item.getDefaultInstance());
+    }
+    default void syncGloom(String entityId, int gloom) {
+    }
+
+    default void syncPlaced(BlockPos[] pos) {
     }
 }

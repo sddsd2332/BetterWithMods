@@ -104,7 +104,8 @@ public class BlockAesthetic extends BWMBlock {
         PADDING("padding_block", MapColor.CLOTH, Material.CLOTH, SoundType.CLOTH, 1F, 5F),
         SOAP("soap_block", MapColor.PINK, Material.GROUND, SoundType.GROUND, 1F, 5F),
         DUNG("dung_block", MapColor.BROWN, Material.GROUND, SoundType.GROUND, 1F, 2F),
-        WICKER("wicker_block", MapColor.BROWN, Material.WOOD, SoundType.WOOD, 1F, 5F);
+        WICKER("wicker_block", MapColor.BROWN, Material.WOOD, SoundType.WOOD, 1F, 5F),
+        NETHERCOAL("nethercoal", MapColor.RED, Material.REDSTONE_LIGHT, SoundType.STONE, 5.0F,10.0F);
 
         private static final BlockAesthetic.EnumType[] VALUES = values();
 
