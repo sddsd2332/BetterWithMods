@@ -16,6 +16,7 @@ import betterwithmods.common.blocks.mechanical.tile.*;
 import betterwithmods.common.blocks.tile.TileBlockDispenser;
 import betterwithmods.common.blocks.tile.TileInfernalEnchanter;
 import betterwithmods.common.blocks.tile.TileSteelAnvil;
+import betterwithmods.manual.client.gui.GuiManual;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;

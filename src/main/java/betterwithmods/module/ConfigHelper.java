@@ -103,6 +103,10 @@ public class ConfigHelper {
         }
     }
 
+    public void setDescription(String category, String comment) {
+        config.setCategoryComment(category,comment);
+    }
+
     public void setCategoryComment(String category, String comment) {
         config.setCategoryComment(category, comment);
     }

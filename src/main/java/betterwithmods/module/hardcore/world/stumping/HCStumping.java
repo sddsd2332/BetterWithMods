@@ -64,7 +64,7 @@ public class HCStumping extends Feature {
             }
             return true;
         }
-        return BWOreDictionary.getWoodFromState(state) != null;
+        return BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG, state) != null;
     }
 
     public static boolean isSoil(IBlockState state) {
@@ -109,9 +109,7 @@ public class HCStumping extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
-        ENABLED = ModuleLoader.isFeatureEnabled(HCStumping.class);
-    }
+    public void init(FMLInitializationEvent event) { }
 
     @Override
     public boolean requiresMinecraftRestartToEnable() {

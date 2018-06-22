@@ -11,7 +11,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.fest.assertions.Assertions;
 
 
-public abstract class BaseBulkTest<T extends BulkRecipe > extends BaseTest {
+public abstract class BaseBulkTest<T extends BulkRecipe> extends BaseTest {
 
     protected IBulkTile TILE;
     protected CraftingManagerBulk<T> TEST_MANAGER;
@@ -86,8 +86,8 @@ public abstract class BaseBulkTest<T extends BulkRecipe > extends BaseTest {
         TEST_MANAGER.addRecipe(recipe);
         Assertions.assertThat(TEST_MANAGER.getRecipes()).hasSize(1);
 
-        Assertions.assertThat(TEST_MANAGER.canCraft(TILE, TILE.getInventory())).isTrue();
-        Assertions.assertThat(TEST_MANAGER.craftItem(null, TILE, TILE.getInventory())).isNotEmpty();
+        Assertions.assertThat(TEST_MANAGER.canCraft(recipe, TILE, TILE.getInventory())).isTrue();
+        Assertions.assertThat(TEST_MANAGER.craftItem(recipe, null, TILE, TILE.getInventory())).isNotEmpty();
 
     }
 }

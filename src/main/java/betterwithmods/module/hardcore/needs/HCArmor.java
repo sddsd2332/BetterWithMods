@@ -31,8 +31,6 @@ public class HCArmor extends Feature {
 
     public static ArmorPenalties penalties;
 
-    public static final StackMap<Integer> weights = new StackMap<>(0);
-
     public static boolean shieldRebalance;
 
     public static float getWeight(ItemStack stack) {

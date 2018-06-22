@@ -13,6 +13,7 @@ import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.entity.*;
 import betterwithmods.common.entity.item.EntityFallingBlockCustom;
 import betterwithmods.common.fluid.BWFluidRegistry;
+import betterwithmods.common.penalties.PenaltyHandlerRegistry;
 import betterwithmods.common.potion.BWPotion;
 import betterwithmods.common.potion.PotionSlowfall;
 import betterwithmods.common.potion.PotionTruesight;
@@ -30,7 +31,7 @@ import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.common.registry.hopper.filters.HopperFilters;
 import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
 import betterwithmods.manual.api.API;
-import betterwithmods.manual.common.api.ManualAPIImpl;
+import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.util.DispenserBehaviorDynamite;
@@ -105,7 +106,6 @@ public class BWRegistry {
 
     public static void preInit() {
         API.manualAPI = ManualDefinitionImpl.INSTANCE;
-        BWNetwork.registerNetworking();
         BWFluidRegistry.registerFluids();
         BWAdvancements.registerAdvancements();
         BWNetwork.registerNetworking();
@@ -139,10 +139,6 @@ public class BWRegistry {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
-
-        for(IRecipe recipe: BWMRecipes.getRecipes()) {
-            event.getRegistry().register(recipe);
-        }
 
         for (IRecipe recipe : reg) {
             for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {

@@ -3,8 +3,10 @@ package betterwithmods;
 import betterwithmods.client.BWGuiHandler;
 import betterwithmods.common.BWIMCHandler;
 import betterwithmods.common.BWRegistry;
+import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.event.FakePlayerHandler;
 import betterwithmods.module.CompatModule;
+import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.module.hardcore.Hardcore;
@@ -12,6 +14,7 @@ import betterwithmods.module.industry.Industry;
 import betterwithmods.module.tweaks.Tweaks;
 import betterwithmods.proxy.IProxy;
 import betterwithmods.testing.BWMTests;
+import betterwithmods.util.commands.HealthCommand;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
@@ -89,15 +92,15 @@ public class BWMod {
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent evt) {
         MODULE_LOADER.serverStarting(evt);
+        if(GlobalConfig.debug) {
+            evt.registerServerCommand(new HealthCommand());
+        }
     }
 
     @Mod.EventHandler
     public void serverStarted(FMLServerStartedEvent evt) {
         if(isDev()) {
             BWMTests.runTests();
-        }
-        if(GlobalConfig.debug) {
-            evt.registerServerCommand(new HealthCommand());
         }
     }
 

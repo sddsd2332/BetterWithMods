@@ -24,12 +24,12 @@ public class BWMAttributes {
     }
 
     public static AttributeInstance<Boolean> getBooleanAttribute(IAttribute<Boolean> parent, String category, String penalty, String desc, Boolean defaultValue) {
-        boolean value = ConfigHelper.loadPropBool(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue);
+        boolean value = BWMod.MODULE_LOADER.configHelper.loadPropBool(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue);
         return new AttributeInstance<>(parent, value);
     }
 
     public static AttributeInstance<Float> getFloatAttribute(IAttribute<Float> parent, String category, String penalty, String desc, Float defaultValue) {
-        float value = (float) ConfigHelper.loadPropDouble(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue);
+        float value = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue);
         return new AttributeInstance<>(parent, value);
     }
 
@@ -37,12 +37,12 @@ public class BWMAttributes {
     public static <T extends Number & Comparable> Range<T> getRange(String category, String penalty, String desc, Range<T> defaultValue) {
         Number max = defaultValue.getMaximum(), min = defaultValue.getMinimum();
         if (max instanceof Float) {
-            Float upper = (float) ConfigHelper.loadPropDouble("Upper Range", String.join(".", category, penalty), desc, max.doubleValue());
-            Float lower = (float) ConfigHelper.loadPropDouble("Lower Range", String.join(".", category, penalty), desc, min.doubleValue());
+            Float upper = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble("Upper Range", String.join(".", category, penalty), desc, max.doubleValue());
+            Float lower = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble("Lower Range", String.join(".", category, penalty), desc, min.doubleValue());
             return (Range<T>) Range.between(upper, lower);
         } else if (max instanceof Integer) {
-            Integer upper = ConfigHelper.loadPropInt("Upper Range", String.join(".", category, penalty), desc, max.intValue());
-            Integer lower = ConfigHelper.loadPropInt("Lower Range", String.join(".", category, penalty), desc, min.intValue());
+            Integer upper = BWMod.MODULE_LOADER.configHelper.loadPropInt("Upper Range", String.join(".", category, penalty), desc, max.intValue());
+            Integer lower = BWMod.MODULE_LOADER.configHelper.loadPropInt("Lower Range", String.join(".", category, penalty), desc, min.intValue());
             return (Range<T>) Range.between(upper, lower);
         }
         return null;
