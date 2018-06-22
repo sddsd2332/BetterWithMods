@@ -1,6 +1,7 @@
 package betterwithmods.proxy;
 
 import betterwithmods.BWMod;
+import betterwithmods.api.client.IColorable;
 import betterwithmods.client.BWStateMapper;
 import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.ColorHandlers;
@@ -138,7 +139,14 @@ public class ClientProxy implements IProxy {
         }
     }
 
+    private void registerColor(ItemColors registry, Item item) {
+        if(item instanceof IColorable) {
+            registry.registerItemColorHandler(((IColorable) item).getColorHandler(), item);
+        }
+    }
+
     private void registerColors() {
+
         final BlockColors col = Minecraft.getMinecraft().getBlockColors();
         col.registerBlockColorHandler(ColorHandlers.BlockPlanterColor, BWMBlocks.PLANTER);
         col.registerBlockColorHandler(ColorHandlers.BlockFoliageColor, BWMBlocks.VINE_TRAP);
@@ -147,6 +155,7 @@ public class ClientProxy implements IProxy {
         itCol.registerItemColorHandler(ColorHandlers.ItemPlanterColor, BWMBlocks.PLANTER);
         itCol.registerItemColorHandler(ColorHandlers.ItemFoliageColor, BWMBlocks.VINE_TRAP);
         itCol.registerItemColorHandler(ColorHandlers.ItemBloodLeafColor, BWMBlocks.BLOOD_LEAVES);
+        BWMItems.getItems().forEach( item -> registerColor(itCol, item));
         col.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> worldIn != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(worldIn, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D), BWMBlocks.DIRT_SLAB);
         itCol.registerItemColorHandler((stack, tintIndex) -> {
             IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());

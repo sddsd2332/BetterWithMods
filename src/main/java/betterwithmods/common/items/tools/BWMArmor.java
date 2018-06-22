@@ -1,7 +1,10 @@
 package betterwithmods.common.items.tools;
 
 import betterwithmods.BWMod;
+import betterwithmods.api.client.IColorable;
 import betterwithmods.client.BWCreativeTabs;
+import betterwithmods.client.ColorHandlers;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemArmor;
@@ -9,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
-public class BWMArmor extends ItemArmor {
+public class BWMArmor extends ItemArmor implements IColorable {
     private String name;
 
     public BWMArmor(ArmorMaterial material, EntityEquipmentSlot equipmentSlotIn, String name) {
@@ -61,9 +64,19 @@ public class BWMArmor extends ItemArmor {
         nbttagcompound1.setInteger("color", color);
     }
 
+    @Override
+    public boolean hasColor(ItemStack stack) {
+        NBTTagCompound nbttagcompound = stack.getTagCompound();
+        return nbttagcompound != null && nbttagcompound.hasKey("display", 10) ? nbttagcompound.getCompoundTag("display").hasKey("color", 3) : false;
+    }
 
     @Override
     public boolean hasOverlay(ItemStack stack) {
         return getColor(stack) != 0x00FFFFFF;
+    }
+
+    @Override
+    public IItemColor getColorHandler() {
+        return ColorHandlers.armor;
     }
 }

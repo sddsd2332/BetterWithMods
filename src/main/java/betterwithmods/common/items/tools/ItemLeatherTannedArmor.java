@@ -11,6 +11,7 @@ import net.minecraftforge.oredict.OreDictionary;
 
 public class ItemLeatherTannedArmor extends BWMArmor {
     private static final ArmorMaterial LEATHER_TANNED = EnumHelper.addArmorMaterial("leather_tanned", "betterwithmods:leather_tanned", 10, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
+
     public ItemLeatherTannedArmor(EntityEquipmentSlot equipmentSlotIn) {
         super(LEATHER_TANNED, equipmentSlotIn, "leather_tanned");
         this.setCreativeTab(BWCreativeTabs.BWTAB);

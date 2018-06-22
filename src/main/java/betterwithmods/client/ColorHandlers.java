@@ -2,6 +2,7 @@ package betterwithmods.client;
 
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.blocks.ItemBlockPlanter;
+import betterwithmods.common.items.tools.BWMArmor;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.item.ItemBlock;
@@ -24,7 +25,10 @@ public class ColorHandlers {
     public static final IItemColor ItemFoliageColor = (stack, tintIndex) ->
             BlockFoliageColor.colorMultiplier(((ItemBlock) stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
     public static final IItemColor ItemBloodLeafColor = (stack, tintIndex) ->
-            BlockBloodLeafColor.colorMultiplier(((ItemBlock)stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
+            BlockBloodLeafColor.colorMultiplier(((ItemBlock) stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
+
+    public static final IItemColor armor = (stack, tintIndex) ->
+            (tintIndex != 1 && stack.getItem() instanceof BWMArmor) ? ((BWMArmor) stack.getItem()).getColor(stack) : -1;
 
     public static int blendColors(int main, int blend) {
         float mRatio = 0.825F;
@@ -40,10 +44,10 @@ public class ColorHandlers {
         int blendG = (blend & 0xFF00) >> 8;
         int blendB = blend & 0xFF;
 
-        int a = (int)((mainA * mRatio) + (blendA * ratio));
-        int r = (int)((mainR * mRatio) + (blendR * ratio));
-        int g = (int)((mainG * mRatio) + (blendG * ratio));
-        int b = (int)((mainB * mRatio) + (blendB * ratio));
+        int a = (int) ((mainA * mRatio) + (blendA * ratio));
+        int r = (int) ((mainR * mRatio) + (blendR * ratio));
+        int g = (int) ((mainG * mRatio) + (blendG * ratio));
+        int b = (int) ((mainB * mRatio) + (blendB * ratio));
 
         return a << 24 | r << 16 | g << 8 | b;
     }

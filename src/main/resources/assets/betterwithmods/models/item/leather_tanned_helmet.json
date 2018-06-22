@@ -1,6 +1,7 @@
 {
-  "parent": "betterwithmods:item/default",
+  "parent": "item/generated",
   "textures": {
-    "layer0": "betterwithmods:items/leather_tanned_helmet"
+    "layer0": "betterwithmods:items/leather_tanned_helmet",
+    "layer1": "betterwithmods:items/leather_tanned_helmet_overlay"
   }
 }
