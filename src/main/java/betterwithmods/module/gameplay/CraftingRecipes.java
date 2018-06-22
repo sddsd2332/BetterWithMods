@@ -6,12 +6,15 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.crafting.RecipeArmorDye;
 import betterwithmods.module.Feature;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 /**
@@ -20,6 +23,16 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 public class CraftingRecipes extends Feature {
     public CraftingRecipes() {
         canDisable = false;
+    }
+
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        BWMRecipes.addRecipe(new RecipeArmorDye(
+                Ingredient.fromItems(
+                        BWMItems.LEATHER_TANNED_HELMET, BWMItems.LEATHER_TANNED_CHEST, BWMItems.LEATHER_TANNED_PANTS, BWMItems.LEATHER_TANNED_BOOTS,
+                        BWMItems.WOOL_HELMET,BWMItems.WOOL_CHEST,BWMItems.WOOL_PANTS,BWMItems.WOOL_BOOTS
+                )
+        ));
     }
 
     @Override
@@ -49,13 +62,13 @@ public class CraftingRecipes extends Feature {
         GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 0), new ItemStack(Blocks.STONE, 1, 1), 0.1F);
         GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 1), new ItemStack(Blocks.STONE, 1, 3), 0.1F);
         GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 2), new ItemStack(Blocks.STONE, 1, 5), 0.1F);
-        
+
         BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.NETHERRACK));
+
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-
 
 
     }

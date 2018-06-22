@@ -134,6 +134,10 @@ public class BWRegistry {
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
 
+        for(IRecipe recipe: BWMRecipes.getRecipes()) {
+            event.getRegistry().register(recipe);
+        }
+
         for (IRecipe recipe : reg) {
             for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {
                 Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
