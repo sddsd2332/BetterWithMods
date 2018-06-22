@@ -422,6 +422,12 @@ item.bwm:leather_tanned_chest.name=Tanned Leather Tunic
 item.bwm:leather_tanned_pants.name=Tanned Leather Pants
 item.bwm:leather_tanned_boots.name=Tanned Leather Boots
 
+item.bwm:wool_helmet.name=Wool Cap
+item.bwm:wool_chest.name=Wool Shirt
+item.bwm:wool_pants.name=Wool Pants
+item.bwm:wool_boots.name=Wool Socks
+
+
 item.bwm:composite_bow.name=Composite Bow
 item.bwm:broadhead_arrow.name=Broadhead Arrow
 
