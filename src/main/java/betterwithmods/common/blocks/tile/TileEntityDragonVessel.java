@@ -12,7 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.IProjectile;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -32,7 +31,7 @@ import java.util.List;
  * @version 3/20/17
  */
 public class TileEntityDragonVessel extends TileBasic implements ITickable, IMechanicalPower, ICrankable {
-    private final int MAX_EXPERIENCE = 1500;
+    private final int MAX_EXPERIENCE = 825;
     private int experience;
     private int maxDist = 5;
     private EnumFacing facing = EnumFacing.UP;
