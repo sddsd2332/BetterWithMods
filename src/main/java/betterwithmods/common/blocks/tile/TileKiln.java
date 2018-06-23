@@ -64,11 +64,12 @@ public class TileKiln extends TileBasic {
                     block.setCookCounter(world, kilnPos, 0);
                     world.scheduleBlockUpdate(kilnPos, block, currentTickRate, 5);
                 }
-
             } else if (oldCookTime != 0) {
                 world.sendBlockBreakProgress(0, pos, -1);
                 block.setCookCounter(world, kilnPos, 0);
                 world.scheduleBlockUpdate(kilnPos, block, currentTickRate, 5);
+            } else {
+                world.sendBlockBreakProgress(0, pos, -1);
             }
         }
 
