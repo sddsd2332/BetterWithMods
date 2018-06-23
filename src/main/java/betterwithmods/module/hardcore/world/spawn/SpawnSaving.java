@@ -11,8 +11,16 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
 public class SpawnSaving implements ICapabilitySerializable<NBTTagCompound> {
+
+    public static Optional<SpawnSaving> getCapability(EntityPlayer player) {
+        if (player.hasCapability(SpawnSaving.SPAWN_CAP, null)) {
+           return Optional.ofNullable(player.getCapability(SpawnSaving.SPAWN_CAP, null));
+        }
+        return Optional.empty();
+    }
 
     @CapabilityInject(SpawnSaving.class)
     public static Capability<SpawnSaving> SPAWN_CAP = null;
