@@ -65,9 +65,9 @@ import java.util.stream.Collectors;
 
 
 public class MiniBlocks extends Feature {
-    public static HashMap<MiniType, HashMap<Material, BlockCamo>> MINI_MATERIAL_BLOCKS = Maps.newHashMap();
-    public static Multimap<Material, IBlockState> MATERIALS = HashMultimap.create();
-    private static Map<Material, String> names = Maps.newHashMap();
+    public static final HashMap<MiniType, HashMap<Material, BlockCamo>> MINI_MATERIAL_BLOCKS = Maps.newHashMap();
+    public static final Multimap<Material, IBlockState> MATERIALS = HashMultimap.create();
+    private static final Map<Material, String> names = Maps.newHashMap();
     private static boolean autoGeneration;
     private static boolean requiresAnvil;
     private static Set<Ingredient> WHITELIST;

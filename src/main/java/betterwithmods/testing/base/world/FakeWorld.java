@@ -14,7 +14,7 @@ import java.util.Map;
 
 public class FakeWorld extends World {
 
-    private Map<BlockPos, IBlockState> states = Maps.newHashMap();
+    private final Map<BlockPos, IBlockState> states = Maps.newHashMap();
 
     public FakeWorld() {
         super(new FakeSaveHandler(), new FakeWorldInfo(), new FakeWorldProvider(), new Profiler(), false);

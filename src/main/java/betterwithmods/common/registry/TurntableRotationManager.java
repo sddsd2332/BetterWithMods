@@ -27,7 +27,8 @@ public class TurntableRotationManager {
     public static final HashMap<Predicate<Block>, IRotation> PREDICATE_ROTATIONS = Maps.newHashMap();
     public static final HashMap<Block, IRotation> BLOCK_ROTATIONS = Maps.newHashMap();
 
-    private static IRotation NO_ROTATION = (world, pos) -> false, BASE_ROTATION = (world, pos) -> true;
+    private static final IRotation NO_ROTATION = (world, pos) -> false;
+    private static final IRotation BASE_ROTATION = (world, pos) -> true;
 
     public static boolean isAttachment(Block block) {
         return BLOCK_ATTACHMENTS.contains(block) || BLOCK_PREDICATE_ATTACHMENTS.stream().anyMatch(p -> p.test(block));

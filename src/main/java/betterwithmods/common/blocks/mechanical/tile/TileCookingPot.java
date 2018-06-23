@@ -30,8 +30,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.HashMap;
@@ -44,7 +42,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
     public int cookProgress, cookTime;
     public EnumFacing facing;
     public int heat;
-    protected CraftingManagerBulk<CookingPotRecipe> manager;
+    protected final CraftingManagerBulk<CookingPotRecipe> manager;
 
     public TileCookingPot(CraftingManagerBulk<CookingPotRecipe> manager) {
         this.manager = manager;
@@ -176,7 +174,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
         return getHeatCached(pos.down());
     }
 
-    private HashMap<BlockPos, BWMHeatRegistry.HeatSource> heatCache = new HashMap<>();
+    private final HashMap<BlockPos, BWMHeatRegistry.HeatSource> heatCache = new HashMap<>();
     private int getHeatCached(BlockPos pos){
         BWMHeatRegistry.HeatSource src = heatCache.get(pos);
         if (src != null && src.matches(world, pos)){

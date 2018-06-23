@@ -25,9 +25,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class ModelKey<T extends IRenderComparable<T>> {
-    T object;
-    BlockRenderLayer layer;
-    Class objectClass;
+    final T object;
+    final BlockRenderLayer layer;
+    final Class objectClass;
 
     public ModelKey(@Nonnull T object, @Nullable BlockRenderLayer layer) {
         this.object = object;

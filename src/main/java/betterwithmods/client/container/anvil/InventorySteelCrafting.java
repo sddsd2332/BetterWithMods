@@ -8,9 +8,9 @@ import net.minecraftforge.items.IItemHandler;
 
 public class InventorySteelCrafting extends InventoryCrafting {
 
-    public TileSteelAnvil craft;
-    public Container container;
-    private IItemHandler handler;
+    public final TileSteelAnvil craft;
+    public final Container container;
+    private final IItemHandler handler;
 
     public InventorySteelCrafting(Container container, TileSteelAnvil te) {
         super(container, 4, 4);

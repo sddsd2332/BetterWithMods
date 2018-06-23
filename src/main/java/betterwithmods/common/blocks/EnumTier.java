@@ -10,9 +10,9 @@ public enum EnumTier implements IStringSerializable {
     WOOD("wood"),
     STEEL("steel");
 
-    public static EnumTier[] VALUES = values();
+    public static final EnumTier[] VALUES = values();
     public static final PropertyEnum<EnumTier> TIER = PropertyEnum.create("tier", EnumTier.class);
-    private String name;
+    private final String name;
 
 
     EnumTier(String name) {

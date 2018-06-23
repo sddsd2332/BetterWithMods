@@ -34,13 +34,13 @@ import java.util.stream.Collectors;
 
 public class ConfigHelper {
 
-    public static HashMap<String, Boolean> CONDITIONS = Maps.newHashMap();
+    public static final HashMap<String, Boolean> CONDITIONS = Maps.newHashMap();
 
     public boolean needsRestart;
-    public boolean allNeedRestart = false;
+    public final boolean allNeedRestart = false;
 
-    public Configuration config;
-    public String path;
+    public final Configuration config;
+    public final String path;
 
     public ConfigHelper(String path, Configuration configuration) {
         this.path = path;

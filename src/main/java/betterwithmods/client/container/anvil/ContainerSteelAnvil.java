@@ -15,13 +15,13 @@ public class ContainerSteelAnvil extends Container {
     private final int INV_FIRST = 17;
     private final int INV_LAST = 44;
     private final int HOT_LAST = 53;
-    public InventoryCrafting craftMatrix;
-    public IInventory craftResult;
-    public InventoryPlayer inventoryPlayer;
+    public final InventoryCrafting craftMatrix;
+    public final IInventory craftResult;
+    public final InventoryPlayer inventoryPlayer;
 
-    public EntityPlayer player;
-    private TileSteelAnvil te;
-    private IItemHandler handler;
+    public final EntityPlayer player;
+    private final TileSteelAnvil te;
+    private final IItemHandler handler;
 
     public ContainerSteelAnvil(InventoryPlayer inventory, TileSteelAnvil te) {
         this.te = te;

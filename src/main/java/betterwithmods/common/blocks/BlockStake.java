@@ -122,8 +122,8 @@ public class BlockStake extends BWMBlock {
         }
     }
 
-    public static PropertyBool[] Z_ROTATE = new PropertyBool[]{DirUtils.SOUTH, DirUtils.NORTH, DirUtils.DOWN, DirUtils.UP, DirUtils.EAST, DirUtils.WEST};
-    public static PropertyBool[] X_ROTATE = new PropertyBool[]{DirUtils.SOUTH, DirUtils.NORTH, DirUtils.WEST, DirUtils.EAST, DirUtils.DOWN, DirUtils.UP};
+    public static final PropertyBool[] Z_ROTATE = new PropertyBool[]{DirUtils.SOUTH, DirUtils.NORTH, DirUtils.DOWN, DirUtils.UP, DirUtils.EAST, DirUtils.WEST};
+    public static final PropertyBool[] X_ROTATE = new PropertyBool[]{DirUtils.SOUTH, DirUtils.NORTH, DirUtils.WEST, DirUtils.EAST, DirUtils.DOWN, DirUtils.UP};
 
     @Override
     public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {

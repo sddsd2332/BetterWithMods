@@ -4,7 +4,6 @@ import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.world.gen.feature.WorldGenBloodTree;
 import betterwithmods.util.DirUtils;
-import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyBool;
@@ -18,9 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 public class BlockBloodLog extends BlockLog {
     public static final PropertyBool EXPANDABLE = PropertyBool.create("expandable");

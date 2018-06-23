@@ -55,7 +55,7 @@ public class HCGloom extends Feature {
     public static GloomPenalties PENALTIES;
     private static Set<Integer> dimensionWhitelist;
     private static Ingredient gloomOverrideItems;
-    private static ResourceLocation PLAYER_GLOOM = new ResourceLocation(BWMod.MODID, "gloom");
+    private static final ResourceLocation PLAYER_GLOOM = new ResourceLocation(BWMod.MODID, "gloom");
 
     public static int getGloomTime(EntityPlayer player) {
         Gloom gloom = getGloom(player);

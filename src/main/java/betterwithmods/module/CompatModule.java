@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by primetoxinz on 5/24/17.
  */
 public class CompatModule extends Module {
-    private HashMap<String, String> compatRegistry = Maps.newHashMap();
+    private final HashMap<String, String> compatRegistry = Maps.newHashMap();
 
     public CompatModule(ModuleLoader loader) {
         super(loader);
@@ -75,8 +75,7 @@ public class CompatModule extends Module {
     }
 
     private boolean isLoaded(String modId) {
-        boolean loaded = loadPropBool(modId.toLowerCase() + "_compat", String.format("Requires %s to be installed" ,modId), true) && Loader.isModLoaded(modId);
-        return loaded;
+        return loadPropBool(modId.toLowerCase() + "_compat", String.format("Requires %s to be installed" ,modId), true) && Loader.isModLoaded(modId);
     }
 
     public ItemStack getItem(String location) {

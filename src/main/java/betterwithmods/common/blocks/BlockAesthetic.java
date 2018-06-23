@@ -22,7 +22,7 @@ import java.util.HashMap;
 import static betterwithmods.common.blocks.BlockAesthetic.EnumType.HELLFIRE;
 
 public class BlockAesthetic extends BWMBlock {
-    public static HashMap<EnumType, Block> BLOCKS = Maps.newHashMap();
+    public static final HashMap<EnumType, Block> BLOCKS = Maps.newHashMap();
 
     public static void init() {
         for (EnumType type : EnumType.VALUES) {

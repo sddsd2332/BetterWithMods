@@ -26,8 +26,8 @@ public class MessagePlaced extends BWMessage {
     public void toBytes(ByteBuf buf) {
         if (pos != null) {
             writeData(buf, pos.length);
-            for (int i = 0; i < pos.length; i++) {
-                writeData(buf, pos[i]);
+            for (BlockPos po : pos) {
+                writeData(buf, po);
             }
 
         }

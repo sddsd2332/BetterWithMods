@@ -212,7 +212,7 @@ public final class WorldUtils {
     }
 
     public static boolean isTimeFrame(World world, TimeFrame frame) {
-        return frame.isBetween((int) getDayTicks(world));
+        return frame.isBetween(getDayTicks(world));
     }
 
     public static boolean isMoonPhase(World world, MoonPhase phase) {
@@ -241,7 +241,7 @@ public final class WorldUtils {
         MINUTE(16.6),
         HOUR(1000),
         DAY(24000);
-        private double ticks;
+        private final double ticks;
 
         Time(double ticks) {
             this.ticks = ticks;
@@ -260,7 +260,8 @@ public final class WorldUtils {
         NIGHT(13001, 24000),
         DAY(0, 13000);
         private static final Random rand = new Random();
-        private int start, end;
+        private final int start;
+        private final int end;
 
         TimeFrame(int start, int end) {
             this.start = start;

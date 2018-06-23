@@ -29,7 +29,7 @@ public class CookingPotRecipeCategory extends BWMRecipeCategory<BulkRecipeWrappe
     private final ICraftingGridHelper craftingGrid;
     @Nonnull
     private IDrawableAnimated flame;
-    private IGuiHelper helper;
+    private final IGuiHelper helper;
 
     public CookingPotRecipeCategory(IGuiHelper helper, String uid) {
         super(helper.createDrawable(guiTexture, 0, 0, width, height), uid, String.format("inv.%s.name", uid.substring(4)));

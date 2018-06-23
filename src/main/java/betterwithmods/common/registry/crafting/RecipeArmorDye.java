@@ -16,7 +16,7 @@ import java.util.List;
 
 public class RecipeArmorDye extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
-    private Ingredient validArmor;
+    private final Ingredient validArmor;
 
     public RecipeArmorDye(Ingredient validArmor) {
         this.validArmor = validArmor;

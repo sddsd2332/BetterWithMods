@@ -41,15 +41,15 @@ public class BWOreDictionary {
     public static List<Ore> oreNames;
     public static List<Ore> ingotNames;
 
-    public static List<IBlockVariants> blockVariants = new ArrayList<>();
-    public static List<IVariantProvider> variantProviders = new ArrayList<>();
+    public static final List<IBlockVariants> blockVariants = new ArrayList<>();
+    public static final List<IVariantProvider> variantProviders = new ArrayList<>();
 
 
     public static List<ItemStack> planks;
     public static List<ItemStack> logs;
-    public static Set<IRecipe> logRecipes = Sets.newHashSet();
+    public static final Set<IRecipe> logRecipes = Sets.newHashSet();
 
-    public static HashMultimap<String, String> toolEffectiveOre = HashMultimap.create();
+    public static final HashMultimap<String, String> toolEffectiveOre = HashMultimap.create();
 
 
     public static void registerOres() {
@@ -196,9 +196,7 @@ public class BWOreDictionary {
     private static IRecipe getLogPlankRecipe(ItemStack log) {
         if (log.isEmpty())
             return null;
-        Iterator<IRecipe> it = CraftingManager.REGISTRY.iterator();
-        while (it.hasNext()) {
-            IRecipe recipe = it.next();
+        for (IRecipe recipe : CraftingManager.REGISTRY) {
             if (InvUtils.applyIngredients(recipe.getIngredients(), log)) {
                 if (isPlank(recipe.getRecipeOutput())) {
                     return recipe;
@@ -386,8 +384,8 @@ public class BWOreDictionary {
     }
 
     public static class Ore extends OreIngredient {
-        private String prefix;
-        private String ore;
+        private final String prefix;
+        private final String ore;
 
         public Ore(String prefix, String ore) {
             super(ore);

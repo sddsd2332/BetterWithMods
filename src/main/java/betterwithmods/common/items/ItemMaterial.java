@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 import java.util.HashMap;
 
 public class ItemMaterial extends Item {
-    public static HashMap<EnumMaterial, ItemMaterial> MATERIALS = Maps.newHashMap();
+    public static final HashMap<EnumMaterial, ItemMaterial> MATERIALS = Maps.newHashMap();
 
     public static Ingredient getIngredient(EnumMaterial material) {
         return Ingredient.fromStacks(getStack(material));
@@ -38,7 +38,7 @@ public class ItemMaterial extends Item {
         }
     }
 
-    private EnumMaterial material;
+    private final EnumMaterial material;
 
     public ItemMaterial(EnumMaterial material) {
         super();

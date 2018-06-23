@@ -2,7 +2,6 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.BWMod;
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.BlockAesthetic;
@@ -185,7 +184,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     }
 
     public boolean isChoppingBlock(IBlockState state, boolean dirty) {
-        return state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCK) || (dirty && state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD));
+        return state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCK).getBlock() || (dirty && state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD));
     }
 
     @Override

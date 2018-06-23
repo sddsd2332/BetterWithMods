@@ -8,7 +8,7 @@ import net.minecraft.item.ItemStack;
 import java.util.HashMap;
 
 public class BlockVariant implements IBlockVariants {
-    private HashMap<EnumBlock, ItemStack> variants = Maps.newHashMap();
+    private final HashMap<EnumBlock, ItemStack> variants = Maps.newHashMap();
 
     public static BlockVariant builder() {
         return new BlockVariant();

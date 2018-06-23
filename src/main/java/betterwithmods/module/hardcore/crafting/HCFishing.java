@@ -25,7 +25,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.capabilities.Capability;
@@ -57,7 +56,7 @@ public class HCFishing extends Feature {
     public static boolean requireBait, restrictToOpenWater;
     public static int minimumWaterDepth;
 
-    public static ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "gameplay/fishing"));
+    public static final ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "gameplay/fishing"));
 
     private static final ResourceLocation BAITED_FISHING_ROD = new ResourceLocation(BWMod.MODID, "baited_fishing_rod");
     public static Ingredient BAIT = Ingredient.EMPTY;

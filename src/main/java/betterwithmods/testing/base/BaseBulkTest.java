@@ -13,7 +13,7 @@ import org.fest.assertions.Assertions;
 
 public abstract class BaseBulkTest<T extends BulkRecipe> extends BaseTest {
 
-    protected IBulkTile TILE;
+    protected final IBulkTile TILE;
     protected CraftingManagerBulk<T> TEST_MANAGER;
     protected T recipe, oreRecipe;
 
@@ -23,7 +23,7 @@ public abstract class BaseBulkTest<T extends BulkRecipe> extends BaseTest {
 
     public BaseBulkTest() {
         this(new IBulkTile() {
-            private MockInventory inventory = MockInventory.createInventory(0, new ItemStack(Items.FLINT, 64), new ItemStack(Items.BONE, 64), new ItemStack(Items.CLAY_BALL, 64));
+            private final MockInventory inventory = MockInventory.createInventory(0, new ItemStack(Items.FLINT, 64), new ItemStack(Items.BONE, 64), new ItemStack(Items.CLAY_BALL, 64));
 
             @Override
             public World getWorld() {

@@ -4,13 +4,13 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
-import org.lwjgl.util.vector.Vector3f;
 
 public class StackEjector {
 
     private final World world;
     private final ItemStack stack;
-    private Vec3d position, motion;
+    private final Vec3d position;
+    private Vec3d motion;
     private int pickupDelay;
 
     public StackEjector(World world, ItemStack stack, Vec3d position, Vec3d motion) {

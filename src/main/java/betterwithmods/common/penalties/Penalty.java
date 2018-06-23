@@ -11,11 +11,11 @@ import java.util.Arrays;
 import java.util.Map;
 
 public class Penalty<T extends Number & Comparable> implements Comparable<Penalty> {
-    private Range<T> range;
+    private final Range<T> range;
 
-    private float severity;
-    private Map<IAttribute<?>, IAttributeInstance<?>> attributeMap = Maps.newHashMap();
-    private String name;
+    private final float severity;
+    private final Map<IAttribute<?>, IAttributeInstance<?>> attributeMap = Maps.newHashMap();
+    private final String name;
 
     public Penalty(String name, float severity, Range<T> range, IAttributeInstance<?>... attributes) {
         this.name = name;

@@ -20,8 +20,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.List;
 
 import static betterwithmods.util.DirUtils.AXIS;
 import static net.minecraft.util.EnumFacing.Axis.Y;

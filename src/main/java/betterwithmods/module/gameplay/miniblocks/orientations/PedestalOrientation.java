@@ -14,10 +14,11 @@ public enum PedestalOrientation implements BaseOrientation {
 
     public static final PedestalOrientation[] VALUES = values();
 
-    private String name;
-    private EnumFacing facing;
-    private AxisAlignedBB bounds;
-    private int x, y;
+    private final String name;
+    private final EnumFacing facing;
+    private final AxisAlignedBB bounds;
+    private final int x;
+    private final int y;
 
     PedestalOrientation(String name, EnumFacing facing, int x, int y, AxisAlignedBB bounds) {
         this.name = name;

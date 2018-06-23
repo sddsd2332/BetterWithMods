@@ -21,7 +21,7 @@ import java.util.stream.Collectors;
  */
 public abstract class CraftingManagerBlock<T extends BlockRecipe> extends CraftingManagerBase<T> {
 
-    protected HashMap<IBlockState, T> recipeCache = Maps.newHashMap();
+    protected final HashMap<IBlockState, T> recipeCache = Maps.newHashMap();
 
     public T addRecipe(T recipe) {
         if (!recipe.isInvalid())

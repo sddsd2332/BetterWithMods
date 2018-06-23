@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
 
 public abstract class GuiBase extends GuiContainer {
-    protected ResourceLocation background;
+    protected final ResourceLocation background;
 
     public GuiBase(Container inventorySlotsIn, ResourceLocation background) {
         super(inventorySlotsIn);

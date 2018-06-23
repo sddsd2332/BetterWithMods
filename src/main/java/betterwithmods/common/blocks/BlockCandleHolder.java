@@ -44,7 +44,6 @@ public class BlockCandleHolder extends BlockStickBase {
         if (block == this) {
             return state.withProperty(CONNECTION, Connection.CONNECTED);
         } else if (shape == BlockFaceShape.SOLID || shape == BlockFaceShape.CENTER_SMALL || shape == BlockFaceShape.CENTER || isUprightTorch(above) || BWOreDictionary.isOre(stack, "blockCandle")) {
-        } else if (shape == BlockFaceShape.SOLID || shape == BlockFaceShape.CENTER_SMALL || shape == BlockFaceShape.CENTER || isUprightTorch(above) || BWOreDictionary.isOre(stack, "blockCandle")) {
             return state.withProperty(CONNECTION, Connection.CANDLE);
         } else if (shape == BlockFaceShape.CENTER_BIG || block instanceof BlockSkull) {
             return state.withProperty(CONNECTION, Connection.SKULL);

@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class WorldPollutionCapability {
     @CapabilityInject(IWorldPollution.class)
-    public static Capability<IWorldPollution> POLLUTION = null;
+    public static final Capability<IWorldPollution> POLLUTION = null;
 
     public static class Impl implements Capability.IStorage<IWorldPollution> {
         @Override
@@ -37,8 +37,8 @@ public class WorldPollutionCapability {
     }
 
     public static class Default implements IWorldPollution {
-        private HashMap<ChunkPos, Float> pollution = new HashMap<>();
-        private HashMap<ChunkPos, Byte> leaves = new HashMap<>();
+        private final HashMap<ChunkPos, Float> pollution = new HashMap<>();
+        private final HashMap<ChunkPos, Byte> leaves = new HashMap<>();
         private World world;
 
         public Default() {

@@ -17,15 +17,14 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.HashMap;
-import java.util.Iterator;
 import java.util.Map;
 
 public class CapabilityBeacon implements ICapabilitySerializable<NBTTagCompound> {
 
     @CapabilityInject(CapabilityBeacon.class)
-    public static Capability<CapabilityBeacon> BEACON_CAPABILITY = null;
+    public static final Capability<CapabilityBeacon> BEACON_CAPABILITY = null;
 
-    private HashMap<Long, Integer> beacons = Maps.newHashMap();
+    private final HashMap<Long, Integer> beacons = Maps.newHashMap();
 
     public CapabilityBeacon() {
     }
@@ -88,8 +87,7 @@ public class CapabilityBeacon implements ICapabilitySerializable<NBTTagCompound>
     public BlockPos getClosest(World world, Entity player) {
         if (beacons.isEmpty())
             return world.getSpawnPoint();
-        BlockPos pos = BlockPos.fromLong(beacons.keySet().stream().min(Comparator.comparingDouble(p -> BlockPos.fromLong(p).distanceSq(player.getPosition()))).orElse(world.getSpawnPoint().toLong()));
-        return pos;
+        return BlockPos.fromLong(beacons.keySet().stream().min(Comparator.comparingDouble(p -> BlockPos.fromLong(p).distanceSq(player.getPosition()))).orElse(world.getSpawnPoint().toLong()));
     }
 
     public static class Storage implements Capability.IStorage<CapabilityBeacon> {

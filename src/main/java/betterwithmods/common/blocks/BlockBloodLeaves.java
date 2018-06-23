@@ -20,6 +20,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -47,7 +48,7 @@ public class BlockBloodLeaves extends BlockLeaves {
 
     @Override
     public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
-        return Arrays.asList(new ItemStack(this, 1, 0));
+        return Collections.singletonList(new ItemStack(this, 1, 0));
     }
 
     @Override

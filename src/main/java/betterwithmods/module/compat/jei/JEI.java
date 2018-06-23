@@ -60,7 +60,7 @@ public class JEI implements IModPlugin {
 
     public static IJeiRuntime JEI_RUNTIME;
 
-    public static List<Class<? extends IOutput>> ALL_OUTPUTS = Lists.newArrayList();
+    public static final List<Class<? extends IOutput>> ALL_OUTPUTS = Lists.newArrayList();
 
     static {
         ALL_OUTPUTS.add(IOutput.class);

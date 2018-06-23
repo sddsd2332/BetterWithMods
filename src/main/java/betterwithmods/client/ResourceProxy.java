@@ -7,7 +7,6 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraftforge.fml.common.Loader;
 
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
@@ -47,7 +46,7 @@ public class ResourceProxy extends AbstractResourcePack {
     }
 
     @Override
-    protected InputStream getInputStreamByName(String name) throws IOException {
+    protected InputStream getInputStreamByName(String name) {
         if (name == null)
             return null;
         return BWMod.class.getResourceAsStream(overrides.get(name));

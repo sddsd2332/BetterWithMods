@@ -17,9 +17,10 @@ public enum ChairOrientation implements BaseOrientation {
     WEST("west", EnumFacing.WEST, 0, 270);
 
     public static final ChairOrientation[] VALUES = values();
-    private String name;
-    private EnumFacing facing;
-    private int x, y;
+    private final String name;
+    private final EnumFacing facing;
+    private final int x;
+    private final int y;
 
     ChairOrientation(String name, EnumFacing facing, int x, int y) {
         this.name = name;

@@ -29,9 +29,10 @@ public enum MouldingOrientation implements BaseOrientation {
     public static final MouldingOrientation[] VALUES = values();
 
 
-    private String name;
-    private AxisAlignedBB bounds;
-    private int x,y;
+    private final String name;
+    private final AxisAlignedBB bounds;
+    private final int x;
+    private final int y;
 
     MouldingOrientation(String name, int x, int y, AxisAlignedBB bounds) {
         this.name = name;

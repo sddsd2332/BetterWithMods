@@ -10,7 +10,6 @@ import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.blocks.tile.TileBasicInventory;
 import betterwithmods.util.DirUtils;
-import betterwithmods.util.InvUtils;
 import betterwithmods.util.StackEjector;
 import betterwithmods.util.VectorBuilder;
 import com.google.common.collect.Lists;
@@ -24,8 +23,6 @@ import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;

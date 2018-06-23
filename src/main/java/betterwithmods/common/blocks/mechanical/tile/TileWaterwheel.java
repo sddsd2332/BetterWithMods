@@ -21,7 +21,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.HashMap;
 
 public class TileWaterwheel extends TileAxleGenerator {
-    static HashMap<Block,IWaterCurrent> WATER_BLOCKS = new HashMap<>();
+    static final HashMap<Block,IWaterCurrent> WATER_BLOCKS = new HashMap<>();
 
     public TileWaterwheel() {
         super();

@@ -13,7 +13,8 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
-    public Block start, end;
+    public final Block start;
+    public final Block end;
 
     public MiniRecipe(Block start, Block end) {
         this.start = start;

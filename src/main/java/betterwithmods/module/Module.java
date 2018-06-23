@@ -37,7 +37,7 @@ public abstract class Module {
     public final List<Feature> enabledFeatures = Lists.newArrayList(), disabledFeatures = Lists.newArrayList();
     public boolean enabled;
     protected int priority = 0;
-    protected ModuleLoader loader;
+    protected final ModuleLoader loader;
 
     public Module(ModuleLoader loader) {
         this.loader = loader;

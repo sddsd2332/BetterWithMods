@@ -13,7 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
 public class BWMArmor extends ItemArmor implements IColorable {
-    private String name;
+    private final String name;
 
     public BWMArmor(ArmorMaterial material, EntityEquipmentSlot equipmentSlotIn, String name) {
         super(material, 2, equipmentSlotIn);
@@ -67,7 +67,7 @@ public class BWMArmor extends ItemArmor implements IColorable {
     @Override
     public boolean hasColor(ItemStack stack) {
         NBTTagCompound nbttagcompound = stack.getTagCompound();
-        return nbttagcompound != null && nbttagcompound.hasKey("display", 10) ? nbttagcompound.getCompoundTag("display").hasKey("color", 3) : false;
+        return (nbttagcompound != null && nbttagcompound.hasKey("display", 10)) && nbttagcompound.getCompoundTag("display").hasKey("color", 3);
     }
 
     @Override

@@ -31,8 +31,8 @@ public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper>
     public static final int height = 80;
     public static final String UID = "bwm.hopper";
     public static final ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/hopper.png");
-    int outputSlot = 3;
-    int secondaryOutputSlot = 5;
+    final int outputSlot = 3;
+    final int secondaryOutputSlot = 5;
 
     public HopperRecipeCategory(IGuiHelper guiHelper) {
         super(guiHelper.createDrawable(location, 0, 0, width, height), UID, Translator.translateToLocal("inv.hopper.name"));

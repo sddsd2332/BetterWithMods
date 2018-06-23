@@ -1,11 +1,8 @@
 package betterwithmods.module.hardcore.creatures.chicken;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.entity.ai.AIFoodEggLayer;
 import betterwithmods.module.Feature;
-import betterwithmods.util.InvUtils;
-import com.google.common.collect.Sets;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -16,19 +13,15 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
-
-import java.util.Set;
 
 import static betterwithmods.module.hardcore.creatures.chicken.EggLayer.EGG_LAYER_CAP;
 
@@ -38,7 +31,7 @@ import static betterwithmods.module.hardcore.creatures.chicken.EggLayer.EGG_LAYE
 public class HCChickens extends Feature {
 
     public static final ResourceLocation EGG_LAYER = new ResourceLocation(BWMod.MODID, "egglayer");
-    public static Ingredient SEEDS = new OreIngredient("listAllSeeds");
+    public static final Ingredient SEEDS = new OreIngredient("listAllSeeds");
 
     @Override
     public void setupConfig() {

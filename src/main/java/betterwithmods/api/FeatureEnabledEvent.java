@@ -6,9 +6,9 @@ import net.minecraftforge.fml.common.eventhandler.Event;
  * Created by primetoxinz on 5/14/17.
  */
 public class FeatureEnabledEvent extends Event {
-    private String module;
-    private String feature;
-    private boolean enabled;
+    private final String module;
+    private final String feature;
+    private final boolean enabled;
 
     public FeatureEnabledEvent(String module, String feature, boolean enabled) {
         this.module = module;

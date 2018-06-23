@@ -98,7 +98,7 @@ public class SpawnBeaconEffect implements IBeaconEffect {
         }
 
         public boolean isPlayer(EntityPlayer player) {
-            return player.getGameProfile() != null && player.getGameProfile().getId().equals(uuid);
+            return player.getGameProfile().getId().equals(uuid);
         }
 
         @Override
@@ -133,7 +133,7 @@ public class SpawnBeaconEffect implements IBeaconEffect {
         LEVEL3(-1),
         LEVEL4(-2);
 
-        int range;
+        final int range;
 
         SpawnType(int range) {
             this.range = range;
@@ -151,6 +151,6 @@ public class SpawnBeaconEffect implements IBeaconEffect {
             }
         }
 
-        public static SpawnType[] VALUES = values();
+        public static final SpawnType[] VALUES = values();
     }
 }

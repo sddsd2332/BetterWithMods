@@ -39,7 +39,8 @@ public class HCSheep extends Feature {
     public static Capability<NaturalColor> NATURAL_COLOR_CAP;
 
     private static class NaturalColorMix {
-        EnumDyeColor colorA, colorB;
+        final EnumDyeColor colorA;
+        final EnumDyeColor colorB;
 
         public NaturalColorMix(EnumDyeColor colorA, EnumDyeColor colorB) {
             this.colorA = colorA;

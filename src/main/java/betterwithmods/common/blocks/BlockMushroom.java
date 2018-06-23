@@ -10,7 +10,7 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockMushroom extends net.minecraft.block.BlockMushroom {
-    int maxLightLevel;
+    final int maxLightLevel;
 
     public BlockMushroom(int maxLightLevel) {
         super();
@@ -57,7 +57,7 @@ public class BlockMushroom extends net.minecraft.block.BlockMushroom {
     }
 
     private boolean isDung(IBlockState state) {
-        return state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.DUNG);
+        return state == BlockAesthetic.getVariant(BlockAesthetic.EnumType.DUNG);
     }
 
     @Override

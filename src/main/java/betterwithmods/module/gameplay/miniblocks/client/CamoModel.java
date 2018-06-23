@@ -23,7 +23,7 @@ public class CamoModel extends ModelFactory<CamoInfo> {
     public static CamoModel KILN;
     public static CamoModel BARK;
 
-    public IModel template;
+    public final IModel template;
 
     public CamoModel(IModel template) {
         super(BlockCamo.CAMO_INFO, TextureMap.LOCATION_MISSING_TEXTURE);

@@ -19,7 +19,7 @@ import java.util.Set;
  * Created by blueyu2 on 11/27/16.
  */
 public class BWMapGenScatteredFeature extends MapGenScatteredFeature {
-    public static HashMap<String, Set<Biome>> STRUCTURE_BIOMES = new HashMap<>();
+    public static final HashMap<String, Set<Biome>> STRUCTURE_BIOMES = new HashMap<>();
 
     static {
         STRUCTURE_BIOMES.put("WitchHut", Sets.newHashSet(Biomes.SWAMPLAND, Biomes.MUTATED_SWAMPLAND, Biomes.ROOFED_FOREST, Biomes.MUTATED_ROOFED_FOREST, Biomes.EXTREME_HILLS));

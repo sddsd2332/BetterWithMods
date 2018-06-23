@@ -22,9 +22,9 @@ public final class FluidRenderUtils {
     private FluidRenderUtils() {
     }
 
-    public static float FLUID_OFFSET = 0.005f;
+    public static final float FLUID_OFFSET = 0.005f;
 
-    protected static Minecraft mc = Minecraft.getMinecraft();
+    protected static final Minecraft mc = Minecraft.getMinecraft();
 
     /**
      * Renders a fluid block, call from TESR. x/y/z is the rendering offset.
@@ -123,18 +123,16 @@ public final class FluidRenderUtils {
         if (ymax % 1d == 0) yd--;
         int zd = to.getZ() - from.getZ();
 
-        double xmin = offsetToBlockEdge;
         double xmax = xd + 1d - offsetToBlockEdge;
         //double ymin = y1;
         //double ymax = y2;
-        double zmin = offsetToBlockEdge;
         double zmax = zd + 1d - offsetToBlockEdge;
 
         double[] xs = new double[2 + xd];
         double[] ys = new double[2 + yd];
         double[] zs = new double[2 + zd];
 
-        xs[0] = xmin;
+        xs[0] = (double) offsetToBlockEdge;
         for (int i = 1; i <= xd; i++) xs[i] = i;
         xs[xd + 1] = xmax;
 
@@ -144,7 +142,7 @@ public final class FluidRenderUtils {
         for (int i = 1; i <= yd; i++) ys[i] = i + yminInt;
         ys[yd + 1] = ymax;
 
-        zs[0] = zmin;
+        zs[0] = (double) offsetToBlockEdge;
         for (int i = 1; i <= zd; i++) zs[i] = i;
         zs[zd + 1] = zmax;
 
@@ -230,20 +228,17 @@ public final class FluidRenderUtils {
             size = 8f;
         }
 
-        double x1 = x;
         double x2 = x + w;
-        double y1 = y;
         double y2 = y + h;
-        double z1 = z;
         double z2 = z + d;
 
-        double xt1 = x1 % 1d;
+        double xt1 = x % 1d;
         double xt2 = xt1 + w;
         while (xt2 > 1f) xt2 -= 1f;
-        double yt1 = y1 % 1d;
+        double yt1 = y % 1d;
         double yt2 = yt1 + h;
         while (yt2 > 1f) yt2 -= 1f;
-        double zt1 = z1 % 1d;
+        double zt1 = z % 1d;
         double zt2 = zt1 + d;
         while (zt2 > 1f) zt2 -= 1f;
 
@@ -285,40 +280,40 @@ public final class FluidRenderUtils {
 
         switch (face) {
             case DOWN:
-                renderer.pos(x1, y1, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y1, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y1, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
                 break;
             case UP:
-                renderer.pos(x1, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y2, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y2, z).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y2, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
                 renderer.pos(x2, y2, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y2, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y2, z).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
                 break;
             case NORTH:
-                renderer.pos(x1, y1, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y2, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y1, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y2, z).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y2, z).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
                 break;
             case SOUTH:
-                renderer.pos(x1, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y1, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
                 renderer.pos(x2, y2, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y2, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y2, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
                 break;
             case WEST:
-                renderer.pos(x1, y1, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y1, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y2, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y2, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y2, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y2, z).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
                 break;
             case EAST:
-                renderer.pos(x2, y1, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y2, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y2, z).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
                 renderer.pos(x2, y2, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y1, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
                 break;
         }
     }
@@ -355,15 +350,13 @@ public final class FluidRenderUtils {
         }
 
         // coordinates for the sprite are super simple
-        double x1 = x;
         double x2 = x + w;
-        double z1 = z;
         double z2 = z + d;
 
         // textures
-        double xt1 = x1 % 1d;
+        double xt1 = x % 1d;
         double xt2 = xt1 + w;
-        double zt1 = z1 % 1d;
+        double zt1 = z % 1d;
         double zt2 = zt1 + d;
 
         // when rotating by 90 or 270 the dimensions switch, so switch the U and V before hand
@@ -391,28 +384,28 @@ public final class FluidRenderUtils {
 
         switch (rotation) {
             case NORTH:
-                renderer.pos(x1, y, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
                 renderer.pos(x2, y, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
                 break;
             case WEST:
-                renderer.pos(x1, y, z1).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
                 renderer.pos(x2, y, z2).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
                 break;
             case SOUTH:
-                renderer.pos(x1, y, z1).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
                 renderer.pos(x2, y, z2).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
                 break;
             case EAST:
-                renderer.pos(x1, y, z1).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
-                renderer.pos(x1, y, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z).color(r, g, b, a).tex(minU, maxV).lightmap(light1, light2).endVertex();
+                renderer.pos(x, y, z2).color(r, g, b, a).tex(maxU, maxV).lightmap(light1, light2).endVertex();
                 renderer.pos(x2, y, z2).color(r, g, b, a).tex(maxU, minV).lightmap(light1, light2).endVertex();
-                renderer.pos(x2, y, z1).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
+                renderer.pos(x2, y, z).color(r, g, b, a).tex(minU, minV).lightmap(light1, light2).endVertex();
                 break;
         }
     }

@@ -1,20 +1,15 @@
 package betterwithmods.module.hardcore.world;
 
-import com.google.common.collect.Maps;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
-import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
 
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.Collection;
-import java.util.Map;
-import java.util.Set;
 
 public class DebugCommand extends CommandBase {
     @Override

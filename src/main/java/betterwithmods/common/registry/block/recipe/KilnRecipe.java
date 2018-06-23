@@ -17,7 +17,7 @@ import java.util.Random;
  * Created by primetoxinz on 5/16/17.
  */
 public class KilnRecipe extends BlockRecipe implements IHeatRecipe {
-    private int heat;
+    private final int heat;
     private boolean ignoreHeat;
     private int cookTime;
 

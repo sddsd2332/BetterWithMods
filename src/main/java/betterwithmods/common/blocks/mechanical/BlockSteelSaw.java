@@ -4,7 +4,6 @@ import betterwithmods.common.blocks.EnumTier;
 import betterwithmods.common.blocks.mechanical.tile.TileAxle;
 import betterwithmods.common.blocks.mechanical.tile.TileSteelSaw;
 import betterwithmods.util.DirUtils;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -13,7 +12,6 @@ import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nullable;

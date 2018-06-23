@@ -88,7 +88,7 @@ public class BWGuiHandler implements IGuiHandler {
         TILE,
         MANUAL;
 
-        public static Gui[] VALUES = values();
+        public static final Gui[] VALUES = values();
     }
 
 }

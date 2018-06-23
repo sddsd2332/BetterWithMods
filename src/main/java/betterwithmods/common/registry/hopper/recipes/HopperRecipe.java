@@ -21,7 +21,8 @@ public class HopperRecipe {
     protected final ResourceLocation filterName;
     protected final Ingredient input;
 
-    protected IRecipeOutputs recipeOutputWorld, recipeOutputInsert;
+    protected final IRecipeOutputs recipeOutputWorld;
+    protected final IRecipeOutputs recipeOutputInsert;
 
     public HopperRecipe(String filterName, Ingredient input, ItemStack output, ItemStack... secondaryOutput) {
         this(filterName, input, Lists.newArrayList(output), Lists.newArrayList(secondaryOutput));

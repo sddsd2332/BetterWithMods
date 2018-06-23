@@ -5,6 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.function.Function;
@@ -80,6 +81,7 @@ public class AABBArray extends AxisAlignedBB {
     }
 
     @Override
+    @Nonnull
     public AABBArray offset(double x, double y, double z) {
         AxisAlignedBB[] parts = getParts(this);
         for (int i = 0; i < parts.length; i++) {

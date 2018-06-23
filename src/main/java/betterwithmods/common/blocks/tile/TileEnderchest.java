@@ -29,9 +29,9 @@ public class TileEnderchest extends TileEntityEnderChest {
         GLOBAL((tile, player) -> DimensionManager.getWorld(0).getCapability(ENDERCHEST_CAPABILITY, EnumFacing.DOWN).getInventory()),
         PRIVATE((tile, player) -> player.getInventoryEnderChest());
 
-        public static Type[] VALUES = values();
+        public static final Type[] VALUES = values();
 
-        private BiFunction<TileEntity, EntityPlayer, InventoryEnderChest> function;
+        private final BiFunction<TileEntity, EntityPlayer, InventoryEnderChest> function;
 
         Type(BiFunction<TileEntity, EntityPlayer, InventoryEnderChest> function) {
             this.function = function;

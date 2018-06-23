@@ -115,7 +115,7 @@ public abstract class BlockStickBase extends BWMBlock {
         CANDLE,
         SKULL;
 
-        public static Connection[] VALUES = values();
+        public static final Connection[] VALUES = values();
 
         @Override
         public String getName() {

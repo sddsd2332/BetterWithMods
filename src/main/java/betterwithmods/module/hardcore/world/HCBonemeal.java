@@ -5,11 +5,9 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.items.ItemFertilizer;
 import betterwithmods.module.Feature;
-import betterwithmods.util.InvUtils;
 import betterwithmods.util.StackIngredient;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;
 import net.minecraft.block.IGrowable;
@@ -18,7 +16,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
@@ -26,8 +23,6 @@ import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import java.util.Set;
 
 /**
  * Created by primetoxinz on 5/14/17.

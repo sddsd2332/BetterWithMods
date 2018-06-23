@@ -4,7 +4,7 @@ import betterwithmods.api.tile.IPollutant;
 import net.minecraft.tileentity.TileEntityFurnace;
 
 public class CapabilityFurnacePollution implements IPollutant {
-    private TileEntityFurnace furnace;
+    private final TileEntityFurnace furnace;
 
     public CapabilityFurnacePollution(TileEntityFurnace furnace) {
         this.furnace = furnace;

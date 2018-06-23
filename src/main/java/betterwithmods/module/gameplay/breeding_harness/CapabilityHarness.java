@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 public class CapabilityHarness implements ICapabilitySerializable<NBTTagCompound> {
 
     @CapabilityInject(CapabilityHarness.class)
-    public static Capability<CapabilityHarness> HARNESS_CAPABILITY = null;
+    public static final Capability<CapabilityHarness> HARNESS_CAPABILITY = null;
 
     public CapabilityHarness() {
     }

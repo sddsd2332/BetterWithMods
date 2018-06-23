@@ -5,7 +5,6 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.Feature;
-import betterwithmods.module.ModuleLoader;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -33,9 +32,9 @@ public class HCStrata extends Feature {
     public static boolean ENABLED;
     public static float[] STRATA_SPEEDS;
     public static float INCORRECT_STRATA_SCALE;
-    public static HashMap<IBlockState, BlockType> STATES = Maps.newHashMap();
-    public static HashMap<Integer, StrataConfig> STRATA_CONFIGS = Maps.newHashMap();
-    public static StrataConfig DEFAULT = new StrataConfig(-1, -1);
+    public static final HashMap<IBlockState, BlockType> STATES = Maps.newHashMap();
+    public static final HashMap<Integer, StrataConfig> STRATA_CONFIGS = Maps.newHashMap();
+    public static final StrataConfig DEFAULT = new StrataConfig(-1, -1);
     public static NoiseGeneratorPerlin STRATA_NOISE1, STRATA_NOISE2;
 
     public HCStrata() {
@@ -174,7 +173,7 @@ public class HCStrata extends Feature {
     private enum BlockType {
         STONE(0),
         ORE(1);
-        private int level;
+        private final int level;
 
         BlockType(int level) {
             this.level = level;
@@ -192,8 +191,8 @@ public class HCStrata extends Feature {
     }
 
     private static class StrataConfig {
-        private int medium;
-        private int hard;
+        private final int medium;
+        private final int hard;
 
 
         public StrataConfig(int medium, int hard) {

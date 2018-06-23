@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class GuiStatus {
 
     @SideOnly(Side.CLIENT)
-    public static GuiStatus INSTANCE = new GuiStatus();
+    public static final GuiStatus INSTANCE = new GuiStatus();
     public static boolean isGloomLoaded, isHungerLoaded, isInjuryLoaded;
     public static int offsetX, offsetY;
     private final Minecraft mc = Minecraft.getMinecraft();

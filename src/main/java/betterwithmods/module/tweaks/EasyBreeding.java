@@ -58,7 +58,7 @@ public class EasyBreeding extends Feature {
     @GameRegistry.ObjectHolder("betterwithmods:hemp")
     public static final Item HEMP_SEED = null;
 
-    public static HashMap<Item,IExtraFoodItem> EXTRA_FOOD_ITEMS = new HashMap<>();
+    public static final HashMap<Item,IExtraFoodItem> EXTRA_FOOD_ITEMS = new HashMap<>();
 
     public static boolean isOtherValidFood(ItemStack stack, EntityLivingBase animal) {
         Item item = stack.getItem();

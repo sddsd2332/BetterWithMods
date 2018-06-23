@@ -6,7 +6,7 @@ import net.minecraft.world.World;
 
 public class EntitySitMount extends Entity {
 
-    private double offset;
+    private final double offset;
 
     public EntitySitMount(World worldIn) {
         this(worldIn,0);

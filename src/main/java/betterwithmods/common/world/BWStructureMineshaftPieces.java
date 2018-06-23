@@ -1,9 +1,7 @@
 package betterwithmods.common.world;
 
 import betterwithmods.module.tweaks.MineshaftGeneration;
-import net.minecraft.block.BlockRail;
 import net.minecraft.block.BlockRailBase;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;

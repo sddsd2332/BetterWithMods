@@ -8,7 +8,7 @@ import net.minecraftforge.items.ItemStackHandler;
 public class ItemCraftHandler extends ItemStackHandler {
 
     public InventoryCrafting crafting;
-    private TileSteelAnvil te;
+    private final TileSteelAnvil te;
 
     public ItemCraftHandler(int size, TileSteelAnvil te) {
         super(size);

@@ -1,7 +1,6 @@
 package betterwithmods.module.industry.pollution;
 
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.math.ChunkPos;
@@ -28,7 +27,7 @@ public class CommandCheckPollution extends CommandBase {
         return "bwm.checkPollution.usage";
     }
 
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+    public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
         World world = server.getEntityWorld();
         ChunkPos pos = new ChunkPos(sender.getPosition());
         Chunk chunk = world.getChunkProvider().getLoadedChunk(pos.x, pos.z);

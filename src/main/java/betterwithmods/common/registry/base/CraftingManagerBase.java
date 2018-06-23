@@ -6,7 +6,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public abstract class CraftingManagerBase<T> {
-    protected List<T> recipes = Lists.newArrayList();
+    protected final List<T> recipes = Lists.newArrayList();
 
     public List<T> getRecipes() {
         return recipes;

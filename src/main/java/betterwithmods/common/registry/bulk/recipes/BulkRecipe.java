@@ -18,8 +18,8 @@ import java.util.List;
 
 public class BulkRecipe implements Comparable<BulkRecipe> {
 
-    protected NonNullList<Ingredient> inputs;
-    protected IRecipeOutputs recipeOutput;
+    protected final NonNullList<Ingredient> inputs;
+    protected final IRecipeOutputs recipeOutput;
     protected int priority;
 
     public BulkRecipe(List<Ingredient> inputs, IRecipeOutputs outputs, int priority) {

@@ -31,7 +31,7 @@ public class Butchery extends AbandonedVillagePiece {
 
     @Override
     public StructureVillagePieces.PieceWeight getVillagePieceWeight(Random random, int size) {
-        return new StructureVillagePieces.PieceWeight(Butchery.class, 15, MathHelper.getInt(random, 0 + size, 2 + size));
+        return new StructureVillagePieces.PieceWeight(Butchery.class, 15, MathHelper.getInt(random, size, 2 + size));
     }
 
     @Override

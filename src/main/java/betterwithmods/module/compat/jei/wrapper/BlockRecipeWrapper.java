@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
  */
 public class BlockRecipeWrapper<T extends BlockRecipe> implements IRecipeWrapper {
     public final T recipe;
-    private int boxes;
+    private final int boxes;
     protected final IJeiHelpers helpers;
 
     public BlockRecipeWrapper(IJeiHelpers helpers, T recipe, int boxes) {

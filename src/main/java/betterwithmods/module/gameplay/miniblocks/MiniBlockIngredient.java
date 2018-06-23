@@ -28,8 +28,8 @@ import java.util.Arrays;
 
 public class MiniBlockIngredient extends BlockIngredient {
 
-    private Ingredient base;
-    private MiniType type;
+    private final Ingredient base;
+    private final MiniType type;
     private ItemStack[] cache = null;
 
     public MiniBlockIngredient(String type, Ingredient base) {

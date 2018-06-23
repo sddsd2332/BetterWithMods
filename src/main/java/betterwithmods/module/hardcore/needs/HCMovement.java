@@ -70,7 +70,7 @@ public class HCMovement extends Feature {
         BLOCK_OVERRIDE_MOVEMENT.put(BWMBlocks.DIRT_SLAB.getDefaultState().withProperty(BlockDirtSlab.VARIANT, BlockDirtSlab.DirtSlabType.PATH), FAST);
     }
 
-    public static HashMap<UUID, Float> PREVIOUS_SPEED = Maps.newHashMap();
+    public static final HashMap<UUID, Float> PREVIOUS_SPEED = Maps.newHashMap();
 
     @SubscribeEvent
     public void onWalk(TickEvent.PlayerTickEvent event) {

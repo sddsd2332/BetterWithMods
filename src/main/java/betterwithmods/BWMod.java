@@ -39,7 +39,7 @@ public class BWMod {
     @Mod.Instance(BWMod.MODID)
     public static BWMod instance;
 
-    public static ModuleLoader MODULE_LOADER = new ModuleLoader() {
+    public static final ModuleLoader MODULE_LOADER = new ModuleLoader() {
         @Override
         public void registerModules() {
             registerModule(Gameplay.class);

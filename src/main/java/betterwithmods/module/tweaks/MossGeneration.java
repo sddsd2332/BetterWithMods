@@ -30,7 +30,7 @@ public class MossGeneration extends Feature {
     public static int RADIUS;
     public static int RATE;
     public static boolean DISABLE_VINE_RECIPES;
-    private static HashMap<BlockIngredient, IBlockState> CONVERTED_BLOCKS = new HashMap<>();
+    private static final HashMap<BlockIngredient, IBlockState> CONVERTED_BLOCKS = new HashMap<>();
 
     public static void addBlockConversion(BlockIngredient ingredient, IBlockState mossyState) { //TODO: Could be the new block meta ingredient possibly
         CONVERTED_BLOCKS.put(ingredient, mossyState);

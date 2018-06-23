@@ -16,7 +16,7 @@ import net.minecraft.util.ResourceLocation;
  * Created by primetoxinz on 6/13/17.
  */
 public class RenderUrn extends Render<EntityUrn> {
-    private RenderItem render = Minecraft.getMinecraft().getRenderItem();
+    private final RenderItem render = Minecraft.getMinecraft().getRenderItem();
 
     public RenderUrn(RenderManager renderManager) {
         super(renderManager);

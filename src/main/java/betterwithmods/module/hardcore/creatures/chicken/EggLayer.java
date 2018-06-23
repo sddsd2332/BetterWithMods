@@ -18,7 +18,6 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Set;
 
 public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
     @SuppressWarnings("CanBeFinal")

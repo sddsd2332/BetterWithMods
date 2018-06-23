@@ -7,10 +7,11 @@ import net.minecraft.entity.player.EntityPlayer;
 
 public class AIGrab extends EntityAIBase {
 
-    public EntityLiving rider;
+    public final EntityLiving rider;
     public EntityLivingBase target;
     public EntityTentacle tentacle;
-    private int min, max;
+    private final int min;
+    private final int max;
     private int ticks; //, cooldown;
 
     public AIGrab(EntityLiving rider, int min, int max) {

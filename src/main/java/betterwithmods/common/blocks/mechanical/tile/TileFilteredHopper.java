@@ -37,13 +37,14 @@ import java.util.Optional;
 public class TileFilteredHopper extends TileVisibleInventory implements IMechanicalPower, IProgressSource {
 
     private final int STACK_SIZE = 8;
-    public SimpleStackHandler filter;
+    public final SimpleStackHandler filter;
     public IHopperFilter hopperFilter = HopperFilter.NONE;
 
     public int soulsRetained;
     public byte power;
     private int ejectCounter, ejectXPCounter;
-    private int experienceCount, maxExperienceCount = 1000;
+    private int experienceCount;
+    private final int maxExperienceCount = 1000;
     private ISoulContainer prevContainer;
 
     public TileFilteredHopper() {
@@ -380,7 +381,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     }
 
     private class HopperHandler extends SimpleStackHandler {
-        TileFilteredHopper hopper;
+        final TileFilteredHopper hopper;
 
         public HopperHandler(int size, TileFilteredHopper hopper) {
             super(size, hopper);

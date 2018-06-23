@@ -177,7 +177,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
                                 int yP = rand.nextInt(3) - 1;
                                 int zP = rand.nextInt(3) - 1;
                                 BlockPos checkPos = pos.add(xP, yP, zP);
-                                if (world.getBlockState(checkPos) == Blocks.DIRT && world.getBlockState(checkPos) == Blocks.DIRT.getDefaultState())
+                                if (world.getBlockState(checkPos).getBlock() == Blocks.DIRT && world.getBlockState(checkPos) == Blocks.DIRT.getDefaultState())
                                     world.setBlockState(checkPos, Blocks.GRASS.getDefaultState());
                             }
                         }
@@ -304,10 +304,10 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
 
         private static final EnumType[] VALUES = values();
 
-        private String name;
-        private IBlockState state;
-        private EnumPlantType[] type;
-        private Ingredient ingredient;
+        private final String name;
+        private final IBlockState state;
+        private final EnumPlantType[] type;
+        private final Ingredient ingredient;
 
         EnumType(String name, Ingredient ingredient, IBlockState state, EnumPlantType[] type) {
             this.name = name;

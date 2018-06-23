@@ -11,28 +11,28 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class BWSounds {
     @GameRegistry.ObjectHolder("betterwithmods:block.wood.creak")
-    public static SoundEvent WOODCREAK = null;
+    public static final SoundEvent WOODCREAK = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.stone.grind")
-    public static SoundEvent STONEGRIND = null;
+    public static final SoundEvent STONEGRIND = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.wood.bellow")
-    public static SoundEvent BELLOW = null;
+    public static final SoundEvent BELLOW = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.wood.chime")
-    public static SoundEvent WOODCHIME = null;
+    public static final SoundEvent WOODCHIME = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.metal.chime")
-    public static SoundEvent METALCHIME = null;
+    public static final SoundEvent METALCHIME = null;
     @GameRegistry.ObjectHolder("betterwithmods:entity.player.oof")
-    public static SoundEvent OOF = null;
+    public static final SoundEvent OOF = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.metal.hacksaw")
-    public static SoundEvent METAL_HACKSAW = null;
+    public static final SoundEvent METAL_HACKSAW = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.millstone.netherrack")
-    public static SoundEvent MILLSTONE_NETHERRACK = null;
+    public static final SoundEvent MILLSTONE_NETHERRACK = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.saw.cut")
-    public static SoundEvent SAW_CUT = null;
+    public static final SoundEvent SAW_CUT = null;
     @GameRegistry.ObjectHolder("betterwithmods:block.bloodwood.break")
-    public static SoundEvent BLOODWOOD_BREAK = null;
+    public static final SoundEvent BLOODWOOD_BREAK = null;
 
     @GameRegistry.ObjectHolder("betterwithmods:block.mechanical.overpower")
-    public static SoundEvent MECHANICAL_OVERPOWER = null;
+    public static final SoundEvent MECHANICAL_OVERPOWER = null;
 
     @SubscribeEvent
     public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
@@ -51,7 +51,6 @@ public class BWSounds {
 
     public static SoundEvent registerSound(String soundName) {
         ResourceLocation soundID = new ResourceLocation(BWMod.MODID, soundName);
-        SoundEvent sound = new SoundEvent(soundID).setRegistryName(soundID);
-        return sound;
+        return new SoundEvent(soundID).setRegistryName(soundID);
     }
 }

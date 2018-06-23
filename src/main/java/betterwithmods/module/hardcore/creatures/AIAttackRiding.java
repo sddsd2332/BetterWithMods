@@ -12,7 +12,7 @@ import net.minecraft.util.SoundCategory;
 
 public class AIAttackRiding extends EntityAIBase {
 
-    public EntityLivingBase rider;
+    public final EntityLivingBase rider;
 
     public AIAttackRiding(EntityLivingBase rider) {
         this.rider = rider;

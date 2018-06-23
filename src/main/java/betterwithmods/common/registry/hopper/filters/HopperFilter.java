@@ -14,13 +14,13 @@ import java.util.List;
 
 public class HopperFilter implements IHopperFilter {
 
-    public static IHopperFilter NONE = new HopperFilter(new ResourceLocation(BWMod.MODID,"none"), Ingredient.EMPTY, Lists.newArrayList());
+    public static final IHopperFilter NONE = new HopperFilter(new ResourceLocation(BWMod.MODID,"none"), Ingredient.EMPTY, Lists.newArrayList());
 
     private ModelWithResource modelOverride;
 
-    public ResourceLocation name;
-    public Ingredient filter;
-    public List<Ingredient> filtered;
+    public final ResourceLocation name;
+    public final Ingredient filter;
+    public final List<Ingredient> filtered;
 
 
     public HopperFilter(ResourceLocation name, Ingredient filter, List<Ingredient> filtered) {

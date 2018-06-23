@@ -23,7 +23,7 @@ public class BlockUnfiredPottery extends BWMBlock {
     private static final AxisAlignedBB URN_AABB = new AxisAlignedBB(0.3125D, 0.0F, 0.3125D, 0.6875D, 0.625D, 0.6875D);
     private static final AxisAlignedBB VASE_AABB = new AxisAlignedBB(0.125D, 0, 0.125D, 0.875D, 1.0D, 0.875D);
     private static final AxisAlignedBB BRICK_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.0625D, 0.75D, 0.375D, 0.9375D);
-    private EnumType type;
+    private final EnumType type;
 
     public BlockUnfiredPottery(EnumType type) {
         super(Material.CLAY);
@@ -90,9 +90,9 @@ public class BlockUnfiredPottery extends BWMBlock {
         NETHER_BRICK(5, "nether_brick", BRICK_AABB);
         private static final EnumType[] VALUES = values();
 
-        private String name;
-        private int meta;
-        private AxisAlignedBB bounds;
+        private final String name;
+        private final int meta;
+        private final AxisAlignedBB bounds;
 
         EnumType(int meta, String name, AxisAlignedBB bounds) {
             this.meta = meta;

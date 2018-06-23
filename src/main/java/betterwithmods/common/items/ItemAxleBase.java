@@ -141,7 +141,7 @@ public abstract class ItemAxleBase extends ItemBlock {
         SPACE("bwm.message.%s.space"),
         AXLE("bwm.message.%s.axle");
 
-        public String key;
+        public final String key;
 
         Error(String key) {
             this.key = key;

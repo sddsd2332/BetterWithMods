@@ -90,9 +90,9 @@ public abstract class BlockMechMachine extends BWMBlock implements IBlockActive,
 
         private static final BlockMechMachine.EnumType[] META_LOOKUP = values();
 
-        private int meta;
-        private String name;
-        private boolean solidity;
+        private final int meta;
+        private final String name;
+        private final boolean solidity;
 
         EnumType(int meta, String name) {
             this(meta, name, false);

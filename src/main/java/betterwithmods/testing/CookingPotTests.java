@@ -26,7 +26,7 @@ public class CookingPotTests extends BaseBulkTest<CookingPotRecipe> {
     private CookingPotRecipe stokedRecipe;
     public CookingPotTests() {
         super(new IHeated() {
-            private MockInventory inventory = MockInventory.createInventory(0, new ItemStack(Blocks.COBBLESTONE, 64));
+            private final MockInventory inventory = MockInventory.createInventory(0, new ItemStack(Blocks.COBBLESTONE, 64));
 
             @Override
             public int getHeat(World world, BlockPos pos) {

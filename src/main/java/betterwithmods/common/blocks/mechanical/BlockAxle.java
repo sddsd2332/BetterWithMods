@@ -44,7 +44,7 @@ public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
     private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.0F, 0.375F, 0.375F, 1.0F, 0.625F, 0.625F);
     private static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
     private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
-    private EnumTier type;
+    private final EnumTier type;
     private final int minPower;
     private final int maxPower;
     private final int maxSignal;

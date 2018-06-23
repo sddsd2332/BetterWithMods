@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
  */
 public class BellowsManager {
 
-    public static IngredientMap<Float> bellowing = new IngredientMap<>(-1f);
+    public static final IngredientMap<Float> bellowing = new IngredientMap<>(-1f);
 
     public static float getWeight(ItemStack stack) {
         return bellowing.findValue(stack);

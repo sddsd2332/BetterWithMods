@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 public class MultipartSiding implements IMultipart {
 
-    private BlockSiding siding;
+    private final BlockSiding siding;
 
     public MultipartSiding(BlockSiding siding) {
         this.siding = siding;

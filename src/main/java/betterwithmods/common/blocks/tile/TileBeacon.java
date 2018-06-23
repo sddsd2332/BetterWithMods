@@ -49,7 +49,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
     private IBlockState type = Blocks.AIR.getDefaultState();
     private IBeaconEffect effect, prevEffect;
     private int tick;
-    private List<BeamSegment> segments = Lists.newArrayList();
+    private final List<BeamSegment> segments = Lists.newArrayList();
 
     @SideOnly(Side.CLIENT)
     private long beamRenderCounter;
@@ -237,8 +237,8 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
         if (compound.hasKey("spawns")) {
             NBTTagList list = compound.getTagList("spawns", 10);
             HashSet<SpawnBeaconEffect.BindingPoint> points = Sets.newHashSet();
-            for (Iterator<NBTBase> iter = list.iterator(); iter.hasNext(); ) {
-                NBTTagCompound tag = (NBTTagCompound) iter.next();
+            for (NBTBase aList : list) {
+                NBTTagCompound tag = (NBTTagCompound) aList;
                 points.add(new SpawnBeaconEffect.BindingPoint(tag));
             }
             SpawnBeaconEffect.SPAWN_LIST.put(this.getPos(), points);

@@ -23,8 +23,8 @@ import java.util.HashMap;
  */
 public class BlockRawPastry extends Block {
 
-    public static HashMap<EnumType, BlockRawPastry> BLOCKS = Maps.newHashMap();
-    private EnumType type;
+    public static final HashMap<EnumType, BlockRawPastry> BLOCKS = Maps.newHashMap();
+    private final EnumType type;
 
     public BlockRawPastry(EnumType type) {
         super(Material.CAKE);

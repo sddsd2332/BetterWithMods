@@ -25,11 +25,11 @@ public enum MiniType {
     BENCH(BlockBench.class, TileCamo.class, "bench"),
     CHAIR(BlockChair.class, TileChair.class, "chair"),
     UNKNOWN(null, null, "");
-    public static MiniType[] VALUES = values();
+    public static final MiniType[] VALUES = values();
 
-    private Class<? extends BlockCamo> block;
-    private Class<? extends TileEntity> tile;
-    private String name;
+    private final Class<? extends BlockCamo> block;
+    private final Class<? extends TileEntity> tile;
+    private final String name;
 
     @SideOnly(Side.CLIENT)
     MiniType(Class<? extends BlockCamo> block, Class<? extends TileEntity> tile, String name) {

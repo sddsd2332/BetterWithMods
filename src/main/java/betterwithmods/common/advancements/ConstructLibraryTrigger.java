@@ -68,7 +68,7 @@ public class ConstructLibraryTrigger implements ICriterionTrigger<ConstructLibra
 
 
     public static class Instance extends AbstractCriterionInstance {
-        private int bookcases;
+        private final int bookcases;
 
         public Instance(int bookcases) {
             super(ConstructLibraryTrigger.ID);

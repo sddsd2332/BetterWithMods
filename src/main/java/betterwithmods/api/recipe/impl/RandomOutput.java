@@ -10,7 +10,8 @@ import java.util.Random;
 public class RandomOutput extends StackOutput {
     private static final Random RANDOM = new Random();
 
-    private int min, max;
+    private final int min;
+    private final int max;
 
     public RandomOutput(ItemStack stack, int min, int max) {
         super(stack);

@@ -10,10 +10,10 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import javax.annotation.Nullable;
 
 public class BulkCraftEvent extends Event {
-    private IBulkTile tile;
-    private World world;
-    private BulkRecipe recipe;
-    private NonNullList<ItemStack> outputs;
+    private final IBulkTile tile;
+    private final World world;
+    private final BulkRecipe recipe;
+    private final NonNullList<ItemStack> outputs;
 
 
     public BulkCraftEvent(IBulkTile tile, World world, BulkRecipe recipe, NonNullList<ItemStack> outputs) {

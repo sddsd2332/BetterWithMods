@@ -25,7 +25,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
     //Every generator will take up a single block with no extended bounding box
     protected byte power = 0;
     public byte dyeIndex = 0;
-    protected float runningSpeed = 0.4F;
+    protected final float runningSpeed = 0.4F;
     public float currentRotation = 0.0F;
     public float previousRotation = 0.0F;
     public float waterMod = 1;

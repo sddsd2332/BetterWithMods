@@ -24,7 +24,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class CreeperShearing extends Feature {
 
-    public static ResourceLocation CREEPER = new ResourceLocation("minecraft","creeper");
+    public static final ResourceLocation CREEPER = new ResourceLocation("minecraft","creeper");
 
     @SubscribeEvent
     public void mobDrops(LivingDropsEvent event) {

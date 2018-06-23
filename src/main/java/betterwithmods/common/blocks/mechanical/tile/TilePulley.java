@@ -120,9 +120,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
         if (isRaising()) {
             if (putRope(false)) {
                 BlockPos lowest = BlockRope.getLowestRopeBlock(getBlockWorld(), pos);
-                if (!lowest.equals(pos)) {
-                    return true;
-                }
+                return !lowest.equals(pos);
             }
         }
         return false;
@@ -134,10 +132,8 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
                 BlockPos newPos = BlockRope.getLowestRopeBlock(getBlockWorld(), pos).down();
                 IBlockState state = getBlockWorld().getBlockState(newPos);
                 boolean flag = !isMoving && validRopeConnector(newPos);
-                if (newPos.getY() > 0 && (getBlockWorld().isAirBlock(newPos) || state.getBlock().isReplaceable(getBlockWorld(), newPos) || flag)
-                        && newPos.up().getY() > 0) {
-                    return true;
-                }
+                return newPos.getY() > 0 && (getBlockWorld().isAirBlock(newPos) || state.getBlock().isReplaceable(getBlockWorld(), newPos) || flag)
+                        && newPos.up().getY() > 0;
             }
         }
         return false;

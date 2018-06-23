@@ -1,7 +1,6 @@
 package betterwithmods.client;
 
 import betterwithmods.common.blocks.BlockPlanter;
-import betterwithmods.common.blocks.ItemBlockPlanter;
 import betterwithmods.common.items.tools.BWMArmor;
 import net.minecraft.client.renderer.color.IBlockColor;
 import net.minecraft.client.renderer.color.IItemColor;

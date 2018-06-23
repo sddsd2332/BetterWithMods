@@ -16,7 +16,7 @@ import java.util.Set;
 
 public class BlockRailDetectorBase extends BlockRailDetector {
 
-    private Predicate<Entity> filter;
+    private final Predicate<Entity> filter;
 
     public BlockRailDetectorBase(Predicate<Entity> cart) {
         this.filter = cart;

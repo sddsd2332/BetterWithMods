@@ -83,8 +83,7 @@ public class BlockHibachi extends BWMBlock {
             Block block = world.getBlockState(pos).getBlock();
 
             if (block != Blocks.FIRE && block != BWMBlocks.STOKED_FLAME) {
-                if (shouldIgnite(world, pos.up()))
-                    return false;
+                return !shouldIgnite(world, pos.up());
             }
         }
         return true;
@@ -103,8 +102,7 @@ public class BlockHibachi extends BWMBlock {
         Material material = world.getBlockState(pos).getMaterial();
 
         if (!material.blocksMovement() && material != Material.LAVA && material != Material.WATER) {
-            if (!(block instanceof BlockDoor))
-                return true;
+            return !(block instanceof BlockDoor);
         }
         return false;
     }

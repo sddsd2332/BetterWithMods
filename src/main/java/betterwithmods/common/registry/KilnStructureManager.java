@@ -25,7 +25,7 @@ import java.util.Set;
  */
 public class KilnStructureManager {
 
-    public static Set<IBlockState> KILN_BLOCKS = new HashSet<>();
+    public static final Set<IBlockState> KILN_BLOCKS = new HashSet<>();
 
     public static void registerKilnBlock(IBlockState state) {
         KILN_BLOCKS.add(state);

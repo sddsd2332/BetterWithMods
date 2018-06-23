@@ -39,7 +39,7 @@ import java.util.Random;
 
 public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, IAdvancedRotationPlacement, IRenderRotationPlacement {
     private final int maxPower;
-    private EnumTier type;
+    private final EnumTier type;
 
     public BlockGearbox(int maxPower, EnumTier type) {
         super(Material.WOOD);
@@ -255,7 +255,6 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
 
     @Override
     public IBlockState getStateForAdvancedRotationPlacement(IBlockState defaultState, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        IBlockState state = defaultState;
         float hitXFromCenter = hitX - 0.5F;
         float hitYFromCenter = hitY - 0.5F;
         float hitZFromCenter = hitZ - 0.5F;
@@ -290,7 +289,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
                 break;
         }
 
-        return state.withProperty(DirUtils.FACING, newFacing);
+        return defaultState.withProperty(DirUtils.FACING, newFacing);
 
     }
 

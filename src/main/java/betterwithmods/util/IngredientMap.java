@@ -8,7 +8,7 @@ import net.minecraftforge.oredict.OreIngredient;
 import java.util.HashMap;
 
 public class IngredientMap<V> extends HashMap<Ingredient, V> {
-    private V defaultValue;
+    private final V defaultValue;
 
     public IngredientMap(V defaultValue) {
         this.defaultValue = defaultValue;

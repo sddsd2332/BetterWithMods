@@ -15,7 +15,7 @@ import java.util.HashMap;
  */
 public class HCBuoy extends CompatFeature {
 
-    public static HashMap<Ingredient, Float> buoyancy = Maps.newHashMap();
+    public static final HashMap<Ingredient, Float> buoyancy = Maps.newHashMap();
 
     public HCBuoy() {
         super("hardcorebuoy");

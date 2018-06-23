@@ -12,9 +12,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class IngredientTool extends Ingredient {
-    private Predicate<ItemStack> tool;
-    private ItemStack example;
-    public static HashMap<ItemStack, ItemStack[]> TOOLS = Maps.newHashMap();
+    private final Predicate<ItemStack> tool;
+    private final ItemStack example;
+    public static final HashMap<ItemStack, ItemStack[]> TOOLS = Maps.newHashMap();
 
     public IngredientTool(Predicate<ItemStack> tool, ItemStack exampleStack) {
         this.tool = tool;

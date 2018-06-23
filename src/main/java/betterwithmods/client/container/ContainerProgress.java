@@ -5,7 +5,7 @@ import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 
 public abstract class ContainerProgress extends Container {
-    private IProgressSource progressSource;
+    private final IProgressSource progressSource;
 
     private int previousProgress, previousMax;
     private int progress, max;

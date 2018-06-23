@@ -24,7 +24,7 @@ public class KilnRecipeCategory extends BWMRecipeCategory<KilnRecipeWrapper> {
 
     @Nonnull
     private IDrawableAnimated flame;
-    private IGuiHelper helper;
+    private final IGuiHelper helper;
 
     public KilnRecipeCategory(IGuiHelper helper, String uid) {
         super(helper.createDrawable(guiTexture, 0, 0, width, height), uid, String.format("inv.%s.name", uid.substring(4)));

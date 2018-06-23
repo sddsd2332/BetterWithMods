@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BWPotion extends Potion {
     private ResourceLocation icon;
-    private boolean beneficial;
+    private final boolean beneficial;
     public BWPotion(String name, boolean b, int potionColor) {
         super(false, potionColor);
         this.beneficial = b;

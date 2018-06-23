@@ -51,7 +51,7 @@ public class BWDamageSource extends DamageSource {
     }
 
     public static class FakeDamageSource extends EntityDamageSource {
-        public String message;
+        public final String message;
 
         public FakeDamageSource(String message, EntityPlayer player) {
             super("player", player);

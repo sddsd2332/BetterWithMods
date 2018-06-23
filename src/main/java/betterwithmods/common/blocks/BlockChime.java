@@ -34,7 +34,7 @@ public class BlockChime extends BWMBlock {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
     private static final AxisAlignedBB CHIME_AABB = new AxisAlignedBB(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.875D, 0.6875D);
 
-    public static Set<Block> BLOCKS = Sets.newHashSet();
+    public static final Set<Block> BLOCKS = Sets.newHashSet();
 
     public static void init() {
         for (BlockPlanks.EnumType type : BlockPlanks.EnumType.values()) {

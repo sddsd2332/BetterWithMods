@@ -16,8 +16,8 @@ public class EntityAISearchFood extends EntityAIBase {
     private EntityItem targetItem;
     private int timeoutCounter;
 
-    private double findRadius = 5;
-    private double eatRadius = 2;
+    private final double findRadius = 5;
+    private final double eatRadius = 2;
 
     public EntityAISearchFood(EntityAnimal creature) {
         this.entity = creature;
@@ -102,8 +102,7 @@ public class EntityAISearchFood extends EntityAIBase {
                 return false;
             if (!this.entity.getNavigator().noPath()) {
                 double sqDistToPos = this.entity.getDistanceSq(targetItem.posX, targetItem.posY, targetItem.posZ);
-                if (sqDistToPos > eatRadius)
-                    return true;
+                return sqDistToPos > eatRadius;
             }
         }
         return false;

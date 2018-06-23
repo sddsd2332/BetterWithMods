@@ -21,10 +21,11 @@ public enum SidingOrientation implements BaseOrientation {
 
     public static final SidingOrientation[] VALUES = values();
 
-    private String name;
-    private EnumFacing facing;
-    private AxisAlignedBB bounds;
-    private int x, y;
+    private final String name;
+    private final EnumFacing facing;
+    private final AxisAlignedBB bounds;
+    private final int x;
+    private final int y;
 
     SidingOrientation(String name, EnumFacing facing, int x, int y, AxisAlignedBB bounds) {
         this.name = name;

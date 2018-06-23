@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class GuiInfernalEnchanter extends GuiBase {
     private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/infernal_enchanter.png");
-    private static HashMap<Integer, String> numerals = Maps.newHashMap();
+    private static final HashMap<Integer, String> numerals = Maps.newHashMap();
 
     static {
         numerals.put(22, "I");

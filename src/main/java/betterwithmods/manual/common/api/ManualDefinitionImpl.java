@@ -153,10 +153,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
         final String cleanPath = Files.simplifyPath(path);
         final String language = FMLCommonHandler.instance().getCurrentLanguage();
         final Optional<Iterable<String>> result = contentForWithRedirects(PATTERN_LANGUAGE_KEY.matcher(cleanPath).replaceAll(language));
-        if (result.isPresent()) {
-            return result.get();
-        }
-        return contentForWithRedirects(PATTERN_LANGUAGE_KEY.matcher(cleanPath).replaceAll(FALLBACK_LANGUAGE)).orElse(null);
+        return result.orElseGet(() -> contentForWithRedirects(PATTERN_LANGUAGE_KEY.matcher(cleanPath).replaceAll(FALLBACK_LANGUAGE)).orElse(null));
     }
 
     @Override

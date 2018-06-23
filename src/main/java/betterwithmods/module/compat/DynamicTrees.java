@@ -45,9 +45,9 @@ public class DynamicTrees extends CompatFeature {
 
     public static class DynamicWoodProvider implements IVariantProvider {
 
-        private Block block;
-        private ItemStack log;
-        private ItemStack planks;
+        private final Block block;
+        private final ItemStack log;
+        private final ItemStack planks;
 
         DynamicWoodProvider(Block block, ItemStack log, ItemStack planks) {
             this.block = block;

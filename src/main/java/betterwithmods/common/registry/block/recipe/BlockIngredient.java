@@ -25,7 +25,7 @@ import java.util.List;
 import java.util.Set;
 
 public class BlockIngredient extends Ingredient {
-    private NonNullList<ItemStack> stacks;
+    private final NonNullList<ItemStack> stacks;
     private IntList itemIds = null;
     private ItemStack[] array = null;
     private int lastSizeA = -1, lastSizeL = -1;

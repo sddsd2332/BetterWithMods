@@ -217,10 +217,7 @@ public class BlockLens extends BWMBlock {
 
         if (world.isAirBlock(oppOff) && world.canBlockSeeSky(oppOff)) {
             return world.getLightFor(EnumSkyBlock.SKY, oppOff) > 12 && world.isDaytime() && (!world.isRaining() || !world.isThundering());
-        } else if (block.getLightValue(world.getBlockState(oppOff), world, oppOff) > 12) {
-            return true;
-        }
-        return false;
+        } else return block.getLightValue(world.getBlockState(oppOff), world, oppOff) > 12;
     }
 
     private boolean isFacingBlockDetector(World world, BlockPos pos) {
@@ -231,8 +228,7 @@ public class BlockLens extends BWMBlock {
         if (block == BWMBlocks.DETECTOR) {
             EnumFacing detFacing = ((BlockDetector) block).getFacing(world.getBlockState(offset));
 
-            if (detFacing == DirUtils.getOpposite(facing))
-                return true;
+            return detFacing == DirUtils.getOpposite(facing);
         }
         return false;
     }
@@ -242,9 +238,8 @@ public class BlockLens extends BWMBlock {
         BlockPos offset = pos.offset(facing);
         if (world.isAirBlock(offset) && world.canBlockSeeSky(offset))
             return true;
-        else if (world.getBlockState(offset).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(offset).getValue(BlockInvisibleLight.SUNLIGHT))
-            return true;
-        return false;
+        else
+            return world.getBlockState(offset).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(offset).getValue(BlockInvisibleLight.SUNLIGHT);
     }
 
     private void cleanupLightToFacing(World world, BlockPos pos, EnumFacing facing) {

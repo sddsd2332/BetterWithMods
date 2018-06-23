@@ -17,7 +17,7 @@ public class BarkModel extends ModelFactory<CamoInfo> {
 
     public static BarkModel BARK;
 
-    public IModel template;
+    public final IModel template;
 
     public BarkModel(IModel template) {
         super(BlockCamo.CAMO_INFO, TextureMap.LOCATION_MISSING_TEXTURE);

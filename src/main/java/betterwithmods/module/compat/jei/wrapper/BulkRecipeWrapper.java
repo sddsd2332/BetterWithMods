@@ -13,7 +13,7 @@ public class BulkRecipeWrapper<T extends BulkRecipe> implements IRecipeWrapper {
 
     protected final T recipe;
     private final IJeiHelpers helpers;
-    private int boxes;
+    private final int boxes;
 
     public BulkRecipeWrapper(IJeiHelpers helpers, @Nonnull T recipe, int boxes) {
         this.recipe = recipe;

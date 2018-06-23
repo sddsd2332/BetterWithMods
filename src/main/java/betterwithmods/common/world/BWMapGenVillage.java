@@ -28,7 +28,7 @@ import static net.minecraft.world.gen.structure.StructureVillagePieces.Torch;
  */
 public class BWMapGenVillage extends MapGenVillage {
     public static List<StructureVillagePieces.PieceWeight> getPiecesAbandoned(Random random, int size) {
-        List<StructureVillagePieces.PieceWeight> list = Lists.<StructureVillagePieces.PieceWeight>newArrayList();
+        List<StructureVillagePieces.PieceWeight> list = Lists.newArrayList();
         net.minecraftforge.fml.common.registry.VillagerRegistry.addExtraVillageComponents(list, random, size);
 
         list.removeIf(pieceWeight -> (pieceWeight).villagePiecesLimit == 0);
@@ -36,14 +36,14 @@ public class BWMapGenVillage extends MapGenVillage {
     }
 
     public static List<StructureVillagePieces.PieceWeight> getPiecesSemi(Random random, int size) {
-        List<StructureVillagePieces.PieceWeight> list = Lists.<StructureVillagePieces.PieceWeight>newArrayList();
+        List<StructureVillagePieces.PieceWeight> list = Lists.newArrayList();
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House4Garden.class, 4, MathHelper.getInt(random, 2 + size, 4 + size * 2)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Church.class, 20, MathHelper.getInt(random, 0 + size, 1 + size)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House1.class, 20, MathHelper.getInt(random, 0 + size, 2 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Church.class, 20, MathHelper.getInt(random, size, 1 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House1.class, 20, MathHelper.getInt(random, size, 2 + size)));
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.WoodHut.class, 3, MathHelper.getInt(random, 2 + size, 5 + size * 3)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Hall.class, 15, MathHelper.getInt(random, 0 + size, 2 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Hall.class, 15, MathHelper.getInt(random, size, 2 + size)));
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House2.class, 15, MathHelper.getInt(random, 0, 1 + size)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House3.class, 8, MathHelper.getInt(random, 0 + size, 3 + size * 2)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House3.class, 8, MathHelper.getInt(random, size, 3 + size * 2)));
 
         net.minecraftforge.fml.common.registry.VillagerRegistry.addExtraVillageComponents(list, random, size);
 
@@ -52,16 +52,16 @@ public class BWMapGenVillage extends MapGenVillage {
     }
 
     public static List<StructureVillagePieces.PieceWeight> getPiecesNormal(Random random, int size) {
-        List<StructureVillagePieces.PieceWeight> list = Lists.<StructureVillagePieces.PieceWeight>newArrayList();
+        List<StructureVillagePieces.PieceWeight> list = Lists.newArrayList();
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House4Garden.class, 4, MathHelper.getInt(random, 2 + size, 4 + size * 2)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Church.class, 20, MathHelper.getInt(random, 0 + size, 1 + size)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House1.class, 20, MathHelper.getInt(random, 0 + size, 2 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Church.class, 20, MathHelper.getInt(random, size, 1 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House1.class, 20, MathHelper.getInt(random, size, 2 + size)));
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.WoodHut.class, 3, MathHelper.getInt(random, 2 + size, 5 + size * 3)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Hall.class, 15, MathHelper.getInt(random, 0 + size, 2 + size)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Hall.class, 15, MathHelper.getInt(random, size, 2 + size)));
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field1.class, 3, MathHelper.getInt(random, 1 + size, 4 + size)));
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.Field2.class, 3, MathHelper.getInt(random, 2 + size, 4 + size * 2)));
         list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House2.class, 15, MathHelper.getInt(random, 0, 1 + size)));
-        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House3.class, 8, MathHelper.getInt(random, 0 + size, 3 + size * 2)));
+        list.add(new StructureVillagePieces.PieceWeight(StructureVillagePieces.House3.class, 8, MathHelper.getInt(random, size, 3 + size * 2)));
         net.minecraftforge.fml.common.registry.VillagerRegistry.addExtraVillageComponents(list, random, size);
 
         list.removeIf(pieceWeight -> (pieceWeight).villagePiecesLimit == 0);
@@ -85,7 +85,7 @@ public class BWMapGenVillage extends MapGenVillage {
         SEMIABANDONED(HCVillages.semiabandonedRadius.get() / 16),
         ABANDONED(0);
         public static final VillageStatus[] VALUES = values();
-        private int radius;
+        private final int radius;
 
         VillageStatus(int radius) {
             this.radius = radius;

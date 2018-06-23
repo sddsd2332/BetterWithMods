@@ -22,8 +22,8 @@ public class ColorUtils {
 
     public static final EnumDyeColor[] DYES = EnumDyeColor.values();
 
-    public static HashMap<BlockIngredient, DyeAmount> FLOWER_TO_DYES = Maps.newHashMap();
-    private static HashMap<String, EnumDyeColor> DYE_CACHE = Maps.newHashMap();
+    public static final HashMap<BlockIngredient, DyeAmount> FLOWER_TO_DYES = Maps.newHashMap();
+    private static final HashMap<String, EnumDyeColor> DYE_CACHE = Maps.newHashMap();
 
     static {
         addFlower(BlockFlower.EnumFlowerType.DANDELION, new DyeAmount(EnumDyeColor.YELLOW, 2));
@@ -118,8 +118,8 @@ public class ColorUtils {
 
 
     public static class DyeAmount {
-        private EnumDyeColor dye;
-        private int count;
+        private final EnumDyeColor dye;
+        private final int count;
 
         public DyeAmount(EnumDyeColor dye, int count) {
             this.dye = dye;

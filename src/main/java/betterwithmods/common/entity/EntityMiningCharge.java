@@ -37,7 +37,7 @@ public class EntityMiningCharge extends Entity {
      */
     private int fuse;
     private EnumFacing facing;
-    private HashMap<Block, IBlockState> dropMap = new HashMap<Block, IBlockState>() {{
+    private final HashMap<Block, IBlockState> dropMap = new HashMap<Block, IBlockState>() {{
         put(Blocks.COBBLESTONE, Blocks.GRAVEL.getDefaultState());
         put(Blocks.GRAVEL, Blocks.SAND.getDefaultState());
     }};

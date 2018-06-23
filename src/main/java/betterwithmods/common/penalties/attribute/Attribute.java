@@ -4,7 +4,7 @@ import net.minecraft.util.ResourceLocation;
 
 public abstract class Attribute<V> implements IAttribute<V> {
     private ResourceLocation registryName;
-    private V value;
+    private final V value;
     private String description;
 
     public Attribute(ResourceLocation registryName, V value) {

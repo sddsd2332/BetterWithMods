@@ -6,7 +6,6 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.Feature;
-import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.hardcore.world.HCBonemeal;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessagePlaced;
@@ -46,7 +45,7 @@ public class HCStumping extends Feature {
     public static boolean SPEED_UP_WITH_TOOLS;
     public static float STUMP_BREAK_SPEED;
     public static float ROOT_BREAK_SPEED;
-    public static Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
+    public static final Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
     public static String[] BLACKLIST_CONFIG;
 
     public static boolean isStump(World world, BlockPos pos) {

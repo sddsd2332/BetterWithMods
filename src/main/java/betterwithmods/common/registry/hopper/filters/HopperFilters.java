@@ -15,7 +15,7 @@ import java.util.Map;
  */
 public class HopperFilters {
 
-    private Map<ResourceLocation, IHopperFilter> FILTERS = Maps.newHashMap();
+    private final Map<ResourceLocation, IHopperFilter> FILTERS = Maps.newHashMap();
 
     public void addFilter(IHopperFilter filter) {
         FILTERS.put(filter.getName(), filter);

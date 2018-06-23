@@ -1,7 +1,7 @@
 package betterwithmods.module.gameplay.miniblocks.orientations;
 
 public class OrientationUtils {
-    public static float CENTER_OFFSET = 0.5F;
+    public static final float CENTER_OFFSET = 0.5F;
 
     public static int getCorner(double centerA, double centerB, double cornerSize) {
         boolean posA = centerA > 0, posB = centerB > 0;

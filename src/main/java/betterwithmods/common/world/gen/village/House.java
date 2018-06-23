@@ -70,17 +70,13 @@ public class House extends AbandonedVillagePiece {
         this.setBlockState(worldIn, iblockstate5, 8, 4, 2, structureBoundingBoxIn);
         this.setBlockState(worldIn, iblockstate5, 8, 4, 3, structureBoundingBoxIn);
         this.setBlockState(worldIn, iblockstate5, 8, 4, 4, structureBoundingBoxIn);
-        IBlockState iblockstate7 = iblockstate1;
-        IBlockState iblockstate8 = iblockstate2;
-        IBlockState iblockstate9 = iblockstate4;
-        IBlockState iblockstate10 = iblockstate3;
 
         for (int i = -1; i <= 2; ++i) {
             for (int j = 0; j <= 8; ++j) {
-                this.setBlockState(worldIn, iblockstate7, j, 4 + i, i, structureBoundingBoxIn);
+                this.setBlockState(worldIn, iblockstate1, j, 4 + i, i, structureBoundingBoxIn);
 
                 if ((i > -1 || j <= 1) && (i > 0 || j <= 3) && (i > 1 || j <= 4 || j >= 6)) {
-                    this.setBlockState(worldIn, iblockstate8, j, 4 + i, 5 - i, structureBoundingBoxIn);
+                    this.setBlockState(worldIn, iblockstate2, j, 4 + i, 5 - i, structureBoundingBoxIn);
                 }
             }
         }
@@ -95,7 +91,7 @@ public class House extends AbandonedVillagePiece {
             this.setBlockState(worldIn, iblockstate5, k, 2 + k, 7 - k, structureBoundingBoxIn);
 
             for (int k1 = 8 - k; k1 <= 10; ++k1) {
-                this.setBlockState(worldIn, iblockstate10, k, 2 + k, k1, structureBoundingBoxIn);
+                this.setBlockState(worldIn, iblockstate3, k, 2 + k, k1, structureBoundingBoxIn);
             }
         }
 
@@ -105,7 +101,7 @@ public class House extends AbandonedVillagePiece {
 
         for (int l = 6; l <= 8; ++l) {
             for (int l1 = 5; l1 <= 10; ++l1) {
-                this.setBlockState(worldIn, iblockstate9, l, 12 - l, l1, structureBoundingBoxIn);
+                this.setBlockState(worldIn, iblockstate4, l, 12 - l, l1, structureBoundingBoxIn);
             }
         }
 
@@ -159,7 +155,7 @@ public class House extends AbandonedVillagePiece {
         this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, -1, 3, 2, -1, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
 
         if (this.getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
-            this.setBlockState(worldIn, iblockstate7, 2, 0, -1, structureBoundingBoxIn);
+            this.setBlockState(worldIn, iblockstate1, 2, 0, -1, structureBoundingBoxIn);
 
             if (this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getBlock() == Blocks.GRASS_PATH) {
                 this.setBlockState(worldIn, Blocks.GRASS.getDefaultState(), 2, -1, -1, structureBoundingBoxIn);
@@ -186,7 +182,7 @@ public class House extends AbandonedVillagePiece {
 
     @Override
     public StructureVillagePieces.PieceWeight getVillagePieceWeight(Random random, int size) {
-        return new StructureVillagePieces.PieceWeight(House.class, 8, MathHelper.getInt(random, 0 + size, 3 + size * 2));
+        return new StructureVillagePieces.PieceWeight(House.class, 8, MathHelper.getInt(random, size, 3 + size * 2));
     }
 
     @Override

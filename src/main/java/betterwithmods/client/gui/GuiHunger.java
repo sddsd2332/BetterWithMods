@@ -22,7 +22,7 @@ import java.util.Random;
  */
 public class GuiHunger {
 
-    public static GuiHunger INSTANCE = new GuiHunger();
+    public static final GuiHunger INSTANCE = new GuiHunger();
     private final Random rand = new Random();
     private final Minecraft mc = Minecraft.getMinecraft();
     private int shakeCounter = 0;

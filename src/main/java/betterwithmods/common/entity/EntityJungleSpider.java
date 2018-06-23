@@ -1,9 +1,7 @@
 package betterwithmods.common.entity;
 
 import betterwithmods.BWMod;
-import com.google.common.collect.Lists;
 import net.minecraft.block.BlockLeaves;
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
@@ -70,12 +68,7 @@ public class EntityJungleSpider extends EntityCaveSpider {
     protected boolean isValidLightLevel() {
         BlockPos blockpos = new BlockPos(this.posX, this.getEntityBoundingBox().minY, this.posZ);
 
-        if (this.world.getLightFor(EnumSkyBlock.BLOCK, blockpos) > 7)
-        {
-            return false;
-        }
-
-        return true;
+        return this.world.getLightFor(EnumSkyBlock.BLOCK, blockpos) <= 7;
     }
 
     @Override

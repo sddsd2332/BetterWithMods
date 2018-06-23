@@ -10,7 +10,7 @@ import java.util.List;
 
 public class CookingPotRecipe extends BulkRecipe implements IHeatRecipe{
 
-    private int heat;
+    private final int heat;
     private boolean ignoreHeat;
 
     public CookingPotRecipe(@Nonnull List<Ingredient> inputs, @Nonnull List<ItemStack> outputs, int heat) {

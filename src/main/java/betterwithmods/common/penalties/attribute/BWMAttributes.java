@@ -1,7 +1,6 @@
 package betterwithmods.common.penalties.attribute;
 
 import betterwithmods.BWMod;
-import betterwithmods.module.ConfigHelper;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.Range;
 

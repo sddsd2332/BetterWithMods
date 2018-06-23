@@ -16,7 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
 public class BlockWindmill extends BlockAxleGenerator {
-    private EnumFacing.Axis axis;
+    private final EnumFacing.Axis axis;
 
     public BlockWindmill(EnumFacing.Axis axis) {
         super(Material.WOOD);

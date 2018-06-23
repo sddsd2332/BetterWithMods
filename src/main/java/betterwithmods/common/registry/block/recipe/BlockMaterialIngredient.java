@@ -11,7 +11,7 @@ import java.util.function.Predicate;
 
 public class BlockMaterialIngredient extends BlockIngredient {
 
-    private Predicate<Material> predicate;
+    private final Predicate<Material> predicate;
 
     public BlockMaterialIngredient(Material... materials) {
         this(m -> Arrays.stream(materials).anyMatch(m::equals));

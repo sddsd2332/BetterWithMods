@@ -12,7 +12,7 @@ import java.util.List;
 
 public class OutputRenderer<V extends IOutput> implements IIngredientRenderer<V> {
 
-    private ItemStackRenderer itemStackRenderer;
+    private final ItemStackRenderer itemStackRenderer;
 
     public OutputRenderer() {
         itemStackRenderer = new ItemStackRenderer();

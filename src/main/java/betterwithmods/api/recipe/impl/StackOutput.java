@@ -7,7 +7,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class StackOutput implements IOutput {
-    protected ItemStack output;
+    protected final ItemStack output;
 
     public StackOutput(ItemStack stack) {
         this.output = stack.copy();

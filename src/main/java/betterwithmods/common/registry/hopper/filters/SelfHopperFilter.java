@@ -12,7 +12,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class SelfHopperFilter implements IHopperFilter {
 
-    private Ingredient filter;
+    private final Ingredient filter;
 
     public SelfHopperFilter(ItemStack stack) {
         this(StackIngredient.fromStacks(stack));

@@ -33,8 +33,8 @@ import javax.annotation.Nullable;
 public class BlockBrokenGearbox extends BWMBlock {
     public static final PropertyInteger REPAIR = PropertyInteger.create("repair", 0, 1);
 
-    public EnumTier type;
-    public Ingredient repairIngredient;
+    public final EnumTier type;
+    public final Ingredient repairIngredient;
 
     public BlockBrokenGearbox(EnumTier type) {
         super(Material.WOOD);

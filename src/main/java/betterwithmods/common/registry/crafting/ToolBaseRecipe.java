@@ -18,10 +18,10 @@ import java.util.function.Predicate;
  * Created by primetoxinz on 6/27/17.
  */
 public abstract class ToolBaseRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
-    private ResourceLocation group;
-    protected Predicate<ItemStack> isTool;
-    protected ItemStack result;
-    protected Ingredient input;
+    private final ResourceLocation group;
+    protected final Predicate<ItemStack> isTool;
+    protected final ItemStack result;
+    protected final Ingredient input;
 
     public ToolBaseRecipe(ResourceLocation group, ItemStack result, Ingredient input, Predicate<ItemStack> isTool) {
         this.group = group;

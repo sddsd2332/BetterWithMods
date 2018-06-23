@@ -18,7 +18,7 @@ public class MiniModel extends ModelFactory<MiniInfo> {
 
     public static MiniModel SIDING, MOULDING, CORNER, COLUMN, PEDESTAL, CHAIR;
 
-    public IModel template;
+    public final IModel template;
 
     public MiniModel(IModel template) {
         super(BlockMini.MINI_INFO, TextureMap.LOCATION_MISSING_TEXTURE);

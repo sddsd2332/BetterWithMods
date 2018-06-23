@@ -30,7 +30,7 @@ public class TileTurntable extends TileBasic implements IMechSubtype, ITickable,
     private static final int[] ticksToRotate = {10, 20, 40, 80};
     private int timerPos = 0;
     private int potteryRotation = 0;
-    private double[] offsets = {0.25D, 0.375D, 0.5D, 0.625D};
+    private final double[] offsets = {0.25D, 0.375D, 0.5D, 0.625D};
     private boolean asynchronous = false;
     private int rotationTime = 0;
     private int power;

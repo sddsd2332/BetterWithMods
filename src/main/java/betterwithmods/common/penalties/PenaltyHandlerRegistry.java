@@ -4,7 +4,6 @@ import betterwithmods.common.penalties.attribute.Attribute;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.common.penalties.attribute.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
 
 import javax.annotation.Nonnull;
 import java.util.HashSet;

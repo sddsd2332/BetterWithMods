@@ -20,10 +20,10 @@ import java.util.Random;
  * Created by primetoxinz on 4/20/17.
  */
 public class TurntableRecipe extends BlockRecipe {
-    private int rotations;
+    private final int rotations;
 
-    private IBlockState productState;
-    private ItemStack representative;
+    private final IBlockState productState;
+    private final ItemStack representative;
 
     public TurntableRecipe(BlockIngredient input, List<ItemStack> outputs, IBlockState productState, int rotations) {
         this(input, productState, outputs, rotations);

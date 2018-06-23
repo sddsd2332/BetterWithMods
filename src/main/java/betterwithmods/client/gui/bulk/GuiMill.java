@@ -13,7 +13,7 @@ public class GuiMill extends GuiProgress {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/mill.png");
     private static final String NAME = "inv.mill.name";
-    private ContainerMill container;
+    private final ContainerMill container;
 
     public GuiMill(EntityPlayer player, TileMill mill) {
         super(new ContainerMill(player, mill), TEXTURE);

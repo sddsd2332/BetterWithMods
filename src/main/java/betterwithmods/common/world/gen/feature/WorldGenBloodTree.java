@@ -15,8 +15,8 @@ import net.minecraftforge.common.IPlantable;
 import java.util.Random;
 
 public class WorldGenBloodTree extends WorldGenAbstractTree {
-    private IBlockState log = BWMBlocks.BLOOD_LOG.getDefaultState();
-    private IBlockState leaves = BWMBlocks.BLOOD_LEAVES.getDefaultState().withProperty(BlockLeaves.DECAYABLE, true);
+    private final IBlockState log = BWMBlocks.BLOOD_LOG.getDefaultState();
+    private final IBlockState leaves = BWMBlocks.BLOOD_LEAVES.getDefaultState().withProperty(BlockLeaves.DECAYABLE, true);
 
     public WorldGenBloodTree() {
         super(true);

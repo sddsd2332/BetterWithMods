@@ -29,7 +29,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class PollutionHandler {
-    public HashMap<String, Float> biomeMods = new HashMap<>();
+    public final HashMap<String, Float> biomeMods = new HashMap<>();
 
 
     @SubscribeEvent
@@ -148,7 +148,7 @@ public class PollutionHandler {
         final World world = evt.getObject();
         if (!world.isRemote) {
             evt.addCapability(new ResourceLocation("betterwithmods", "world_pollution"), new ICapabilitySerializable<NBTTagCompound>() {
-                IWorldPollution instance = new WorldPollutionCapability.Default(world);
+                final IWorldPollution instance = new WorldPollutionCapability.Default(world);
 
                 @Override
                 public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
@@ -179,7 +179,7 @@ public class PollutionHandler {
         if (tile instanceof TileEntityFurnace) {
             final TileEntityFurnace furnace = (TileEntityFurnace) tile;
             evt.addCapability(new ResourceLocation("betterwithmods", "furnace_pollution"), new ICapabilitySerializable<NBTTagCompound>() {
-                IPollutant instance = new CapabilityFurnacePollution(furnace);
+                final IPollutant instance = new CapabilityFurnacePollution(furnace);
 
                 @Override
                 public boolean hasCapability(Capability<?> capability, EnumFacing facing) {

@@ -44,7 +44,6 @@ public class Library extends AbandonedVillagePiece {
 
         IBlockState window = Blocks.AIR.getDefaultState();
         IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
-        IBlockState table = iblockstate;//this.getBiomeSpecificBlockState(BWMBlocks.WOOD_TABLE.getDefaultState());
         IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
         IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
         IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.EAST));
@@ -104,8 +103,8 @@ public class Library extends AbandonedVillagePiece {
         this.setBlockState(worldIn, iblockstate1, 3, 1, 4, structureBoundingBoxIn);
 
 //        this.setBlockState(worldIn, Blocks.WOODEN_PRESSURE_PLATE.getDefaultState(), 6, 2, 3, structureBoundingBoxIn);
-        this.setBlockState(worldIn, table, 6, 1, 3, structureBoundingBoxIn);
-        this.setBlockState(worldIn, table, 4, 1, 3, structureBoundingBoxIn);
+        this.setBlockState(worldIn, iblockstate, 6, 1, 3, structureBoundingBoxIn);
+        this.setBlockState(worldIn, iblockstate, 4, 1, 3, structureBoundingBoxIn);
 //        this.setBlockState(worldIn, Blocks.WOODEN_PRESSURE_PLATE.getDefaultState(), 4, 2, 3, structureBoundingBoxIn);
 //        this.setBlockState(worldIn, Blocks.CRAFTING_TABLE.getDefaultState(), 7, 1, 1, structureBoundingBoxIn);
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 1, 0, structureBoundingBoxIn);
@@ -137,7 +136,7 @@ public class Library extends AbandonedVillagePiece {
 
     @Override
     public StructureVillagePieces.PieceWeight getVillagePieceWeight(Random random, int size) {
-        return new StructureVillagePieces.PieceWeight(Library.class, 20, MathHelper.getInt(random, 0 + size, 2 + size));
+        return new StructureVillagePieces.PieceWeight(Library.class, 20, MathHelper.getInt(random, size, 2 + size));
     }
 
     @Override

@@ -5,7 +5,7 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class InfernalEnchantment extends Enchantment {
-    private Enchantment enchantment;
+    private final Enchantment enchantment;
 
     public InfernalEnchantment(Enchantment enchantment) {
         super(enchantment.getRarity(), enchantment.type, getSlots(enchantment));

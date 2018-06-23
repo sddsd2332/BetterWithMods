@@ -43,9 +43,9 @@ public class BlockCobble extends Block {
         ANDESITE("andesite",  new ItemStack(Blocks.STONE,1,5), MapColor.STONE);
 
         private static final EnumType[] VALUES = values();
-        private String name;
-        private MapColor color;
-        private ItemStack stone;
+        private final String name;
+        private final MapColor color;
+        private final ItemStack stone;
 
         EnumType(String name, ItemStack stone, MapColor color) {
             this.name = name;

@@ -8,7 +8,7 @@ import java.util.function.Predicate;
 
 public class FilteredStackHandler extends SimpleStackHandler {
 
-    public Predicate<ItemStack>[] predicate;
+    public final Predicate<ItemStack>[] predicate;
 
     public FilteredStackHandler(int size, TileEntity tile, Predicate<ItemStack>... predicate) {
         super(size, tile);

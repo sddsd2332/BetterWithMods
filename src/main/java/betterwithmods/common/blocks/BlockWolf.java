@@ -22,7 +22,7 @@ import java.util.Random;
 
 public class BlockWolf extends BWMBlock {
 
-    private ResourceLocation entityName;
+    private final ResourceLocation entityName;
 
     public BlockWolf(ResourceLocation entityName) {
         super(Material.CLOTH);

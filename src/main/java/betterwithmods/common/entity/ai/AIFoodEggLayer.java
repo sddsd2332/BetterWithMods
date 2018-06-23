@@ -1,7 +1,6 @@
 package betterwithmods.common.entity.ai;
 
 import betterwithmods.module.hardcore.creatures.chicken.EggLayer;
-import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -93,8 +92,7 @@ public class AIFoodEggLayer extends EntityAIBase {
                 return false;
             if (!this.entity.getNavigator().noPath()) {
                 double sqDistToPos = this.entity.getDistanceSq(targetItem.posX, targetItem.posY, targetItem.posZ);
-                if (sqDistToPos > 2.0D)
-                    return true;
+                return sqDistToPos > 2.0D;
             }
         }
         return false;

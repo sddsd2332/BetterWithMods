@@ -38,7 +38,6 @@ public class BlockBeacon extends net.minecraft.block.BlockBeacon {
 
     @Override
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-        return;
     }
 
     @Override

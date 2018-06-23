@@ -8,7 +8,7 @@ import net.minecraft.util.SoundCategory;
 
 public class InventorySteelCraftingResult extends InventoryCraftResult {
 
-    private TileSteelAnvil craft;
+    private final TileSteelAnvil craft;
 
     public InventorySteelCraftingResult(TileSteelAnvil te) {
         craft = te;

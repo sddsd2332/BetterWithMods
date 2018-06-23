@@ -33,7 +33,7 @@ import org.lwjgl.opengl.GL11;
  * Created by primetoxinz on 6/7/17.
  */
 public class ClientEventHandler {
-    public static Minecraft mc = Minecraft.getMinecraft();
+    public static final Minecraft mc = Minecraft.getMinecraft();
 
     public static void renderBlock(IBlockState state, BlockPos pos, World world) {
         Tessellator tessellator = Tessellator.getInstance();
