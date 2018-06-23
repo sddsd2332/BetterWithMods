@@ -1,34 +1,26 @@
-package betterwithmods.module.hardcore.world;
+package betterwithmods.module.hardcore.world.spawn;
 
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
+import betterwithmods.module.hardcore.world.DebugCommand;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 
 import static net.minecraft.world.WorldType.FLAT;
 
@@ -42,28 +34,37 @@ public class HCSpawn extends Feature {
     public static int HARDCORE_SPAWN_COOLDOWN_RADIUS;
     public static int HARDCORE_SPAWN_COOLDOWN; //20 min
     public static int HARDCORE_SPAWN_MAX_ATTEMPTS = 20;
-    @SuppressWarnings("CanBeFinal")
-    @CapabilityInject(SpawnSaving.class)
-    public static Capability<SpawnSaving> SPAWN_CAP = null;
+    public static ResourceLocation PLAYER_SPAWN_POSITION = new ResourceLocation(BWMod.MODID, "spawn_position");
 
     public static void setSpawn(EntityPlayer player, BlockPos pos) {
-        if (player.hasCapability(SPAWN_CAP, null)) {
-            SpawnSaving cap = player.getCapability(SPAWN_CAP, null);
+        if (player.hasCapability(SpawnSaving.SPAWN_CAP, null)) {
+            SpawnSaving cap = player.getCapability(SpawnSaving.SPAWN_CAP, null);
             cap.setPos(pos);
         }
     }
 
     public static BlockPos getSpawn(EntityPlayer player) {
-        if (player.hasCapability(SPAWN_CAP, null)) {
-            SpawnSaving cap = player.getCapability(SPAWN_CAP, null);
+        if (player.hasCapability(SpawnSaving.SPAWN_CAP, null)) {
+            SpawnSaving cap = player.getCapability(SpawnSaving.SPAWN_CAP, null);
             return cap.getPos();
         }
         return player.world.getSpawnPoint();
     }
 
+    public static BlockPos getRandomPoint(World world, BlockPos origin, int spawnFuzz) {
+        BlockPos ret = origin;
+        double fuzzVar = world.rand.nextDouble() * spawnFuzz;
+        double angle = Math.toRadians(world.rand.nextDouble() * 360);
+        double customX = -Math.sin(angle) * fuzzVar;
+        double customZ = Math.cos(angle) * fuzzVar;
+        ret = ret.add(MathHelper.floor(customX) + 0.5D, 1.5D, MathHelper.floor(customZ) + 0.5D);
+        ret = world.getTopSolidOrLiquidBlock(ret);
+        return ret;
+    }
+
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(SpawnSaving.class, new CapabilitySpawn(), SpawnSaving::new);
+        CapabilityManager.INSTANCE.register(SpawnSaving.class, new SpawnSaving.Storage(), SpawnSaving::new);
     }
 
     @Override
@@ -97,21 +98,10 @@ public class HCSpawn extends Feature {
             int timeSinceDeath = player.getStatFile().readStat(StatList.TIME_SINCE_DEATH);
             boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
 
-            BlockPos newPos = getRespawnPoint(player, isNew ? player.world.getSpawnPoint() : getSpawn(player), isNew ? HARDCORE_SPAWN_RADIUS: HARDCORE_SPAWN_COOLDOWN_RADIUS);
+            BlockPos newPos = getRespawnPoint(player, isNew ? player.world.getSpawnPoint() : getSpawn(player), isNew ? HARDCORE_SPAWN_RADIUS : HARDCORE_SPAWN_COOLDOWN_RADIUS);
             setSpawn(player, newPos);
             player.setSpawnPoint(newPos, true);
         }
-    }
-
-    public static BlockPos getRandomPoint(World world, BlockPos origin, int spawnFuzz) {
-        BlockPos ret = origin;
-        double fuzzVar = world.rand.nextDouble() * spawnFuzz;
-        double angle = Math.toRadians(world.rand.nextDouble() * 360);
-        double customX = -Math.sin(angle) * fuzzVar;
-        double customZ = Math.cos(angle) * fuzzVar;
-        ret = ret.add(MathHelper.floor(customX) + 0.5D, 1.5D, MathHelper.floor(customZ) + 0.5D);
-        ret = world.getTopSolidOrLiquidBlock(ret);
-        return ret;
     }
 
     /**
@@ -152,7 +142,7 @@ public class HCSpawn extends Feature {
     @SubscribeEvent
     public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer) {
-            event.addCapability(new ResourceLocation(BWMod.MODID, "spawn_position"), new SpawnSaving((EntityPlayer) event.getObject()));
+            event.addCapability(PLAYER_SPAWN_POSITION, new SpawnSaving((EntityPlayer) event.getObject()));
         }
     }
 
@@ -163,67 +153,10 @@ public class HCSpawn extends Feature {
         }
     }
 
-    public static class CapabilitySpawn implements Capability.IStorage<SpawnSaving> {
-        @Nullable
-        @Override
-        public NBTBase writeNBT(Capability<SpawnSaving> capability, SpawnSaving instance, EnumFacing side) {
-            return instance.serializeNBT();
-        }
-
-        @Override
-        public void readNBT(Capability<SpawnSaving> capability, SpawnSaving instance, EnumFacing side, NBTBase nbt) {
-            instance.deserializeNBT((NBTTagCompound) nbt);
-        }
-    }
-
-    private class SpawnSaving implements ICapabilitySerializable<NBTTagCompound> {
-
-        private BlockPos pos;
-
-        public SpawnSaving() {
-        }
-
-        public SpawnSaving(EntityPlayer player) {
-            pos = player.world.getSpawnPoint();
-        }
-
-        public BlockPos getPos() {
-            return pos;
-        }
-
-        public void setPos(BlockPos pos) {
-            this.pos = pos;
-        }
-
-        @Override
-        public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-            return capability == SPAWN_CAP;
-        }
-
-        @Nullable
-        @Override
-        public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-            if (capability == SPAWN_CAP)
-                return SPAWN_CAP.cast(this);
-            return null;
-        }
-
-        @Override
-        public NBTTagCompound serializeNBT() {
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setLong("spawn", pos.toLong());
-            return tag;
-        }
-
-        @Override
-        public void deserializeNBT(NBTTagCompound nbt) {
-            pos = BlockPos.fromLong(nbt.getLong("spawn"));
-        }
-    }
 
     @Override
     public void serverStarting(FMLServerStartingEvent event) {
-        if(GlobalConfig.debug) {
+        if (GlobalConfig.debug) {
             event.registerServerCommand(new DebugCommand());
         }
     }
