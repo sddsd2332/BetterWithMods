@@ -2,7 +2,7 @@ package betterwithmods.module.industry.pollution;
 
 import betterwithmods.api.capabilities.PollutionCapability;
 import betterwithmods.api.tile.IPollutant;
-import betterwithmods.common.damagesource.BWDamageSource;
+import betterwithmods.common.BWDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.EntityLiving;

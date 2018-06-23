@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks.mechanical.tile;
 
-import betterwithmods.common.damagesource.BWDamageSource;
+import betterwithmods.common.BWDamageSource;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.state.IBlockState;

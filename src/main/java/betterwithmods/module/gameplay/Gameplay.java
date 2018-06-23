@@ -57,6 +57,7 @@ public class Gameplay extends Module {
         registerFeature(new PlayerDataHandler());
         registerFeature(new ReadTheFingManual());
         registerFeature(new MiniBlocks());
+        registerFeature(new BlastingOil());
     }
 
     @Override
@@ -64,7 +65,7 @@ public class Gameplay extends Module {
         generatorRenderDistance = loadPropDouble("Render Distance for Axle Generators", "Allows expanding the render distance radius for Windmills and Waterwheels", 256);
         crankExhaustion = loadPropDouble("Crank Exhaustion", "How much saturation turning the crank eats. Set to 0.0 to disable.", 6.0, 0.0, 6.0);
         kidFriendly = loadPropBool("Kid Friendly", "Makes some features more kid friendly", false);
-        disableBlastingOilEvents = loadPropBool("Disable Blasting Oil", "Don't process blasting oil explosions, as they are have major performance impact", false);
+
         loadRecipeCondition("higheff", "High Efficiency Recipes", "Enables High Efficiency Recipes", true);
         cauldronNormalSpeedFactor = (float) loadPropDouble("Cauldron normal speed factor", "Cooking speed multiplier for unstoked cauldrons.", 1.0);
         cauldronStokedSpeedFactor = (float) loadPropDouble("Cauldron stoked speed factor", "Cooking speed multiplier for stoked cauldrons and crucibles.", 1.0);
@@ -74,15 +75,6 @@ public class Gameplay extends Module {
         waterwheelFluidConfig = loader.configHelper.loadPropStringList("Waterwheel fluids", name, "Fluids which will allow the Waterwheel to turn, format fluid_name", new String[]{
                 "swamp_water"
         });
-
-        blacklistDamageSources = Lists.newArrayList(loader.configHelper.loadPropStringList("Blasting oil damage source blacklist", name,"Disallow these damage sources from disturbing blasting oil", new String[]{
-                "drown",
-                "cramming",
-                "generic",
-                "wither",
-                "starve",
-                "outOfWorld"
-        }));
 
         super.setupConfig();
     }

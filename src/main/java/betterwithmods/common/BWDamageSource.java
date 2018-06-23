@@ -1,4 +1,4 @@
-package betterwithmods.common.damagesource;
+package betterwithmods.common;
 
 import betterwithmods.event.FakePlayerHandler;
 import net.minecraft.entity.Entity;

@@ -1,7 +1,8 @@
-package betterwithmods.event;
+package betterwithmods.module.gameplay;
 
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.module.gameplay.Gameplay;
+import betterwithmods.module.Feature;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -9,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -20,23 +20,36 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.stream.Collectors;
 
-/**
- * Purpose:
- *
- * @author primetoxinz
- * @version 11/26/16
- */
-@Mod.EventBusSubscriber
-public class BlastingOilEvent {
-    // TODO: Instead of disabling this module consider on performance tweaks for massive-multiplayer servers with A LOT of entities
-        //TODO Make this a Feature in 1.13
+public class BlastingOil extends Feature {
+
+    private static HashMap<EntityItem, Double> highestPoint = Maps.newHashMap();
+    public boolean disableBlastingOilEvents;
+    public List<String> blacklistDamageSources;
+
+    @Override
+    public String getFeatureDescription() {
+        return "Make blasting oil very dangerous";
+    }
+
+    @Override
+    public void setupConfig() {
+        disableBlastingOilEvents = loadPropBool("Disable Blasting Oil", "Don't process blasting oil explosions, as they are have major performance impact", false);
+        blacklistDamageSources = Lists.newArrayList(loadPropStringList("Blasting oil damage source blacklist", "Disallow these damage sources from disturbing blasting oil", new String[]{
+                "drown",
+                "cramming",
+                "generic",
+                "wither",
+                "starve",
+                "outOfWorld"
+        }));
+    }
 
     @SubscribeEvent
-    public static void onPlayerTakeDamage(LivingHurtEvent e) {
-        if (Gameplay.disableBlastingOilEvents)
+    public void onPlayerTakeDamage(LivingHurtEvent e) {
+        if (disableBlastingOilEvents)
             return;
 
-        if (Gameplay.blacklistDamageSources.contains(e.getSource().damageType))
+        if (blacklistDamageSources.contains(e.getSource().damageType))
             return;
 
         DamageSource BLAST_OIL = new DamageSource("blastingoil");
@@ -61,11 +74,9 @@ public class BlastingOilEvent {
         }
     }
 
-    private final static HashMap<EntityItem, Double> highestPoint = Maps.newHashMap();
-
     @SubscribeEvent
-    public static void onHitGround(TickEvent.WorldTickEvent event) {
-        if (Gameplay.disableBlastingOilEvents)
+    public void onHitGround(TickEvent.WorldTickEvent event) {
+        if (disableBlastingOilEvents)
             return;
         List<EntityItem> items;
         World world = event.world;
@@ -92,4 +103,3 @@ public class BlastingOilEvent {
         toRemove.forEach(highestPoint::remove);
     }
 }
-

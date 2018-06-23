@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.damagesource.BWDamageSource;
+import betterwithmods.common.BWDamageSource;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
