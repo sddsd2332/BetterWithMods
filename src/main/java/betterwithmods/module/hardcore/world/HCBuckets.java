@@ -1,17 +1,16 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.BWMod;
-import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.FluidUtils;
 import betterwithmods.util.player.PlayerHelper;
+import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -32,7 +31,7 @@ import java.util.List;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCBuckets extends Feature {
-    private static List<ResourceLocation> fluidWhitelist;
+    private static List<String> fluidWhitelist;
     private static List<ItemStack> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
 
@@ -44,9 +43,9 @@ public class HCBuckets extends Feature {
     @Override
     public void setupConfig() {
         dimensionBlacklist = Ints.asList(loadPropIntList("Dimension Black List", "A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to create.", new int[]{DimensionType.THE_END.getId()}));
-        fluidWhitelist = ConfigHelper.loadPropRLList("Fluid Whitelist", configCategory, "List of fluids that will be handled by HCBuckets.", new String[]{
+        fluidWhitelist = Lists.newArrayList(loadPropStringList("Fluid Whitelist", "List of fluids that will be handled by HCBuckets.", new String[]{
                 FluidRegistry.WATER.getName()
-        });
+        }));
     }
 
     @Override
@@ -70,15 +69,19 @@ public class HCBuckets extends Feature {
 
 
     @SubscribeEvent
-    public void onInteractFluidHandlerItem(PlayerInteractEvent.RightClickBlock event) {
+    public void onInteractFluidHandlerItem(PlayerInteractEvent.RightClickItem event) {
         ItemStack stack = event.getItemStack();
         IFluidHandlerItem handlerItem = FluidUtil.getFluidHandler(stack);
         if (handlerItem != null) {
             //Don't need to do buckets
             if (stack.getItem() instanceof ItemBucket)
                 return;
-            RayTraceResult result = new RayTraceResult(event.getHitVec(), event.getFace(), event.getPos());
-            if (MinecraftForge.EVENT_BUS.post(new FillBucketEvent(event.getEntityPlayer(), stack, event.getWorld(), result)))
+            FluidStack contained = FluidUtil.getFluidContained(stack);
+
+            RayTraceResult raytraceresult = stack.getItem().rayTrace(event.getWorld(), event.getEntityPlayer(), contained == null);
+
+            FillBucketEvent fillBucketEvent = new FillBucketEvent(event.getEntityPlayer(), stack, event.getWorld(), raytraceresult);
+            if (MinecraftForge.EVENT_BUS.post(fillBucketEvent))
                 event.setCanceled(true);
         }
     }
@@ -87,11 +90,6 @@ public class HCBuckets extends Feature {
     public void onUseFluidContainer(FillBucketEvent event) {
         if (event.isCanceled()) return;
         if (event.getTarget() != null) {
-            if (GlobalConfig.debug) {
-                event.getEntityPlayer().sendMessage(new TextComponentTranslation("FillBucketEvent: %s,%s,%s,%s", event.getTarget().getBlockPos(), event.getTarget().typeOfHit, event.getEmptyBucket() != null ? event.getEmptyBucket().getDisplayName() : null, event.getFilledBucket() != null ? event.getFilledBucket().getDisplayName() : null));
-                BWMod.getLog().info("FillBucketEvent: {}, {}, {}", event.getTarget(), event.getEmptyBucket(), event.getFilledBucket());
-            }
-
             ItemStack container = event.getEmptyBucket();
             RayTraceResult raytraceresult = event.getTarget();
             BlockPos pos = raytraceresult.getBlockPos();
@@ -99,6 +97,12 @@ public class HCBuckets extends Feature {
             EntityPlayer player = event.getEntityPlayer();
             if (!PlayerHelper.isSurvival(player))
                 return;
+
+            FluidStack fluidStack = FluidUtil.getFluidContained(container);
+
+            if (fluidStack != null && !fluidWhitelist.contains(fluidStack.getFluid().getName())) {
+                return;
+            }
 
             FluidActionResult result = FluidUtils.tryPickUpFluid(container, player, world, pos, raytraceresult.sideHit);
 
@@ -109,22 +113,31 @@ public class HCBuckets extends Feature {
                 }
                 event.setResult(Event.Result.ALLOW);
                 event.setFilledBucket(result.getResult());
-                player.getCooldownTracker().setCooldown(container.getItem(), 20);
+                if (container.getItem() instanceof ItemBucket)
+                    player.getCooldownTracker().setCooldown(container.getItem(), 20);
             } else {
                 BlockPos offset = pos.offset(raytraceresult.sideHit);
                 IBlockState state = world.getBlockState(offset);
-                FluidStack fluidStack = FluidUtil.getFluidContained(container);
-                if (fluidStack != null) {
-                    if (state.getMaterial().isReplaceable()) {
+                if (state.getMaterial().isReplaceable()) {
+                    if (fluidStack != null) {
                         if (fluidStack.amount == Fluid.BUCKET_VOLUME) {
                             FluidActionResult placeResult = FluidUtils.tryPlaceFluid(player, world, offset, container, fluidStack);
-                            event.setResult(Event.Result.ALLOW);
-                            event.setFilledBucket(placeResult.getResult());
-
+                            if (placeResult.isSuccess()) {
+                                event.setResult(Event.Result.ALLOW);
+                                event.setFilledBucket(placeResult.getResult());
+                            }
                         }
                     }
+                } else if (!state.getMaterial().isOpaque()) {
+                    event.setCanceled(true);
                 }
             }
+
+            if (GlobalConfig.debug) {
+                event.getEntityPlayer().sendMessage(new TextComponentTranslation("FillBucketEvent: %s,%s,%s,%s", event.getTarget().getBlockPos(), event.getTarget().typeOfHit, event.getEmptyBucket() != null ? event.getEmptyBucket().getDisplayName() : null, event.getFilledBucket() != null ? event.getFilledBucket().getDisplayName() : null));
+                BWMod.getLog().info("FillBucketEvent: {}, {}, {}", event.getTarget(), event.getEmptyBucket(), event.getFilledBucket());
+            }
+
         }
     }
 

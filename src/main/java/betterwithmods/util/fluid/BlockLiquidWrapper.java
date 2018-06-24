@@ -61,8 +61,9 @@ public class BlockLiquidWrapper implements IFluidHandler {
 
     public void setLiquid(World world, BlockPos pos, Block block, int level) {
         IBlockState state = world.getBlockState(pos);
-        if (!state.getBlock().equals(block) || state.getValue(BlockLiquid.LEVEL) < level) {
-            world.setBlockState(pos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, level));
+        Block existingBlock = state.getBlock();
+        if ((existingBlock instanceof BlockLiquid && state.getValue(BlockLiquid.LEVEL) > level) || (!state.getMaterial().isLiquid() && existingBlock.isReplaceable(world, pos))) {
+            world.setBlockState(pos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, level), 11);
         }
     }
 
@@ -92,18 +93,21 @@ public class BlockLiquidWrapper implements IFluidHandler {
     @Nullable
     @Override
     public FluidStack drain(int maxDrain, boolean doDrain) {
-        if (maxDrain < Fluid.BUCKET_VOLUME) {
-            return null;
-        }
+        //HCBuckets doesn't remove the block, so it doesn't matter how much the container holds
+//        if (maxDrain < Fluid.BUCKET_VOLUME) {
+//            return null;
+//        }
 
         IBlockState blockState = world.getBlockState(blockPos);
         if (blockState.getBlock() == blockLiquid) {
             FluidStack containedStack = getStack(blockState);
-            if (containedStack != null && containedStack.amount <= maxDrain) {
+
+            if (containedStack != null /*Still don't care how much is contained && containedStack.amount <= maxDrain*/) {
                 //Don't remove the block ever for HCBuckets
 //                if (doDrain) {
 //                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 11);
 //                }
+                containedStack.amount = maxDrain;
                 return containedStack;
             }
 
