@@ -7,7 +7,9 @@ import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.FluidUtils;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.primitives.Ints;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -16,10 +18,11 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
-import net.minecraftforge.fluids.FluidActionResult;
-import net.minecraftforge.fluids.FluidEvent;
-import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -67,16 +70,27 @@ public class HCBuckets extends Feature {
 
 
     @SubscribeEvent
+    public void onInteractFluidHandlerItem(PlayerInteractEvent.RightClickBlock event) {
+        ItemStack stack = event.getItemStack();
+        IFluidHandlerItem handlerItem = FluidUtil.getFluidHandler(stack);
+        if (handlerItem != null) {
+            //Don't need to do buckets
+            if (stack.getItem() instanceof ItemBucket)
+                return;
+            RayTraceResult result = new RayTraceResult(event.getHitVec(), event.getFace(), event.getPos());
+            if (MinecraftForge.EVENT_BUS.post(new FillBucketEvent(event.getEntityPlayer(), stack, event.getWorld(), result)))
+                event.setCanceled(true);
+        }
+    }
+
+    @SubscribeEvent
     public void onUseFluidContainer(FillBucketEvent event) {
         if (event.isCanceled()) return;
         if (event.getTarget() != null) {
-
             if (GlobalConfig.debug) {
                 event.getEntityPlayer().sendMessage(new TextComponentTranslation("FillBucketEvent: %s,%s,%s,%s", event.getTarget().getBlockPos(), event.getTarget().typeOfHit, event.getEmptyBucket() != null ? event.getEmptyBucket().getDisplayName() : null, event.getFilledBucket() != null ? event.getFilledBucket().getDisplayName() : null));
                 BWMod.getLog().info("FillBucketEvent: {}, {}, {}", event.getTarget(), event.getEmptyBucket(), event.getFilledBucket());
             }
-
-            event.setFilledBucket(ItemStack.EMPTY);
 
             ItemStack container = event.getEmptyBucket();
             RayTraceResult raytraceresult = event.getTarget();
@@ -86,26 +100,42 @@ public class HCBuckets extends Feature {
             if (!PlayerHelper.isSurvival(player))
                 return;
 
-            event.setCanceled(true);
-
             FluidActionResult result = FluidUtils.tryPickUpFluid(container, player, world, pos, raytraceresult.sideHit);
 
-
             if (result.isSuccess()) {
-                if (player.capabilities.isCreativeMode)
-                    return;
+                event.setCanceled(true);
+                handleFluidActionResult(result, player, container);
+            } else {
+                BlockPos offset = pos.offset(raytraceresult.sideHit);
+                IBlockState state = world.getBlockState(offset);
+                FluidStack fluidStack = FluidUtil.getFluidContained(container);
+                if (fluidStack != null) {
+                    event.setCanceled(true);
+                    if (state.getMaterial().isReplaceable()) {
+                        if (fluidStack.amount == Fluid.BUCKET_VOLUME) {
+                            FluidActionResult placeResult = FluidUtils.tryPlaceFluid(player, world, offset, container, fluidStack);
+                            handleFluidActionResult(placeResult, player, container);
+                        }
+                    }
 
-                container.shrink(1);
-                if (container.isEmpty()) {
-                    //THIS WON'T DO. need the actual hand
-                    player.setHeldItem(EnumHand.MAIN_HAND, result.getResult());
                 }
-                if (!player.inventory.addItemStackToInventory(result.getResult()))
-                    player.dropItem(result.getResult(), false);
             }
         }
     }
 
+
+    public void handleFluidActionResult(FluidActionResult result, EntityPlayer player, ItemStack container) {
+        if (player.capabilities.isCreativeMode)
+            return;
+        container.shrink(1);
+        ItemStack newItem = result.getResult().copy();
+        if (container.isEmpty()) {
+            //THIS WON'T DO. need the actual hand
+            player.setHeldItem(EnumHand.MAIN_HAND, newItem);
+        }
+        if (!player.inventory.addItemStackToInventory(newItem))
+            player.dropItem(newItem, false);
+    }
 
     @SubscribeEvent
     public void onFluidDraining(FluidEvent.FluidDrainingEvent event) {

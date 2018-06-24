@@ -3,7 +3,7 @@ package betterwithmods.util.fluid;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.Fluid;
@@ -46,7 +46,15 @@ public class BlockLiquidWrapper implements IFluidHandler {
         if (doFill) {
             Material material = blockLiquid.getDefaultState().getMaterial();
             BlockLiquid block = BlockLiquid.getFlowingBlock(material);
-            world.setBlockState(blockPos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, 0), 11);
+
+            world.setBlockState(blockPos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, 2), 11);
+            for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+                BlockPos p2 = blockPos.offset(facing);
+                IBlockState state = world.getBlockState(p2);
+                if (state.getMaterial().isReplaceable() && !state.getMaterial().isLiquid())
+                    world.setBlockState(p2, block.getDefaultState().withProperty(BlockLiquid.LEVEL, 5), 11);
+            }
+//            world.setBlockState(blockPos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, 0), 11);
         }
 
         return Fluid.BUCKET_VOLUME;
