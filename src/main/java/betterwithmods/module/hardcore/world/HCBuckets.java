@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.BWMod;
+import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.FluidUtils;
@@ -11,6 +12,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
@@ -32,7 +34,7 @@ import java.util.List;
  */
 public class HCBuckets extends Feature {
     private static List<String> fluidWhitelist;
-    private static List<ItemStack> fluidcontainerBacklist;
+    private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
 
     @Override
@@ -57,7 +59,7 @@ public class HCBuckets extends Feature {
     public void init(FMLInitializationEvent event) {
         //TODO dispenser behavior; for water and lava bucket
 
-        fluidcontainerBacklist = loadItemStackList("Fluid container blacklist", "Blacklist itemstacks from being effected by HCBuckets", new String[]{
+        fluidcontainerBacklist = ConfigHelper.loadPropRLList("Fluid container blacklist", configCategory, "Blacklist itemstacks from being effected by HCBuckets", new String[]{
                 "thermalcultivation:watering_can"
         });
     }
@@ -98,8 +100,17 @@ public class HCBuckets extends Feature {
             if (!PlayerHelper.isSurvival(player))
                 return;
 
-            FluidStack fluidStack = FluidUtil.getFluidContained(container);
 
+            //Skip blacklisted fluidcontainers
+            if (fluidcontainerBacklist.contains(container.getItem().getRegistryName()))
+                return;
+
+            FluidStack fluidStack = FluidUtil.getFluidContained(container);
+            //Ignore blacklisted dimensions
+            if (dimensionBlacklist.contains(world.provider.getDimension()))
+                return;
+
+            //Only use whitelisted fluids.
             if (fluidStack != null && !fluidWhitelist.contains(fluidStack.getFluid().getName())) {
                 return;
             }
