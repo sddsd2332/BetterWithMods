@@ -1,5 +1,6 @@
 package betterwithmods.util.fluid;
 
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -38,6 +39,7 @@ public class BlockLiquidWrapper implements IFluidHandler {
 
     @Override
     public int fill(FluidStack resource, boolean doFill) {
+
         // NOTE: "Filling" means placement in this context!
         if (resource.amount < Fluid.BUCKET_VOLUME) {
             return 0;
@@ -46,18 +48,22 @@ public class BlockLiquidWrapper implements IFluidHandler {
         if (doFill) {
             Material material = blockLiquid.getDefaultState().getMaterial();
             BlockLiquid block = BlockLiquid.getFlowingBlock(material);
-
-            world.setBlockState(blockPos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, 2), 11);
-            for (EnumFacing facing : EnumFacing.HORIZONTALS) {
-                BlockPos p2 = blockPos.offset(facing);
-                IBlockState state = world.getBlockState(p2);
-                if (state.getMaterial().isReplaceable() && !state.getMaterial().isLiquid())
-                    world.setBlockState(p2, block.getDefaultState().withProperty(BlockLiquid.LEVEL, 5), 11);
+            if (!world.isRemote) {
+                setLiquid(world, blockPos, block, 2);
+                for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+                    BlockPos p2 = blockPos.offset(facing);
+                    setLiquid(world, p2, block, 5);
+                }
             }
-//            world.setBlockState(blockPos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, 0), 11);
         }
-
         return Fluid.BUCKET_VOLUME;
+    }
+
+    public void setLiquid(World world, BlockPos pos, Block block, int level) {
+        IBlockState state = world.getBlockState(pos);
+        if (!state.getBlock().equals(block) || state.getValue(BlockLiquid.LEVEL) < level) {
+            world.setBlockState(pos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, level));
+        }
     }
 
     @Nullable

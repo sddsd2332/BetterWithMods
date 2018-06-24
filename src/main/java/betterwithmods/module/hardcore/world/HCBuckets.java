@@ -11,7 +11,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -24,6 +23,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
@@ -103,39 +103,31 @@ public class HCBuckets extends Feature {
             FluidActionResult result = FluidUtils.tryPickUpFluid(container, player, world, pos, raytraceresult.sideHit);
 
             if (result.isSuccess()) {
-                event.setCanceled(true);
-                handleFluidActionResult(result, player, container);
+                if (player.getCooldownTracker().hasCooldown(container.getItem())) {
+                    event.setCanceled(true);
+                    return;
+                }
+                event.setResult(Event.Result.ALLOW);
+                event.setFilledBucket(result.getResult());
+                player.getCooldownTracker().setCooldown(container.getItem(), 20);
             } else {
                 BlockPos offset = pos.offset(raytraceresult.sideHit);
                 IBlockState state = world.getBlockState(offset);
                 FluidStack fluidStack = FluidUtil.getFluidContained(container);
                 if (fluidStack != null) {
-                    event.setCanceled(true);
                     if (state.getMaterial().isReplaceable()) {
                         if (fluidStack.amount == Fluid.BUCKET_VOLUME) {
                             FluidActionResult placeResult = FluidUtils.tryPlaceFluid(player, world, offset, container, fluidStack);
-                            handleFluidActionResult(placeResult, player, container);
+                            event.setResult(Event.Result.ALLOW);
+                            event.setFilledBucket(placeResult.getResult());
+
                         }
                     }
-
                 }
             }
         }
     }
 
-
-    public void handleFluidActionResult(FluidActionResult result, EntityPlayer player, ItemStack container) {
-        if (player.capabilities.isCreativeMode)
-            return;
-        container.shrink(1);
-        ItemStack newItem = result.getResult().copy();
-        if (container.isEmpty()) {
-            //THIS WON'T DO. need the actual hand
-            player.setHeldItem(EnumHand.MAIN_HAND, newItem);
-        }
-        if (!player.inventory.addItemStackToInventory(newItem))
-            player.dropItem(newItem, false);
-    }
 
     @SubscribeEvent
     public void onFluidDraining(FluidEvent.FluidDrainingEvent event) {

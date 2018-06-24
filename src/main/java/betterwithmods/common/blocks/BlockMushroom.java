@@ -51,7 +51,7 @@ public class BlockMushroom extends net.minecraft.block.BlockMushroom {
                 }
 
                 if (worldIn.isAirBlock(grow_pos) && this.canBlockStay(worldIn, grow_pos, this.getDefaultState())) {
-                    worldIn.setBlockState(grow_pos, this.getDefaultState(), 2);
+                    worldIn.setBlockState(grow_pos, this.getDefaultState(), 3);
                 }
             }
         }
