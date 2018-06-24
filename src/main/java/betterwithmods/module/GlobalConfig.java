@@ -2,10 +2,13 @@ package betterwithmods.module;
 
 import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.common.blocks.BlockHemp;
+import net.minecraftforge.fluids.Fluid;
 
 public final class GlobalConfig {
     public static boolean debug;
     public static int maxPlatformBlocks;
+
+    public static int waterBottleAmount;
 
     public static void initGlobalConfig() {
         String category = "_global";
@@ -17,12 +20,12 @@ public final class GlobalConfig {
 
         ConfigHelper.needsRestart = ConfigHelper.allNeedRestart = false;
 
-        BlockHemp.growthChance = ConfigHelper.loadPropDouble("Growth Chance","Hemp","Hemp has a 1/X chance of growing where X is this value, the following modifiers divide this value", 15D);
-        BlockHemp.fertileModifier = ConfigHelper.loadPropDouble("Fertile Modifier","Hemp","Modifies Hemp Growth Chance when planted on Fertile Farmland", 1.33);
-        BlockHemp.lampModifier = ConfigHelper.loadPropDouble("Light Block Modifier","Hemp","Modifies Hemp Growth Chance when a Light Block is two blocks above the Hemp",  1.5D);
-        BlockHemp.neighborModifier = ConfigHelper.loadPropDouble("Neighbor Modifier","Hemp","Modifies Hemp Growth Chance for each other crop next to it ",  1.1D);
+        BlockHemp.growthChance = ConfigHelper.loadPropDouble("Growth Chance", "Hemp", "Hemp has a 1/X chance of growing where X is this value, the following modifiers divide this value", 15D);
+        BlockHemp.fertileModifier = ConfigHelper.loadPropDouble("Fertile Modifier", "Hemp", "Modifies Hemp Growth Chance when planted on Fertile Farmland", 1.33);
+        BlockHemp.lampModifier = ConfigHelper.loadPropDouble("Light Block Modifier", "Hemp", "Modifies Hemp Growth Chance when a Light Block is two blocks above the Hemp", 1.5D);
+        BlockHemp.neighborModifier = ConfigHelper.loadPropDouble("Neighbor Modifier", "Hemp", "Modifies Hemp Growth Chance for each other crop next to it ", 1.1D);
 
-
+        waterBottleAmount = ConfigHelper.loadPropInt("Water Bottle Fluid amount", category, "The amount of fluid contained in a glass bottle", "", Fluid.BUCKET_VOLUME / 3, 0, Fluid.BUCKET_VOLUME);
     }
 
     public static void initGlobalClient() {
