@@ -12,19 +12,22 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
@@ -78,17 +81,26 @@ public class HCBuckets extends Feature {
             //Don't need to do buckets
             if (stack.getItem() instanceof ItemBucket)
                 return;
+            
+            if (fluidcontainerBacklist.contains(stack.getItem().getRegistryName()))
+                return;
+
             FluidStack contained = FluidUtil.getFluidContained(stack);
 
             RayTraceResult raytraceresult = stack.getItem().rayTrace(event.getWorld(), event.getEntityPlayer(), contained == null);
 
-            FillBucketEvent fillBucketEvent = new FillBucketEvent(event.getEntityPlayer(), stack, event.getWorld(), raytraceresult);
-            if (MinecraftForge.EVENT_BUS.post(fillBucketEvent))
-                event.setCanceled(true);
+            ActionResult<ItemStack> actionResult = ForgeEventFactory.onBucketUse(event.getEntityPlayer(), event.getWorld(), stack, raytraceresult);
+            if (actionResult != null && actionResult.getType() == EnumActionResult.SUCCESS) {
+                if (stack != actionResult.getResult()) {
+                    event.getEntityPlayer().setHeldItem(event.getHand(), actionResult.getResult());
+                    event.setCanceled(true);
+                }
+            }
         }
     }
 
-    @SubscribeEvent
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onUseFluidContainer(FillBucketEvent event) {
         if (event.isCanceled()) return;
         if (event.getTarget() != null) {
@@ -120,18 +132,15 @@ public class HCBuckets extends Feature {
 
 
             if (result.isSuccess()) {
-
                 if (player.getCooldownTracker().hasCooldown(container.getItem())) {
                     event.setCanceled(true);
                     return;
                 }
                 event.setResult(Event.Result.ALLOW);
                 event.setFilledBucket(result.getResult());
-                if (container.getItem() instanceof ItemBucket) {
-                    //Add a cool down to buckets so you cannot pickup fluid from small puddle made when dumping a bucket.
-                    //(Stops you from using a single bucket to traverse a lava pool)
-                    player.getCooldownTracker().setCooldown(container.getItem(), 20);
-                }
+                //Add a cool down so you cannot pickup fluid from small puddle made when dumping it.
+                //(Stops you from using a single bucket to traverse a lava pool)
+                player.getCooldownTracker().setCooldown(container.getItem(), 20);
             } else {
                 //No fluid was found, try to place one instead
                 BlockPos offset = pos.offset(raytraceresult.sideHit);
