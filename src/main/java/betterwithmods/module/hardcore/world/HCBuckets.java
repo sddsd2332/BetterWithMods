@@ -162,9 +162,4 @@ public class HCBuckets extends Feature {
         }
     }
 
-
-    @SubscribeEvent
-    public void onFluidDraining(FluidEvent.FluidDrainingEvent event) {
-
-    }
 }
