@@ -115,23 +115,32 @@ public class HCBuckets extends Feature {
                 return;
             }
 
+            //Attempt to pick up a BlockFluidBase or BlockLiquidBase using our custom wrappers.
             FluidActionResult result = FluidUtils.tryPickUpFluid(container, player, world, pos, raytraceresult.sideHit);
 
+
             if (result.isSuccess()) {
+
                 if (player.getCooldownTracker().hasCooldown(container.getItem())) {
                     event.setCanceled(true);
                     return;
                 }
                 event.setResult(Event.Result.ALLOW);
                 event.setFilledBucket(result.getResult());
-                if (container.getItem() instanceof ItemBucket)
+                if (container.getItem() instanceof ItemBucket) {
+                    //Add a cool down to buckets so you cannot pickup fluid from small puddle made when dumping a bucket.
+                    //(Stops you from using a single bucket to traverse a lava pool)
                     player.getCooldownTracker().setCooldown(container.getItem(), 20);
+                }
             } else {
+                //No fluid was found, try to place one instead
                 BlockPos offset = pos.offset(raytraceresult.sideHit);
                 IBlockState state = world.getBlockState(offset);
                 if (state.getMaterial().isReplaceable()) {
+
                     if (fluidStack != null) {
                         if (fluidStack.amount == Fluid.BUCKET_VOLUME) {
+                            //Try to place the fluid using our custom wrappers again, does not create a source block.
                             FluidActionResult placeResult = FluidUtils.tryPlaceFluid(player, world, offset, container, fluidStack);
                             if (placeResult.isSuccess()) {
                                 event.setResult(Event.Result.ALLOW);
@@ -140,6 +149,7 @@ public class HCBuckets extends Feature {
                         }
                     }
                 } else if (!state.getMaterial().isOpaque()) {
+                    //Can't place it here.
                     event.setCanceled(true);
                 }
             }
