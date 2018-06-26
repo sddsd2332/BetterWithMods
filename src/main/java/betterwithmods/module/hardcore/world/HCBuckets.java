@@ -1,52 +1,34 @@
 package betterwithmods.module.hardcore.world;
 
+import betterwithmods.BWMod;
+import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
-import betterwithmods.util.DispenserBehaviorFiniteWater;
-import betterwithmods.util.InvUtils;
+import betterwithmods.module.GlobalConfig;
+import betterwithmods.util.FluidUtils;
 import betterwithmods.util.player.PlayerHelper;
+import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
-import net.minecraft.dispenser.IBehaviorDispenseItem;
-import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
-import net.minecraft.init.MobEffects;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.EnumAction;
-import net.minecraft.item.Item;
+import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.DamageSource;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.ActionResult;
+import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
-import net.minecraft.util.registry.RegistryDefaulted;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fluids.DispenseFluidContainer;
-import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fluids.FluidStack;
-import net.minecraftforge.fluids.FluidUtil;
-import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
-import net.minecraftforge.fluids.capability.IFluidHandler;
+import net.minecraftforge.fluids.*;
+import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 
 import java.util.List;
 
@@ -54,32 +36,9 @@ import java.util.List;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCBuckets extends Feature {
-    private static boolean hardcoreFluidContainer;
-    private static boolean disableLavaBuckets;
-    private static boolean riskyLavaBuckets;
+    private static List<String> fluidWhitelist;
+    private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
-
-    private static List<ItemStack> bucketBlacklist;
-
-    public static void editModdedFluidDispenseBehavior() {
-        if (!hardcoreFluidContainer)
-            return;
-        RegistryDefaulted<Item, IBehaviorDispenseItem> reg = BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY;
-        for (Item item : Item.REGISTRY) {
-            if (isFluidContainer(new ItemStack(item))) {
-                if (reg.getObject(item) instanceof DispenseFluidContainer)
-                    reg.putObject(item, new DispenserBehaviorFiniteWater());
-            }
-        }
-    }
-
-    private static boolean isFluidContainer(ItemStack stack) {
-        return bucketBlacklist.stream().noneMatch(stack::isItemEqual) && InvUtils.isFluidContainer(stack);
-    }
-
-    private static boolean isNonVanillaBucket(ItemStack stack) {
-        return stack.getItem() != Items.BUCKET && stack.getItem() != Items.WATER_BUCKET && stack.getItem() != Items.LAVA_BUCKET && stack.getItem() != Items.MILK_BUCKET && isFluidContainer(stack);
-    }
 
     @Override
     public String getFeatureDescription() {
@@ -88,10 +47,15 @@ public class HCBuckets extends Feature {
 
     @Override
     public void setupConfig() {
-        hardcoreFluidContainer = loadPropBool("Hardcore Fluid Container", "Hardcore Buckets Affects Modded Fluid Containers", true);
-        disableLavaBuckets = loadPropBool("Hardcore Lava Buckets", "You can't put Lava in a metal bucket! Are you crazy!?", false);
-        riskyLavaBuckets = loadPropBool("Risky Lava Buckets", "Makes Lava Buckets really hot, be careful. If only you could have some Resistance to Fire! ", true);
         dimensionBlacklist = Ints.asList(loadPropIntList("Dimension Black List", "A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to create.", new int[]{DimensionType.THE_END.getId()}));
+        fluidWhitelist = Lists.newArrayList(loadPropStringList("Fluid Whitelist", "List of fluids that will be handled by HCBuckets.", new String[]{
+                FluidRegistry.WATER.getName(),
+                "swamp_water",
+                "milk",
+                "stagnant_water",
+                "acid",
+                "sludge",
+        }));
     }
 
     @Override
@@ -101,279 +65,124 @@ public class HCBuckets extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.WATER_BUCKET, new BehaviorDefaultDispenseItem() {
-            @Override
-            public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-                ItemStack outputStack = stack.copy();
-                BlockPos pos = source.getBlockPos().offset(source.getBlockState().getValue(BlockDispenser.FACING));
-                if (source.getWorld().isAirBlock(pos)
-                        || source.getWorld().getBlockState(pos).getBlock().isReplaceable(source.getWorld(), pos)) {
-                    source.getWorld().setBlockState(pos, Blocks.FLOWING_WATER.getStateFromMeta(2));
-                    for (EnumFacing face : EnumFacing.HORIZONTALS) {
-                        BlockPos off = pos.offset(face);
-                        if (source.getWorld().isAirBlock(off) || source.getWorld().getBlockState(off).getBlock()
-                                .isReplaceable(source.getWorld(), off))
-                            source.getWorld().setBlockState(off, Blocks.FLOWING_WATER.getStateFromMeta(5));
-                    }
-                    outputStack = new ItemStack(Items.BUCKET, 1);
-                }
-                return outputStack;
-            }
-        });
-        bucketBlacklist = loadItemStackList("Fluid container blacklist", "Blacklist itemstacks from being effected by HCBuckets", new String[]{
+        //TODO dispenser behavior; for water and lava bucket
+
+        fluidcontainerBacklist = ConfigHelper.loadPropRLList("Fluid container blacklist", configCategory, "Blacklist itemstacks from being effected by HCBuckets", new String[]{
                 "thermalcultivation:watering_can"
         });
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
-        editModdedFluidDispenseBehavior();
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void fillFromFlowing(PlayerInteractEvent.RightClickBlock e) {
-        if (e.getHand() != EnumHand.MAIN_HAND)
-            return;
-        ItemStack stack = e.getItemStack();
-        EntityPlayer player = e.getEntityPlayer();
-        if (isFluidContainer(stack)) {
-            FluidStack fluid = FluidUtil.getFluidContained(stack);
-            if (fluid == null || fluid.getFluid() == null) {
-                if (!player.capabilities.isCreativeMode) {
-                    if (stack.getItem() == Items.BUCKET) {
-                        MinecraftForge.EVENT_BUS.post(new FillBucketEvent(player, stack, e.getWorld(), new RayTraceResult(e.getHitVec(), e.getFace())));
-                        return;
-                    }
-                    e.setResult(Event.Result.ALLOW);
-                }
-            }
-
-        }
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void fluidContainerUse(FillBucketEvent evt) {
-        if (!hardcoreFluidContainer)
-            return;
-
-        if (evt.getEmptyBucket().isEmpty()) {
-            evt.setResult(Event.Result.DENY);
-            return;
-        }
-
-        FluidStack fluid = FluidUtil.getFluidContained(evt.getEmptyBucket());
-
-        RayTraceResult target = evt.getTarget();
-        EntityPlayer player = evt.getEntityPlayer();
-        boolean dimValid = evt.getWorld().provider.getDimensionType() == DimensionType.OVERWORLD;
-
-        if (dimValid) {
-            if (target != null && target.typeOfHit == RayTraceResult.Type.BLOCK) {
-                BlockPos pos = target.getBlockPos().offset(target.sideHit);
-                IBlockState state = evt.getWorld().getBlockState(pos);
-
-                if (fluid == null || fluid.getFluid() == null) {
-                    if (isWater(state) && state.getBlock().getMetaFromState(state) > 0) {
-                        if (!player.capabilities.isCreativeMode) {
-
-
-                            if (evt.getEmptyBucket().getItem() == Items.BUCKET) {
-                                evt.setFilledBucket(new ItemStack(Items.WATER_BUCKET));
-                                return;
-                            } else if (isFluidContainer(evt.getEmptyBucket()) && hardcoreFluidContainer) {
-                                ItemStack fill = evt.getEmptyBucket().copy();
-                                IFluidHandler cap = fill.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
-                                if (cap != null)
-                                    cap.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
-                                evt.setFilledBucket(fill);
-                                return;
-                            }
-                            evt.setResult(Event.Result.DENY);
-                        }
-                    }
-                } else if (fluid.getFluid() != null && fluid.getFluid() == FluidRegistry.WATER) {
-                    if (state.getBlock().isAir(state, evt.getWorld(), pos) || state.getBlock().isReplaceable(evt.getWorld(), pos)) {
-                        if (!player.capabilities.isCreativeMode) {
-                            if ((evt.getEmptyBucket().getItem() == Items.WATER_BUCKET) || (isNonVanillaBucket(evt.getEmptyBucket()) && hardcoreFluidContainer))
-                                bucketEmpty(evt, pos, evt.getEmptyBucket());
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private void bucketEmpty(FillBucketEvent evt, BlockPos pos, ItemStack equip) {
-        if (isWater(evt.getWorld().getBlockState(pos))) {
-            IBlockState state = evt.getWorld().getBlockState(pos);
-            if (state.getBlock().getMetaFromState(state) > 0) {
-                emptyBucket(evt, pos, equip);
-            }
-        } else {
-            emptyBucket(evt, pos, equip);
-        }
-    }
-
-    private void emptyBucket(FillBucketEvent evt, BlockPos pos, ItemStack equip) {
-        Item item = equip.getItem();
-        evt.getWorld().setBlockState(pos, Blocks.FLOWING_WATER.getStateFromMeta(2));
-        for (EnumFacing facing : EnumFacing.HORIZONTALS) {
-            BlockPos p2 = pos.offset(facing);
-            if (!isWater(evt.getWorld().getBlockState(p2)) && (evt.getWorld().getBlockState(p2).getBlock().isAir(evt.getWorld().getBlockState(p2), evt.getWorld(), p2) || evt.getWorld().getBlockState(p2).getBlock().isReplaceable(evt.getWorld(), p2)))
-                evt.getWorld().setBlockState(p2, Blocks.FLOWING_WATER.getStateFromMeta(5));
-        }
-        evt.getWorld().playSound(null, pos, SoundEvents.ITEM_BUCKET_EMPTY, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        evt.setFilledBucket(item.getContainerItem(equip).copy());
-        evt.setResult(Event.Result.ALLOW);
-    }
-
-    private boolean isWater(IBlockState state) {
-        return state.getBlock() == Blocks.WATER || state.getBlock() == Blocks.FLOWING_WATER;
-    }
-
-    private boolean isLava(Block block) {
-        return block == Blocks.LAVA || block == Blocks.FLOWING_LAVA;
-    }
-
-    @SubscribeEvent
-    public void fluidContainerUse(PlayerInteractEvent.RightClickBlock event) {
-        if (!hardcoreFluidContainer)
-            return;
-
-        ItemStack toCheck = event.getEntityPlayer().getHeldItem(event.getHand());
-        if (toCheck.isEmpty() || toCheck.getItem() == Items.WATER_BUCKET || !isNonVanillaBucket(toCheck))
-            return;
-
-
-        FluidStack fluid = FluidUtil.getFluidContained(toCheck);
-
-        if (fluid == null || fluid.getFluid() == null || fluid.getFluid() != FluidRegistry.WATER)
-            return;
-
-
-        World world = event.getWorld();
-        if (!world.isRemote) {
-            IFluidHandler handler = FluidUtil.getFluidHandler(world, event.getPos(), event.getFace());
-            if (handler != null)
-                return;
-            IBlockState state = world.getBlockState(event.getPos());
-            Block block = state.getBlock();
-            event.setUseBlock(Event.Result.DENY);
-            boolean replaceable = block.isReplaceable(world, event.getPos());
-            BlockPos pos = replaceable ? event.getPos() : event.getPos().offset(event.getFace());
-            if (!world.getBlockState(pos).getMaterial().isReplaceable())
-                return;
-            state = world.getBlockState(pos);
-            if (!dimensionBlacklist.contains(world.provider.getDimension())) {
-                if (event.getEntityPlayer() instanceof EntityPlayerMP) {
-                    if (event.getUseBlock() == Event.Result.DENY) {
-                        if (state.getBlock().isAir(state, world, pos) || state.getBlock().isReplaceable(world, pos)) {
-                            Item item = toCheck.getItem();
-                            if (item.getItemUseAction(toCheck) == EnumAction.NONE) {
-                                if (isWater(state)) {
-                                    if (state.getBlock().getMetaFromState(state) > 0) {
-                                        placeContainerFluid(event, pos, toCheck);
-                                    }
-                                } else {
-                                    placeContainerFluid(event, pos, toCheck);
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    private void placeContainerFluid(PlayerInteractEvent.RightClickBlock evt, BlockPos pos, ItemStack equip) {
-        if (!evt.getEntityPlayer().capabilities.isCreativeMode) {
-            Item item = equip.getItem();
-            evt.getWorld().setBlockState(pos, Blocks.FLOWING_WATER.getStateFromMeta(2));
-            for (EnumFacing facing : EnumFacing.HORIZONTALS) {
-                BlockPos p2 = pos.offset(facing);
-                if (!isWater(evt.getWorld().getBlockState(p2)) && (evt.getWorld().getBlockState(p2).getBlock().isAir(evt.getWorld().getBlockState(p2), evt.getWorld(), p2) || evt.getWorld().getBlockState(p2).getBlock().isReplaceable(evt.getWorld(), p2)))
-                    evt.getWorld().setBlockState(p2, Blocks.FLOWING_WATER.getStateFromMeta(5));
-            }
-            if (equip.getCount() == 1) {
-                EnumHand hand = evt.getHand();
-                evt.getEntityPlayer().setItemStackToSlot(
-                        hand == EnumHand.OFF_HAND ? EntityEquipmentSlot.OFFHAND : EntityEquipmentSlot.MAINHAND, item.hasContainerItem(equip) ? item.getContainerItem(equip).copy() : null);
-            } else if (equip.getCount() > 1) {
-                equip.shrink(1);
-                if (item.hasContainerItem(equip))
-                    evt.getEntityPlayer().inventory.addItemStackToInventory(item.getContainerItem(equip).copy());
-                evt.setUseItem(Event.Result.DENY);
-            }
-            evt.setCanceled(true);
-        }
-    }
-
-    @SubscribeEvent
-    public void checkPlayerInventory(TickEvent.PlayerTickEvent e) {
-        World world = e.player.getEntityWorld();
-        if (world.isRemote)
-            return;
-        if (riskyLavaBuckets) {
-            boolean isPlayerRisky = e.player.isSprinting() || !e.player.onGround;
-            if (isPlayerRisky && world.getTotalWorldTime() % 10 == 0) {
-                if (!e.player.isPotionActive(MobEffects.FIRE_RESISTANCE) && !e.player.capabilities.isCreativeMode) {
-                    IItemHandler inv = e.player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-                    BlockPos pos = e.player.getPosition();
-                    if (inv != null) {
-                        for (int i = 0; i < inv.getSlots(); i++) {
-                            ItemStack stack = inv.getStackInSlot(i);
-                            if (world.rand.nextInt(50) == 0) {
-                                if (!stack.isEmpty() && stack.isItemEqual(new ItemStack(Items.LAVA_BUCKET))) {
-                                    IFluidHandler bucket = stack.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null);
-                                    if (bucket != null) {
-                                        bucket.drain(1000, true);
-                                        world.playSound(e.player, pos, SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.PLAYERS, 1, 1);
-                                        placeLavaBucket(world, pos.offset(e.player.getHorizontalFacing()), 0);
-                                    } else {
-                                        inv.extractItem(i, 1, false);
-                                        inv.insertItem(i, new ItemStack(Items.BUCKET), false);
-                                        world.playSound(e.player, pos, SoundEvents.ITEM_BUCKET_EMPTY_LAVA, SoundCategory.PLAYERS, 1, 1);
-                                        placeLavaBucket(world, pos.offset(e.player.getHorizontalFacing()), 0);
-                                    }
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    }
-
-    public void placeLavaBucket(World world, BlockPos pos, int depth) {
-        if (depth >= 5)
-            return;
-        if (world.isAirBlock(pos)) {
-            world.setBlockState(pos, Blocks.FLOWING_LAVA.getDefaultState());
-        } else {
-            placeLavaBucket(world, pos.offset(EnumFacing.VALUES[world.rand.nextInt(6)]), depth++);
-        }
-    }
-
-    @SubscribeEvent
-    public void onFillBucket(FillBucketEvent e) {
-        if (disableLavaBuckets && PlayerHelper.isSurvival(e.getEntityPlayer())) {
-            if (e.getEntityPlayer().isPotionActive(MobEffects.FIRE_RESISTANCE))
-                return;
-            if (e.getTarget() != null && e.getTarget().typeOfHit == RayTraceResult.Type.BLOCK) {
-                Block block = e.getWorld().getBlockState(e.getTarget().getBlockPos()).getBlock();
-
-                if (isLava(block)) {
-                    e.getEntityPlayer().attackEntityFrom(DamageSource.LAVA, 1);
-                    e.getWorld().playSound(null, e.getTarget().getBlockPos(), SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 1, 1.5f);
-                    e.setCanceled(true);
-                }
-            }
-        }
-    }
-
-
-    @Override
     public boolean hasSubscriptions() {
         return true;
     }
+
+
+    @SubscribeEvent
+    public void onInteractFluidHandlerItem(PlayerInteractEvent.RightClickItem event) {
+        ItemStack stack = event.getItemStack();
+        IFluidHandlerItem handlerItem = FluidUtil.getFluidHandler(stack);
+        if (handlerItem != null) {
+            //Don't need to do buckets
+            if (stack.getItem() instanceof ItemBucket)
+                return;
+            
+            if (fluidcontainerBacklist.contains(stack.getItem().getRegistryName()))
+                return;
+
+            FluidStack contained = FluidUtil.getFluidContained(stack);
+
+            RayTraceResult raytraceresult = stack.getItem().rayTrace(event.getWorld(), event.getEntityPlayer(), contained == null);
+
+            ActionResult<ItemStack> actionResult = ForgeEventFactory.onBucketUse(event.getEntityPlayer(), event.getWorld(), stack, raytraceresult);
+            if (actionResult != null && actionResult.getType() == EnumActionResult.SUCCESS) {
+                if (stack != actionResult.getResult()) {
+                    event.getEntityPlayer().setHeldItem(event.getHand(), actionResult.getResult());
+                    event.setCanceled(true);
+                }
+            }
+        }
+    }
+
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void onUseFluidContainer(FillBucketEvent event) {
+        if (event.isCanceled()) return;
+        if (event.getTarget() != null) {
+            ItemStack container = event.getEmptyBucket();
+            RayTraceResult raytraceresult = event.getTarget();
+            BlockPos pos = raytraceresult.getBlockPos();
+            World world = event.getWorld();
+            EntityPlayer player = event.getEntityPlayer();
+            if (!PlayerHelper.isSurvival(player))
+                return;
+
+
+            //Skip blacklisted fluidcontainers
+            if (fluidcontainerBacklist.contains(container.getItem().getRegistryName()))
+                return;
+
+            FluidStack fluidStack = FluidUtil.getFluidContained(container);
+            //Ignore blacklisted dimensions
+            if (dimensionBlacklist.contains(world.provider.getDimension()))
+                return;
+
+            //Only use whitelisted fluids.
+            if (fluidStack != null && !fluidWhitelist.contains(fluidStack.getFluid().getName())) {
+                return;
+            }
+
+            //Attempt to pick up a BlockFluidBase or BlockLiquidBase using our custom wrappers.
+            FluidActionResult result = FluidUtils.tryPickUpFluid(container, player, world, pos, raytraceresult.sideHit);
+
+
+            if (result.isSuccess()) {
+                if (player.getCooldownTracker().hasCooldown(container.getItem())) {
+                    event.setCanceled(true);
+                    return;
+                }
+
+                ItemStack filledContainer = result.getResult();
+                FluidStack filledFluidStack = FluidUtil.getFluidContained(filledContainer);
+
+                if (filledFluidStack != null && !fluidWhitelist.contains(filledFluidStack.getFluid().getName())) {
+                    event.setResult(Event.Result.DENY);
+                    return;
+                }
+
+                event.setResult(Event.Result.ALLOW);
+                event.setFilledBucket(result.getResult());
+                //Add a cool down so you cannot pickup fluid from small puddle made when dumping it.
+                //(Stops you from using a single bucket to traverse a lava pool)
+                player.getCooldownTracker().setCooldown(container.getItem(), 20);
+            } else {
+                //No fluid was found, try to place one instead
+                BlockPos offset = pos.offset(raytraceresult.sideHit);
+                IBlockState state = world.getBlockState(offset);
+                if (state.getMaterial().isReplaceable()) {
+
+                    if (fluidStack != null) {
+                        if (fluidStack.amount == Fluid.BUCKET_VOLUME) {
+                            //Try to place the fluid using our custom wrappers again, does not create a source block.
+                            FluidActionResult placeResult = FluidUtils.tryPlaceFluid(player, world, offset, container, fluidStack);
+                            if (placeResult.isSuccess()) {
+                                event.setResult(Event.Result.ALLOW);
+                                event.setFilledBucket(placeResult.getResult());
+                            }
+                        }
+                    }
+                } else if (!state.getMaterial().isOpaque()) {
+                    //Can't place it here.
+                    event.setCanceled(true);
+                }
+            }
+
+            if (GlobalConfig.debug) {
+                event.getEntityPlayer().sendMessage(new TextComponentTranslation("FillBucketEvent: %s,%s,%s,%s", event.getTarget().getBlockPos(), event.getTarget().typeOfHit, event.getEmptyBucket() != null ? event.getEmptyBucket().getDisplayName() : null, event.getFilledBucket() != null ? event.getFilledBucket().getDisplayName() : null));
+                BWMod.getLog().info("FillBucketEvent: {}, {}, {}", event.getTarget(), event.getEmptyBucket(), event.getFilledBucket());
+            }
+
+        }
+    }
+
 }
