@@ -14,8 +14,6 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.entity.item.EntityMinecartEmpty;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -212,35 +210,36 @@ public final class BWMBlocks {
     }
 
     public static void registerTileEntities() {
-        GameRegistry.registerTileEntity(TileEntityMill.class, "bwm.millstone");
-        GameRegistry.registerTileEntity(TileEntityPulley.class, "bwm.pulley");
-        GameRegistry.registerTileEntity(TileEntityFilteredHopper.class, "bwm.hopper");
-        GameRegistry.registerTileEntity(TileEntityCauldron.class, "bwm.cauldron");
-        GameRegistry.registerTileEntity(TileEntityCrucible.class, "bwm.crucible");
-        GameRegistry.registerTileEntity(TileEntityDragonVessel.class, "bwm.vessel");
-        GameRegistry.registerTileEntity(TileEntityTurntable.class, "bwm.turntable");
-        GameRegistry.registerTileEntity(TileEntitySteelAnvil.class, "bwm.steelAnvil");
-        GameRegistry.registerTileEntity(TileEntityVase.class, "bwm.vase");
-        GameRegistry.registerTileEntity(TileEntityWindmillVertical.class, "bwm.vert_windmill");
-        GameRegistry.registerTileEntity(TileEntityWindmillHorizontal.class, "bwm.horiz_windmill");
-        GameRegistry.registerTileEntity(TileEntityWaterwheel.class, "bwm.waterwheel");
-        GameRegistry.registerTileEntity(TileEntityBlockDispenser.class, "bwm.block_dispenser");
-        GameRegistry.registerTileEntity(TileEntityCreativeGen.class, "bwm.creative_generator");
-        GameRegistry.registerTileEntity(TileGearbox.class, "bwm.gearbox");
-        GameRegistry.registerTileEntity(TileBellows.class, "bwm.bellows");
-        GameRegistry.registerTileEntity(TileEntityBeacon.class, "bwm.beacon");
-        GameRegistry.registerTileEntity(TileEnderchest.class, "bwm.enderchest");
-        GameRegistry.registerTileEntity(TileAxle.class, "bwm.axle");
-        GameRegistry.registerTileEntity(TileSaw.class, "bwm.saw");
-        GameRegistry.registerTileEntity(TilePump.class, "bwm.pump");
-        GameRegistry.registerTileEntity(TileCrank.class, "bwm.crank");
-        GameRegistry.registerTileEntity(TileSteelSaw.class, "bwm.steel_saw");
-        GameRegistry.registerTileEntity(TileEntityInfernalEnchanter.class, "bwm.infernal_enchanter");
-        GameRegistry.registerTileEntity(TileEntityMultiType.class, "bwm.multiType");
-        GameRegistry.registerTileEntity(TileKiln.class, "bwm.camo");
-        GameRegistry.registerTileEntity(TileMerger.class, "bwm.steel_merger");
-        GameRegistry.registerTileEntity(TileFurnace.class, "bwm.furnace");
-        GameRegistry.registerTileEntity(TileEntityBucket.class, "bwm.bucket");
+        //TODO Change to BWMod.MODID domain in 1.13
+        GameRegistry.registerTileEntity(TileEntityMill.class, new ResourceLocation("bwm.millstone"));
+        GameRegistry.registerTileEntity(TileEntityPulley.class, new ResourceLocation("bwm.pulley"));
+        GameRegistry.registerTileEntity(TileEntityFilteredHopper.class, new ResourceLocation("bwm.hopper"));
+        GameRegistry.registerTileEntity(TileEntityCauldron.class, new ResourceLocation("bwm.cauldron"));
+        GameRegistry.registerTileEntity(TileEntityCrucible.class, new ResourceLocation("bwm.crucible"));
+        GameRegistry.registerTileEntity(TileEntityDragonVessel.class, new ResourceLocation("bwm.vessel"));
+        GameRegistry.registerTileEntity(TileEntityTurntable.class, new ResourceLocation("bwm.turntable"));
+        GameRegistry.registerTileEntity(TileEntitySteelAnvil.class, new ResourceLocation("bwm.steelAnvil"));
+        GameRegistry.registerTileEntity(TileEntityVase.class, new ResourceLocation("bwm.vase"));
+        GameRegistry.registerTileEntity(TileEntityWindmillVertical.class, new ResourceLocation("bwm.vert_windmill"));
+        GameRegistry.registerTileEntity(TileEntityWindmillHorizontal.class, new ResourceLocation("bwm.horiz_windmill"));
+        GameRegistry.registerTileEntity(TileEntityWaterwheel.class, new ResourceLocation("bwm.waterwheel"));
+        GameRegistry.registerTileEntity(TileEntityBlockDispenser.class, new ResourceLocation("bwm.block_dispenser"));
+        GameRegistry.registerTileEntity(TileEntityCreativeGen.class, new ResourceLocation("bwm.creative_generator"));
+        GameRegistry.registerTileEntity(TileGearbox.class, new ResourceLocation("bwm.gearbox"));
+        GameRegistry.registerTileEntity(TileBellows.class, new ResourceLocation("bwm.bellows"));
+        GameRegistry.registerTileEntity(TileEntityBeacon.class, new ResourceLocation("bwm.beacon"));
+        GameRegistry.registerTileEntity(TileEnderchest.class, new ResourceLocation("bwm.enderchest"));
+        GameRegistry.registerTileEntity(TileAxle.class, new ResourceLocation("bwm.axle"));
+        GameRegistry.registerTileEntity(TileSaw.class, new ResourceLocation("bwm.saw"));
+        GameRegistry.registerTileEntity(TilePump.class, new ResourceLocation("bwm.pump"));
+        GameRegistry.registerTileEntity(TileCrank.class, new ResourceLocation("bwm.crank"));
+        GameRegistry.registerTileEntity(TileSteelSaw.class, new ResourceLocation("bwm.steel_saw"));
+        GameRegistry.registerTileEntity(TileEntityInfernalEnchanter.class, new ResourceLocation("bwm.infernal_enchanter"));
+        GameRegistry.registerTileEntity(TileEntityMultiType.class, new ResourceLocation("bwm.multiType"));
+        GameRegistry.registerTileEntity(TileKiln.class, new ResourceLocation("bwm.camo"));
+        GameRegistry.registerTileEntity(TileMerger.class, new ResourceLocation("bwm.steel_merger"));
+        GameRegistry.registerTileEntity(TileFurnace.class, new ResourceLocation("bwm.furnace"));
+        GameRegistry.registerTileEntity(TileEntityBucket.class, new ResourceLocation("bwm.bucket"));
     }
 
     /**
