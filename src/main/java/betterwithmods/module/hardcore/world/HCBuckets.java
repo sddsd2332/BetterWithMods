@@ -49,7 +49,12 @@ public class HCBuckets extends Feature {
     public void setupConfig() {
         dimensionBlacklist = Ints.asList(loadPropIntList("Dimension Black List", "A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to create.", new int[]{DimensionType.THE_END.getId()}));
         fluidWhitelist = Lists.newArrayList(loadPropStringList("Fluid Whitelist", "List of fluids that will be handled by HCBuckets.", new String[]{
-                FluidRegistry.WATER.getName()
+                FluidRegistry.WATER.getName(),
+                "swamp_water",
+                "milk",
+                "stagnant_water",
+                "acid",
+                "sludge",
         }));
     }
 
@@ -136,6 +141,15 @@ public class HCBuckets extends Feature {
                     event.setCanceled(true);
                     return;
                 }
+
+                ItemStack filledContainer = result.getResult();
+                FluidStack filledFluidStack = FluidUtil.getFluidContained(filledContainer);
+
+                if (filledFluidStack != null && !fluidWhitelist.contains(filledFluidStack.getFluid().getName())) {
+                    event.setResult(Event.Result.DENY);
+                    return;
+                }
+
                 event.setResult(Event.Result.ALLOW);
                 event.setFilledBucket(result.getResult());
                 //Add a cool down so you cannot pickup fluid from small puddle made when dumping it.
