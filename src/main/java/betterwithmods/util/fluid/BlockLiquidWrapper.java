@@ -4,6 +4,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -102,11 +103,17 @@ public class BlockLiquidWrapper implements IFluidHandler {
         if (blockState.getBlock() == blockLiquid) {
             FluidStack containedStack = getStack(blockState);
 
-            if (containedStack != null /*Still don't care how much is contained && containedStack.amount <= maxDrain*/) {
+
+            if (containedStack != null) {
+                if (containedStack.getFluid() == FluidRegistry.LAVA && containedStack.amount <= maxDrain) {
+                    if (doDrain) {
+                        world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 11);
+                    }
+                    return null;
+                }
+
                 //Don't remove the block ever for HCBuckets
-//                if (doDrain) {
-//                    world.setBlockState(blockPos, Blocks.AIR.getDefaultState(), 11);
-//                }
+//
                 containedStack.amount = maxDrain;
                 return containedStack;
             }
