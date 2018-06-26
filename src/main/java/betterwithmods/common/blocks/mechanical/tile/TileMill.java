@@ -13,6 +13,7 @@ import betterwithmods.util.DirUtils;
 import betterwithmods.util.StackEjector;
 import betterwithmods.util.VectorBuilder;
 import com.google.common.collect.Lists;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -69,7 +70,10 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
     private boolean findIfBlocked() {
         int count = 0;
         for (EnumFacing facing : EnumFacing.HORIZONTALS) {
-            if (world.isSideSolid(pos.offset(facing), facing.getOpposite())) {
+            BlockPos offset = pos.offset(facing);
+            IBlockState state = world.getBlockState(offset);
+            Material material = state.getMaterial();
+            if (world.isSideSolid(offset, facing.getOpposite()) || (!material.isReplaceable() && !material.isOpaque())) {
                 count++;
             }
         }

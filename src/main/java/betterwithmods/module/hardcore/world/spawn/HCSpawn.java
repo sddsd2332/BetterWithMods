@@ -1,34 +1,29 @@
-package betterwithmods.module.hardcore.world;
+package betterwithmods.module.hardcore.world.spawn;
 
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
-import net.minecraft.nbt.NBTBase;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.text.TextComponentString;
 import net.minecraft.world.World;
-import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
+import java.util.Random;
 
 import static net.minecraft.world.WorldType.FLAT;
 
@@ -38,32 +33,38 @@ import static net.minecraft.world.WorldType.FLAT;
 @SuppressWarnings("unused")
 public class HCSpawn extends Feature {
 
+    public static final Random RANDOM = new Random();
+
     public static int HARDCORE_SPAWN_RADIUS;
     public static int HARDCORE_SPAWN_COOLDOWN_RADIUS;
     public static int HARDCORE_SPAWN_COOLDOWN; //20 min
     public static int HARDCORE_SPAWN_MAX_ATTEMPTS = 20;
-    @SuppressWarnings("CanBeFinal")
-    @CapabilityInject(SpawnSaving.class)
-    public static Capability<SpawnSaving> SPAWN_CAP = null;
+
+    public static ResourceLocation PLAYER_SPAWN_POSITION = new ResourceLocation(BWMod.MODID, "spawn_position");
 
     public static void setSpawn(EntityPlayer player, BlockPos pos) {
-        if (player.hasCapability(SPAWN_CAP, null)) {
-            SpawnSaving cap = player.getCapability(SPAWN_CAP, null);
-            cap.setPos(pos);
-        }
+        SpawnSaving.getCapability(player).ifPresent(cap -> cap.setPos(pos));
+        player.setSpawnPoint(pos, true);
     }
 
     public static BlockPos getSpawn(EntityPlayer player) {
-        if (player.hasCapability(SPAWN_CAP, null)) {
-            SpawnSaving cap = player.getCapability(SPAWN_CAP, null);
-            return cap.getPos();
-        }
-        return player.world.getSpawnPoint();
+        return SpawnSaving.getCapability(player).map(SpawnSaving::getPos).orElse(player.world.getSpawnPoint());
+    }
+
+    public static BlockPos getRandomPoint(World world, BlockPos origin, int spawnFuzz) {
+        BlockPos ret = origin;
+        double fuzzVar = MathHelper.getInt(RANDOM, 0, spawnFuzz);
+        double angle = MathHelper.nextDouble(RANDOM, 0, 360);
+        double customX = -Math.sin(angle) * fuzzVar;
+        double customZ = Math.cos(angle) * fuzzVar;
+        ret = ret.add(MathHelper.floor(customX) + 0.5D, 1.5D, MathHelper.floor(customZ) + 0.5D);
+        ret = world.getTopSolidOrLiquidBlock(ret);
+        return ret;
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(SpawnSaving.class, new CapabilitySpawn(), SpawnSaving::new);
+        CapabilityManager.INSTANCE.register(SpawnSaving.class, new SpawnSaving.Storage(), SpawnSaving::new);
     }
 
     @Override
@@ -71,12 +72,11 @@ public class HCSpawn extends Feature {
         HARDCORE_SPAWN_RADIUS = loadPropInt("Hardcore Spawn Radius", "Radius from original spawn which you will be randomly spawned", 2000);
         HARDCORE_SPAWN_COOLDOWN_RADIUS = loadPropInt("Hardcore Spawn Cooldown Radius", "Radius from your previous spawn you will spawn if you die during a cooldown period", 100);
         HARDCORE_SPAWN_COOLDOWN = loadPropInt("Hardcore Spawn Cooldown Ticks", "Amount of time after a HCSpawn which you will continue to spawn in the same area", 12000);
-        super.setupConfig();
     }
 
     @Override
     public String getFeatureDescription() {
-        return "Makes it so death is actual issues as you will spawn randomly within a 2000 block radius of your original spawn. Compasses still point to Original BindingPoint";
+        return "Makes it so death is an actual issue as you will spawn randomly within a 2000 block radius of your original spawn. Compasses still point to original spawn.";
     }
 
     @Override
@@ -93,25 +93,27 @@ public class HCSpawn extends Feature {
         if (event.getEntity().getEntityWorld().getWorldType() == FLAT)
             return;
         EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
+
         if (PlayerHelper.isSurvival(player)) {
             int timeSinceDeath = player.getStatFile().readStat(StatList.TIME_SINCE_DEATH);
             boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
 
-            BlockPos newPos = getRespawnPoint(player, isNew ? player.world.getSpawnPoint() : getSpawn(player), isNew ? HARDCORE_SPAWN_RADIUS: HARDCORE_SPAWN_COOLDOWN_RADIUS);
+            BlockPos currentSpawn = isNew ? player.world.getSpawnPoint() : getSpawn(player);
+            int radius = isNew ? HARDCORE_SPAWN_RADIUS : HARDCORE_SPAWN_COOLDOWN_RADIUS;
+
+            if (GlobalConfig.debug)
+                player.sendMessage(new TextComponentString(String.format("Spawn: %s, %s, %s, %s", isNew, currentSpawn, radius, timeSinceDeath)));
+            BlockPos newPos = getRespawnPoint(player, currentSpawn, radius);
             setSpawn(player, newPos);
             player.setSpawnPoint(newPos, true);
         }
     }
 
-    public static BlockPos getRandomPoint(World world, BlockPos origin, int spawnFuzz) {
-        BlockPos ret = origin;
-        double fuzzVar = world.rand.nextDouble() * spawnFuzz;
-        double angle = Math.toRadians(world.rand.nextDouble() * 360);
-        double customX = -Math.sin(angle) * fuzzVar;
-        double customZ = Math.cos(angle) * fuzzVar;
-        ret = ret.add(MathHelper.floor(customX) + 0.5D, 1.5D, MathHelper.floor(customZ) + 0.5D);
-        ret = world.getTopSolidOrLiquidBlock(ret);
-        return ret;
+    @SubscribeEvent
+    public void onTick(TickEvent.PlayerTickEvent event) {
+        if (event.player.isDead) {
+            event.player.respawnPlayer();
+        }
     }
 
     /**
@@ -133,12 +135,14 @@ public class HCSpawn extends Feature {
                 // Check if the position is correct
                 int cmp = ret.getY() - world.provider.getAverageGroundLevel();
                 Material check = world.getBlockState(ret).getMaterial();
-                if (cmp >= 0 && !check.isLiquid()) {
+                IBlockState state = world.getBlockState(ret.up());
+                if (cmp >= 0 && !check.isLiquid() && state.getBlock().canSpawnInBlock()) {
                     found = true;
                     break;
                 }
             }
-            if (!found) BWMod.logger.warn("New respawn point could not be found.");
+            if (!found)
+                BWMod.logger.info("New respawn point could not be found.");
         }
 
         return ret;
@@ -152,7 +156,7 @@ public class HCSpawn extends Feature {
     @SubscribeEvent
     public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer) {
-            event.addCapability(new ResourceLocation(BWMod.MODID, "spawn_position"), new SpawnSaving((EntityPlayer) event.getObject()));
+            event.addCapability(PLAYER_SPAWN_POSITION, new SpawnSaving((EntityPlayer) event.getObject()));
         }
     }
 
@@ -163,68 +167,4 @@ public class HCSpawn extends Feature {
         }
     }
 
-    public static class CapabilitySpawn implements Capability.IStorage<SpawnSaving> {
-        @Nullable
-        @Override
-        public NBTBase writeNBT(Capability<SpawnSaving> capability, SpawnSaving instance, EnumFacing side) {
-            return instance.serializeNBT();
-        }
-
-        @Override
-        public void readNBT(Capability<SpawnSaving> capability, SpawnSaving instance, EnumFacing side, NBTBase nbt) {
-            instance.deserializeNBT((NBTTagCompound) nbt);
-        }
-    }
-
-    private class SpawnSaving implements ICapabilitySerializable<NBTTagCompound> {
-
-        private BlockPos pos;
-
-        public SpawnSaving() {
-        }
-
-        public SpawnSaving(EntityPlayer player) {
-            pos = player.world.getSpawnPoint();
-        }
-
-        public BlockPos getPos() {
-            return pos;
-        }
-
-        public void setPos(BlockPos pos) {
-            this.pos = pos;
-        }
-
-        @Override
-        public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-            return capability == SPAWN_CAP;
-        }
-
-        @Nullable
-        @Override
-        public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-            if (capability == SPAWN_CAP)
-                return SPAWN_CAP.cast(this);
-            return null;
-        }
-
-        @Override
-        public NBTTagCompound serializeNBT() {
-            NBTTagCompound tag = new NBTTagCompound();
-            tag.setLong("spawn", pos.toLong());
-            return tag;
-        }
-
-        @Override
-        public void deserializeNBT(NBTTagCompound nbt) {
-            pos = BlockPos.fromLong(nbt.getLong("spawn"));
-        }
-    }
-
-    @Override
-    public void serverStarting(FMLServerStartingEvent event) {
-        if(GlobalConfig.debug) {
-            event.registerServerCommand(new DebugCommand());
-        }
-    }
 }

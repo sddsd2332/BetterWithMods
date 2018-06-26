@@ -218,6 +218,7 @@ public final class BWMBlocks {
     }
 
     public static void registerTileEntities() {
+        //TODO resourceloations
         GameRegistry.registerTileEntity(TileMill.class, "bwm.millstone");
         GameRegistry.registerTileEntity(TilePulley.class, "bwm.pulley");
         GameRegistry.registerTileEntity(TileFilteredHopper.class, "bwm.hopper");

@@ -16,6 +16,7 @@ import betterwithmods.proxy.IProxy;
 import betterwithmods.testing.BWMTests;
 import betterwithmods.util.commands.HealthCommand;
 import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
@@ -54,10 +55,13 @@ public class BWMod {
         return logger;
     }
 
-    @Mod.EventHandler
-    public void onConstruct(FMLConstructionEvent event) {
+    static {
+        FluidRegistry.enableUniversalBucket();
         ForgeModContainer.fullBoundingBoxLadders = true;
     }
+
+    @Mod.EventHandler
+    public void onConstruct(FMLConstructionEvent event) { }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent evt) {

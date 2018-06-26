@@ -54,7 +54,10 @@ public abstract class CraftingManagerBlock<T extends BlockRecipe> extends Crafti
 
     public Optional<T> findRecipe(World world, BlockPos pos, IBlockState state) {
         if (recipeCache.containsKey(state)) {
-            return Optional.of(recipeCache.get(state));
+            T t = recipeCache.get(state);
+            if(t != null && t.matches(world,pos,state)) {
+                return Optional.of(t);
+            }
         }
         Optional<T> recipe = findRecipes(world, pos, state).stream().findFirst();
         recipe.ifPresent(t -> recipeCache.put(state, t));

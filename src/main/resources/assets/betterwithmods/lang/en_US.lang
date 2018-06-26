@@ -594,3 +594,15 @@ advancement.betterwithmods.steel_anvil.desc=
 advancement.betterwithmods.corner_wood.desc=
 
 bwm.got.feverdream=You never could get to sleep, in your insomnia you scribbled some notes. What do they mean?
+
+bwm.enchantment.type.armor=Armor
+bwm.enchantment.type.armor_feet=Boots
+bwm.enchantment.type.armor_head=Helmet
+bwm.enchantment.type.armor_chest=Chestplate
+bwm.enchantment.type.weapon=Weapon
+bwm.enchantment.type.digger=Digger
+bwm.enchantment.type.bow=Bow
+bwm.enchantment.type.breakable=Tools
+bwm.enchantment.type.fishing_rod=Fishing Rod
+bwm.enchantment.type.all=Anything
+
