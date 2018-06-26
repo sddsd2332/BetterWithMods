@@ -34,11 +34,13 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
                 BlockPos.MutableBlockPos mut = new BlockPos.MutableBlockPos();
 
                 for (int x = pos.getX() - range; x <= pos.getX() + range && flag; x++) {
-                    for (int z = pos.getZ() - range; x <= pos.getZ() + range && flag; z++) {
+                    for (int z = pos.getZ() - range; z <= pos.getZ() + range && flag; z++) {
                         if (i >= 0 && i < world.getHeight()) {
-                            if (!this.isReplaceable(world, mut.setPos(x, i, z))) flag = false;
+                            if (!this.isReplaceable(world, mut.setPos(x, i, z)))
+                                flag = false;
+                        } else {
+                            flag = false;
                         }
-                        else flag = false;
                     }
                 }
             }
