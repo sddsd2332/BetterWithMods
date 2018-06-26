@@ -548,7 +548,7 @@ bwm.fat_penalty.plump=Plump
 bwm.fat_penalty.chubby=Chubby
 bwm.fat_penalty.fat=Fat
 bwm.fat_penalty.obese=Obese
-
+fishing_rod
 bwm.gloom_penalty.none=
 bwm.gloom_penalty.gloom=Gloom
 bwm.gloom_penalty.dread=Dread
@@ -601,3 +601,15 @@ bwm.manual.error.2=In the mean time, try the %s
 
 
 bwm.got.feverdream=You never could get to sleep, in your insomnia you scribbled some notes. What do they mean?
+
+bwm.enchantment.type.armor=Armor
+bwm.enchantment.type.armor_feet=Boots
+bwm.enchantment.type.armor_head=Helmet
+bwm.enchantment.type.armor_chest=Chestplate
+bwm.enchantment.type.weapon=Weapon
+bwm.enchantment.type.digger=Digger
+bwm.enchantment.type.bow=Bow
+bwm.enchantment.type.breakable=Tools
+bwm.enchantment.type.fishing_rod=Fishing Rod
+bwm.enchantment.type.all=Anything
+

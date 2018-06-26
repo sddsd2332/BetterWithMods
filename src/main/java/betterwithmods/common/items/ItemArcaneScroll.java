@@ -68,7 +68,10 @@ public class ItemArcaneScroll extends Item {
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         int id = stack.getTagCompound() != null ? stack.getTagCompound().getInteger("enchant") : 0;
-        tooltip.add(Enchantment.getEnchantmentByID(id).getTranslatedName(-1));
+        Enchantment enchantment = Enchantment.getEnchantmentByID(id);
+        if (enchantment != null) {
+            tooltip.add(enchantment.getTranslatedName(-1));
+        }
     }
 
 }

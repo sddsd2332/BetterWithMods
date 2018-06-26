@@ -40,6 +40,7 @@ public class Tweaks extends Module {
         registerFeature(new SaddleRecipe().recipes());
         registerFeature(new LlamaDrops());
         registerFeature(new BabyJumping());
+        registerFeature(new EnchantmentTooltip());
     }
 
     @Override
