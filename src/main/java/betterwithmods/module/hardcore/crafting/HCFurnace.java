@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.client.resources.I18n;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -149,7 +149,7 @@ public class HCFurnace extends Feature {
         if(!TOOLTIP)
             return;
         if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {
-            event.getToolTip().add(I18n.format("bwm.hcfurnace.cook_time.tooltip", HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING)));
+            event.getToolTip().add(new TextComponentTranslation("bwm.hcfurnace.cook_time.tooltip", HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING)).getFormattedText());
         }
     }
 

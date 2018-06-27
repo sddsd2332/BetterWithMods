@@ -12,7 +12,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -59,19 +61,22 @@ public class ItemBark extends Item {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         NBTTagCompound tag = stack.getSubCompound("texture");
-        String type = I18n.translateToLocal("bwm.unknown_bark.name").trim();
+        ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_bark.name");
+        //TODO .name is not longer in 1.13
+        ITextComponent bark = new TextComponentTranslation(this.getUnlocalizedName(stack) + ".name");
         if (tag != null) {
             try {
                 IBlockState state = NBTUtil.readBlockState(tag);
                 ItemStack block = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
                 if (block.getItem() instanceof ItemBlock) {
                     ItemBlock itemBlock = (ItemBlock) block.getItem();
-                    type = itemBlock.getItemStackDisplayName(block);
+                    type = new TextComponentString(itemBlock.getItemStackDisplayName(block));
                 }
             } catch (NullPointerException e) {
                 e.printStackTrace();
             }
         }
-        return String.format("%s %s", type, I18n.translateToLocal(this.getUnlocalizedNameInefficiently(stack) + ".name").trim());
+
+        return type.appendText(" ").appendSibling(bark).getFormattedText();
     }
 }

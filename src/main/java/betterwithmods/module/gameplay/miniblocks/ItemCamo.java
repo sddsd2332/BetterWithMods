@@ -14,7 +14,9 @@ import net.minecraft.nbt.NBTUtil;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
 public class ItemCamo extends ItemBlock {
@@ -90,15 +92,20 @@ public class ItemCamo extends ItemBlock {
     @Override
     public String getItemStackDisplayName(ItemStack stack) {
         NBTTagCompound tag = stack.getSubCompound("texture");
-        String type = I18n.translateToLocal("bwm.unknown_mini.name").trim();
+
+        //TODO .name
+        ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_mini.name");
+        ITextComponent base = new TextComponentTranslation(this.getUnlocalizedName(stack) + ".name");
+
         if (tag != null) {
             IBlockState state = NBTUtil.readBlockState(tag);
             ItemStack block = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
             if (block.getItem() instanceof ItemBlock) {
                 ItemBlock itemBlock = (ItemBlock) block.getItem();
-                type = itemBlock.getItemStackDisplayName(block);
+                type = new TextComponentString(itemBlock.getItemStackDisplayName(block));
             }
         }
-        return I18n.translateToLocalFormatted(this.getUnlocalizedName(stack) + ".name", type);
+
+        return type.appendSibling(base).getFormattedText();
     }
 }
