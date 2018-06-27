@@ -80,7 +80,7 @@ public class BakedModelKiln implements IBakedModel {
 
     @Override
     public TextureAtlasSprite getParticleTexture() {
-        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("betterwithmods:blocks/kiln");
+        return Minecraft.getMinecraft().getTextureMapBlocks().getAtlasSprite("minecraft:blocks/brick");
     }
 
     @Override
