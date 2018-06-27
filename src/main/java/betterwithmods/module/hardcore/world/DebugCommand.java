@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.world;
 
+import betterwithmods.module.hardcore.world.spawn.HCSpawn;
 import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.server.MinecraftServer;

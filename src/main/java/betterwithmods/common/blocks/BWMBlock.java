@@ -38,8 +38,6 @@ import java.util.List;
 
 public abstract class BWMBlock extends Block implements IRotate {
 
-    private Class<? extends TileEntity> tileClass;
-
     public BWMBlock(Material material) {
         super(material);
         setCreativeTab(BWCreativeTabs.BWTAB);
@@ -47,6 +45,7 @@ public abstract class BWMBlock extends Block implements IRotate {
             ToolsManager.setAxesAsEffectiveAgainst(this);
             this.setSoundType(SoundType.WOOD);
             this.setHarvestLevel("axe", 0);
+            this.setHardness(3.5f);
         } else if (material == Material.ROCK) {
             this.setSoundType(SoundType.STONE);
             setHarvestLevel("pickaxe", 1);
@@ -93,32 +92,6 @@ public abstract class BWMBlock extends Block implements IRotate {
         }
         return 0;
     }
-
-    public String getVariant() {
-        return "inventory";
-    }
-
-    @Override
-    public boolean hasTileEntity(IBlockState state) {
-        return tileClass != null;
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
-        try {
-            return tileClass.newInstance();
-        } catch (InstantiationException | IllegalAccessException e) {
-            e.printStackTrace();
-        }
-        return null;
-    }
-
-    public BWMBlock setTileClass(Class<? extends TileEntity> tileClass) {
-        this.tileClass = tileClass;
-        return this;
-    }
-
 
     @Override
     @SideOnly(Side.CLIENT)

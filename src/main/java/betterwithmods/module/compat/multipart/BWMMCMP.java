@@ -38,7 +38,6 @@ public class BWMMCMP implements IMCMPAddon {
 //        }
 
         register(registry, BWMBlocks.WOODEN_AXLE, new MultipartProxy(BWMBlocks.WOODEN_AXLE, state -> EnumCenterSlot.CENTER));
-        register(registry, BWMBlocks.STEEL_AXLE, new MultipartProxy(BWMBlocks.STEEL_AXLE, state -> EnumCenterSlot.CENTER));
     }
 
     private boolean placeSiding(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, IBlockState newState) {

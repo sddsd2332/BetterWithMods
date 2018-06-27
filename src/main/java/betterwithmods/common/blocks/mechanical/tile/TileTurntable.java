@@ -4,7 +4,6 @@ import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.tile.IMechSubtype;
 import betterwithmods.common.blocks.tile.TileBasic;
 import betterwithmods.common.registry.TurntableRotationManager;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
@@ -24,7 +23,7 @@ import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nonnull;
 
-public class TileTurntable extends TileBasic implements IMechSubtype, ITickable, IMechanicalPower {
+public class TileTurntable extends TileBasic implements ITickable, IMechanicalPower {
 
     private static final int height = 3;
     private static final int[] ticksToRotate = {10, 20, 40, 80};
@@ -184,17 +183,6 @@ public class TileTurntable extends TileBasic implements IMechSubtype, ITickable,
             this.potteryRotation = 0;
         }
     }
-
-    @Override
-    public int getSubtype() {
-        return this.timerPos + 8;
-    }
-
-    @Override
-    public void setSubtype(int type) {
-        this.timerPos = (byte) Math.min(type, 3);
-    }
-
 
     @Override
     public int getMechanicalOutput(EnumFacing facing) {

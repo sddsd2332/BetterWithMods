@@ -52,7 +52,6 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerGrass;
@@ -76,14 +75,12 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
 import java.util.UUID;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BWMod.MODID, value = Side.CLIENT)
-
 public class ClientProxy implements IProxy {
 
     private static ResourceProxy resourceProxy;
@@ -98,13 +95,13 @@ public class ClientProxy implements IProxy {
     @SideOnly(Side.CLIENT)
     public static void onPostBake(ModelBakeEvent event) {
         BarkModel.BARK = new BarkModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "item/bark")));
-        event.getModelRegistry().putObject(new ModelResourceLocation(BWMod.MODID + ":bark", "inventory"), BarkModel.BARK);
+        event.getModelRegistry().putObject(new ModelResourceLocation(new ResourceLocation(BWMod.MODID, "bark"), "inventory"), BarkModel.BARK);
     }
 
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
         BWMItems.getItems().forEach(BWMItems::setInventoryModel);
-        ModelLoader.setCustomStateMapper(BWMBlocks.STOKED_FLAME, new BWStateMapper(BWMBlocks.STOKED_FLAME.getRegistryName().toString()));
+        ModelLoader.setCustomStateMapper(BWMBlocks.STOKED_FLAME, new BWStateMapper(BWMBlocks.STOKED_FLAME.getRegistryName()));
         BWMod.MODULE_LOADER.registerModels(event);
     }
 
@@ -141,7 +138,6 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileCauldron.class, new TESRCookingPot());
         ClientRegistry.bindTileEntitySpecialRenderer(TileCrucible.class, new TESRCookingPot());
         ClientRegistry.bindTileEntitySpecialRenderer(TileBeacon.class, new TESRBeacon());
-        ClientRegistry.bindTileEntitySpecialRenderer(TileSteelSaw.class, new TESRSteelSaw());
         ClientRegistry.bindTileEntitySpecialRenderer(TileBucket.class, new TESRBucket());
         if (BWMod.MODULE_LOADER.isFeatureEnabled(HCFurnace.class)) {
             ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFurnace.class, new TESRFurnaceContent());
@@ -149,7 +145,7 @@ public class ClientProxy implements IProxy {
     }
 
     private void registerColor(ItemColors registry, Item item) {
-        if(item instanceof IColorable) {
+        if (item instanceof IColorable) {
             registry.registerItemColorHandler(((IColorable) item).getColorHandler(), item);
         }
     }
@@ -168,7 +164,7 @@ public class ClientProxy implements IProxy {
         itCol.registerItemColorHandler(ColorHandlers.ItemFoliageColor, BWMBlocks.VINE_TRAP);
         itCol.registerItemColorHandler(ColorHandlers.ItemBloodLeafColor, BWMBlocks.BLOOD_LEAVES);
         itCol.registerItemColorHandler(ColorHandlers.ItemGrassColor, BWMBlocks.DIRT_SLAB);
-        BWMItems.getItems().forEach( item -> registerColor(itCol, item));
+        BWMItems.getItems().forEach(item -> registerColor(itCol, item));
         col.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> worldIn != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(worldIn, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D), BWMBlocks.DIRT_SLAB);
         itCol.registerItemColorHandler((stack, tintIndex) -> {
             IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
@@ -219,13 +215,6 @@ public class ClientProxy implements IProxy {
         if (entity != null) {
             entity.setPositionAndRotation(entity.posX, entity.posY, entity.posZ, yaw, pitch);
         }
-    }
-
-    @Override
-    public NonNullList<ItemStack> getSubItems(Item item) {
-        NonNullList<ItemStack> stacks = NonNullList.create();
-        Arrays.stream(item.getCreativeTabs()).forEach(tab -> item.getSubItems(tab, stacks));
-        return stacks;
     }
 
     private Entity getEntityByID(int id) {

@@ -2,12 +2,10 @@ package betterwithmods.proxy;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
-import net.minecraft.world.World;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -43,9 +41,6 @@ public interface IProxy {
         return false;
     }
 
-    default NonNullList<ItemStack> getSubItems(Item item) {
-        return NonNullList.withSize(1,item.getDefaultInstance());
-    }
     default void syncGloom(String entityId, int gloom) {
     }
 

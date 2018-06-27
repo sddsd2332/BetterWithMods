@@ -1,22 +1,18 @@
 package betterwithmods.common;
 
-import betterwithmods.BWMod;
-import betterwithmods.api.IMultiLocations;
 import betterwithmods.client.BWCreativeTabs;
-import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.items.*;
 import betterwithmods.common.items.tools.*;
-import net.minecraft.block.Block;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
 import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemSoup;
 import net.minecraft.potion.PotionEffect;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
@@ -28,7 +24,6 @@ import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Objects;
 
 public final class BWMItems {
     public static final ToolMaterial SOULFORGED_STEEL = EnumHelper.addToolMaterial("SOULFORGED_STEEL", 4, 2250, 10f, 3, 22);
@@ -40,7 +35,7 @@ public final class BWMItems {
     public static final Item CHICKEN_SOUP = new ItemSoup(8).setMaxStackSize(64).setCreativeTab(CreativeTabs.FOOD).setRegistryName("chicken_soup");
 
     //Other
-    public static final Item CREEPER_OYSTER = (new ItemAltNameFood(2, false).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1)).setCreativeTab(CreativeTabs.FOOD).setRegistryName("creeper_oyster");
+    public static final Item CREEPER_OYSTER = (new ItemFood(2, false).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1)).setCreativeTab(CreativeTabs.FOOD).setRegistryName("creeper_oyster");
     public static final Item KIBBLE = new ItemFood(3, 0, true).setPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 0), 0.3F).setCreativeTab(CreativeTabs.FOOD).setRegistryName("kibble");
     public static final Item CHOCOLATE = new ItemFood(2, 0.2f, false).setCreativeTab(CreativeTabs.FOOD).setRegistryName("chocolate");
     public static final Item DONUT = new ItemFood(2, 0.25f, false).setCreativeTab(CreativeTabs.FOOD).setRegistryName("donut");
@@ -107,7 +102,6 @@ public final class BWMItems {
     public static final Item SAND_PILE = new Item().setCreativeTab(BWCreativeTabs.BWTAB).setRegistryName("sand_pile");
     public static final Item RED_SAND_PILE = new Item().setCreativeTab(BWCreativeTabs.BWTAB).setRegistryName("red_sand_pile");
     public static final Item MANUAL = new ItemBookManual().setRegistryName("manual").setCreativeTab(BWCreativeTabs.BWTAB);
-    public static final Item STEEL_HACKSAW = new ItemHacksaw().setRegistryName("steel_hacksaw");
     public static final Item ARCANE_SCROLL = new ItemArcaneScroll().setRegistryName("arcane_scroll").setCreativeTab(BWCreativeTabs.BWTAB);
     public static final Item LEATHER_TANNED_HELMET = new ItemLeatherTannedArmor(EntityEquipmentSlot.HEAD).setRegistryName("leather_tanned_helmet");
     public static final Item LEATHER_TANNED_CHEST = new ItemLeatherTannedArmor(EntityEquipmentSlot.CHEST).setRegistryName("leather_tanned_chest");
@@ -152,44 +146,22 @@ public final class BWMItems {
      * @return Registered item.
      */
     public static Item registerItem(Item item) {
-        if (Objects.equals(item.getUnlocalizedName(), "item.null")) {
-            //betterwithmods:name => bwm:name
-            item.setUnlocalizedName("bwm" + item.getRegistryName().toString().substring(BWMod.MODID.length()));
-        }
+        item.setUnlocalizedName("bwm:" + item.getRegistryName().getResourcePath());
         ITEMS.add(item);
         return item;
     }
 
     @SideOnly(Side.CLIENT)
     private static void setModelLocation(Item item, int meta, String variantSettings) {
-        setModelLocation(item, meta, item.getRegistryName().toString(), variantSettings);
+        setModelLocation(item, meta, item.getRegistryName(), variantSettings);
     }
 
     @SideOnly(Side.CLIENT)
-    private static void setModelLocation(Item item, int meta, String location, String variantSettings) {
+    private static void setModelLocation(Item item, int meta, ResourceLocation location, String variantSettings) {
         if (meta == OreDictionary.WILDCARD_VALUE) {
-            ModelLoader.setCustomMeshDefinition(item,
-                    stack -> new ModelResourceLocation(location, variantSettings));
+            ModelLoader.setCustomMeshDefinition(item, stack -> new ModelResourceLocation(location, variantSettings));
         } else {
-            ModelLoader.setCustomModelResourceLocation(item, meta,
-                    new ModelResourceLocation(location, variantSettings));
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    private static void setInventoryModel(ItemBlock item) {
-        Block block = item.getBlock();
-
-        if (block instanceof IMultiLocations) {
-            String[] locations = ((IMultiLocations) block).getLocations();
-            for (int meta = 0; meta < locations.length; meta++) {
-                String location = locations[meta];
-                setModelLocation(item, meta, BWMod.MODID + ":" + location, "inventory");
-            }
-        } else if (block instanceof BWMBlock) {
-            setModelLocation(item, OreDictionary.WILDCARD_VALUE, ((BWMBlock) block).getVariant());
-        } else {
-            setModelLocation(item, OreDictionary.WILDCARD_VALUE, "inventory");
+            ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(location, variantSettings));
         }
     }
 
@@ -197,18 +169,8 @@ public final class BWMItems {
     public static void setInventoryModel(Item item) {
         if (item.isDamageable()) {
             setModelLocation(item, OreDictionary.WILDCARD_VALUE, "inventory");
-        } else if (item instanceof IMultiLocations) {
-            IMultiLocations bwmItem = (IMultiLocations) item;
-            String[] locations = bwmItem.getLocations();
-            for (int meta = 0; meta < locations.length; meta++) {
-                String location = locations[meta];
-                setModelLocation(item, meta, BWMod.MODID + ":" + location, "inventory");
-            }
-        } else if (item instanceof ItemBlock) {
-            ItemBlock itemBlock = (ItemBlock) item;
-            setInventoryModel(itemBlock);
         } else {
-            setModelLocation(item, OreDictionary.WILDCARD_VALUE, "inventory");
+            setModelLocation(item, 0, "inventory");
         }
     }
 }

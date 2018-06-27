@@ -128,10 +128,7 @@ public class ItemMaterial extends Item {
         DIAMOND_INGOT,
         DIAMOND_NUGGET,
         CHAIN_MAIL,
-        STEEL_GEAR,
-        STEEL_SPRING,
         SOAP,
-        PLATE_STEEL,
         WITCH_WART,
         MYSTERY_GLAND,
         POISON_SAC;

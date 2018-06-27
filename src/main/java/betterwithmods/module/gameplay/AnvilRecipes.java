@@ -9,7 +9,6 @@ import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
 import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
 import betterwithmods.module.Feature;
-import betterwithmods.module.gameplay.miniblocks.MiniBlockIngredient;
 import betterwithmods.module.hardcore.needs.HCTools;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -18,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.oredict.OreIngredient;
 
 /**
  * Created by primetoxinz on 5/16/17.
@@ -91,12 +89,7 @@ public class AnvilRecipes extends Feature {
         addSteelShapedRecipe("steel_block", new ItemStack(BWMBlocks.STEEL_BLOCK), "XXXX", "XXXX", "XXXX", "XXXX", 'X', "ingotSoulforgedSteel");
         addSteelShapedRecipe("chopping_block", BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK), "X  X", "XXXX", 'X', "stone");
         addSteelShapedRecipe("chain_mail", ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHAIN_MAIL, 2), "N N ", " N N", "N N ", " N N", 'N', "nuggetIron");
-        addSteelShapedRecipe("steel_gear", ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_GEAR), " NN ", "NIIN", "NIIN", " NN ", 'N', "nuggetSoulforgedSteel", 'I', "ingotSoulforgedSteel");
-        addSteelShapedRecipe("steel_spring", ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_SPRING), "NNN", "NNN", "NNN", "NNN", 'N', "nuggetSoulforgedSteel");
         addSteelShapedRecipe("iron_wall", new ItemStack(BWMBlocks.IRON_WALL, 8, 0), "XXXX", "XXXX", "XXXX", "XXXX", 'X', new ItemStack(Blocks.IRON_BARS));
-        addSteelShapedRecipe("steel_gearbox", new ItemStack(BWMBlocks.STEEL_GEARBOX), "SGSS", "SGLG", "GLGS", "SSGS", 'S', "ingotSoulforgedSteel", 'G', "gearSoulforgedSteel", 'L', "latchRedstone");
-        addSteelShapedRecipe("steel_hacksaw", new ItemStack(BWMItems.STEEL_HACKSAW), "NMM", "N M", "N M", "NMM", 'N', "nuggetSoulforgedSteel", 'M', new MiniBlockIngredient("moulding", new OreIngredient("plankWood")));
-        addSteelShapedRecipe("steel_axle", new ItemStack(BWMBlocks.STEEL_AXLE, 2), "  NG", " NBN", "NBN ", "GN  ", 'N', "nuggetSoulforgedSteel", 'G', "gearSoulforgedSteel", 'B', "hideBelt");
         addSteelShapedRecipe("steel_pressure_plate", new ItemStack(BWMBlocks.STEEL_PRESSURE_PLATE, 2), "IIII", " RR ", 'I', "ingotSoulforgedSteel", 'R', "dustRedstone");
         addSteelShapedRecipe("lightning_rod", new ItemStack(BWMBlocks.CANDLE_HOLDER, 2), "N", "N", "N", "I", 'I', "ingotSoulforgedSteel", 'N', "nuggetSoulforgedSteel");
     }

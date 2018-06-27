@@ -65,10 +65,7 @@ public class BWOreDictionary {
         registerOre("filament", ItemMaterial.getStack(ItemMaterial.EnumMaterial.FILAMENT));
         registerOre("element", ItemMaterial.getStack(ItemMaterial.EnumMaterial.ELEMENT));
         registerOre("latchRedstone", ItemMaterial.getStack(ItemMaterial.EnumMaterial.REDSTONE_LATCH));
-        registerOre("plateSoulforgedSteel", ItemMaterial.getStack(ItemMaterial.EnumMaterial.PLATE_STEEL));
         registerOre("arrowSoulforgedSteel", ItemMaterial.getStack(ItemMaterial.EnumMaterial.BROADHEAD));
-        registerOre("springSoulforgedSteel", ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_SPRING));
-        registerOre("gearSoulforgedSteel", ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_GEAR));
         registerOre("gearWood", ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_GEAR));
         registerOre("cropHemp", ItemMaterial.getStack(ItemMaterial.EnumMaterial.HEMP_LEAF));
         registerOre("dyeBrown", ItemMaterial.getStack(ItemMaterial.EnumMaterial.DUNG));

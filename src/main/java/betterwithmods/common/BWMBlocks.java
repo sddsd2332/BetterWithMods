@@ -14,7 +14,6 @@ import betterwithmods.common.blocks.mechanical.mech_machine.BlockTurntable;
 import betterwithmods.common.blocks.mechanical.tile.*;
 import betterwithmods.common.blocks.tile.*;
 import betterwithmods.common.items.*;
-import betterwithmods.common.items.tools.ItemSteelSaw;
 import betterwithmods.common.registry.KilnStructureManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -43,12 +42,9 @@ public final class BWMBlocks {
     public static final Block MILLSTONE = new BlockMillstone().setRegistryName("millstone");
     public static final Block TURNTABLE = new BlockTurntable().setRegistryName("turntable");
     public static final Block PULLEY = new BlockPulley().setRegistryName("pulley");
-    public static final Block WOODEN_AXLE = new BlockAxle(EnumTier.WOOD, 1, 1, 3).setRegistryName("wooden_axle");
-    public static final Block STEEL_AXLE = new BlockAxle(EnumTier.STEEL, 1, 50, 5).setRegistryName("steel_axle");
-    public static final Block WOODEN_GEARBOX = new BlockGearbox(1, EnumTier.WOOD).setRegistryName("wooden_gearbox");
-    public static final Block STEEL_GEARBOX = new BlockGearbox(50, EnumTier.STEEL).setRegistryName("steel_gearbox");
-    public static final Block WOODEN_BROKEN_GEARBOX = new BlockBrokenGearbox(EnumTier.WOOD).setRegistryName("wooden_broken_gearbox");
-    public static final Block STEEL_BROKEN_GEARBOX = new BlockBrokenGearbox(EnumTier.STEEL).setRegistryName("steel_broken_gearbox");
+    public static final Block WOODEN_AXLE = new BlockAxle(Material.WOOD, 1, 1, 3).setRegistryName("wooden_axle");
+    public static final Block WOODEN_GEARBOX = new BlockGearbox(Material.WOOD, 1).setRegistryName("wooden_gearbox");
+    public static final Block WOODEN_BROKEN_GEARBOX = new BlockBrokenGearbox(Material.WOOD).setRegistryName("wooden_broken_gearbox");
     public static final Block HAND_CRANK = new BlockCrank().setRegistryName("hand_crank");
     public static final Block WICKER = new BlockWicker().setRegistryName("wicker");
     public static final Block OAK_GRATE = new BlockPane(Material.WOOD).setRegistryName("oak_grate");
@@ -68,8 +64,7 @@ public final class BWMBlocks {
     public static final Block SOUL_URN = new BlockUrn(BlockUrn.EnumType.SOUL).setRegistryName("soul_urn");
     public static final Block STOKED_FLAME = new BlockFireStoked().setRegistryName("stoked_flame");
     public static final Block HIBACHI = new BlockHibachi().setRegistryName("hibachi");
-    public static final Block BELLOWS = new BlockBellows().setTileClass(TileBellows.class).setRegistryName("bellows");
-    public static final Block SPRING_ACTION_BELLOWS = new BlockBellows().setTileClass(TileSpringActionBellows.class).setRegistryName("spring_action_bellows");
+    public static final Block BELLOWS = new BlockBellows().setRegistryName("bellows");
     public static final Block KILN = new BlockKiln(KilnStructureManager::getKilnBlocks).setRegistryName("kiln");
     public static final Block HEMP = new BlockHemp().setRegistryName("hemp");
     public static final Block DETECTOR = new BlockDetector().setRegistryName("detector");
@@ -101,7 +96,6 @@ public final class BWMBlocks {
     public static final Block STAKE_STRING = new BlockStakeString().setRegistryName("stake_string");
     public static final Block NETHER_GROWTH = new BlockNetherGrowth().setRegistryName("nether_growth");
     public static final Block STEEL_BLOCK = new BlockSteel().setRegistryName("steel_block");
-    public static final Block STEEL_SAW = new BlockSteelSaw().setRegistryName("steel_saw");
     public static final Block BLOOD_LOG = new BlockBloodLog().setRegistryName("blood_log");
     public static final Block BLOOD_LEAVES = new BlockBloodLeaves().setRegistryName("blood_leaves");
     public static final Block BLOOD_SAPLING = new BlockBloodSapling().setRegistryName("blood_sapling");
@@ -109,7 +103,6 @@ public final class BWMBlocks {
     public static final Block STEEL_PRESSURE_PLATE = new BlockSteelPressurePlate().setRegistryName("steel_pressure_plate").setCreativeTab(BWCreativeTabs.BWTAB);
     public static final Block INFERNAL_ENCHANTER = new BlockInfernalEnchanter().setRegistryName("infernal_enchanter").setCreativeTab(BWCreativeTabs.BWTAB);
     public static final Block CANDLE_HOLDER = new BlockCandleHolder().setRegistryName("candle_holder").setCreativeTab(BWCreativeTabs.BWTAB);
-    public static final Block MERGER = new BlockMerger().setRegistryName("steel_merger");
     public static final Block SHAFT = new BlockShaft().setRegistryName("shaft");
     public static final Block BUCKET = new BlockBucket().setRegistryName("bucket");
     public static final Block BARREL = new BlockBarrel(Material.WOOD).setRegistryName("barrel");
@@ -147,10 +140,7 @@ public final class BWMBlocks {
         registerBlock(PULLEY);
         registerBlock(TURNTABLE);
         registerBlock(WOODEN_AXLE);
-        registerBlock(STEEL_AXLE);
         registerBlock(WOODEN_GEARBOX);
-        registerBlock(STEEL_GEARBOX);
-        registerBlock(STEEL_BROKEN_GEARBOX);
         registerBlock(WOODEN_BROKEN_GEARBOX);
         registerBlock(HAND_CRANK);
         registerBlock(WICKER);
@@ -172,7 +162,6 @@ public final class BWMBlocks {
         registerBlock(STOKED_FLAME, null);
         registerBlock(HIBACHI);
         registerBlock(BELLOWS);
-        registerBlock(SPRING_ACTION_BELLOWS);
         registerBlock(KILN, null);
         registerBlock(HEMP, new ItemHempSeed(HEMP));
         registerBlock(DETECTOR);
@@ -203,7 +192,6 @@ public final class BWMBlocks {
         registerBlock(STAKE_STRING, null);
         registerBlock(NETHER_GROWTH, new ItemBlockSpore(NETHER_GROWTH));
         registerBlock(STEEL_BLOCK);
-        registerBlock(STEEL_SAW, new ItemSteelSaw(STEEL_SAW));
         registerBlock(BLOOD_LOG);
         registerBlock(BLOOD_LEAVES);
         registerBlock(BLOOD_SAPLING);
@@ -219,36 +207,33 @@ public final class BWMBlocks {
 
     public static void registerTileEntities() {
         //TODO resourceloations
-        GameRegistry.registerTileEntity(TileMill.class, "bwm.millstone");
-        GameRegistry.registerTileEntity(TilePulley.class, "bwm.pulley");
-        GameRegistry.registerTileEntity(TileFilteredHopper.class, "bwm.hopper");
-        GameRegistry.registerTileEntity(TileCauldron.class, "bwm.cauldron");
-        GameRegistry.registerTileEntity(TileCrucible.class, "bwm.crucible");
-        GameRegistry.registerTileEntity(TileDragonVessel.class, "bwm.vessel");
-        GameRegistry.registerTileEntity(TileTurntable.class, "bwm.turntable");
-        GameRegistry.registerTileEntity(TileSteelAnvil.class, "bwm.steelAnvil");
-        GameRegistry.registerTileEntity(TileVase.class, "bwm.vase");
-        GameRegistry.registerTileEntity(TileWindmillVertical.class, "bwm.vert_windmill");
-        GameRegistry.registerTileEntity(TileWindmillHorizontal.class, "bwm.horiz_windmill");
-        GameRegistry.registerTileEntity(TileWaterwheel.class, "bwm.waterwheel");
-        GameRegistry.registerTileEntity(TileBlockDispenser.class, "bwm.block_dispenser");
-        GameRegistry.registerTileEntity(TileCreativeGen.class, "bwm.creative_generator");
-        GameRegistry.registerTileEntity(TileGearbox.class, "bwm.gearbox");
-        GameRegistry.registerTileEntity(TileBellows.class, "bwm.bellows");
-        GameRegistry.registerTileEntity(TileSpringActionBellows.class, "bwm.spring_action_bellows");
-        GameRegistry.registerTileEntity(TileBeacon.class, "bwm.beacon");
-        GameRegistry.registerTileEntity(TileEnderchest.class, "bwm.enderchest");
-        GameRegistry.registerTileEntity(TileAxle.class, "bwm.axle");
-        GameRegistry.registerTileEntity(TileSaw.class, "bwm.saw");
-        GameRegistry.registerTileEntity(TilePump.class, "bwm.pump");
-        GameRegistry.registerTileEntity(TileCrank.class, "bwm.crank");
-        GameRegistry.registerTileEntity(TileSteelSaw.class, "bwm.steel_saw");
-        GameRegistry.registerTileEntity(TileInfernalEnchanter.class, "bwm.infernal_enchanter");
-        GameRegistry.registerTileEntity(TileKiln.class, "bwm.kiln");
-        GameRegistry.registerTileEntity(TileMerger.class, "bwm.steel_merger");
-        GameRegistry.registerTileEntity(TileFurnace.class, "bwm.furnace");
-        GameRegistry.registerTileEntity(TileBucket.class, "bwm.bucket");
-        GameRegistry.registerTileEntity(TileBarrel.class, "bwm.barrel");
+        GameRegistry.registerTileEntity(TileMill.class, new ResourceLocation(BWMod.MODID, "millstone"));
+        GameRegistry.registerTileEntity(TilePulley.class, new ResourceLocation(BWMod.MODID, "pulley"));
+        GameRegistry.registerTileEntity(TileFilteredHopper.class, new ResourceLocation(BWMod.MODID, "hopper"));
+        GameRegistry.registerTileEntity(TileCauldron.class, new ResourceLocation(BWMod.MODID, "cauldron"));
+        GameRegistry.registerTileEntity(TileCrucible.class, new ResourceLocation(BWMod.MODID, "crucible"));
+        GameRegistry.registerTileEntity(TileDragonVessel.class, new ResourceLocation(BWMod.MODID, "vessel"));
+        GameRegistry.registerTileEntity(TileTurntable.class, new ResourceLocation(BWMod.MODID, "turntable"));
+        GameRegistry.registerTileEntity(TileSteelAnvil.class, new ResourceLocation(BWMod.MODID, "steelAnvil"));
+        GameRegistry.registerTileEntity(TileVase.class, new ResourceLocation(BWMod.MODID, "vase"));
+        GameRegistry.registerTileEntity(TileWindmillVertical.class, new ResourceLocation(BWMod.MODID, "vert_windmill"));
+        GameRegistry.registerTileEntity(TileWindmillHorizontal.class, new ResourceLocation(BWMod.MODID, "horiz_windmill"));
+        GameRegistry.registerTileEntity(TileWaterwheel.class, new ResourceLocation(BWMod.MODID, "waterwheel"));
+        GameRegistry.registerTileEntity(TileBlockDispenser.class, new ResourceLocation(BWMod.MODID, "block_dispenser"));
+        GameRegistry.registerTileEntity(TileCreativeGen.class, new ResourceLocation(BWMod.MODID, "creative_generator"));
+        GameRegistry.registerTileEntity(TileGearbox.class, new ResourceLocation(BWMod.MODID, "gearbox"));
+        GameRegistry.registerTileEntity(TileBellows.class, new ResourceLocation(BWMod.MODID, "bellows"));
+        GameRegistry.registerTileEntity(TileBeacon.class, new ResourceLocation(BWMod.MODID, "beacon"));
+        GameRegistry.registerTileEntity(TileEnderchest.class, new ResourceLocation(BWMod.MODID, "enderchest"));
+        GameRegistry.registerTileEntity(TileAxle.class, new ResourceLocation(BWMod.MODID, "axle"));
+        GameRegistry.registerTileEntity(TileSaw.class, new ResourceLocation(BWMod.MODID, "saw"));
+        GameRegistry.registerTileEntity(TilePump.class, new ResourceLocation(BWMod.MODID, "pump"));
+        GameRegistry.registerTileEntity(TileCrank.class, new ResourceLocation(BWMod.MODID, "crank"));
+        GameRegistry.registerTileEntity(TileInfernalEnchanter.class, new ResourceLocation(BWMod.MODID, "infernal_enchanter"));
+        GameRegistry.registerTileEntity(TileKiln.class, new ResourceLocation(BWMod.MODID, "kiln"));
+        GameRegistry.registerTileEntity(TileFurnace.class, new ResourceLocation(BWMod.MODID, "furnace"));
+        GameRegistry.registerTileEntity(TileBucket.class, new ResourceLocation(BWMod.MODID, "bucket"));
+        GameRegistry.registerTileEntity(TileBarrel.class, new ResourceLocation(BWMod.MODID, "barrel"));
     }
 
     public static void registerBlocks(Collection<? extends Block> blocks) {

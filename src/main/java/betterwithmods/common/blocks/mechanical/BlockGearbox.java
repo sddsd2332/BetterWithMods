@@ -5,20 +5,16 @@ import betterwithmods.api.block.IAdvancedRotationPlacement;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.api.block.IRenderRotationPlacement;
 import betterwithmods.client.ClientEventHandler;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.blocks.BWMBlock;
-import betterwithmods.common.blocks.EnumTier;
 import betterwithmods.common.blocks.mechanical.tile.TileGearbox;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -26,7 +22,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
@@ -39,14 +34,11 @@ import java.util.Random;
 
 public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, IAdvancedRotationPlacement, IRenderRotationPlacement {
     private final int maxPower;
-    private final EnumTier type;
 
-    public BlockGearbox(int maxPower, EnumTier type) {
-        super(Material.WOOD);
+    public BlockGearbox(Material material, int maxPower) {
+        super(material);
         this.maxPower = maxPower;
-        this.setHardness(2.0F);
         this.setDefaultState(getDefaultState().withProperty(DirUtils.FACING, EnumFacing.UP).withProperty(ACTIVE, false));
-        this.type = type;
     }
 
 
@@ -200,49 +192,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
     public void overpower(World world, BlockPos pos) {
         overpowerSound(world, pos);
         EnumFacing facing = world.getBlockState(pos).getValue(DirUtils.FACING);
-        Block block = type == EnumTier.WOOD ? BWMBlocks.WOODEN_BROKEN_GEARBOX : BWMBlocks.STEEL_BROKEN_GEARBOX;
-        world.setBlockState(pos, block.getDefaultState().withProperty(DirUtils.FACING, facing));
-    }
-
-
-    @Override
-    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
-        if (type == EnumTier.STEEL)
-            return 4000f;
-        return 0;
-    }
-
-    @Override
-    public float getBlockHardness(IBlockState state, World worldIn, BlockPos pos) {
-        if (type == EnumTier.STEEL)
-            return 100f;
-        return 3.5f;
-    }
-
-    @Override
-    public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
-        if (type == EnumTier.STEEL)
-            return SoundType.METAL;
-        return SoundType.WOOD;
-    }
-
-    @Override
-    public Material getMaterial(IBlockState state) {
-        if (type == EnumTier.STEEL)
-            return Material.IRON;
-        return Material.WOOD;
-    }
-
-    @Override
-    public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
-        return type != EnumTier.STEEL || entity instanceof EntityPlayer;
-    }
-
-    @Override
-    public void onBlockExploded(World world, BlockPos pos, Explosion explosion) {
-        if (type != EnumTier.STEEL) {
-            super.onBlockExploded(world, pos, explosion);
-        }
+        world.setBlockState(pos, getDefaultState().withProperty(DirUtils.FACING, facing));
     }
 
     @Override

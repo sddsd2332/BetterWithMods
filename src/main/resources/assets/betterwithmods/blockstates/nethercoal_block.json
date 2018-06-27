@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "betterwithmods:blocks/soulforged_steel"
+      "all": "betterwithmods:blocks/nethercoal"
     },
     "model": "cube_all",
     "uvlock": true

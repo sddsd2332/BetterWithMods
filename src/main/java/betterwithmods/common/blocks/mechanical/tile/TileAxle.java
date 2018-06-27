@@ -7,7 +7,6 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IAxle;
 import betterwithmods.api.tile.IAxleTick;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
 import betterwithmods.common.blocks.tile.TileBasic;
 import com.google.common.collect.Lists;
@@ -76,9 +75,6 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
                                 findPower = power;
                         } else {
                             findPower = power;
-                            if (getBlock() == BWMBlocks.STEEL_AXLE && mech.getClass() == TileGearbox.class) {
-                                findPower = Math.max(1, findPower / 2);
-                            }
                         }
                     }
                     if (axle == null) {

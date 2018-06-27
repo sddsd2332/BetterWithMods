@@ -36,17 +36,6 @@
         "model": "betterwithmods:axle_active"
       },
       "false": {}
-    },
-    "tier": {
-      "wood": {},
-      "steel": {
-        "textures": {
-          "particle": "betterwithmods:blocks/steel_axle_side",
-          "top": "betterwithmods:blocks/steel_axle_end",
-          "side": "betterwithmods:blocks/steel_axle_side",
-          "active": "betterwithmods:blocks/steel_axle_side_on"
-        }
-      }
     }
   }
 }

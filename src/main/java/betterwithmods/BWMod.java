@@ -10,7 +10,6 @@ import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.module.hardcore.Hardcore;
-import betterwithmods.module.industry.Industry;
 import betterwithmods.module.tweaks.Tweaks;
 import betterwithmods.proxy.IProxy;
 import betterwithmods.testing.BWMTests;
@@ -47,7 +46,6 @@ public class BWMod {
             registerModule(Hardcore.class);
             registerModule(Tweaks.class);
             registerModule(CompatModule.class);
-            registerModule(Industry.class);
         }
     };
 

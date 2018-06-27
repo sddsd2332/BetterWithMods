@@ -35,6 +35,10 @@ public class ItemBark extends Item {
         return stack;
     }
 
+    public static List<ItemStack> getBarks(int count) {
+        return BWOreDictionary.blockVariants.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.BARK, count)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+    }
+
     @Override
     public int getItemBurnTime(ItemStack itemStack) {
         return 25;
@@ -44,17 +48,11 @@ public class ItemBark extends Item {
         return BWOreDictionary.blockVariants.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.LOG, 1)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 
-    public static List<ItemStack> getBarks(int count) {
-        return BWOreDictionary.blockVariants.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.BARK, count)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
-    }
-
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        if (this.isInCreativeTab(tab)) {
-            List<ItemStack> logs = getLogs();
-            for (ItemStack log : logs) {
-                items.add(fromParentStack(this, log, 1));
-            }
+        List<ItemStack> logs = getLogs();
+        for (ItemStack log : logs) {
+            items.add(fromParentStack(this, log, 1));
         }
     }
 
@@ -65,12 +63,10 @@ public class ItemBark extends Item {
         if (tag != null) {
             try {
                 IBlockState state = NBTUtil.readBlockState(tag);
-                if (state != null) {
-                    ItemStack block = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
-                    if (block.getItem() instanceof ItemBlock) {
-                        ItemBlock itemBlock = (ItemBlock) block.getItem();
-                        type = itemBlock.getItemStackDisplayName(block);
-                    }
+                ItemStack block = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+                if (block.getItem() instanceof ItemBlock) {
+                    ItemBlock itemBlock = (ItemBlock) block.getItem();
+                    type = itemBlock.getItemStackDisplayName(block);
                 }
             } catch (NullPointerException e) {
                 e.printStackTrace();

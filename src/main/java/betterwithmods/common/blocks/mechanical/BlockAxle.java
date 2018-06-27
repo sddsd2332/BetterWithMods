@@ -4,19 +4,15 @@ import betterwithmods.api.block.IOverpower;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.blocks.BWMBlock;
-import betterwithmods.common.blocks.EnumTier;
 import betterwithmods.common.blocks.mechanical.tile.TileAxle;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -25,7 +21,6 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
@@ -44,23 +39,17 @@ public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
     private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.0F, 0.375F, 0.375F, 1.0F, 0.625F, 0.625F);
     private static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
     private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
-    private final EnumTier type;
     private final int minPower;
     private final int maxPower;
     private final int maxSignal;
 
-    public BlockAxle(EnumTier type, int minPower, int maxPower, int maxSignal) {
-        super(Material.WOOD);
-        this.type = type;
+    public BlockAxle(Material material, int minPower, int maxPower, int maxSignal) {
+        super(material);
         this.minPower = minPower;
         this.maxPower = maxPower;
         this.maxSignal = maxSignal;
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, Y).withProperty(ACTIVE, false));
         setCreativeTab(BWCreativeTabs.BWTAB);
-    }
-
-    public EnumTier getType() {
-        return type;
     }
 
     @Override
@@ -220,47 +209,6 @@ public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
             float flY = pos.getY() + rand.nextFloat() * 0.5F + 0.625F;
             float flZ = pos.getZ() + rand.nextFloat();
             world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, flX, flY, flZ, 0.0D, 0.0D, 0.0D);
-        }
-    }
-
-
-    @Override
-    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
-        if (type == EnumTier.STEEL)
-            return 4000f;
-        return 0;
-    }
-
-    @Override
-    public float getBlockHardness(IBlockState state, World worldIn, BlockPos pos) {
-        if (type == EnumTier.STEEL)
-            return 100f;
-        return 3.5f;
-    }
-
-    @Override
-    public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
-        if (type == EnumTier.STEEL)
-            return SoundType.METAL;
-        return SoundType.WOOD;
-    }
-
-    @Override
-    public Material getMaterial(IBlockState state) {
-        if (type == EnumTier.STEEL)
-            return Material.IRON;
-        return Material.WOOD;
-    }
-
-    @Override
-    public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
-        return type != EnumTier.STEEL || entity instanceof EntityPlayer;
-    }
-
-    @Override
-    public void onBlockExploded(World world, BlockPos pos, Explosion explosion) {
-        if (type != EnumTier.STEEL) {
-            super.onBlockExploded(world, pos, explosion);
         }
     }
 
