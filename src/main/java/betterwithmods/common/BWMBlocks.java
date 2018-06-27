@@ -264,6 +264,4 @@ public final class BWMBlocks {
         registerBlock(block, new ItemBlock(block));
         return block;
     }
-
-    ///CLIENT END
 }

@@ -138,12 +138,6 @@ public final class BWMItems {
         }
     }
 
-    /**
-     * Register an Item.
-     *
-     * @param item Item instance to register.
-     * @return Registered item.
-     */
     public static Item registerItem(Item item) {
         //TODO remove this in 1.13, it is done automatically
         item.setUnlocalizedName(item.getRegistryName().toString());
