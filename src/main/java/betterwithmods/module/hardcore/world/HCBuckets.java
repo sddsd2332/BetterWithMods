@@ -55,6 +55,21 @@ public class HCBuckets extends Feature {
                 "stagnant_water",
                 "acid",
                 "sludge",
+                "ale",
+                "alewort",
+                "applejuice",
+                "cider",
+                "grapejuice",
+                "honey",
+                "ironberryjuice",
+                "ironwine",
+                "mead",
+                "oliveoil",
+                "wildberryjuice",
+                "wildberrywine",
+                "wine",
+                "blood",
+                "purpleslime",
         }));
     }
 
