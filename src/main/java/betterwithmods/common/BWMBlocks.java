@@ -25,14 +25,11 @@ import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-import java.util.Objects;
 
 public final class BWMBlocks {
     public static final Material POTTERY = new Material(MapColor.STONE);
@@ -248,35 +245,25 @@ public final class BWMBlocks {
      * @param item  Item instance to register. Will have the same registered name
      *              as the block. If null, then no item will be linked to the
      */
-    public static void registerBlock(Block block,
-                                     @Nullable
-                                             Item item) {
-        if (Objects.equals(block.getUnlocalizedName(), "tile.null")) {
-            //betterwithmods:name => bwm:name
-            block.setUnlocalizedName("bwm" + block.getRegistryName().toString().substring(BWMod.MODID.length()));
-        }
+    public static void registerBlock(Block block, @Nullable Item item) {
+        //TODO remove this in 1.13, it is done automatically
+        block.setUnlocalizedName(block.getRegistryName().toString());
         BLOCKS.add(block);
-        if (item != null)
+        if (item != null) {
             BWMItems.registerItem(item.setRegistryName(block.getRegistryName()));
+        }
     }
 
-	/**
-	 * Register a Block and a new ItemBlock generated from it.
-	 *
-	 * @param block Block instance to register.
-	 * @return Registered block.
-	 */
-	public static Block registerBlock(Block block) {
-	    registerBlock(block, new ItemBlock(block));
-	    return block;
-	}
+    /**
+     * Register a Block and a new ItemBlock generated from it.
+     *
+     * @param block Block instance to register.
+     * @return Registered block.
+     */
+    public static Block registerBlock(Block block) {
+        registerBlock(block, new ItemBlock(block));
+        return block;
+    }
 
-	@SideOnly(Side.CLIENT)
-	public static void setInventoryModel(Block block) {
-		BWMItems.setInventoryModel(Item.getItemFromBlock(block));
-	}
-
-
-
-	///CLIENT END
+    ///CLIENT END
 }

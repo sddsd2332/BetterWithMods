@@ -1,19 +1,24 @@
 package betterwithmods.client.baking;
 
+import betterwithmods.BWMod;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.blocks.camo.CamoInfo;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.model.ModelRotation;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 
 public class BarkModel extends ModelFactory<CamoInfo> {
+
+    public static final ModelResourceLocation LOCATION = new ModelResourceLocation(new ResourceLocation(BWMod.MODID, "bark"), "inventory");
 
     public static BarkModel BARK;
 

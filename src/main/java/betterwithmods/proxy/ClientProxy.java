@@ -95,7 +95,7 @@ public class ClientProxy implements IProxy {
     @SideOnly(Side.CLIENT)
     public static void onPostBake(ModelBakeEvent event) {
         BarkModel.BARK = new BarkModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "item/bark")));
-        event.getModelRegistry().putObject(new ModelResourceLocation(new ResourceLocation(BWMod.MODID, "bark"), "inventory"), BarkModel.BARK);
+        event.getModelRegistry().putObject(BarkModel.LOCATION, BarkModel.BARK);
     }
 
     @SubscribeEvent

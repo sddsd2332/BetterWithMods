@@ -17,7 +17,6 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.lang.reflect.Field;
 import java.lang.reflect.Modifier;
@@ -146,7 +145,8 @@ public final class BWMItems {
      * @return Registered item.
      */
     public static Item registerItem(Item item) {
-        item.setUnlocalizedName("bwm:" + item.getRegistryName().getResourcePath());
+        //TODO remove this in 1.13, it is done automatically
+        item.setUnlocalizedName(item.getRegistryName().toString());
         ITEMS.add(item);
         return item;
     }
@@ -158,19 +158,11 @@ public final class BWMItems {
 
     @SideOnly(Side.CLIENT)
     private static void setModelLocation(Item item, int meta, ResourceLocation location, String variantSettings) {
-        if (meta == OreDictionary.WILDCARD_VALUE) {
-            ModelLoader.setCustomMeshDefinition(item, stack -> new ModelResourceLocation(location, variantSettings));
-        } else {
-            ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(location, variantSettings));
-        }
+        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(location, variantSettings));
     }
 
     @SideOnly(Side.CLIENT)
     public static void setInventoryModel(Item item) {
-        if (item.isDamageable()) {
-            setModelLocation(item, OreDictionary.WILDCARD_VALUE, "inventory");
-        } else {
             setModelLocation(item, 0, "inventory");
-        }
     }
 }
