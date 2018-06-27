@@ -1,6 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.api.block.PropertyObject;
+import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.tile.TileKiln;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
@@ -150,7 +151,8 @@ public class BlockKiln extends BWMBlock {
 
     @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return super.getPickBlock(state, target, world, pos, player);
+        IExtendedBlockState extendedBlockState = (IExtendedBlockState) getExtendedState(state,world,pos);
+        return BWMRecipes.getStackFromState(extendedBlockState.getValue(HELD_STATE));
     }
 
     public TileKiln getTile(World world, BlockPos pos) {
