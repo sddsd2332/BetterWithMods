@@ -179,7 +179,8 @@ public class HopperInteractions {
         }
 
         public void onCraft(World world, BlockPos pos, EntityItem item, TileEntityFilteredHopper tile) {
-            item.getItem().shrink(1);
+            int count = input instanceof StackIngredient ? ((StackIngredient) input).getCount(item.getItem()) : 1;
+            item.getItem().shrink(count);
             if (item.getItem().getCount() <= 0)
                 item.setDead();
         }
