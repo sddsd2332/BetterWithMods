@@ -229,7 +229,7 @@ public final class Document {
         return new StrikethroughSegment(s, m.group(1));
     }
 
-    private static Segment ImageSegment(final Segment s, final Matcher m) {
+    public static Segment ImageSegment(final Segment s, final Matcher m) {
         try {
             final ImageRenderer renderer = s.getManual().imageFor(m.group(2));
             if (renderer != null) {
@@ -242,7 +242,7 @@ public final class Document {
         }
     }
 
-    private static final class PatternMapping {
+    public static final class PatternMapping {
         public final Pattern pattern;
         public final SegmentRefiner refiner;
 
