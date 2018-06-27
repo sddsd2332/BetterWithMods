@@ -6,6 +6,7 @@ import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
 import betterwithmods.common.blocks.tile.SimpleStackHandler;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -60,7 +61,8 @@ public class HopperRecipe {
     }
 
     public void onCraft(World world, BlockPos pos, EntityItem item, TileFilteredHopper tile) {
-        item.getItem().shrink(1);
+        int count = input instanceof StackIngredient ? ((StackIngredient) input).getCount(item.getItem()) : 1;
+        item.getItem().shrink(count);
         if (item.getItem().getCount() <= 0)
             item.setDead();
     }
