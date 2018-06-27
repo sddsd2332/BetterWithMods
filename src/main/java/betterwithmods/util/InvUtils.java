@@ -432,7 +432,7 @@ public class InvUtils {
     }
 
 
-    public static void ejectStack(World world, double x, double y, double z, ItemStack stack, int pickupDelay) {
+    public static void ejectStack(@Nonnull World world, double x, double y, double z, ItemStack stack, int pickupDelay) {
         if (world.isRemote)
             return;
 
@@ -442,7 +442,7 @@ public class InvUtils {
         ejector.ejectStack();
     }
 
-    public static void ejectStack(World world, double x, double y, double z, ItemStack stack) {
+    public static void ejectStack(@Nonnull World world, double x, double y, double z, ItemStack stack) {
         ejectStack(world, x, y, z, stack, 10);
     }
 

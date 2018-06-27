@@ -1,5 +1,6 @@
 package betterwithmods.common.entity;
 
+import betterwithmods.common.BWMItems;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFire;
@@ -30,19 +31,18 @@ public class EntityDynamite extends Entity implements IProjectile {
     private int fuse;
 
     public EntityDynamite(World world) {
-        super(world);
-        this.setSize(0.25F, 0.4F);
-        this.fuse = -1;
-        this.preventEntitySpawning = true;
-        this.stack = null;
-        this.isImmuneToFire = true;
+        this(world,0,0,0, new ItemStack(BWMItems.DYNAMITE));
     }
 
     public EntityDynamite(World world, double xPos, double yPos, double zPos, ItemStack stack) {
         super(world);
+        this.setSize(0.25F, 0.4F);
         this.setPosition(xPos, yPos, zPos);
         this.stack = stack;
         this.fuse = 100;
+        this.preventEntitySpawning = true;
+        this.stack = stack;
+        this.isImmuneToFire = true;
     }
 
     public EntityDynamite(World world, EntityLivingBase owner, ItemStack stack, boolean isLit) {
@@ -126,7 +126,7 @@ public class EntityDynamite extends Entity implements IProjectile {
 
     @Override
     public void shoot(double dX, double dY,
-                                    double dZ, float angle, float f) {
+                      double dZ, float angle, float f) {
         float sqrt = MathHelper.sqrt(dX * dX + dY * dY + dZ * dZ);
         dX /= sqrt;
         dY /= sqrt;
@@ -199,8 +199,7 @@ public class EntityDynamite extends Entity implements IProjectile {
     }
 
     private void convertToItem() {
-        if (!this.getEntityWorld().isRemote)
-            InvUtils.ejectStack(this.getEntityWorld(), this.posX, this.posY, this.posZ, this.stack);
+        InvUtils.ejectStack(this.getEntityWorld(), this.posX, this.posY, this.posZ, this.stack);
         this.setDead();
     }
 

@@ -5,6 +5,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class StackEjector {
 
     private final World world;
@@ -13,14 +15,14 @@ public class StackEjector {
     private Vec3d motion;
     private int pickupDelay;
 
-    public StackEjector(World world, ItemStack stack, Vec3d position, Vec3d motion) {
+    public StackEjector(@Nonnull World world, @Nonnull ItemStack stack, Vec3d position, Vec3d motion) {
         this.world = world;
         this.stack = stack;
         this.position = position;
         this.motion = motion;
     }
 
-    public StackEjector(World world, ItemStack stack, Vec3d position) {
+    public StackEjector(@Nonnull World world, @Nonnull ItemStack stack, Vec3d position) {
         this.world = world;
         this.stack = stack;
         this.position = position;
@@ -28,6 +30,8 @@ public class StackEjector {
 
     public void ejectStack() {
         if (world.isRemote)
+            return;
+        if(stack == null)
             return;
         if (position == null)
             return;

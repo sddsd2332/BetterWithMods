@@ -6,6 +6,7 @@ import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.manual.custom.JEIRenderSegment;
 import betterwithmods.manual.custom.JEISegment;
 import com.google.common.base.Strings;
+import com.google.common.collect.Sets;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -14,6 +15,7 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -34,7 +36,7 @@ import java.util.regex.Pattern;
  * nodes, up to the root.
  */
 public final class Document {
-    private static final PatternMapping[] SEGMENT_TYPES = new PatternMapping[]{
+    public static final Set<PatternMapping> SEGMENT_TYPES = Sets.newHashSet(
             new PatternMapping("^(#+)\\s(.*)", Document::HeaderSegment), // headers: # ...
             new PatternMapping("(`)(.*?)\\1", Document::CodeSegment), // code: `...`
             new PatternMapping("!\\[([^\\[]*)\\]\\(([^\\)]+)\\)", Document::ImageSegment), // images: ![...](...)
@@ -42,7 +44,7 @@ public final class Document {
             new PatternMapping("(\\*\\*|__)(\\S.*?\\S|$)\\1", Document::BoldSegment), // bold: **...** | __...__
             new PatternMapping("(\\*|_)(\\S.*?\\S|$)\\1", Document::ItalicSegment), // italic: *...* | _..._
             new PatternMapping("~~(\\S.*?\\S|$)~~", Document::StrikethroughSegment) // strikethrough: ~~...~~
-    };
+    );
 
     private Document() {
     }
@@ -227,7 +229,7 @@ public final class Document {
         return new StrikethroughSegment(s, m.group(1));
     }
 
-    private static Segment ImageSegment(final Segment s, final Matcher m) {
+    public static Segment ImageSegment(final Segment s, final Matcher m) {
         try {
             final ImageRenderer renderer = s.getManual().imageFor(m.group(2));
             if (renderer != null) {
@@ -240,7 +242,7 @@ public final class Document {
         }
     }
 
-    private static final class PatternMapping {
+    public static final class PatternMapping {
         public final Pattern pattern;
         public final SegmentRefiner refiner;
 
