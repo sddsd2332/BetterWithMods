@@ -72,6 +72,6 @@ public class CookingPotTests extends BaseBulkTest<CookingPotRecipe> {
         Assertions.assertThat(TEST_MANAGER.getRecipes()).hasSize(1);
 
         Assertions.assertThat(TEST_MANAGER.canCraft(stokedRecipe, TILE, TILE.getInventory())).isFalse();
-        Assertions.assertThat(TEST_MANAGER.craftItem(stokedRecipe,null, TILE, TILE.getInventory())).isEmpty();
+        Assertions.assertThat(TEST_MANAGER.craftItem(stokedRecipe, null, TILE, TILE.getInventory())).isEmpty();
     }
 }

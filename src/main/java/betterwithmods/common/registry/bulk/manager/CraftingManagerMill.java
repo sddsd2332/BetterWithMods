@@ -81,7 +81,6 @@ public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
                 //Play sounds
                 if (mill.getBlockWorld().rand.nextInt(40) < 2)
                     mill.getBlockWorld().playSound(null, mill.getBlockPos(), recipe.getSound(), SoundCategory.BLOCKS,  0.75F, mill.getWorld().rand.nextFloat() * 0.4F + 0.8F);
-
                 if (canCraft(recipe, tile, inv)) {
                     mill.ejectRecipe(BWRegistry.MILLSTONE.craftItem(recipe, world, tile, inv));
                     mill.grindCounter = 0;

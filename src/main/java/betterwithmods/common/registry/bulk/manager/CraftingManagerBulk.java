@@ -16,6 +16,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 public abstract class CraftingManagerBulk<T extends BulkRecipe> extends CraftingManagerBase<T> {
+
     public T addRecipe(T recipe) {
         if (!recipe.isInvalid())
             recipes.add(recipe);
@@ -26,7 +27,7 @@ public abstract class CraftingManagerBulk<T extends BulkRecipe> extends Crafting
 
     @Nonnull
     public NonNullList<ItemStack> craftItem(T recipe, World world, IBulkTile tile, ItemStackHandler inv) {
-        return recipe != null ? recipe.onCraft(world, tile, inv) : NonNullList.create();
+        return canCraft(recipe, tile, inv) ? recipe.onCraft(world, tile, inv) : NonNullList.create();
     }
 
     protected Optional<T> findRecipe(List<T> recipes, IBulkTile tile, ItemStackHandler inv) {

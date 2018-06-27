@@ -93,12 +93,17 @@ public class CraftingManagerPot extends CraftingManagerBulk<CookingPotRecipe> {
         return addRecipe(inputs, outputs, heat).setIgnoreHeat(true);
     }
 
+    @Override
+    public boolean canCraft(CookingPotRecipe recipe, IBulkTile tile, ItemStackHandler inv) {
+        return recipe != null && recipe.canCraft((IHeated) tile, tile.getWorld(), tile.getPos());
+    }
 
     @Override
     public boolean craftRecipe(World world, IBulkTile tile, ItemStackHandler inv) {
         if (tile instanceof TileCookingPot) {
             TileCookingPot pot = (TileCookingPot) tile;
             CookingPotRecipe r = findRecipe(tile, inv);
+
             if (canCraft(r, tile, inv)) {
                 if (pot.cookProgress >= pot.getMax()) {
                     InvUtils.insert(inv, craftItem(r, world, tile, inv), false);
