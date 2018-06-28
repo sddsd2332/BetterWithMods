@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
+@SuppressWarnings("unused")
 public final class BWMItems {
     public static final ToolMaterial SOULFORGED_STEEL = EnumHelper.addToolMaterial("SOULFORGED_STEEL", 4, 2250, 10f, 3, 22);
     //Foods
@@ -139,9 +140,11 @@ public final class BWMItems {
     }
 
     public static Item registerItem(Item item) {
-        //TODO remove this in 1.13, it is done automatically
-        item.setUnlocalizedName(item.getRegistryName().toString());
-        ITEMS.add(item);
+        if (item.getRegistryName() != null) {
+            //TODO remove this in 1.13, it is done automatically
+            item.setUnlocalizedName(item.getRegistryName().toString());
+            ITEMS.add(item);
+        }
         return item;
     }
 
@@ -157,6 +160,6 @@ public final class BWMItems {
 
     @SideOnly(Side.CLIENT)
     public static void setInventoryModel(Item item) {
-            setModelLocation(item, 0, "inventory");
+        setModelLocation(item, 0, "inventory");
     }
 }

@@ -16,7 +16,8 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.ForgeRegistry;
 
-import java.util.*;
+import java.util.List;
+import java.util.Set;
 import java.util.regex.Pattern;
 
 public final class BWMRecipes {
@@ -71,6 +72,8 @@ public final class BWMRecipes {
         return FurnaceRecipes.instance().getSmeltingList().entrySet().removeIf(next -> InvUtils.matches(next.getKey(), input));
     }
 
+    //TODO find out how to do this properly in 1.13
+    @Deprecated
     public static Set<IBlockState> getStatesFromStack(ItemStack stack) {
         if (stack.getItem() instanceof ItemBlock) {
             if (stack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
@@ -81,6 +84,8 @@ public final class BWMRecipes {
         return Sets.newHashSet();
     }
 
+    //TODO find out how to do this properly in 1.13
+    @Deprecated
     public static IBlockState getStateFromStack(ItemStack stack) {
         if (stack != null && stack.getItem() instanceof ItemBlock) {
             final ItemBlock itemBlock = ((ItemBlock) stack.getItem());

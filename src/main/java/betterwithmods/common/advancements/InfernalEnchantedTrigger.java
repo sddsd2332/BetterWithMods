@@ -16,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -24,11 +25,12 @@ public class InfernalEnchantedTrigger implements ICriterionTrigger<InfernalEncha
     private static final ResourceLocation ID = new ResourceLocation(BWMod.MODID, "infernal_enchant");
     private final Map<PlayerAdvancements, InfernalEnchantedTrigger.Listeners> listeners = Maps.newHashMap();
 
+    @Nonnull
     public ResourceLocation getId() {
         return ID;
     }
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<InfernalEnchantedTrigger.Instance> listener) {
+    public void addListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull ICriterionTrigger.Listener<InfernalEnchantedTrigger.Instance> listener) {
         InfernalEnchantedTrigger.Listeners enchanteditemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
 
         if (enchanteditemtrigger$listeners == null) {
@@ -39,7 +41,7 @@ public class InfernalEnchantedTrigger implements ICriterionTrigger<InfernalEncha
         enchanteditemtrigger$listeners.add(listener);
     }
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<InfernalEnchantedTrigger.Instance> listener) {
+    public void removeListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull ICriterionTrigger.Listener<InfernalEnchantedTrigger.Instance> listener) {
         InfernalEnchantedTrigger.Listeners enchanteditemtrigger$listeners = this.listeners.get(playerAdvancementsIn);
 
         if (enchanteditemtrigger$listeners != null) {
@@ -51,14 +53,15 @@ public class InfernalEnchantedTrigger implements ICriterionTrigger<InfernalEncha
         }
     }
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
+    public void removeAllListeners(@Nonnull PlayerAdvancements playerAdvancementsIn) {
         this.listeners.remove(playerAdvancementsIn);
     }
 
     /**
      * Deserialize a ICriterionInstance of this trigger from the data in the JSON.
      */
-    public InfernalEnchantedTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
+    @Nonnull
+    public InfernalEnchantedTrigger.Instance deserializeInstance(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
         ItemPredicate itempredicate = ItemPredicate.deserialize(json.get("item"));
         MinMaxBounds minmaxbounds = MinMaxBounds.deserialize(json.get("levels"));
         return new InfernalEnchantedTrigger.Instance(itempredicate, minmaxbounds);

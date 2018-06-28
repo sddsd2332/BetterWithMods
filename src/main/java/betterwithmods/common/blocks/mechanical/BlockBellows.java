@@ -28,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
@@ -66,10 +67,11 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
         return state.getBlock() == this && !state.getValue(ACTIVE);
     }
 
+    @Nonnull
     @Deprecated
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ,
-                                            int meta, EntityLivingBase living, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ,
+                                            int meta, @Nonnull EntityLivingBase living, EnumHand hand) {
         return super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, living, hand).withProperty(DirUtils.HORIZONTAL, living.getHorizontalFacing()).withProperty(ACTIVE, false);
     }
 
@@ -77,6 +79,7 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
         return state.getValue(DirUtils.HORIZONTAL);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
         if (state.getValue(ACTIVE))
@@ -216,11 +219,13 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
         return facing << 1 | active;
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.HORIZONTAL, EnumFacing.getHorizontal(meta >> 1));
     }
 
+    @Nonnull
     @Override
     public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.HORIZONTAL, ACTIVE);
@@ -237,6 +242,7 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
         return null;
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face != EnumFacing.DOWN && state.getValue(ACTIVE) ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
@@ -254,7 +260,7 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileBellows();
     }
 }

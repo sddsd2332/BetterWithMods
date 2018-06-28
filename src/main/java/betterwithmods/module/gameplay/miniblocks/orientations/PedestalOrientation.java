@@ -8,6 +8,8 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 public enum PedestalOrientation implements BaseOrientation {
     DOWN("down", EnumFacing.DOWN, 0, 0, new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
     UP("up", EnumFacing.DOWN, 180, 0, new AxisAlignedBB(0, 0, 0, 1, 1, 1));
@@ -41,6 +43,7 @@ public enum PedestalOrientation implements BaseOrientation {
         return DOWN;
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return name;

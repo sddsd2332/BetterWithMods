@@ -88,6 +88,7 @@ public class HCStumping extends Feature {
         return false;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isPlaced(World world, BlockPos pos) {
         PlacedCapability capability = getCapability(world);
         if (capability != null) {

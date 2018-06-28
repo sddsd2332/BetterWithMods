@@ -17,6 +17,7 @@ import net.minecraft.world.gen.feature.WorldGenerator;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.event.terraingen.TerrainGen;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockBloodSapling extends BlockBush {
@@ -30,10 +31,11 @@ public class BlockBloodSapling extends BlockBush {
     }
 
     @Override
-    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+    public boolean isFlammable(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing) {
         return false;
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return SAPLING_AABB;
@@ -54,7 +56,6 @@ public class BlockBloodSapling extends BlockBush {
         return canSustainBush(world.getBlockState(pos.down()));
     }
 
-
     @Override
     protected boolean canSustainBush(IBlockState state) {
         return true;
@@ -67,6 +68,17 @@ public class BlockBloodSapling extends BlockBush {
             this.generateTree(world, pos, state, rand);
         }
     }
+
+    @Override
+    public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
+        if (!world.isRemote && world.provider.isNether()) {
+            super.updateTick(world, pos, state, rand);
+            if (rand.nextInt(7) == 0) {
+                grow(world, pos, state, rand);
+            }
+        }
+    }
+
 
     public boolean generateTree(World world, BlockPos pos, IBlockState state, Random rand) {
         if (!TerrainGen.saplingGrowTree(world, rand, pos)) return false;
@@ -81,6 +93,7 @@ public class BlockBloodSapling extends BlockBush {
         return true;
     }
 
+    @Nonnull
     @Override
     public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
         return EnumPlantType.Nether;
@@ -91,11 +104,14 @@ public class BlockBloodSapling extends BlockBush {
         return state.getValue(STAGE) == 1 ? 8 : 0;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(STAGE, meta == 8 ? 1 : 0);
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, STAGE);

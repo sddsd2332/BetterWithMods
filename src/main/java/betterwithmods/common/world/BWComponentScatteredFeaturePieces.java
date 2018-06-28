@@ -17,6 +17,7 @@ import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 /**
@@ -36,7 +37,7 @@ public class BWComponentScatteredFeaturePieces {
         }
 
         @Override
-        public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+        public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
             boolean result = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
 
             //Replace clay with obsidian
@@ -142,7 +143,7 @@ public class BWComponentScatteredFeaturePieces {
         }
 
         @Override
-        public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+        public boolean addComponentParts(@Nonnull World worldIn, Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
             if (!this.offsetToAverageGroundLevel(worldIn, structureBoundingBoxIn, 0)) {
                 return false;
             } else {
@@ -221,7 +222,7 @@ public class BWComponentScatteredFeaturePieces {
         }
 
         @Override
-        public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+        public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
             boolean result = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
             this.setBlockState(worldIn, BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD), 5, 4, 11, structureBoundingBoxIn);
             this.setBlockState(worldIn, BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD), 6, 4, 11, structureBoundingBoxIn);

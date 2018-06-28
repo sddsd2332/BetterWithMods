@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.feature.WorldGenAbstractTree;
 import net.minecraftforge.common.IPlantable;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class WorldGenBloodTree extends WorldGenAbstractTree {
@@ -23,7 +24,7 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
     }
 
     @Override
-    public boolean generate(World world, Random rand, BlockPos pos) {
+    public boolean generate(@Nonnull World world, @Nonnull Random rand, @Nonnull BlockPos pos) {
         int height = 5 + rand.nextInt(4);
 
         boolean flag = true;

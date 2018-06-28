@@ -6,6 +6,8 @@ import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 
+import javax.annotation.Nonnull;
+
 public class InventorySteelCraftingResult extends InventoryCraftResult {
 
     private final TileSteelAnvil craft;
@@ -14,11 +16,13 @@ public class InventorySteelCraftingResult extends InventoryCraftResult {
         craft = te;
     }
 
+    @Nonnull
     @Override
     public ItemStack getStackInSlot(int slot) {
         return slot == 0 ? craft.getResult() : null;
     }
 
+    @Nonnull
     @Override
     public ItemStack decrStackSize(int slot, int decrement) {
         //return craft.decrStackSize(slot, decrement);
@@ -33,7 +37,7 @@ public class InventorySteelCraftingResult extends InventoryCraftResult {
     }
 
     @Override
-    public void setInventorySlotContents(int slot, ItemStack stack) {
+    public void setInventorySlotContents(int slot, @Nonnull ItemStack stack) {
         craft.setResult(stack);
     }
 }

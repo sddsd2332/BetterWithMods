@@ -8,6 +8,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -23,7 +24,7 @@ public abstract class CraftingManagerBlock<T extends BlockRecipe> extends Crafti
 
     protected final HashMap<IBlockState, T> recipeCache = Maps.newHashMap();
 
-    public T addRecipe(T recipe) {
+    public T addRecipe(@Nonnull T recipe) {
         if (!recipe.isInvalid())
             recipes.add(recipe);
         return recipe;

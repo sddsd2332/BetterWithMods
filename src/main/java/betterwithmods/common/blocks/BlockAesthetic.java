@@ -16,6 +16,7 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.HashMap;
 
@@ -51,28 +52,34 @@ public class BlockAesthetic extends BWMBlock {
         return new ItemStack(BLOCKS.get(type), count);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public float getBlockHardness(IBlockState state, World worldIn, BlockPos pos) {
         return type.getHardness();
     }
 
+    @Nonnull
     @Override
     public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
         return type.getSoundType();
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public Material getMaterial(IBlockState state) {
         return type.getMaterial();
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return type.getMapColor();
     }
 
     @Override
-    public int getHarvestLevel(IBlockState state) {
+    public int getHarvestLevel(@Nonnull IBlockState state) {
         return 1;
     }
 
@@ -87,7 +94,7 @@ public class BlockAesthetic extends BWMBlock {
     }
 
     @Override
-    public boolean isFireSource(World world, BlockPos pos, EnumFacing side) {
+    public boolean isFireSource(@Nonnull World world, BlockPos pos, EnumFacing side) {
         return type == HELLFIRE;
     }
 
@@ -134,6 +141,7 @@ public class BlockAesthetic extends BWMBlock {
             this.resistance = resistance;
         }
 
+        @Nonnull
         @Override
         public String getName() {
             return name;

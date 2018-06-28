@@ -11,6 +11,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by primetoxinz on 8/5/16.
  */
@@ -21,12 +23,12 @@ public class TileCreativeGen extends TileEntity implements IMechanicalPower {
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {
         return capability == CapabilityMechanicalPower.MECHANICAL_POWER || super.hasCapability(capability, facing);
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityMechanicalPower.MECHANICAL_POWER) {
             return CapabilityMechanicalPower.MECHANICAL_POWER.cast(this);
         }

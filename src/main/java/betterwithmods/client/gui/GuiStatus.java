@@ -39,19 +39,17 @@ public class GuiStatus {
 
 
     @SideOnly(Side.CLIENT)
-    private boolean drawPenaltyText(int left, int top) {
-        if (this.mc.player.isDead) {
-            return false;
-        } else {
+    private void drawPenaltyText(int left, int top) {
+        if (this.mc.player.isEntityAlive()) {
             int y = top;
             FontRenderer fontRenderer = this.mc.fontRenderer;
             for (PenaltyHandler handler : BWRegistry.PENALTY_HANDLERS) {
-                if(!handler.isDisplayed())
+                if (!handler.isDisplayed())
                     continue;
                 Penalty p = handler.getPenalty(mc.player);
                 if (p != null) {
                     String status = I18n.format(p.getName());
-                    if(status.isEmpty())
+                    if (status.isEmpty())
                         continue;
                     int width = fontRenderer.getStringWidth(status);
                     fontRenderer.drawStringWithShadow(status, left - width, y,
@@ -60,7 +58,6 @@ public class GuiStatus {
                 }
             }
             GuiIngameForge.right_height += y;
-            return false;
         }
     }
 

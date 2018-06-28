@@ -11,6 +11,8 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
+import javax.annotation.Nonnull;
+
 public class ContainerSteelAnvil extends Container {
     private final int INV_FIRST = 17;
     private final int INV_LAST = 44;
@@ -63,7 +65,7 @@ public class ContainerSteelAnvil extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(@Nonnull EntityPlayer player) {
         return te.isUseableByPlayer(player);
     }
 
@@ -71,6 +73,7 @@ public class ContainerSteelAnvil extends Container {
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
 
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;

@@ -4,8 +4,6 @@ import betterwithmods.BWMod;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.tile.TileSteelAnvil;
 import betterwithmods.util.DirUtils;
-import betterwithmods.util.InvUtils;
-import net.minecraft.block.BlockContainer;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -22,10 +20,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by blueyu2 on 11/21/16.
  */
-public class BlockSteelAnvil extends BlockContainer {
+public class BlockSteelAnvil extends BWMBlock {
 
     public BlockSteelAnvil() {
         super(Material.IRON);
@@ -37,29 +37,36 @@ public class BlockSteelAnvil extends BlockContainer {
         this.setDefaultState(this.blockState.getBaseState().withProperty(DirUtils.HORIZONTAL, EnumFacing.NORTH));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.MODEL;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ, int meta, @Nonnull EntityLivingBase placer, EnumHand hand) {
         IBlockState state = super.getStateForPlacement(world, pos, facing, hitX, hitY, hitZ, meta, placer, hand);
         if (facing.ordinal() < 2)
             facing = DirUtils.convertEntityOrientationToFlatFacing(placer, facing);
         return state.withProperty(DirUtils.HORIZONTAL, facing.rotateY());
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
         switch (state.getValue(DirUtils.HORIZONTAL)) {
@@ -79,11 +86,14 @@ public class BlockSteelAnvil extends BlockContainer {
         return state.getValue(DirUtils.HORIZONTAL).getHorizontalIndex();
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(DirUtils.HORIZONTAL, EnumFacing.getHorizontal(meta));
     }
 
+    @Nonnull
     @Override
     public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.HORIZONTAL);
@@ -99,27 +109,12 @@ public class BlockSteelAnvil extends BlockContainer {
     }
 
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileSteelAnvil();
     }
 
-    @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileSteelAnvil();
-    }
-
-    @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        TileSteelAnvil anvil = (TileSteelAnvil) worldIn.getTileEntity(pos);
-        InvUtils.ejectInventoryContents(worldIn,pos,anvil.inventory);
-        super.breakBlock(worldIn, pos, state);
-    }
-
-    @Override
-    public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
-        return true;
-    }
-
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face.getAxis() == EnumFacing.Axis.Y ? BlockFaceShape.CENTER_BIG : BlockFaceShape.UNDEFINED;

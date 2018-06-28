@@ -14,6 +14,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class BlockSteelPressurePlate extends BlockBasePressurePlate {
@@ -26,23 +27,24 @@ public class BlockSteelPressurePlate extends BlockBasePressurePlate {
 		setSoundType(SoundType.METAL);
 	}
 
-	protected int getRedstoneStrength(IBlockState state) {
+    protected int getRedstoneStrength(@Nonnull IBlockState state) {
 		return state.getValue(POWERED) ? 15 : 0;
 	}
 
-	protected IBlockState setRedstoneStrength(IBlockState state, int strength) {
+    @Nonnull
+    protected IBlockState setRedstoneStrength(@Nonnull IBlockState state, int strength) {
 		return state.withProperty(POWERED, strength > 0);
 	}
 
-	protected void playClickOnSound(World worldIn, BlockPos color) {
+    protected void playClickOnSound(@Nonnull World worldIn, @Nonnull BlockPos color) {
 		worldIn.playSound(null, color, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_ON, SoundCategory.BLOCKS, 0.3F, 0.6F);
 	}
 
-	protected void playClickOffSound(World worldIn, BlockPos pos) {
+    protected void playClickOffSound(@Nonnull World worldIn, @Nonnull BlockPos pos) {
 		worldIn.playSound(null, pos, SoundEvents.BLOCK_STONE_PRESSPLATE_CLICK_OFF, SoundCategory.BLOCKS, 0.3F, 0.5F);
 	}
 
-	protected int computeRedstoneStrength(World worldIn, BlockPos pos) {
+    protected int computeRedstoneStrength(@Nonnull World worldIn, @Nonnull BlockPos pos) {
 		AxisAlignedBB axisalignedbb = PRESSURE_AABB.offset(pos);
 		List<? extends Entity> list = worldIn.getEntitiesWithinAABB(EntityPlayer.class, axisalignedbb);
 		if (!list.isEmpty()) {
@@ -56,7 +58,8 @@ public class BlockSteelPressurePlate extends BlockBasePressurePlate {
 		return 0;
 	}
 
-	public IBlockState getStateFromMeta(int meta) {
+    @Nonnull
+    public IBlockState getStateFromMeta(int meta) {
 		return this.getDefaultState().withProperty(POWERED, meta == 1);
 	}
 
@@ -64,7 +67,8 @@ public class BlockSteelPressurePlate extends BlockBasePressurePlate {
 		return state.getValue(POWERED) ? 1 : 0;
 	}
 
-	protected BlockStateContainer createBlockState() {
+    @Nonnull
+    protected BlockStateContainer createBlockState() {
 		return new BlockStateContainer(this, POWERED);
 	}
 

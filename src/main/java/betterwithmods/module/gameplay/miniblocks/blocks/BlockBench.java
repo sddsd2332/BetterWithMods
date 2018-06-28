@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.function.Function;
 
@@ -25,13 +26,15 @@ public class BlockBench extends BlockFurniture implements ISittable {
         setDefaultState(getDefaultState().withProperty(SUPPORTED, true));
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return BENCH_TOP;
     }
 
+    @Nonnull
     @Override
-    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos) {
         return BENCH_TOP.offset(pos);
     }
 
@@ -40,19 +43,20 @@ public class BlockBench extends BlockFurniture implements ISittable {
         return world.getBlockState(pos.offset(facing)).getBlock() instanceof BlockBench;
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         super.breakBlock(worldIn, pos, state);
         removeEntities(state, worldIn, pos);
     }
 
     @Override
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
         removeEntities(state, world, pos);
         return super.removedByPlayer(state, world, pos, player, willHarvest);
     }

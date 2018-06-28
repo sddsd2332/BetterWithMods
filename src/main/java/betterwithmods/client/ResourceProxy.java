@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraftforge.fml.common.Loader;
 
+import javax.annotation.Nonnull;
 import java.io.InputStream;
 import java.util.Map;
 import java.util.Set;
@@ -40,24 +41,25 @@ public class ResourceProxy extends AbstractResourcePack {
         BWMod.logger.info("Override texture: {} to {}", bare, override);
     }
 
+    @Nonnull
     @Override
     public Set<String> getResourceDomains() {
         return RESOURCE_DOMAINS;
     }
 
+    @Nonnull
     @Override
-    protected InputStream getInputStreamByName(String name) {
-        if (name == null)
-            return null;
+    protected InputStream getInputStreamByName(@Nonnull String name) {
         return BWMod.class.getResourceAsStream(overrides.get(name));
     }
 
     @Override
-    protected boolean hasResourceName(String name) {
+    protected boolean hasResourceName(@Nonnull String name) {
         return overrides.containsKey(name);
     }
 
 
+    @Nonnull
     @Override
     public String getPackName() {
         return "bwm-texture-proxy";

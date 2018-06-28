@@ -12,6 +12,7 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
+import javax.annotation.Nonnull;
 import java.util.Set;
 
 public class BlockCobble extends Block {
@@ -32,6 +33,8 @@ public class BlockCobble extends Block {
             BLOCKS.add(new BlockCobble(type));
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return type.getColor();
@@ -57,6 +60,7 @@ public class BlockCobble extends Block {
             return stone;
         }
 
+        @Nonnull
         @Override
         public String getName() {
             return name;

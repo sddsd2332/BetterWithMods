@@ -22,6 +22,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidRegistry;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
@@ -57,9 +58,10 @@ public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
         return 5;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ,
-                                            int meta, EntityLivingBase entity, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ,
+                                            int meta, @Nonnull EntityLivingBase entity, EnumHand hand) {
         IBlockState state = super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, entity, hand);
         return setFacingInBlock(state, entity.getHorizontalFacing().getOpposite());
     }
@@ -75,6 +77,7 @@ public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
         return state.withProperty(DirUtils.HORIZONTAL, facing);
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean isActive = false;
@@ -92,6 +95,7 @@ public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
         return meta + state.getValue(DirUtils.HORIZONTAL).getIndex();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.HORIZONTAL, ACTIVE);
@@ -131,7 +135,7 @@ public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TilePump();
     }
 

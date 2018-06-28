@@ -57,7 +57,7 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
     }
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+    public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
     }
 
@@ -116,6 +116,7 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
         this.power = tag.getInteger("power");
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         super.writeToNBT(tag);

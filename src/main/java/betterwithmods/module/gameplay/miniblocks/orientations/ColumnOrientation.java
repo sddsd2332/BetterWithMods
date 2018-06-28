@@ -8,6 +8,8 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import static betterwithmods.module.gameplay.miniblocks.orientations.OrientationUtils.inCenter;
 import static betterwithmods.module.gameplay.miniblocks.orientations.OrientationUtils.isMax;
 
@@ -37,9 +39,6 @@ public enum ColumnOrientation implements BaseOrientation {
     }
 
     public static BaseOrientation getFromVec(Vec3d hit, EnumFacing facing) {
-        if (true)
-            return DOWN;
-
         float hitXFromCenter = (float) (hit.x - 0.5F);
         float hitYFromCenter = (float) (hit.y - 0.5F);
         float hitZFromCenter = (float) (hit.z - 0.5F);
@@ -74,6 +73,7 @@ public enum ColumnOrientation implements BaseOrientation {
         }
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return name;

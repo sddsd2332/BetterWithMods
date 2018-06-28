@@ -12,6 +12,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.EnumSet;
 import java.util.Random;
 import java.util.Set;
@@ -149,7 +150,7 @@ public class BlockTemporaryWater extends BlockLiquid {
     }
 
     @Override
-    public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
+    public void onBlockAdded(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         if (!this.checkForMixing(worldIn, pos, state)) {
             worldIn.scheduleUpdate(pos, this, this.tickRate(worldIn));
         }

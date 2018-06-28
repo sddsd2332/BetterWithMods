@@ -186,6 +186,7 @@ public class AABBArray extends AxisAlignedBB {
         return flag;
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB grow(double x, double y, double z) {
         if (x == 0 && y == 0 && z == 0) {
@@ -194,13 +195,14 @@ public class AABBArray extends AxisAlignedBB {
         return super.grow(x, y, z);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB grow(double value) {
         return this.grow(value, value, value);
     }
 
     @Override
-    public RayTraceResult calculateIntercept(Vec3d vecA, Vec3d vecB) {
+    public RayTraceResult calculateIntercept(@Nonnull Vec3d vecA, @Nonnull Vec3d vecB) {
         RayTraceResult result = null;
         for (AxisAlignedBB axisAlignedBB : getParts(this)) {
             result = axisAlignedBB.calculateIntercept(vecA, vecB);
@@ -222,26 +224,31 @@ public class AABBArray extends AxisAlignedBB {
 
     // to implement
 
+    @Nonnull
     @Override
     public AxisAlignedBB expand(double x, double y, double z) {
         return super.expand(x, y, z);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB shrink(double value) {
         return super.shrink(value);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB offset(BlockPos pos) {
         return super.offset(pos);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB setMaxY(double y2) {
         return super.setMaxY(y2);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB union(AxisAlignedBB other) {
         return super.union(other);

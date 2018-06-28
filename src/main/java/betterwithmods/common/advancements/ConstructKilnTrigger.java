@@ -12,6 +12,7 @@ import net.minecraft.advancements.critereon.AbstractCriterionInstance;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,11 +23,12 @@ public class ConstructKilnTrigger implements ICriterionTrigger<ConstructKilnTrig
 
     private final Map<PlayerAdvancements, ConstructKilnTrigger.Listeners> listeners = Maps.newHashMap();
 
+    @Nonnull
     public ResourceLocation getId() {
         return ID;
     }
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructKilnTrigger.Instance> listener) {
+    public void addListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull ICriterionTrigger.Listener<ConstructKilnTrigger.Instance> listener) {
         ConstructKilnTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
 
         if (listeners == null) {
@@ -36,7 +38,7 @@ public class ConstructKilnTrigger implements ICriterionTrigger<ConstructKilnTrig
         listeners.add(listener);
     }
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, ICriterionTrigger.Listener<ConstructKilnTrigger.Instance> listener) {
+    public void removeListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull ICriterionTrigger.Listener<ConstructKilnTrigger.Instance> listener) {
         ConstructKilnTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
 
         if (listeners != null) {
@@ -48,12 +50,13 @@ public class ConstructKilnTrigger implements ICriterionTrigger<ConstructKilnTrig
         }
     }
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
+    public void removeAllListeners(@Nonnull PlayerAdvancements playerAdvancementsIn) {
         this.listeners.remove(playerAdvancementsIn);
     }
 
 
-    public ConstructKilnTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
+    @Nonnull
+    public ConstructKilnTrigger.Instance deserializeInstance(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
         return new ConstructKilnTrigger.Instance();
     }
 

@@ -6,6 +6,7 @@ import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -41,7 +42,7 @@ public class CrafingManagerKiln extends CraftingManagerBlock<KilnRecipe> {
     }
 
     @Override
-    public KilnRecipe addRecipe(KilnRecipe recipe) {
+    public KilnRecipe addRecipe(@Nonnull KilnRecipe recipe) {
         return super.addRecipe(recipe);
     }
 

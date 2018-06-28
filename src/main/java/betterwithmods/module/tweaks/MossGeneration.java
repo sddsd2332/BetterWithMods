@@ -44,7 +44,7 @@ public class MossGeneration extends Feature {
     }
 
     public static IBlockState getMossyVariant(World world, BlockPos pos, IBlockState state) {
-        return CONVERTED_BLOCKS.keySet().stream().filter(i -> i.apply(world, pos, state)).map(k -> CONVERTED_BLOCKS.get(k)).findFirst().orElse(null);
+        return CONVERTED_BLOCKS.keySet().stream().filter(i -> i.apply(world, pos, state)).map(CONVERTED_BLOCKS::get).findFirst().orElse(null);
     }
 
     public static int randomRange(int start, int end) {

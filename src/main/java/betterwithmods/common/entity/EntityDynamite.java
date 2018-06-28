@@ -25,6 +25,8 @@ import net.minecraft.world.storage.loot.LootContext;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.fluids.IFluidBlock;
 
+import javax.annotation.Nonnull;
+
 public class EntityDynamite extends Entity implements IProjectile {
     private static final float pi = 3.141593F;
     public ItemStack stack;
@@ -150,13 +152,13 @@ public class EntityDynamite extends Entity implements IProjectile {
     }
 
     @Override
-    protected void readEntityFromNBT(NBTTagCompound tag) {
+    protected void readEntityFromNBT(@Nonnull NBTTagCompound tag) {
         if (tag.hasKey("Fuse"))
             fuse = tag.getInteger("Fuse");
     }
 
     @Override
-    protected void writeEntityToNBT(NBTTagCompound tag) {
+    protected void writeEntityToNBT(@Nonnull NBTTagCompound tag) {
         if (fuse > 0)
             tag.setInteger("Fuse", fuse);
     }

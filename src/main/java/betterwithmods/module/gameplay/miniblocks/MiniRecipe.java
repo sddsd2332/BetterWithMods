@@ -11,6 +11,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import javax.annotation.Nonnull;
+
 public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
     public final Block start;
@@ -23,7 +25,7 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
     }
 
     @Override
-    public boolean matches(InventoryCrafting inv, World worldIn) {
+    public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
         ItemStack[] stacks = new ItemStack[2];
         int matches = 0;
         for (int x = 0; x < inv.getSizeInventory(); x++) {
@@ -46,8 +48,9 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
         return ItemCamo.matches(stacks[0], stacks[1]);
     }
 
+    @Nonnull
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inv) {
+    public ItemStack getCraftingResult(@Nonnull InventoryCrafting inv) {
         ItemStack first = ItemStack.EMPTY;
         for (int x = 0; x < inv.getSizeInventory(); x++) {
             ItemStack stack = inv.getStackInSlot(x);
@@ -66,6 +69,7 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
         return (width * height) >= 2;
     }
 
+    @Nonnull
     public ItemStack getRecipeOutput() {
         return ItemStack.EMPTY;
     }

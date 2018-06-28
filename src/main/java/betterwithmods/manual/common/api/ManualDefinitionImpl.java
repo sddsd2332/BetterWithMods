@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -178,7 +179,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void openFor(final EntityPlayer player) {
+    public void openFor(@Nonnull final EntityPlayer player) {
         if (player.getEntityWorld().isRemote) {
             Minecraft.getMinecraft().displayGuiScreen(new GuiManual(this));
         }

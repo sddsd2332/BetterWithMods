@@ -15,11 +15,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
 
 public abstract class TileAxleGenerator extends TileBasic implements ITickable, IMechanicalPower {
     //Every generator will take up a single block with no extended bounding box
@@ -52,6 +53,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
             dyeIndex = tag.getByte("DyeIndex");
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         NBTTagCompound t = super.writeToNBT(tag);
@@ -92,18 +94,6 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
         }
     }
 
-    public boolean isOverworld() {
-        return world.provider.isSurfaceWorld();
-    }
-
-    public boolean isEnd() {
-        return world.provider.getDimensionType() == DimensionType.THE_END;
-    }
-
-    public boolean isNether() {
-        return world.provider.isNether();
-    }
-
     public void setPower(byte power) {
         this.power = power;
         world.setBlockState(pos, world.getBlockState(pos).withProperty(IBlockActive.ACTIVE, power > 0));
@@ -115,7 +105,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
 
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+    public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
     }
 
@@ -127,12 +117,12 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {
         return capability == CapabilityMechanicalPower.MECHANICAL_POWER || super.hasCapability(capability, facing);
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityMechanicalPower.MECHANICAL_POWER) {
             return CapabilityMechanicalPower.MECHANICAL_POWER.cast(this);
         }

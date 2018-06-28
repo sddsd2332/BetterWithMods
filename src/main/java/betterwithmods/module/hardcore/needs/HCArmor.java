@@ -7,7 +7,6 @@ import betterwithmods.module.Feature;
 import betterwithmods.util.IngredientMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
@@ -23,7 +22,7 @@ public class HCArmor extends Feature {
     public static float getWeight(ItemStack stack) {
         if (!BWMod.MODULE_LOADER.isFeatureEnabled(HCArmor.class))
             return 0;
-        return weights.get(stack);
+        return weights.findValue(stack);
     }
 
     public static void initWeights() {

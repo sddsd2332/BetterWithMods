@@ -10,6 +10,7 @@ public class FilteredStackHandler extends SimpleStackHandler {
 
     public final Predicate<ItemStack>[] predicate;
 
+    @SafeVarargs
     public FilteredStackHandler(int size, TileEntity tile, Predicate<ItemStack>... predicate) {
         super(size, tile);
         this.predicate = predicate;

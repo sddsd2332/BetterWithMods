@@ -8,9 +8,11 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraftforge.common.BiomeDictionary;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BWMapGenMineshaft extends MapGenMineshaft {
+    @Nonnull
     @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
 

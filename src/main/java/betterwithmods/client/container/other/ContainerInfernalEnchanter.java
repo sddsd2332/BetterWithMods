@@ -23,6 +23,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -107,8 +108,6 @@ public class ContainerInfernalEnchanter extends Container {
     public boolean areValidItems(ItemStack scroll, ItemStack item) {
         if (!scroll.isEmpty() && !item.isEmpty()) {
             Enchantment enchantment = new InfernalEnchantment(ItemArcaneScroll.getEnchantment(scroll));
-            if (enchantment == null)
-                return false;
             Set<Enchantment> enchantments = EnchantmentHelper.getEnchantments(item).keySet();
             if (enchantments.contains(enchantment))
                 return false;
@@ -116,7 +115,6 @@ public class ContainerInfernalEnchanter extends Container {
                 if (!e.isCompatibleWith(enchantment))
                     return false;
             }
-
             return item.getItem().canApplyAtEnchantingTable(item, enchantment);
         }
         return false;
@@ -147,6 +145,7 @@ public class ContainerInfernalEnchanter extends Container {
         }
     }
 
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -185,7 +184,7 @@ public class ContainerInfernalEnchanter extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
+    public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
         return true;
     }
 

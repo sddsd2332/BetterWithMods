@@ -2,6 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.tile.TileVase;
+import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.ColorUtils;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
@@ -25,8 +26,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Random;
 
@@ -62,20 +63,24 @@ public class BlockVase extends BWMBlock {
     }
 
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileVase();
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
         return AABB;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
@@ -84,9 +89,7 @@ public class BlockVase extends BWMBlock {
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity tile = world.getTileEntity(pos);
-        if (tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-            InvUtils.readFromStack(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), stack);
-        }
+        CapabilityUtils.getInventory(tile, null).ifPresent(inv -> InvUtils.readFromStack(inv, stack));
     }
 
     @Override
@@ -116,18 +119,17 @@ public class BlockVase extends BWMBlock {
         super.onEntityCollidedWithBlock(world, pos, state, entity);
     }
 
+    @Nonnull
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
         ItemStack stack = new ItemStack(this);
         TileEntity tile = world.getTileEntity(pos);
-        if (!world.isRemote && tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-            InvUtils.writeToStack(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), stack);
-        }
+        CapabilityUtils.getInventory(tile, null).ifPresent(inv -> InvUtils.writeToStack(inv, stack));
         return stack;
     }
 
     @Override
-    public boolean canSilkHarvest(World world, BlockPos pos, IBlockState state, EntityPlayer player) {
+    public boolean canSilkHarvest(World world, BlockPos pos, @Nonnull IBlockState state, EntityPlayer player) {
         return true;
     }
 
@@ -140,6 +142,8 @@ public class BlockVase extends BWMBlock {
         return 0;
     }
 
+    @SuppressWarnings("deprecation")
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face == EnumFacing.DOWN ? BlockFaceShape.CENTER_BIG : (face == EnumFacing.UP ? BlockFaceShape.CENTER : BlockFaceShape.UNDEFINED); //Top is center instead of bowl to facilitate placing candles on these.

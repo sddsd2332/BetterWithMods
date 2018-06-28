@@ -9,6 +9,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.IChunkProvider;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Map;
 
@@ -20,19 +21,21 @@ public class FakeWorld extends World {
         super(new FakeSaveHandler(), new FakeWorldInfo(), new FakeWorldProvider(), new Profiler(), false);
     }
 
+    @Nonnull
     @Override
     protected IChunkProvider createChunkProvider() {
         return null;
     }
 
     @Override
-    public boolean setBlockState(BlockPos pos, IBlockState state) {
+    public boolean setBlockState(@Nonnull BlockPos pos, @Nonnull IBlockState state) {
         this.states.put(pos, state);
         return true;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getBlockState(BlockPos pos) {
+    public IBlockState getBlockState(@Nonnull BlockPos pos) {
         return states.getOrDefault(pos, Blocks.AIR.getDefaultState());
     }
 
@@ -48,13 +51,13 @@ public class FakeWorld extends World {
     }
 
     @Override
-    public boolean setBlockToAir(BlockPos pos) {
+    public boolean setBlockToAir(@Nonnull BlockPos pos) {
         setBlockState(pos, Blocks.AIR.getDefaultState());
         return true;
     }
 
     @Override
-    public boolean spawnEntity(Entity entityIn) {
+    public boolean spawnEntity(@Nonnull Entity entityIn) {
         return true;
     }
 }

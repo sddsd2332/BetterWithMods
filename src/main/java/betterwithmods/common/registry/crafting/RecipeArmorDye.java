@@ -12,6 +12,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 public class RecipeArmorDye extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
@@ -24,7 +25,7 @@ public class RecipeArmorDye extends IForgeRegistryEntry.Impl<IRecipe> implements
     }
 
     @Override
-    public boolean matches(InventoryCrafting inv, World worldIn) {
+    public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
         ItemStack itemstack = ItemStack.EMPTY;
         List<ItemStack> list = Lists.newArrayList();
 
@@ -47,8 +48,9 @@ public class RecipeArmorDye extends IForgeRegistryEntry.Impl<IRecipe> implements
         return !itemstack.isEmpty() && !list.isEmpty();
     }
 
+    @Nonnull
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inv) {
+    public ItemStack getCraftingResult(@Nonnull InventoryCrafting inv) {
         ItemStack itemstack = ItemStack.EMPTY;
         int[] aint = new int[3];
         int i = 0;
@@ -116,11 +118,13 @@ public class RecipeArmorDye extends IForgeRegistryEntry.Impl<IRecipe> implements
         }
     }
 
+    @Nonnull
     @Override
     public ItemStack getRecipeOutput() {
         return ItemStack.EMPTY;
     }
 
+    @Nonnull
     @Override
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
         NonNullList<ItemStack> nonnulllist = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);

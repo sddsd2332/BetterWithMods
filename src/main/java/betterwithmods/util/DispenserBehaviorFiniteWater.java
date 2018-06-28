@@ -12,12 +12,15 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 
+import javax.annotation.Nonnull;
+
 public class DispenserBehaviorFiniteWater extends BehaviorDefaultDispenseItem {
     private final BehaviorDefaultDispenseItem dispenseBehavior = new BehaviorDefaultDispenseItem();
 
     /**
      * Dispense the specified stack, play the dispense sound and spawn particles.
      */
+    @Nonnull
     @Override
     public ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
         if (FluidUtil.getFluidContained(stack) != null) {

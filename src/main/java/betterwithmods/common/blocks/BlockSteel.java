@@ -12,6 +12,8 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class BlockSteel extends BWMBlock{
 
     public BlockSteel() {
@@ -28,12 +30,12 @@ public class BlockSteel extends BWMBlock{
     }
 
     @Override
-    public void onBlockExploded(World world, BlockPos pos, Explosion explosion) {
+    public void onBlockExploded(World world, @Nonnull BlockPos pos, @Nonnull Explosion explosion) {
 
     }
 
     @Override
-    public int getHarvestLevel(IBlockState state) {
+    public int getHarvestLevel(@Nonnull IBlockState state) {
         return 4;
     }
 
@@ -43,6 +45,7 @@ public class BlockSteel extends BWMBlock{
     }
 
     //Cannot be pushed by a piston
+    @Nonnull
     @Override
     public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.IGNORE;

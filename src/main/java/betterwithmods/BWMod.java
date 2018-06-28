@@ -23,6 +23,7 @@ import net.minecraftforge.fml.common.event.FMLInterModComms.IMCEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber
 @Mod(modid = BWMod.MODID, name = BWMod.NAME, version = BWMod.VERSION, dependencies = BWMod.DEPENDENCIES, guiFactory = "betterwithmods.client.gui.BWGuiFactory", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class BWMod {
@@ -58,8 +59,6 @@ public class BWMod {
         ForgeModContainer.fullBoundingBoxLadders = true;
     }
 
-    @Mod.EventHandler
-    public void onConstruct(FMLConstructionEvent event) { }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
@@ -114,6 +113,7 @@ public class BWMod {
     }
 
     public static boolean isDev() {
+        //noinspection ConstantConditions
         return BWMod.VERSION.equalsIgnoreCase("${version}");
     }
 

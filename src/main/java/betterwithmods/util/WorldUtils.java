@@ -13,13 +13,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
-import java.util.Calendar;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
@@ -44,6 +44,19 @@ public final class WorldUtils {
     );
 
     private WorldUtils() {
+    }
+
+
+    public static boolean isNether(World world) {
+        return isDimension(world, DimensionType.NETHER);
+    }
+
+    public static boolean isTheEnd(World world) {
+        return isDimension(world, DimensionType.THE_END);
+    }
+
+    public static boolean isDimension(World world, DimensionType type) {
+        return world.provider.getDimensionType() == type;
     }
 
 

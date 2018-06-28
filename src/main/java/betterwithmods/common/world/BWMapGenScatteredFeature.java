@@ -11,6 +11,7 @@ import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
@@ -48,6 +49,7 @@ public class BWMapGenScatteredFeature extends MapGenScatteredFeature {
         return null;
     }
 
+    @Nonnull
     @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
         return new BWMapGenScatteredFeature.Start(this.world, this.rand, chunkX, chunkZ);

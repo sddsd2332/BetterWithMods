@@ -12,6 +12,7 @@ import net.minecraft.advancements.critereon.AbstractCriterionInstance;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -22,11 +23,12 @@ public class ConstructLibraryTrigger implements ICriterionTrigger<ConstructLibra
 
     private final Map<PlayerAdvancements, ConstructLibraryTrigger.Listeners> listeners = Maps.newHashMap();
 
+    @Nonnull
     public ResourceLocation getId() {
         return ID;
     }
 
-    public void addListener(PlayerAdvancements playerAdvancementsIn, Listener<ConstructLibraryTrigger.Instance> listener) {
+    public void addListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull Listener<ConstructLibraryTrigger.Instance> listener) {
         ConstructLibraryTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
 
         if (listeners == null) {
@@ -36,7 +38,7 @@ public class ConstructLibraryTrigger implements ICriterionTrigger<ConstructLibra
         listeners.add(listener);
     }
 
-    public void removeListener(PlayerAdvancements playerAdvancementsIn, Listener<ConstructLibraryTrigger.Instance> listener) {
+    public void removeListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull Listener<ConstructLibraryTrigger.Instance> listener) {
         ConstructLibraryTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
 
         if (listeners != null) {
@@ -48,12 +50,13 @@ public class ConstructLibraryTrigger implements ICriterionTrigger<ConstructLibra
         }
     }
 
-    public void removeAllListeners(PlayerAdvancements playerAdvancementsIn) {
+    public void removeAllListeners(@Nonnull PlayerAdvancements playerAdvancementsIn) {
         this.listeners.remove(playerAdvancementsIn);
     }
 
 
-    public ConstructLibraryTrigger.Instance deserializeInstance(JsonObject json, JsonDeserializationContext context) {
+    @Nonnull
+    public ConstructLibraryTrigger.Instance deserializeInstance(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
         int bookcases = json.get("count").getAsInt();
         return new ConstructLibraryTrigger.Instance(bookcases);
     }

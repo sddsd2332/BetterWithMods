@@ -16,7 +16,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
@@ -27,6 +26,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
@@ -47,19 +47,15 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
         tooltip.add(I18n.format("tooltip.gearbox.name"));
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ, int meta, EntityLivingBase placer, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ, int meta, @Nonnull EntityLivingBase placer, EnumHand hand) {
         return getStateForAdvancedRotationPlacement(getDefaultState(), placer.isSneaking() ? side.getOpposite() : side, flX, flY, flZ);
     }
 
     @Override
     public void nextState(World world, BlockPos pos, IBlockState state) {
         world.setBlockState(pos, state.cycleProperty(DirUtils.FACING).withProperty(ACTIVE, false));
-    }
-
-    @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
     }
 
     @Override
@@ -73,6 +69,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
         onChange(world, pos);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
         onChange(world, pos);
@@ -123,8 +120,10 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
     }
 
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         boolean[] dirs = new boolean[6];
         for (int i = 0; i < 6; i++) {
             EnumFacing facing = EnumFacing.getFront(i);
@@ -140,11 +139,14 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
         return active | facing << 1;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.FACING, EnumFacing.getFront(meta >> 1));
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.FACING, ACTIVE, DirUtils.UP, DirUtils.DOWN, DirUtils.NORTH, DirUtils.SOUTH, DirUtils.WEST, DirUtils.EAST);
@@ -166,7 +168,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
     }
 
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileGearbox(maxPower);
     }
 
@@ -195,8 +197,10 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
         world.setBlockState(pos, getDefaultState().withProperty(DirUtils.FACING, facing));
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
-    public IBlockState withRotation(IBlockState state, Rotation rot) {
+    public IBlockState withRotation(@Nonnull IBlockState state, Rotation rot) {
         EnumFacing facing = getFacingFromState(state);
         if (facing.getAxis().isHorizontal())
             return state.withProperty(DirUtils.FACING, rot.rotate(facing));

@@ -17,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public abstract class BlockStickBase extends BWMBlock {
@@ -27,6 +28,7 @@ public abstract class BlockStickBase extends BWMBlock {
         super(material);
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, CONNECTION, GROUND);
@@ -37,6 +39,7 @@ public abstract class BlockStickBase extends BWMBlock {
         return 0;
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean ground = (meta & 1) == 1;
@@ -55,8 +58,9 @@ public abstract class BlockStickBase extends BWMBlock {
 
     public abstract double getHeight(IBlockState state);
 
+    @Nonnull
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         IBlockState newState = state;
         if (worldIn.getBlockState(pos.down()).isSideSolid(worldIn,pos,EnumFacing.UP)) {
             newState = newState.withProperty(GROUND, true);
@@ -65,20 +69,23 @@ public abstract class BlockStickBase extends BWMBlock {
     }
 
     @Override
-    public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public boolean canPlaceTorchOnTop(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
         return true;
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing face) {
         return face.getAxis() == EnumFacing.Axis.Y ? BlockFaceShape.CENTER_SMALL : BlockFaceShape.UNDEFINED;
     }
 
+    @Nonnull
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         double y = getHeight(state);

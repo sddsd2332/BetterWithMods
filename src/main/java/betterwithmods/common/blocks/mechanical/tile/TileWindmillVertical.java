@@ -12,6 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 public class TileWindmillVertical extends TileBaseWindmill {
 
     public TileWindmillVertical() {
@@ -78,6 +80,7 @@ public class TileWindmillVertical extends TileBaseWindmill {
         this.getBlockWorld().notifyBlockUpdate(this.pos, state, state, 3);
     }
 
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {

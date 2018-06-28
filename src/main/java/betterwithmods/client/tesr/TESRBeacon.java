@@ -70,8 +70,7 @@ public class TESRBeacon extends TileEntitySpecialRenderer<TileBeacon> {
         double d9 = 0.5D + Math.sin(d3 + 3.9269908169872414D) * beamRadius;
         double d10 = 0.5D + Math.cos(d3 + 5.497787143782138D) * beamRadius;
         double d11 = 0.5D + Math.sin(d3 + 5.497787143782138D) * beamRadius;
-        double d12 = 0.0D;
-        double d13 = 1.0D;
+        double d13;
         double d14 = -1.0D + d2;
         double d15 = (double) height * textureScale * (0.5D / beamRadius) + d14;
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -103,8 +102,6 @@ public class TESRBeacon extends TileEntitySpecialRenderer<TileBeacon> {
         d8 = 0.5D + glowRadius;
         d9 = 0.5D + glowRadius;
         d10 = 0.5D + glowRadius;
-        d11 = 0.0D;
-        d12 = 1.0D;
         d13 = -1.0D + d2;
         d14 = (double) height * textureScale + d13;
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);

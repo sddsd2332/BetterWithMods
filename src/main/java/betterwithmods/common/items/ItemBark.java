@@ -16,6 +16,7 @@ import net.minecraft.util.text.ITextComponent;
 import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -51,15 +52,16 @@ public class ItemBark extends Item {
     }
 
     @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+    public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
         List<ItemStack> logs = getLogs();
         for (ItemStack log : logs) {
             items.add(fromParentStack(this, log, 1));
         }
     }
 
+    @Nonnull
     @Override
-    public String getItemStackDisplayName(ItemStack stack) {
+    public String getItemStackDisplayName(@Nonnull ItemStack stack) {
         NBTTagCompound tag = stack.getSubCompound("texture");
         ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_bark.name");
         //TODO .name is not longer in 1.13

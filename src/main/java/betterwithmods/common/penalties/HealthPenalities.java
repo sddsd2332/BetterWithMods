@@ -17,6 +17,7 @@ public class HealthPenalities extends PenaltyHandler<Float, BasicPenalty<Float>>
         addPenalty(new BasicPenalty<>(false, false, true, false, false, true, 0.25f, 1, "dying", "bwm.health_penalty.dying", category, Range.between(2f, -1f)));
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public BasicPenalty getPenalty(EntityPlayer player) {
         float level = player.getHealth();

@@ -24,8 +24,11 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 import static betterwithmods.util.DirUtils.FACING;
 
+@SuppressWarnings("SuspiciousNameCombination")
 public class BlockAnchor extends BWMBlock implements IRopeConnector {
     public static final PropertyBool LINKED = PropertyBool.create("linked");
     private static final float HEIGHT = 0.375F;
@@ -46,24 +49,29 @@ public class BlockAnchor extends BWMBlock implements IRopeConnector {
 
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
         EnumFacing facing = state.getValue(FACING);
         return BOXES[facing.getIndex()];
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ, int meta, EntityLivingBase entity, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ, int meta, @Nonnull EntityLivingBase entity, EnumHand hand) {
         IBlockState state = super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, entity, hand);
         return this.setFacingInBlock(state, entity.isSneaking() ? side.getOpposite() : side);
     }
@@ -103,8 +111,9 @@ public class BlockAnchor extends BWMBlock implements IRopeConnector {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean isSideSolid(IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         EnumFacing facing = getFacing(world.getBlockState(pos));
         return side == facing.getOpposite();
     }
@@ -155,13 +164,17 @@ public class BlockAnchor extends BWMBlock implements IRopeConnector {
         return world.getBlockState(pos).getBlock() instanceof BlockPulley;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         EnumFacing facing = state.getValue(FACING);
         boolean isConnected = facing == EnumFacing.UP ? isRope(world, pos, EnumFacing.UP) || isAnchor(world, pos, EnumFacing.UP) || isPulley(world, pos, EnumFacing.UP) : isRope(world, pos, EnumFacing.DOWN) || isAnchor(world, pos, EnumFacing.DOWN);
         return state.withProperty(LINKED, isConnected);
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(FACING, EnumFacing.getFront(meta));
@@ -172,11 +185,14 @@ public class BlockAnchor extends BWMBlock implements IRopeConnector {
         return state.getValue(FACING).getIndex();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, FACING, LINKED);
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face == getFacing(state).getOpposite() ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;

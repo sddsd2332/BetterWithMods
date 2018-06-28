@@ -28,8 +28,10 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
+import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -52,10 +54,12 @@ public abstract class BlockCamo extends BWMBlock {
     }
 
 
+    @SuppressWarnings("deprecation")
     @Override
     public float getBlockHardness(IBlockState blockState, World worldIn, BlockPos pos) {
         return getTile(worldIn, pos).map(t -> t.getState().getBlockHardness(worldIn, pos)).orElse(super.getBlockHardness(blockState, worldIn, pos));
     }
+
 
     @Override
     public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
@@ -75,11 +79,14 @@ public abstract class BlockCamo extends BWMBlock {
         return 0;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{CAMO_INFO});
@@ -87,15 +94,16 @@ public abstract class BlockCamo extends BWMBlock {
 
     @Nullable
     @Override
-    public abstract TileEntity createTileEntity(World world, IBlockState state);
+    public abstract TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state);
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
         return true;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getExtendedState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         IExtendedBlockState extendedBS = (IExtendedBlockState) super.getExtendedState(state, world, pos);
         return getTile(world, pos).map(t -> fromTile(extendedBS, t)).orElse(extendedBS);
     }
@@ -104,11 +112,13 @@ public abstract class BlockCamo extends BWMBlock {
         return state.withProperty(CAMO_INFO, new CamoInfo(tile));
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
@@ -118,8 +128,10 @@ public abstract class BlockCamo extends BWMBlock {
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    public ItemStack getItem(World worldIn, BlockPos pos, @Nonnull IBlockState state) {
         TileEntity tile = worldIn.getTileEntity(pos);
         if (tile instanceof TileCamo) {
             TileCamo mini = (TileCamo) tile;
@@ -130,14 +142,14 @@ public abstract class BlockCamo extends BWMBlock {
 
 
     @Override
-    public final void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    public final void getDrops(@Nonnull NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
         getDrops(drops, world, pos, state, null, fortune, false);
     }
 
 
     @Override
-    public void harvestBlock(World worldIn, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack stack) {
-        player.addStat(StatList.getBlockStats(this));
+    public void harvestBlock(@Nonnull World worldIn, EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+        player.addStat(Objects.requireNonNull(StatList.getBlockStats(this)));
         player.addExhaustion(0.005F);
         int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
         boolean silkTouch = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
@@ -167,7 +179,7 @@ public abstract class BlockCamo extends BWMBlock {
 
 
     @Override
-    public void dropBlockAsItemWithChance(World worldIn, BlockPos pos, IBlockState state, float chance, int fortune) {
+    public void dropBlockAsItemWithChance(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, float chance, int fortune) {
         if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
             NonNullList<ItemStack> drops = NonNullList.create();
             getDrops(drops, worldIn, pos, state, worldIn.getTileEntity(pos), fortune, false);
@@ -182,8 +194,9 @@ public abstract class BlockCamo extends BWMBlock {
     }
 
 
+    @Nonnull
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
         return getTile(world, pos).map(t -> t.getPickBlock(player, target, state)).orElse(new ItemStack(this));
     }
 

@@ -28,6 +28,7 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.nio.charset.Charset;
 import java.util.*;
 import java.util.Map.Entry;
@@ -87,7 +88,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     }
 
     @Override
-    protected void readEntityFromNBT(NBTTagCompound compound) {
+    protected void readEntityFromNBT(@Nonnull NBTTagCompound compound) {
         pulley = new BlockPos(compound.getInteger("PulleyX"), compound.getInteger("PulleyY"),
                 compound.getInteger("PulleyZ"));
         targetY = compound.getInteger("TargetY");
@@ -105,7 +106,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     }
 
     @Override
-    protected void writeEntityToNBT(NBTTagCompound compound) {
+    protected void writeEntityToNBT(@Nonnull NBTTagCompound compound) {
         compound.setInteger("PulleyX", pulley.getX());
         compound.setInteger("PulleyY", pulley.getY());
         compound.setInteger("PulleyZ", pulley.getZ());
@@ -410,7 +411,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     }
 
     @Override
-    public boolean writeToNBTOptional(NBTTagCompound compound) {
+    public boolean writeToNBTOptional(@Nonnull NBTTagCompound compound) {
         return false;
     }
 
@@ -433,7 +434,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     }
 
     @Override
-    public void setEntityBoundingBox(AxisAlignedBB bb) {
+    public void setEntityBoundingBox(@Nonnull AxisAlignedBB bb) {
         rebuildBlockBoundingBox();
         super.setEntityBoundingBox(blockBB != null ? blockBB.offset(this.posX, this.posY, this.posZ) : bb);
     }

@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 
+import javax.annotation.Nonnull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -44,6 +45,7 @@ public class BlockHemp extends BlockCrops implements IPlantable {
         this.setDefaultState(getDefaultState().withProperty(TOP, false));
     }
 
+    @Nonnull
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return CROPS_AABB[state.getValue(this.getAgeProperty())];
     }
@@ -55,7 +57,7 @@ public class BlockHemp extends BlockCrops implements IPlantable {
     }
 
     @Override
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+    public boolean canGrow(World worldIn, BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
         IBlockState above = worldIn.getBlockState(pos.up());
         return !state.getValue(TOP) && !(above.getBlock() instanceof BlockHemp);
     }
@@ -74,7 +76,7 @@ public class BlockHemp extends BlockCrops implements IPlantable {
     }
 
     @Override
-    public void grow(World worldIn, BlockPos pos, IBlockState state) {
+    public void grow(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         if (!state.getValue(TOP) && state.getValue(AGE) >= 7) {
             worldIn.setBlockState(pos.up(), state.withProperty(TOP, true));
         }
@@ -82,7 +84,7 @@ public class BlockHemp extends BlockCrops implements IPlantable {
     }
 
     @Override
-    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+    public void updateTick(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) {
         checkAndDropBlock(world, pos, state);
         BlockPos up = pos.up();
 
@@ -115,6 +117,7 @@ public class BlockHemp extends BlockCrops implements IPlantable {
         }
     }
 
+    @Nonnull
     @Override
     public ItemStack getItem(World world, BlockPos pos, IBlockState state) {
         return new ItemStack(this, 1, 0);
@@ -125,18 +128,20 @@ public class BlockHemp extends BlockCrops implements IPlantable {
         return block == this && state.getValue(AGE) == 7;
     }
 
+    @Nonnull
     @Override
     public EnumPlantType getPlantType(IBlockAccess world, BlockPos pos) {
         return EnumPlantType.Crop;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getPlant(IBlockAccess world, BlockPos pos) {
+    public IBlockState getPlant(IBlockAccess world, @Nonnull BlockPos pos) {
         return world.getBlockState(pos);
     }
 
     @Override
-    protected void checkAndDropBlock(World world, BlockPos pos, IBlockState state) {
+    protected void checkAndDropBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         if (!canBlockStay(world, pos, state)) {
             dropBlockAsItem(world, pos, state, 0);
             world.setBlockToAir(pos);
@@ -149,21 +154,25 @@ public class BlockHemp extends BlockCrops implements IPlantable {
         return meta > 6 ? 2 : 0;
     }
 
+    @Nonnull
     @Override
     protected Item getSeed() {
         return Item.getItemFromBlock(BWMBlocks.HEMP);
     }
 
+    @Nonnull
     @Override
     protected Item getCrop() {
         return ItemMaterial.getItem(ItemMaterial.EnumMaterial.HEMP_LEAF);
     }
 
+    @Nonnull
     @Override
     public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, AGE, TOP);
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         if (meta == 8)
@@ -171,8 +180,10 @@ public class BlockHemp extends BlockCrops implements IPlantable {
         return super.getStateFromMeta(meta).withProperty(TOP, false);
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    public List<ItemStack> getDrops(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull IBlockState state, int fortune) {
         List<ItemStack> ret = new ArrayList<>();
         int age = getAge(state);
         Random rand = world instanceof World ? ((World) world).rand : new Random();
@@ -192,14 +203,15 @@ public class BlockHemp extends BlockCrops implements IPlantable {
     }
 
     @Override
-    public int getMetaFromState(IBlockState state) {
+    public int getMetaFromState(@Nonnull IBlockState state) {
         if (state.getValue(TOP))
             return 8;
         return super.getMetaFromState(state);
     }
 
+    @Nonnull
     @Override
-    public Item getItemDropped(IBlockState state, Random rand, int fortune) {
+    public Item getItemDropped(@Nonnull IBlockState state, Random rand, int fortune) {
         int meta = state.getValue(AGE);
         return meta > 6 ? this.getCrop() : this.getSeed();
     }

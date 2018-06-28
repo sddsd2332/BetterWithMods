@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public abstract class CraftingManagerBulk<T extends BulkRecipe> extends CraftingManagerBase<T> {
 
-    public T addRecipe(T recipe) {
+    public T addRecipe(@Nonnull T recipe) {
         if (!recipe.isInvalid())
             recipes.add(recipe);
         return recipe;

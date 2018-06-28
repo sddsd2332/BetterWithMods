@@ -17,6 +17,7 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 
@@ -28,7 +29,7 @@ public class EntityJungleSpider extends EntityCaveSpider {
     }
 
     @Override
-    public boolean attackEntityAsMob(Entity entityIn) {
+    public boolean attackEntityAsMob(@Nonnull Entity entityIn) {
         if (super.attackEntityAsMob(entityIn))
         {
             if (entityIn instanceof EntityLivingBase)

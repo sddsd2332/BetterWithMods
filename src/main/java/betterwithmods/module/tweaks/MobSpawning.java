@@ -137,6 +137,7 @@ public class MobSpawning extends Feature {
             WHITELIST.add(new BlockIngredient(stack));
         }
 
+        @SuppressWarnings("BooleanMethodIsAlwaysInverted")
         public boolean contains(World world, BlockPos pos, IBlockState state) {
             return WHITELIST.stream().anyMatch(i -> i.apply(world, pos, state));
         }

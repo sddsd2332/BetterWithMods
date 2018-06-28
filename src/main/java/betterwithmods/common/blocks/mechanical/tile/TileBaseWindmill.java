@@ -7,6 +7,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.DimensionType;
 
+import javax.annotation.Nonnull;
+
 public abstract class TileBaseWindmill extends TileAxleGenerator implements IColor {
     protected int[] bladeMeta;
 
@@ -19,6 +21,7 @@ public abstract class TileBaseWindmill extends TileAxleGenerator implements ICol
         }
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         NBTTagCompound t = super.writeToNBT(tag);

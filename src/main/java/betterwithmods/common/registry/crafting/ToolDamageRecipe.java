@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.function.Predicate;
 
@@ -27,10 +28,12 @@ public abstract class ToolDamageRecipe extends ToolBaseRecipe {
         super(group, result, input, isTool);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public boolean shouldDamage(ItemStack stack, EntityPlayer player, IBlockState state) {
         return true;
     }
 
+    @Nonnull
     @Override
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
         NonNullList<ItemStack> stacks = super.getRemainingItems(inv);

@@ -111,7 +111,8 @@ public class MushroomFarming extends Feature {
         }
     }
 
-    private boolean canGrowMushroom(World world,BlockPos pos)
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean canGrowMushroom(World world, BlockPos pos)
     {
         int light = world.getLight(pos);
         IBlockState soil = world.getBlockState(pos.down());

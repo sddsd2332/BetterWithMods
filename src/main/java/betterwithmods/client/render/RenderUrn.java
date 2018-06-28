@@ -12,6 +12,8 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by primetoxinz on 6/13/17.
  */
@@ -22,7 +24,7 @@ public class RenderUrn extends Render<EntityUrn> {
         super(renderManager);
     }
 
-    public void doRender(EntityUrn entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    public void doRender(@Nonnull EntityUrn entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
@@ -39,7 +41,8 @@ public class RenderUrn extends Render<EntityUrn> {
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
-    protected ResourceLocation getEntityTexture(EntityUrn entity) {
+    @Nonnull
+    protected ResourceLocation getEntityTexture(@Nonnull EntityUrn entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 

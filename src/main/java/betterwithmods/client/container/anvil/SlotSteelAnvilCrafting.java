@@ -8,6 +8,8 @@ import net.minecraft.inventory.SlotCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by blueyu2 on 11/23/16.
  */
@@ -23,8 +25,9 @@ public class SlotSteelAnvilCrafting extends SlotCrafting {
     }
 
 
+    @Nonnull
     @Override
-    public ItemStack onTake(EntityPlayer playerIn, ItemStack stack) {
+    public ItemStack onTake(EntityPlayer playerIn, @Nonnull ItemStack stack) {
         net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, craftMatrix);
         this.onCrafting(stack);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(playerIn);

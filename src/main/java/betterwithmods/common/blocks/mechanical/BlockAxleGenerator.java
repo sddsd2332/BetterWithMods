@@ -15,6 +15,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 import static betterwithmods.util.DirUtils.AXIS;
 import static net.minecraft.util.EnumFacing.Axis.Y;
 
@@ -29,6 +31,7 @@ public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActiv
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Z).withProperty(ACTIVE, false));
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, AXIS, ACTIVE);
@@ -41,6 +44,7 @@ public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActiv
         return axis | active << 2;
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(AXIS, DirUtils.getAxis(meta & 3)).withProperty(ACTIVE, meta >> 2 == 1);
@@ -56,6 +60,7 @@ public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActiv
         return false;
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         switch (state.getValue(AXIS)) {
@@ -79,7 +84,7 @@ public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActiv
     }
 
     @Override
-    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    public void getDrops(@Nonnull NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
         super.getDrops(drops, world, pos, state, fortune);
         drops.add(getAxle(world, pos, state));
         drops.add(getItem((World) world, pos, state));
@@ -95,10 +100,11 @@ public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActiv
     }
 
     @Override
-    public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public boolean canPlaceTorchOnTop(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
         return getAxis(state) == Y;
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face.getAxis() == getAxis(state) ? BlockFaceShape.CENTER : BlockFaceShape.UNDEFINED;

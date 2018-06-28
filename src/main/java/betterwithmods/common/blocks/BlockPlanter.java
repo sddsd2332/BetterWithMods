@@ -37,6 +37,7 @@ import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
@@ -208,28 +209,29 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return true;
     }
 
     @Override
-    public boolean isFertile(World world, BlockPos pos) {
+    public boolean isFertile(@Nonnull World world, @Nonnull BlockPos pos) {
         return type == EnumType.FERTILE;
     }
 
     @Override
-    public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing dir, IPlantable plant) {
+    public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing dir, IPlantable plant) {
         BlockPos up = pos.up();
         EnumPlantType plantType = plant.getPlantType(world, up);
         return dir == EnumFacing.UP && type.isType(plantType);
     }
 
     @Override
-    public void onPlantGrow(IBlockState state, World world, BlockPos pos, BlockPos source) {
+    public void onPlantGrow(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, BlockPos source) {
         if (type == GRASS && source.getY() == pos.getY() + 1)
             world.setBlockState(pos, BLOCKS.get(DIRT).getDefaultState());
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         if (face != EnumFacing.UP)
@@ -244,17 +246,17 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
     }
 
     @Override
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+    public boolean canGrow(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
         return type == GRASS;
     }
 
     @Override
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+    public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         return canGrow(worldIn, pos, state, worldIn.isRemote);
     }
 
     @Override
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+    public void grow(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         //Borrowed from BlockGrass
         BlockPos blockpos = pos.up();
 
@@ -316,6 +318,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
             this.type = type;
         }
 
+        @Nonnull
         @Override
         public String getName() {
             return name;

@@ -10,6 +10,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 /**
@@ -63,7 +64,7 @@ public class BlockGrassCustom extends BlockGrass {
     }
 
     @Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+    public void updateTick(World worldIn, @Nonnull BlockPos pos, IBlockState state, @Nonnull Random rand) {
         handleGrassSpreading(worldIn, pos, rand, Blocks.DIRT.getDefaultState());
     }
 }

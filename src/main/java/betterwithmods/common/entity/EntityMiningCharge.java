@@ -20,6 +20,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 
@@ -164,7 +165,7 @@ public class EntityMiningCharge extends Entity {
      * (abstract) Protected HELPER method to write subclass entity data to NBT.
      */
     @Override
-    protected void writeEntityToNBT(NBTTagCompound compound) {
+    protected void writeEntityToNBT(@Nonnull NBTTagCompound compound) {
         compound.setShort("Fuse", (short) this.getFuse());
         compound.setByte("Facing", (byte) this.getFacing().getIndex());
     }
@@ -173,7 +174,7 @@ public class EntityMiningCharge extends Entity {
      * (abstract) Protected HELPER method to read subclass entity data from NBT.
      */
     @Override
-    protected void readEntityFromNBT(NBTTagCompound compound) {
+    protected void readEntityFromNBT(@Nonnull NBTTagCompound compound) {
         this.setFuse(compound.getShort("Fuse"));
         this.setFacing(compound.getByte("Facing"));
     }

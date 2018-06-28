@@ -73,6 +73,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
         validateInventory();
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         NBTTagCompound t = super.writeToNBT(tag);
@@ -186,7 +187,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
         }
     }
 
-    private boolean validateInventory() {
+    private void validateInventory() {
         boolean stateChanged = false;
         ItemStack filter = getFilterStack();
         IHopperFilter newFilter = BWRegistry.HOPPER_FILTERS.getFilter(filter);
@@ -204,7 +205,6 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
             getBlockWorld().notifyBlockUpdate(pos, state, state, 3);
         }
 
-        return stateChanged;
     }
 
     public IHopperFilter getHopperFilter() {

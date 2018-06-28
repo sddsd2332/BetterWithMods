@@ -13,6 +13,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
+
 /**
  * Created by primetoxinz on 6/13/17.
  */
@@ -22,7 +25,8 @@ public class ItemBlockUrn extends ItemBlock {
         super(block);
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    @Nonnull
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
         if (!playerIn.capabilities.isCreativeMode) {
             itemstack.shrink(1);
@@ -35,7 +39,7 @@ public class ItemBlockUrn extends ItemBlock {
             worldIn.spawnEntity(entity);
         }
 
-        playerIn.addStat(StatList.getObjectUseStats(this));
+        playerIn.addStat(Objects.requireNonNull(StatList.getObjectUseStats(this)));
         return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
     }
 }

@@ -8,6 +8,7 @@ import betterwithmods.common.blocks.behaviors.BehaviorBreakBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorDefaultDispenseBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorEntity;
 import betterwithmods.common.blocks.tile.TileBlockDispenser;
+import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
@@ -29,8 +30,8 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryDefaulted;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
@@ -48,7 +49,7 @@ public class BlockBDispenser extends BlockDispenser {
     }
 
     @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, @Nonnull BlockPos pos, IBlockState state, @Nonnull EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote)
             return true;
         else {
@@ -71,7 +72,7 @@ public class BlockBDispenser extends BlockDispenser {
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos other) {
+    public void neighborChanged(IBlockState state, World world, @Nonnull BlockPos pos, Block blockIn, BlockPos other) {
         boolean flag = isRedstonePowered(state, world, pos);
         boolean flag1 = state.getValue(TRIGGERED);
         if (flag && !flag1) {
@@ -88,47 +89,43 @@ public class BlockBDispenser extends BlockDispenser {
     }
 
     @Override
-    protected void dispense(World world, BlockPos pos) {
+    protected void dispense(@Nonnull World world, @Nonnull BlockPos pos) {
         BlockSourceImpl impl = new BlockSourceImpl(world, pos);
         TileBlockDispenser tile = impl.getBlockTileEntity();
-        if (tile != null) {
-            if (!world.getBlockState(pos).getValue(TRIGGERED)) {
-                BlockPos check = pos.offset(impl.getBlockState().getValue(FACING));
-                Block block = world.getBlockState(check).getBlock();
+        if (!world.getBlockState(pos).getValue(TRIGGERED)) {
+            BlockPos check = pos.offset(impl.getBlockState().getValue(FACING));
+            Block block = world.getBlockState(check).getBlock();
 
-                if (world.getBlockState(check).getBlockHardness(world, check) < 0)
-                    return;
-                IBehaviorCollect behavior = BLOCK_COLLECT_REGISTRY.getObject(block);
-                if (!world.isAirBlock(check) || !block.isReplaceable(world, check)) {
-                    NonNullList<ItemStack> stacks = behavior.collect(new BlockSourceImpl(world, check));
-                    InvUtils.insert(tile.inventory, stacks, false);
-                }
+            if (world.getBlockState(check).getBlockHardness(world, check) < 0)
+                return;
+            IBehaviorCollect behavior = BLOCK_COLLECT_REGISTRY.getObject(block);
+            if (!world.isAirBlock(check) || !block.isReplaceable(world, check)) {
+                NonNullList<ItemStack> stacks = behavior.collect(new BlockSourceImpl(world, check));
+                InvUtils.insert(tile.inventory, stacks, false);
+            }
 
-                Optional<Entity> entity = getEntity(world, check);
-                if (entity.isPresent()) {
-                    Entity e = entity.get();
-                    ResourceLocation name = EntityList.getKey(e);
-                    IBehaviorEntity behaviorEntity = ENTITY_COLLECT_REGISTRY.getObject(name);
-                    NonNullList<ItemStack> stacks = behaviorEntity.collect(world, check, e, tile.getCurrentSlot());
-                    InvUtils.insert(tile.inventory, stacks, false);
-                }
-            } else {
-                int index = tile.nextIndex;
-                ItemStack stack = tile.getNextStackFromInv();
-                if (index == -1 || stack.isEmpty())
-                    world.playEvent(1001, pos, 0);
-                else {
-                    IBehaviorDispenseItem behavior = this.getBehavior(stack);
-                    if (behavior != null) {
-                        behavior.dispense(impl, stack);
-                    }
-                }
+            Optional<Entity> entity = getEntity(world, check);
+            if (entity.isPresent()) {
+                Entity e = entity.get();
+                ResourceLocation name = EntityList.getKey(e);
+                IBehaviorEntity behaviorEntity = ENTITY_COLLECT_REGISTRY.getObject(name);
+                NonNullList<ItemStack> stacks = behaviorEntity.collect(world, check, e, tile.getCurrentSlot());
+                InvUtils.insert(tile.inventory, stacks, false);
+            }
+        } else {
+            int index = tile.nextIndex;
+            ItemStack stack = tile.getNextStackFromInv();
+            if (index == -1 || stack.isEmpty())
+                world.playEvent(1001, pos, 0);
+            else {
+                IBehaviorDispenseItem behavior = this.getBehavior(stack);
+                behavior.dispense(impl, stack);
             }
         }
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void breakBlock(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileBlockDispenser) {
             InvUtils.ejectInventoryContents(world, pos, ((TileBlockDispenser) te).inventory);
@@ -137,6 +134,7 @@ public class BlockBDispenser extends BlockDispenser {
         super.breakBlock(world, pos, state);
     }
 
+    @Nonnull
     @Override
     protected IBehaviorDispenseItem getBehavior(@Nullable ItemStack stack) {
         return BLOCK_DISPENSER_REGISTRY.getObject(stack == null ? null : stack.getItem());
@@ -151,14 +149,9 @@ public class BlockBDispenser extends BlockDispenser {
         return true;
     }
 
-    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, @Nonnull BlockPos pos) {
         TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-            if (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-                return InvUtils.calculateComparatorLevel(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
-            }
-        }
-        return 0;
+        return CapabilityUtils.getInventory(tile, null).map(InvUtils::calculateComparatorLevel).orElse(0);
     }
 }
 

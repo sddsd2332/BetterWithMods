@@ -142,9 +142,11 @@ public class BWRegistry {
 
         for (IRecipe recipe : reg) {
             for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {
-                Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
-                if(matcher.matches()) {
-                    reg.remove(recipe.getRegistryName());
+                if (recipe.getRegistryName() != null) {
+                    Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
+                    if (matcher.matches()) {
+                        reg.remove(recipe.getRegistryName());
+                    }
                 }
             }
             for (ResourceLocation loc : BWMRecipes.REMOVE_RECIPE_BY_RL) {
@@ -276,9 +278,12 @@ public class BWRegistry {
     }
 
     private static Potion registerPotion(Potion potion) {
-        String potionName = potion.getRegistryName().getResourcePath();
-        potion.setPotionName("bwm.effect." + potionName);
+        if (potion.getRegistryName() != null) {
+            String potionName = potion.getRegistryName().getResourcePath();
+            potion.setPotionName("betterwithmods.effect." + potionName);
+        }
         return potion;
+
     }
 
     private static void registerFireInfo() {

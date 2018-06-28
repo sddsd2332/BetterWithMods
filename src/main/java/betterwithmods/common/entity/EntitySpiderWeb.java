@@ -8,6 +8,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by primetoxinz on 4/22/17.
  */
@@ -25,7 +27,7 @@ public class EntitySpiderWeb extends EntityThrowable {
     }
 
     @Override
-    protected void onImpact(RayTraceResult result) {
+    protected void onImpact(@Nonnull RayTraceResult result) {
         BlockPos pos = result.getBlockPos();
         if(pos == null || pos.getY() < 0 || pos.getY() >= 256)
             return;

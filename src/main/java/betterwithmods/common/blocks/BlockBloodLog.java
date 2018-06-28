@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockBloodLog extends BlockLog {
@@ -28,17 +29,17 @@ public class BlockBloodLog extends BlockLog {
         this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y).withProperty(EXPANDABLE, false));
         this.setTickRandomly(true);
         this.setCreativeTab(BWCreativeTabs.BWTAB);
-        this.setSoundType(SoundType.SLIME);
+        this.setSoundType(BLOODWOOD);
     }
 
     @Override
-    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+    public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
         world.playSound(null, pos, SoundEvents.ENTITY_GHAST_HURT, SoundCategory.BLOCKS, 1f,0.2f);
         return super.removedByPlayer(state, world, pos, player, willHarvest);
     }
 
     @Override
-    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+    public boolean isFlammable(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing) {
         return false;
     }
 
@@ -57,11 +58,11 @@ public class BlockBloodLog extends BlockLog {
         tree.generateBranch(world, pos, facing);
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         IBlockState state = this.getDefaultState().withProperty(EXPANDABLE, (meta & 3) % 4 == 1);
-        switch (meta & 12)
-        {
+        switch (meta & 12) {
             case 0:
                 state = state.withProperty(LOG_AXIS, BlockLog.EnumAxis.Y);
                 break;
@@ -95,6 +96,7 @@ public class BlockBloodLog extends BlockLog {
         return meta;
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, EXPANDABLE, LOG_AXIS);

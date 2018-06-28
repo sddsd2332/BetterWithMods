@@ -33,9 +33,9 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashSet;
-import java.util.Iterator;
 import java.util.List;
 
 import static betterwithmods.module.hardcore.beacons.HCBeacons.BEACON_EFFECTS;
@@ -206,6 +206,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
         return Pair.of(0, Blocks.AIR.getDefaultState());
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("level", level);
@@ -246,6 +247,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
         super.readFromNBT(compound);
     }
 
+    @SuppressWarnings("deprecation")
     public boolean processInteraction(World world, EntityPlayer player, ItemStack stack) {
         if (player.isCreative() && !stack.isEmpty()) {
             if (stack.getItem() instanceof ItemBlock) {
@@ -312,6 +314,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
             super(colorsIn);
         }
 
+        @SuppressWarnings("EmptyMethod")
         @Override
         protected void incrementHeight() {
             super.incrementHeight();

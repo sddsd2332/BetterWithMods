@@ -41,6 +41,7 @@ public abstract class BWMRecipeCategory<T extends IRecipeWrapper> implements IRe
         return this.uid;
     }
 
+    @Nonnull
     @Override
     public String getModName() {
         return BWMod.NAME;

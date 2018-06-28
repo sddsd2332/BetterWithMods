@@ -10,7 +10,9 @@ public class ModelSlats extends ModelWithResource {
     public ModelSlats(ItemStack slats) {
         super();
         ResourceLocation item = slats.getItem().getRegistryName();
-        this.location = new ResourceLocation(item.getResourceDomain(), "textures/blocks/" + item.getResourcePath() + ".png");
+        if (item != null) {
+            this.location = new ResourceLocation(item.getResourceDomain(), "textures/blocks/" + item.getResourcePath() + ".png");
+        }
         model = new ModelRenderer(this, 0, 0);
         model.setTextureSize(16, 16);
         model.addBox(-5.5F, 5.8F, -8F, 2, 2, 16);

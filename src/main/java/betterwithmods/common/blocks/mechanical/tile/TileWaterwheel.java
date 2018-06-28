@@ -18,6 +18,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 public class TileWaterwheel extends TileAxleGenerator {
@@ -186,6 +187,7 @@ public class TileWaterwheel extends TileAxleGenerator {
 
 
     //Extend the bounding box if the TESR is bigger than the occupying block.
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {

@@ -9,6 +9,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockPulley extends BlockMechMachine {
@@ -21,7 +22,7 @@ public class BlockPulley extends BlockMechMachine {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TilePulley();
     }
 }

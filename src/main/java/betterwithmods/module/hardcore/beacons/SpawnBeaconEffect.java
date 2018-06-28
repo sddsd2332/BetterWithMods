@@ -39,6 +39,7 @@ public class SpawnBeaconEffect implements IBeaconEffect {
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean containsEntry(BlockPos pos, BindingPoint point) {
         if (SPAWN_LIST.containsKey(pos)) {
             HashSet<BindingPoint> points = SPAWN_LIST.get(pos);
@@ -103,7 +104,10 @@ public class SpawnBeaconEffect implements IBeaconEffect {
 
         @Override
         public boolean equals(Object o) {
-            return this.hashCode() == o.hashCode();
+            if (o instanceof BindingPoint) {
+                return ((BindingPoint) o).uuid.equals(this.uuid) && this.type == ((BindingPoint) o).type;
+            }
+            return false;
         }
 
         @Override

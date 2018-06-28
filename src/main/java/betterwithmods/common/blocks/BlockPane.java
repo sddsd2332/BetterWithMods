@@ -19,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -39,6 +40,7 @@ public class BlockPane extends BWMBlock {
         setDefaultState(getDefaultState().withProperty(DirUtils.NORTH,true).withProperty(DirUtils.SOUTH,true).withProperty(DirUtils.EAST,true).withProperty(DirUtils.WEST,true));
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.NORTH,DirUtils.SOUTH, DirUtils.EAST, DirUtils.WEST);
@@ -49,6 +51,7 @@ public class BlockPane extends BWMBlock {
         return 0;
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState();
@@ -65,7 +68,7 @@ public class BlockPane extends BWMBlock {
     }
 
     @Override
-    public void addCollisionBoxToList(IBlockState state, World world, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, Entity entity, boolean pass) {
+    public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> collidingBoxes, Entity entity, boolean pass) {
         state = state.getActualState(world, pos);
 
         float minY = 0.001F;
@@ -97,6 +100,7 @@ public class BlockPane extends BWMBlock {
         }
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
         state = state.getActualState(world, pos);
@@ -109,10 +113,11 @@ public class BlockPane extends BWMBlock {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return true;
     }
 
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
@@ -120,7 +125,7 @@ public class BlockPane extends BWMBlock {
     }
 
     @Override
-    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return false;
     }
 
@@ -146,8 +151,9 @@ public class BlockPane extends BWMBlock {
         return isFenceGate(world, pos, dir) || isCompatiblePane(world, pos, dir) || world.isSideSolid(pos.offset(dir),dir.getOpposite(),true);
     }
 
+    @Nonnull
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         boolean north = canConnectTo(world, pos, EnumFacing.NORTH);
         boolean east = canConnectTo(world, pos, EnumFacing.EAST);
         boolean south = canConnectTo(world, pos, EnumFacing.SOUTH);
@@ -155,6 +161,7 @@ public class BlockPane extends BWMBlock {
         return state.withProperty(DirUtils.NORTH, north).withProperty(DirUtils.EAST, east).withProperty(DirUtils.SOUTH, south).withProperty(DirUtils.WEST, west);
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE_THIN : BlockFaceShape.CENTER_SMALL;

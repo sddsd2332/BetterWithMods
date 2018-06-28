@@ -33,6 +33,7 @@ public class BWMAttributes {
     }
 
 
+    @SuppressWarnings("unchecked")
     public static <T extends Number & Comparable> Range<T> getRange(String category, String penalty, String desc, Range<T> defaultValue) {
         Number max = defaultValue.getMaximum(), min = defaultValue.getMinimum();
         if (max instanceof Float) {

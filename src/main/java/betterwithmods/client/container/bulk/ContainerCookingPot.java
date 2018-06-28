@@ -2,14 +2,16 @@ package betterwithmods.client.container.bulk;
 
 import betterwithmods.client.container.ContainerProgress;
 import betterwithmods.common.blocks.mechanical.tile.TileCookingPot;
+import betterwithmods.util.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+
+import javax.annotation.Nonnull;
 
 public class ContainerCookingPot extends ContainerProgress {
     private final TileCookingPot tile;
@@ -17,7 +19,7 @@ public class ContainerCookingPot extends ContainerProgress {
 
     public ContainerCookingPot(EntityPlayer player, TileCookingPot tile) {
         super(tile);
-        IItemHandler playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+        IItemHandler playerInv = CapabilityUtils.getEntityInventory(player);
         this.tile = tile;
 
         for (int i = 0; i < 3; i++) {
@@ -38,16 +40,18 @@ public class ContainerCookingPot extends ContainerProgress {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(@Nonnull EntityPlayer player) {
         return this.tile.isUseableByPlayer(player);
     }
 
+    @Nonnull
     @Override
     public ItemStack slotClick(int x, int dragType, ClickType type, EntityPlayer player) {
         this.tile.markDirty();
         return super.slotClick(x, dragType, type, player);
     }
 
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
         ItemStack stack = ItemStack.EMPTY;

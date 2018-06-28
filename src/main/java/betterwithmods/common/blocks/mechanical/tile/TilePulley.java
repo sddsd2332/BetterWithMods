@@ -9,7 +9,6 @@ import betterwithmods.api.util.IProgressSource;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockRope;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
-import betterwithmods.common.blocks.tile.SimpleStackHandler;
 import betterwithmods.common.blocks.tile.TileVisibleInventory;
 import betterwithmods.common.entity.EntityExtendingRope;
 import betterwithmods.common.registry.PulleyStructureManager;
@@ -53,7 +52,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     }
 
     @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+    public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
     }
 
@@ -68,11 +67,6 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     @Override
     public int getInventorySize() {
         return 4;
-    }
-
-    @Override
-    public SimpleStackHandler createItemStackHandler() {
-        return super.createItemStackHandler();
     }
 
     @Override
@@ -334,6 +328,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
         }
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         NBTTagCompound ropetag = new NBTTagCompound();

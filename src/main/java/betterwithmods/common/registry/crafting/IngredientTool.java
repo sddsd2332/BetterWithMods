@@ -6,6 +6,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.function.Predicate;
@@ -28,6 +29,7 @@ public class IngredientTool extends Ingredient {
         this(s -> s.getItem().getHarvestLevel(s, toolClass, null, null) > -1, ItemStack.EMPTY);
     }
 
+    @Nonnull
     @Override
     public ItemStack[] getMatchingStacks() {
         ItemStack stack = TOOLS.keySet().stream().filter(s -> s.isItemEqual(example)).findFirst().orElse(null);

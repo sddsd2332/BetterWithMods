@@ -66,7 +66,7 @@ public class StackIngredient extends Ingredient {
             ArrayList<ItemStack> stacks = new ArrayList<>();
             for (Map.Entry<Ingredient,Integer> entry : internal.entrySet())
                 Arrays.stream(entry.getKey().getMatchingStacks()).map(stack -> withCount(stack, entry.getValue())).forEach(stacks::add);
-            cachedStacks = stacks.toArray(new ItemStack[stacks.size()]);
+            cachedStacks = stacks.toArray(new ItemStack[0]);
         }
         return cachedStacks;
     }

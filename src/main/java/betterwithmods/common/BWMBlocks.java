@@ -246,11 +246,13 @@ public final class BWMBlocks {
      *              as the block. If null, then no item will be linked to the
      */
     public static void registerBlock(Block block, @Nullable Item item) {
-        //TODO remove this in 1.13, it is done automatically
-        block.setUnlocalizedName(block.getRegistryName().toString());
-        BLOCKS.add(block);
-        if (item != null) {
-            BWMItems.registerItem(item.setRegistryName(block.getRegistryName()));
+        if (block.getRegistryName() != null) {
+            //TODO remove this in 1.13, it is done automatically
+            block.setUnlocalizedName(block.getRegistryName().toString());
+            BLOCKS.add(block);
+            if (item != null) {
+                BWMItems.registerItem(item.setRegistryName(block.getRegistryName()));
+            }
         }
     }
 

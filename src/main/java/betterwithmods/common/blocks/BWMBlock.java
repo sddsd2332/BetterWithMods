@@ -5,6 +5,7 @@ import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
 import betterwithmods.common.blocks.tile.TileBasic;
+import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.InvUtils;
 import betterwithmods.util.item.ToolsManager;
 import net.minecraft.block.Block;
@@ -31,8 +32,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -54,9 +55,12 @@ public abstract class BWMBlock extends Block implements IRotate {
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        if (!worldIn.isRemote && worldIn.getTileEntity(pos) instanceof TileBasic) {
-            ((TileBasic) worldIn.getTileEntity(pos)).onBreak();
+    public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+        if (!worldIn.isRemote) {
+            TileEntity tile = worldIn.getTileEntity(pos);
+            if (tile instanceof TileBasic) {
+                ((TileBasic) tile).onBreak();
+            }
             worldIn.updateComparatorOutputLevel(pos, this);
         }
         super.breakBlock(worldIn, pos, state);
@@ -77,18 +81,17 @@ public abstract class BWMBlock extends Block implements IRotate {
         }
     }
 
+    @SuppressWarnings("deprecation")
     public boolean hasComparatorInputOverride(IBlockState state) {
-        return true;
+        return hasTileEntity(state);
     }
 
+
+    @SuppressWarnings("deprecation")
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
         if (hasTileEntity(blockState)) {
             TileEntity tile = worldIn.getTileEntity(pos);
-            if (tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP)) {
-                if (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP)) {
-                    return InvUtils.calculateComparatorLevel(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP));
-                }
-            }
+            return CapabilityUtils.getInventory(tile, EnumFacing.UP).map(InvUtils::calculateComparatorLevel).orElse(0);
         }
         return 0;
     }

@@ -13,6 +13,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class BlockCandleHolder extends BlockStickBase {
 
     public BlockCandleHolder() {
@@ -21,7 +23,7 @@ public class BlockCandleHolder extends BlockStickBase {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         return worldIn.isSideSolid(pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() instanceof BlockCandleHolder;
     }
 
@@ -61,6 +63,7 @@ public class BlockCandleHolder extends BlockStickBase {
         return c == Connection.DISCONNECTED ? 14d / 16d : 1;
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing facing) {
         return facing == EnumFacing.DOWN ? BlockFaceShape.CENTER_SMALL : (facing == EnumFacing.UP ? BlockFaceShape.CENTER : BlockFaceShape.UNDEFINED);

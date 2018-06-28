@@ -16,6 +16,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTableList;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
@@ -28,6 +29,7 @@ public class BlockTurntable extends BlockMechMachine {
         useNeighborBrightness = true;
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, SPEED, ACTIVE);
@@ -35,7 +37,7 @@ public class BlockTurntable extends BlockMechMachine {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileTurntable();
     }
 
@@ -55,8 +57,9 @@ public class BlockTurntable extends BlockMechMachine {
         }
     }
 
+    @Nonnull
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         if (world.getTileEntity(pos) instanceof TileTurntable) {
             TileTurntable tile = (TileTurntable) world.getTileEntity(pos);
             return state.withProperty(SPEED, tile.getTimerPos());

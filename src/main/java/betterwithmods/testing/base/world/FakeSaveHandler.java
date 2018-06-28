@@ -8,6 +8,7 @@ import net.minecraft.world.storage.IPlayerFileData;
 import net.minecraft.world.storage.ISaveHandler;
 import net.minecraft.world.storage.WorldInfo;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.io.File;
 
@@ -21,21 +22,23 @@ public class FakeSaveHandler implements ISaveHandler {
     @Override
     public void checkSessionLock() { }
 
+    @Nonnull
     @Override
-    public IChunkLoader getChunkLoader(WorldProvider provider) {
+    public IChunkLoader getChunkLoader(@Nonnull WorldProvider provider) {
         return null;
     }
 
     @Override
-    public void saveWorldInfoWithPlayer(WorldInfo worldInformation, NBTTagCompound tagCompound) {
+    public void saveWorldInfoWithPlayer(@Nonnull WorldInfo worldInformation, @Nonnull NBTTagCompound tagCompound) {
 
     }
 
     @Override
-    public void saveWorldInfo(WorldInfo worldInformation) {
+    public void saveWorldInfo(@Nonnull WorldInfo worldInformation) {
 
     }
 
+    @Nonnull
     @Override
     public IPlayerFileData getPlayerNBTManager() {
         return null;
@@ -46,16 +49,19 @@ public class FakeSaveHandler implements ISaveHandler {
 
     }
 
+    @Nonnull
     @Override
     public File getWorldDirectory() {
         return null;
     }
 
+    @Nonnull
     @Override
-    public File getMapFileFromName(String mapName) {
+    public File getMapFileFromName(@Nonnull String mapName) {
         return null;
     }
 
+    @Nonnull
     @Override
     public TemplateManager getStructureTemplateManager() {
         return null;

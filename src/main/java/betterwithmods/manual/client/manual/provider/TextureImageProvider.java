@@ -7,6 +7,7 @@ import betterwithmods.manual.client.manual.segment.render.MissingItemRenderer;
 import betterwithmods.manual.client.manual.segment.render.TextureImageRenderer;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class TextureImageProvider implements ImageProvider {
@@ -20,7 +21,7 @@ public final class TextureImageProvider implements ImageProvider {
 
     @Override
     @Nullable
-    public ImageRenderer getImage(final String data) {
+    public ImageRenderer getImage(@Nonnull final String data) {
         try {
             ResourceLocation loc = new ResourceLocation(data);
 

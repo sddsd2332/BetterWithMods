@@ -24,7 +24,10 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.common.util.FakePlayer;
 import net.minecraftforge.common.util.FakePlayerFactory;
 
+import javax.annotation.Nonnull;
+
 public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
+    @Nonnull
     @Override
     protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
         EnumFacing facing = source.getBlockState().getValue(BlockBDispenser.FACING);

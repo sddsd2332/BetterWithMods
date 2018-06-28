@@ -8,6 +8,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by primetoxinz on 8/5/16.
  */
@@ -23,7 +25,7 @@ public class BlockCreativeGenerator extends BWMBlock  {
     }
 
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileCreativeGen();
     }
 
@@ -32,6 +34,7 @@ public class BlockCreativeGenerator extends BWMBlock  {
         return 0;
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState();

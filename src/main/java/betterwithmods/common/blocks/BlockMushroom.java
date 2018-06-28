@@ -7,6 +7,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockMushroom extends net.minecraft.block.BlockMushroom {
@@ -21,7 +22,7 @@ public class BlockMushroom extends net.minecraft.block.BlockMushroom {
     }
 
     @Override
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+    public void updateTick(@Nonnull World worldIn, @Nonnull BlockPos pos, IBlockState state, Random rand) {
         IBlockState soil = worldIn.getBlockState(pos.down());
         if (worldIn.getLight(pos) <= maxLightLevel || MushroomFarming.SPREAD_ON_MYCELLIUM && MushroomFarming.isMushroomSoil(soil)) {
             int growthChance = MushroomFarming.GROW_FAST_ON_DUNG && isDung(soil) ? 12 : 25;
@@ -61,7 +62,7 @@ public class BlockMushroom extends net.minecraft.block.BlockMushroom {
     }
 
     @Override
-    public boolean canBlockStay(World worldIn, BlockPos pos, IBlockState state) {
+    public boolean canBlockStay(@Nonnull World worldIn, BlockPos pos, IBlockState state) {
         if (pos.getY() >= 0 && pos.getY() < 256) {
             IBlockState soil = worldIn.getBlockState(pos.down());
 

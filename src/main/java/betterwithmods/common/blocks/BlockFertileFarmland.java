@@ -11,6 +11,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockFertileFarmland extends BlockFarmland {
@@ -22,7 +23,7 @@ public class BlockFertileFarmland extends BlockFarmland {
     }
 
     @Override
-    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+    public void updateTick(@Nonnull World world, BlockPos pos, IBlockState state, Random rand) {
         super.updateTick(world, pos, state, rand);
 
         IBlockState above = world.getBlockState(pos.up());
@@ -36,7 +37,7 @@ public class BlockFertileFarmland extends BlockFarmland {
     }
 
     @Override
-    public boolean canSustainPlant(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing direction, IPlantable plantable) {
+    public boolean canSustainPlant(@Nonnull IBlockState state, @Nonnull IBlockAccess world, BlockPos pos, @Nonnull EnumFacing direction, IPlantable plantable) {
         return plantable.getPlantType(world, pos.up()) == EnumPlantType.Crop || plantable.getPlantType(world, pos.up()) == EnumPlantType.Plains;
     }
 }

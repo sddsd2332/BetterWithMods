@@ -85,7 +85,7 @@ public class BlockIngredient extends Ingredient {
                     lst.add(itemstack);
                 }
             }
-            this.array = lst.toArray(new ItemStack[lst.size()]);
+            this.array = lst.toArray(new ItemStack[0]);
             this.lastSizeA = stacks.size();
         }
         return this.array;

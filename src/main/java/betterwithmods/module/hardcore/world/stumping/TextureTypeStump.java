@@ -9,16 +9,19 @@ import team.chisel.ctm.api.texture.ITextureType;
 import team.chisel.ctm.api.texture.TextureType;
 import team.chisel.ctm.api.util.TextureInfo;
 
+import javax.annotation.Nonnull;
+
 @TextureType(value = "bwm_stump")
 public class TextureTypeStump implements ITextureType {
 
+    @SuppressWarnings("unchecked")
     @Override
-    public TextureStump makeTexture(TextureInfo info) {
+    public TextureStump makeTexture(@Nonnull TextureInfo info) {
         return new TextureStump(this, info);
     }
 
     @Override
-    public ITextureContext getBlockRenderContext(IBlockState state, IBlockAccess world, BlockPos pos, ICTMTexture<?> tex) {
+    public ITextureContext getBlockRenderContext(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull ICTMTexture<?> tex) {
         return new TextureContextStump(pos);
     }
 

@@ -22,6 +22,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author mrebhan
  */
@@ -33,12 +35,12 @@ public class RenderExtendingRope extends Render<EntityExtendingRope> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(EntityExtendingRope entity) {
+    protected ResourceLocation getEntityTexture(@Nonnull EntityExtendingRope entity) {
         return null;
     }
 
     @Override
-    public void doRender(EntityExtendingRope entity, double x, double y, double z, float entityYaw,
+    public void doRender(@Nonnull EntityExtendingRope entity, double x, double y, double z, float entityYaw,
                          float partialTicks) {
         World world = entity.getEntityWorld();
         IBlockState iblockstate = BWMBlocks.ROPE.getDefaultState();

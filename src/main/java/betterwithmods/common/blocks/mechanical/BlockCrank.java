@@ -26,6 +26,7 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
@@ -51,7 +52,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
     }
 
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
         return CRANK_AABB;
     }
 
@@ -61,7 +62,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World world, BlockPos pos) {
+    public boolean canPlaceBlockAt(World world, @Nonnull BlockPos pos) {
         return world.isSideSolid(pos.down(), EnumFacing.UP);
     }
 
@@ -111,7 +112,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return true;
     }
 
@@ -156,6 +157,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
         }
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(STAGE, meta);
@@ -166,6 +168,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
         return state.getValue(STAGE);
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, STAGE);
@@ -178,7 +181,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileCrank();
     }
 
@@ -191,6 +194,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
         world.setBlockToAir(pos);
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face == EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : super.getBlockFaceShape(worldIn, state, pos, face);

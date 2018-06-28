@@ -16,6 +16,7 @@ import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.fml.common.ObfuscationReflectionHelper;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
@@ -72,6 +73,7 @@ public class BWMapGenVillage extends MapGenVillage {
         return ObfuscationReflectionHelper.getPrivateValue(MapGenVillage.class, this, ReflectionLib.MAP_GEN_VILLAGE_SIZE);
     }
 
+    @Nonnull
     @Override
     protected StructureStart getStructureStart(int x, int z) {
         VillageStatus status = VillageStatus.getStatus(x, z);

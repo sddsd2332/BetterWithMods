@@ -23,6 +23,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 import static net.minecraft.util.EnumFacing.UP;
@@ -43,7 +44,7 @@ public class BlockUrn extends BWMBlock implements ISoulContainer {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         BlockPos down = pos.down();
         BlockFaceShape blockfaceshape = worldIn.getBlockState(down).getBlockFaceShape(worldIn, down, UP);
         boolean below = blockfaceshape != BlockFaceShape.BOWL && blockfaceshape != BlockFaceShape.UNDEFINED;
@@ -73,6 +74,7 @@ public class BlockUrn extends BWMBlock implements ISoulContainer {
         return false;
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
         return state.getActualState(world, pos).getValue(UNDERHOPPER) ? UNDER_HOPPER_AABB : URN_AABB;
@@ -95,8 +97,9 @@ public class BlockUrn extends BWMBlock implements ISoulContainer {
         }
     }
 
+    @Nonnull
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         BlockPos up = pos.up();
         Block block = world.getBlockState(up).getBlock();
         if (block instanceof BlockFilteredHopper) {
@@ -106,16 +109,19 @@ public class BlockUrn extends BWMBlock implements ISoulContainer {
     }
 
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, UNDERHOPPER);
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(UNDERHOPPER, meta == 1);
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face == EnumFacing.DOWN ? BlockFaceShape.CENTER : BlockFaceShape.UNDEFINED;

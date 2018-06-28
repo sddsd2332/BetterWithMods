@@ -35,7 +35,6 @@ import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
  */
 public class BWOreDictionary {
 
-    public static List<ItemStack> cropNames;
     public static List<Ore> nuggetNames;
     public static List<Ore> dustNames;
     public static List<Ore> oreNames;
@@ -45,7 +44,6 @@ public class BWOreDictionary {
     public static final List<IVariantProvider> variantProviders = new ArrayList<>();
 
 
-    public static List<ItemStack> planks;
     public static List<ItemStack> logs;
     public static final Set<IRecipe> logRecipes = Sets.newHashSet();
 
@@ -230,7 +228,7 @@ public class BWOreDictionary {
         dustNames = getOreIngredients("dust");
         oreNames = getOreIngredients("ore");
         ingotNames = getOreIngredients("ingot");
-        cropNames = getOreNames("crop");
+
         blockVariants.addAll(Lists.newArrayList(
                 BlockVariant.builder()
                         .addVariant(BLOCK, new ItemStack(Blocks.COBBLESTONE))
@@ -302,16 +300,18 @@ public class BWOreDictionary {
         BWOreDictionary.logs = OreDictionary.getOres("logWood").stream().filter(s -> !s.isEmpty()).collect(Collectors.toList());
         for (ItemStack log : logs) {
             Item logItem = log.getItem();
-            NonNullList<ItemStack> listSubItems = NonNullList.create();
-            log.getItem().getSubItems(logItem.getCreativeTab(), listSubItems);
-            for (ItemStack subLog : listSubItems) {
-                IRecipe recipe = getLogPlankRecipe(subLog);
-                if (recipe != null) {
-                    ItemStack plank = recipe.getRecipeOutput();
-                    if (!plank.isEmpty()) {
-                        logRecipes.add(recipe);
-                        if (!isWoodRegistered(log)) {
-                            blockVariants.add(WoodVariant.builder().addVariant(LOG, subLog).addVariant(BLOCK, plank));
+            if (logItem.getCreativeTab() != null) {
+                NonNullList<ItemStack> listSubItems = NonNullList.create();
+                log.getItem().getSubItems(logItem.getCreativeTab(), listSubItems);
+                for (ItemStack subLog : listSubItems) {
+                    IRecipe recipe = getLogPlankRecipe(subLog);
+                    if (recipe != null) {
+                        ItemStack plank = recipe.getRecipeOutput();
+                        if (!plank.isEmpty()) {
+                            logRecipes.add(recipe);
+                            if (!isWoodRegistered(log)) {
+                                blockVariants.add(WoodVariant.builder().addVariant(LOG, subLog).addVariant(BLOCK, plank));
+                            }
                         }
                     }
                 }
@@ -325,10 +325,6 @@ public class BWOreDictionary {
 
     public static List<ItemStack> getOreNames(String prefix) {
         return Arrays.stream(OreDictionary.getOreNames()).filter(Objects::nonNull).filter(n -> n.startsWith(prefix)).map(OreDictionary::getOres).filter(o -> !o.isEmpty()).flatMap(Collection::stream).collect(Collectors.toList());
-    }
-
-    public static List<ItemStack> getItems(List<Ore> ores) {
-        return ores.stream().flatMap(o -> o.getOres().stream()).collect(Collectors.toList());
     }
 
     public static List<Ore> getOreIngredients(String prefix) {

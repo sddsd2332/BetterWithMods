@@ -103,6 +103,7 @@ public class HopperRecipe {
         return recipeOutputInsert;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     protected boolean canCraft(World world, BlockPos pos, TileFilteredHopper tile) {
         ItemStackHandler inventory = tile.inventory;
         List<ItemStack> outputs = getOutputs();

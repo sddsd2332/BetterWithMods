@@ -13,6 +13,8 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.MathHelper;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by primetoxinz on 9/5/16.
  */
@@ -23,7 +25,7 @@ public class RenderMiningCharge extends Render<EntityMiningCharge> {
     }
 
     @Override
-    public void doRender(EntityMiningCharge entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    public void doRender(@Nonnull EntityMiningCharge entity, double x, double y, double z, float entityYaw, float partialTicks) {
         IBlockState state = BWMBlocks.MINING_CHARGE.getDefaultState().withProperty(DirUtils.FACING, entity.getFacing());
         BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
         GlStateManager.pushMatrix();
@@ -75,7 +77,7 @@ public class RenderMiningCharge extends Render<EntityMiningCharge> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(EntityMiningCharge entity) {
+    protected ResourceLocation getEntityTexture(@Nonnull EntityMiningCharge entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 

@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockNetherClay extends BlockClay {
@@ -20,11 +21,13 @@ public class BlockNetherClay extends BlockClay {
         this.setUnlocalizedName("bwm:nether_clay");
     }
 
+    @Nonnull
     @Override
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         return MapColor.NETHERRACK;
     }
 
+    @Nonnull
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return ItemMaterial.getItem(ItemMaterial.EnumMaterial.NETHER_SLUDGE);

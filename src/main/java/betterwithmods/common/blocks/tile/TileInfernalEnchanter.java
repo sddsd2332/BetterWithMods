@@ -16,6 +16,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 
 /**
@@ -84,6 +85,7 @@ public class TileInfernalEnchanter extends TileBasic implements ITickable {
         return bookcaseCount;
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("bookcaseCount", bookcaseCount);

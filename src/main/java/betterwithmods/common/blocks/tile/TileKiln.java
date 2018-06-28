@@ -9,6 +9,8 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 
+import javax.annotation.Nonnull;
+
 public class TileKiln extends TileCamo implements ITickable {
 
     private int cookTicks;
@@ -55,6 +57,7 @@ public class TileKiln extends TileCamo implements ITickable {
         return cookSpeed;
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
 

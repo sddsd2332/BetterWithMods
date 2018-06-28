@@ -17,6 +17,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
+
 /**
  * Purpose:
  *
@@ -31,6 +33,7 @@ public class BlockCookingPot extends BWMBlock {
         setSoundType(SoundType.STONE);
     }
 
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
@@ -47,6 +50,7 @@ public class BlockCookingPot extends BWMBlock {
         return false;
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.TILTING);
@@ -76,6 +80,7 @@ public class BlockCookingPot extends BWMBlock {
         return 0;
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState();

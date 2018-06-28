@@ -8,6 +8,8 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import static betterwithmods.module.gameplay.miniblocks.orientations.OrientationUtils.getCorner;
 
 public enum CornerOrientation implements BaseOrientation {
@@ -69,6 +71,7 @@ public enum CornerOrientation implements BaseOrientation {
         }
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return name;

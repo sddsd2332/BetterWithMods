@@ -32,6 +32,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.items.ItemStackHandler;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -59,12 +60,12 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {
         return capability == CapabilityMechanicalPower.MECHANICAL_POWER || super.hasCapability(capability, facing);
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
         if (capability == CapabilityMechanicalPower.MECHANICAL_POWER) {
             return CapabilityMechanicalPower.MECHANICAL_POWER.cast(this);
         }
@@ -105,6 +106,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
         this.heat = value(tag, "heat", 0);
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         NBTTagCompound t = super.writeToNBT(tag);

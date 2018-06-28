@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Koward
  */
@@ -30,8 +32,9 @@ public class ItemSimpleSlab extends ItemBlock {
     /**
      * Called when a Block is right-clicked with this Item
      */
+    @Nonnull
     @Override
-    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, @Nonnull BlockPos pos, @Nonnull EnumHand hand, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (playerIn != null) {
             ItemStack stack = playerIn.getHeldItem(hand);
             if (!stack.isEmpty() && playerIn.canPlayerEdit(pos.offset(facing), facing, stack)) {
@@ -61,7 +64,7 @@ public class ItemSimpleSlab extends ItemBlock {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+    public boolean canPlaceBlockOnSide(World worldIn, @Nonnull BlockPos pos, @Nonnull EnumFacing side, EntityPlayer player, ItemStack stack) {
         BlockPos blockpos = pos;
         IBlockState iblockstate = worldIn.getBlockState(pos);
 

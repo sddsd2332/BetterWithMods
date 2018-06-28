@@ -12,6 +12,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 public class BWMArmor extends ItemArmor implements IColorable {
     private final String name;
 
@@ -27,7 +29,7 @@ public class BWMArmor extends ItemArmor implements IColorable {
     }
 
     @Override
-    public int getColor(ItemStack stack) {
+    public int getColor(@Nonnull ItemStack stack) {
         NBTTagCompound nbttagcompound = stack.getTagCompound();
         if (nbttagcompound != null && nbttagcompound.hasKey("display")) {
             NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
@@ -40,7 +42,7 @@ public class BWMArmor extends ItemArmor implements IColorable {
     }
 
     @Override
-    public void removeColor(ItemStack stack) {
+    public void removeColor(@Nonnull ItemStack stack) {
         NBTTagCompound nbttagcompound = stack.getTagCompound();
         if (nbttagcompound != null) {
             NBTTagCompound nbttagcompound1 = nbttagcompound.getCompoundTag("display");
@@ -65,13 +67,13 @@ public class BWMArmor extends ItemArmor implements IColorable {
     }
 
     @Override
-    public boolean hasColor(ItemStack stack) {
+    public boolean hasColor(@Nonnull ItemStack stack) {
         NBTTagCompound nbttagcompound = stack.getTagCompound();
         return (nbttagcompound != null && nbttagcompound.hasKey("display", 10)) && nbttagcompound.getCompoundTag("display").hasKey("color", 3);
     }
 
     @Override
-    public boolean hasOverlay(ItemStack stack) {
+    public boolean hasOverlay(@Nonnull ItemStack stack) {
         return getColor(stack) != 0x00FFFFFF;
     }
 

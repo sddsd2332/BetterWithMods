@@ -12,6 +12,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.ForgeHooks;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
+
 import static betterwithmods.module.hardcore.crafting.HCFishing.setBaited;
 
 public class BaitingRecipe extends ToolBaseRecipe {
@@ -31,6 +33,7 @@ public class BaitingRecipe extends ToolBaseRecipe {
         return ItemStack.EMPTY;
     }
 
+    @Nonnull
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
         NonNullList<ItemStack> ret = NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
         for (int i = 0; i < ret.size(); i++) {
@@ -52,14 +55,16 @@ public class BaitingRecipe extends ToolBaseRecipe {
         return null;
     }
 
+    @Nonnull
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inv) {
+    public ItemStack getCraftingResult(@Nonnull InventoryCrafting inv) {
         ItemStack rod = findRod(inv);
         if (!rod.isEmpty())
             return setBaited(rod.copy(), true);
         return ItemStack.EMPTY;
     }
 
+    @Nonnull
     @Override
     public ItemStack getRecipeOutput() {
         ItemStack rod = new ItemStack(Items.FISHING_ROD);

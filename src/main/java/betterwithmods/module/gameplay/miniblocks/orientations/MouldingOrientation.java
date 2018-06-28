@@ -8,6 +8,8 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import static betterwithmods.module.gameplay.miniblocks.orientations.OrientationUtils.*;
 
 public enum MouldingOrientation implements BaseOrientation {
@@ -124,6 +126,7 @@ public enum MouldingOrientation implements BaseOrientation {
         }
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return name;

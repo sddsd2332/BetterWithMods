@@ -16,7 +16,8 @@ public class EntityUtils {
         return entity.tasks.taskEntries.stream().anyMatch(entityAITaskEntry -> clazz.isAssignableFrom(entityAITaskEntry.action.getClass()));
     }
 
-    public  static <T extends EntityAIBase> Optional<T> findFirst(EntityLiving entity, Class<? extends EntityAIBase> clazz) {
+    @SuppressWarnings("unchecked")
+    public static <T extends EntityAIBase> Optional<T> findFirst(EntityLiving entity, Class<T> clazz) {
         return entity.tasks.taskEntries.stream().filter( t -> clazz.isAssignableFrom(t.getClass())).map( t -> (T)t.action).findFirst();
     }
 

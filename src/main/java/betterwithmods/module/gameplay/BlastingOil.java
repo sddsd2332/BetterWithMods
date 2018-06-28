@@ -2,6 +2,7 @@ package betterwithmods.module.gameplay;
 
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
+import betterwithmods.util.CapabilityUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityLivingBase;
@@ -55,21 +56,20 @@ public class BlastingOil extends Feature {
         DamageSource BLAST_OIL = new DamageSource("blastingoil");
         EntityLivingBase living = e.getEntityLiving();
         if (living.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-            IItemHandler inventory = living.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-            if (inventory != null) {
-                int count = 0;
-                for (int i = 0; i < inventory.getSlots(); i++) {
-                    ItemStack stack = inventory.getStackInSlot(i);
 
-                    if (!stack.isEmpty() && stack.isItemEqual(ItemMaterial.getStack(ItemMaterial.EnumMaterial.BLASTING_OIL))) {
-                        count += stack.getCount();
-                        inventory.extractItem(i, stack.getCount(), false);
-                    }
+            IItemHandler inventory = CapabilityUtils.getEntityInventory(living);
+            int count = 0;
+            for (int i = 0; i < inventory.getSlots(); i++) {
+                ItemStack stack = inventory.getStackInSlot(i);
+
+                if (!stack.isEmpty() && stack.isItemEqual(ItemMaterial.getStack(ItemMaterial.EnumMaterial.BLASTING_OIL))) {
+                    count += stack.getCount();
+                    inventory.extractItem(i, stack.getCount(), false);
                 }
-                if (count > 0) {
-                    living.attackEntityFrom(BLAST_OIL, Float.MAX_VALUE);
-                    living.getEntityWorld().createExplosion(null, living.posX, living.posY + living.height / 16, living.posZ, (float) (Math.sqrt(count / 5) / 2.5 + 1), true);
-                }
+            }
+            if (count > 0) {
+                living.attackEntityFrom(BLAST_OIL, Float.MAX_VALUE);
+                living.getEntityWorld().createExplosion(null, living.posX, living.posY + living.height / 16, living.posZ, (float) (Math.sqrt(count / 5) / 2.5 + 1), true);
             }
         }
     }

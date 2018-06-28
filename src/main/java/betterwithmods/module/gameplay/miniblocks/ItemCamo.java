@@ -19,6 +19,8 @@ import net.minecraft.util.text.TextComponentString;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class ItemCamo extends ItemBlock {
 
     public ItemCamo(Block block) {
@@ -85,12 +87,13 @@ public class ItemCamo extends ItemBlock {
         }
     }
 
-    public boolean placeBlockAt(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, IBlockState newState) {
+    public boolean placeBlockAt(@Nonnull ItemStack stack, @Nonnull EntityPlayer player, World world, @Nonnull BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, @Nonnull IBlockState newState) {
         return placeBlockAt(this, stack, player, world, pos, side, hitX, hitY, hitZ, newState);
     }
 
+    @Nonnull
     @Override
-    public String getItemStackDisplayName(ItemStack stack) {
+    public String getItemStackDisplayName(@Nonnull ItemStack stack) {
         NBTTagCompound tag = stack.getSubCompound("texture");
 
         //TODO .name

@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 
 public abstract class BlockMechMachine extends BWMBlock implements IBlockActive, IOverpower {
@@ -60,11 +61,13 @@ public abstract class BlockMechMachine extends BWMBlock implements IBlockActive,
         return true;
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, ACTIVE);
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(ACTIVE, meta == 1);
@@ -108,6 +111,7 @@ public abstract class BlockMechMachine extends BWMBlock implements IBlockActive,
             return META_LOOKUP[meta % META_LOOKUP.length];
         }
 
+        @Nonnull
         @Override
         public String getName() {
             return name;

@@ -220,12 +220,12 @@ public class JEI implements IModPlugin {
 
         }
 
-        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.CAULDRON), cauldron.stream().toArray(String[]::new));
-        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.CRUCIBLE), crucible.stream().toArray(String[]::new));
-        reg.addRecipeCatalyst(new ItemStack(Blocks.BRICK_BLOCK), kiln.stream().toArray(String[]::new));
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.CAULDRON), cauldron.toArray(new String[0]));
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.CRUCIBLE), crucible.toArray(new String[0]));
+        reg.addRecipeCatalyst(new ItemStack(Blocks.BRICK_BLOCK), kiln.toArray(new String[0]));
 
-        reg.addRecipeClickArea(GuiCauldron.class, 81, 19, 14, 14, cauldron.stream().toArray(String[]::new));
-        reg.addRecipeClickArea(GuiCrucible.class, 81, 19, 14, 14, crucible.stream().toArray(String[]::new));
+        reg.addRecipeClickArea(GuiCauldron.class, 81, 19, 14, 14, cauldron.toArray(new String[0]));
+        reg.addRecipeClickArea(GuiCrucible.class, 81, 19, 14, 14, crucible.toArray(new String[0]));
 
     }
 

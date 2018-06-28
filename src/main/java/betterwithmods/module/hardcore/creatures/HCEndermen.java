@@ -34,7 +34,7 @@ public class HCEndermen extends Feature {
         if (evt.getEntity() instanceof EntityEnderman) {
             if (!evt.getWorld().isRemote) {
                 EntityEnderman entity = (EntityEnderman) evt.getEntity();
-                EntityUtils.findFirst(entity, EntityAIHurtByTarget.class).ifPresent(ai -> ((EntityAIHurtByTarget) ai).entityCallsForHelp = true);
+                EntityUtils.findFirst(entity, EntityAIHurtByTarget.class).ifPresent(ai -> ai.entityCallsForHelp = true);
                 entity.targetTasks.addTask(2, new EntityAIHurtByTarget(entity, true));
             }
         }

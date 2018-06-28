@@ -10,6 +10,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
+
 public class ContainerPulley extends ContainerProgress {
     private final TilePulley tile;
 
@@ -20,7 +22,7 @@ public class ContainerPulley extends ContainerProgress {
         for (int i = 0; i < 4; i++) {
             addSlotToContainer(new SlotItemHandler(tile.inventory, i, 53 + i * 18, 52) {
                 @Override
-                public boolean isItemValid(ItemStack stack) {
+                public boolean isItemValid(@Nonnull ItemStack stack) {
                     return super.isItemValid(stack) && stack.getItem() == Item.getItemFromBlock(BWMBlocks.ROPE);
                 }
             });
@@ -41,10 +43,11 @@ public class ContainerPulley extends ContainerProgress {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(@Nonnull EntityPlayer player) {
         return tile.isUseableByPlayer(player);
     }
 
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack clickedStack = ItemStack.EMPTY;

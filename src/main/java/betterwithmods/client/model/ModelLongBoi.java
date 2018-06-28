@@ -32,8 +32,6 @@ public class ModelLongBoi extends ModelBase
 
     public ModelLongBoi()
     {
-        float f = 0.0F;
-        float f1 = 13.5F;
         this.wolfHeadMain = new ModelRenderer(this, 0, 0);
         this.wolfHeadMain.addBox(-2.0F, -3.0F, -2.0F, 6, 6, 4, 0.0F);
         this.wolfHeadMain.setRotationPoint(-1.0F, 13.5F, -7.0F);
@@ -73,7 +71,6 @@ public class ModelLongBoi extends ModelBase
 
         if (this.isChild)
         {
-            float f = 2.0F;
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, 5.0F * scale, 2.0F * scale);
             this.wolfHeadMain.renderWithRotation(scale);

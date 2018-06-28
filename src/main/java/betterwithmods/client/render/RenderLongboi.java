@@ -8,6 +8,8 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 public class RenderLongboi extends RenderLiving<EntityLongboi> {
     private static final ResourceLocation WOLF_TEXTURES = new ResourceLocation(BWMod.MODID, "textures/entity/wild_boi.png");
     private static final ResourceLocation TAMED_WOLF_TEXTURES = new ResourceLocation(BWMod.MODID, "textures/entity/long_boi.png");
@@ -28,7 +30,7 @@ public class RenderLongboi extends RenderLiving<EntityLongboi> {
     /**
      * Renders the desired {@code T} type Entity.
      */
-    public void doRender(EntityLongboi entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    public void doRender(@Nonnull EntityLongboi entity, double x, double y, double z, float entityYaw, float partialTicks) {
         if (entity.isWolfWet()) {
             float f = entity.getBrightness() * entity.getShadingWhileWet(partialTicks);
             GlStateManager.color(f, f, f);
@@ -39,7 +41,7 @@ public class RenderLongboi extends RenderLiving<EntityLongboi> {
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(EntityLongboi entity) {
+    protected ResourceLocation getEntityTexture(@Nonnull EntityLongboi entity) {
         if (entity.isTamed()) {
             return TAMED_WOLF_TEXTURES;
         } else {

@@ -9,10 +9,10 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 
-import static net.minecraft.util.EnumFacing.Axis.*;
-
 import java.util.List;
 import java.util.Random;
+
+import static net.minecraft.util.EnumFacing.Axis.*;
 
 public class DirUtils {
 
@@ -119,6 +119,8 @@ public class DirUtils {
         return facing;
     }
 
+
+    @SuppressWarnings("SuspiciousNameCombination")
     public static EnumFacing.Axis rotateAroundY(EnumFacing.Axis axis) {
         switch (axis) {
             case X:

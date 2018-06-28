@@ -20,6 +20,7 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
@@ -47,15 +48,16 @@ public class BlockLens extends BWMBlock {
         world.scheduleBlockUpdate(pos, this, 3, 5);
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ, int meta, EntityLivingBase entity, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ, int meta, @Nonnull EntityLivingBase entity, EnumHand hand) {
         IBlockState state = super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, entity, hand);
         EnumFacing face = DirUtils.convertEntityOrientationToFacing(entity, side);
         return setFacingInBlock(state, face);
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         cleanupLightToFacing(world, pos, state.getValue(DirUtils.FACING));
         super.breakBlock(world, pos, state);
     }
@@ -179,6 +181,7 @@ public class BlockLens extends BWMBlock {
         world.scheduleBlockUpdate(pos, this, 5, 5);
     }
 
+    @Nonnull
     @Override
     public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.BLOCK;
@@ -279,6 +282,7 @@ public class BlockLens extends BWMBlock {
         }
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean lit = false;
@@ -295,6 +299,7 @@ public class BlockLens extends BWMBlock {
         return meta + state.getValue(DirUtils.FACING).getIndex();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.FACING, LIT);

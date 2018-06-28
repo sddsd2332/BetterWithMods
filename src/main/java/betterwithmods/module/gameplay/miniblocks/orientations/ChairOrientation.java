@@ -9,6 +9,8 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 public enum ChairOrientation implements BaseOrientation {
 
     NORTH("north", EnumFacing.NORTH, 0, 0),
@@ -39,6 +41,7 @@ public enum ChairOrientation implements BaseOrientation {
         return fromFace(player.getHorizontalFacing());
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return name;

@@ -3,6 +3,7 @@ package betterwithmods.common.blocks.mechanical.tile;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.BlockWindmill;
 import betterwithmods.util.DirUtils;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
@@ -11,6 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+
+import javax.annotation.Nonnull;
 
 public class TileWindmillHorizontal extends TileBaseWindmill {
 
@@ -40,7 +43,7 @@ public class TileWindmillHorizontal extends TileBaseWindmill {
                     break;
             }
         }
-        isValid = valid && this.getBlockWorld().canBlockSeeSky(pos) && !isNether() && !isEnd();
+        isValid = valid && this.getBlockWorld().canBlockSeeSky(pos) && !WorldUtils.isNether(world) && !WorldUtils.isTheEnd(world);
     }
 
     @Override
@@ -49,6 +52,7 @@ public class TileWindmillHorizontal extends TileBaseWindmill {
     }
 
     //Extend the bounding box if the TESR is bigger than the occupying block.
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {

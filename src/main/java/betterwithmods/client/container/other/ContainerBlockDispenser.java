@@ -1,15 +1,17 @@
 package betterwithmods.client.container.other;
 
 import betterwithmods.common.blocks.tile.TileBlockDispenser;
+import betterwithmods.util.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
+
+import javax.annotation.Nonnull;
 
 public class ContainerBlockDispenser extends Container {
     private final TileBlockDispenser tile;
@@ -17,7 +19,8 @@ public class ContainerBlockDispenser extends Container {
 
     public ContainerBlockDispenser(EntityPlayer player, TileBlockDispenser tile) {
         this.tile = tile;
-        IItemHandler playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
+
+        IItemHandler playerInv = CapabilityUtils.getEntityInventory(player);
         for (int i = 0; i < 4; i++) {
             for (int j = 0; j < 4; j++) {
                 addSlotToContainer(new SlotItemHandler(tile.inventory, j + i * 4, 53 + j * 18, 17 + i * 18));
@@ -36,10 +39,11 @@ public class ContainerBlockDispenser extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(@Nonnull EntityPlayer player) {
         return tile.isUseableByPlayer(player);
     }
 
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int slotIndex) {
         ItemStack stack = ItemStack.EMPTY;
@@ -63,6 +67,7 @@ public class ContainerBlockDispenser extends Container {
         return stack;
     }
 
+    @Nonnull
     @Override
     public ItemStack slotClick(int x, int dragType, ClickType type, EntityPlayer player) {
         if (x < 16)

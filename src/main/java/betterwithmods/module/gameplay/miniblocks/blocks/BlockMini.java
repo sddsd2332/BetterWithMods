@@ -28,6 +28,7 @@ import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.Optional;
@@ -62,11 +63,13 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
         return 0;
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{MINI_INFO});
@@ -74,7 +77,7 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
 
     @Nullable
     @Override
-    public abstract TileEntity createTileEntity(World world, IBlockState state);
+    public abstract TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state);
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
@@ -104,6 +107,7 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
         return Optional.empty();
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return getTile(source, pos).map(t -> t.getOrientation().getBounds()).orElse(Block.FULL_BLOCK_AABB);
@@ -114,7 +118,7 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
     }
 
     @Override
-    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+    public boolean rotateBlock(World world, @Nonnull BlockPos pos, @Nonnull EnumFacing axis) {
         return getTile(world, pos).map(t -> t.changeOrientation(t.getOrientation().next(), false)).orElse(false);
     }
 

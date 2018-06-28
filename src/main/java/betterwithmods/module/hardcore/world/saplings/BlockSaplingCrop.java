@@ -13,6 +13,7 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockSaplingCrop extends BlockBush implements IGrowable {
@@ -73,7 +74,7 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
         return f;
     }
 
-    public void updateTick(World worldIn, BlockPos pos, IBlockState state, Random rand) {
+    public void updateTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
         this.checkAndDropBlock(worldIn, pos, state);
         if (!worldIn.isAreaLoaded(pos, 1))
             return; // Forge: prevent loading unloaded chunks when checking neighbor's light
@@ -91,23 +92,24 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
         }
     }
 
+    @Nonnull
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return CROPS_AABB[getAge(state)];
     }
 
 
     @Override
-    public boolean canGrow(World worldIn, BlockPos pos, IBlockState state, boolean isClient) {
+    public boolean canGrow(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, boolean isClient) {
         return getAge(state) < getMaxAge();
     }
 
     @Override
-    public boolean canUseBonemeal(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+    public boolean canUseBonemeal(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         return true;
     }
 
     @Override
-    public void grow(World worldIn, Random rand, BlockPos pos, IBlockState state) {
+    public void grow(@Nonnull World worldIn, @Nonnull Random rand, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         int i = this.getAge(state) + this.getBonemealAgeIncrease(worldIn);
         int j = this.getMaxAge();
 
@@ -125,6 +127,7 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
     /**
      * Convert the given metadata into a BlockState for this Block
      */
+    @Nonnull
     public IBlockState getStateFromMeta(int meta) {
         return this.withAge(meta);
     }
@@ -136,6 +139,7 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
         return this.getAge(state);
     }
 
+    @Nonnull
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, AGE);
     }

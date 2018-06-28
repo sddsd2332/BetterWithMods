@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,7 @@ public class CraftingManagerTurntable extends CraftingManagerBlock<TurntableReci
     }
 
     @Override
-    public TurntableRecipe addRecipe(TurntableRecipe recipe) {
+    public TurntableRecipe addRecipe(@Nonnull TurntableRecipe recipe) {
         return super.addRecipe(recipe);
     }
 

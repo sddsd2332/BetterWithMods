@@ -91,7 +91,7 @@ public class MiniBlockIngredient extends BlockIngredient {
                     }
                 }
             }
-            cache = stacks.toArray(new ItemStack[stacks.size()]);
+            cache = stacks.toArray(new ItemStack[0]);
         }
         return cache;
     }

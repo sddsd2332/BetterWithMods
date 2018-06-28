@@ -15,6 +15,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class BlockWindmill extends BlockAxleGenerator {
     private final EnumFacing.Axis axis;
 
@@ -25,7 +27,7 @@ public class BlockWindmill extends BlockAxleGenerator {
 
     //TODO coloring
     @Override
-    public boolean recolorBlock(World world, BlockPos pos, EnumFacing side, EnumDyeColor color) {
+    public boolean recolorBlock(World world, @Nonnull BlockPos pos, EnumFacing side, @Nonnull EnumDyeColor color) {
         return super.recolorBlock(world, pos, side, color);
     }
 
@@ -55,7 +57,7 @@ public class BlockWindmill extends BlockAxleGenerator {
     }
 
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         if(axis == EnumFacing.Axis.Y)
             return new TileWindmillVertical();
         return new TileWindmillHorizontal();

@@ -4,6 +4,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.MapGenStronghold;
 
+import javax.annotation.Nonnull;
 import java.util.Map;
 
 public class GenStronghold extends MapGenStronghold {
@@ -14,7 +15,7 @@ public class GenStronghold extends MapGenStronghold {
     }
 
     @Override
-    public BlockPos getNearestStructurePos(World worldIn, BlockPos pos, boolean findUnexplored) {
+    public BlockPos getNearestStructurePos(World worldIn, @Nonnull BlockPos pos, boolean findUnexplored) {
         return new BlockPos(0,0,0);
     }
 

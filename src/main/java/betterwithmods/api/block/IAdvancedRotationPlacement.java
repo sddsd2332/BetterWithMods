@@ -7,8 +7,6 @@ public interface IAdvancedRotationPlacement {
 
     IBlockState getStateForAdvancedRotationPlacement(IBlockState defaultState, EnumFacing facing, float hitX, float hitY, float hitZ);
 
-
-
     default boolean isMax(double hit1, double hit2) {
         return Math.max(Math.abs(hit1), Math.abs(hit2)) == Math.abs(hit1);
     }

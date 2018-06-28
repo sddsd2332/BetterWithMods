@@ -35,6 +35,7 @@ public class ModelKey<T extends IRenderComparable<T>> {
         this.objectClass = object.getClass();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object other) {
         if (!(other instanceof ModelKey)){

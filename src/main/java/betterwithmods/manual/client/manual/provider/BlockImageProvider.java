@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class BlockImageProvider implements ImageProvider {
@@ -20,7 +21,7 @@ public final class BlockImageProvider implements ImageProvider {
 
     @Override
     @Nullable
-    public ImageRenderer getImage(final String data) {
+    public ImageRenderer getImage(@Nonnull final String data) {
         final int splitIndex = data.lastIndexOf('@');
         final String name, optMeta;
         if (splitIndex > 0) {

@@ -2,11 +2,11 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.BWMod;
 import betterwithmods.api.block.IOverpower;
+import betterwithmods.common.BWDamageSource;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.mechanical.tile.TileSaw;
-import betterwithmods.common.BWDamageSource;
 import betterwithmods.module.gameplay.MechanicalBreakage;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
@@ -31,11 +31,13 @@ import net.minecraftforge.fluids.IFluidBlock;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
+@SuppressWarnings("SuspiciousNameCombination")
 public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     private static final float HEIGHT = 0.75f;
     private static final AxisAlignedBB D_AABB = new AxisAlignedBB(0.0F, 1.0F - HEIGHT, 0.0F, 1.0F, 1.0F, 1.0F);
@@ -44,7 +46,6 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     private static final AxisAlignedBB S_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, HEIGHT);
     private static final AxisAlignedBB W_AABB = new AxisAlignedBB(1.0F - HEIGHT, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     private static final AxisAlignedBB E_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, HEIGHT, 1.0F, 1.0F);
-
 
 
     public BlockSaw() {
@@ -62,7 +63,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileSaw();
     }
 
@@ -71,8 +72,9 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
         return 10;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, int meta, EntityLivingBase placer, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing, float flX, float flY, float flZ, int meta, @Nonnull EntityLivingBase placer, EnumHand hand) {
         IBlockState state = super.getStateForPlacement(world, pos, facing, flX, flY, flZ, meta, placer, hand);
         return setFacingInBlock(state, DirUtils.getOpposite(facing));
     }
@@ -99,6 +101,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
         return false;
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
         state = state.getActualState(world, pos);
@@ -184,11 +187,11 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     }
 
     public boolean isChoppingBlock(IBlockState state, boolean dirty) {
-        return state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCK).getBlock() || (dirty && state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD));
+        return state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCK).getBlock() || (dirty && state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD).getBlock());
     }
 
     @Override
-    public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return side != getFacing(state);
     }
 
@@ -276,6 +279,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
         }
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         int active = meta & 1;
@@ -290,6 +294,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
         return active | facing;
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, ACTIVE, DirUtils.FACING);
@@ -307,17 +312,18 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     }
 
     @Override
-    public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public boolean canPlaceTorchOnTop(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
         return getFacing(state) != EnumFacing.UP;
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face != getFacing(state).getOpposite() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
     }
 
     @Override
-    public boolean rotateBlock(World world, BlockPos pos, EnumFacing axis) {
+    public boolean rotateBlock(World world, @Nonnull BlockPos pos, @Nonnull EnumFacing axis) {
         if (super.rotateBlock(world, pos, axis)) {
             setActive(world, pos, false);
             return true;

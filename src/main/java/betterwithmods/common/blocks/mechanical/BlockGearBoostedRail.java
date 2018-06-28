@@ -13,6 +13,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class BlockGearBoostedRail extends BlockRailPowered {
 
     public static final double MOTION_CART = 0.05d;
@@ -25,7 +27,7 @@ public class BlockGearBoostedRail extends BlockRailPowered {
     }
 
     @Override
-    protected void updateState(IBlockState state, World world, BlockPos pos, Block block) {
+    protected void updateState(IBlockState state, World world, @Nonnull BlockPos pos, Block block) {
         boolean poweredProperty = state.getValue(POWERED);
         boolean isOnPoweredGearbox = isOnActiveGearbox(state, world, pos);
         if (poweredProperty != isOnPoweredGearbox) {

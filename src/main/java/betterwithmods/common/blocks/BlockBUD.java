@@ -19,6 +19,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 import java.util.Set;
 
@@ -48,11 +49,14 @@ public class BlockBUD extends BWMBlock {
         return 5;
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.FACING, REDSTONE);
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         int facing = (meta >> 1);
@@ -67,8 +71,9 @@ public class BlockBUD extends BWMBlock {
         return redstone | facing << 1;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ, int meta, @Nonnull EntityLivingBase placer, EnumHand hand) {
         return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer, hand).withProperty(DirUtils.FACING, DirUtils.convertEntityOrientationToFacing(placer, UP));
     }
 
@@ -83,11 +88,13 @@ public class BlockBUD extends BWMBlock {
         worldIn.scheduleUpdate(pos, state.getBlock(), 1);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean canProvidePower(IBlockState state) {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos other) {
         if (!isRedstoneOn(world, pos) && !BLACKLIST.contains(blockIn)) {
@@ -123,11 +130,13 @@ public class BlockBUD extends BWMBlock {
         return world.getBlockState(pos).getValue(REDSTONE);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public int getWeakPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         return getPower(blockAccess, pos, side);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public int getStrongPower(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
         return getPower(blockAccess, pos, side);

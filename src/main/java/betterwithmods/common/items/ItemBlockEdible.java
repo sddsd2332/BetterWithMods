@@ -18,6 +18,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 public class ItemBlockEdible extends ItemBlock {
 
     public final int itemUseDuration;
@@ -48,7 +50,8 @@ public class ItemBlockEdible extends ItemBlock {
      * Called when the player finishes using this Item (E.g. finishes eating.). Not called when the player stops using
      * the Item before the action is complete.
      */
-    public ItemStack onItemUseFinish(ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
+    @Nonnull
+    public ItemStack onItemUseFinish(@Nonnull ItemStack stack, World worldIn, EntityLivingBase entityLiving) {
         if (entityLiving instanceof EntityPlayer) {
             EntityPlayer entityplayer = (EntityPlayer) entityLiving;
             entityplayer.getFoodStats().addStats(this.food, this.saturation);
@@ -77,12 +80,13 @@ public class ItemBlockEdible extends ItemBlock {
         return 32;
     }
 
-    public EnumAction getItemUseAction(ItemStack stack)
-    {
+    @Nonnull
+    public EnumAction getItemUseAction(ItemStack stack) {
         return EnumAction.EAT;
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
+    @Nonnull
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
 
         if (playerIn.canEat(false)) {

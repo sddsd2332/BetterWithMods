@@ -17,6 +17,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
 
@@ -32,17 +33,18 @@ public class ItemSoulforgedMattock extends ItemTool {
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
         return BWOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
     }
 
     @Override
-    public float getDestroySpeed(ItemStack stack, IBlockState state) {
+    public float getDestroySpeed(@Nonnull ItemStack stack, IBlockState state) {
         if (PlayerHelper.isCurrentToolEffectiveOnBlock(stack, state, EFFECTIVE_MATERIALS))
             return efficiency;
         return EFFECTIVE.contains(state.getBlock()) ? this.efficiency : 1.0F;
     }
 
+    @Nonnull
     @Override
     public Set<String> getToolClasses(ItemStack stack) {
         return ImmutableSet.of("bwmmattock", "pickaxe", "shovel");
@@ -60,7 +62,7 @@ public class ItemSoulforgedMattock extends ItemTool {
     }
 
     @Override
-    public int getHarvestLevel(ItemStack stack, String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
+    public int getHarvestLevel(ItemStack stack, @Nonnull String toolClass, @Nullable EntityPlayer player, @Nullable IBlockState blockState) {
         return toolMaterial.getHarvestLevel();
     }
 }

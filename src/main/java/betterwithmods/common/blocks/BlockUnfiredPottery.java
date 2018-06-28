@@ -14,6 +14,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 public class BlockUnfiredPottery extends BWMBlock {
@@ -53,18 +54,19 @@ public class BlockUnfiredPottery extends BWMBlock {
         return false;
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face != EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : BlockFaceShape.CENTER;
     }
 
     @Override
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean isSideSolid(IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return false;
     }
 
     @Override
-    public boolean canPlaceBlockAt(World world, BlockPos pos) {
+    public boolean canPlaceBlockAt(World world, @Nonnull BlockPos pos) {
         return world.isSideSolid(pos.down(), EnumFacing.UP);
     }
 
@@ -76,6 +78,7 @@ public class BlockUnfiredPottery extends BWMBlock {
         }
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return type.getBounds();
@@ -108,6 +111,7 @@ public class BlockUnfiredPottery extends BWMBlock {
             return meta;
         }
 
+        @Nonnull
         @Override
         public String getName() {
             return name;

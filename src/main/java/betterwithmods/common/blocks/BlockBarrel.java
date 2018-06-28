@@ -14,6 +14,7 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 import net.minecraftforge.fluids.FluidUtil;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockBarrel extends BWMBlockAxis {
@@ -45,7 +46,7 @@ public class BlockBarrel extends BWMBlockAxis {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileBarrel();
     }
 }

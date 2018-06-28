@@ -22,7 +22,7 @@ public class HCBuoy extends CompatFeature {
     }
 
     public static float getBuoyancy(ItemStack stack) {
-        return buoyancy.keySet().stream().filter(i -> i.apply(stack)).map(i -> buoyancy.get(i)).findFirst().orElse(-1f);
+        return buoyancy.keySet().stream().filter(i -> i.apply(stack)).map(buoyancy::get).findFirst().orElse(-1f);
     }
 
 
