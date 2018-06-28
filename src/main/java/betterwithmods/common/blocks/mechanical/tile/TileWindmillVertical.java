@@ -3,6 +3,7 @@ package betterwithmods.common.blocks.mechanical.tile;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
 import betterwithmods.common.blocks.mechanical.BlockWindmill;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
@@ -63,7 +64,7 @@ public class TileWindmillVertical extends TileBaseWindmill {
             }
         }
 
-        isValid = valid && !isEnd();
+        isValid = valid && !WorldUtils.isTheEnd(world);
     }
 
     @Override
