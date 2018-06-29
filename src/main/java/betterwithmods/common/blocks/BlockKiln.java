@@ -27,6 +27,8 @@ public class BlockKiln extends BlockCamo {
         super(Material.ROCK, material -> states.get());
     }
 
+
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isSideSolid(IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return true;

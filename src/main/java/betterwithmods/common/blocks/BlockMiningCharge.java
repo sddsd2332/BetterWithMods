@@ -40,16 +40,19 @@ public class BlockMiningCharge extends BlockTNT {
         setSoundType(SoundType.PLANT);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -172,6 +175,7 @@ public class BlockMiningCharge extends BlockTNT {
         return explode | facing;
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {

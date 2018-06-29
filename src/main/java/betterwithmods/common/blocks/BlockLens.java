@@ -68,6 +68,7 @@ public class BlockLens extends BWMBlock {
         setFacingInBlock(state, facing);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
         world.scheduleBlockUpdate(pos, this, 3, 5);
@@ -181,6 +182,7 @@ public class BlockLens extends BWMBlock {
         world.scheduleBlockUpdate(pos, this, 5, 5);
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
     public EnumPushReaction getMobilityFlag(IBlockState state) {
@@ -282,6 +284,7 @@ public class BlockLens extends BWMBlock {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {

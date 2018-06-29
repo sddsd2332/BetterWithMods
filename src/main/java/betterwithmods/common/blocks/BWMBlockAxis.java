@@ -27,6 +27,7 @@ public class BWMBlockAxis extends BWMBlock {
         return new BlockStateContainer(this, AXIS);
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {

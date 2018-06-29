@@ -29,11 +29,13 @@ public class BlockLight extends BWMBlock {
         ToolsManager.setPickaxesAsEffectiveAgainst(this);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
@@ -63,6 +65,7 @@ public class BlockLight extends BWMBlock {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
         if (!world.isRemote) {
@@ -105,6 +108,7 @@ public class BlockLight extends BWMBlock {
         return state.getValue(ACTIVE) ? 1 : 0;
     }
 
+    @SuppressWarnings("deprecation")
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
@@ -117,6 +121,7 @@ public class BlockLight extends BWMBlock {
         return new BlockStateContainer(this, ACTIVE);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @SideOnly(Side.CLIENT)
     public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {

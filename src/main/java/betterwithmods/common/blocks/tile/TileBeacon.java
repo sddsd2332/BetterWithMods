@@ -247,8 +247,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
         super.readFromNBT(compound);
     }
 
-    @SuppressWarnings("deprecation")
-    public boolean processInteraction(World world, EntityPlayer player, ItemStack stack) {
+    public void processInteraction(World world, EntityPlayer player, ItemStack stack) {
         if (player.isCreative() && !stack.isEmpty()) {
             if (stack.getItem() instanceof ItemBlock) {
                 Block block = ((ItemBlock) stack.getItem()).getBlock();
@@ -271,10 +270,8 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
                 boolean interacted = this.effect.processInteractions(world, getPos(), getLevels() - 1, player, stack);
                 if (interacted)
                     this.world.playBroadcastSound(1023, getPos(), 0);
-                return interacted;
             }
         }
-        return false;
     }
 
     @Override

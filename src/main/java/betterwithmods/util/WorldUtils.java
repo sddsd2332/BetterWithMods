@@ -51,6 +51,7 @@ public final class WorldUtils {
         return isDimension(world, DimensionType.NETHER);
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isTheEnd(World world) {
         return isDimension(world, DimensionType.THE_END);
     }
