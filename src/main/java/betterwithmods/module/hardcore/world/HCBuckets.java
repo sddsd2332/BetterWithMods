@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.BWMod;
+import betterwithmods.event.IceMeltEvent;
 import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
@@ -10,10 +11,12 @@ import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
 import net.minecraft.util.EnumActionResult;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -39,6 +42,7 @@ public class HCBuckets extends Feature {
     private static List<String> fluidWhitelist;
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
+    private static boolean fixIce;
 
     @Override
     public String getFeatureDescription() {
@@ -71,6 +75,7 @@ public class HCBuckets extends Feature {
                 "blood",
                 "purpleslime",
         }));
+        fixIce = loadPropBool("Fix Ice", "Stop ice from creating source blocks when melted or broken.", true);
     }
 
     @Override
@@ -85,6 +90,7 @@ public class HCBuckets extends Feature {
         fluidcontainerBacklist = ConfigHelper.loadPropRLList("Fluid container blacklist", configCategory, "Blacklist itemstacks from being effected by HCBuckets", new String[]{
                 "thermalcultivation:watering_can"
         });
+
     }
 
     @Override
@@ -101,7 +107,7 @@ public class HCBuckets extends Feature {
             //Don't need to do buckets
             if (stack.getItem() instanceof ItemBucket)
                 return;
-            
+
             if (fluidcontainerBacklist.contains(stack.getItem().getRegistryName()))
                 return;
 
@@ -197,6 +203,19 @@ public class HCBuckets extends Feature {
                 BWMod.getLog().info("FillBucketEvent: {}, {}, {}", event.getTarget(), event.getEmptyBucket(), event.getFilledBucket());
             }
 
+        }
+    }
+
+    @SubscribeEvent
+    public void onIceMelt(IceMeltEvent event) {
+        if (!fixIce)
+            return;
+
+        event.getWorld().setBlockToAir(event.getPos());
+        FluidUtils.setLiquid(event.getWorld(), event.getPos(), Blocks.FLOWING_WATER, 10);
+        for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+            BlockPos p2 = event.getPos().offset(facing);
+            FluidUtils.setLiquid(event.getWorld(), p2, Blocks.FLOWING_WATER, 5);
         }
     }
 
