@@ -1,6 +1,6 @@
 package betterwithmods.util.fluid;
 
-import betterwithmods.util.FluidUtils;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -50,14 +50,22 @@ public class BlockLiquidWrapper implements IFluidHandler {
             Material material = blockLiquid.getDefaultState().getMaterial();
             BlockLiquid block = BlockLiquid.getFlowingBlock(material);
             if (!world.isRemote) {
-                FluidUtils.setLiquid(world, blockPos, block, 2);
+                setLiquid(world, blockPos, block, 2);
                 for (EnumFacing facing : EnumFacing.HORIZONTALS) {
                     BlockPos p2 = blockPos.offset(facing);
-                    FluidUtils.setLiquid(world, p2, block, 5);
+                    setLiquid(world, p2, block, 5);
                 }
             }
         }
         return Fluid.BUCKET_VOLUME;
+    }
+
+    public void setLiquid(World world, BlockPos pos, Block block, int level) {
+        IBlockState state = world.getBlockState(pos);
+        Block existingBlock = state.getBlock();
+        if ((existingBlock instanceof BlockLiquid && state.getValue(BlockLiquid.LEVEL) > level) || (!state.getMaterial().isLiquid() && existingBlock.isReplaceable(world, pos))) {
+            world.setBlockState(pos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, level), 11);
+        }
     }
 
     @Nullable
