@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "betterwithmods:wool_pants"
+  },
+  "pattern": [
+    "CCC",
+    "C C",
+    "C C"
+  ],
+  "type": "betterwithmods:shaped_color",
+  "key": {
+    "C": {
+      "item": "minecraft:wool",
+      "data": 32767
+    }
+  }
+}
