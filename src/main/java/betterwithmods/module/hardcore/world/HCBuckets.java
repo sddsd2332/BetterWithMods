@@ -1,6 +1,8 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.BWMod;
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.BlockIce;
 import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
@@ -8,6 +10,7 @@ import betterwithmods.util.FluidUtils;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBucket;
@@ -26,6 +29,7 @@ import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -39,6 +43,9 @@ public class HCBuckets extends Feature {
     private static List<String> fluidWhitelist;
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
+    private static boolean fixIce;
+
+    private static Block ICE = new BlockIce().setRegistryName("minecraft:ice");
 
     @Override
     public String getFeatureDescription() {
@@ -71,11 +78,19 @@ public class HCBuckets extends Feature {
                 "blood",
                 "purpleslime",
         }));
+        fixIce = loadPropBool("Fix ice", "Replace ice block so that it does not place water sources when it melts or is broken.", true);
     }
 
     @Override
     public boolean requiresMinecraftRestartToEnable() {
         return true;
+    }
+
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        if (fixIce) {
+            BWMBlocks.registerBlock(ICE);
+        }
     }
 
     @Override
