@@ -54,7 +54,7 @@ dependencies {
     compile 'org.easytesting:fest-util:1.1.6'
 
     compile files('libraries/BetterWithLib-1.3-dev.jar')
-    compile files('libraries/Thaumcraft-1.12.2-6.1.BETA15-deobf.jar')
+    compile files('libraries/Thaumcraft-1.12.2-6.1.BETA16-deobf.jar')
 }
 
 sourceSets {

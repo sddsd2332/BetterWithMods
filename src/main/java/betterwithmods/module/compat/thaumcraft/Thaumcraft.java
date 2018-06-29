@@ -84,8 +84,7 @@ public class Thaumcraft extends CompatFeature {
                 }
                 if (tmp != null)
                     ThaumcraftApi.registerComplexObjectTag(recipe.getRecipeOutput(), tmp);
-            }
-            catch(ReflectionHelper.UnableToFindMethodException error) {
+            } catch (ReflectionHelper.UnableToFindMethodException error) {
                 BWMod.logger.warn(error);
             }
         }
@@ -127,8 +126,8 @@ public class Thaumcraft extends CompatFeature {
         AspectList tmp = new AspectList();
         for (ItemStack stack : stacks) {
             AspectList l = new AspectList(stack);
-            for (int i = 0; i < stack.getCount(); i++) ;
-            tmp.add(l);
+            for (int i = 0; i < stack.getCount(); i++)
+                tmp.add(l);
         }
         return tmp;
     }
@@ -258,6 +257,8 @@ public class Thaumcraft extends CompatFeature {
         ThaumcraftApi.registerObjectTag(BlockAesthetic.getStack(BlockAesthetic.EnumType.PADDING), fromItemStacks(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.PADDING, 9)));
         ThaumcraftApi.registerObjectTag(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE), new AspectList().add(Aspect.EARTH, 5).add(Aspect.ENTROPY, 1));
         ThaumcraftApi.registerObjectTag(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE), new AspectList().add(Aspect.EARTH, 5));
+        ThaumcraftApi.registerObjectTag(BlockAesthetic.getStack(BlockAesthetic.EnumType.WICKER), fromItemStacks(new ItemStack(BWMBlocks.WICKER, 4)));
+        ThaumcraftApi.registerObjectTag(BlockAesthetic.getStack(BlockAesthetic.EnumType.ROPE), fromItemStacks(new ItemStack(BWMBlocks.ROPE, 9)));
 
         ThaumcraftApi.registerObjectTag(new ItemStack(BWMItems.FERTILIZER), new AspectList().add(Aspect.LIFE, 5).add(Aspect.UNDEAD, 1).add(Aspect.PLANT, 1));
         ThaumcraftApi.registerObjectTag(new ItemStack(BWMItems.FERTILIZER), new AspectList().add(Aspect.LIFE, 5).add(Aspect.UNDEAD, 1).add(Aspect.PLANT, 1));
@@ -390,6 +391,8 @@ public class Thaumcraft extends CompatFeature {
         ThaumcraftApi.registerObjectTag(new ItemStack(BWMItems.CHOCOLATE), fromItemStacks(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.COCOA_POWDER), new ItemStack(Items.SUGAR)).add(milk));
         ThaumcraftApi.registerObjectTag(new ItemStack(BWMItems.DONUT), new AspectList().add(Aspect.LIFE, 1).add(Aspect.ENERGY, 1).add(Aspect.DESIRE, 1));
         ThaumcraftApi.registerObjectTag(new ItemStack(BWMItems.CHOWDER), fromItemStacks(new ItemStack(Items.BOWL), new ItemStack(Items.FISH)).add(milk));
+        ThaumcraftApi.registerObjectTag(new ItemStack(BWMItems.MYSTERY_MEAT), new AspectList().add(Aspect.MAN, 5).add(Aspect.LIFE, 5).add(Aspect.ELDRITCH, 1));
+        ThaumcraftApi.registerObjectTag(new ItemStack(BWMItems.COOKED_MYSTERY_MEAT), fromItemStacks(new ItemStack(BWMItems.MYSTERY_MEAT)).add(Aspect.FIRE, 1));
 
         ThaumcraftApi.registerObjectTag(new ItemStack(BWMItems.HEARTY_STEW), fromItemStacks(new ItemStack(Items.BOWL), new ItemStack(Items.POTATO), new ItemStack(Items.CARROT), new ItemStack(Items.COOKED_BEEF), new ItemStack(Items.BOWL), new ItemStack(Blocks.BROWN_MUSHROOM, 3)));
 
