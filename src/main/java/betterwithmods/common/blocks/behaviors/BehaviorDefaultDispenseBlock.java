@@ -10,6 +10,8 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemBlockSpecial;
 import net.minecraft.item.ItemSeeds;
@@ -47,7 +49,7 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
 
         if (stack.getItem() instanceof ItemBlock) {
             ItemBlock itemblock = (ItemBlock) stack.getItem();
-            if (itemblock.canPlaceBlockOnSide(world, check, facing, fake, stack)) {
+            if (canPlaceBlockOnSide(itemblock, world, check, facing, fake, stack)) {
                 Block block = ((ItemBlock) stack.getItem()).getBlock();
                 boolean blockAcross = !world.isAirBlock(check.offset(facing));
                 IBlockState state = block.getStateForPlacement(world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), stack.getItemDamage(), fake, fake.getActiveHand());
@@ -83,5 +85,17 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
 
     private float getZ(EnumFacing facing, boolean blockAcross) {
         return facing == EnumFacing.WEST && blockAcross ? 0.9F : 0.1F;
+    }
+
+    public boolean canPlaceBlockOnSide(ItemBlock itemBlock, World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+        Block block = worldIn.getBlockState(pos).getBlock();
+
+        if (block == Blocks.SNOW_LAYER && block.isReplaceable(worldIn, pos)) {
+            side = EnumFacing.UP;
+        } else if (!block.isReplaceable(worldIn, pos)) {
+            pos = pos.offset(side);
+        }
+
+        return worldIn.mayPlace(itemBlock.getBlock(), pos, false, side, null);
     }
 }
