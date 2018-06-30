@@ -3,24 +3,29 @@ package betterwithmods.module.hardcore.world.spawn;
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
+import betterwithmods.util.WorldUtils;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.text.TextComponentString;
+import net.minecraft.world.GameRules;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.Random;
@@ -34,12 +39,11 @@ import static net.minecraft.world.WorldType.FLAT;
 public class HCSpawn extends Feature {
 
     public static final Random RANDOM = new Random();
-
+    public static final String GAMERULE_CHANGETIME = "doChangeTimeOnDeath";
     public static int HARDCORE_SPAWN_RADIUS;
     public static int HARDCORE_SPAWN_COOLDOWN_RADIUS;
     public static int HARDCORE_SPAWN_COOLDOWN; //20 min
     public static int HARDCORE_SPAWN_MAX_ATTEMPTS = 20;
-
     public static ResourceLocation PLAYER_SPAWN_POSITION = new ResourceLocation(BWMod.MODID, "spawn_position");
 
     public static void setSpawn(EntityPlayer player, BlockPos pos) {
@@ -165,6 +169,33 @@ public class HCSpawn extends Feature {
         if (event.isWasDeath()) {
             setSpawn(event.getEntityPlayer(), getSpawn(event.getOriginal()));
         }
+    }
+
+    @SubscribeEvent
+    public void onWorldLoad(WorldEvent.Load event) {
+        event.getWorld().getGameRules().addGameRule(GAMERULE_CHANGETIME, "false", GameRules.ValueType.BOOLEAN_VALUE);
+    }
+
+    @SubscribeEvent
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
+        EntityPlayer player = event.player;
+        World world = player.getEntityWorld();
+        if (!world.getGameRules().getBoolean(GAMERULE_CHANGETIME))
+            return;
+        if (!PlayerHelper.isSurvival(player) && !(player instanceof EntityPlayerMP))
+            return;
+
+        MinecraftServer server = player.getServer();
+        if (server != null && server.getPlayerList().getPlayers().size() == 1) {
+
+            int timeSinceDeath = ((EntityPlayerMP) player).getStatFile().readStat(StatList.TIME_SINCE_DEATH);
+            boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
+            if (isNew) {
+                WorldUtils.setWeatherCleared(server);
+                WorldUtils.setAllWorldTimes(server, WorldUtils.TimeFrame.DAWN);
+            }
+        }
+
     }
 
 }

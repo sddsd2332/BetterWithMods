@@ -12,7 +12,9 @@
       {}
     ],
     "inventory": [
-      {}
+      {
+        "model": "betterwithmods:items/rope"
+      }
     ]
   }
 }

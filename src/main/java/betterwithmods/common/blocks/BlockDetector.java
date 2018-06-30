@@ -156,7 +156,7 @@ public class BlockDetector extends BWMBlock {
             int y = offset.getY();
             int z = offset.getZ();
             AxisAlignedBB collisionBox = new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1);
-            List<Entity> entityList = world.getEntitiesWithinAABB(Entity.class, collisionBox);
+            List<Entity> entityList = world.getEntitiesWithinAABB(Entity.class, collisionBox, Entity::isEntityAlive);
             world.scheduleBlockUpdate(pos, this, tickRate(world), 5);
             if (!entityList.isEmpty())
                 return true;

@@ -9,6 +9,7 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -18,6 +19,7 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import java.util.HashSet;
@@ -237,6 +239,23 @@ public final class WorldUtils {
         return (int) (world.getWorldTime() % Time.DAY.getTicks());
     }
 
+    public static void setWeatherCleared(MinecraftServer server) {
+        for (int i = 0; i < server.worlds.length; ++i) {
+            World world = server.worlds[i];
+            WorldInfo info = world.getWorldInfo();
+            info.setCleanWeatherTime((int) Time.DAY.ticks);
+            info.setRainTime(0);
+            info.setThunderTime(0);
+            info.setRaining(false);
+            info.setThundering(false);
+        }
+    }
+
+    public static void setAllWorldTimes(MinecraftServer server, TimeFrame time) {
+        for (int i = 0; i < server.worlds.length; ++i) {
+            server.worlds[i].setWorldTime((long) time.start);
+        }
+    }
 
 
     public enum MoonPhase {
@@ -268,6 +287,7 @@ public final class WorldUtils {
 
     public enum TimeFrame {
         DAWN(0, 3600),
+        MORNING(1000),
         NOON(5000, 7000),
         DUSK(10200, 12700),
         MIDNIGHT(17000, 19000),
@@ -280,6 +300,10 @@ public final class WorldUtils {
         TimeFrame(int start, int end) {
             this.start = start;
             this.end = end;
+        }
+
+        TimeFrame(int time) {
+            this(time, time);
         }
 
         public boolean isBetween(int time) {

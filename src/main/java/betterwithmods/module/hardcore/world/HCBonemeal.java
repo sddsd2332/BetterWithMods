@@ -68,7 +68,7 @@ public class HCBonemeal extends Feature {
     public void onItemUse(PlayerInteractEvent.RightClickBlock e) {
         ItemStack stack = e.getItemStack();
 
-        if (FERTILIZERS.apply(stack))
+        if (!FERTILIZERS.apply(stack))
             return;
 
         World world = e.getWorld();

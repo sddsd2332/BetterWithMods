@@ -1,14 +1,21 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.BWMod;
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.BlockIce;
+import betterwithmods.common.blocks.behaviors.BehaviorFluidContainer;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.FluidUtils;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBucket;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ActionResult;
@@ -19,12 +26,14 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -38,6 +47,10 @@ public class HCBuckets extends Feature {
     private static List<String> fluidWhitelist;
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
+    private static boolean fixIce;
+    private boolean modifyDispenserBehavior;
+
+    private static Block ICE = new BlockIce().setRegistryName("minecraft:ice");
 
     @Override
     public String getFeatureDescription() {
@@ -70,11 +83,20 @@ public class HCBuckets extends Feature {
                 "blood",
                 "purpleslime",
         }));
+        fixIce = loadPropBool("Fix ice", "Replace ice block so that it does not place water sources when it melts or is broken.", true);
+        modifyDispenserBehavior = loadPropBool("Modify dispenser behavior", "Change how the Dispenser handles buckets when activated.", true);
     }
 
     @Override
     public boolean requiresMinecraftRestartToEnable() {
         return true;
+    }
+
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        if (fixIce) {
+            BWMBlocks.registerBlock(ICE);
+        }
     }
 
     @Override
@@ -84,6 +106,18 @@ public class HCBuckets extends Feature {
         fluidcontainerBacklist = configHelper.loadPropRLList("Fluid container blacklist", configCategory, "Blacklist itemstacks from being effected by HCBuckets", new String[]{
                 "thermalcultivation:watering_can"
         });
+
+        if (modifyDispenserBehavior) {
+            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.BUCKET, BehaviorFluidContainer.getInstance());
+            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.LAVA_BUCKET, BehaviorFluidContainer.getInstance());
+            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.WATER_BUCKET, BehaviorFluidContainer.getInstance());
+            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.MILK_BUCKET, BehaviorFluidContainer.getInstance());
+
+            if (FluidRegistry.isUniversalBucketEnabled()) {
+                Item item = ForgeModContainer.getInstance().universalBucket;
+                BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(item, BehaviorFluidContainer.getInstance());
+            }
+        }
     }
 
     @Override
@@ -100,7 +134,7 @@ public class HCBuckets extends Feature {
             //Don't need to do buckets
             if (stack.getItem() instanceof ItemBucket)
                 return;
-            
+
             if (fluidcontainerBacklist.contains(stack.getItem().getRegistryName()))
                 return;
 

@@ -126,4 +126,15 @@ public class FluidUtils {
         return false;
     }
 
+    public static void setLiquid(World world, BlockPos pos, Block block, int level) {
+        setLiquid(world, pos, block, level, false);
+    }
+
+    public static void setLiquid(World world, BlockPos pos, Block block, int level, boolean force) {
+        IBlockState state = world.getBlockState(pos);
+        Block existingBlock = state.getBlock();
+        if (force || ((existingBlock instanceof BlockLiquid && state.getValue(BlockLiquid.LEVEL) > level) || (!state.getMaterial().isLiquid() && existingBlock.isReplaceable(world, pos)))) {
+            world.setBlockState(pos, block.getDefaultState().withProperty(BlockLiquid.LEVEL, level), 11);
+        }
+    }
 }
