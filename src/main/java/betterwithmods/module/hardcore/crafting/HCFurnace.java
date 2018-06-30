@@ -149,7 +149,9 @@ public class HCFurnace extends Feature {
         if(!TOOLTIP)
             return;
         if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {
-            event.getToolTip().add(I18n.translateToLocalFormatted("bwm.hcfurnace.cook_time.tooltip", HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING)));
+            double ticks = HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING);
+            double seconds = ticks / 20.0;
+            event.getToolTip().add(I18n.translateToLocalFormatted("bwm.hcfurnace.cook_time.tooltip", String.format("%.2f", seconds)));
         }
     }
 
