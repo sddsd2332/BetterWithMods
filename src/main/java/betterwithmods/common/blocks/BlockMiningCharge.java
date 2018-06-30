@@ -2,7 +2,6 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.entity.EntityMiningCharge;
 import betterwithmods.util.DirUtils;
-import jline.internal.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.SoundType;
@@ -21,6 +20,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+
+import javax.annotation.Nullable;
 
 /**
  * Created by primetoxinz on 9/5/16.

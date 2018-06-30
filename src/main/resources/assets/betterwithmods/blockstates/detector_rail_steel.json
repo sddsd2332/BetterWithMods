@@ -14,7 +14,8 @@
     ],
     "inventory": [
       {
-        "transform": "forge:default-block"
+        "transform": "forge:default-block",
+        "model": "betterwithmods:item/default"
       }
     ],
     "shape": {
