@@ -49,9 +49,8 @@ public class HCBuckets extends Feature {
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
     private static boolean fixIce;
-    private boolean modifyDispenserBehavior;
-
     private static Block ICE = new BlockIce().setRegistryName("minecraft:ice");
+    public static boolean modifyDispenserBehavior, stopDispenserFillBehavior;
 
     @Override
     public String getFeatureDescription() {
@@ -86,6 +85,7 @@ public class HCBuckets extends Feature {
         }));
         fixIce = loadPropBool("Fix ice", "Replace ice block so that it does not place water sources when it melts or is broken.", true);
         modifyDispenserBehavior = loadPropBool("Modify dispenser behavior", "Change how the Dispenser handles buckets when activated.", true);
+        stopDispenserFillBehavior = loadPropBool("Stop Dispenser Fill Behavior", "Disallow the dispenser from using an empty bucket for anything.", false);
     }
 
     @Override

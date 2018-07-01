@@ -1,5 +1,6 @@
 package betterwithmods.common.blocks.behaviors;
 
+import betterwithmods.module.hardcore.world.HCBuckets;
 import betterwithmods.util.FluidUtils;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
@@ -20,15 +21,14 @@ import javax.annotation.Nonnull;
 public class BehaviorFluidContainer extends BehaviorDefaultDispenseItem {
 
     private static final BehaviorFluidContainer INSTANCE = new BehaviorFluidContainer();
-
-    public static BehaviorFluidContainer getInstance() {
-        return INSTANCE;
-    }
+    private final BehaviorDefaultDispenseItem dispenseBehavior = new BehaviorDefaultDispenseItem();
 
     private BehaviorFluidContainer() {
     }
 
-    private final BehaviorDefaultDispenseItem dispenseBehavior = new BehaviorDefaultDispenseItem();
+    public static BehaviorFluidContainer getInstance() {
+        return INSTANCE;
+    }
 
     /**
      * Dispense the specified stack, play the dispense sound and spawn particles.
@@ -39,6 +39,9 @@ public class BehaviorFluidContainer extends BehaviorDefaultDispenseItem {
         if (FluidUtil.getFluidContained(stack) != null) {
             return dumpContainer(source, stack);
         } else {
+            if (HCBuckets.stopDispenserFillBehavior) {
+                return super.dispenseStack(source, stack);
+            }
             return fillContainer(source, stack);
         }
     }
@@ -48,6 +51,7 @@ public class BehaviorFluidContainer extends BehaviorDefaultDispenseItem {
      */
     @Nonnull
     private ItemStack fillContainer(@Nonnull IBlockSource source, @Nonnull ItemStack stack) {
+
         World world = source.getWorld();
         EnumFacing dispenserFacing = source.getBlockState().getValue(BlockDispenser.FACING);
         BlockPos blockpos = source.getBlockPos().offset(dispenserFacing);
