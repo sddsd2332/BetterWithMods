@@ -146,12 +146,13 @@ public class HCFurnace extends Feature {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onTooltip(ItemTooltipEvent event) {
-        if(!TOOLTIP)
+        if (!TOOLTIP)
             return;
         if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {
             double ticks = HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING);
             double seconds = ticks / 20.0;
-            event.getToolTip().add(I18n.translateToLocalFormatted("bwm.hcfurnace.cook_time.tooltip", String.format("%.2f", seconds)));
+            double items = ticks / 200;
+            event.getToolTip().add(I18n.translateToLocalFormatted("bwm.hcfurnace.cook_time.tooltip", String.format("%.2f", seconds), String.format("%.2f", items)));
         }
     }
 
