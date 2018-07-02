@@ -36,7 +36,8 @@ public class TileEntityWindmillVertical extends TileEntityBaseWindmill {
                         return false;
                     continue;
                 }
-                if (getBlockWorld().isAirBlock(offPos)) {
+                IBlockState state = world.getBlockState(offPos);
+                if (state.getBlock().isReplaceable(world, offPos)) {
                     airCounter++;
                 } else {
                     return false;

@@ -31,8 +31,10 @@ public class TileEntityWindmillHorizontal extends TileEntityBaseWindmill {
                     BlockPos offset = pos.add(xP, vert, zP);
                     if (xP == 0 && vert == 0 && zP == 0)
                         continue;
-                    else
-                        valid = getBlockWorld().isAirBlock(offset);
+                    else {
+                        IBlockState state = world.getBlockState(offset);
+                        valid = state.getBlock().isReplaceable(world, offset);
+                    }
                     if (!valid)
                         break;
                 }

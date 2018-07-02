@@ -88,10 +88,12 @@ public class TileEntityWaterwheel extends TileAxleGenerator {
                     if (i == 0 && j == 0)
                         continue;
                     else if (j > -2) {
+                        IBlockState state = world.getBlockState(offset);
+                        boolean replaceable = state.getBlock().isReplaceable(world, offset);
                         if (i == -2 || i == 2) {
-                            isAir = getBlockWorld().isAirBlock(offset) || isWater(offset);
+                            isAir = replaceable || isWater(offset);
                         } else
-                            isAir = getBlockWorld().isAirBlock(offset);
+                            isAir = replaceable;
                     }
                     if (!isAir)
                         break;
