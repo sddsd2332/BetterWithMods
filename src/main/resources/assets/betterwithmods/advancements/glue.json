@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:hibachi",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:glue"
+    },
+    "title": {
+      "translate": "item.bwm:glue.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.glue.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:glue"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

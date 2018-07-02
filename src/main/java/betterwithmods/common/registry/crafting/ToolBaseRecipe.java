@@ -12,16 +12,17 @@ import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
 /**
  * Created by primetoxinz on 6/27/17.
  */
 public abstract class ToolBaseRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
-    private ResourceLocation group;
-    protected Predicate<ItemStack> isTool;
-    protected ItemStack result;
-    protected Ingredient input;
+    private final ResourceLocation group;
+    protected final Predicate<ItemStack> isTool;
+    protected final ItemStack result;
+    protected final Ingredient input;
 
     public ToolBaseRecipe(ResourceLocation group, ItemStack result, Ingredient input, Predicate<ItemStack> isTool) {
         this.group = group;
@@ -64,13 +65,14 @@ public abstract class ToolBaseRecipe extends IForgeRegistryEntry.Impl<IRecipe> i
     }
 
     @Override
-    public boolean matches(InventoryCrafting inv, World worldIn) {
+    public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
         return isMatch(inv, worldIn);
 
     }
 
+    @Nonnull
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inv) {
+    public ItemStack getCraftingResult(@Nonnull InventoryCrafting inv) {
         return result.copy();
     }
 
@@ -79,17 +81,20 @@ public abstract class ToolBaseRecipe extends IForgeRegistryEntry.Impl<IRecipe> i
         return width * height >= 2;
     }
 
+    @Nonnull
     @Override
     public ItemStack getRecipeOutput() {
         return result.copy();
     }
 
+    @Nonnull
     @Override
     public NonNullList<ItemStack> getRemainingItems(InventoryCrafting inv) {
         playSound(inv);
         return NonNullList.withSize(inv.getSizeInventory(), ItemStack.EMPTY);
     }
 
+    @Nonnull
     public String getGroup() {
         if (group != null)
             return group.toString();
@@ -102,6 +107,7 @@ public abstract class ToolBaseRecipe extends IForgeRegistryEntry.Impl<IRecipe> i
 
     public abstract Pair<Float,Float> getSoundValues();
 
+    @Nonnull
     @Override
     public NonNullList<Ingredient> getIngredients() {
         NonNullList<Ingredient> ingredients = NonNullList.create();

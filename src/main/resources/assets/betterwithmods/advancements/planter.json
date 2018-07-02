@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:light_block",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:planter_grass"
+    },
+    "title": {
+      "translate": "advancement.betterwithmods.planter.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.planter.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:planter_grass"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

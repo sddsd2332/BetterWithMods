@@ -12,8 +12,8 @@ import java.util.stream.Collectors;
 
 public class RandomCountOutputs implements IRecipeOutputs {
 
-    private List<RandomOutput> outputs;
-    private List<ItemStack> itemStackList;
+    private final List<RandomOutput> outputs;
+    private final List<ItemStack> itemStackList;
 
     public RandomCountOutputs(RandomOutput... outputs) {
         this(Lists.newArrayList(outputs));

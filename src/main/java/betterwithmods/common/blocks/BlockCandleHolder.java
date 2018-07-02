@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.common.BWOreDictionary;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
@@ -14,20 +13,23 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-public class BlockCandleHolder extends BlockStickBase implements IMultiVariants {
+import javax.annotation.Nonnull;
+
+public class BlockCandleHolder extends BlockStickBase {
 
     public BlockCandleHolder() {
         super(Material.IRON);
+        setDefaultState(getDefaultState().withProperty(CONNECTION, Connection.DISCONNECTED).withProperty(GROUND, true));
     }
 
     @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         return worldIn.isSideSolid(pos.down(), EnumFacing.UP) || worldIn.getBlockState(pos.down()).getBlock() instanceof BlockCandleHolder;
     }
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if(!canPlaceBlockAt(worldIn,pos)) {
+        if (!canPlaceBlockAt(worldIn, pos)) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
@@ -39,11 +41,11 @@ public class BlockCandleHolder extends BlockStickBase implements IMultiVariants 
         IBlockState above = world.getBlockState(pos.up());
         Block block = above.getBlock();
         ItemStack stack = new ItemStack(block, 1, block.getMetaFromState(above));
-        BlockFaceShape shape = above.getBlockFaceShape(world,pos.up(),EnumFacing.DOWN);
+        BlockFaceShape shape = above.getBlockFaceShape(world, pos.up(), EnumFacing.DOWN);
 
         if (block == this) {
             return state.withProperty(CONNECTION, Connection.CONNECTED);
-        } else if (shape == BlockFaceShape.CENTER_SMALL || shape == BlockFaceShape.CENTER || isUprightTorch(above) || BWOreDictionary.isOre(stack, "blockCandle")) {
+        } else if (shape == BlockFaceShape.SOLID || shape == BlockFaceShape.CENTER_SMALL || shape == BlockFaceShape.CENTER || isUprightTorch(above) || BWOreDictionary.isOre(stack, "blockCandle")) {
             return state.withProperty(CONNECTION, Connection.CANDLE);
         } else if (shape == BlockFaceShape.CENTER_BIG || block instanceof BlockSkull) {
             return state.withProperty(CONNECTION, Connection.SKULL);
@@ -51,8 +53,7 @@ public class BlockCandleHolder extends BlockStickBase implements IMultiVariants 
         return state;
     }
 
-    public boolean isUprightTorch(IBlockState state)
-    {
+    public boolean isUprightTorch(IBlockState state) {
         return state.getBlock() instanceof BlockTorch && state.getValue(BlockTorch.FACING) == EnumFacing.UP;
     }
 
@@ -62,11 +63,7 @@ public class BlockCandleHolder extends BlockStickBase implements IMultiVariants 
         return c == Connection.DISCONNECTED ? 14d / 16d : 1;
     }
 
-    @Override
-    public String[] getVariants() {
-        return new String[]{"connection=disconnected,ground=true"};
-    }
-
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess world, IBlockState state, BlockPos pos, EnumFacing facing) {
         return facing == EnumFacing.DOWN ? BlockFaceShape.CENTER_SMALL : (facing == EnumFacing.UP ? BlockFaceShape.CENTER : BlockFaceShape.UNDEFINED);

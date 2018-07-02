@@ -14,8 +14,8 @@ import java.util.stream.Collectors;
 public class ChanceOutputs implements IRecipeOutputs {
     private static final Random RANDOM = new Random();
 
-    protected List<ChanceOutput> weightedItemStacks;
-    private List<ItemStack> itemStacksList;
+    protected final List<ChanceOutput> weightedItemStacks;
+    private final List<ItemStack> itemStacksList;
 
     public ChanceOutputs(ItemStack stack, double weight) {
         this(new ChanceOutput(stack, weight));

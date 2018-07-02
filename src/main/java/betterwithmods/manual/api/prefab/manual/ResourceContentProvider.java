@@ -7,7 +7,6 @@ import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nullable;
 import java.io.BufferedReader;
-import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -44,9 +43,7 @@ public class ResourceContentProvider implements ContentProvider {
     @Nullable
     public Iterable<String> getContent(final String path) {
         final ResourceLocation location = new ResourceLocation(resourceDomain, basePath + (path.startsWith("/") ? path.substring(1) : path));
-        InputStream is = null;
-        try {
-            is = Minecraft.getMinecraft().getResourceManager().getResource(location).getInputStream();
+        try (InputStream is = Minecraft.getMinecraft().getResourceManager().getResource(location).getInputStream()) {
             final BufferedReader reader = new BufferedReader(new InputStreamReader(is, Charsets.UTF_8));
             final ArrayList<String> lines = new ArrayList<>();
             String line;
@@ -56,13 +53,6 @@ public class ResourceContentProvider implements ContentProvider {
             return lines;
         } catch (final Throwable ignored) {
             return null;
-        } finally {
-            if (is != null) {
-                try {
-                    is.close();
-                } catch (final IOException ignored) {
-                }
-            }
         }
     }
 }

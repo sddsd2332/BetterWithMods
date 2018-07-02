@@ -1,0 +1,23 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "particle": "betterwithmods:blocks/nether_sludge",
+      "side": "betterwithmods:blocks/nether_sludge",
+      "top": "#side",
+      "bottom": "#side"
+    },
+    "model": "betterwithmods:brick",
+    "uvlock": false
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block"
+      }
+    ]
+  }
+}

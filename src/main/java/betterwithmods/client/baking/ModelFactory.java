@@ -134,6 +134,7 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
         }
     }
 
+    @Nonnull
     @Override
     public List<BakedQuad> getQuads(IBlockState state, EnumFacing side, long rand) {
         if (state instanceof IExtendedBlockState) {
@@ -142,10 +143,10 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
                 return model.getQuads(state, side, rand);
             }
         }
-
         return ImmutableList.of();
     }
 
+    @Nonnull
     @Override
     public TextureAtlasSprite getParticleTexture() {
         return RenderUtils.textureGetter.apply(particle);
@@ -157,6 +158,7 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
         return model != null ? model.getParticleTexture() : getParticleTexture();
     }
 
+    @Nonnull
     @Override
     public ItemOverrideList getOverrides() {
         return MFItemOverride.INSTANCE;

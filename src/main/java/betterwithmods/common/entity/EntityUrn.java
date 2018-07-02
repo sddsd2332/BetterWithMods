@@ -3,7 +3,6 @@ package betterwithmods.common.entity;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockBloodSapling;
 import betterwithmods.common.blocks.BlockNetherGrowth;
-import betterwithmods.common.blocks.BlockUrn;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -37,11 +36,9 @@ public class EntityUrn extends EntitySnowball {
 
     @SideOnly(Side.CLIENT)
     public void handleStatusUpdate(byte id) {
-        if (id == 3)
-        {
-            for (int i = 0; i < 8; ++i)
-            {
-                this.world.spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, 0.1D, 0.5D, 0.1D, Block.getStateId(BWMBlocks.URN.getDefaultState().withProperty(BlockUrn.TYPE, BlockUrn.EnumType.FULL)));
+        if (id == 3) {
+            for (int i = 0; i < 8; ++i) {
+                this.world.spawnParticle(EnumParticleTypes.BLOCK_DUST, this.posX, this.posY, this.posZ, 0.1D, 0.5D, 0.1D, Block.getStateId(BWMBlocks.SOUL_URN.getDefaultState()));
             }
         }
     }
@@ -63,12 +60,12 @@ public class EntityUrn extends EntitySnowball {
                     IBlockState state = world.getBlockState(p);
                     if (state.getBlock() == BWMBlocks.NETHER_GROWTH) {
                         BlockNetherGrowth b = (BlockNetherGrowth) state.getBlock();
-                        for(int i =0;i<10;i++)
+                        for (int i = 0; i < 10; i++)
                             b.grow(world, p, state, rand);
                         grew = true;
                     }
                     if (state.getBlock() == BWMBlocks.BLOOD_SAPLING) {
-                        BlockBloodSapling sapling = (BlockBloodSapling)state.getBlock();
+                        BlockBloodSapling sapling = (BlockBloodSapling) state.getBlock();
                         if (sapling.generateTree(world, p, world.getBlockState(p), rand))
                             grew = true;
                     }

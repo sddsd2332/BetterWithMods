@@ -5,7 +5,7 @@
       "side": "betterwithmods:blocks/soulforged_steel",
       "particle": "#side"
     },
-    "model": "betterwithmods:candle_holder_connected",
+    "model": "betterwithmods:candle_holder_disconnected",
     "uvlock": true
   },
   "variants": {
@@ -14,11 +14,17 @@
     ],
     "inventory": [
       {
-        "transform": "forge:default-block"
+        "transform": "forge:default-block",
+        "submodel": {
+          "ground": {
+            "model": "betterwithmods:candle_holder_ground"
+          }
+        }
       }
     ],
     "connection": {
       "connected": {
+        "model": "betterwithmods:candle_holder_connected"
       },
       "disconnected": {
         "model": "betterwithmods:candle_holder_disconnected"

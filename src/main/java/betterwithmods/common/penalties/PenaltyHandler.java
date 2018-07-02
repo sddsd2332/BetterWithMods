@@ -1,6 +1,5 @@
 package betterwithmods.common.penalties;
 
-import com.google.common.collect.Comparators;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.player.EntityPlayer;
 
@@ -8,7 +7,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 
 public abstract class PenaltyHandler<T extends Number & Comparable, P extends Penalty<T>> {
-    protected List<P> penalties = Lists.newArrayList();
+    protected final List<P> penalties = Lists.newArrayList();
     private P defaultPenalty;
 
     public PenaltyHandler() {

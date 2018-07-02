@@ -13,7 +13,7 @@ import java.util.function.Predicate;
  */
 public class PulleyStructureManager {
 
-    public static Set<Predicate<IBlockState>> PULLEY_BLOCKS = new HashSet<>();
+    public static final Set<Predicate<IBlockState>> PULLEY_BLOCKS = new HashSet<>();
 
     static {
         registerPulleyBlock(BWMBlocks.PLATFORM.getDefaultState());

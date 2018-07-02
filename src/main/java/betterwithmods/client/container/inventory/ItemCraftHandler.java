@@ -1,16 +1,16 @@
 package betterwithmods.client.container.inventory;
 
-import betterwithmods.common.blocks.tile.TileEntitySteelAnvil;
-import betterwithmods.common.registry.anvil.AnvilCraftingManager;
+import betterwithmods.common.BWRegistry;
+import betterwithmods.common.blocks.tile.TileSteelAnvil;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraftforge.items.ItemStackHandler;
 
 public class ItemCraftHandler extends ItemStackHandler {
 
     public InventoryCrafting crafting;
-    private TileEntitySteelAnvil te;
+    private final TileSteelAnvil te;
 
-    public ItemCraftHandler(int size, TileEntitySteelAnvil te) {
+    public ItemCraftHandler(int size, TileSteelAnvil te) {
         super(size);
         this.te = te;
     }
@@ -18,7 +18,7 @@ public class ItemCraftHandler extends ItemStackHandler {
     @Override
     protected void onContentsChanged(int slot) {
         if (crafting != null)
-            te.setResult(AnvilCraftingManager.findMatchingResult(this.crafting, te.getWorld()));
+            te.setResult(BWRegistry.ANVIL.findMatchingResult(this.crafting, te.getWorld()));
         super.onContentsChanged(slot);
     }
 }

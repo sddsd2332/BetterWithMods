@@ -1,12 +1,11 @@
 package betterwithmods.module.gameplay;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityWaterwheel;
-import betterwithmods.module.ConfigHelper;
+import betterwithmods.common.blocks.mechanical.tile.TileWaterwheel;
 import betterwithmods.module.Module;
+import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
 import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
-import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -29,6 +28,10 @@ public class Gameplay extends Module {
     public static float cauldronNormalSpeedFactor, cauldronStokedSpeedFactor, cauldronMultipleFiresFactor;
 
     public static boolean dropHempSeeds;
+
+    public Gameplay(ModuleLoader loader) {
+        super(loader);
+    }
 
     private String[] waterwheelFluidConfig;
     public static List<String> blacklistDamageSources;
@@ -53,6 +56,7 @@ public class Gameplay extends Module {
         registerFeature(new PlayerDataHandler());
         registerFeature(new ReadTheFingManual());
         registerFeature(new MiniBlocks());
+        registerFeature(new BlastingOil());
     }
 
     @Override
@@ -60,24 +64,16 @@ public class Gameplay extends Module {
         generatorRenderDistance = loadPropDouble("Render Distance for Axle Generators", "Allows expanding the render distance radius for Windmills and Waterwheels", 256);
         crankExhaustion = loadPropDouble("Crank Exhaustion", "How much saturation turning the crank eats. Set to 0.0 to disable.", 6.0, 0.0, 6.0);
         kidFriendly = loadPropBool("Kid Friendly", "Makes some features more kid friendly", false);
-        disableBlastingOilEvents = loadPropBool("Disable Blasting Oil", "Don't process blasting oil explosions, as they are have major performance impact", false);
+
         loadRecipeCondition("higheff", "High Efficiency Recipes", "Enables High Efficiency Recipes", true);
         cauldronNormalSpeedFactor = (float) loadPropDouble("Cauldron normal speed factor", "Cooking speed multiplier for unstoked cauldrons.", 1.0);
         cauldronStokedSpeedFactor = (float) loadPropDouble("Cauldron stoked speed factor", "Cooking speed multiplier for stoked cauldrons and crucibles.", 1.0);
         cauldronMultipleFiresFactor = (float) loadPropDouble("Cauldron Multiple fires factor", "Sets how strongly multiple fire sources (in a 3x3 grid below the pot) affect cooking times.", 1.0);
         dropHempSeeds = loadPropBool("Drop Hemp Seeds", "Adds Hemp seeds to the grass seed drop list.", true);
-        waterwheelFluidConfig = ConfigHelper.loadPropStringList("Waterwheel fluids", name, "Fluids which will allow the Waterwheel to turn, format fluid_name", new String[]{
+        dropHempSeeds = loadPropBool("Drop Hemp Seeds", "Adds Hemp seeds to the grass seed drop list.", true);
+        waterwheelFluidConfig = loader.configHelper.loadPropStringList("Waterwheel fluids", name, "Fluids which will allow the Waterwheel to turn, format fluid_name", new String[]{
                 "swamp_water"
         });
-
-        blacklistDamageSources = Lists.newArrayList(ConfigHelper.loadPropStringList("Blasting oil damage source blacklist", name,"Disallow these damage sources from disturbing blasting oil", new String[]{
-                "drown",
-                "cramming",
-                "generic",
-                "wither",
-                "starve",
-                "outOfWorld"
-        }));
 
         super.setupConfig();
     }
@@ -85,18 +81,19 @@ public class Gameplay extends Module {
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
-
-
-
         if (dropHempSeeds) {
             MinecraftForge.addGrassSeed(new ItemStack(BWMBlocks.HEMP, 1), 5);
         }
     }
 
     @Override
+    public boolean canBeDisabled() {
+        return false;
+    }
+    @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
-        Arrays.stream(waterwheelFluidConfig).map(FluidRegistry::getFluid).filter(Objects::nonNull).collect(Collectors.toList()).forEach(fluid -> TileEntityWaterwheel.registerWater(fluid.getBlock()));
+        Arrays.stream(waterwheelFluidConfig).map(FluidRegistry::getFluid).filter(Objects::nonNull).collect(Collectors.toList()).forEach(fluid -> TileWaterwheel.registerWater(fluid.getBlock()));
     }
 }
 

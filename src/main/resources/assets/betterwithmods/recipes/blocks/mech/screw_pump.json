@@ -17,8 +17,8 @@
       "type": "forge:ore_dict"
     },
     "G": {
-      "item": "betterwithmods:grate",
-      "data": 32767
+      "ore": "grates",
+      "type": "forge:ore_dict"
     },
     "g": {
       "ore": "gearWood",

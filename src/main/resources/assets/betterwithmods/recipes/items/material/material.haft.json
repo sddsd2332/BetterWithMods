@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "betterwithmods:material",
+    "item": "betterwithmods:haft",
     "data": 36
   },
   "pattern": [
@@ -11,8 +11,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "item": "betterwithmods:material",
-      "data": 8
+      "item": "betterwithmods:leather_strap"
     },
     "G": {
       "ore": "slimeball",

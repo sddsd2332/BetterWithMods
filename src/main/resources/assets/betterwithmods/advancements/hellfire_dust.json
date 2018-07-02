@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:filtered_hopper",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:hellfire_dust"
+    },
+    "title": {
+      "translate": "item.bwm:hellfire_dust.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.hellfire_dust.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:hellfire_dust"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

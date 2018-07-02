@@ -8,6 +8,7 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class SlotCraftingItemHandler extends Slot {
@@ -29,8 +30,9 @@ public class SlotCraftingItemHandler extends Slot {
         return false;
     }
 
+    @Nonnull
     @Override
-    public ItemStack onTake(EntityPlayer player, ItemStack stack) {
+    public ItemStack onTake(EntityPlayer player, @Nonnull ItemStack stack) {
         for (int i = 0; i < matrix.getSlots(); i++) {
             if (!matrix.getStackInSlot(i).isEmpty()) {
                 matrix.extractItem(i, 1, false);

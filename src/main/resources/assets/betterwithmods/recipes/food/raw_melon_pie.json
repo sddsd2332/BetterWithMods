@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "betterwithmods:raw_melon_pie"
+  },
+  "ingredients": [
+    {
+      "item": "minecraft:melon"
+    },
+    {
+      "item": "minecraft:sugar"
+    },
+    {
+      "item": "betterwithmods:raw_egg"
+    },
+    {
+      "ore": "foodFlour",
+      "type": "forge:ore_dict"
+    }
+  ],
+  "type": "forge:ore_shapeless"
+}

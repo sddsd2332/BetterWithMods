@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:glue",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:waterwheel"
+    },
+    "title": {
+      "translate": "tile.bwm:waterwheel.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.waterwheel.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:waterwheel"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

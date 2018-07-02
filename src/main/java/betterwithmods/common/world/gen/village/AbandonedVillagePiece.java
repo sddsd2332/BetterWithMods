@@ -11,6 +11,7 @@ import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 /**
@@ -34,7 +35,7 @@ public abstract class AbandonedVillagePiece extends StructureVillagePieces.Villa
     }
 
     @Override
-    protected void spawnVillagers(World worldIn, StructureBoundingBox structurebb, int x, int y, int z, int count) {
+    protected void spawnVillagers(@Nonnull World worldIn, @Nonnull StructureBoundingBox structurebb, int x, int y, int z, int count) {
 
         if (this.villagersSpawned < count) {
             for (int i = this.villagersSpawned; i < count; ++i) {
@@ -57,15 +58,16 @@ public abstract class AbandonedVillagePiece extends StructureVillagePieces.Villa
     }
 
     @Override
-    protected void placeTorch(World p_189926_1_, EnumFacing p_189926_2_, int p_189926_3_, int p_189926_4_, int p_189926_5_, StructureBoundingBox p_189926_6_) {
+    protected void placeTorch(@Nonnull World p_189926_1_, @Nonnull EnumFacing p_189926_2_, int p_189926_3_, int p_189926_4_, int p_189926_5_, @Nonnull StructureBoundingBox p_189926_6_) {
         //NO-OP
     }
 
     @Override
     public abstract StructureVillagePieces.PieceWeight getVillagePieceWeight(Random random, int size);
 
+    @Nonnull
     @Override
-    protected VillagerRegistry.VillagerProfession chooseForgeProfession(int count, VillagerRegistry.VillagerProfession prof) {
+    protected VillagerRegistry.VillagerProfession chooseForgeProfession(int count, @Nonnull VillagerRegistry.VillagerProfession prof) {
         if (HCVillages.disableVillagerSpawning) {
             switch (status) {
                 case NORMAL:

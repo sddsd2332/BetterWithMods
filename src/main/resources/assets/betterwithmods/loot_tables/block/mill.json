@@ -20,7 +20,7 @@
         },
         {
           "type": "item",
-          "name": "betterwithmods:material",
+          "name": "betterwithmods:wood_gear",
           "weight": 1,
           "functions": [
             {

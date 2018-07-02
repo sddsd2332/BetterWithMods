@@ -8,9 +8,12 @@ import betterwithmods.util.StackIngredient;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
@@ -51,19 +54,25 @@ public class HCRedstone extends Feature {
         BWMRecipes.removeRecipe("minecraft:observer");
     }
 
+
+    @SubscribeEvent
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        ItemStack LATCH = ItemMaterial.getStack(ItemMaterial.EnumMaterial.REDSTONE_LATCH);
+        if (!stoneDeviceRecipesAnvil) {
+            event.getRegistry().register(new ShapedOreRecipe(null, Blocks.STONE_BUTTON, "S", "R", 'S', "stone", 'R', LATCH).setRegistryName(new ResourceLocation("betterwithmods", "stone_button")));
+            event.getRegistry().register(new ShapedOreRecipe(null, Blocks.STONE_PRESSURE_PLATE, "SS", "RR", 'S', "stone", 'R', LATCH).setRegistryName(new ResourceLocation("betterwithmods", "stone_pressure_plate")));
+        }
+    }
+
     @Override
     public void init(FMLInitializationEvent event) {
-        ItemStack LATCH = ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.REDSTONE_LATCH);
-        if (!stoneDeviceRecipesAnvil) {
-            addHardcoreRecipe(new ShapedOreRecipe(null, Blocks.STONE_BUTTON, "S", "R", 'S', "stone", 'R', LATCH).setRegistryName(new ResourceLocation("betterwithmods", "stone_button")));
-            addHardcoreRecipe(new ShapedOreRecipe(null, Blocks.STONE_PRESSURE_PLATE, "SS", "RR", 'S', "stone", 'R', LATCH).setRegistryName(new ResourceLocation("betterwithmods", "stone_pressure_plate")));
-        }
-        BWRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR,2)), new ItemStack(Items.IRON_INGOT, 4));
+
+        BWRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 4));
 
     }
 
     @Override
     public void disabledInit(FMLInitializationEvent event) {
-        BWRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR,2)), new ItemStack(Items.IRON_INGOT, 6));
+        BWRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 6));
     }
 }

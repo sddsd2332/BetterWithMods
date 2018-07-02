@@ -26,6 +26,7 @@ import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.util.EnumFacing;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -44,11 +45,13 @@ public class WrappedBakedModel extends BaseBakedModel {
         return parent.isGui3d();
     }
 
+    @Nonnull
     @Override
     public TextureAtlasSprite getParticleTexture() {
         return particle != null ? particle : parent.getParticleTexture();
     }
 
+    @Nonnull
     @Override
     public List<BakedQuad> getQuads(@Nullable IBlockState state, @Nullable EnumFacing side, long rand) {
         return parent.getQuads(state, side, rand);

@@ -1,6 +1,5 @@
 package betterwithmods.module.gameplay;
 
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockAesthetic;
@@ -25,6 +24,8 @@ public class CraftingRecipes extends Feature {
         canDisable = false;
     }
 
+
+    //TODO json registration
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         BWMRecipes.addRecipe(new RecipeArmorDye(
@@ -37,32 +38,25 @@ public class CraftingRecipes extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-
-        BWMRecipes.addOreRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.PADDING), "XXX", "XXX", "XXX", 'X', "padding");
-        BWMRecipes.addOreRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.SOAP), "XXX", "XXX", "XXX", 'X', "soap");
-        BWMRecipes.addOreRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.FLINT), "XXX", "XXX", "XXX", 'X', new ItemStack(Items.FLINT));
-        BWMRecipes.addOreRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.ROPE), "XXX", "XXX", "XXX", 'X', new ItemStack(BWMBlocks.ROPE));
-        BWMRecipes.addOreRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.HELLFIRE), "XXX", "XXX", "XXX", 'X', "ingotConcentratedHellfire");
-        BWMRecipes.addOreRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.ENDERBLOCK), "XXX", "XXX", "XXX", 'X', "enderpearl");
-
+        //TODO 1.13 will allow these to go away :)
+        GameRegistry.addSmelting(Items.EGG, new ItemStack(BWMItems.BOILED_EGG), 0.1F);
         GameRegistry.addSmelting(BWMItems.RAW_EGG, new ItemStack(BWMItems.COOKED_EGG), 0.1F);
         GameRegistry.addSmelting(BWMItems.RAW_SCRAMBLED_EGG, new ItemStack(BWMItems.COOKED_SCRAMBLED_EGG), 0.1F);
         GameRegistry.addSmelting(BWMItems.RAW_OMELET, new ItemStack(BWMItems.COOKED_OMELET), 0.1F);
-        GameRegistry.addSmelting(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.NETHER_SLUDGE), new ItemStack(Items.NETHERBRICK), 0.2F);
-        GameRegistry.addSmelting(new ItemStack(BWMBlocks.AESTHETIC, 1, 7), new ItemStack(BWMBlocks.AESTHETIC, 1, 6), 0.1F);
         GameRegistry.addSmelting(BWMItems.WOLF_CHOP, new ItemStack(BWMItems.COOKED_WOLF_CHOP), 0.5f);
         GameRegistry.addSmelting(BWMItems.MYSTERY_MEAT, new ItemStack(BWMItems.COOKED_MYSTERY_MEAT), 0.5f);
         GameRegistry.addSmelting(BWMItems.BAT_WING, new ItemStack(BWMItems.COOKED_BAT_WING), 0.5f);
         GameRegistry.addSmelting(BWMItems.RAW_KEBAB, new ItemStack(BWMItems.COOKED_KEBAB), 0.1F);
+        GameRegistry.addSmelting(ItemMaterial.getStack(ItemMaterial.EnumMaterial.NETHER_SLUDGE), new ItemStack(Items.NETHERBRICK), 0.2F);
+        GameRegistry.addSmelting(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE), 0.1F);
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.CAKE), new ItemStack(Items.CAKE), 0.1F);
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD), new ItemStack(Items.BREAD), 0.1F);
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.APPLE), new ItemStack(BWMItems.APPLE_PIE), 0.1F);
+        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.MELON), new ItemStack(BWMItems.MELON_PIE), 0.1F);
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.PUMPKIN), new ItemStack(Items.PUMPKIN_PIE), 0.1F);
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.COOKIE), new ItemStack(Items.COOKIE, 16), 0.1F);
-        GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 0), new ItemStack(Blocks.STONE, 1, 1), 0.1F);
-        GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 1), new ItemStack(Blocks.STONE, 1, 3), 0.1F);
-        GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 2), new ItemStack(Blocks.STONE, 1, 5), 0.1F);
 
+        //TODO config
         BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.NETHERRACK));
 
     }

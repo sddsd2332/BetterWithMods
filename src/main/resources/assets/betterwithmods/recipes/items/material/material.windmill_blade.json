@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "betterwithmods:material",
-    "data": 11
+    "item": "betterwithmods:wind_sail"
   },
   "pattern": [
     "CCC",
@@ -15,7 +14,7 @@
       "type": "forge:ore_dict"
     },
     "W": {
-      "item": "#HE_SLAB"
+      "item": "#HE_MOULDING"
     }
   }
 }

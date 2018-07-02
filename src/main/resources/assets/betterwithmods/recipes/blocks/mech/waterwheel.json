@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "betterwithmods:axle_generator",
+    "item": "betterwithmods:waterwheel",
     "data": 2
   },
   "pattern": [
@@ -11,8 +11,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "betterwithmods:material",
-      "data": 11
+      "item": "betterwithmods:wood_blade"
     }
   }
 }

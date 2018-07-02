@@ -4,6 +4,7 @@ import betterwithmods.manual.client.renderer.font.FontRendererNormal;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
 
+import javax.annotation.Nonnull;
 import java.util.Optional;
 
 public final class CodeSegment extends BasicTextSegment {
@@ -60,7 +61,7 @@ public final class CodeSegment extends BasicTextSegment {
     }
 
     @Override
-    protected int stringWidth(final String s, final FontRenderer renderer) {
+    protected int stringWidth(@Nonnull final String s, final FontRenderer renderer) {
         return (int) (FONT_SCALE * s.length() * (FontRendererNormal.INSTANCE.getCharWidth() + 1));
     }
 

@@ -1,20 +1,16 @@
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Quark Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Quark
- * <p>
- * Quark is Open Source and distributed under the
- * CC-BY-NC-SA 3.0 License: https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB
- * <p>
- * File Created @ [18/03/2016, 21:52:08 (GMT)]
+/*
+  This class was created by <Vazkii>. It's distributed as
+  part of the Quark Mod. Get the Source Code in github:
+  https://github.com/Vazkii/Quark
+  <p>
+  Quark is Open Source and distributed under the
+  CC-BY-NC-SA 3.0 License: https://creativecommons.org/licenses/by-nc-sa/3.0/deed.en_GB
+  <p>
+  File Created @ [18/03/2016, 21:52:08 (GMT)]
  */
 package betterwithmods.module;
 
 import betterwithmods.BWMod;
-import betterwithmods.module.gameplay.Gameplay;
-import betterwithmods.module.hardcore.Hardcore;
-import betterwithmods.module.industry.Industry;
-import betterwithmods.module.tweaks.Tweaks;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraftforge.client.event.ModelRegistryEvent;
@@ -30,34 +26,31 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Map;
 import java.util.function.Consumer;
 
-public final class ModuleLoader {
+public abstract class ModuleLoader {
 
-    public static Map<Class<? extends Module>, Module> moduleInstances = Maps.newHashMap();
-    public static Map<Class<? extends Feature>, Feature> featureInstances = Maps.newHashMap();
-    public static List<Module> enabledModules;
-    public static Configuration config;
-    public static File configFile;
-    private static List<Class<? extends Module>> moduleClasses;
+    private final List<Class<? extends Module>> moduleClasses;
+    private final Map<Class<? extends Module>, Module> moduleInstances;
+    private final List<Module> enabledModules;
+    public ConfigHelper configHelper;
 
-    static {
+    public ModuleLoader() {
+        enabledModules = Lists.newArrayList();
         moduleClasses = Lists.newArrayList();
-        registerModule(Gameplay.class);
-        registerModule(Hardcore.class);
-        registerModule(Tweaks.class);
-        registerModule(CompatModule.class);
-        registerModule(Industry.class);
+        moduleInstances = Maps.newHashMap();
+        registerModules();
     }
 
-    public static void preInit(FMLPreInitializationEvent event) {
-        moduleClasses.stream().forEachOrdered(clazz -> {
+    public abstract void registerModules();
+
+    public void preInit(FMLPreInitializationEvent event) {
+        moduleClasses.forEach(clazz -> {
             try {
-                moduleInstances.put(clazz, clazz.newInstance());
+                moduleInstances.put(clazz, clazz.getConstructor(ModuleLoader.class).newInstance(this));
             } catch (Exception e) {
                 throw new RuntimeException("Can't initialize module " + clazz, e);
             }
@@ -65,164 +58,117 @@ public final class ModuleLoader {
 
         setupConfig(event);
 
-        forEachModule(module -> BWMod.logger.info("[BWM] Module " + module.name + " is " + (module.enabled ? "enabled" : "disabled")));
+        forEachModule(module -> BWMod.logger.info("[BWM] Module " + module.getName() + " is " + (module.enabled ? "enabled" : "disabled")));
         enabledModules.sort(Comparator.comparingInt(Module::getPriority));
         forEachEnabled(module -> {
-            BWMod.logger.info("[BWM] Module PreInit : " + module.name);
+            BWMod.logger.info("[BWM] Module PreInit : " + module.getName());
             module.preInit(event);
         });
 
-        if (config.hasChanged())
-            config.save();
+        configHelper.save();
     }
 
-    public static void init(FMLInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         forEachEnabled(module -> module.init(event));
-
-        if (config.hasChanged())
-            config.save();
+        configHelper.save();
     }
 
-
-    public static void postInit(FMLPostInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
         forEachEnabled(module -> module.postInit(event));
         forEachEnabled(module -> module.finalInit(event));
-        if (config.hasChanged())
-            config.save();
+        configHelper.save();
     }
 
-    public static void finalInit(FMLPostInitializationEvent event) {
+    public void finalInit(FMLPostInitializationEvent event) {
         forEachEnabled(module -> module.finalInit(event));
     }
 
     @SideOnly(Side.CLIENT)
-    public static void preInitClient(FMLPreInitializationEvent event) {
-        GlobalConfig.initGlobalClient();
+    public void preInitClient(FMLPreInitializationEvent event) {
+        GlobalConfig.initGlobalClient(this);
         forEachEnabled(module -> module.preInitClient(event));
     }
 
     @SideOnly(Side.CLIENT)
-    public static void initClient(FMLInitializationEvent event) {
+    public void initClient(FMLInitializationEvent event) {
 
         forEachEnabled(module -> module.initClient(event));
     }
 
     @SideOnly(Side.CLIENT)
-    public static void postInitClient(FMLPostInitializationEvent event) {
+    public void postInitClient(FMLPostInitializationEvent event) {
         forEachEnabled(module -> module.postInitClient(event));
     }
 
     @SideOnly(Side.CLIENT)
-    public static void registerModels(ModelRegistryEvent event) {
+    public void registerModels(ModelRegistryEvent event) {
         forEachEnabled(module -> module.registerModels(event));
     }
 
-    public static void serverStarting(FMLServerStartingEvent event) {
+    public void serverStarting(FMLServerStartingEvent event) {
         forEachEnabled(module -> module.serverStarting(event));
     }
 
-    public static void setupConfig(FMLPreInitializationEvent event) {
-        configFile = event.getSuggestedConfigurationFile();
-        config = new Configuration(configFile);
-        config.load();
+    public void setupConfig(FMLPreInitializationEvent event) {
+        File file = event.getSuggestedConfigurationFile();
+        configHelper = new ConfigHelper(file.getParent(), new Configuration(file));
 
-        GlobalConfig.initGlobalConfig();
+        GlobalConfig.initGlobalConfig(this);
 
         forEachModule(module -> {
             module.enabled = true;
             if (module.canBeDisabled()) {
-                ConfigHelper.needsRestart = true;
-                module.enabled = ConfigHelper.loadPropBool(module.name, "_modules", module.getModuleDescription(), module.isEnabledByDefault());
+                configHelper.setRestartNeed(true);
+                configHelper.setCategoryComment(module.name, module.getModuleDescription());
+                module.enabled = configHelper.loadPropBool("enabled", module.name, "Enable this module", module.isEnabledByDefault());
             }
         });
 
-        enabledModules = new ArrayList<>(moduleInstances.values());
-        enabledModules.removeIf(module -> !module.enabled);
+        for (Module module : moduleInstances.values()) {
+            if (module.isEnabled()) {
+                enabledModules.add(module);
+            }
+        }
 
         loadModuleConfigs();
 
-        MinecraftForge.EVENT_BUS.register(new ChangeListener());
+        MinecraftForge.EVENT_BUS.register(this);
     }
 
-    private static void loadModuleConfigs() {
+    private void loadModuleConfigs() {
         forEachModule(Module::setupConfig);
-
-        if (config.hasChanged())
-            config.save();
-    }
-
-    public static boolean isModuleEnabled(String name) {
-        try {
-            Class clazz = Class.forName(name);
-            return isModuleEnabled(clazz);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean isModuleEnabled(Class<? extends Module> clazz) {
-        return moduleInstances.get(clazz).enabled;
+        configHelper.save();
     }
 
 
-    public static Feature getFeature(String name) {
-        for (Module module : enabledModules) {
-            for (Feature feature : module.enabledFeatures) {
-                if (feature.configName.equalsIgnoreCase(name)) {
-                    return feature;
-                }
-            }
-        }
-        return null;
-    }
-
-    public static boolean isFeatureEnabledSimple(String name) {
-        return getFeature(name) != null;
-    }
-
-    public static boolean isFeatureEnabled(String clazzName) {
-        try {
-            Class clazz = Class.forName(clazzName);
-            return isFeatureEnabled(clazz);
-        } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        }
-        return false;
-    }
-
-    public static boolean isFeatureEnabled(Class<? extends Feature> clazz) {
-        Feature f = getFeature(clazz);
-        return f != null && f.enabled;
-    }
-
-    public static Feature getFeature(Class<? extends Feature> clazz) {
-        if (featureInstances.containsKey(clazz))
-            return featureInstances.get(clazz);
-        return null;
-    }
-
-    public static void forEachModule(Consumer<Module> consumer) {
+    public void forEachModule(Consumer<Module> consumer) {
         moduleInstances.values().forEach(consumer);
     }
 
-    public static void forEachEnabled(Consumer<Module> consumer) {
+    public void forEachEnabled(Consumer<Module> consumer) {
         enabledModules.forEach(consumer);
     }
 
-    private static void registerModule(Class<? extends Module> clazz) {
+    protected void registerModule(Class<? extends Module> clazz) {
         if (!moduleClasses.contains(clazz))
             moduleClasses.add(clazz);
     }
 
-    public static class ChangeListener {
+    @SubscribeEvent
+    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
+        if (eventArgs.getModID().equals(BWMod.MODID))
+            loadModuleConfigs();
+    }
 
-        @SubscribeEvent
-        public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-            if (eventArgs.getModID().equals(BWMod.MODID))
-                loadModuleConfigs();
+    public boolean isFeatureEnabled(Class<? extends Feature> clazz) {
+        for (Module module : this.moduleInstances.values()) {
+            if (module.isEnabled()) {
+                if (module.isFeatureEnabled(clazz)) {
+                    return true;
+                }
+            }
         }
-
+        return false;
     }
 
 }

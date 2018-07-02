@@ -4,7 +4,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ItemStackHelper;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
@@ -55,6 +54,7 @@ public class InvUtils {
         return !stack.isEmpty() && (stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, null) || stack.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY, null));
     }
 
+    @SafeVarargs
     public static <T> NonNullList<T> asNonnullList(T... array) {
         NonNullList<T> nonNullList = NonNullList.create();
         if (array != null)
@@ -173,10 +173,7 @@ public class InvUtils {
             copy.setCount(count);
         }
         ItemStack inserted = insert(inv, copy, true);
-        if (inserted.equals(copy)) {
-            return false;
-        }
-        return true;
+        return !inserted.equals(copy);
     }
 
 
@@ -281,25 +278,6 @@ public class InvUtils {
         return itemCount;
     }
 
-    public static int countItemsInInventory(IItemHandler inv, Item item) {
-        return countItemsInInventory(inv, item, OreDictionary.WILDCARD_VALUE);
-    }
-
-    public static int countItemsInInventory(IItemHandler inv, Item item, int meta) {
-        int itemCount = 0;
-        for (int i = 0; i < inv.getSlots(); i++) {
-            ItemStack stack = inv.getStackInSlot(i);
-            if (!stack.isEmpty()) {
-                if (stack.getItem() == item) {
-                    if ((meta == OreDictionary.WILDCARD_VALUE) || (stack.getItemDamage() == meta)) {
-                        itemCount += inv.getStackInSlot(i).getCount();
-                    }
-                }
-            }
-        }
-        return itemCount;
-    }
-
     public static int countOresInInventory(IItemHandler inv, List<ItemStack> list) {
         int ret = 0;
         if (list != null && !list.isEmpty()) {
@@ -373,68 +351,11 @@ public class InvUtils {
         return false;
     }
 
-    public static boolean consumeItemsInInventory(IItemHandlerModifiable inv, Item item, int meta, int stackSize) {
+    public static int getFirstOccupiedStackNotOfItem(IItemHandler inv, ItemStack stack) {
         for (int i = 0; i < inv.getSlots(); ++i) {
-            ItemStack stack = inv.getStackInSlot(i);
-            if (!stack.isEmpty() && stack.getItem() == item && (meta == OreDictionary.WILDCARD_VALUE || stack.getItemDamage() == meta)) {
-                if (stack.getCount() >= stackSize) {
-                    decrStackSize(inv, i, stackSize);
-                    return false;
-                }
-
-                stackSize -= stack.getCount();
-                inv.setStackInSlot(i, ItemStack.EMPTY);
-            }
-        }
-        return false;
-    }
-
-    public static boolean consumeOresInInventory(IItemHandlerModifiable inv, List<?> list, int stackSize) {
-        if (list.size() > 0) {
-            for (Object aList : list) {
-                ItemStack tempStack = (ItemStack) aList;
-                Item item = tempStack.getItem();
-                int meta = tempStack.getItemDamage();
-
-                for (int j = 0; j < inv.getSlots(); ++j) {
-                    ItemStack stack = inv.getStackInSlot(j);
-                    if (!stack.isEmpty() && stack.getItem() == item && (stack.getItemDamage() == meta || meta == OreDictionary.WILDCARD_VALUE)) {
-                        if (tempStack.hasTagCompound()) {
-                            if (ItemStack.areItemStackTagsEqual(tempStack, stack)) {
-                                if (stack.getCount() >= stackSize) {
-                                    decrStackSize(inv, j, stackSize);
-                                    return false;
-                                }
-
-                                stackSize -= stack.getCount();
-                                inv.setStackInSlot(j, ItemStack.EMPTY);
-                            }
-                        } else {
-                            if (stack.getCount() >= stackSize) {
-                                decrStackSize(inv, j, stackSize);
-                                return false;
-                            }
-
-                            stackSize -= stack.getCount();
-                            inv.setStackInSlot(j, ItemStack.EMPTY);
-                        }
-                    }
-                }
-            }
-        }
-
-        return false;
-    }
-
-    public static int getFirstOccupiedStackNotOfItem(IItemHandler inv, Item item) {
-        return getFirstOccupiedStackNotOfItem(inv, item, OreDictionary.WILDCARD_VALUE);
-    }
-
-    public static int getFirstOccupiedStackNotOfItem(IItemHandler inv, Item item, int meta) {
-        for (int i = 0; i < inv.getSlots(); ++i) {
-            if (!inv.getStackInSlot(i).isEmpty()) {
-                int tempMeta = inv.getStackInSlot(i).getItemDamage();
-                if (inv.getStackInSlot(i).getItem() != item && (meta == OreDictionary.WILDCARD_VALUE || tempMeta != meta)) {
+            ItemStack slot = inv.getStackInSlot(i);
+            if (!slot.isEmpty()) {
+                if (InvUtils.matches(slot, stack)) {
                     return i;
                 }
             }
@@ -443,9 +364,6 @@ public class InvUtils {
         return -1;
     }
 
-    public static int getFirstOccupiedStackOfItem(IItemHandler inv, Item item) {
-        return getFirstOccupiedStackOfItem(inv, item);
-    }
 
     public static int getFirstOccupiedStackOfItem(IItemHandler inv, ItemStack stack) {
         return getFirstOccupiedStackOfItem(inv, StackIngredient.fromStacks(stack));
@@ -588,13 +506,9 @@ public class InvUtils {
         return stack;
     }
 
-
     public static boolean matches(ItemStack one, ItemStack two) {
-        if (one.isItemEqual(two))
-            return true;
-        if (one.getItem() == two.getItem() && (one.getMetadata() == OreDictionary.WILDCARD_VALUE || two.getMetadata() == OreDictionary.WILDCARD_VALUE))
-            return true;
-        return false;
+        Ingredient to = Ingredient.fromStacks(one);
+        return to.apply(two);
     }
 
     public static boolean matchesSize(ItemStack one, ItemStack two) {
@@ -642,5 +556,8 @@ public class InvUtils {
             }
         }
         return true;
+    }
+    public static boolean applyIngredients(Collection<Ingredient> ingredients, ItemStack stack) {
+        return ingredients.stream().anyMatch(i -> i.apply(stack));
     }
 }

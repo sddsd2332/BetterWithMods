@@ -17,12 +17,7 @@
       "item": "minecraft:redstone_torch"
     },
     "S": {
-      "type": "betterwithmods:minitype",
-      "minitype": "siding",
-      "baseIngredient": {
-        "item": "minecraft:stone",
-        "data": 0
-      }
+      "item": "#SIDING_STONE"
     }
   }
 }

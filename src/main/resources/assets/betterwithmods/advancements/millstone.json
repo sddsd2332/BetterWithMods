@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:wood_gear",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:millstone"
+    },
+    "title": {
+      "translate": "tile.bwm:millstone.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.millstone.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:millstone"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

@@ -1,6 +1,6 @@
 package betterwithmods.common.items;
 
-import betterwithmods.module.ModuleLoader;
+import betterwithmods.BWMod;
 import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
@@ -24,7 +24,7 @@ public class ItemHempSeed extends ItemBlock implements IPlantable {
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
-        if (ModuleLoader.isFeatureEnabled(HCChickens.class))
+        if (BWMod.MODULE_LOADER.isFeatureEnabled(HCChickens.class))
             return true;
         if (target instanceof EntityChicken) {
             EntityChicken chicken = (EntityChicken) target;

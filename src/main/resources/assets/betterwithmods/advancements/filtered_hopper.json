@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:saw",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:filtered_hopper"
+    },
+    "title": {
+      "translate": "tile.bwm:filtered_hopper.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.filtered_hopper.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:filtered_hopper"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

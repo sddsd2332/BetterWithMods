@@ -111,7 +111,8 @@ public class MushroomFarming extends Feature {
         }
     }
 
-    private boolean canGrowMushroom(World world,BlockPos pos)
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private boolean canGrowMushroom(World world, BlockPos pos)
     {
         int light = world.getLight(pos);
         IBlockState soil = world.getBlockState(pos.down());
@@ -123,9 +124,8 @@ public class MushroomFarming extends Feature {
     {
         if (state.getBlock() == Blocks.MYCELIUM)
             return true;
-        else if (state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL)
-            return true;
-        return false;
+        else
+            return state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL;
     }
 
     @SubscribeEvent

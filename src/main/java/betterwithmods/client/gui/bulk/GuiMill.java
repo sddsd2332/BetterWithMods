@@ -3,7 +3,7 @@ package betterwithmods.client.gui.bulk;
 import betterwithmods.BWMod;
 import betterwithmods.client.container.bulk.ContainerMill;
 import betterwithmods.client.gui.GuiProgress;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityMill;
+import betterwithmods.common.blocks.mechanical.tile.TileMill;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
@@ -13,9 +13,9 @@ public class GuiMill extends GuiProgress {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/mill.png");
     private static final String NAME = "inv.mill.name";
-    private ContainerMill container;
+    private final ContainerMill container;
 
-    public GuiMill(EntityPlayer player, TileEntityMill mill) {
+    public GuiMill(EntityPlayer player, TileMill mill) {
         super(new ContainerMill(player, mill), TEXTURE);
         this.container = (ContainerMill) inventorySlots;
         this.ySize = 158;

@@ -1,7 +1,7 @@
 package betterwithmods.client.container.anvil;
 
-import betterwithmods.common.blocks.tile.TileEntitySteelAnvil;
-import betterwithmods.common.registry.anvil.AnvilCraftingManager;
+import betterwithmods.common.BWRegistry;
+import betterwithmods.common.blocks.tile.TileSteelAnvil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -11,19 +11,21 @@ import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.items.IItemHandler;
 
+import javax.annotation.Nonnull;
+
 public class ContainerSteelAnvil extends Container {
     private final int INV_FIRST = 17;
     private final int INV_LAST = 44;
     private final int HOT_LAST = 53;
-    public InventoryCrafting craftMatrix;
-    public IInventory craftResult;
-    public InventoryPlayer inventoryPlayer;
+    public final InventoryCrafting craftMatrix;
+    public final IInventory craftResult;
+    public final InventoryPlayer inventoryPlayer;
 
-    public EntityPlayer player;
-    private TileEntitySteelAnvil te;
-    private IItemHandler handler;
+    public final EntityPlayer player;
+    private final TileSteelAnvil te;
+    private final IItemHandler handler;
 
-    public ContainerSteelAnvil(InventoryPlayer inventory, TileEntitySteelAnvil te) {
+    public ContainerSteelAnvil(InventoryPlayer inventory, TileSteelAnvil te) {
         this.te = te;
         this.handler = te.inventory;
         this.inventoryPlayer = inventory;
@@ -51,8 +53,7 @@ public class ContainerSteelAnvil extends Container {
      * Callback for when the crafting matrix is changed.
      */
     public void onCraftMatrixChanged(IInventory matrix) {
-
-        this.craftResult.setInventorySlotContents(0, AnvilCraftingManager.findMatchingResult(this.craftMatrix, te.getWorld()));
+        this.craftResult.setInventorySlotContents(0, BWRegistry.ANVIL.findMatchingResult(this.craftMatrix, te.getWorld()));
     }
 
     /**
@@ -64,7 +65,7 @@ public class ContainerSteelAnvil extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(@Nonnull EntityPlayer player) {
         return te.isUseableByPlayer(player);
     }
 
@@ -72,6 +73,7 @@ public class ContainerSteelAnvil extends Container {
      * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
      */
 
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;

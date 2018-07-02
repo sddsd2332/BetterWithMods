@@ -1,8 +1,8 @@
 package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.api.recipe.IRecipeOutputs;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityTurntable;
-import betterwithmods.common.registry.block.managers.TurntableManagerBlock;
+import betterwithmods.common.blocks.mechanical.tile.TileTurntable;
+import betterwithmods.common.registry.block.managers.CraftingManagerTurntable;
 import betterwithmods.event.FakePlayerHandler;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.state.IBlockState;
@@ -20,10 +20,10 @@ import java.util.Random;
  * Created by primetoxinz on 4/20/17.
  */
 public class TurntableRecipe extends BlockRecipe {
-    private int rotations;
+    private final int rotations;
 
-    private IBlockState productState;
-    private ItemStack representative;
+    private final IBlockState productState;
+    private final ItemStack representative;
 
     public TurntableRecipe(BlockIngredient input, List<ItemStack> outputs, IBlockState productState, int rotations) {
         this(input, productState, outputs, rotations);
@@ -62,7 +62,7 @@ public class TurntableRecipe extends BlockRecipe {
 
     @Override
     public boolean craftRecipe(World world, BlockPos pos, Random rand, IBlockState state) {
-        TileEntityTurntable turntable = TurntableManagerBlock.findTurntable(world, pos);
+        TileTurntable turntable = CraftingManagerTurntable.findTurntable(world, pos);
         if(turntable != null && turntable.getPotteryRotation() >= getRotations()) {
             InvUtils.ejectStackWithOffset(world, pos, onCraft(world, pos));
             state.getBlock().onBlockHarvested(world, pos, state, FakePlayerHandler.getPlayer());

@@ -4,7 +4,7 @@ import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.client.tesr.TESRBucket;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockBucket;
-import betterwithmods.common.blocks.tile.TileEntityBucket;
+import betterwithmods.common.blocks.tile.TileBucket;
 import betterwithmods.common.entity.EntityExtendingRope;
 import betterwithmods.util.AABBArray;
 import net.minecraft.block.state.IBlockState;
@@ -22,6 +22,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author mrebhan
  */
@@ -33,12 +35,12 @@ public class RenderExtendingRope extends Render<EntityExtendingRope> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(EntityExtendingRope entity) {
+    protected ResourceLocation getEntityTexture(@Nonnull EntityExtendingRope entity) {
         return null;
     }
 
     @Override
-    public void doRender(EntityExtendingRope entity, double x, double y, double z, float entityYaw,
+    public void doRender(@Nonnull EntityExtendingRope entity, double x, double y, double z, float entityYaw,
                          float partialTicks) {
         World world = entity.getEntityWorld();
         IBlockState iblockstate = BWMBlocks.ROPE.getDefaultState();
@@ -67,7 +69,7 @@ public class RenderExtendingRope extends Render<EntityExtendingRope> {
                     blockrendererdispatcher.getModelForState(state), state, blockpos.add(vec), vertexbuffer, false, 0);
             if (state.getBlock() instanceof BlockBucket) {
                 if (entity.getTiles().containsKey(vec)) {
-                    TileEntityBucket bucket = new TileEntityBucket();
+                    TileBucket bucket = new TileBucket();
                     NBTTagCompound tag = entity.getTiles().get(vec);
                     bucket.readFromNBT(tag);
                     new TESRBucket().render(bucket, x, y, z, partialTicks, 0, 0);

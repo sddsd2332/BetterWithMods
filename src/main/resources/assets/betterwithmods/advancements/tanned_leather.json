@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:cauldron",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:tanned_leather"
+    },
+    "title": {
+      "translate": "item.bwm:tanned_leather.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.tanned_leather.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:tanned_leather"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

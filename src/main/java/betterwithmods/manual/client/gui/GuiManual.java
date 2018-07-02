@@ -197,7 +197,7 @@ public final class GuiManual extends GuiScreen {
     }
 
     @Override
-    protected void actionPerformed(final GuiButton button) throws IOException {
+    protected void actionPerformed(final GuiButton button) {
         if (button.id >= 0 && button.id < myManual.getTabs().size()) {
             myManual.navigate(myManual.getTabs().get(button.id).path);
         }

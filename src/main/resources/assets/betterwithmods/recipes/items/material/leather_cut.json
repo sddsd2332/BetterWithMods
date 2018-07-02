@@ -1,8 +1,7 @@
 {
   "group": "betterwithmods:cutting",
   "result": {
-    "item": "betterwithmods:material",
-    "data": 31,
+    "item": "betterwithmods:leather_cut",
     "count": 2
   },
   "type": "betterwithmods:cutting_recipe",

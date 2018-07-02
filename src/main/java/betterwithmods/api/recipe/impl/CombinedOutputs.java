@@ -12,7 +12,7 @@ import java.util.stream.Collectors;
 
 public class CombinedOutputs implements IRecipeOutputs {
 
-    private List<IRecipeOutputs> recipeOutputs;
+    private final List<IRecipeOutputs> recipeOutputs;
 
     public CombinedOutputs(IRecipeOutputs... recipeOutputs) {
         this(Lists.newArrayList(recipeOutputs));

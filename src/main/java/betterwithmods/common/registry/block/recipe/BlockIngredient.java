@@ -2,6 +2,7 @@ package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.util.InvUtils;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.ints.IntArrayList;
 import it.unimi.dsi.fastutil.ints.IntComparators;
@@ -18,12 +19,13 @@ import net.minecraftforge.oredict.OreDictionary;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 public class BlockIngredient extends Ingredient {
-    private NonNullList<ItemStack> stacks;
+    private final NonNullList<ItemStack> stacks;
     private IntList itemIds = null;
     private ItemStack[] array = null;
     private int lastSizeA = -1, lastSizeL = -1;
@@ -33,6 +35,17 @@ public class BlockIngredient extends Ingredient {
     public BlockIngredient(String ore) {
         super(0);
         this.stacks = OreDictionary.getOres(ore);
+    }
+
+    public BlockIngredient(IBlockState state) {
+        this(Lists.newArrayList(state));
+    }
+
+    public BlockIngredient(Collection<IBlockState> states) {
+        this.stacks = NonNullList.create();
+        for (IBlockState state : states) {
+            this.stacks.add(BWMRecipes.getStackFromState(state));
+        }
     }
 
     public BlockIngredient(List<ItemStack> stacks) {
@@ -58,7 +71,7 @@ public class BlockIngredient extends Ingredient {
             if (states == null) states = Sets.newHashSet();
             NonNullList<ItemStack> lst = NonNullList.create();
             Iterator<ItemStack> iter = this.stacks.iterator();
-            while(iter.hasNext()) {
+            while (iter.hasNext()) {
                 ItemStack itemstack = iter.next();
                 Set<IBlockState> s = BWMRecipes.getStatesFromStack(itemstack);
                 if (s.isEmpty()) {
@@ -72,7 +85,7 @@ public class BlockIngredient extends Ingredient {
                     lst.add(itemstack);
                 }
             }
-            this.array = lst.toArray(new ItemStack[lst.size()]);
+            this.array = lst.toArray(new ItemStack[0]);
             this.lastSizeA = stacks.size();
         }
         return this.array;

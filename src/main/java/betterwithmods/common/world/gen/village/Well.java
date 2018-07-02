@@ -5,6 +5,7 @@ import net.minecraft.world.biome.BiomeProvider;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -23,7 +24,7 @@ public class Well extends StructureVillagePieces.Start {
     }
 
     @Override
-    public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
+    public void buildComponent(StructureComponent componentIn, @Nonnull List<StructureComponent> listIn, @Nonnull Random rand) {
         super.buildComponent(componentIn, listIn, rand);
     }
 

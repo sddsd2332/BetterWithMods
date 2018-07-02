@@ -1,5 +1,6 @@
 package betterwithmods.common.items.tools;
 
+import betterwithmods.util.CapabilityUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,8 +17,10 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
+
+import javax.annotation.Nonnull;
+import java.util.Objects;
 
 /**
  * Purpose:
@@ -58,13 +61,17 @@ public class ItemCompositeBow extends ItemBow {
         else if (this.isArrow(player.getHeldItem(EnumHand.MAIN_HAND)))
             return player.getHeldItem(EnumHand.MAIN_HAND);
         else {
-            IItemHandler inv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
-            for (int i = 0; i < inv.getSlots(); ++i) {
-                ItemStack itemstack = inv.getStackInSlot(i);
-                if (this.isArrow(itemstack))
-                    return itemstack;
+
+            IItemHandler inv = CapabilityUtils.getInventory(player, EnumFacing.UP).orElse(null);
+            if (inv != null) {
+                for (int i = 0; i < inv.getSlots(); ++i) {
+                    ItemStack itemstack = inv.getStackInSlot(i);
+                    if (this.isArrow(itemstack))
+                        return itemstack;
+                }
             }
             return ItemStack.EMPTY;
+
         }
     }
 
@@ -78,7 +85,7 @@ public class ItemCompositeBow extends ItemBow {
     }
 
     @Override
-    public void onPlayerStoppedUsing(ItemStack stack, World worldIn, EntityLivingBase entityLiving, int timeLeft) {
+    public void onPlayerStoppedUsing(@Nonnull ItemStack stack, @Nonnull World worldIn, EntityLivingBase entityLiving, int timeLeft) {
         if (entityLiving instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) entityLiving;
             boolean flag = player.capabilities.isCreativeMode || EnchantmentHelper.getEnchantmentLevel(Enchantments.INFINITY, stack) > 0;
@@ -89,7 +96,7 @@ public class ItemCompositeBow extends ItemBow {
             if (i < 0) return;
 
             if (!itemstack.isEmpty() || flag) {
-                if (itemstack .isEmpty() ) {
+                if (itemstack.isEmpty()) {
                     itemstack = new ItemStack(Items.ARROW);
                 }
 
@@ -141,7 +148,7 @@ public class ItemCompositeBow extends ItemBow {
                         }
                     }
 
-                    player.addStat(StatList.getObjectUseStats(this));
+                    player.addStat(Objects.requireNonNull(StatList.getObjectUseStats(this)));
                 }
             }
         }

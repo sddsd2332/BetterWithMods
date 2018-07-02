@@ -3,7 +3,6 @@ package betterwithmods.common.blocks.mechanical.tile;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.common.blocks.EnumTier;
 import betterwithmods.common.blocks.mechanical.BlockBellows;
 import betterwithmods.common.blocks.tile.TileBasic;
 import net.minecraft.nbt.NBTTagCompound;
@@ -13,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Purpose:
@@ -21,34 +21,18 @@ import javax.annotation.Nonnull;
  * @version 3/16/17
  */
 public class TileBellows extends TileBasic implements IMechanicalPower {
-
-    private int tick;
-    private boolean continuous = false;
-    private int power;
+    protected int tick;
+    protected int power;
 
     public void onChange() {
-
-        if (getBlock().getTier(world,pos) == EnumTier.STEEL)
-            continuous = true;
         int power = calculateInput();
-        if (continuous) {
-            if (power != this.power)
-                this.power = power;
-            if (this.power > 0) {
-                if (tick >= 37) {
-                    getBlock().setActive(world, pos, !getBlock().isActive(world.getBlockState(pos)));
-                    tick = 0;
-                }
-                tick++;
-            }
-        } else {
-            if (power != this.power) {
-                this.power = power;
-                getBlock().setActive(world, pos, this.power > 0);
-            }
+        if (power != this.power) {
+            this.power = power;
+            getBlock().setActive(world, pos, this.power > 0);
         }
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("power", power);
@@ -75,8 +59,6 @@ public class TileBellows extends TileBasic implements IMechanicalPower {
 
     @Override
     public int getMaximumInput(EnumFacing facing) {
-        if (getBlock().getTier(world,pos) == EnumTier.STEEL)
-            return 3;
         return 1;
     }
 
@@ -86,15 +68,14 @@ public class TileBellows extends TileBasic implements IMechanicalPower {
     }
 
     @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityMechanicalPower.MECHANICAL_POWER)
             return true;
         return super.hasCapability(capability, facing);
     }
 
-    @Nonnull
     @Override
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityMechanicalPower.MECHANICAL_POWER)
             return CapabilityMechanicalPower.MECHANICAL_POWER.cast(this);
         return super.getCapability(capability, facing);

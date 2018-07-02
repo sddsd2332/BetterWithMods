@@ -20,10 +20,6 @@
         }
       }
     ],
-    "repair": {
-      "0": {},
-      "1": {}
-    },
     "facing": {
       "down": {
         "textures": {

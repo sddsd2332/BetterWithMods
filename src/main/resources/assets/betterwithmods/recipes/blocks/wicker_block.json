@@ -1,0 +1,15 @@
+{
+  "result": {
+    "item": "betterwithmods:wicker_block"
+  },
+  "pattern": [
+    "XX",
+    "XX"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "X": {
+      "item": "betterwithmods:wicker"
+    }
+  }
+}

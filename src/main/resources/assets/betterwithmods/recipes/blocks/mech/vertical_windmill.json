@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "betterwithmods:axle_generator",
+    "item": "betterwithmods:vertical_windmill",
     "data": 1
   },
   "pattern": [
@@ -11,8 +11,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "X": {
-      "item": "betterwithmods:material",
-      "data": 10
+      "item": "betterwithmods:wind_sail"
     }
   }
 }

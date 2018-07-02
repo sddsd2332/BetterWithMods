@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.util.DirUtils;
 import com.google.common.collect.Maps;
@@ -21,11 +20,12 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class BlockLens extends BlockRotate implements IMultiVariants{
+public class BlockLens extends BWMBlock {
     public static final PropertyBool LIT = PropertyBool.create("lit");
     public static final int RANGE = 256;
 
@@ -33,10 +33,9 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         super(Material.IRON);
         this.setHardness(3.5F);
         this.setTickRandomly(true);
-        this.setDefaultState(this.getDefaultState().withProperty(DirUtils.FACING, EnumFacing.NORTH));
+        this.setDefaultState(this.getDefaultState().withProperty(DirUtils.FACING, EnumFacing.NORTH).withProperty(LIT, false));
         this.setHarvestLevel("pickaxe", 0);
     }
-
 
 
     @Override
@@ -49,15 +48,16 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         world.scheduleBlockUpdate(pos, this, 3, 5);
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ, int meta, EntityLivingBase entity, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ, int meta, @Nonnull EntityLivingBase entity, EnumHand hand) {
         IBlockState state = super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, entity, hand);
         EnumFacing face = DirUtils.convertEntityOrientationToFacing(entity, side);
         return setFacingInBlock(state, face);
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         cleanupLightToFacing(world, pos, state.getValue(DirUtils.FACING));
         super.breakBlock(world, pos, state);
     }
@@ -68,6 +68,7 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         setFacingInBlock(state, facing);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
         world.scheduleBlockUpdate(pos, this, 3, 5);
@@ -101,12 +102,12 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
 
                 AxisAlignedBB bb = FULL_BLOCK_AABB.offset(pos);
                 int mod = dir.getAxisDirection().getOffset();
-                switch(dir.getAxis()) {
+                switch (dir.getAxis()) {
                     case X:
-                        bb = bb.expand(mod * currentRange,0,0);
+                        bb = bb.expand(mod * currentRange, 0, 0);
                         break;
                     case Y:
-                        bb = bb.expand(0, mod * currentRange,0);
+                        bb = bb.expand(0, mod * currentRange, 0);
                         break;
                     case Z:
                         bb = bb.expand(0, 0, mod * currentRange);
@@ -181,6 +182,8 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         world.scheduleBlockUpdate(pos, this, 5, 5);
     }
 
+    @SuppressWarnings("deprecation")
+    @Nonnull
     @Override
     public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.BLOCK;
@@ -219,10 +222,7 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
 
         if (world.isAirBlock(oppOff) && world.canBlockSeeSky(oppOff)) {
             return world.getLightFor(EnumSkyBlock.SKY, oppOff) > 12 && world.isDaytime() && (!world.isRaining() || !world.isThundering());
-        } else if (block.getLightValue(world.getBlockState(oppOff), world, oppOff) > 12) {
-            return true;
-        }
-        return false;
+        } else return block.getLightValue(world.getBlockState(oppOff), world, oppOff) > 12;
     }
 
     private boolean isFacingBlockDetector(World world, BlockPos pos) {
@@ -233,8 +233,7 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         if (block == BWMBlocks.DETECTOR) {
             EnumFacing detFacing = ((BlockDetector) block).getFacing(world.getBlockState(offset));
 
-            if (detFacing == DirUtils.getOpposite(facing))
-                return true;
+            return detFacing == DirUtils.getOpposite(facing);
         }
         return false;
     }
@@ -244,9 +243,8 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         BlockPos offset = pos.offset(facing);
         if (world.isAirBlock(offset) && world.canBlockSeeSky(offset))
             return true;
-        else if (world.getBlockState(offset).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(offset).getValue(BlockInvisibleLight.SUNLIGHT))
-            return true;
-        return false;
+        else
+            return world.getBlockState(offset).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(offset).getValue(BlockInvisibleLight.SUNLIGHT);
     }
 
     private void cleanupLightToFacing(World world, BlockPos pos, EnumFacing facing) {
@@ -286,6 +284,8 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         }
     }
 
+    @SuppressWarnings("deprecation")
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean lit = false;
@@ -302,6 +302,7 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         return meta + state.getValue(DirUtils.FACING).getIndex();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.FACING, LIT);
@@ -313,8 +314,7 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
     }
 
     @Override
-    public String[] getVariants() {
-        return new String[]{"facing=north,lit=false"};
+    public boolean rotates() {
+        return true;
     }
-
 }

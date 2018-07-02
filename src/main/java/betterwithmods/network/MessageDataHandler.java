@@ -17,6 +17,7 @@ import java.util.function.Function;
 /**
  * Created by michaelepps on 4/3/18.
  */
+@SuppressWarnings("Convert2MethodRef")
 public class MessageDataHandler<DataType> {
 
     private static final List<MessageDataHandler<?>> handlers = Lists.newArrayList();

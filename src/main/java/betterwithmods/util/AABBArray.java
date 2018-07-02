@@ -1,10 +1,10 @@
 package betterwithmods.util;
 
 import net.minecraft.util.math.AxisAlignedBB;
-import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.function.Function;
@@ -75,11 +75,12 @@ public class AABBArray extends AxisAlignedBB {
 
     public AABBArray addBoundingBox(AxisAlignedBB aabb) {
         AxisAlignedBB[] bbs = new AxisAlignedBB[boundingBoxes.length + 1];
-        bbs[bbs.length] = aabb;
+        bbs[bbs.length-1] = aabb;
         return new AABBArray(bbs);
     }
 
     @Override
+    @Nonnull
     public AABBArray offset(double x, double y, double z) {
         AxisAlignedBB[] parts = getParts(this);
         for (int i = 0; i < parts.length; i++) {
@@ -184,6 +185,7 @@ public class AABBArray extends AxisAlignedBB {
         return flag;
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB grow(double x, double y, double z) {
         if (x == 0 && y == 0 && z == 0) {
@@ -192,13 +194,14 @@ public class AABBArray extends AxisAlignedBB {
         return super.grow(x, y, z);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB grow(double value) {
         return this.grow(value, value, value);
     }
 
     @Override
-    public RayTraceResult calculateIntercept(Vec3d vecA, Vec3d vecB) {
+    public RayTraceResult calculateIntercept(@Nonnull Vec3d vecA, @Nonnull Vec3d vecB) {
         RayTraceResult result = null;
         for (AxisAlignedBB axisAlignedBB : getParts(this)) {
             result = axisAlignedBB.calculateIntercept(vecA, vecB);
@@ -219,30 +222,5 @@ public class AABBArray extends AxisAlignedBB {
     }
 
     // to implement
-
-    @Override
-    public AxisAlignedBB expand(double x, double y, double z) {
-        return super.expand(x, y, z);
-    }
-
-    @Override
-    public AxisAlignedBB shrink(double value) {
-        return super.shrink(value);
-    }
-
-    @Override
-    public AxisAlignedBB offset(BlockPos pos) {
-        return super.offset(pos);
-    }
-
-    @Override
-    public AxisAlignedBB setMaxY(double y2) {
-        return super.setMaxY(y2);
-    }
-
-    @Override
-    public AxisAlignedBB union(AxisAlignedBB other) {
-        return super.union(other);
-    }
 
 }

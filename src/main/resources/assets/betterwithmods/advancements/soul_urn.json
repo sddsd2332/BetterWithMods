@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:urn",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:soul_urn"
+    },
+    "title": {
+      "translate": "tile.bwm:soul_urn.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.soul_urn.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:soul_urn"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

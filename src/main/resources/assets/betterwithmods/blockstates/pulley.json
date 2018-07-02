@@ -17,6 +17,10 @@
       {
         "transform": "forge:default-block"
       }
-    ]
+    ],
+    "active": {
+      "true": {},
+      "false": {}
+    }
   }
 }

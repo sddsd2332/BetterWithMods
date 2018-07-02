@@ -1,10 +1,10 @@
 package betterwithmods.common.items;
 
-import betterwithmods.common.blocks.ItemBlockMeta;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -16,10 +16,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Koward
  */
-public class ItemSimpleSlab extends ItemBlockMeta {
+public class ItemSimpleSlab extends ItemBlock {
     private final Block doubleSlab;
 
     public ItemSimpleSlab(Block block, Block doubleSlab) {
@@ -30,11 +32,12 @@ public class ItemSimpleSlab extends ItemBlockMeta {
     /**
      * Called when a Block is right-clicked with this Item
      */
+    @Nonnull
     @Override
-    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, @Nonnull BlockPos pos, @Nonnull EnumHand hand, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (playerIn != null) {
             ItemStack stack = playerIn.getHeldItem(hand);
-            if (stack.getCount() != 0 && playerIn.canPlayerEdit(pos.offset(facing), facing, stack)) {
+            if (!stack.isEmpty() && playerIn.canPlayerEdit(pos.offset(facing), facing, stack)) {
                 IBlockState iblockstate = worldIn.getBlockState(pos);
                 if (iblockstate.getBlock() != this.block) {
                     pos = pos.offset(facing);
@@ -61,7 +64,7 @@ public class ItemSimpleSlab extends ItemBlockMeta {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public boolean canPlaceBlockOnSide(World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+    public boolean canPlaceBlockOnSide(World worldIn, @Nonnull BlockPos pos, @Nonnull EnumFacing side, EntityPlayer player, ItemStack stack) {
         BlockPos blockpos = pos;
         IBlockState iblockstate = worldIn.getBlockState(pos);
 

@@ -12,6 +12,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 public class TileFurnace extends TileEntityFurnace {
     @Override
     public void setInventorySlotContents(int index, ItemStack stack) {
@@ -91,7 +93,7 @@ public class TileFurnace extends TileEntityFurnace {
     }
 
     @Override
-    public void handleUpdateTag(NBTTagCompound tag) {
+    public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
         super.handleUpdateTag(tag);
         markDirty();
     }
@@ -111,6 +113,7 @@ public class TileFurnace extends TileEntityFurnace {
         this.readFromNBT(packet.getNbtCompound());
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound getUpdateTag() {
         return writeToNBT(new NBTTagCompound());

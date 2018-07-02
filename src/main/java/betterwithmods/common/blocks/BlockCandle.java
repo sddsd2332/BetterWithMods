@@ -1,93 +1,69 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.block.IMultiVariants;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.util.ColorUtils;
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+import java.util.HashMap;
 import java.util.Random;
 
 import static net.minecraft.util.EnumFacing.UP;
 
-public class BlockCandle extends BWMBlock implements IMultiVariants {
+public class BlockCandle extends BWMBlock {
 
+    public static final HashMap<EnumDyeColor, Block> BLOCKS = Maps.newHashMap();
+
+    public static void init() {
+        for (EnumDyeColor color : ColorUtils.DYES) {
+            BLOCKS.put(color, new BlockCandle(color));
+        }
+
+    }
 
     public static ItemStack getStack(EnumDyeColor type) {
-        return new ItemStack(BWMBlocks.CANDLE, 1, type.getMetadata());
+        return new ItemStack(BLOCKS.get(type));
     }
 
-
-    public BlockCandle() {
+    public BlockCandle(EnumDyeColor color) {
         super(Material.GROUND);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(ColorUtils.COLOR, EnumDyeColor.WHITE));
-    }
-
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, ColorUtils.COLOR);
+        setRegistryName("candle_" + color.getName());
     }
 
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         double d0 = (double) pos.getX() + 0.5D;
-        double d1 = (double) pos.getY() + 9/16d;
+        double d1 = (double) pos.getY() + 9 / 16d;
         double d2 = (double) pos.getZ() + 0.5D;
         worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + 0.27D * (double) UP.getFrontOffsetX(), d1 + 0.22D, d2 + 0.27D * (double) UP.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
         worldIn.spawnParticle(EnumParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
     @Override
-
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for (EnumDyeColor color : EnumDyeColor.values())
-            items.add(getStack(color));
-        super.getSubBlocks(itemIn, items);
-    }
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(ColorUtils.COLOR, EnumDyeColor.byMetadata(meta));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(ColorUtils.COLOR).getMetadata();
-    }
-
-    @Override
-    public int damageDropped(IBlockState state) {
-        return state.getValue(ColorUtils.COLOR).getMetadata();
-    }
-
-    @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         BlockPos down = pos.down();
         BlockFaceShape blockfaceshape = worldIn.getBlockState(down).getBlockFaceShape(worldIn, down, UP);
         return blockfaceshape != BlockFaceShape.BOWL && blockfaceshape != BlockFaceShape.UNDEFINED;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if(!canPlaceBlockAt(worldIn,pos)) {
+        if (!canPlaceBlockAt(worldIn, pos)) {
             this.dropBlockAsItem(worldIn, pos, state, 0);
             worldIn.setBlockToAir(pos);
         }
@@ -99,44 +75,34 @@ public class BlockCandle extends BWMBlock implements IMultiVariants {
         return 15;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing face) {
         return face == EnumFacing.DOWN ? BlockFaceShape.CENTER_SMALL : BlockFaceShape.UNDEFINED;
     }
 
+    @Nonnull
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(7d / 16d, 0, 7d / 16d, 9d / 16d, 6d / 16d, 9d / 16d);
 
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
-    @Override
-    public String[] getVariants() {
-        EnumDyeColor[] dyes = EnumDyeColor.values();
-        String[] variants = new String[dyes.length];
-
-        for (int i = 0; i < dyes.length; ++i) {
-            EnumDyeColor dye = dyes[i];
-            variants[i] = "color=" + dye.getName();
-        }
-
-        return variants;
-    }
-
-    @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        return getStack(state.getValue(ColorUtils.COLOR));
-    }
 }

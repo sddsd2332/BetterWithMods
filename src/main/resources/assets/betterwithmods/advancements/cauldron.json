@@ -1,0 +1,29 @@
+{
+  "parent": "betterwithmods:root",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:cauldron"
+    },
+    "title": {
+      "translate": "tile.bwm:cauldron.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.cauldron.desc"
+    }
+  },
+  "criteria": {
+    "has_items": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:cauldron"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [[
+    "has_items"
+  ]]
+}

@@ -1,14 +1,14 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.BWMod;
-import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.api.tile.dispenser.IBehaviorCollect;
 import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.behaviors.BehaviorBreakBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorDefaultDispenseBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorEntity;
-import betterwithmods.common.blocks.tile.TileEntityBlockDispenser;
+import betterwithmods.common.blocks.tile.TileBlockDispenser;
+import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
@@ -30,12 +30,12 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.RegistryDefaulted;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
+public class BlockBDispenser extends BlockDispenser {
     public static final RegistryDefaulted<Item, IBehaviorDispenseItem> BLOCK_DISPENSER_REGISTRY = new RegistryDefaulted<>(new BehaviorDefaultDispenseBlock());
     public static final RegistryDefaulted<Block, IBehaviorCollect> BLOCK_COLLECT_REGISTRY = new RegistryDefaulted<>(new BehaviorBreakBlock());
     public static final RegistryDefaulted<ResourceLocation, IBehaviorEntity> ENTITY_COLLECT_REGISTRY = new RegistryDefaulted<>(new BehaviorEntity());
@@ -45,15 +45,11 @@ public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
         this.setCreativeTab(BWCreativeTabs.BWTAB);
         this.setHardness(3.5F);
         this.setHarvestLevel("pickaxe", 0);
+        this.setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.NORTH).withProperty(TRIGGERED, false));
     }
 
     @Override
-    public String[] getVariants() {
-        return new String[]{"facing=north,triggered=false"};
-    }
-
-    @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World world, @Nonnull BlockPos pos, IBlockState state, @Nonnull EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote)
             return true;
         else {
@@ -76,7 +72,7 @@ public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
     }
 
     @Override
-    public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos other) {
+    public void neighborChanged(IBlockState state, World world, @Nonnull BlockPos pos, Block blockIn, BlockPos other) {
         boolean flag = isRedstonePowered(state, world, pos);
         boolean flag1 = state.getValue(TRIGGERED);
         if (flag && !flag1) {
@@ -93,9 +89,9 @@ public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
     }
 
     @Override
-    protected void dispense(World world, BlockPos pos) {
+    protected void dispense(@Nonnull World world, @Nonnull BlockPos pos) {
         BlockSourceImpl impl = new BlockSourceImpl(world, pos);
-        TileEntityBlockDispenser tile = impl.getBlockTileEntity();
+        TileBlockDispenser tile = impl.getBlockTileEntity();
         if (!world.getBlockState(pos).getValue(TRIGGERED)) {
             BlockPos check = pos.offset(impl.getBlockState().getValue(FACING));
             Block block = world.getBlockState(check).getBlock();
@@ -123,24 +119,22 @@ public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
                 world.playEvent(1001, pos, 0);
             else {
                 IBehaviorDispenseItem behavior = this.getBehavior(stack);
-                if (behavior != null) {
-
-                    behavior.dispense(impl, stack);
-                }
+                behavior.dispense(impl, stack);
             }
         }
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void breakBlock(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         TileEntity te = world.getTileEntity(pos);
-        if (te instanceof TileEntityBlockDispenser) {
-            InvUtils.ejectInventoryContents(world, pos, ((TileEntityBlockDispenser) te).inventory);
+        if (te instanceof TileBlockDispenser) {
+            InvUtils.ejectInventoryContents(world, pos, ((TileBlockDispenser) te).inventory);
             world.updateComparatorOutputLevel(pos, this);
         }
         super.breakBlock(world, pos, state);
     }
 
+    @Nonnull
     @Override
     protected IBehaviorDispenseItem getBehavior(@Nullable ItemStack stack) {
         return BLOCK_DISPENSER_REGISTRY.getObject(stack == null ? null : stack.getItem());
@@ -148,21 +142,16 @@ public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
 
     @Override
     public TileEntity createNewTileEntity(World worldIn, int meta) {
-        return new TileEntityBlockDispenser();
+        return new TileBlockDispenser();
     }
 
     public boolean hasComparatorInputOverride(IBlockState state) {
         return true;
     }
 
-    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, @Nonnull BlockPos pos) {
         TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile != null && tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-            if (tile.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-                return InvUtils.calculateComparatorLevel(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null));
-            }
-        }
-        return 0;
+        return CapabilityUtils.getInventory(tile, null).map(InvUtils::calculateComparatorLevel).orElse(0);
     }
 }
 

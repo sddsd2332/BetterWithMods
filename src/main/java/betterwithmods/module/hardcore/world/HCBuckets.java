@@ -4,7 +4,6 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockIce;
 import betterwithmods.common.blocks.behaviors.BehaviorFluidContainer;
-import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.FluidUtils;
@@ -104,7 +103,7 @@ public class HCBuckets extends Feature {
     public void init(FMLInitializationEvent event) {
         //TODO dispenser behavior; for water and lava bucket
 
-        fluidcontainerBacklist = ConfigHelper.loadPropRLList("Fluid container blacklist", configCategory, "Blacklist itemstacks from being effected by HCBuckets", new String[]{
+        fluidcontainerBacklist = configHelper.loadPropRLList("Fluid container blacklist", configCategory, "Blacklist itemstacks from being effected by HCBuckets", new String[]{
                 "thermalcultivation:watering_can"
         });
 

@@ -1,7 +1,7 @@
 package betterwithmods.common.penalties;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
-import betterwithmods.module.ConfigHelper;
 import org.apache.commons.lang3.Range;
 
 public class BasicPenalty<T extends Number & Comparable> extends Penalty<T> {
@@ -17,7 +17,7 @@ public class BasicPenalty<T extends Number & Comparable> extends Penalty<T> {
                 BWMAttributes.PAIN.fromConfig(category, name, pain),
                 BWMAttributes.SPEED.fromConfig(category, name, speed)
         );
-        ConfigHelper.setDescription(category + "." + name, "Configure values for the " + name + " penalty");
+        BWMod.MODULE_LOADER.configHelper.setDescription(category + "." + name, "Configure values for the " + name + " penalty");
     }
 
 

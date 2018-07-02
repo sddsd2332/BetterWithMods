@@ -1,8 +1,8 @@
 package betterwithmods.module.compat;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.module.CompatFeature;
-import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.hardcore.crafting.HCRedstone;
 import betterwithmods.module.hardcore.crafting.HCSaw;
 import betterwithmods.module.hardcore.needs.HCTools;
@@ -10,7 +10,6 @@ import betterwithmods.module.tweaks.MobSpawning;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
@@ -38,7 +37,7 @@ public class Quark extends CompatFeature {
             BWMRecipes.removeRecipe(new ItemStack(Items.STONE_HOE));
             BWMRecipes.removeRecipe(new ItemStack(Items.STONE_SWORD));
         }
-        if (ModuleLoader.isFeatureEnabled(HCSaw.class)) {
+        if (BWMod.MODULE_LOADER.isFeatureEnabled(HCSaw.class)) {
             BWMRecipes.removeRecipe("quark:chest");
             BWMRecipes.removeRecipe("quark:chest_1");
             BWMRecipes.removeRecipe("quark:chest_2");
@@ -49,7 +48,7 @@ public class Quark extends CompatFeature {
             BWMRecipes.removeRecipe(Pattern.compile("quark:.*trapdoor"));
         }
 
-        if(ModuleLoader.isFeatureEnabled(HCRedstone.class)) {
+        if(BWMod.MODULE_LOADER.isFeatureEnabled(HCRedstone.class)) {
             BWMRecipes.removeRecipe("quark:hopper");
         }
     }
@@ -63,10 +62,6 @@ public class Quark extends CompatFeature {
     public void postInit(FMLPostInitializationEvent event) {
 
 
-    }
-
-    private IRecipe addHERecipe(IRecipe recipe) {
-        return BWMRecipes.addHardcoreRecipe("quark", recipe);
     }
 
 }

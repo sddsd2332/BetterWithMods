@@ -1,83 +1,66 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.client.BWCreativeTabs;
+import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
-public class BlockCobble extends Block implements IMultiVariants {
-    public static final PropertyEnum<EnumCobbleType> TYPE = PropertyEnum.create("type", EnumCobbleType.class);
+import javax.annotation.Nonnull;
+import java.util.Set;
 
-    public BlockCobble() {
+public class BlockCobble extends Block {
+    public static final Set<BlockCobble> BLOCKS = Sets.newHashSet();
+    public final BlockCobble.EnumType type;
+
+    public BlockCobble(BlockCobble.EnumType type) {
         super(Material.ROCK);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumCobbleType.GRANITE));
         this.setHardness(2.0F);
         this.setResistance(5.0F);
         this.setCreativeTab(BWCreativeTabs.BWTAB);
-        this.setUnlocalizedName("bwm:cobble");
+        this.setRegistryName("cobblestone_" + type.getName());
+        this.type = type;
     }
 
-    @Override
-    public String[] getVariants() {
-        return new String[] {"type=granite", "type=diorite", "type=andesite"};
+    public static void init() {
+        for (BlockCobble.EnumType type : EnumType.VALUES)
+            BLOCKS.add(new BlockCobble(type));
     }
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return state.getValue(TYPE).ordinal();
-    }
-
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for (EnumCobbleType type : EnumCobbleType.values())
-            items.add(new ItemStack(this, 1, type.ordinal()));
-    }
-
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return state.getValue(TYPE).getColor();
+        return type.getColor();
     }
 
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(TYPE, EnumCobbleType.byType(meta));
-    }
+    public enum EnumType implements IStringSerializable {
+        GRANITE("granite", new ItemStack(Blocks.STONE,1,1), MapColor.DIRT),
+        DIORITE("diorite",  new ItemStack(Blocks.STONE,1,3), MapColor.QUARTZ),
+        ANDESITE("andesite",  new ItemStack(Blocks.STONE,1,5), MapColor.STONE);
 
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(TYPE).ordinal();
-    }
+        private static final EnumType[] VALUES = values();
+        private final String name;
+        private final MapColor color;
+        private final ItemStack stone;
 
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, TYPE);
-    }
-
-    public static enum EnumCobbleType implements IStringSerializable {
-        GRANITE("granite", MapColor.DIRT),
-        DIORITE("diorite", MapColor.QUARTZ),
-        ANDESITE("andesite", MapColor.STONE);
-
-        private String name;
-        private MapColor color;
-
-        private static final EnumCobbleType[] TYPES = values();
-
-        private EnumCobbleType(String name, MapColor color) {
+        EnumType(String name, ItemStack stone, MapColor color) {
             this.name = name;
+            this.stone = stone;
             this.color = color;
         }
 
+        public ItemStack getStone() {
+            return stone;
+        }
+
+        @Nonnull
         @Override
         public String getName() {
             return name;
@@ -85,12 +68,6 @@ public class BlockCobble extends Block implements IMultiVariants {
 
         public MapColor getColor() {
             return color;
-        }
-
-        public static EnumCobbleType byType(int meta) {
-            if (meta < 0 || meta > 2)
-                meta = 0;
-            return TYPES[meta];
         }
     }
 }

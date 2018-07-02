@@ -1,15 +1,12 @@
 package betterwithmods.common.blocks.behaviors;
 
 import betterwithmods.api.tile.dispenser.IBehaviorCollect;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 /**
  * Created by primetoxinz on 5/25/17.

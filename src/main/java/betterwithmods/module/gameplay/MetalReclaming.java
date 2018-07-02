@@ -59,14 +59,13 @@ public class MetalReclaming extends Feature {
         int axe_amt = HCTools.changeAxeRecipe ? 2 : 3;
 
         if (reclaimCount > 0) {
-//            BWRegistry.CRUCIBLE.addStokedRecipe();
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_HOE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 2));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_SWORD, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 3));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_PICKAXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 3));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_AXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, axe_amt));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_SHOVEL, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_MATTOCK, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 4));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_BATTLEAXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 5));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_HOE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_SWORD, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 3));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_PICKAXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 3));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_AXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, axe_amt));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_SHOVEL, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_MATTOCK, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 4));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_BATTLEAXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 5));
             addReclaimRecipe(new ItemStack(Items.IRON_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), "Iron", 8);
             addReclaimRecipe(new ItemStack(Items.IRON_AXE, 1, OreDictionary.WILDCARD_VALUE), "Iron", axe_amt);
             addReclaimRecipe(new ItemStack(Items.IRON_BOOTS, 1, OreDictionary.WILDCARD_VALUE), "Iron", 4);
@@ -87,13 +86,13 @@ public class MetalReclaming extends Feature {
             addReclaimRecipe(new ItemStack(Items.GOLDEN_SWORD, 1, OreDictionary.WILDCARD_VALUE), "Gold", 2);
             addReclaimRecipe(new ItemStack(Items.SHEARS, 1, OreDictionary.WILDCARD_VALUE), "Iron", 2);
 
-            BWRegistry.CRUCIBLE.addStokedRecipe(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.ARMOR_PLATE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_HELMET, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 10));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_CHEST, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 14));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_PANTS, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 12));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_BOOTS, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 8));
+            BWRegistry.CRUCIBLE.addStokedRecipe(ItemMaterial.getStack(ItemMaterial.EnumMaterial.ARMOR_PLATE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_HELMET, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 10));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_CHEST, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 14));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_PANTS, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 12));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_BOOTS, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 8));
 
-            BWRegistry.CRUCIBLE.addStokedRecipe(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.CHAIN_MAIL), new ItemStack(Items.IRON_NUGGET, 4));
+            BWRegistry.CRUCIBLE.addStokedRecipe(ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHAIN_MAIL), new ItemStack(Items.IRON_NUGGET, 4));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_HELMET, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 20));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 32));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 28));
@@ -120,7 +119,7 @@ public class MetalReclaming extends Feature {
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, 1), new ItemStack(Items.IRON_INGOT, 2));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE, 1), new ItemStack(Items.GOLD_INGOT, 2));
 
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMBlocks.STEEL_ANVIL), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 7));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMBlocks.STEEL_ANVIL), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 7));
         }
     }
 }

@@ -17,7 +17,7 @@ import java.util.Map;
 
 public class HCSapling extends Feature {
 
-    public static Map<BlockPlanks.EnumType, Block> SAPLING_CROPS = Maps.newHashMap();
+    public static final Map<BlockPlanks.EnumType, Block> SAPLING_CROPS = Maps.newHashMap();
 
     public static IBlockState getSapling(BlockPlanks.EnumType type) {
         return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, type);

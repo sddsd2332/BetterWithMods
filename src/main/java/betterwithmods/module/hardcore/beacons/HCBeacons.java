@@ -6,7 +6,6 @@ import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.blocks.BlockEnderchest;
-import betterwithmods.common.blocks.BlockSteel;
 import betterwithmods.common.blocks.tile.TileEnderchest;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.module.Feature;
@@ -44,7 +43,7 @@ public class HCBeacons extends Feature {
 
     public static final HashMap<IBlockState, IBeaconEffect> BEACON_EFFECTS = Maps.newHashMap();
 
-    public static final IBeaconEffect getBeaconEffect(IBlockState state) {
+    public static IBeaconEffect getBeaconEffect(IBlockState state) {
         if (BEACON_EFFECTS.containsKey(state))
             return BEACON_EFFECTS.get(state);
         return (world, pos, level) -> {
@@ -106,11 +105,9 @@ public class HCBeacons extends Feature {
                 entity.setAir(entity.getAir() - 1);
             }
         }));
-        BEACON_EFFECTS.put(BWMBlocks.STEEL_BLOCK.getDefaultState().withProperty(BlockSteel.HEIGHT, 0), new SpawnBeaconEffect());
+        BEACON_EFFECTS.put(BWMBlocks.STEEL_BLOCK.getDefaultState(), new SpawnBeaconEffect());
 
-        BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.PADDING), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> {
-            player.addPotionEffect(new PotionEffect(BWRegistry.POTION_SLOWFALL, 120, level));
-        }));
+        BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.PADDING), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(BWRegistry.POTION_SLOWFALL, 120, level))));
         if (enderchestBeacon) {
             BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.ENDERBLOCK), new EnderBeaconEffect());
         }
@@ -127,9 +124,9 @@ public class HCBeacons extends Feature {
         return true;
     }
 
-    public static ResourceLocation WORLD1 = new ResourceLocation(BWMod.MODID, "world_enderchest");
-    public static ResourceLocation WORLD2 = new ResourceLocation(BWMod.MODID, "world2_enderchest");
-    public static ResourceLocation GLOBAL = new ResourceLocation(BWMod.MODID, "global_enderchest");
+    public static final ResourceLocation WORLD1 = new ResourceLocation(BWMod.MODID, "world_enderchest");
+    public static final ResourceLocation WORLD2 = new ResourceLocation(BWMod.MODID, "world2_enderchest");
+    public static final ResourceLocation GLOBAL = new ResourceLocation(BWMod.MODID, "global_enderchest");
 
 
     @SubscribeEvent

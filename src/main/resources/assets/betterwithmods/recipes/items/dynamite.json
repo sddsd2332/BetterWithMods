@@ -16,12 +16,10 @@
       "type": "forge:ore_dict"
     },
     {
-      "item": "betterwithmods:material",
-      "data": 28
+      "item": "betterwithmods:fuse"
     },
     {
-      "item": "betterwithmods:material",
-      "data": 29
+      "item": "betterwithmods:blasting_oil"
     },
     {
       "ore": "dustWood",

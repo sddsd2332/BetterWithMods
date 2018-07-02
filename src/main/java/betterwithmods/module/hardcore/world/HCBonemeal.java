@@ -31,10 +31,9 @@ public class HCBonemeal extends Feature {
     public static StackIngredient FERTILIZERS = StackIngredient.fromStacks(new ItemStack(BWMItems.FERTILIZER), new ItemStack(Items.DYE, 1,EnumDyeColor.WHITE.getDyeDamage()));
     private static boolean removeBonemealRecipe;
 
-
     //TODO find a better solution to adding valid stacks to an ingredient.
     @Deprecated
-    public static void registerFertilzier(ItemStack stack) {
+    public static void registerFertilizer(ItemStack stack) {
         FERTILIZERS = StackIngredient.mergeStacked(Lists.newArrayList(FERTILIZERS, StackIngredient.fromStacks(stack)));
     }
 
@@ -77,7 +76,7 @@ public class HCBonemeal extends Feature {
         Block block = world.getBlockState(pos).getBlock();
         EntityPlayer player = e.getEntityPlayer();
 
-        if (block != null && block instanceof IPlantable) {
+        if (block instanceof IPlantable) {
             Block below = world.getBlockState(pos.down()).getBlock();
             if (ItemFertilizer.processBlock(below, world, pos.down())) {
                 if (!player.capabilities.isCreativeMode)

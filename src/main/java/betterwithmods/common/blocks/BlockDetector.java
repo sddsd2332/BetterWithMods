@@ -20,11 +20,12 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class BlockDetector extends BlockRotate {
+public class BlockDetector extends BWMBlock {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
     public BlockDetector() {
@@ -36,8 +37,10 @@ public class BlockDetector extends BlockRotate {
         this.setHarvestLevel("pickaxe", 0);
     }
 
+
+    @SuppressWarnings("deprecation")
     @Override
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean isSideSolid(IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return true;
     }
 
@@ -46,8 +49,9 @@ public class BlockDetector extends BlockRotate {
         return 4;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ, int meta, EntityLivingBase entity, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ, int meta, @Nonnull EntityLivingBase entity, EnumHand hand) {
         IBlockState state = super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, entity, hand);
         return setFacingInBlock(state, DirUtils.convertEntityOrientationToFacing(entity, side));
     }
@@ -73,6 +77,7 @@ public class BlockDetector extends BlockRotate {
         world.scheduleBlockUpdate(pos, this, tickRate(world), 5);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
         world.scheduleBlockUpdate(pos, this, tickRate(world), 5);
@@ -88,11 +93,13 @@ public class BlockDetector extends BlockRotate {
         return true;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean canProvidePower(IBlockState state) {
         return state.getValue(ACTIVE);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
         return isBlockOn(world, pos) ? 15 : 0;
@@ -170,6 +177,8 @@ public class BlockDetector extends BlockRotate {
         return false;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean isActive = false;
@@ -186,6 +195,7 @@ public class BlockDetector extends BlockRotate {
         return meta + state.getValue(DirUtils.FACING).getIndex();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.FACING, ACTIVE);
@@ -194,5 +204,10 @@ public class BlockDetector extends BlockRotate {
     @Override
     public void nextState(World world, BlockPos pos, IBlockState state) {
         world.setBlockState(pos, state.withProperty(ACTIVE, false).cycleProperty(DirUtils.FACING));
+    }
+
+    @Override
+    public boolean rotates() {
+        return true;
     }
 }

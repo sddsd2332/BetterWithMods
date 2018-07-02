@@ -2,12 +2,9 @@ package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.api.recipe.IRecipeOutputs;
 import betterwithmods.common.BWSounds;
-import betterwithmods.util.DirUtils;
-import betterwithmods.util.InvUtils;
 import betterwithmods.util.StackEjector;
 import betterwithmods.util.VectorBuilder;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;

@@ -12,7 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.translation.I18n;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -76,7 +76,7 @@ public class HCFurnace extends Feature {
         BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.LAPIS_ORE));
         BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.QUARTZ_BLOCK));
 
-        //Remove Furnace Recyclcing
+        //Remove Furnace Recycling
 
         BWMRecipes.removeFurnaceRecipe(Items.CHAINMAIL_HELMET);
         BWMRecipes.removeFurnaceRecipe(Items.CHAINMAIL_CHESTPLATE);
@@ -151,7 +151,7 @@ public class HCFurnace extends Feature {
         if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {
             double ticks = HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING);
             double seconds = ticks / 20.0;
-            event.getToolTip().add(I18n.translateToLocalFormatted("bwm.hcfurnace.cook_time.tooltip", String.format("%.2f", seconds)));
+            event.getToolTip().add(new TextComponentTranslation("bwm.hcfurnace.cook_time.tooltip", String.format("%.2f", seconds)).getFormattedText());
         }
     }
 

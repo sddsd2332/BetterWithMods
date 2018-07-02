@@ -6,7 +6,7 @@
       "entries": [
         {
           "type": "item",
-          "name": "betterwithmods:material",
+          "name": "betterwithmods:wood_gear",
           "weight": 1,
           "functions": [
             {
@@ -15,10 +15,6 @@
                 "min": 0,
                 "max": 1
               }
-            },
-            {
-              "function": "set_data",
-              "data": 0
             }
           ]
         }

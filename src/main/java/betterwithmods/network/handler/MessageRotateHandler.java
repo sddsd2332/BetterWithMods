@@ -7,6 +7,6 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 public class MessageRotateHandler extends BWMessageHandler<MessageRotate> {
     @Override
     public void handleMessage(MessageRotate message, MessageContext context) {
-//        BWMod.proxy.rotateEntity(message.entity,message.yaw,message.pitch);
+        BWMod.proxy.rotateEntity(message.entity,message.yaw,message.pitch);
     }
 }

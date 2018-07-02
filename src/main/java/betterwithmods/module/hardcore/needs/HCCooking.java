@@ -3,10 +3,9 @@ package betterwithmods.module.hardcore.needs;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.module.Feature;
 import net.minecraft.init.Items;
-import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class HCCooking extends Feature{
+public class HCCooking extends Feature {
 
     @Override
     public String getFeatureDescription() {
@@ -15,15 +14,14 @@ public class HCCooking extends Feature{
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        BWMRecipes.removeRecipe(new ItemStack(Items.MUSHROOM_STEW));
-        BWMRecipes.removeRecipe(new ItemStack(Items.CAKE));
-        BWMRecipes.removeRecipe(new ItemStack(Items.COOKIE));
-        BWMRecipes.removeRecipe(new ItemStack(Items.PUMPKIN_PIE));
-        BWMRecipes.removeRecipe(new ItemStack(Items.RABBIT_STEW));
-        BWMRecipes.removeRecipe(new ItemStack(Items.BEETROOT_SOUP));
-        BWMRecipes.removeRecipe(new ItemStack(Items.BREAD));
+        BWMRecipes.removeRecipe(Items.MUSHROOM_STEW.getRegistryName());
+        BWMRecipes.removeRecipe(Items.CAKE.getRegistryName());
+        BWMRecipes.removeRecipe(Items.COOKIE.getRegistryName());
+        BWMRecipes.removeRecipe(Items.PUMPKIN_PIE.getRegistryName());
+        BWMRecipes.removeRecipe(Items.RABBIT_STEW.getRegistryName());
+        BWMRecipes.removeRecipe(Items.BEETROOT_SOUP.getRegistryName());
+        BWMRecipes.removeRecipe(Items.BREAD.getRegistryName());
     }
-
 
 
 }

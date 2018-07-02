@@ -8,6 +8,8 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 import static betterwithmods.module.gameplay.miniblocks.orientations.OrientationUtils.inCenter;
 import static betterwithmods.module.gameplay.miniblocks.orientations.OrientationUtils.isMax;
 
@@ -21,10 +23,11 @@ public enum SidingOrientation implements BaseOrientation {
 
     public static final SidingOrientation[] VALUES = values();
 
-    private String name;
-    private EnumFacing facing;
-    private AxisAlignedBB bounds;
-    private int x, y;
+    private final String name;
+    private final EnumFacing facing;
+    private final AxisAlignedBB bounds;
+    private final int x;
+    private final int y;
 
     SidingOrientation(String name, EnumFacing facing, int x, int y, AxisAlignedBB bounds) {
         this.name = name;
@@ -75,6 +78,7 @@ public enum SidingOrientation implements BaseOrientation {
         }
     }
 
+    @Nonnull
     @Override
     public String getName() {
         return name;
@@ -92,7 +96,7 @@ public enum SidingOrientation implements BaseOrientation {
     @SideOnly(Side.CLIENT)
     @Override
     public TRSRTransformation toTransformation() {
-        return new TRSRTransformation(ModelRotation.getModelRotation(x, y));
+        return TRSRTransformation.from(ModelRotation.getModelRotation(x, y));
     }
 
     @Override

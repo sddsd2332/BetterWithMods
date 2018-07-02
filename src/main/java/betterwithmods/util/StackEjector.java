@@ -11,7 +11,8 @@ public class StackEjector {
 
     private final World world;
     private final ItemStack stack;
-    private Vec3d position, motion;
+    private final Vec3d position;
+    private Vec3d motion;
     private int pickupDelay;
 
     public StackEjector(@Nonnull World world, @Nonnull ItemStack stack, Vec3d position, Vec3d motion) {

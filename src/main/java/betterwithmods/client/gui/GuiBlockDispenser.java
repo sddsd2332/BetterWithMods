@@ -2,16 +2,16 @@ package betterwithmods.client.gui;
 
 import betterwithmods.BWMod;
 import betterwithmods.client.container.other.ContainerBlockDispenser;
-import betterwithmods.common.blocks.tile.TileEntityBlockDispenser;
+import betterwithmods.common.blocks.tile.TileBlockDispenser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiBlockDispenser extends GuiBase {
     private static final int guiHeight = 182;
     private static final String NAME = "inv.bwm.dispenser.name";
-    private final TileEntityBlockDispenser tile;
+    private final TileBlockDispenser tile;
 
-    public GuiBlockDispenser(EntityPlayer player, TileEntityBlockDispenser tile) {
+    public GuiBlockDispenser(EntityPlayer player, TileBlockDispenser tile) {
         super(new ContainerBlockDispenser(player, tile), new ResourceLocation(BWMod.MODID, "textures/gui/dispenser.png"));
         this.tile = tile;
         this.ySize = guiHeight;

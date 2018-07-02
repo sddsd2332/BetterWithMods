@@ -2,17 +2,17 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
+      "up": "betterwithmods:blocks/pump_top",
+      "down": "betterwithmods:blocks/pump_bottom",
       "side": "minecraft:blocks/planks_oak",
-      "side_grate": "betterwithmods:blocks/pump_grate",
-      "top": "betterwithmods:blocks/pump_top",
-      "bottom": "betterwithmods:blocks/pump_bottom",
-      "north": "#side",
+      "front": "betterwithmods:blocks/pump_grate",
+      "north": "#front",
       "south": "#side",
-      "east": "#side",
       "west": "#side",
-      "particle": "minecraft:blocks/planks_oak"
+      "east": "#side",
+      "particle": "#side"
     },
-    "model": "betterwithmods:screw_pump",
+    "model": "cube",
     "uvlock": true
   },
   "variants": {
@@ -29,25 +29,15 @@
       "true": {}
     },
     "facing": {
-      "north": {
-        "textures": {
-          "north": "#side_grate"
-        }
-      },
+      "north": {},
       "south": {
-        "textures": {
-          "south": "#side_grate"
-        }
+        "y": 180
       },
       "west": {
-        "textures": {
-          "west": "#side_grate"
-        }
+        "y": 270
       },
       "east": {
-        "textures": {
-          "east": "#side_grate"
-        }
+        "y": 90
       }
     }
   }

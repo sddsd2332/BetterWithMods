@@ -1,24 +1,25 @@
 package betterwithmods.common.registry.bulk.recipes;
 
+import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.api.recipe.IRecipeOutputs;
 import betterwithmods.api.recipe.impl.ListOutputs;
 import betterwithmods.util.InvUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 
 public class BulkRecipe implements Comparable<BulkRecipe> {
 
-    protected NonNullList<Ingredient> inputs;
-    protected IRecipeOutputs recipeOutput;
+    protected final NonNullList<Ingredient> inputs;
+    protected final IRecipeOutputs recipeOutput;
     protected int priority;
 
     public BulkRecipe(List<Ingredient> inputs, IRecipeOutputs outputs, int priority) {
@@ -40,11 +41,11 @@ public class BulkRecipe implements Comparable<BulkRecipe> {
         this(inputs, new ListOutputs(outputs), priority);
     }
 
-    public NonNullList<ItemStack> onCraft(World world, TileEntity tile, ItemStackHandler inv) {
+    public NonNullList<ItemStack> onCraft(@Nullable World world, IBulkTile tile, ItemStackHandler inv) {
         NonNullList<ItemStack> items = NonNullList.create();
         if (consumeIngredients(inv, items)) {
             items.addAll(getOutputs());
-            return BulkCraftEvent.fireOnCraft(tile, world, inv, this, items);
+            return BulkCraftEvent.fireOnCraft(tile, world, this, items);
         }
         return NonNullList.create();
     }

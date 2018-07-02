@@ -10,7 +10,6 @@ import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -101,9 +100,7 @@ public class ImprovedFlee extends Feature {
             return true;
         if (animal instanceof AbstractHorse && ((AbstractHorse) animal).isTame())
             return true;
-        if (!EntityUtils.hasAI(animal, EntityAIFlee.class))
-            return true;
-        return false;
+        return !EntityUtils.hasAI(animal, EntityAIFlee.class);
     }
 
     @Override

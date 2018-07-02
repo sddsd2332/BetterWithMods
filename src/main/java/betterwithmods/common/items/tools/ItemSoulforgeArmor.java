@@ -13,6 +13,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nonnull;
+
 /**
  * Purpose:
  *
@@ -32,7 +34,7 @@ public class ItemSoulforgeArmor extends ItemArmor {
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
         return BWOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
     }
 

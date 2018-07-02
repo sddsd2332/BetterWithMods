@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "betterwithmods:hellfire_block"
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "X": {
+      "ore": "ingotConcentratedHellfire",
+      "type": "forge:ore_dict"
+    }
+  }
+}

@@ -1,8 +1,7 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.IMultiLocations;
+import betterwithmods.common.BWDamageSource;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.damagesource.BWDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -23,6 +22,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -30,7 +30,9 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreIngredient;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
@@ -38,8 +40,9 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 6/25/17.
  */
-public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
+public class BlockNetherGrowth extends BWMBlock {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
+    private final Ingredient urn = new OreIngredient("blockSoulUrn");
 
     public BlockNetherGrowth() {
         super(Material.GRASS);
@@ -50,7 +53,6 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
 
     }
 
-
     public int getAge(IBlockState state) {
         return state.getValue(AGE);
     }
@@ -58,7 +60,7 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack held = playerIn.getHeldItemMainhand();
-        if (!held.isItemEqual(BlockUrn.getStack(BlockUrn.EnumType.FULL, 1)))
+        if (!urn.apply(held))
             return false;
         if (!world.isRemote) {
 
@@ -66,7 +68,7 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
             boolean grew = false;
             for (BlockPos p : pool) {
                 IBlockState s = world.getBlockState(p);
-                if (s != null && s.getBlock() == BWMBlocks.NETHER_GROWTH) {
+                if (s.getBlock() == BWMBlocks.NETHER_GROWTH) {
                     BlockNetherGrowth b = (BlockNetherGrowth) s.getBlock();
                     for (int i = 0; i < 10; i++)
                         b.grow(world, p, s, world.rand);
@@ -81,7 +83,7 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, IBlockState state) {
+    public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
 
         Random rand = world.rand;
         for (int i = 0; i < 9; i++) {
@@ -145,26 +147,23 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
         }
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, AGE);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         int age = getAge(state) + 1;
         return new AxisAlignedBB(0, 0, 0, 1, age / 16d, 1);
     }
 
+    @Nonnull
     @Override
     public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
         return SoundType.SLIME;
-    }
-
-
-    @Override
-    public String[] getLocations() {
-        return new String[]{"nether_spore"};
     }
 
     @Override
@@ -172,13 +171,15 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
         return getAge(state);
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(AGE, meta);
     }
 
+    @Nonnull
     @Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    public List<ItemStack> getDrops(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull IBlockState state, int fortune) {
         //NO DROPS
         return Lists.newArrayList();
     }
@@ -186,7 +187,7 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
     @Override
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         if (rand.nextInt(10) == 0) {
-            worldIn.spawnParticle(EnumParticleTypes.TOWN_AURA, (double) ((float) pos.getX() + rand.nextFloat()), (double) ((float) pos.getY() + 1.1F), (double) ((float) pos.getZ() + rand.nextFloat()), 0.0D, 0.0D, 0.0D, new int[0]);
+            worldIn.spawnParticle(EnumParticleTypes.TOWN_AURA, (double) ((float) pos.getX() + rand.nextFloat()), (double) ((float) pos.getY() + 1.1F), (double) ((float) pos.getZ() + rand.nextFloat()), 0.0D, 0.0D, 0.0D);
         }
     }
 
@@ -224,7 +225,7 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         return worldIn.isAirBlock(pos) && canStay(worldIn, pos);
     }
 
@@ -241,15 +242,17 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
     }
 
     @Override
-    public boolean canCreatureSpawn(IBlockState state, IBlockAccess world, BlockPos pos, EntityLiving.SpawnPlacementType type) {
+    public boolean canCreatureSpawn(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EntityLiving.SpawnPlacementType type) {
         return false;
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face != EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
     }
 
+    @Nonnull
     @SideOnly(Side.CLIENT)
     @Override
     public BlockRenderLayer getBlockLayer() {

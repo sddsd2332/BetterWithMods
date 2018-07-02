@@ -8,12 +8,10 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "S": {
-      "item": "betterwithmods:material",
-      "data": 8
+      "item": "betterwithmods:leather_strap"
     },
     "O": {
-      "item": "betterwithmods:material",
-      "data": 40
+      "item": "betterwithmods:ender_ocular"
     }
   }
 }

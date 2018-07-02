@@ -4,13 +4,12 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.module.Feature;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
+
 import net.minecraft.init.Items;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraft.tileentity.TileEntityFurnace;
+
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 

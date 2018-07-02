@@ -1,25 +1,40 @@
 package betterwithmods.module.gameplay.miniblocks;
 
-import betterwithmods.module.gameplay.miniblocks.blocks.BlockCorner;
-import betterwithmods.module.gameplay.miniblocks.blocks.BlockMini;
-import betterwithmods.module.gameplay.miniblocks.blocks.BlockMoulding;
-import betterwithmods.module.gameplay.miniblocks.blocks.BlockSiding;
+import betterwithmods.BWMod;
+import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.TileCamo;
+import betterwithmods.module.gameplay.miniblocks.blocks.*;
+import betterwithmods.module.gameplay.miniblocks.tiles.*;
 import net.minecraft.item.ItemStack;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
+
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Arrays;
 
 public enum MiniType {
-    SIDING(BlockSiding.class, "siding"),
-    MOULDING(BlockMoulding.class, "moulding"),
-    CORNER(BlockCorner.class, "corner"),
-    UNKNOWN(null, "");
-    public static MiniType[] VALUES = values();
+    SIDING(BlockSiding.class, TileSiding.class, "siding"),
+    MOULDING(BlockMoulding.class, TileMoulding.class, "moulding"),
+    CORNER(BlockCorner.class, TileCorner.class, "corner"),
+    COLUMN(BlockColumn.class, TileColumn.class, "column"),
+    PEDESTAL(BlockPedestals.class, TilePedestal.class, "pedestal"),
+    TABLE(BlockTable.class, TileCamo.class, "table"),
+    BENCH(BlockBench.class, TileCamo.class, "bench"),
+    CHAIR(BlockChair.class, TileChair.class, "chair"),
+    UNKNOWN(null, null, "");
+    public static final MiniType[] VALUES = values();
 
-    private Class<? extends BlockMini> block;
-    private String name;
+    private final Class<? extends BlockCamo> block;
+    private final Class<? extends TileEntity> tile;
+    private final String name;
 
-    MiniType(Class<? extends BlockMini> block, String name) {
+    @SideOnly(Side.CLIENT)
+    MiniType(Class<? extends BlockCamo> block, Class<? extends TileEntity> tile, String name) {
         this.block = block;
+        this.tile = tile;
         this.name = name;
     }
 
@@ -31,23 +46,33 @@ public enum MiniType {
         return Arrays.stream(VALUES).filter(t -> t.isName(name)).findFirst().orElse(null);
     }
 
-    public static MiniType fromBlock(BlockMini block) {
+    public static MiniType fromBlock(BlockCamo block) {
         return Arrays.stream(VALUES).filter(t -> t.isBlock(block)).findFirst().orElse(null);
     }
 
     public static MiniType fromStack(ItemStack stack) {
-        if (stack.getItem() instanceof ItemMini) {
-            BlockMini mini = (BlockMini) ((ItemMini) stack.getItem()).getBlock();
+        if (stack.getItem() instanceof ItemCamo) {
+            BlockCamo mini = (BlockCamo) ((ItemCamo) stack.getItem()).getBlock();
             return fromBlock(mini);
         }
         return UNKNOWN;
+    }
+
+    public static void registerTiles() {
+        for (MiniType type : VALUES) {
+            if (type.tile != null) {
+                if (TileEntity.getKey(type.tile) == null) { //TODO - datafixer for conversion
+                    GameRegistry.registerTileEntity(type.tile, new ResourceLocation(BWMod.MODID, type.name));
+                }
+            }
+        }
     }
 
     private boolean isName(String name) {
         return this.name.equalsIgnoreCase(name);
     }
 
-    private boolean isBlock(BlockMini mini) {
+    private boolean isBlock(BlockCamo mini) {
         return this.block.isAssignableFrom(mini.getClass());
     }
 }

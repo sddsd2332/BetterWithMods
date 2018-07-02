@@ -13,12 +13,7 @@ import betterwithmods.client.gui.bulk.GuiMill;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.mechanical.BlockCookingPot;
-import betterwithmods.common.blocks.mechanical.BlockMechMachines;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.common.registry.HopperInteractions;
-import betterwithmods.common.registry.HopperInteractions.HopperRecipe;
-import betterwithmods.common.registry.anvil.AnvilCraftingManager;
 import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
 import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
@@ -29,6 +24,7 @@ import betterwithmods.common.registry.bulk.recipes.MillRecipe;
 import betterwithmods.common.registry.crafting.ToolBaseRecipe;
 import betterwithmods.common.registry.crafting.ToolDamageRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
+import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
 import betterwithmods.module.compat.jei.category.*;
 import betterwithmods.module.compat.jei.ingredient.OutputHelper;
 import betterwithmods.module.compat.jei.ingredient.OutputRenderer;
@@ -52,19 +48,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Consumer;
-
-import static betterwithmods.common.blocks.mechanical.BlockCookingPot.EnumType.CAULDRON;
-import static betterwithmods.common.blocks.mechanical.BlockCookingPot.EnumType.CRUCIBLE;
-import static betterwithmods.common.blocks.mechanical.BlockMechMachines.EnumType.*;
 
 @mezz.jei.api.JEIPlugin
 public class JEI implements IModPlugin {
@@ -72,7 +60,7 @@ public class JEI implements IModPlugin {
 
     public static IJeiRuntime JEI_RUNTIME;
 
-    public static List<Class<? extends IOutput>> ALL_OUTPUTS = Lists.newArrayList();
+    public static final List<Class<? extends IOutput>> ALL_OUTPUTS = Lists.newArrayList();
 
     static {
         ALL_OUTPUTS.add(IOutput.class);
@@ -135,18 +123,12 @@ public class JEI implements IModPlugin {
 
     @Override
     public void registerItemSubtypes(ISubtypeRegistry subtypeRegistry) {
-        getAllMiniBlocks().forEach(item -> subtypeRegistry.registerSubtypeInterpreter(item, itemStack -> {
-            NBTTagCompound compound = itemStack.getSubCompound("texture");
-            return compound != null ? compound.toString() : "";
-        }));
+        subtypeRegistry.useNbtForSubtypes(getAllMiniBlocks());
+        subtypeRegistry.useNbtForSubtypes(BWMItems.BARK);
     }
 
-    private List<Item> getAllMiniBlocks() {
-        ArrayList<Item> list = new ArrayList<>();
-        MiniBlocks.SIDINGS.values().stream().map(Item::getItemFromBlock).forEach(list::add);
-        MiniBlocks.MOULDINGS.values().stream().map(Item::getItemFromBlock).forEach(list::add);
-        MiniBlocks.CORNERS.values().stream().map(Item::getItemFromBlock).forEach(list::add);
-        return list;
+    private Item[] getAllMiniBlocks() {
+        return MiniBlocks.MINI_MATERIAL_BLOCKS.values().stream().map(HashMap::values).flatMap(Collection::stream).map(Item::getItemFromBlock).toArray(Item[]::new);
     }
 
     @Override
@@ -178,17 +160,14 @@ public class JEI implements IModPlugin {
         reg.addRecipes(BWRegistry.MILLSTONE.getRecipes(), MillRecipeCategory.UID);
         reg.addRecipes(BWRegistry.WOOD_SAW.getDisplayRecipes(), SawRecipeCategory.UID);
         reg.addRecipes(BWRegistry.TURNTABLE.getDisplayRecipes(), TurntableRecipeCategory.UID);
+        reg.addRecipes(BWRegistry.FILTERD_HOPPER.getDisplayRecipes(), HopperRecipeCategory.UID);
+        reg.addRecipes(BWRegistry.ANVIL.getDisplayRecipes(), SteelAnvilRecipeCategory.UID);
 
-        reg.addRecipes(HopperInteractions.getDisplayRecipes(), HopperRecipeCategory.UID);
-        reg.addRecipes(AnvilCraftingManager.ANVIL_CRAFTING, SteelAnvilRecipeCategory.UID);
-
-
-        reg.addRecipeCatalyst(BlockMechMachines.getStack(MILL), MillRecipeCategory.UID);
-        reg.addRecipeCatalyst(BlockMechMachines.getStack(HOPPER), HopperRecipeCategory.UID);
-        reg.addRecipeCatalyst(BlockMechMachines.getStack(TURNTABLE), TurntableRecipeCategory.UID);
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.MILLSTONE), MillRecipeCategory.UID);
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.FILTERED_HOPPER), HopperRecipeCategory.UID);
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.TURNTABLE), TurntableRecipeCategory.UID);
 
         reg.addRecipeCatalyst(new ItemStack(BWMBlocks.SAW), SawRecipeCategory.UID);
-        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.STEEL_SAW), SteelSawRecipeCategory.UID);
         reg.addRecipeCatalyst(new ItemStack(BWMBlocks.STEEL_ANVIL), SteelAnvilRecipeCategory.UID);
 
         reg.addRecipeClickArea(GuiMill.class, 81, 19, 14, 14, MillRecipeCategory.UID);
@@ -215,8 +194,8 @@ public class JEI implements IModPlugin {
             ItemStack dam3 = stack.copy();
             dam3.setItemDamage(dam3.getMaxDamage() * 2 / 4);
 
-            v.createAnvilRecipe(dam1, Collections.singletonList(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL)), Collections.singletonList(dam2));
-            v.createAnvilRecipe(dam2, Collections.singletonList(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL)), Collections.singletonList(dam3));
+            v.createAnvilRecipe(dam1, Collections.singletonList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT)), Collections.singletonList(dam2));
+            v.createAnvilRecipe(dam2, Collections.singletonList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT)), Collections.singletonList(dam3));
         }
 
     }
@@ -241,12 +220,12 @@ public class JEI implements IModPlugin {
 
         }
 
-        reg.addRecipeCatalyst(BlockCookingPot.getStack(CAULDRON), cauldron.stream().toArray(String[]::new));
-        reg.addRecipeCatalyst(BlockCookingPot.getStack(CRUCIBLE), crucible.stream().toArray(String[]::new));
-        reg.addRecipeCatalyst(new ItemStack(Blocks.BRICK_BLOCK), kiln.stream().toArray(String[]::new));
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.CAULDRON), cauldron.toArray(new String[0]));
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.CRUCIBLE), crucible.toArray(new String[0]));
+        reg.addRecipeCatalyst(new ItemStack(Blocks.BRICK_BLOCK), kiln.toArray(new String[0]));
 
-        reg.addRecipeClickArea(GuiCauldron.class, 81, 19, 14, 14, cauldron.stream().toArray(String[]::new));
-        reg.addRecipeClickArea(GuiCrucible.class, 81, 19, 14, 14, crucible.stream().toArray(String[]::new));
+        reg.addRecipeClickArea(GuiCauldron.class, 81, 19, 14, 14, cauldron.toArray(new String[0]));
+        reg.addRecipeClickArea(GuiCrucible.class, 81, 19, 14, 14, crucible.toArray(new String[0]));
 
     }
 

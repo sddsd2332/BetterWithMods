@@ -10,7 +10,7 @@ import java.util.*;
 import java.util.stream.Collectors;
 
 public class StackIngredient extends Ingredient {
-    private final Map<Ingredient,Integer> internal;
+    private final Map<Ingredient, Integer> internal;
     private ItemStack[] cachedStacks;
 
     protected StackIngredient(Map<Ingredient,Integer> ingredients) {
@@ -21,11 +21,11 @@ public class StackIngredient extends Ingredient {
     protected StackIngredient(Ingredient ingredient, int amount) {
         super(0);
         internal = new HashMap<>();
-        internal.put(ingredient,amount);
+        internal.put(ingredient, amount);
     }
 
     public static StackIngredient fromIngredient(int count, Ingredient ingredient) {
-        return new StackIngredient(ingredient,count);
+        return new StackIngredient(ingredient, count);
     }
 
     public static StackIngredient fromStacks(ItemStack... stacks) {
@@ -50,7 +50,7 @@ public class StackIngredient extends Ingredient {
         return new StackIngredient(map);
     }
 
-    public static StackIngredient merge(Map<Ingredient,Integer> ingredients) {
+    public static StackIngredient merge(Map<Ingredient, Integer> ingredients) {
         return new StackIngredient(ingredients);
     }
 
@@ -62,11 +62,11 @@ public class StackIngredient extends Ingredient {
     @Override
     @Nonnull
     public ItemStack[] getMatchingStacks() {
-        if(cachedStacks == null) {
+        if (cachedStacks == null) {
             ArrayList<ItemStack> stacks = new ArrayList<>();
             for (Map.Entry<Ingredient,Integer> entry : internal.entrySet())
                 Arrays.stream(entry.getKey().getMatchingStacks()).map(stack -> withCount(stack, entry.getValue())).forEach(stacks::add);
-            cachedStacks = stacks.toArray(new ItemStack[stacks.size()]);
+            cachedStacks = stacks.toArray(new ItemStack[0]);
         }
         return cachedStacks;
     }
@@ -84,6 +84,6 @@ public class StackIngredient extends Ingredient {
     }
 
     public int getCount(ItemStack stack) {
-        return internal.entrySet().stream().filter(entry -> entry.getKey().apply(stack)).findFirst().get().getValue();
+        return internal.entrySet().stream().filter(entry -> entry.getKey().apply(stack)).mapToInt(Map.Entry::getValue).findFirst().orElse(0);
     }
 }

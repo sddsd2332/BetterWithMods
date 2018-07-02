@@ -44,8 +44,8 @@ public class BWMHeatRegistry {
     }
 
     public static class HeatSource implements IHeatSource {
-        private BlockIngredient ingredient;
-        private int heat;
+        private final BlockIngredient ingredient;
+        private final int heat;
 
         public HeatSource(BlockIngredient ingredient, int heat) {
             this.ingredient = ingredient;

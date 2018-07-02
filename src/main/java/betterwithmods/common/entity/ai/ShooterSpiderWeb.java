@@ -11,11 +11,13 @@ import net.minecraft.util.math.MathHelper;
  * Created by primetoxinz on 4/22/17.
  */
 public class ShooterSpiderWeb extends EntityAIBase {
-    private EntitySpider spider;
+    private final EntitySpider spider;
     private EntityLivingBase target;
     private int seeTime;
-    private int attackTime, maxAttackTime;
-    private float radius, maxRadius;
+    private int attackTime;
+    private final int maxAttackTime;
+    private final float radius;
+    private final float maxRadius;
 
     public ShooterSpiderWeb(EntitySpider spider, int maxAttackTime, float radius) {
         this.spider = spider;

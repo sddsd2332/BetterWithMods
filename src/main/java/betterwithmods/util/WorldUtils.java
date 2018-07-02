@@ -14,6 +14,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -45,6 +46,25 @@ public final class WorldUtils {
     );
 
     private WorldUtils() {
+    }
+
+
+    public static boolean isNether(World world) {
+        return isDimension(world, DimensionType.NETHER);
+    }
+
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    public static boolean isTheEnd(World world) {
+        return isDimension(world, DimensionType.THE_END);
+    }
+
+    public static boolean isDimension(World world, DimensionType type) {
+        return world.provider.getDimensionType() == type;
+    }
+
+
+    public static Iterable<BlockPos> getPosInBox(AxisAlignedBB box) {
+        return BlockPos.getAllInBox(new BlockPos(box.minX, box.minY, box.minZ), new BlockPos(box.maxX, box.maxY, box.maxZ));
     }
 
     public static boolean isSolid(World world, BlockPos pos, EnumFacing facing, IBlockState state) {
@@ -208,7 +228,7 @@ public final class WorldUtils {
     }
 
     public static boolean isTimeFrame(World world, TimeFrame frame) {
-        return frame.isBetween((int) getDayTicks(world));
+        return frame.isBetween(getDayTicks(world));
     }
 
     public static boolean isMoonPhase(World world, MoonPhase phase) {
@@ -254,7 +274,7 @@ public final class WorldUtils {
         MINUTE(16.6),
         HOUR(1000),
         DAY(24000);
-        private double ticks;
+        private final double ticks;
 
         Time(double ticks) {
             this.ticks = ticks;
@@ -274,7 +294,8 @@ public final class WorldUtils {
         NIGHT(13001, 24000),
         DAY(0, 13000);
         private static final Random rand = new Random();
-        private int start, end;
+        private final int start;
+        private final int end;
 
         TimeFrame(int start, int end) {
             this.start = start;

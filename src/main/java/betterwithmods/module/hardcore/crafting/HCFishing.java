@@ -16,6 +16,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemFishingRod;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
@@ -24,7 +25,6 @@ import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
-import net.minecraft.world.storage.loot.LootPool;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.common.capabilities.Capability;
@@ -33,10 +33,10 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -56,7 +56,7 @@ public class HCFishing extends Feature {
     public static boolean requireBait, restrictToOpenWater;
     public static int minimumWaterDepth;
 
-    public static ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "gameplay/fishing"));
+    public static final ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "gameplay/fishing"));
 
     private static final ResourceLocation BAITED_FISHING_ROD = new ResourceLocation(BWMod.MODID, "baited_fishing_rod");
     public static Ingredient BAIT = Ingredient.EMPTY;
@@ -73,11 +73,10 @@ public class HCFishing extends Feature {
     public void preInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(FishingBait.class, new CapabilityFishingRod(), FishingBait::new);
         BWMRecipes.removeRecipe(new ResourceLocation("fishing_rod"));
-
     }
 
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    @SubscribeEvent
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         BAIT = StackIngredient.fromStacks(loadItemStackArray("Bait", "Add items as valid fishing bait", new ItemStack[]{
                 new ItemStack(Items.SPIDER_EYE),
                 new ItemStack(BWMItems.CREEPER_OYSTER),
@@ -87,7 +86,7 @@ public class HCFishing extends Feature {
                 new ItemStack(BWMItems.COOKED_BAT_WING, 1),
                 new ItemStack(Items.ROTTEN_FLESH)
         }));
-        addHardcoreRecipe(new BaitingRecipe());
+        event.getRegistry().register(new BaitingRecipe());
     }
 
     //Override loottables

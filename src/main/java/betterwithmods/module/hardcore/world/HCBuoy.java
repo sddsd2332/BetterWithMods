@@ -1,76 +1,74 @@
 package betterwithmods.module.hardcore.world;
 
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWMItems;
-import betterwithmods.common.blocks.mechanical.BlockMechMachines;
-import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.CompatFeature;
-import betterwithmods.util.item.Stack;
-import betterwithmods.util.item.StackMap;
+import com.google.common.collect.Maps;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInterModComms;
+
+import java.util.HashMap;
 
 /**
  * @author Koward
  */
 public class HCBuoy extends CompatFeature {
-    public static final StackMap<Float> buoyancy = new StackMap<>(-1.0F);
+
+    public static final HashMap<Ingredient, Float> buoyancy = Maps.newHashMap();
 
     public HCBuoy() {
         super("hardcorebuoy");
     }
 
     public static float getBuoyancy(ItemStack stack) {
-        return buoyancy.get(stack);
+        return buoyancy.keySet().stream().filter(i -> i.apply(stack)).map(buoyancy::get).findFirst().orElse(-1f);
     }
+
 
     public static void initBuoyancy() {
         //Blocks
-        buoyancy.put(BWMBlocks.WOODEN_AXLE, 1.0F);
-        buoyancy.put(BWMBlocks.PUMP, 0.0F);
-//        buoyancy.put(BWMBlocks.WOOD_SIDING, 1.0F);
-//        buoyancy.put(BWMBlocks.WOOD_MOULDING, 1.0F);
-//        buoyancy.put(BWMBlocks.WOOD_CORNER, 1.0F);
-        buoyancy.put(BWMBlocks.SAW, 1.0F);
-        buoyancy.put(BWMBlocks.PLATFORM, 1.0F);
-        buoyancy.put(BWMBlocks.WOLF, 1.0F);
-        buoyancy.put(BWMBlocks.HEMP, 1.0F);
-        buoyancy.put(BWMBlocks.ROPE, 1.0F);
-        buoyancy.put(BWMBlocks.WOODEN_GEARBOX, 1.0F);
-        buoyancy.put(BWMBlocks.BELLOWS, 1.0F);
-        buoyancy.put(BWMBlocks.VASE, 1.0F);
-        buoyancy.put(BWMBlocks.GRATE, 1.0F);
-        buoyancy.put(BWMBlocks.URN, 1.0F);
-        buoyancy.put(BlockMechMachines.getStack(BlockMechMachines.EnumType.HOPPER), 1.0F);
-        buoyancy.put(BlockMechMachines.getStack(BlockMechMachines.EnumType.PULLEY), 1.0F);
-
-        //Items
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HEMP).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HEMP_FIBERS).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SCOURED_LEATHER).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.DUNG).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.TANNED_LEATHER).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.LEATHER_STRAP).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.LEATHER_BELT).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.WOOD_BLADE).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.GLUE).getMetadata(), 0.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.TALLOW).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HAFT).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.LEATHER_CUT).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SOUL_FLUX).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SAWDUST).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SOUL_DUST).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.NETHER_SLUDGE).getMetadata(), 1.0F);
-        buoyancy.put(BWMItems.DYNAMITE, 1.0F);
-        buoyancy.put(BWMItems.STUMP_REMOVER, 1.0F);
-        buoyancy.put(BWMItems.CREEPER_OYSTER, 1.0F);
-        buoyancy.put(BWMItems.AXLE_GENERATOR, 1.0F);
-        buoyancy.put(BWMItems.DONUT, 1.0F);
-
+//        //TODO make this an ingredient registry in the main mod.
+//        buoyancy.put(BWMBlocks.WOODEN_AXLE, 1.0F);
+//        buoyancy.put(BWMBlocks.PUMP, 0.0F);
+////        buoyancy.put(BWMBlocks.WOOD_SIDING, 1.0F);
+////        buoyancy.put(BWMBlocks.WOOD_MOULDING, 1.0F);
+////        buoyancy.put(BWMBlocks.WOOD_CORNER, 1.0F);
+//        buoyancy.put(BWMBlocks.SAW, 1.0F);
+//        buoyancy.put(BWMBlocks.PLATFORM, 1.0F);
+//        buoyancy.put(BWMBlocks.WOLF, 1.0F);
+//        buoyancy.put(BWMBlocks.HEMP, 1.0F);
+//        buoyancy.put(BWMBlocks.ROPE, 1.0F);
+//        buoyancy.put(BWMBlocks.WOODEN_GEARBOX, 1.0F);
+//        buoyancy.put(BWMBlocks.BELLOWS, 1.0F);
+//
+//        buoyancy.put(BWMBlocks.URN, 1.0F);
+//        buoyancy.put(BWMBlocks.FILTERED_HOPPER, 1.0F);
+//        buoyancy.put(BWMBlocks.PULLEY, 1.0F);
+//
+//        //Items
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.HEMP_LEAF), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.HEMP_FIBERS), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.DUNG), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.LEATHER_STRAP), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.LEATHER_BELT), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_BLADE), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.GLUE), 0.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TALLOW), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.HAFT), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.LEATHER_CUT), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SOUL_FLUX), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SAWDUST), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SOUL_DUST), 1.0F);
+//        buoyancy.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.NETHER_SLUDGE), 1.0F);
+//        buoyancy.put(BWMItems.DYNAMITE, 1.0F);
+//        buoyancy.put(BWMItems.STUMP_REMOVER, 1.0F);
+//        buoyancy.put(BWMItems.CREEPER_OYSTER, 1.0F);
+//        buoyancy.put(BWMItems.DONUT, 1.0F);
 
 
     }
@@ -84,12 +82,14 @@ public class HCBuoy extends CompatFeature {
     public void init(FMLInitializationEvent event) {
         initBuoyancy();
 
-        for(Stack stack: buoyancy.keySet()) {
+        for (Ingredient ingredient : buoyancy.keySet()) {
             NBTTagCompound tag = new NBTTagCompound();
-            NBTTagCompound s = stack.getItemStack().serializeNBT();
-            tag.setTag("stack",s);
-            tag.setFloat("value",buoyancy.get(stack));
-            FMLInterModComms.sendMessage("hardcorebuoy","buoy", tag);
+            float buoy = buoyancy.get(ingredient);
+            for (ItemStack stack : ingredient.getMatchingStacks()) {
+                tag.setTag("stack", stack.serializeNBT());
+                tag.setFloat("value", buoy);
+                FMLInterModComms.sendMessage("hardcorebuoy", "buoy", tag);
+            }
         }
     }
 

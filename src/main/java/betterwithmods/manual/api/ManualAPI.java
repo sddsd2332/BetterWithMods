@@ -1,10 +1,7 @@
 package betterwithmods.manual.api;
 
-import betterwithmods.manual.api.detail.ManualDefinition;
 import betterwithmods.manual.api.manual.*;
-import betterwithmods.manual.api.prefab.manual.ResourceContentProvider;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

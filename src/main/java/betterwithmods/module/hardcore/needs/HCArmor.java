@@ -1,83 +1,54 @@
 package betterwithmods.module.hardcore.needs;
 
-import betterwithmods.common.BWMItems;
+import betterwithmods.BWMod;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.penalties.ArmorPenalties;
 import betterwithmods.module.Feature;
-import betterwithmods.module.ModuleLoader;
-import betterwithmods.util.item.StackMap;
-import betterwithmods.util.player.PlayerHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.monster.AbstractSkeleton;
-import net.minecraft.entity.monster.EntityWitherSkeleton;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.init.Blocks;
+import betterwithmods.util.IngredientMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.oredict.OreDictionary;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
 /**
  * Created by primetoxinz on 5/10/17.
  */
 public class HCArmor extends Feature {
+    public static final IngredientMap<Integer> weights = new IngredientMap<>(0);
 
     public static ArmorPenalties penalties;
-
-    public static final StackMap<Integer> weights = new StackMap<>(0);
 
     public static boolean shieldRebalance;
 
     public static float getWeight(ItemStack stack) {
-        if (!ModuleLoader.isFeatureEnabled(HCArmor.class))
+        if (!BWMod.MODULE_LOADER.isFeatureEnabled(HCArmor.class))
             return 0;
-        return weights.get(stack);
+        return weights.findValue(stack);
     }
 
-
-
     public static void initWeights() {
+        weights.put(Items.CHAINMAIL_HELMET, 3);
+        weights.put(Items.CHAINMAIL_CHESTPLATE, 4);
+        weights.put(Items.CHAINMAIL_LEGGINGS, 4);
+        weights.put(Items.CHAINMAIL_BOOTS, 2);
 
-        weights.put(Items.CHAINMAIL_HELMET, OreDictionary.WILDCARD_VALUE, 3);
-        weights.put(Items.CHAINMAIL_CHESTPLATE, OreDictionary.WILDCARD_VALUE, 4);
-        weights.put(Items.CHAINMAIL_LEGGINGS, OreDictionary.WILDCARD_VALUE, 4);
-        weights.put(Items.CHAINMAIL_BOOTS, OreDictionary.WILDCARD_VALUE, 2);
+        weights.put(Items.IRON_HELMET, 5);
+        weights.put(Items.IRON_CHESTPLATE, 8);
+        weights.put(Items.IRON_LEGGINGS, 7);
+        weights.put(Items.IRON_BOOTS, 4);
 
-        weights.put(Items.IRON_HELMET, OreDictionary.WILDCARD_VALUE, 5);
-        weights.put(Items.IRON_CHESTPLATE, OreDictionary.WILDCARD_VALUE, 8);
-        weights.put(Items.IRON_LEGGINGS, OreDictionary.WILDCARD_VALUE, 7);
-        weights.put(Items.IRON_BOOTS, OreDictionary.WILDCARD_VALUE, 4);
+        weights.put(Items.DIAMOND_HELMET, 5);
+        weights.put(Items.DIAMOND_CHESTPLATE, 8);
+        weights.put(Items.DIAMOND_LEGGINGS, 7);
+        weights.put(Items.DIAMOND_BOOTS, 4);
 
-        weights.put(Items.DIAMOND_HELMET, OreDictionary.WILDCARD_VALUE, 5);
-        weights.put(Items.DIAMOND_CHESTPLATE, OreDictionary.WILDCARD_VALUE, 8);
-        weights.put(Items.DIAMOND_LEGGINGS, OreDictionary.WILDCARD_VALUE, 7);
-        weights.put(Items.DIAMOND_BOOTS, OreDictionary.WILDCARD_VALUE, 4);
-
-        weights.put(BWMItems.STEEL_HELMET, OreDictionary.WILDCARD_VALUE, 5);
-        weights.put(BWMItems.STEEL_CHEST, OreDictionary.WILDCARD_VALUE, 8);
-        weights.put(BWMItems.STEEL_PANTS, OreDictionary.WILDCARD_VALUE, 7);
-        weights.put(BWMItems.STEEL_BOOTS, OreDictionary.WILDCARD_VALUE, 4);
-
-        weights.put(Items.GOLDEN_HELMET, OreDictionary.WILDCARD_VALUE, 5);
-        weights.put(Items.GOLDEN_CHESTPLATE, OreDictionary.WILDCARD_VALUE, 8);
-        weights.put(Items.GOLDEN_LEGGINGS, OreDictionary.WILDCARD_VALUE, 7);
-        weights.put(Items.GOLDEN_BOOTS, OreDictionary.WILDCARD_VALUE, 4);
+        weights.put(Items.GOLDEN_HELMET, 5);
+        weights.put(Items.GOLDEN_CHESTPLATE, 8);
+        weights.put(Items.GOLDEN_LEGGINGS, 7);
+        weights.put(Items.GOLDEN_BOOTS, 4);
     }
 
     @Override
     public void init(FMLInitializationEvent event) {
-        if (shieldRebalance) {
-            addHardcoreRecipe(new ShapedOreRecipe(null, new ItemStack(Items.SHIELD),
-                    "SWS", "WIW", " W ", 'S', "strapLeather", 'W', "sidingWood", 'I', "ingotIron"
-            ).setRegistryName("minecraft:shield"));
-        }
         initWeights();
     }
 

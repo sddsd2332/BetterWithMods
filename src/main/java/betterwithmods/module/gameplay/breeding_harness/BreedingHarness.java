@@ -17,8 +17,8 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -36,12 +36,14 @@ import java.util.Set;
 
 public class BreedingHarness extends Feature {
 
+    public static final Item BREEDING_HARNESS = new ItemBreedingHarness().setRegistryName("breeding_harness");
+
     public BreedingHarness() {
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        BWMItems.registerItem(BWMItems.BREEDING_HARNESS);
+        BWMItems.registerItem(BREEDING_HARNESS);
         CapabilityManager.INSTANCE.register(CapabilityHarness.class, new CapabilityHarness.Storage(), CapabilityHarness::new);
     }
 
@@ -132,7 +134,7 @@ public class BreedingHarness extends Feature {
     }
 
     public static final Set<Class<? extends EntityAnimal>> HARNESS_ANIMALS = Sets.newHashSet();
-    private static Object2BooleanMap<Class<? extends Entity>> HARNESS_CACHE = new Object2BooleanOpenHashMap<>();
+    private static final Object2BooleanMap<Class<? extends Entity>> HARNESS_CACHE = new Object2BooleanOpenHashMap<>();
     static {
         HARNESS_ANIMALS.add(EntityCow.class);
         HARNESS_ANIMALS.add(EntitySheep.class);

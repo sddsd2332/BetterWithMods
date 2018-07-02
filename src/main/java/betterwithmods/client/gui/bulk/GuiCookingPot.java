@@ -3,17 +3,17 @@ package betterwithmods.client.gui.bulk;
 import betterwithmods.BWMod;
 import betterwithmods.client.container.bulk.ContainerCookingPot;
 import betterwithmods.client.gui.GuiProgress;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityCookingPot;
+import betterwithmods.common.blocks.mechanical.tile.TileCookingPot;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiCookingPot extends GuiProgress {
     private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/cooking_pot.png");
 
-    private final TileEntityCookingPot tile;
+    private final TileCookingPot tile;
     private final ContainerCookingPot container;
 
-    public GuiCookingPot(EntityPlayer player, TileEntityCookingPot tile) {
+    public GuiCookingPot(EntityPlayer player, TileCookingPot tile) {
         super(new ContainerCookingPot(player, tile), TEXTURE);
         this.container = (ContainerCookingPot) this.inventorySlots;
         this.ySize = 193;

@@ -1,119 +1,92 @@
 package betterwithmods.common.blocks.tile;
 
-/**
- * This class was created by <Vazkii>. It's distributed as
- * part of the Botania Mod. Get the Source Code in github:
- * https://github.com/Vazkii/Botania
- * <p>
- * Botania is Open Source and distributed under the
- * Botania License: http://botaniamod.net/license.php
- * <p>
- * File Created @ [Jun 7, 2014, 2:21:28 PM (GMT)]
- */
-
-
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.BlockKiln;
+import betterwithmods.common.blocks.camo.TileCamo;
+import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
-import betterwithmods.util.InvUtils;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 
-import java.util.Random;
+import javax.annotation.Nonnull;
 
-//TODO REDO THIS.
-public class TileKiln extends TileBasic {
+public class TileKiln extends TileCamo implements ITickable {
 
-    private static final String TAG_CAMO = "camo";
-    private static final String TAG_CAMO_META = "camoMeta";
-
-    public IBlockState camoState;
-
-
-    public void kiln(World world, BlockPos pos, Random rand) {
-        if (getBlockType() instanceof BlockKiln) {
-            BlockKiln block = (BlockKiln) getBlockType();
-            BlockPos kilnPos = pos.down();
-            int oldCookTime = block.getCookCounter(world, kilnPos);
-            int currentTickRate = 20;
-
-            IBlockState state = world.getBlockState(pos);
-            KilnRecipe recipe = BWRegistry.KILN.findRecipe(world, pos, state).orElse(null);
-
-            if (recipe != null) {
-                int newCookTime = oldCookTime + 1;
-                if (newCookTime > 7) {
-                    newCookTime = 0;
-                    recipe.craftRecipe(world, pos, rand, state);
-                    block.setCookCounter(world, kilnPos, 0);
-                } else {
-                    if (newCookTime > 0) {
-                        world.sendBlockBreakProgress(0, pos, newCookTime + 2);
-                    }
-                    currentTickRate = block.calculateTickRate(world, kilnPos);
-                }
-                block.setCookCounter(world, kilnPos, newCookTime);
-                if (newCookTime == 0) {
-                    world.sendBlockBreakProgress(0, pos, -1);
-                    block.setCookCounter(world, kilnPos, 0);
-                    world.scheduleBlockUpdate(kilnPos, block, currentTickRate, 5);
-                }
-            } else if (oldCookTime != 0) {
-                world.sendBlockBreakProgress(0, pos, -1);
-                block.setCookCounter(world, kilnPos, 0);
-                world.scheduleBlockUpdate(kilnPos, block, currentTickRate, 5);
-            } else {
-                world.sendBlockBreakProgress(0, pos, -1);
-            }
-        }
-
-    }
-
-    public void setCamoState(IBlockState camoState) {
-        this.camoState = camoState;
-        markDirty();
-    }
+    private int cookTicks;
+    private int prevProgress;
+    private int cookSpeed;
 
     @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        super.writeToNBT(compound);
-        if (camoState != null) {
-            compound.setString(TAG_CAMO, Block.REGISTRY.getNameForObject(camoState.getBlock()).toString());
-            compound.setInteger(TAG_CAMO_META, camoState.getBlock().getMetaFromState(camoState));
+    public void update() {
+
+        if (!KilnStructureManager.isValidKiln(world, pos)) {
+            world.setBlockState(pos, this.state);
+            return;
         }
-        return compound;
+
+        BlockPos cookPos = pos.up();
+        IBlockState cookState = world.getBlockState(cookPos);
+        KilnRecipe recipe = BWRegistry.KILN.findRecipe(world, cookPos, cookState).orElse(null);
+        if (recipe != null) {
+            int progress = (int) ((((double) cookTicks) / ((double) recipe.getCookTime())) * 10);
+            if (prevProgress != progress) {
+                prevProgress = progress;
+                world.sendBlockBreakProgress(0, cookPos, prevProgress);
+                cookSpeed = calculateSpeed();
+            }
+            if (recipe.craftRecipe(world, cookPos, world.rand, cookState)) {
+                world.sendBlockBreakProgress(0, cookPos, -1);
+                cookTicks = 0;
+                prevProgress = -1;
+            } else {
+                cookTicks += getCookSpeed();
+            }
+        } else {
+            cookTicks = 0;
+            prevProgress = -1;
+        }
+
+    }
+
+    public int getCookTicks() {
+        return cookTicks;
+    }
+
+    public int getCookSpeed() {
+        return cookSpeed;
+    }
+
+    @Nonnull
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+
+        compound.setInteger("cookTicks", cookTicks);
+        compound.setInteger("prevProgress", prevProgress);
+        return super.writeToNBT(compound);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
+        cookTicks = compound.getInteger("cookTicks");
+        prevProgress = compound.getInteger("prevProgress");
         super.readFromNBT(compound);
-        Block b = Block.getBlockFromName(compound.getString(TAG_CAMO));
-        if (b != null) {
-            camoState = b.getStateFromMeta(compound.getInteger(TAG_CAMO_META));
+    }
+
+    private int calculateSpeed() {
+        int speed = 0;
+        int centerFire = KilnStructureManager.getKiln().getHeat(world, pos);
+
+        for (int xP = -1; xP < 2; xP++) {
+            for (int zP = -1; zP < 2; zP++) {
+                BlockPos bPos = pos.add(xP, 0, zP);
+                int currentFire = KilnStructureManager.getKiln().getHeat(world, bPos);
+                if (currentFire == centerFire)
+                    speed += currentFire;
+            }
         }
+        return speed / centerFire;
     }
 
-    @Override
-    public void onDataPacket(NetworkManager manager, SPacketUpdateTileEntity packet) {
-        super.onDataPacket(manager, packet);
-        world.markBlockRangeForRenderUpdate(pos, pos);
-    }
 
-    @Override
-    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
-        return oldState.getBlock() != newState.getBlock();
-    }
-
-    @Override
-    public void onBreak() {
-        Block block = camoState.getBlock();
-        int meta = block.getMetaFromState(camoState);
-        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(block, 1, meta));
-    }
 }

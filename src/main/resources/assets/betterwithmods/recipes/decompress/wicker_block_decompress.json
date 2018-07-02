@@ -6,8 +6,7 @@
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "betterwithmods:aesthetic",
-      "data": 12
+      "item": "betterwithmods:wicker_block"
     }
-    ]
+  ]
 }

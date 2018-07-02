@@ -15,6 +15,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockHibachi extends BWMBlock {
@@ -64,6 +65,7 @@ public class BlockHibachi extends BWMBlock {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
         if (!isCurrentlyValid(world, pos))
@@ -71,7 +73,7 @@ public class BlockHibachi extends BWMBlock {
     }
 
     @Override
-    public boolean isFireSource(World world, BlockPos pos, EnumFacing side) {
+    public boolean isFireSource(@Nonnull World world, BlockPos pos, EnumFacing side) {
         return world.getBlockState(pos).getValue(LIT) && side == EnumFacing.UP;
     }
 
@@ -83,8 +85,7 @@ public class BlockHibachi extends BWMBlock {
             Block block = world.getBlockState(pos).getBlock();
 
             if (block != Blocks.FIRE && block != BWMBlocks.STOKED_FLAME) {
-                if (shouldIgnite(world, pos.up()))
-                    return false;
+                return !shouldIgnite(world, pos.up());
             }
         }
         return true;
@@ -103,8 +104,7 @@ public class BlockHibachi extends BWMBlock {
         Material material = world.getBlockState(pos).getMaterial();
 
         if (!material.blocksMovement() && material != Material.LAVA && material != Material.WATER) {
-            if (!(block instanceof BlockDoor))
-                return true;
+            return !(block instanceof BlockDoor);
         }
         return false;
     }
@@ -138,6 +138,8 @@ public class BlockHibachi extends BWMBlock {
         world.setBlockState(pos, state.withProperty(LIT, false));
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean isLit = meta == 1;
@@ -149,6 +151,7 @@ public class BlockHibachi extends BWMBlock {
         return state.getValue(LIT) ? 1 : 0;
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, LIT);

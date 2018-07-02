@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:horizontal_windmill",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:vertical_windmill"
+    },
+    "title": {
+      "translate": "tile.bwm:vertical_windmill.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.vertical_windmill.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:vertical_windmill"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

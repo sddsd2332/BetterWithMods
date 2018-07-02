@@ -12,6 +12,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @SideOnly(Side.CLIENT)
@@ -21,7 +22,7 @@ public class CompassProperty implements IItemPropertyGetter {
     private long lastUpdateTick;
 
     @SideOnly(Side.CLIENT)
-    public float apply(ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
+    public float apply(@Nonnull ItemStack stack, @Nullable World worldIn, @Nullable EntityLivingBase entityIn) {
         if (entityIn == null && !stack.isOnItemFrame()) {
             return 0.0F;
         } else {
@@ -38,7 +39,7 @@ public class CompassProperty implements IItemPropertyGetter {
                 d1 = MathHelper.positiveModulo(d1 / 360.0D, 1.0D);
 
                 CapabilityBeacon beacons = worldIn.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
-                double angle = 0;
+                double angle;
                 if (beacons != null) {
                     angle = this.getAngleToPos(beacons.getClosest(worldIn, entity), entity);
                 } else {

@@ -5,15 +5,12 @@ import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.hardcore.needs.HCArmor;
 import com.google.common.collect.Sets;
-import com.mojang.authlib.GameProfile;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -23,7 +20,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
@@ -42,6 +38,10 @@ public final class PlayerHelper {
 
     private PlayerHelper() {
 
+    }
+
+    public static boolean areHandsEmpty(EntityPlayer player) {
+        return getHolding(player, EnumHand.MAIN_HAND).isEmpty() && getHolding(player, EnumHand.OFF_HAND).isEmpty();
     }
 
     public static ItemStack getHolding(EntityPlayer player, EnumHand hand) {
@@ -101,7 +101,7 @@ public final class PlayerHelper {
      * @param entity           The entity whose speed will be changed.
      * @param name             Unique name for easier debugging
      * @param modifier         The speed will be multiplied by this number
-     * @param penaltySpeedUuid
+     * @param penaltySpeedUuid uuid for speed attribute
      */
     public static void changeSpeed(EntityLivingBase entity,
                                    String name, double modifier, UUID penaltySpeedUuid) {
@@ -124,15 +124,6 @@ public final class PlayerHelper {
         return weight;
     }
 
-
-    /**
-     * This pos-sensitive version should be used when it's available, as it uses {@link IBlockState#getActualState(IBlockAccess, BlockPos)}.
-     *
-     * @param player
-     * @param pos
-     * @param state
-     * @return
-     */
     public static boolean isCurrentToolEffectiveOnBlock(EntityPlayer player, BlockPos pos, IBlockState state) {
         ItemStack stack = BrokenToolRegistry.findItem(player, state);
         if (player == null || state == null)
@@ -140,14 +131,6 @@ public final class PlayerHelper {
         return isCurrentToolEffectiveOnBlock(stack, state, Sets.newHashSet()) || ForgeHooks.isToolEffective(player.getEntityWorld(), pos, stack);
     }
 
-    /**
-     * Partial copy of {@link ForgeHooks#isToolEffective(IBlockAccess, BlockPos, ItemStack)} build 2185
-     *
-     * @param stack               The tool.
-     * @param state               The block.
-     * @param effective_materials
-     * @return Whether the tool can harvest well the block.
-     */
     public static boolean isCurrentToolEffectiveOnBlock(ItemStack stack, IBlockState state, Set<Material> effective_materials) {
 
         if (stack == null) return false;
@@ -193,14 +176,6 @@ public final class PlayerHelper {
 
     public static boolean hasPart(EntityLivingBase living, EntityEquipmentSlot type, Class<? extends ItemArmor> armor) {
         return armor.isAssignableFrom(living.getItemStackFromSlot(type).getItem().getClass());
-    }
-
-
-    public static UUID getUUID(EntityPlayer player) {
-        GameProfile profile = player.getGameProfile();
-        if (profile != null)
-            return profile.getId();
-        return player.getUniqueID();
     }
 
     public static boolean isMoving(EntityPlayer player) {

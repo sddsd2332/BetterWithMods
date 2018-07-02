@@ -22,26 +22,6 @@
         "model": "betterwithmods:urn_displaced"
       },
       "false": {}
-    },
-    "urntype": {
-      "void": {
-        "textures": {
-          "side": "betterwithmods:blocks/soulforged_steel"
-        }
-      },
-      "full": {
-        "textures": {
-          "side": "betterwithmods:blocks/soulforged_steel"
-        }
-      },
-      "87": {},
-      "75": {},
-      "62": {},
-      "50": {},
-      "37": {},
-      "25": {},
-      "12": {},
-      "empty": {}
     }
   }
 }

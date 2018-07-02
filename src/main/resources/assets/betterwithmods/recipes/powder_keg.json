@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "config",
+      "enabled": "powderkegs"
+    }
+  ],
+  "result": {
+    "item": "minecraft:tnt"
+  },
+  "pattern": [
+    "GFG",
+    "GBG",
+    "GGG"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "F": {
+      "item": "betterwithmods:fuse"
+    },
+    "G": {
+      "ore": "gunpowder",
+      "type": "forge:ore_dict"
+    },
+    "B": {
+      "ore": "blockBarrel",
+      "type": "forge:ore_dict"
+    }
+  }
+}

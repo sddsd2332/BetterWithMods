@@ -13,6 +13,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockFireStoked extends BlockFire {
@@ -34,12 +35,12 @@ public class BlockFireStoked extends BlockFire {
     }
 
     @Override
-    public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
+    public void onBlockAdded(World world, @Nonnull BlockPos pos, IBlockState state) {
         world.scheduleBlockUpdate(pos, this, tickRate(world), 5);
     }
 
     @Override
-    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+    public void updateTick(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random rand) {
         if (!canPlaceBlockAt(world, pos))
             world.setBlockToAir(pos);
 
@@ -108,7 +109,7 @@ public class BlockFireStoked extends BlockFire {
         }
     }
 
-    public int getNeighborEncouragement(World worldIn, BlockPos pos)
+    public int getNeighborEncouragement(World worldIn, @Nonnull BlockPos pos)
     {
         if (!worldIn.isAirBlock(pos))
         {
@@ -152,6 +153,7 @@ public class BlockFireStoked extends BlockFire {
         }
     }
 
+    @Nonnull
     @Override
     public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, AGE, NORTH, EAST, SOUTH, WEST, UPPER);

@@ -1,6 +1,6 @@
 package betterwithmods.module.compat.multipart;
 
-import betterwithmods.module.gameplay.miniblocks.ItemMini;
+import betterwithmods.module.gameplay.miniblocks.ItemCamo;
 import betterwithmods.module.gameplay.miniblocks.blocks.BlockMini;
 import betterwithmods.module.gameplay.miniblocks.blocks.BlockSiding;
 import betterwithmods.module.gameplay.miniblocks.orientations.SidingOrientation;
@@ -23,7 +23,7 @@ import net.minecraft.world.World;
 
 public class MultipartSiding implements IMultipart {
 
-    private BlockSiding siding;
+    private final BlockSiding siding;
 
     public MultipartSiding(BlockSiding siding) {
         this.siding = siding;
@@ -37,7 +37,7 @@ public class MultipartSiding implements IMultipart {
     @Override
     public void onPartPlacedBy(IPartInfo part, EntityLivingBase placer, ItemStack stack) {
         TileMini tile = (TileMini) part.getTile().getTileEntity();
-        ItemMini.setNBT(tile, tile.getWorld(), stack);
+        ItemCamo.setNBT(tile, tile.getWorld(), stack);
     }
 
     @Override

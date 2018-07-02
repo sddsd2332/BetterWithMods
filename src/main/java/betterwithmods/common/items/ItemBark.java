@@ -1,26 +1,45 @@
 package betterwithmods.common.items;
 
-import betterwithmods.api.IMultiLocations;
+import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.client.BWCreativeTabs;
-import betterwithmods.common.BWMItems;
-import com.google.common.collect.Lists;
+import betterwithmods.common.BWMRecipes;
+import betterwithmods.common.BWOreDictionary;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.text.ITextComponent;
+import net.minecraft.util.text.TextComponentString;
+import net.minecraft.util.text.TextComponentTranslation;
 
-import java.util.ArrayList;
+import javax.annotation.Nonnull;
 import java.util.List;
+import java.util.stream.Collectors;
 
-public class ItemBark extends Item implements IMultiLocations {
-
-    public static List<String> barks = Lists.newArrayList("oak", "spruce", "birch", "jungle", "acacia", "dark_oak", "bloody");
+public class ItemBark extends Item {
 
     public ItemBark() {
         super();
         this.setCreativeTab(BWCreativeTabs.BWTAB);
         this.setHasSubtypes(true);
-        this.setMaxDamage(0);
+    }
+
+    public static ItemStack fromParentStack(Item bark, ItemStack log, int count) {
+        ItemStack stack = new ItemStack(bark, count);
+        NBTTagCompound tag = new NBTTagCompound();
+        NBTTagCompound texture = new NBTTagCompound();
+        NBTUtil.writeBlockState(texture, BWMRecipes.getStateFromStack(log));
+        tag.setTag("texture", texture);
+        stack.setTagCompound(tag);
+        return stack;
+    }
+
+    public static List<ItemStack> getBarks(int count) {
+        return BWOreDictionary.blockVariants.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.BARK, count)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 
     @Override
@@ -28,32 +47,38 @@ public class ItemBark extends Item implements IMultiLocations {
         return 25;
     }
 
-    public static ItemStack getStack(String wood, int amount) {
-        return new ItemStack(BWMItems.BARK, amount, barks.indexOf(wood));
+    public List<ItemStack> getLogs() {
+        return BWOreDictionary.blockVariants.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.LOG, 1)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 
     @Override
-    public String[] getLocations() {
-        ArrayList<String> locations = new ArrayList<>();
-        for (int i = 0; i < barks.size(); i++) {
-            locations.add("bark_" + barks.get(i));
+    public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
+        List<ItemStack> logs = getLogs();
+        for (ItemStack log : logs) {
+            items.add(fromParentStack(this, log, 1));
         }
-        return locations.toArray(new String[locations.size()]);
     }
 
+    @Nonnull
     @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        if (this.isInCreativeTab(tab))
-            for (int i = 0; i < barks.size(); i++) {
-                items.add(new ItemStack(this, 1, i));
+    public String getItemStackDisplayName(@Nonnull ItemStack stack) {
+        NBTTagCompound tag = stack.getSubCompound("texture");
+        ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_bark.name");
+        //TODO .name is not longer in 1.13
+        ITextComponent bark = new TextComponentTranslation(this.getUnlocalizedName(stack) + ".name");
+        if (tag != null) {
+            try {
+                IBlockState state = NBTUtil.readBlockState(tag);
+                ItemStack block = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+                if (block.getItem() instanceof ItemBlock) {
+                    ItemBlock itemBlock = (ItemBlock) block.getItem();
+                    type = new TextComponentString(itemBlock.getItemStackDisplayName(block));
+                }
+            } catch (NullPointerException e) {
+                e.printStackTrace();
             }
-    }
+        }
 
-
-    @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        if (stack.getMetadata() > barks.size())
-            return super.getUnlocalizedName();
-        return super.getUnlocalizedName() + "." + barks.get(stack.getItemDamage());
+        return type.appendText(" ").appendSibling(bark).getFormattedText();
     }
 }

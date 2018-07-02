@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.common.damagesource.BWDamageSource;
+import betterwithmods.common.BWDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -12,7 +12,7 @@ import net.minecraft.util.SoundCategory;
 
 public class AIAttackRiding extends EntityAIBase {
 
-    public EntityLivingBase rider;
+    public final EntityLivingBase rider;
 
     public AIAttackRiding(EntityLivingBase rider) {
         this.rider = rider;

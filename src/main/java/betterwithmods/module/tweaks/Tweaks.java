@@ -1,11 +1,16 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.module.Module;
+import betterwithmods.module.ModuleLoader;
 
 /**
  * Created by primetoxinz on 4/20/17.
  */
 public class Tweaks extends Module {
+    public Tweaks(ModuleLoader loader) {
+        super(loader);
+    }
+
     @Override
     public void addFeatures() {
         registerFeature(new FastStick().recipes());

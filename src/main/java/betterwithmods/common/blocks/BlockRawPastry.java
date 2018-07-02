@@ -1,61 +1,57 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.IMultiLocations;
 import betterwithmods.client.BWCreativeTabs;
-import betterwithmods.common.BWMBlocks;
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
+import javax.annotation.Nonnull;
+import java.util.HashMap;
 
 /**
  * Created by blueyu2 on 11/19/16.
  */
-public class BlockRawPastry extends Block implements IMultiLocations {
-    public static final PropertyEnum<BlockRawPastry.EnumType> VARIANT = PropertyEnum.create("variant", BlockRawPastry.EnumType.class);
+public class BlockRawPastry extends Block {
 
-    public BlockRawPastry() {
+    public static final HashMap<EnumType, BlockRawPastry> BLOCKS = Maps.newHashMap();
+    private final EnumType type;
+
+    public BlockRawPastry(EnumType type) {
         super(Material.CAKE);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(VARIANT, EnumType.CAKE));
+        this.setDefaultState(this.blockState.getBaseState());
         this.setHardness(0.1F);
         this.setSoundType(SoundType.CLOTH);
         this.setCreativeTab(BWCreativeTabs.BWTAB);
+        this.setRegistryName(type.getName());
+        this.type = type;
     }
 
-    public static ItemStack getStack(EnumType type) {
-        return new ItemStack(BWMBlocks.RAW_PASTRY, 1, type.getMetadata());
-    }
-
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
+    public static void init() {
         for (EnumType type : EnumType.VALUES) {
-            items.add(getStack(type));
+            BLOCKS.put(type, new BlockRawPastry(type));
         }
     }
 
+
+    @Nonnull
     @Override
     public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.NORMAL;
     }
 
-    @Override
-    public int damageDropped(IBlockState state) {
-        return state.getValue(VARIANT).getMetadata();
+    public static ItemStack getStack(EnumType type) {
+        return new ItemStack(BLOCKS.get(type));
     }
 
     @Override
@@ -69,12 +65,7 @@ public class BlockRawPastry extends Block implements IMultiLocations {
     }
 
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, VARIANT);
-    }
-
-    @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         return super.canPlaceBlockAt(worldIn, pos) && this.canBlockStay(worldIn, pos);
     }
 
@@ -86,70 +77,42 @@ public class BlockRawPastry extends Block implements IMultiLocations {
         }
     }
 
+    @SuppressWarnings("deprecation")
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return state.getValue(VARIANT).getAABB();
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(VARIANT).getMetadata();
-    }
-
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(VARIANT, EnumType.byMetadata(meta));
+        return type.getAABB();
     }
 
     private boolean canBlockStay(World worldIn, BlockPos pos) {
         return worldIn.getBlockState(pos.down()).isSideSolid(worldIn, pos, EnumFacing.UP);
     }
 
-    @Override
-    public String[] getLocations() {
-        ArrayList<String> variants = new ArrayList<>();
-        for (EnumType variant : EnumType.values()) {
-            variants.add(variant.getName());
-        }
-        return variants.toArray(new String[variants.size()]);
-    }
-
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face != EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : BlockFaceShape.CENTER;
     }
 
     public enum EnumType implements IStringSerializable {
-        CAKE(0, "raw_cake", new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D)),
-        PUMPKIN(1, "raw_pumpkin_pie", new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D)),
-        COOKIE(2, "raw_cookie", new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D)),
-        BREAD(3, "raw_flour", new AxisAlignedBB(0.25D, 0.0D, 0.0625D, 0.75D, 0.375D, 0.9375D)),
-        APPLE(4, "raw_apple_pie", new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D));
+        CAKE("raw_cake", new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D)),
+        PUMPKIN("raw_pumpkin_pie", new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D)),
+        COOKIE("raw_cookie", new AxisAlignedBB(0.1875D, 0.0D, 0.1875D, 0.8125D, 0.0625D, 0.8125D)),
+        BREAD("raw_flour", new AxisAlignedBB(0.25D, 0.0D, 0.0625D, 0.75D, 0.375D, 0.9375D)),
+        APPLE("raw_apple_pie", new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D)),
+        MELON("raw_melon_pie", new AxisAlignedBB(0.0625D, 0.0D, 0.0625D, 0.9375D, 0.5D, 0.9375D));
+        public static final BlockRawPastry.EnumType[] VALUES = values();
 
-        private static final BlockRawPastry.EnumType[] VALUES = values();
-
-        private final int meta;
         private final String name;
         private final AxisAlignedBB aabb;
 
-        EnumType(int metaIn, String nameIn, AxisAlignedBB aabbIn) {
-            this.meta = metaIn;
+        EnumType(String nameIn, AxisAlignedBB aabbIn) {
             this.name = nameIn;
             this.aabb = aabbIn;
         }
 
-        public static BlockRawPastry.EnumType byMetadata(int meta) {
-            if (meta < 0 || meta >= VALUES.length) {
-                meta = 0;
-            }
 
-            return VALUES[meta];
-        }
-
-        public int getMetadata() {
-            return this.meta;
-        }
-
+        @Nonnull
         @Override
         public String getName() {
             return this.name;

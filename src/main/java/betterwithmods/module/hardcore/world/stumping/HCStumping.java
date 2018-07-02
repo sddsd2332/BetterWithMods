@@ -1,12 +1,11 @@
 package betterwithmods.module.hardcore.world.stumping;
 
 import betterwithmods.BWMod;
-import betterwithmods.api.util.IWood;
+import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.Feature;
-import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.hardcore.world.HCBonemeal;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessagePlaced;
@@ -46,7 +45,7 @@ public class HCStumping extends Feature {
     public static boolean SPEED_UP_WITH_TOOLS;
     public static float STUMP_BREAK_SPEED;
     public static float ROOT_BREAK_SPEED;
-    public static Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
+    public static final Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
     public static String[] BLACKLIST_CONFIG;
 
     public static boolean isStump(World world, BlockPos pos) {
@@ -64,7 +63,7 @@ public class HCStumping extends Feature {
             }
             return true;
         }
-        return BWOreDictionary.getWoodFromState(state) != null;
+        return BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG, state) != null;
     }
 
     public static boolean isSoil(IBlockState state) {
@@ -89,6 +88,7 @@ public class HCStumping extends Feature {
         return false;
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean isPlaced(World world, BlockPos pos) {
         PlacedCapability capability = getCapability(world);
         if (capability != null) {
@@ -109,9 +109,7 @@ public class HCStumping extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
-        ENABLED = ModuleLoader.isFeatureEnabled(HCStumping.class);
-    }
+    public void init(FMLInitializationEvent event) { }
 
     @Override
     public boolean requiresMinecraftRestartToEnable() {
@@ -142,7 +140,7 @@ public class HCStumping extends Feature {
 
         if (PlayerHelper.isHolding(event.getPlayer(), HCBonemeal.FERTILIZERS))
             return;
-        
+
         if (isLog(event.getState())) {
             addPlacedLog(world, (EntityPlayerMP) event.getPlayer(), event.getPos());
         }
@@ -164,18 +162,18 @@ public class HCStumping extends Feature {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         if (isStump(event.getWorld(), event.getPos())) {
-            IWood wood = BWOreDictionary.getWoodFromState(event.getState());
+            IBlockVariants wood = BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG,event.getState());
             if (wood != null) {
                 event.getDrops().clear();
-                event.getDrops().addAll(Lists.newArrayList(wood.getSawdust(1), wood.getBark(1)));
+                event.getDrops().addAll(Lists.newArrayList(wood.getVariant(IBlockVariants.EnumBlock.SAWDUST,1), wood.getVariant(IBlockVariants.EnumBlock.BARK,1)));
             }
         }
         if (isRoots(event.getWorld(), event.getPos())) {
-            IWood wood = BWOreDictionary.getWoodFromState(event.getWorld().getBlockState(event.getPos().up()));
+            IBlockVariants wood = BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG,event.getWorld().getBlockState(event.getPos().up()));
             if (wood != null) {
                 event.setResult(Event.Result.DENY);
                 event.getDrops().clear();
-                event.getDrops().addAll(Lists.newArrayList(new ItemStack(BWMItems.DIRT_PILE, 2), wood.getSawdust(1), wood.getBark(1)));
+                event.getDrops().addAll(Lists.newArrayList(new ItemStack(BWMItems.DIRT_PILE, 2), wood.getVariant(IBlockVariants.EnumBlock.SAWDUST,1), wood.getVariant(IBlockVariants.EnumBlock.BARK,1)));
             }
         }
     }

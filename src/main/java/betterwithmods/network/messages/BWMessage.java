@@ -6,6 +6,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.IMessage;
 
 import javax.annotation.Nonnull;
 
+@SuppressWarnings("unchecked")
 public class BWMessage implements IMessage {
     protected static <DataType> DataType readData(ByteBuf buf, Class type) {
         return (DataType) MessageDataHandler.getHandler(type).read(buf);

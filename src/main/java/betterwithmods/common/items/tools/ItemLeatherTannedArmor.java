@@ -9,6 +9,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nonnull;
+
 public class ItemLeatherTannedArmor extends BWMArmor {
     private static final ArmorMaterial LEATHER_TANNED = EnumHelper.addArmorMaterial("leather_tanned", "betterwithmods:leather_tanned", 10, new int[]{1, 2, 3, 1}, 15, SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, 0.0F);
 
@@ -18,7 +20,7 @@ public class ItemLeatherTannedArmor extends BWMArmor {
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
         return BWOreDictionary.listContains(repair, OreDictionary.getOres("hideTanned")) || super.getIsRepairable(toRepair, repair);
     }
 

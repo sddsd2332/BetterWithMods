@@ -2,7 +2,7 @@ package betterwithmods.client.gui;
 
 import betterwithmods.BWMod;
 import betterwithmods.client.container.other.ContainerInfernalEnchanter;
-import betterwithmods.common.blocks.tile.TileEntityInfernalEnchanter;
+import betterwithmods.common.blocks.tile.TileInfernalEnchanter;
 import com.google.common.collect.Maps;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -19,7 +19,7 @@ import java.util.Map;
  */
 public class GuiInfernalEnchanter extends GuiBase {
     private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/infernal_enchanter.png");
-    private static HashMap<Integer, String> numerals = Maps.newHashMap();
+    private static final HashMap<Integer, String> numerals = Maps.newHashMap();
 
     static {
         numerals.put(22, "I");
@@ -30,11 +30,11 @@ public class GuiInfernalEnchanter extends GuiBase {
     }
 
     private FontRenderer fontGalactic;
-    private TileEntityInfernalEnchanter tile;
+    private TileInfernalEnchanter tile;
     private ContainerInfernalEnchanter container;
     private EntityPlayer player;
 
-    public GuiInfernalEnchanter(EntityPlayer player, TileEntityInfernalEnchanter tile) {
+    public GuiInfernalEnchanter(EntityPlayer player, TileInfernalEnchanter tile) {
         super(new ContainerInfernalEnchanter(player, tile), TEXTURE);
         this.container = (ContainerInfernalEnchanter) inventorySlots;
         this.player = player;
@@ -102,12 +102,12 @@ public class GuiInfernalEnchanter extends GuiBase {
     @Override
     protected void mouseClicked(int mouseX, int mouseY, int mouseButton) throws IOException {
         super.mouseClicked(mouseX, mouseY, mouseButton);
+
         int xPos = (this.width - this.xSize) / 2;
         int yPos = (this.height - this.ySize) / 2;
-
         int x, y;
         for (int levelIndex = 0; levelIndex < container.enchantLevels.length; levelIndex++) {
-            if (container.enchantLevels[levelIndex] != -1 && container.hasLevels(player, levelIndex) && container.hasBooks(levelIndex)) {
+            if (container.enchantLevels[levelIndex] > -1 && container.hasLevels(player, levelIndex) && container.hasBooks(levelIndex)) {
                 y = yPos + 17 + (19 * levelIndex);
                 x = xPos + 60;
                 if (mouseX >= x && mouseX <= x + 108 && mouseY >= y && mouseY <= y + 19) {

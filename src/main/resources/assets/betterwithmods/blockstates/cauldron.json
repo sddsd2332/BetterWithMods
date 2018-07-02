@@ -4,7 +4,8 @@
     "textures": {
       "top": "betterwithmods:blocks/cauldron_top",
       "bottom": "betterwithmods:blocks/cauldron_bottom",
-      "side": "betterwithmods:blocks/cauldron_side"
+      "side": "betterwithmods:blocks/cauldron_side",
+      "particle": "#side"
     },
     "model": "betterwithmods:cooking_pot",
     "uvlock": false
@@ -17,6 +18,23 @@
       {
         "transform": "forge:default-block"
       }
-    ]
+    ],
+    "facing": {
+      "up": {},
+      "north": {
+        "x": 90,
+        "y": 90
+      },
+      "south": {
+        "x": 90,
+        "y": -90
+      },
+      "west": {
+        "x": 90
+      },
+      "east": {
+        "x": -90
+      }
+    }
   }
 }

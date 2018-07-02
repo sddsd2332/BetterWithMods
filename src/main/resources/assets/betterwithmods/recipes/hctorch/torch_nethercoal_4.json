@@ -1,0 +1,30 @@
+{
+  "conditions": [
+    {
+      "type": "forge:not",
+      "value": {
+        "type": "config",
+        "enabled": "hctorches"
+      }
+    }
+  ],
+  "result": {
+    "item": "minecraft:torch",
+    "count": 4
+  },
+  "pattern": [
+    "C",
+    "S"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "ore": "gemNetherCoal",
+      "type": "forge:ore_dict"
+    },
+    "S": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    }
+  }
+}

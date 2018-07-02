@@ -20,9 +20,10 @@ import java.util.HashMap;
 public class ColorUtils {
     public static final PropertyEnum<EnumDyeColor> COLOR = BlockColored.COLOR;
 
-    private static final EnumDyeColor[] DYES = EnumDyeColor.values();
-    public static HashMap<BlockIngredient, DyeAmount> FLOWER_TO_DYES = Maps.newHashMap();
-    private static HashMap<String, EnumDyeColor> DYE_CACHE = Maps.newHashMap();
+    public static final EnumDyeColor[] DYES = EnumDyeColor.values();
+
+    public static final HashMap<BlockIngredient, DyeAmount> FLOWER_TO_DYES = Maps.newHashMap();
+    private static final HashMap<String, EnumDyeColor> DYE_CACHE = Maps.newHashMap();
 
     static {
         addFlower(BlockFlower.EnumFlowerType.DANDELION, new DyeAmount(EnumDyeColor.YELLOW, 2));
@@ -78,9 +79,9 @@ public class ColorUtils {
     public static float[] average(float[]... arrays) {
         int divisor = arrays.length;
         float[] output = new float[arrays[0].length];
-        for (int i = 0; i < divisor; i++) {
-            for (int j = 0; j < arrays[i].length; j++) {
-                output[j] += arrays[i][j];
+        for (float[] array : arrays) {
+            for (int j = 0; j < array.length; j++) {
+                output[j] += array[j];
             }
         }
         for (int i = 0; i < output.length; i++) {
@@ -117,8 +118,8 @@ public class ColorUtils {
 
 
     public static class DyeAmount {
-        private EnumDyeColor dye;
-        private int count;
+        private final EnumDyeColor dye;
+        private final int count;
 
         public DyeAmount(EnumDyeColor dye, int count) {
             this.dye = dye;

@@ -1,21 +1,21 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.block.IMultiVariants;
-import betterwithmods.api.block.ISoulSensitive;
+import betterwithmods.api.block.ISoulContainer;
+import betterwithmods.api.block.IUrnConnector;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.BlockMechMachines;
+import betterwithmods.common.blocks.mechanical.mech_machine.BlockFilteredHopper;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.*;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -23,38 +23,35 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 import static net.minecraft.util.EnumFacing.UP;
 
-public class BlockUrn extends BWMBlock implements ISoulSensitive, IMultiVariants {
-    public static final PropertyEnum<EnumType> TYPE = PropertyEnum.create("urntype", EnumType.class);
+public class BlockUrn extends BWMBlock implements ISoulContainer {
     public static final PropertyBool UNDERHOPPER = PropertyBool.create("underhopper");
     private static final double OFFSET = 0.375D;
     private static final AxisAlignedBB URN_AABB = new AxisAlignedBB(0.3125D, 0, 0.3125D, 0.6875D, 0.625D, 0.6875D);
     private static final AxisAlignedBB UNDER_HOPPER_AABB = URN_AABB.offset(0, OFFSET, 0);
 
+    private final EnumType type;
 
-    public BlockUrn() {
+    public BlockUrn(EnumType type) {
         super(Material.ROCK);
+        this.type = type;
         this.setHardness(2.0F);
-        this.setDefaultState(
-                this.blockState.getBaseState().withProperty(TYPE, EnumType.EMPTY).withProperty(UNDERHOPPER, false));
-    }
-
-    public static ItemStack getStack(EnumType type, int count) {
-        return new ItemStack(BWMBlocks.URN, count, type.getMeta());
+        this.setDefaultState(getDefaultState().withProperty(UNDERHOPPER, false));
     }
 
     @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         BlockPos down = pos.down();
         BlockFaceShape blockfaceshape = worldIn.getBlockState(down).getBlockFaceShape(worldIn, down, UP);
         boolean below = blockfaceshape != BlockFaceShape.BOWL && blockfaceshape != BlockFaceShape.UNDEFINED;
 
         BlockPos up = pos.up();
         IBlockState state = worldIn.getBlockState(up);
-        boolean above = state.getBlock() == BWMBlocks.SINGLE_MACHINES && worldIn.getBlockState(up).getValue(BlockMechMachines.TYPE) == BlockMechMachines.EnumType.HOPPER;
+        boolean above = state.getBlock() instanceof IUrnConnector;
         return below || above;
     }
 
@@ -68,20 +65,6 @@ public class BlockUrn extends BWMBlock implements ISoulSensitive, IMultiVariants
     }
 
     @Override
-    public int damageDropped(IBlockState state) {
-        int meta = state.getValue(TYPE).getMeta();
-        return meta > 7 ? meta : 0;
-    }
-
-    @Override
-    public String[] getVariants() {
-        return new String[]{"underhopper=false,urntype=empty", "underhopper=false,urntype=12",
-                "underhopper=false,urntype=25", "underhopper=false,urntype=37", "underhopper=false,urntype=50",
-                "underhopper=false,urntype=62", "underhopper=false,urntype=75", "underhopper=false,urntype=87",
-                "underhopper=false,urntype=full", "underhopper=false,urntype=void"};
-    }
-
-    @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
@@ -91,100 +74,54 @@ public class BlockUrn extends BWMBlock implements ISoulSensitive, IMultiVariants
         return false;
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-        state = state.getActualState(world, pos);
-        if (state.getValue(UNDERHOPPER)) return UNDER_HOPPER_AABB;
-        else return URN_AABB;
-    }
-
-    @Override
-    public boolean isSoulSensitive(IBlockAccess world, BlockPos pos) {
-        return true;
-    }
-
-    @Override
-    public int getMaximumSoulIntake(IBlockAccess world, BlockPos pos) {
-        int meta = world.getBlockState(pos).getValue(TYPE).getMeta();
-        if (meta < 8)
-            return 8 - meta;
-        else if (meta == 9)
-            return 64;
-        return 0;
-    }
-
-    @Override
-    public int processSouls(World world, BlockPos pos, int souls) {
-        return Math.min(getMaximumSoulIntake(world, pos), souls);
-    }
-
-    @Override
-    public boolean consumeSouls(World world, BlockPos pos, int souls) {
-        int meta = world.getBlockState(pos).getValue(TYPE).getMeta();
-        if (souls > 1 && meta != 9) {
-            int newMeta = meta + souls;
-            if (newMeta == 8) {
-                InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMBlocks.URN, 1, 8));
-                return world.setBlockToAir(pos);
-            } else
-                return world.setBlockState(pos, getDefaultState().withProperty(TYPE, EnumType.byMeta(meta)));
-        } else if (meta == 9)
-            return true;
-        return false;
+        return state.getActualState(world, pos).getValue(UNDERHOPPER) ? UNDER_HOPPER_AABB : URN_AABB;
     }
 
     @Override
     @SideOnly(Side.CLIENT)
     public void randomDisplayTick(IBlockState state, World world, BlockPos pos, Random rand) {
-        int meta = world.getBlockState(pos).getValue(TYPE).getMeta();
-        if (meta > 0) {
-            int[] souls = {1, 2, 3, 4, 5, 6, 7, 8, 64};
-            int chance = 80 - souls[meta - 1] / 2;
-            if (rand.nextInt(chance) == 0) {
-                int x = pos.getX();
-                int y = pos.getY();
-                int z = pos.getZ();
-                world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
-                        SoundEvents.ENTITY_GHAST_AMBIENT, SoundCategory.BLOCKS, 1.0F, rand.nextFloat() * 0.1F + 0.45F,
-                        false);
-                float flX = x + rand.nextFloat();
-                float flY = y + rand.nextFloat() * 0.5F + 0.625F;
-                float flZ = z + rand.nextFloat();
-                world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, flX, flY, flZ, 0.0D, 0.0D, 0.0D);
-            }
+        if (type != EnumType.EMPTY && rand.nextInt(64) == 0) {
+            int x = pos.getX();
+            int y = pos.getY();
+            int z = pos.getZ();
+            float flX = x + rand.nextFloat();
+            float flY = y + rand.nextFloat() * 0.5F + 0.625F;
+            float flZ = z + rand.nextFloat();
+            world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D,
+                    SoundEvents.ENTITY_GHAST_AMBIENT, SoundCategory.BLOCKS, 1.0F, rand.nextFloat() * 0.1F + 0.45F,
+                    false);
+            world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, flX, flY, flZ, 0.0D, 0.0D, 0.0D);
         }
     }
 
+    @Nonnull
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         BlockPos up = pos.up();
         Block block = world.getBlockState(up).getBlock();
-        if (block != null && block == BWMBlocks.SINGLE_MACHINES) {
-            if (world.getBlockState(up).getValue(BlockMechMachines.TYPE) == BlockMechMachines.EnumType.HOPPER) {
-                return state.withProperty(UNDERHOPPER, true);
-            }
+        if (block instanceof BlockFilteredHopper) {
+            return state.withProperty(UNDERHOPPER, true);
         }
         return state;
     }
 
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for (EnumType type : EnumType.VALUES)
-            if (type.used)
-                items.add(getStack(type, 1));
-    }
 
-
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, TYPE, UNDERHOPPER);
+        return new BlockStateContainer(this, UNDERHOPPER);
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(TYPE, EnumType.byMeta(meta));
+        return getDefaultState().withProperty(UNDERHOPPER, meta == 1);
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face == EnumFacing.DOWN ? BlockFaceShape.CENTER : BlockFaceShape.UNDEFINED;
@@ -192,36 +129,41 @@ public class BlockUrn extends BWMBlock implements ISoulSensitive, IMultiVariants
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(TYPE).getMeta();
+        return state.getValue(UNDERHOPPER) ? 1 : 0;
     }
 
-    public enum EnumType implements IStringSerializable {
-        EMPTY("empty", 0, true), ONE("12", 1, false), TWO("25", 2, false), THREE("37", 3, false), FOUR("50", 4, false), FIVE("62", 5, false), SIX("75",
-                6, false), SEVEN("87", 7, false), FULL("full", 8, true), VOID("void", 9, true);
-
-        private static final EnumType[] VALUES = values();
-        private String name;
-        private int meta;
-        private boolean used;
-
-        EnumType(String name, int meta, boolean used) {
-            this.name = name;
-            this.meta = meta;
-            this.used = used;
-        }
-
-        public static EnumType byMeta(int meta) {
-            return VALUES[meta % 10];
-        }
-
-        @Override
-        public String getName() {
-            return name;
-        }
-
-        public int getMeta() {
-            return meta;
-        }
-
+    @Override
+    public int getMaxSouls() {
+        return type.getSouls();
     }
+
+    @Override
+    public boolean onFull(World world, BlockPos pos) {
+        switch (type) {
+            case EMPTY:
+                if (world.setBlockToAir(pos)) {
+                    InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMBlocks.SOUL_URN));
+                }
+                break;
+            default:
+                break;
+        }
+        return true;
+    }
+
+    public enum EnumType {
+        EMPTY(8),
+        SOUL(0),
+        VOID(1);
+        final int souls;
+
+        EnumType(int souls) {
+            this.souls = souls;
+        }
+
+        public int getSouls() {
+            return souls;
+        }
+    }
+
 }

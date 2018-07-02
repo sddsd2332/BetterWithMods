@@ -77,20 +77,14 @@ public class TextureImageRenderer implements ImageRenderer {
         public void loadTexture(final IResourceManager manager) throws IOException {
             deleteGlTexture();
 
-            InputStream is = null;
-            try {
-                final IResource resource = manager.getResource(location);
-                is = resource.getInputStream();
+            final IResource resource = manager.getResource(location);
+            try (InputStream is = resource.getInputStream()) {
                 final BufferedImage bi = ImageIO.read(is);
                 TextureUtil.uploadTextureImageAllocate(getGlTextureId(), bi, false, false);
                 width = bi.getWidth();
                 height = bi.getHeight();
             } catch (final Throwable t) {
                 Throwables.propagate(t);
-            } finally {
-                if (is != null) {
-                    is.close();
-                }
             }
         }
     }

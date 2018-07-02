@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.damagesource.BWDamageSource;
+import betterwithmods.common.BWDamageSource;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
@@ -55,7 +55,7 @@ public class HCGloom extends Feature {
     public static GloomPenalties PENALTIES;
     private static Set<Integer> dimensionWhitelist;
     private static Ingredient gloomOverrideItems;
-    private static ResourceLocation PLAYER_GLOOM = new ResourceLocation(BWMod.MODID, "gloom");
+    private static final ResourceLocation PLAYER_GLOOM = new ResourceLocation(BWMod.MODID, "gloom");
 
     public static int getGloomTime(EntityPlayer player) {
         Gloom gloom = getGloom(player);

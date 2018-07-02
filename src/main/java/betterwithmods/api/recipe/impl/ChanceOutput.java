@@ -6,7 +6,7 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
 
 public class ChanceOutput extends StackOutput {
-    private double weight;
+    private final double weight;
 
     public ChanceOutput(ItemStack stack, double weight) {
         super(stack);

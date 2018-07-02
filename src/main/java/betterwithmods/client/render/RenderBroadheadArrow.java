@@ -6,6 +6,8 @@ import net.minecraft.client.renderer.entity.RenderArrow;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 /**
  * Purpose:
  *
@@ -20,7 +22,7 @@ public class RenderBroadheadArrow extends RenderArrow<EntityBroadheadArrow> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(EntityBroadheadArrow entity) {
+    protected ResourceLocation getEntityTexture(@Nonnull EntityBroadheadArrow entity) {
         return TEXTURE;
     }
 }

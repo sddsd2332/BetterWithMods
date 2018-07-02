@@ -15,6 +15,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
+import javax.annotation.Nonnull;
+
 /**
  * Created by primetoxinz on 7/23/17.
  */
@@ -41,7 +43,7 @@ public class EntityHCFishHook extends EntityFishHook implements IEntityAdditiona
     }
 
     @Override
-    public void init(EntityPlayer angler) {
+    public void init(@Nonnull EntityPlayer angler) {
         this.setSize(0.25F, 0.25F);
         this.ignoreFrustumCheck = true;
         this.angler = angler;

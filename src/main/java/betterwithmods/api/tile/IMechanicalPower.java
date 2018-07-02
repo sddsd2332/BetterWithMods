@@ -45,6 +45,7 @@ public interface IMechanicalPower {
     default void overpower() {
         if (getBlock() instanceof IOverpower)
             ((IOverpower) getBlock()).overpower(getBlockWorld(), getBlockPos());
+
     }
 
 }

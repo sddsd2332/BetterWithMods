@@ -2,18 +2,21 @@ package betterwithmods.client.container.bulk;
 
 import betterwithmods.client.container.ContainerProgress;
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityFilteredHopper;
-import betterwithmods.common.registry.HopperFilter;
+import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
+import betterwithmods.common.registry.hopper.filters.HopperFilter;
+import betterwithmods.util.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
-public class ContainerFilteredHopper extends ContainerProgress {
-    private final TileEntityFilteredHopper tile;
+import javax.annotation.Nonnull;
 
-    public ContainerFilteredHopper(EntityPlayer player, TileEntityFilteredHopper tile) {
+public class ContainerFilteredHopper extends ContainerProgress {
+    private final TileFilteredHopper tile;
+
+    public ContainerFilteredHopper(EntityPlayer player, TileFilteredHopper tile) {
         super(tile);
         this.tile = tile;
 
@@ -25,16 +28,20 @@ public class ContainerFilteredHopper extends ContainerProgress {
 
         addSlotToContainer(new SlotItemHandler(tile.filter, 0, 80, 37));
 
+        IItemHandler playerInv = CapabilityUtils.getEntityInventory(player);
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), j + i * 9 + 9, 8 + j * 18, 111 + i * 18));
+                addSlotToContainer(new SlotItemHandler(playerInv, j + i * 9 + 9, 8 + j * 18, 111 + i * 18));
             }
         }
 
         for (int i = 0; i < 9; i++) {
-            addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, 8 + i * 18, 169));
+            addSlotToContainer(new SlotItemHandler(playerInv, i, 8 + i * 18, 169));
         }
     }
+
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack clickedStack = ItemStack.EMPTY;
@@ -62,12 +69,12 @@ public class ContainerFilteredHopper extends ContainerProgress {
         return clickedStack;
     }
 
-    public boolean isItemFilter(ItemStack stack) {
+    private boolean isItemFilter(ItemStack stack) {
         return BWRegistry.HOPPER_FILTERS.getFilter(stack) != HopperFilter.NONE;
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
+    public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
         return tile.isUseableByPlayer(playerIn);
     }
 

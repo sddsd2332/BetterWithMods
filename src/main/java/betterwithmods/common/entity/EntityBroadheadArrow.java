@@ -6,6 +6,8 @@ import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 /**
  * Purpose:
  *
@@ -27,6 +29,7 @@ public class EntityBroadheadArrow extends EntityArrow {
         super(worldIn, shooter);
     }
 
+    @Nonnull
     @Override
     protected ItemStack getArrowStack() {
         return new ItemStack(BWMItems.BROADHEAD_ARROW);

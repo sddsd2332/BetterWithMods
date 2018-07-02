@@ -2,21 +2,39 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "up": "blocks/piston_top_normal",
-      "down": "betterwithmods:blocks/turntable_bottom",
-      "side": "betterwithmods:blocks/turntable_side"
+      "switch": "blocks/planks_oak"
     },
-    "model": "cube_column",
+    "model": "betterwithmods:turntable/turntable",
     "uvlock": false
   },
   "variants": {
     "normal": [
-      {}
+      {
+      }
     ],
     "inventory": [
       {
         "transform": "forge:default-block"
       }
-    ]
+    ],
+    "active": {
+      "true": {},
+      "false": {}
+    },
+    "speed": {
+      "0": {
+        "submodel": "betterwithmods:turntable/switch_0"
+
+      },
+      "1": {
+        "submodel": "betterwithmods:turntable/switch_1"
+      },
+      "2": {
+        "submodel": "betterwithmods:turntable/switch_2"
+      },
+      "3": {
+        "submodel": "betterwithmods:turntable/switch_3"
+      }
+    }
   }
 }

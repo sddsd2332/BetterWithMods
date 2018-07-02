@@ -2,8 +2,8 @@ package betterwithmods.common.penalties.attribute;
 
 public class AttributeInstance<V> implements IAttributeInstance<V> {
 
-    private V value;
-    private IAttribute<V> parent;
+    private final V value;
+    private final IAttribute<V> parent;
 
     public AttributeInstance(IAttribute<V> parent) {
         this(parent, parent.getDefaultValue());

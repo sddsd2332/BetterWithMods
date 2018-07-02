@@ -7,7 +7,7 @@ import net.minecraftforge.items.ItemStackHandler;
  * Created by primetoxinz on 5/14/17.
  */
 public class SimpleStackHandler extends ItemStackHandler {
-    private TileEntity tile;
+    private final TileEntity tile;
     public SimpleStackHandler(int size, TileEntity tile) {
         super(size);
         this.tile = tile;

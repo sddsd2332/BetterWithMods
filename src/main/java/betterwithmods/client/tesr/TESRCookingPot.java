@@ -1,12 +1,10 @@
 package betterwithmods.client.tesr;
 
 import betterwithmods.BWMod;
-import betterwithmods.api.tile.IHeatRecipe;
 import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityCauldron;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityCookingPot;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityCrucible;
-import betterwithmods.common.registry.bulk.manager.CookingPotManager;
+import betterwithmods.common.blocks.mechanical.tile.TileCauldron;
+import betterwithmods.common.blocks.mechanical.tile.TileCookingPot;
+import betterwithmods.common.blocks.mechanical.tile.TileCrucible;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
@@ -17,11 +15,11 @@ import net.minecraft.util.ResourceLocation;
  * @author primetoxinz
  * @version 3/20/17
  */
-public class TESRCookingPot extends TileEntitySpecialRenderer<TileEntityCookingPot> {
+public class TESRCookingPot extends TileEntitySpecialRenderer<TileCookingPot> {
     private int occupiedStacks;
 
     @Override
-    public void render(TileEntityCookingPot te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+    public void render(TileCookingPot te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         if (te != null) {
             if (occupiedStacks != te.filledSlots())
                 occupiedStacks = te.filledSlots();
@@ -32,18 +30,18 @@ public class TESRCookingPot extends TileEntitySpecialRenderer<TileEntityCookingP
         }
     }
 
-    private ResourceLocation getResource(TileEntityCookingPot tile) {
+    private ResourceLocation getResource(TileCookingPot tile) {
         boolean stoked = tile.getHeat(tile.getBlockWorld(),tile.getBlockPos()) >= BWMHeatRegistry.STOKED_HEAT;
 
-        if (tile instanceof TileEntityCauldron) {
+        if (tile instanceof TileCauldron) {
             return new ResourceLocation(BWMod.MODID, "blocks/cauldron_contents");
-        } else if (tile instanceof TileEntityCrucible) {
+        } else if (tile instanceof TileCrucible) {
             return stoked ? new ResourceLocation("minecraft", "blocks/lava_still") : new ResourceLocation("minecraft", "blocks/gravel");
         }
         return null;
     }
 
-    private float occupationMod(TileEntityCookingPot tile) {
+    private float occupationMod(TileCookingPot tile) {
         float visibleSlots = (float) tile.getMaxVisibleSlots();
         return (float) occupiedStacks / visibleSlots;
     }

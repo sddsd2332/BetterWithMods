@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -21,7 +22,7 @@ public final class OreDictImageProvider implements ImageProvider {
     private static final String WARNING_ORE_DICT_MISSING = API.MOD_ID + ".manual.warning.missing.oreDict";
 
     @Override
-    public ImageRenderer getImage(final String data) {
+    public ImageRenderer getImage(@Nonnull final String data) {
         final ItemStack[] stacks = OreDictionary.getOres(data).stream()
                 .flatMap(stack -> getSubtypes(stack).stream())
                 .toArray(ItemStack[]::new);

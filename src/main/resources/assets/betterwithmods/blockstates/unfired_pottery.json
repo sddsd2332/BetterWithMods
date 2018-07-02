@@ -21,7 +21,7 @@
     ],
     "potterytype": {
       "crucible": {
-        "model": "betterwithmods:cooking_pot"
+
       },
       "planter": {
         "model": "betterwithmods:planter"

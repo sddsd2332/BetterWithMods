@@ -1,9 +1,7 @@
 package betterwithmods.common.world;
 
 import betterwithmods.module.tweaks.MineshaftGeneration;
-import net.minecraft.block.BlockRail;
 import net.minecraft.block.BlockRailBase;
-import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.EnumFacing;
@@ -13,6 +11,7 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureMineshaftPieces;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
@@ -68,7 +67,7 @@ public class BWStructureMineshaftPieces {
         }
 
         @Override
-        public void buildComponent(StructureComponent component, List<StructureComponent> structureComponents, Random rand) {
+        public void buildComponent(@Nonnull StructureComponent component, @Nonnull List<StructureComponent> structureComponents, Random rand) {
             int componentType = this.getComponentType();
             int size = rand.nextInt(4);
             EnumFacing enumfacing = this.getCoordBaseMode();
@@ -146,11 +145,13 @@ public class BWStructureMineshaftPieces {
             }
         }
 
+        @Nonnull
         @Override
         protected IBlockState getFenceBlock() {
             return MineshaftGeneration.supports.getBlockState(this);
         }
 
+        @Nonnull
         @Override
         protected IBlockState getPlanksBlock() {
             return MineshaftGeneration.planks.getBlockState(this);
@@ -158,7 +159,7 @@ public class BWStructureMineshaftPieces {
 
         protected IBlockState getRailBlock() { return MineshaftGeneration.rail.getBlockState(this); }
 
-        public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+        public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
             boolean success = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
 
             if (success && this.hasRails) {
@@ -188,7 +189,7 @@ public class BWStructureMineshaftPieces {
         }
 
         @Override
-        public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
+        public void buildComponent(@Nonnull StructureComponent componentIn, @Nonnull List<StructureComponent> listIn, @Nonnull Random rand) {
             int i = this.getComponentType();
 
             switch (this.corridorDirection) {
@@ -233,11 +234,13 @@ public class BWStructureMineshaftPieces {
             }
         }
 
+        @Nonnull
         @Override
         protected IBlockState getFenceBlock() {
             return MineshaftGeneration.supports.getBlockState(this);
         }
 
+        @Nonnull
         @Override
         protected IBlockState getPlanksBlock() {
             return MineshaftGeneration.planks.getBlockState(this);
@@ -252,7 +255,7 @@ public class BWStructureMineshaftPieces {
             super(componentType, random, chunkX, chunkZ, type);
         }
 
-        public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
+        public void buildComponent(@Nonnull StructureComponent componentIn, @Nonnull List<StructureComponent> listIn, @Nonnull Random rand) {
             int i = this.getComponentType();
             int j = this.boundingBox.getYSize() - 3 - 1;
 
@@ -327,7 +330,7 @@ public class BWStructureMineshaftPieces {
             return MineshaftGeneration.roomFloor.getBlockState(this);
         }
 
-        public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn)
+        public boolean addComponentParts(@Nonnull World worldIn, Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn)
         {
             boolean success = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
 
@@ -348,7 +351,7 @@ public class BWStructureMineshaftPieces {
             super(componentType, random, boundingBox, facing, type);
         }
 
-        public void buildComponent(StructureComponent componentIn, List<StructureComponent> listIn, Random rand) {
+        public void buildComponent(@Nonnull StructureComponent componentIn, @Nonnull List<StructureComponent> listIn, @Nonnull Random rand) {
             int i = this.getComponentType();
             EnumFacing enumfacing = this.getCoordBaseMode();
 

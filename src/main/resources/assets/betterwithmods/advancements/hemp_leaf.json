@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:hemp_seed",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:hemp_leaf"
+    },
+    "title": {
+      "translate": "item.bwm:hemp_leaf.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.hemp.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:hemp_leaf"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

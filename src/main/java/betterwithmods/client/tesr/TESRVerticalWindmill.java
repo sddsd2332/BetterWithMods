@@ -5,14 +5,14 @@ import betterwithmods.client.model.ModelVerticalFrame;
 import betterwithmods.client.model.ModelVerticalSails;
 import betterwithmods.client.model.ModelVerticalShafts;
 import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityWindmillVertical;
+import betterwithmods.common.blocks.mechanical.tile.TileWindmillVertical;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
-public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileEntityWindmillVertical> {
+public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileWindmillVertical> {
     private final ModelVerticalShafts modelShafts = new ModelVerticalShafts();
     private final ModelVerticalSails modelSails = new ModelVerticalSails();
     private final ModelVerticalFrame modelFrame = new ModelVerticalFrame();
@@ -23,7 +23,7 @@ public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileEntityWi
     public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(BWMod.MODID,"textures/blocks/vertical_windmill_sail.png");
 
     @Override
-    public void render(TileEntityWindmillVertical te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+    public void render(TileWindmillVertical te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
 
 
         float rotation = (te.getCurrentRotation() + (te.getMechanicalOutput(EnumFacing.UP) == 0 ? 0 : partialTicks * te.getPrevRotation()));

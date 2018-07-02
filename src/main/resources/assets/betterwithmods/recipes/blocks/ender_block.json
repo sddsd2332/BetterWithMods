@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "betterwithmods:ender_block"
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "X": {
+      "ore": "enderpearl",
+      "type": "forge:ore_dict"
+    }
+  }
+}

@@ -1,12 +1,12 @@
 package betterwithmods.common.blocks.tile;
 
+import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.IItemHandler;
 
+import javax.annotation.Nonnull;
 import java.util.function.Predicate;
 
 /**
@@ -24,19 +24,20 @@ public abstract class TileBasicInventory extends TileBasic {
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, EnumFacing facing) {
         if(capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY && (facing == null || hasCapability.test(facing)))
             return true;
         return  super.hasCapability(capability, facing);
     }
 
     @Override
-    public <T> T getCapability(Capability<T> capability, EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, EnumFacing facing) {
         if (hasCapability(capability,facing) && capability == net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY)
             return net.minecraftforge.items.CapabilityItemHandler.ITEM_HANDLER_CAPABILITY.cast(inventory);
         return super.getCapability(capability, facing);
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         tag.merge(inventory.serializeNBT());
@@ -59,9 +60,7 @@ public abstract class TileBasicInventory extends TileBasic {
 
     @Override
     public void onBreak() {
-        IItemHandler inv = getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.UP);
-        if (inv != null)
-            InvUtils.ejectInventoryContents(world, pos, inv);
+        CapabilityUtils.getInventory(this, EnumFacing.UP).ifPresent(inv -> InvUtils.ejectInventoryContents(world, pos, inv));
     }
 
 }

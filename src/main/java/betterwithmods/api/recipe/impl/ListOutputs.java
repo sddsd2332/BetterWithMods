@@ -11,7 +11,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ListOutputs implements IRecipeOutputs {
-    protected List<StackOutput> outputs;
+    protected final List<StackOutput> outputs;
 
     public ListOutputs(ItemStack... outputs) {
         this(Lists.newArrayList(outputs));

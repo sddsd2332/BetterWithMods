@@ -1,0 +1,27 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "side": "minecraft:blocks/obsidian",
+      "particle": "#side"
+    },
+    "model": "betterwithmods:urn",
+    "uvlock": false
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block"
+      }
+    ],
+    "underhopper": {
+      "true": {
+        "model": "betterwithmods:urn_displaced"
+      },
+      "false": {}
+    }
+  }
+}

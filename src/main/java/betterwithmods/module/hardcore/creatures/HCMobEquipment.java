@@ -20,7 +20,7 @@ public class HCMobEquipment extends CompatFeature {
     public static final ItemStack[] GOLD_ARMOR = new ItemStack[]{new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.GOLDEN_CHESTPLATE), new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_BOOTS)};
 
 
-    private static Map<ResourceLocation, Equipment> entityMap = Maps.newHashMap();
+    private static final Map<ResourceLocation, Equipment> entityMap = Maps.newHashMap();
 
     public HCMobEquipment() {
         super("betterwithlib");

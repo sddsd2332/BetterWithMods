@@ -18,12 +18,12 @@
       "type": "forge:ore_dict"
     },
     "E": {
-      "item": "betterwithmods:material",
-      "data": 27
+      "ore": "element",
+      "type": "forge:ore_dict"
     },
     "H": {
-      "item": "betterwithmods:material",
-      "data": 17
+      "ore": "ingotConcentratedHellfire",
+      "type": "forge:ore_dict"
     }
   }
 }

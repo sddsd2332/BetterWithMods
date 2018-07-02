@@ -2,7 +2,7 @@ package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.BWMod;
 import betterwithmods.api.recipe.IOutput;
-import betterwithmods.common.blocks.mechanical.BlockMechMachines;
+import betterwithmods.common.BWMBlocks;
 import betterwithmods.module.compat.jei.wrapper.HopperRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IGuiIngredientGroup;
@@ -31,8 +31,8 @@ public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper>
     public static final int height = 80;
     public static final String UID = "bwm.hopper";
     public static final ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/hopper.png");
-    int outputSlot = 3;
-    int secondaryOutputSlot = 5;
+    final int outputSlot = 3;
+    final int secondaryOutputSlot = 5;
 
     public HopperRecipeCategory(IGuiHelper guiHelper) {
         super(guiHelper.createDrawable(location, 0, 0, width, height), UID, Translator.translateToLocal("inv.hopper.name"));
@@ -72,7 +72,7 @@ public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper>
 
 
         guiItemStacks.set(ingredients);
-        guiItemStacks.set(7, BlockMechMachines.getStack(BlockMechMachines.EnumType.HOPPER));
+        guiItemStacks.set(7, new ItemStack(BWMBlocks.FILTERED_HOPPER));
 
         List<List<ItemStack>> containers = ingredients.getOutputs(ItemStack.class);
         if(!containers.isEmpty()) {

@@ -1,9 +1,8 @@
 package betterwithmods.common.registry.crafting;
 
 import betterwithmods.BWMod;
-import betterwithmods.api.util.IWood;
+import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.module.hardcore.crafting.HCLumber;
-import betterwithmods.util.StackIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -24,12 +23,24 @@ import java.util.Set;
  * Created by blueyu2 on 12/12/16.
  */
 public class ChoppingRecipe extends ToolDamageRecipe {
-    private IWood wood;
+    private final IBlockVariants wood;
 
-    public ChoppingRecipe(IWood wood, int planks) {
-        super(new ResourceLocation(BWMod.MODID, "chopping"), wood.getPlank(planks), StackIngredient.fromStacks(wood.getLog(1)), ChoppingRecipe::isAxe);
+    public ChoppingRecipe(IBlockVariants wood, int planks) {
+        super(new ResourceLocation(BWMod.MODID, "chopping"), wood.getVariant(IBlockVariants.EnumBlock.BLOCK, planks), Ingredient.fromStacks(wood.getVariant(IBlockVariants.EnumBlock.LOG, 1)), ChoppingRecipe::isAxe);
         this.wood = wood;
         MinecraftForge.EVENT_BUS.register(this);
+    }
+
+    private static boolean isAxe(ItemStack stack) {
+        if (stack != null) {
+            Item item = stack.getItem();
+            Set<String> classes = item.getToolClasses(stack);
+            if (classes.contains("axe") || classes.contains("mattock")) {
+                ResourceLocation loc = item.getRegistryName();
+                return loc == null || !loc.getResourceDomain().equals("tconstruct") || stack.getItemDamage() < stack.getMaxDamage();
+            }
+        }
+        return false;
     }
 
     @Override
@@ -56,26 +67,14 @@ public class ChoppingRecipe extends ToolDamageRecipe {
         return super.shouldDamage(stack, player, state);
     }
 
-    private static boolean isAxe(ItemStack stack) {
-        if (stack != null) {
-            Item item = stack.getItem();
-            Set<String> classes = item.getToolClasses(stack);
-            if (classes.contains("axe") || classes.contains("mattock")) {
-                ResourceLocation loc = item.getRegistryName();
-                return loc == null || !loc.getResourceDomain().equals("tconstruct") || stack.getItemDamage() < stack.getMaxDamage();
-            }
-        }
-        return false;
-    }
-
     @SubscribeEvent
     public void dropExtra(PlayerEvent.ItemCraftedEvent event) {
         if (event.player == null)
             return;
         if (isMatch(event.craftMatrix, event.player.world)) {
             if (!event.player.getEntityWorld().isRemote) {
-                event.player.entityDropItem(wood.getSawdust(HCLumber.axeSawDustAmount), 0);
-                event.player.entityDropItem(wood.getBark(HCLumber.axeBarkAmount), 0);
+                event.player.entityDropItem(wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, HCLumber.axeSawDustAmount), 0);
+                event.player.entityDropItem(wood.getVariant(IBlockVariants.EnumBlock.BARK, HCLumber.axeBarkAmount), 0);
             }
         }
     }

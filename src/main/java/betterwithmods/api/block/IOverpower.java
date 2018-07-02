@@ -1,7 +1,6 @@
 package betterwithmods.api.block;
 
 import betterwithmods.common.BWSounds;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;

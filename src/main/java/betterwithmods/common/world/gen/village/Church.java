@@ -1,6 +1,5 @@
 package betterwithmods.common.world.gen.village;
 
-import net.minecraft.block.BlockLadder;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,6 +11,7 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -35,7 +35,7 @@ public class Church extends AbandonedVillagePiece {
      * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
      * Mineshafts at the end, it adds Fences...
      */
-    public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+    public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
         if (this.averageGroundLvl < 0) {
             this.averageGroundLvl = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -92,14 +92,14 @@ public class Church extends AbandonedVillagePiece {
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 0, 3, 6, structureBoundingBoxIn);
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 4, 3, 6, structureBoundingBoxIn);
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 3, 8, structureBoundingBoxIn);
-        IBlockState ladder = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST);
-
-        for (int i = 1; i <= 9; ++i) {
-            if(worldIn.rand.nextInt(2) == 0)
-                this.setBlockState(worldIn, ladder, 3, i, 3, structureBoundingBoxIn);
-            else
-                this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 3, i, 3, structureBoundingBoxIn);
-        }
+//        IBlockState ladder = Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST);
+//
+//        for (int i = 1; i <= 9; ++i) {
+//            if(worldIn.rand.nextInt(2) == 0)
+//                this.setBlockState(worldIn, ladder, 3, i, 3, structureBoundingBoxIn);
+//            else
+//                this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 3, i, 3, structureBoundingBoxIn);
+//        }
 
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 1, 0, structureBoundingBoxIn);
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 2, 0, structureBoundingBoxIn);
@@ -126,7 +126,7 @@ public class Church extends AbandonedVillagePiece {
 
     @Override
     public StructureVillagePieces.PieceWeight getVillagePieceWeight(Random random, int size) {
-        return new StructureVillagePieces.PieceWeight(Church.class, 20, MathHelper.getInt(random, 0 + size, 1 + size));
+        return new StructureVillagePieces.PieceWeight(Church.class, 20, MathHelper.getInt(random, size, 1 + size));
     }
 
     @Override

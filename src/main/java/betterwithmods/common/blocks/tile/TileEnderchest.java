@@ -1,5 +1,7 @@
 package betterwithmods.common.blocks.tile;
 
+import betterwithmods.module.hardcore.beacons.EnderchestCap;
+import betterwithmods.util.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.nbt.NBTTagCompound;
@@ -17,21 +19,18 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
 public class TileEnderchest extends TileEntityEnderChest {
 
     public enum Type {
-        NONE((tile, player) -> tile.getCapability(ENDERCHEST_CAPABILITY, EnumFacing.UP).getInventory()),
+        NONE((tile, player) -> CapabilityUtils.getCapability(tile.getWorld(), ENDERCHEST_CAPABILITY, EnumFacing.UP).map(EnderchestCap::getInventory).orElse(null)),
         DIMENSION1((tile, player) -> {
             World world = tile.getWorld();
-            if (world.hasCapability(ENDERCHEST_CAPABILITY, EnumFacing.SOUTH)) {
-                return world.getCapability(ENDERCHEST_CAPABILITY, EnumFacing.SOUTH).getInventory();
-            }
-            return null;
+            return CapabilityUtils.getCapability(world, ENDERCHEST_CAPABILITY, EnumFacing.SOUTH).map(EnderchestCap::getInventory).orElse(null);
         }),
-        DIMENSION2((tile, player) -> tile.getWorld().getCapability(ENDERCHEST_CAPABILITY, EnumFacing.NORTH).getInventory()),
-        GLOBAL((tile, player) -> DimensionManager.getWorld(0).getCapability(ENDERCHEST_CAPABILITY, EnumFacing.DOWN).getInventory()),
+        DIMENSION2((tile, player) -> CapabilityUtils.getCapability(tile.getWorld(), ENDERCHEST_CAPABILITY, EnumFacing.NORTH).map(EnderchestCap::getInventory).orElse(null)),
+        GLOBAL((tile, player) -> CapabilityUtils.getCapability(DimensionManager.getWorld(0), ENDERCHEST_CAPABILITY, EnumFacing.DOWN).map(EnderchestCap::getInventory).orElse(null)),
         PRIVATE((tile, player) -> player.getInventoryEnderChest());
 
-        public static Type[] VALUES = values();
+        public static final Type[] VALUES = values();
 
-        private BiFunction<TileEntity, EntityPlayer, InventoryEnderChest> function;
+        private final BiFunction<TileEntity, EntityPlayer, InventoryEnderChest> function;
 
         Type(BiFunction<TileEntity, EntityPlayer, InventoryEnderChest> function) {
             this.function = function;
@@ -44,6 +43,7 @@ public class TileEnderchest extends TileEntityEnderChest {
 
     private Type type = Type.NONE;
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("type", type.ordinal());

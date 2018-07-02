@@ -1,7 +1,7 @@
 package betterwithmods.module.compat.multipart;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.module.gameplay.miniblocks.ItemMini;
+import betterwithmods.module.gameplay.miniblocks.ItemCamo;
 import betterwithmods.module.gameplay.miniblocks.MiniType;
 import betterwithmods.module.gameplay.miniblocks.blocks.BlockMini;
 import betterwithmods.module.gameplay.miniblocks.blocks.BlockSiding;
@@ -14,7 +14,6 @@ import mcmultipart.api.slot.EnumCenterSlot;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -39,13 +38,12 @@ public class BWMMCMP implements IMCMPAddon {
 //        }
 
         register(registry, BWMBlocks.WOODEN_AXLE, new MultipartProxy(BWMBlocks.WOODEN_AXLE, state -> EnumCenterSlot.CENTER));
-        register(registry, BWMBlocks.STEEL_AXLE, new MultipartProxy(BWMBlocks.STEEL_AXLE, state -> EnumCenterSlot.CENTER));
     }
 
     private boolean placeSiding(ItemStack stack, EntityPlayer player, World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, IBlockState newState) {
-        if (!stack.isEmpty() && stack.getItem() instanceof ItemMini && player.canPlayerEdit(pos, facing, stack) && world.mayPlace(newState.getBlock(), pos, false, facing, (Entity) null)) {
+        if (!stack.isEmpty() && stack.getItem() instanceof ItemCamo && player.canPlayerEdit(pos, facing, stack) && world.mayPlace(newState.getBlock(), pos, false, facing, null)) {
 
-            if (ItemMini.placeBlockAt((ItemMini) stack.getItem(), stack, player, world, pos, facing, hitX, hitY, hitZ, newState)) {
+            if (ItemCamo.placeBlockAt((ItemCamo) stack.getItem(), stack, player, world, pos, facing, hitX, hitY, hitZ, newState)) {
                 newState = world.getBlockState(pos);
                 SoundType soundtype = newState.getBlock().getSoundType(newState, world, pos, player);
                 world.playSound(player, pos, soundtype.getPlaceSound(), SoundCategory.BLOCKS, (soundtype.getVolume() + 1.0F) / 2.0F, soundtype.getPitch() * 0.8F);

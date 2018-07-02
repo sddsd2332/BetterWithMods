@@ -4,6 +4,7 @@ import betterwithmods.common.entity.EntityUrn;
 import net.minecraft.block.Block;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.ActionResult;
@@ -12,20 +13,21 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.util.Objects;
+
 /**
  * Created by primetoxinz on 6/13/17.
  */
-public class ItemBlockUrn extends ItemBlockMeta {
+public class ItemBlockUrn extends ItemBlock {
 
     public ItemBlockUrn(Block block) {
         super(block);
     }
 
-    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, EnumHand handIn) {
-
+    @Nonnull
+    public ActionResult<ItemStack> onItemRightClick(World worldIn, EntityPlayer playerIn, @Nonnull EnumHand handIn) {
         ItemStack itemstack = playerIn.getHeldItem(handIn);
-        if (itemstack.getMetadata() != BlockUrn.EnumType.FULL.getMeta())
-            return new ActionResult(EnumActionResult.FAIL, itemstack);
         if (!playerIn.capabilities.isCreativeMode) {
             itemstack.shrink(1);
         }
@@ -37,7 +39,7 @@ public class ItemBlockUrn extends ItemBlockMeta {
             worldIn.spawnEntity(entity);
         }
 
-        playerIn.addStat(StatList.getObjectUseStats(this));
-        return new ActionResult(EnumActionResult.SUCCESS, itemstack);
+        playerIn.addStat(Objects.requireNonNull(StatList.getObjectUseStats(this)));
+        return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
     }
 }

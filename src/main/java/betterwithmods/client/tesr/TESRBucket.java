@@ -2,7 +2,6 @@ package betterwithmods.client.tesr;
 
 import betterwithmods.client.model.render.FluidRenderUtils;
 import betterwithmods.common.blocks.tile.TileFluid;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
@@ -11,8 +10,6 @@ import net.minecraftforge.fluids.FluidTank;
 import javax.annotation.Nonnull;
 
 public class TESRBucket extends TileEntitySpecialRenderer<TileFluid> {
-    protected static Minecraft mc = Minecraft.getMinecraft();
-
     private static float renderOffset = 12 / 16f;
 
     @Override

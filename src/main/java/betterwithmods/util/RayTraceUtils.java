@@ -194,15 +194,18 @@ public final class RayTraceUtils {
 		}
 	}
 
-	private static boolean isVecInsideYZBounds(AxisAlignedBB aabb, Vec3d point) {
-		return point == null ? false : point.y >= aabb.minY && point.y <= aabb.maxY && point.z >= aabb.minZ && point.z <= aabb.maxZ;
-	}
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private static boolean isVecInsideYZBounds(AxisAlignedBB aabb, Vec3d point) {
+        return point != null && (point.y >= aabb.minY && point.y <= aabb.maxY && point.z >= aabb.minZ && point.z <= aabb.maxZ);
+    }
 
-	private static boolean isVecInsideXZBounds(AxisAlignedBB aabb, Vec3d point) {
-		return point == null ? false : point.x >= aabb.minX && point.x <= aabb.maxX && point.z >= aabb.minZ && point.z <= aabb.maxZ;
-	}
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private static boolean isVecInsideXZBounds(AxisAlignedBB aabb, Vec3d point) {
+        return point != null && (point.x >= aabb.minX && point.x <= aabb.maxX && point.z >= aabb.minZ && point.z <= aabb.maxZ);
+    }
 
-	private static boolean isVecInsideXYBounds(AxisAlignedBB aabb, Vec3d point) {
-		return point == null ? false : point.x >= aabb.minX && point.x <= aabb.maxX && point.y >= aabb.minY && point.y <= aabb.maxY;
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
+    private static boolean isVecInsideXYBounds(AxisAlignedBB aabb, Vec3d point) {
+		return point != null && (point.x >= aabb.minX && point.x <= aabb.maxX && point.y >= aabb.minY && point.y <= aabb.maxY);
 	}
 }

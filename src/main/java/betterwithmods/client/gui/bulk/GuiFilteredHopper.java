@@ -3,15 +3,15 @@ package betterwithmods.client.gui.bulk;
 import betterwithmods.BWMod;
 import betterwithmods.client.container.bulk.ContainerFilteredHopper;
 import betterwithmods.client.gui.GuiProgress;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityFilteredHopper;
+import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiFilteredHopper extends GuiProgress {
     private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/hopper.png");
-    private final TileEntityFilteredHopper tile;
+    private final TileFilteredHopper tile;
 
-    public GuiFilteredHopper(EntityPlayer player, TileEntityFilteredHopper tile) {
+    public GuiFilteredHopper(EntityPlayer player, TileFilteredHopper tile) {
         super(new ContainerFilteredHopper(player, tile), TEXTURE);
         this.ySize = 193;
         this.tile = tile;

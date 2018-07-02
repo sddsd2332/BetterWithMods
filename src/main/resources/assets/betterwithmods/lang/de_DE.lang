@@ -1,458 +1,458 @@
-tile.bwm:stokedFire.name=Angefachtes Feuer
-tile.bwm:hand_crank.name=Handkurbel
-tile.bwm:wooden_axle.name=Hölzerne Axe
-tile.bwm:steel_axle.name=Stählerne Axe
-tile.bwm:wooden_gearbox.name=Hölzernes Getriebe
-tile.bwm:steel_gearbox.name=Stählernes Getriebe
-tile.bwm:wooden_broken_gearbox.name=Kaputtes Hölzernes Getriebe
-tile.bwm:steel_broken_gearbox.name=Kaputtes Stählernes Getriebe
+tile.betterwithmods:stokedFire.name=Angefachtes Feuer
+tile.betterwithmods:hand_crank.name=Handkurbel
+tile.betterwithmods:wooden_axle.name=Hölzerne Axe
+tile.betterwithmods:steel_axle.name=Stählerne Axe
+tile.betterwithmods:wooden_gearbox.name=Hölzernes Getriebe
+tile.betterwithmods:steel_gearbox.name=Stählernes Getriebe
+tile.betterwithmods:wooden_broken_gearbox.name=Kaputtes Hölzernes Getriebe
+tile.betterwithmods:steel_broken_gearbox.name=Kaputtes Stählernes Getriebe
 
 
 
-tile.bwm:single_machine.0.name=Mühlstein
-tile.bwm:single_machine.1.name=Flaschenzug
-tile.bwm:single_machine.2.name=Gefilterter Trichter
-tile.bwm:single_machine.3.name=Drehscheibe
-tile.bwm:pane.0.name=Gitter
-tile.bwm:pane.1.name=Latten
-tile.bwm:wicker.name=Webgitter
-tile.bwm:grate.0.name=Eichengitter
-tile.bwm:grate.1.name=Fichtengitter
-tile.bwm:grate.2.name=Birkengitter
-tile.bwm:grate.3.name=Tropengitter
-tile.bwm:grate.4.name=Akaziengitter
-tile.bwm:grate.5.name=Schwarzeichengitter
-tile.bwm:slats.0.name=Eichenlatten
-tile.bwm:slats.1.name=Fichtenlatten
-tile.bwm:slats.2.name=Birkenlatten
-tile.bwm:slats.3.name=Tropenlatten
-tile.bwm:slats.4.name=Akatienlatten
-tile.bwm:slats.5.name=Schwarzeichenlatten
-tile.bwm:screw_pump.name=Schneckenpumpe
+tile.betterwithmods:single_machine.0.name=Mühlstein
+tile.betterwithmods:single_machine.1.name=Flaschenzug
+tile.betterwithmods:single_machine.2.name=Gefilterter Trichter
+tile.betterwithmods:single_machine.3.name=Drehscheibe
+tile.betterwithmods:pane.0.name=Gitter
+tile.betterwithmods:pane.1.name=Latten
+tile.betterwithmods:wicker.name=Webgitter
+tile.betterwithmods:grate.0.name=Eichengitter
+tile.betterwithmods:grate.1.name=Fichtengitter
+tile.betterwithmods:grate.2.name=Birkengitter
+tile.betterwithmods:grate.3.name=Tropengitter
+tile.betterwithmods:grate.4.name=Akaziengitter
+tile.betterwithmods:grate.5.name=Schwarzeichengitter
+tile.betterwithmods:slats.0.name=Eichenlatten
+tile.betterwithmods:slats.1.name=Fichtenlatten
+tile.betterwithmods:slats.2.name=Birkenlatten
+tile.betterwithmods:slats.3.name=Tropenlatten
+tile.betterwithmods:slats.4.name=Akatienlatten
+tile.betterwithmods:slats.5.name=Schwarzeichenlatten
+tile.betterwithmods:screw_pump.name=Schneckenpumpe
 
-tile.bwm:cooking_pot.0.name=Tiegel
-tile.bwm:cooking_pot.1.name=Kessel
-tile.bwm:cooking_pot.2.name=Mysteriöses Gefäß
+tile.betterwithmods:cooking_pot.0.name=Tiegel
+tile.betterwithmods:cooking_pot.1.name=Kessel
+tile.betterwithmods:cooking_pot.2.name=Mysteriöses Gefäß
 
-tile.bwm:kiln.name=Töpferofen
-tile.bwm:bellows.0.name=Blasebalg
-tile.bwm:bellows.1.name=Automatischer Blasebalg
-tile.bwm:saw.name=Säge
-tile.bwm:steel_anvil.name=Amboss aus seelengeschiedetem Stahl
-tile.bwm:aesthetic.0.name=Schneidebrett
-tile.bwm:aesthetic.1.name=Blutiges Schneidebrett
-tile.bwm:aesthetic.2.name=Gehärtete Nether-Schlacke
-tile.bwm:aesthetic.3.name=Block aus Konzentriertem Höllenfeuer
-tile.bwm:aesthetic.4.name=Seil-Block
-tile.bwm:aesthetic.5.name=Feuerstein-Block
-tile.bwm:aesthetic.6.name=Weißstein
-tile.bwm:aesthetic.7.name=Weißpflasterstein
-tile.bwm:aesthetic.8.name=Ender-Block
-tile.bwm:aesthetic.9.name=Polzerungs-Block
-tile.bwm:aesthetic.10.name=Seifen-Block
-tile.bwm:aesthetic.11.name=Mist-Block
-tile.bwm:aesthetic.12.name=Gewobener Block
-tile.bwm:advanced_bellows.name=Automatischer Blasebalg
+tile.betterwithmods:kiln.name=Töpferofen
+tile.betterwithmods:bellows.0.name=Blasebalg
+tile.betterwithmods:bellows.1.name=Automatischer Blasebalg
+tile.betterwithmods:saw.name=Säge
+tile.betterwithmods:steel_anvil.name=Amboss aus seelengeschiedetem Stahl
+tile.betterwithmods:aesthetic.0.name=Schneidebrett
+tile.betterwithmods:aesthetic.1.name=Blutiges Schneidebrett
+tile.betterwithmods:aesthetic.2.name=Gehärtete Nether-Schlacke
+tile.betterwithmods:aesthetic.3.name=Block aus Konzentriertem Höllenfeuer
+tile.betterwithmods:aesthetic.4.name=Seil-Block
+tile.betterwithmods:aesthetic.5.name=Feuerstein-Block
+tile.betterwithmods:aesthetic.6.name=Weißstein
+tile.betterwithmods:aesthetic.7.name=Weißpflasterstein
+tile.betterwithmods:aesthetic.8.name=Ender-Block
+tile.betterwithmods:aesthetic.9.name=Polzerungs-Block
+tile.betterwithmods:aesthetic.10.name=Seifen-Block
+tile.betterwithmods:aesthetic.11.name=Mist-Block
+tile.betterwithmods:aesthetic.12.name=Gewobener Block
+tile.betterwithmods:advanced_bellows.name=Automatischer Blasebalg
 
-tile.bwm:steel_block.name=Block aus seelengeschiedetem Stahl
-tile.bwm:cut_steel_block.name=Zerschnittener Block aus seelengeschiedetem Stahl
-tile.bwm:steel_pressure_plate.name=Stählerne Druckplatte
+tile.betterwithmods:steel_block.name=Block aus seelengeschiedetem Stahl
+tile.betterwithmods:cut_steel_block.name=Zerschnittener Block aus seelengeschiedetem Stahl
+tile.betterwithmods:steel_pressure_plate.name=Stählerne Druckplatte
 
-tile.bwm:windmill.windmill.name=Horizontales Windrad
-tile.bwm:windmill.waterwheel.name=Wasserrad
-tile.bwm:windmill.windmill_vertical.name=Vertikales Windrad
+tile.betterwithmods:windmill.windmill.name=Horizontales Windrad
+tile.betterwithmods:windmill.waterwheel.name=Wasserrad
+tile.betterwithmods:windmill.windmill_vertical.name=Vertikales Windrad
 
-tile.bwm:planter.0.name=Blumentopf
-tile.bwm:planter.1.name=Blumentopf mit Farmland
-tile.bwm:planter.2.name=Blumentopf mit Gras
-tile.bwm:planter.3.name=Blumentopf mit Seelensand
-tile.bwm:planter.4.name=Blumentopf mit gedüngter Erde
-tile.bwm:planter.5.name=Blumentopf mit Sand
-tile.bwm:planter.6.name=Blumentopf mit Wasser
-tile.bwm:planter.7.name=Blumentopf mit Kies
-tile.bwm:planter.8.name=Blumentopf mit Rotem Sand
-tile.bwm:planter.9.name=Blumentopf mit Erde
+tile.betterwithmods:planter.0.name=Blumentopf
+tile.betterwithmods:planter.1.name=Blumentopf mit Farmland
+tile.betterwithmods:planter.2.name=Blumentopf mit Gras
+tile.betterwithmods:planter.3.name=Blumentopf mit Seelensand
+tile.betterwithmods:planter.4.name=Blumentopf mit gedüngter Erde
+tile.betterwithmods:planter.5.name=Blumentopf mit Sand
+tile.betterwithmods:planter.6.name=Blumentopf mit Wasser
+tile.betterwithmods:planter.7.name=Blumentopf mit Kies
+tile.betterwithmods:planter.8.name=Blumentopf mit Rotem Sand
+tile.betterwithmods:planter.9.name=Blumentopf mit Erde
 
-tile.bwm:vase.0.name=Weiße Vase
-tile.bwm:vase.1.name=Orangene Vase
-tile.bwm:vase.2.name=Magenta Vase
-tile.bwm:vase.3.name=Hellblaue Vase
-tile.bwm:vase.4.name=Gelbe Vase
-tile.bwm:vase.5.name=Hellgrüne Vase
-tile.bwm:vase.6.name=Pinke Vase
-tile.bwm:vase.7.name=Graue Vase
-tile.bwm:vase.8.name=Hellgraue Vase
-tile.bwm:vase.9.name=Türkise Vase
-tile.bwm:vase.10.name=Lilane Vase
-tile.bwm:vase.11.name=Blaue Vase
-tile.bwm:vase.12.name=Braune Vase
-tile.bwm:vase.13.name=Grüne Vase
-tile.bwm:vase.14.name=Rote Vase
-tile.bwm:vase.15.name=Schwarze Vase
+tile.betterwithmods:vase.0.name=Weiße Vase
+tile.betterwithmods:vase.1.name=Orangene Vase
+tile.betterwithmods:vase.2.name=Magenta Vase
+tile.betterwithmods:vase.3.name=Hellblaue Vase
+tile.betterwithmods:vase.4.name=Gelbe Vase
+tile.betterwithmods:vase.5.name=Hellgrüne Vase
+tile.betterwithmods:vase.6.name=Pinke Vase
+tile.betterwithmods:vase.7.name=Graue Vase
+tile.betterwithmods:vase.8.name=Hellgraue Vase
+tile.betterwithmods:vase.9.name=Türkise Vase
+tile.betterwithmods:vase.10.name=Lilane Vase
+tile.betterwithmods:vase.11.name=Blaue Vase
+tile.betterwithmods:vase.12.name=Braune Vase
+tile.betterwithmods:vase.13.name=Grüne Vase
+tile.betterwithmods:vase.14.name=Rote Vase
+tile.betterwithmods:vase.15.name=Schwarze Vase
 
-tile.bwm:candle.0.name=Weiße Kerze
-tile.bwm:candle.1.name=Orangene Kerze
-tile.bwm:candle.2.name=Magenta Kerze
-tile.bwm:candle.3.name=Hellblaue Kerze
-tile.bwm:candle.4.name=Gelbe Kerze
-tile.bwm:candle.5.name=Hellgrüne Kerze
-tile.bwm:candle.6.name=Pinke Kerze
-tile.bwm:candle.7.name=Graue Kerze
-tile.bwm:candle.8.name=Hellgraue Kerze
-tile.bwm:candle.9.name=Türkise Kerze
-tile.bwm:candle.10.name=Lilane Kerze
-tile.bwm:candle.11.name=Blaue Kerze
-tile.bwm:candle.12.name=Braune Kerze
-tile.bwm:candle.13.name=Grüne Kerze
-tile.bwm:candle.14.name=Rote Kerze
-tile.bwm:candle.15.name=Schwarze Kerze
-
-
-tile.bwm:urn.0.name=Urne
-tile.bwm:urn.1.name=Seelen-Urne (12%)
-tile.bwm:urn.2.name=Seelen-Urne (25%)
-tile.bwm:urn.3.name=Seelen-Urne (37%)
-tile.bwm:urn.4.name=Seelen-Urne (50%)
-tile.bwm:urn.5.name=Seelen-Urne (62%)
-tile.bwm:urn.6.name=Seelen-Urne (75%)
-tile.bwm:urn.7.name=Seelen-Urne (87%)
-tile.bwm:urn.8.name=Seelen-Urne
-tile.bwm:urn.9.name=Urne der Leere
-
-tile.bwm:unfired_pottery.0.name=Ungebrannter Kessel
-tile.bwm:unfired_pottery.1.name=Ungebrannter Blumentopf
-tile.bwm:unfired_pottery.2.name=Ungebrannte Urne
-tile.bwm:unfired_pottery.3.name=Ungebrannte Vase
-tile.bwm:unfired_pottery.4.name=Ungebrannte Ziegel
-tile.bwm:unfired_pottery.5.name=Ungebrannte Netherziegel
-
-tile.bwm:anchor.name=Anker
-tile.bwm:rope.name=Hanfseil
-tile.bwm:hibachi.name=Hibachi
-tile.bwm:hemp.name=Hanfsamen
-tile.bwm:detector.name=Detektor Block
-tile.bwm:lens.name=Fokuslinse
-tile.bwm:vine_trap.name=Rebenfalle
-
-tile.bwm:booster.name=Mechanische Beschleunigungsschiene
-
-tile.bwm:siding_rock.name=Fassade
-tile.bwm:siding_wood.name=Fassade
-tile.bwm:siding_iron.name=Fassade
-
-tile.bwm:moulding_rock.name=Kante
-tile.bwm:moulding_wood.name=Kante
-tile.bwm:moulding_iron.name=Kante
-
-tile.bwm:corner_rock.name=Ecke
-tile.bwm:corner_wood.name=Ecke
-tile.bwm:corner_iron.name=Ecke
-
-tile.bwm:wood_siding.0.name=Eichenholzfassade
-tile.bwm:wood_siding.1.name=Fichtenholzfassade
-tile.bwm:wood_siding.2.name=Birkenholzfassade
-tile.bwm:wood_siding.3.name=Tropenholzfassade
-tile.bwm:wood_siding.4.name=Akazienholzfassade
-tile.bwm:wood_siding.5.name=Schwarzeichenholzfassade
-tile.bwm:wood_siding.6.name=Blutholzfassade
-
-tile.bwm:wood_moulding.0.name=Eichenholzkante
-tile.bwm:wood_moulding.1.name=Fichtenholzkante
-tile.bwm:wood_moulding.2.name=Birkenholzkante
-tile.bwm:wood_moulding.3.name=Tropenholzkante
-tile.bwm:wood_moulding.4.name=Akazienholzkante
-tile.bwm:wood_moulding.5.name=Schwarzeichenholzkante
-tile.bwm:wood_moulding.6.name=Blutholzkante
-
-tile.bwm:wood_corner.0.name=Eichenholzecke
-tile.bwm:wood_corner.1.name=Fichtenholzecke
-tile.bwm:wood_corner.2.name=Birkenholzecke
-tile.bwm:wood_corner.3.name=Tropenholzecke
-tile.bwm:wood_corner.4.name=Akazienholzecke
-tile.bwm:wood_corner.5.name=Schwarzeichenholzecke
-tile.bwm:wood_corner.6.name=Blutholzecke
-
-tile.bwm:stone_siding.0.name=Steinfassade
-tile.bwm:stone_siding.1.name=Steinziegelfassade
-tile.bwm:stone_siding.2.name=Weißsteinfassade
-tile.bwm:stone_siding.3.name=Netherziegelfassade
-tile.bwm:stone_siding.4.name=Ziegelfassade
-tile.bwm:stone_siding.5.name=Sandsteinfassade
-tile.bwm:stone_siding.6.name=Quarzfassade
-
-tile.bwm:stone_moulding.0.name=Steinkante
-tile.bwm:stone_moulding.1.name=Steinziegelkante
-tile.bwm:stone_moulding.2.name=Weißsteinkante
-tile.bwm:stone_moulding.3.name=Netherziegelkante
-tile.bwm:stone_moulding.4.name=Ziegelkante
-tile.bwm:stone_moulding.5.name=Sandsteinkante
-tile.bwm:stone_moulding.6.name=Quarzkante
-
-tile.bwm:stone_corner.0.name=Steinecke
-tile.bwm:stone_corner.1.name=Steinziegelecke
-tile.bwm:stone_corner.2.name=Weißsteinecke
-tile.bwm:stone_corner.3.name=Netherziegelecke
-tile.bwm:stone_corner.4.name=Ziegelecke
-tile.bwm:stone_corner.5.name=Sandsteinecke
-tile.bwm:stone_corner.6.name=Quarzecke
-
-tile.bwm:wood_table.0.name=Eichenholz Tisch
-tile.bwm:wood_table.1.name=Fichtenholz Tisch
-tile.bwm:wood_table.2.name=Birkenholz Tisch
-tile.bwm:wood_table.3.name=Tropenholz Tisch
-tile.bwm:wood_table.4.name=Akazienholz Tisch
-tile.bwm:wood_table.5.name=Schwarzeichenholz Tisch
-tile.bwm:wood_table.6.name=Blutholz Tisch
-
-tile.bwm:wood_bench.0.name=Eichenholz Bank
-tile.bwm:wood_bench.1.name=Fichtenholz Bank
-tile.bwm:wood_bench.2.name=Birkenholz Bank
-tile.bwm:wood_bench.3.name=Tropenholz Bank
-tile.bwm:wood_bench.4.name=Akazienholz Bank
-tile.bwm:wood_bench.5.name=Schwarzeichenholz Bank
-tile.bwm:wood_bench.6.name=Blutholz Bank
-
-tile.bwm:debarked_old.0.name=Entrindeter Eichenstamm
-tile.bwm:debarked_old.1.name=Entrindeter Fichenstamm
-tile.bwm:debarked_old.2.name=Entrindeter Birkenstamm
-tile.bwm:debarked_old.3.name=Entrindeter Tropenstamm
-tile.bwm:debarked_new.0.name=Entrindeter Akatienstamm
-tile.bwm:debarked_new.1.name=Entrindeter Schwarzeichenstamm
-
-tile.bwm:block_dispenser.name=Blockspender
-tile.bwm:companion_cube.name=Begleiterkubus
-
-tile.bwm:bamboo_chime.0.name=Eichen-Bambus Windspiel
-tile.bwm:bamboo_chime.1.name=Fichten-Bambus Windspiel
-tile.bwm:bamboo_chime.2.name=Birken-Bambus Windspiel
-tile.bwm:bamboo_chime.3.name=Tropen-Bambus Windspiel
-tile.bwm:bamboo_chime.4.name=Akazien-Bambus Windspiel
-tile.bwm:bamboo_chime.5.name=Schwarzeichen-Bambus Windspiel
-tile.bwm:metal_chime.0.name=Eichen Windspiel
-tile.bwm:metal_chime.1.name=Fichten Windspiel
-tile.bwm:metal_chime.2.name=Birken Windspiel
-tile.bwm:metal_chime.3.name=Tropen Windspiel
-tile.bwm:metal_chime.4.name=Akazien Windspiel
-tile.bwm:metal_chime.5.name=Schwarzeichen Windspiel
-tile.bwm:immersive_axle.name=Behandelte Axe
-tile.bwm:buddy_block.name=Kumpel Block
-tile.bwm:creative_generator.name=Kreativer mechanischer Generator
-tile.bwm:light.name=Gewächshauslicht
-tile.bwm:platform.name=Plattform
-tile.bwm:mining_charge.name=Minenladung
-tile.bwm:fertile_farmland.name=Gedüngertes Farmland
-tile.bwm:advanced_gearbox.name=Verbessertes Getriebe
-tile.bwm:raw_pastry.0.name=Kuchenteig
-tile.bwm:raw_pastry.1.name=Ungebackener Kürbiskuchen
-tile.bwm:raw_pastry.2.name=Roher Keksteig
-tile.bwm:raw_pastry.3.name=Mehl
-tile.bwm:raw_pastry.4.name=Ungebackener Apfelkuchen
-tile.bwm:stump.0.name=Einchenstumpf
-tile.bwm:stump.1.name=Fichtenstumpf
-tile.bwm:stump.2.name=Birkenstumpf
-tile.bwm:stump.3.name=Tropenstumpf
-tile.bwm:stump.4.name=Akazienstumpf
-tile.bwm:stump.5.name=Schwarzeichenstumpf
-tile.bwm:dirt_slab.0.name=Erdstufe
-tile.bwm:dirt_slab.1.name=Grasstufe
-tile.bwm:dirt_slab.2.name=Myzelstufe
-
-tile.bwm:infernal_enchanter.name=Infernaler Verzauberer
-tile.bwm:candle_holder.name=Kerzenhalter
-tile.bwm:shaft.name=Schaft
-
-tile.bwm:broken_gearbox.name=Kaputtes Getriebe
-
-tile.bwm:stake.name=Pflock
-
-tile.bwm:iron_wall.name=Eisenwall
-tile.bwm:nether_growth.name=Nether-Groth-Sporen
-
-tile.bwm:ie_siding.0.name=Horizontale Behandelte Holzfassade
-tile.bwm:ie_moulding.0.name=Horizontale Behandelte Holzkante
-tile.bwm:ie_corner.0.name=Horizontale Behandelte Holzecke
-
-tile.bwm:ie_siding.1.name=Verticale Behandelte Holzfassade
-tile.bwm:ie_moulding.1.name=Verticale Behandelte Holzkante
-tile.bwm:ie_corner.1.name=Verticale Behandelte Holzecke
-
-tile.bwm:ie_siding.2.name=Verpackte Behandelte Holzfassade
-tile.bwm:ie_moulding.2.name=Verpackte Behandelte Holzkante
-tile.bwm:ie_corner.2.name=Verpackte Behandelte Holzecke
-
-tile.bwm:steel_saw.name=Säge aus Seelengeschiedetem Stahl
-
-tile.bwm:blood_log.name=Blutholz
-tile.bwm:blood_leaves.name=Blutblätter
-tile.bwm:blood_sapling.name=Blutsetzling
-
-tile.bwm:nether_clay.name=Nether-Schlacke-Block
-
-tile.bwm:cobble.0.name=Granit-Pflasterstein
-tile.bwm:cobble.1.name=Diorit-Pflasterstein
-tile.bwm:cobble.2.name=Andesit-Pflasterstein
-
-tile.bwm:deadweight.name=Klotz am Bein
-tile.bwm:deadweight.intact.name=Klotz am Bein
-tile.bwm:deadweight.slightDamaged.name=Leicht beschädigter Klotz am Bein
-tile.bwm:deadweight.veryDamaged.name=Stark beschädigter Klotz am Bein
-
-tile.bwm:bucket.name=Brunneneimer
-
-item.bwm:material.gear.name=Hölzernes Zahnrad
-item.bwm:material.nethercoal.name=Netherkohle
-item.bwm:material.hemp.name=Hanf
-item.bwm:material.hemp_fibers.name=Hanffasern
-item.bwm:material.hemp_cloth.name=Hanftuch
-item.bwm:material.dung.name=Mist
-item.bwm:material.tanned_leather.name=Gegerbtes Leder
-item.bwm:material.scoured_leather.name=Gereinigtes Leder
-item.bwm:material.leather_strap.name=Ledergurt
-item.bwm:material.leather_belt.name=Lederriemen
-item.bwm:material.wood_blade.name=Radschaufel
-item.bwm:material.windmill_blade.name=Windsegel
-item.bwm:material.glue.name=Kleber
-item.bwm:material.tallow.name=Talg
-item.bwm:material.ingot_steel.name=Barren aus Seelengeschmiedetem Stahl
-item.bwm:material.plate_steel.name=Platte aus Seelengeschmiedetem Stahl
-item.bwm:material.ground_netherrack.name=Gemahlener Netherrack
-item.bwm:material.hellfire_dust.name=Höllenfeuerstaub
-item.bwm:material.concentrated_hellfire.name=Konzentriertes Höllenfeuer
-item.bwm:material.coal_dust.name=Kohlestaub
-item.bwm:material.filament.name=Glühfaden
-item.bwm:material.polished_lapis.name=Polierter Lapis Lazuli
-item.bwm:material.potash.name=Pottasche
-item.bwm:material.sawdust.name=Sägemehl
-item.bwm:material.soul_dust.name=Seelenstaub
-item.bwm:material.screw.name=Archimedische Schraube
-item.bwm:material.brimstone.name=Schwefel
-item.bwm:material.niter.name=Salpeter
-item.bwm:material.element.name=Heizkörper
-item.bwm:material.fuse.name=Zündschnur
-item.bwm:material.blasting_oil.name=Strahlöl
-item.bwm:material.nugget_iron.name=Eisen-Nugget
-item.bwm:material.nugget_steel.name=Nugget aus Seelengeschiedetem Stahl
-item.bwm:material.leather_cut.name=Geschnittenes Leder
-item.bwm:material.tanned_leather_cut.name=Geschnittenes Leder (Gegerbt)
-item.bwm:material.scoured_leather_cut.name=Geschnittenes Leder (Gereinigt)
-item.bwm:material.redstone_latch.name=Redstone Verriegelung
-item.bwm:material.nether_sludge.name=Nether-Slacke
-item.bwm:material.flour.name=Mehl
-item.bwm:material.haft.name=Heft
-item.bwm:material.soul_dust.name=Seelenstaub
-item.bwm:material.charcoal_dust.name=Holzkohlestaub
-item.bwm:material.sharpening_stone.name=Wetzstein
-item.bwm:material.knife_blade.name=Messerklinge
-item.bwm:material.ender_slag.name=Ender-Schlacke
-item.bwm:material.soul_flux.name=Seelenfluss
-item.bwm:material.ender_ocular.name=Okular des Enders
-item.bwm:material.padding.name=Polsterung
-item.bwm:material.armor_plate.name=Plattenrüstung
-item.bwm:material.broadhead.name=Breitspitze
-item.bwm:material.cocoa_powder.name=Kakaopulver
-item.bwm:material.diamond_ingot.name=Diamantbarren
-item.bwm:material.diamond_nugget.name=Diamantnugget
-item.bwm:material.chain_mail.name=Kettenglieder
-item.bwm:material.steel_gear.name=Zahnrad aus Seelengeschiedetem Stahl
-item.bwm:material.steel_spring.name=Feder aus Seelengeschiedetem Stahl
-item.bwm:material.soap.name=Seife
-item.bwm:material.mystery_gland.name=Mysteriöse Drüse
-item.bwm:material.witch_wart.name=Hexenwarze
-item.bwm:material.poison_sac.name=Giftbeutel
+tile.betterwithmods:candle.0.name=Weiße Kerze
+tile.betterwithmods:candle.1.name=Orangene Kerze
+tile.betterwithmods:candle.2.name=Magenta Kerze
+tile.betterwithmods:candle.3.name=Hellblaue Kerze
+tile.betterwithmods:candle.4.name=Gelbe Kerze
+tile.betterwithmods:candle.5.name=Hellgrüne Kerze
+tile.betterwithmods:candle.6.name=Pinke Kerze
+tile.betterwithmods:candle.7.name=Graue Kerze
+tile.betterwithmods:candle.8.name=Hellgraue Kerze
+tile.betterwithmods:candle.9.name=Türkise Kerze
+tile.betterwithmods:candle.10.name=Lilane Kerze
+tile.betterwithmods:candle.11.name=Blaue Kerze
+tile.betterwithmods:candle.12.name=Braune Kerze
+tile.betterwithmods:candle.13.name=Grüne Kerze
+tile.betterwithmods:candle.14.name=Rote Kerze
+tile.betterwithmods:candle.15.name=Schwarze Kerze
 
 
-item.bwm:donut.name=Krapfen
-item.bwm:knife.name=Eisenmesser
-item.bwm:dynamite.name=Dynamit
-item.bwm:fertilizer.name=Dünger
-item.bwm:creeper_oyster.name=Creeper Auster
-item.bwm:creeper_oyster_kf.name=Creeper Lunte
-item.bwm:ender_spectacles.name=Ender-Brille
-item.bwm:raw_egg.name=Rohes Ei
-item.bwm:cooked_egg.name=Gekochtes Ei
-item.bwm:raw_scrambled_egg.name=Rohes Rührei
-item.bwm:cooked_scrambled_egg.name=Gekochtes Rührei
-item.bwm:raw_omelet.name=Rohes Pilz-Omlett
-item.bwm:cooked_omelet.name=Gekochtes Pilz-Omlett
-item.bwm:ham_and_eggs.name=Schinken und Eier
-item.bwm:tasty_sandwich.name=Leckeres Sandwich
-item.bwm:beef_dinner.name=Steak-Mahlzeit
-item.bwm:beef_potatoes.name=Steak und Kartoffeln
-item.bwm:chicken_soup.name=Hühnersuppe
-item.bwm:chocolate.name=Schokolade
-item.bwm:chowder.name=Eintopf
-item.bwm:cooked_kebab.name=Kebab
-item.bwm:hearty_stew.name=Herzhafter Eintopf
-item.bwm:pork_dinner.name=Mahlzeit mit Schweinefleisch
-item.bwm:raw_kebab.name=Kebabspieß
-item.bwm:wolf_chop.name=Wolfskotlett
-item.bwm:cooked_wolf_chop.name=Gebratenes Wolfskotlett
-item.bwm:mystery_meat.name=Überraschungsfleisch
-item.bwm:cooked_mystery_meat.name=Gebratenes Überraschungsfleisch
-item.bwm:kibble.name=Trockennahrung
-item.bwm:apple_pie.name=Apfelkuchen
-item.bwm:bat_wing.name=Fledermausflügel
-item.bwm:cooked_bat_wing.name=Gebratener Feldermausflügel
+tile.betterwithmods:urn.0.name=Urne
+tile.betterwithmods:urn.1.name=Seelen-Urne (12%)
+tile.betterwithmods:urn.2.name=Seelen-Urne (25%)
+tile.betterwithmods:urn.3.name=Seelen-Urne (37%)
+tile.betterwithmods:urn.4.name=Seelen-Urne (50%)
+tile.betterwithmods:urn.5.name=Seelen-Urne (62%)
+tile.betterwithmods:urn.6.name=Seelen-Urne (75%)
+tile.betterwithmods:urn.7.name=Seelen-Urne (87%)
+tile.betterwithmods:urn.8.name=Seelen-Urne
+tile.betterwithmods:urn.9.name=Urne der Leere
 
-item.bwm:manual.name="Better With Mods" Benutzerhandbuch
+tile.betterwithmods:unfired_pottery.0.name=Ungebrannter Kessel
+tile.betterwithmods:unfired_pottery.1.name=Ungebrannter Blumentopf
+tile.betterwithmods:unfired_pottery.2.name=Ungebrannte Urne
+tile.betterwithmods:unfired_pottery.3.name=Ungebrannte Vase
+tile.betterwithmods:unfired_pottery.4.name=Ungebrannte Ziegel
+tile.betterwithmods:unfired_pottery.5.name=Ungebrannte Netherziegel
 
-item.bwm:axle_generator.windmill.name=Windrad
-item.bwm:axle_generator.waterwheel.name=Wasserrad
-item.bwm:axle_generator.windmill_vertical.name=Vertikale Windrad
+tile.betterwithmods:anchor.name=Anker
+tile.betterwithmods:rope.name=Hanfseil
+tile.betterwithmods:hibachi.name=Hibachi
+tile.betterwithmods:hemp.name=Hanfsamen
+tile.betterwithmods:detector.name=Detektor Block
+tile.betterwithmods:lens.name=Fokuslinse
+tile.betterwithmods:vine_trap.name=Rebenfalle
 
-item.bwm:bark.oak.name=Eichenrinde
-item.bwm:bark.spruce.name=Fichtenrinde
-item.bwm:bark.birch.name=Birkenrinde
-item.bwm:bark.jungle.name=Tropenrinde
-item.bwm:bark.acacia.name=Akazienrinde
-item.bwm:bark.dark_oak.name=Schwarzeichenrinde
-item.bwm:bark.bloody.name=Blutrinde
-item.bwm:bark.olive.name=Olivenrinde
-item.bwm:bark.ironwood.name=Eisenholzrinde
+tile.betterwithmods:booster.name=Mechanische Beschleunigungsschiene
+
+tile.betterwithmods:siding_rock.name=Fassade
+tile.betterwithmods:siding_wood.name=Fassade
+tile.betterwithmods:siding_iron.name=Fassade
+
+tile.betterwithmods:moulding_rock.name=Kante
+tile.betterwithmods:moulding_wood.name=Kante
+tile.betterwithmods:moulding_iron.name=Kante
+
+tile.betterwithmods:corner_rock.name=Ecke
+tile.betterwithmods:corner_wood.name=Ecke
+tile.betterwithmods:corner_iron.name=Ecke
+
+tile.betterwithmods:wood_siding.0.name=Eichenholzfassade
+tile.betterwithmods:wood_siding.1.name=Fichtenholzfassade
+tile.betterwithmods:wood_siding.2.name=Birkenholzfassade
+tile.betterwithmods:wood_siding.3.name=Tropenholzfassade
+tile.betterwithmods:wood_siding.4.name=Akazienholzfassade
+tile.betterwithmods:wood_siding.5.name=Schwarzeichenholzfassade
+tile.betterwithmods:wood_siding.6.name=Blutholzfassade
+
+tile.betterwithmods:wood_moulding.0.name=Eichenholzkante
+tile.betterwithmods:wood_moulding.1.name=Fichtenholzkante
+tile.betterwithmods:wood_moulding.2.name=Birkenholzkante
+tile.betterwithmods:wood_moulding.3.name=Tropenholzkante
+tile.betterwithmods:wood_moulding.4.name=Akazienholzkante
+tile.betterwithmods:wood_moulding.5.name=Schwarzeichenholzkante
+tile.betterwithmods:wood_moulding.6.name=Blutholzkante
+
+tile.betterwithmods:wood_corner.0.name=Eichenholzecke
+tile.betterwithmods:wood_corner.1.name=Fichtenholzecke
+tile.betterwithmods:wood_corner.2.name=Birkenholzecke
+tile.betterwithmods:wood_corner.3.name=Tropenholzecke
+tile.betterwithmods:wood_corner.4.name=Akazienholzecke
+tile.betterwithmods:wood_corner.5.name=Schwarzeichenholzecke
+tile.betterwithmods:wood_corner.6.name=Blutholzecke
+
+tile.betterwithmods:stone_siding.0.name=Steinfassade
+tile.betterwithmods:stone_siding.1.name=Steinziegelfassade
+tile.betterwithmods:stone_siding.2.name=Weißsteinfassade
+tile.betterwithmods:stone_siding.3.name=Netherziegelfassade
+tile.betterwithmods:stone_siding.4.name=Ziegelfassade
+tile.betterwithmods:stone_siding.5.name=Sandsteinfassade
+tile.betterwithmods:stone_siding.6.name=Quarzfassade
+
+tile.betterwithmods:stone_moulding.0.name=Steinkante
+tile.betterwithmods:stone_moulding.1.name=Steinziegelkante
+tile.betterwithmods:stone_moulding.2.name=Weißsteinkante
+tile.betterwithmods:stone_moulding.3.name=Netherziegelkante
+tile.betterwithmods:stone_moulding.4.name=Ziegelkante
+tile.betterwithmods:stone_moulding.5.name=Sandsteinkante
+tile.betterwithmods:stone_moulding.6.name=Quarzkante
+
+tile.betterwithmods:stone_corner.0.name=Steinecke
+tile.betterwithmods:stone_corner.1.name=Steinziegelecke
+tile.betterwithmods:stone_corner.2.name=Weißsteinecke
+tile.betterwithmods:stone_corner.3.name=Netherziegelecke
+tile.betterwithmods:stone_corner.4.name=Ziegelecke
+tile.betterwithmods:stone_corner.5.name=Sandsteinecke
+tile.betterwithmods:stone_corner.6.name=Quarzecke
+
+tile.betterwithmods:wood_table.0.name=Eichenholz Tisch
+tile.betterwithmods:wood_table.1.name=Fichtenholz Tisch
+tile.betterwithmods:wood_table.2.name=Birkenholz Tisch
+tile.betterwithmods:wood_table.3.name=Tropenholz Tisch
+tile.betterwithmods:wood_table.4.name=Akazienholz Tisch
+tile.betterwithmods:wood_table.5.name=Schwarzeichenholz Tisch
+tile.betterwithmods:wood_table.6.name=Blutholz Tisch
+
+tile.betterwithmods:wood_bench.0.name=Eichenholz Bank
+tile.betterwithmods:wood_bench.1.name=Fichtenholz Bank
+tile.betterwithmods:wood_bench.2.name=Birkenholz Bank
+tile.betterwithmods:wood_bench.3.name=Tropenholz Bank
+tile.betterwithmods:wood_bench.4.name=Akazienholz Bank
+tile.betterwithmods:wood_bench.5.name=Schwarzeichenholz Bank
+tile.betterwithmods:wood_bench.6.name=Blutholz Bank
+
+tile.betterwithmods:debarked_old.0.name=Entrindeter Eichenstamm
+tile.betterwithmods:debarked_old.1.name=Entrindeter Fichenstamm
+tile.betterwithmods:debarked_old.2.name=Entrindeter Birkenstamm
+tile.betterwithmods:debarked_old.3.name=Entrindeter Tropenstamm
+tile.betterwithmods:debarked_new.0.name=Entrindeter Akatienstamm
+tile.betterwithmods:debarked_new.1.name=Entrindeter Schwarzeichenstamm
+
+tile.betterwithmods:block_dispenser.name=Blockspender
+tile.betterwithmods:companion_cube.name=Begleiterkubus
+
+tile.betterwithmods:bamboo_chime.0.name=Eichen-Bambus Windspiel
+tile.betterwithmods:bamboo_chime.1.name=Fichten-Bambus Windspiel
+tile.betterwithmods:bamboo_chime.2.name=Birken-Bambus Windspiel
+tile.betterwithmods:bamboo_chime.3.name=Tropen-Bambus Windspiel
+tile.betterwithmods:bamboo_chime.4.name=Akazien-Bambus Windspiel
+tile.betterwithmods:bamboo_chime.5.name=Schwarzeichen-Bambus Windspiel
+tile.betterwithmods:metal_chime.0.name=Eichen Windspiel
+tile.betterwithmods:metal_chime.1.name=Fichten Windspiel
+tile.betterwithmods:metal_chime.2.name=Birken Windspiel
+tile.betterwithmods:metal_chime.3.name=Tropen Windspiel
+tile.betterwithmods:metal_chime.4.name=Akazien Windspiel
+tile.betterwithmods:metal_chime.5.name=Schwarzeichen Windspiel
+tile.betterwithmods:immersive_axle.name=Behandelte Axe
+tile.betterwithmods:buddy_block.name=Kumpel Block
+tile.betterwithmods:creative_generator.name=Kreativer mechanischer Generator
+tile.betterwithmods:light.name=Gewächshauslicht
+tile.betterwithmods:platform.name=Plattform
+tile.betterwithmods:mining_charge.name=Minenladung
+tile.betterwithmods:fertile_farmland.name=Gedüngertes Farmland
+tile.betterwithmods:advanced_gearbox.name=Verbessertes Getriebe
+tile.betterwithmods:raw_pastry.0.name=Kuchenteig
+tile.betterwithmods:raw_pastry.1.name=Ungebackener Kürbiskuchen
+tile.betterwithmods:raw_pastry.2.name=Roher Keksteig
+tile.betterwithmods:raw_pastry.3.name=Mehl
+tile.betterwithmods:raw_pastry.4.name=Ungebackener Apfelkuchen
+tile.betterwithmods:stump.0.name=Einchenstumpf
+tile.betterwithmods:stump.1.name=Fichtenstumpf
+tile.betterwithmods:stump.2.name=Birkenstumpf
+tile.betterwithmods:stump.3.name=Tropenstumpf
+tile.betterwithmods:stump.4.name=Akazienstumpf
+tile.betterwithmods:stump.5.name=Schwarzeichenstumpf
+tile.betterwithmods:dirt_slab.0.name=Erdstufe
+tile.betterwithmods:dirt_slab.1.name=Grasstufe
+tile.betterwithmods:dirt_slab.2.name=Myzelstufe
+
+tile.betterwithmods:infernal_enchanter.name=Infernaler Verzauberer
+tile.betterwithmods:candle_holder.name=Kerzenhalter
+tile.betterwithmods:shaft.name=Schaft
+
+tile.betterwithmods:broken_gearbox.name=Kaputtes Getriebe
+
+tile.betterwithmods:stake.name=Pflock
+
+tile.betterwithmods:iron_wall.name=Eisenwall
+tile.betterwithmods:nether_growth.name=Nether-Groth-Sporen
+
+tile.betterwithmods:ie_siding.0.name=Horizontale Behandelte Holzfassade
+tile.betterwithmods:ie_moulding.0.name=Horizontale Behandelte Holzkante
+tile.betterwithmods:ie_corner.0.name=Horizontale Behandelte Holzecke
+
+tile.betterwithmods:ie_siding.1.name=Verticale Behandelte Holzfassade
+tile.betterwithmods:ie_moulding.1.name=Verticale Behandelte Holzkante
+tile.betterwithmods:ie_corner.1.name=Verticale Behandelte Holzecke
+
+tile.betterwithmods:ie_siding.2.name=Verpackte Behandelte Holzfassade
+tile.betterwithmods:ie_moulding.2.name=Verpackte Behandelte Holzkante
+tile.betterwithmods:ie_corner.2.name=Verpackte Behandelte Holzecke
+
+tile.betterwithmods:steel_saw.name=Säge aus Seelengeschiedetem Stahl
+
+tile.betterwithmods:blood_log.name=Blutholz
+tile.betterwithmods:blood_leaves.name=Blutblätter
+tile.betterwithmods:blood_sapling.name=Blutsetzling
+
+tile.betterwithmods:nether_clay.name=Nether-Schlacke-Block
+
+tile.betterwithmods:cobble.0.name=Granit-Pflasterstein
+tile.betterwithmods:cobble.1.name=Diorit-Pflasterstein
+tile.betterwithmods:cobble.2.name=Andesit-Pflasterstein
+
+tile.betterwithmods:deadweight.name=Klotz am Bein
+tile.betterwithmods:deadweight.intact.name=Klotz am Bein
+tile.betterwithmods:deadweight.slightDamaged.name=Leicht beschädigter Klotz am Bein
+tile.betterwithmods:deadweight.veryDamaged.name=Stark beschädigter Klotz am Bein
+
+tile.betterwithmods:bucket.name=Brunneneimer
+
+item.betterwithmods:material.gear.name=Hölzernes Zahnrad
+item.betterwithmods:material.nethercoal.name=Netherkohle
+item.betterwithmods:material.hemp.name=Hanf
+item.betterwithmods:material.hemp_fibers.name=Hanffasern
+item.betterwithmods:material.hemp_cloth.name=Hanftuch
+item.betterwithmods:material.dung.name=Mist
+item.betterwithmods:material.tanned_leather.name=Gegerbtes Leder
+item.betterwithmods:material.scoured_leather.name=Gereinigtes Leder
+item.betterwithmods:material.leather_strap.name=Ledergurt
+item.betterwithmods:material.leather_belt.name=Lederriemen
+item.betterwithmods:material.wood_blade.name=Radschaufel
+item.betterwithmods:material.windmill_blade.name=Windsegel
+item.betterwithmods:material.glue.name=Kleber
+item.betterwithmods:material.tallow.name=Talg
+item.betterwithmods:material.ingot_steel.name=Barren aus Seelengeschmiedetem Stahl
+item.betterwithmods:material.plate_steel.name=Platte aus Seelengeschmiedetem Stahl
+item.betterwithmods:material.ground_netherrack.name=Gemahlener Netherrack
+item.betterwithmods:material.hellfire_dust.name=Höllenfeuerstaub
+item.betterwithmods:material.concentrated_hellfire.name=Konzentriertes Höllenfeuer
+item.betterwithmods:material.coal_dust.name=Kohlestaub
+item.betterwithmods:material.filament.name=Glühfaden
+item.betterwithmods:material.polished_lapis.name=Polierter Lapis Lazuli
+item.betterwithmods:material.potash.name=Pottasche
+item.betterwithmods:material.sawdust.name=Sägemehl
+item.betterwithmods:material.soul_dust.name=Seelenstaub
+item.betterwithmods:material.screw.name=Archimedische Schraube
+item.betterwithmods:material.brimstone.name=Schwefel
+item.betterwithmods:material.niter.name=Salpeter
+item.betterwithmods:material.element.name=Heizkörper
+item.betterwithmods:material.fuse.name=Zündschnur
+item.betterwithmods:material.blasting_oil.name=Strahlöl
+item.betterwithmods:material.nugget_iron.name=Eisen-Nugget
+item.betterwithmods:material.nugget_steel.name=Nugget aus Seelengeschiedetem Stahl
+item.betterwithmods:material.leather_cut.name=Geschnittenes Leder
+item.betterwithmods:material.tanned_leather_cut.name=Geschnittenes Leder (Gegerbt)
+item.betterwithmods:material.scoured_leather_cut.name=Geschnittenes Leder (Gereinigt)
+item.betterwithmods:material.redstone_latch.name=Redstone Verriegelung
+item.betterwithmods:material.nether_sludge.name=Nether-Slacke
+item.betterwithmods:material.flour.name=Mehl
+item.betterwithmods:material.haft.name=Heft
+item.betterwithmods:material.soul_dust.name=Seelenstaub
+item.betterwithmods:material.charcoal_dust.name=Holzkohlestaub
+item.betterwithmods:material.sharpening_stone.name=Wetzstein
+item.betterwithmods:material.knife_blade.name=Messerklinge
+item.betterwithmods:material.ender_slag.name=Ender-Schlacke
+item.betterwithmods:material.soul_flux.name=Seelenfluss
+item.betterwithmods:material.ender_ocular.name=Okular des Enders
+item.betterwithmods:material.padding.name=Polsterung
+item.betterwithmods:material.armor_plate.name=Plattenrüstung
+item.betterwithmods:material.broadhead.name=Breitspitze
+item.betterwithmods:material.cocoa_powder.name=Kakaopulver
+item.betterwithmods:material.diamond_ingot.name=Diamantbarren
+item.betterwithmods:material.diamond_nugget.name=Diamantnugget
+item.betterwithmods:material.chain_mail.name=Kettenglieder
+item.betterwithmods:material.steel_gear.name=Zahnrad aus Seelengeschiedetem Stahl
+item.betterwithmods:material.steel_spring.name=Feder aus Seelengeschiedetem Stahl
+item.betterwithmods:material.soap.name=Seife
+item.betterwithmods:material.mystery_gland.name=Mysteriöse Drüse
+item.betterwithmods:material.witch_wart.name=Hexenwarze
+item.betterwithmods:material.poison_sac.name=Giftbeutel
 
 
-item.bwm:steel_axe.name=Verstärkte Axt
-item.bwm:steel_hoe.name=Verstärkte Hacke
-item.bwm:steel_pickaxe.name=Verstärkte Spitzhacke
-item.bwm:steel_shovel.name=Verstärkte Schaufel
-item.bwm:steel_sword.name=Verstärktes Schwert
-item.bwm:steel_mattock.name=Verstärkte Breithacke
-item.bwm:steel_battleaxe.name=Verstärkte Kriegsaxt
-item.bwm:steel_hacksaw.name=Verstärkte Bogensäge
+item.betterwithmods:donut.name=Krapfen
+item.betterwithmods:knife.name=Eisenmesser
+item.betterwithmods:dynamite.name=Dynamit
+item.betterwithmods:fertilizer.name=Dünger
+item.betterwithmods:creeper_oyster.name=Creeper Auster
+item.betterwithmods:creeper_oyster_kf.name=Creeper Lunte
+item.betterwithmods:ender_spectacles.name=Ender-Brille
+item.betterwithmods:raw_egg.name=Rohes Ei
+item.betterwithmods:cooked_egg.name=Gekochtes Ei
+item.betterwithmods:raw_scrambled_egg.name=Rohes Rührei
+item.betterwithmods:cooked_scrambled_egg.name=Gekochtes Rührei
+item.betterwithmods:raw_omelet.name=Rohes Pilz-Omlett
+item.betterwithmods:cooked_omelet.name=Gekochtes Pilz-Omlett
+item.betterwithmods:ham_and_eggs.name=Schinken und Eier
+item.betterwithmods:tasty_sandwich.name=Leckeres Sandwich
+item.betterwithmods:beef_dinner.name=Steak-Mahlzeit
+item.betterwithmods:beef_potatoes.name=Steak und Kartoffeln
+item.betterwithmods:chicken_soup.name=Hühnersuppe
+item.betterwithmods:chocolate.name=Schokolade
+item.betterwithmods:chowder.name=Eintopf
+item.betterwithmods:cooked_kebab.name=Kebab
+item.betterwithmods:hearty_stew.name=Herzhafter Eintopf
+item.betterwithmods:pork_dinner.name=Mahlzeit mit Schweinefleisch
+item.betterwithmods:raw_kebab.name=Kebabspieß
+item.betterwithmods:wolf_chop.name=Wolfskotlett
+item.betterwithmods:cooked_wolf_chop.name=Gebratenes Wolfskotlett
+item.betterwithmods:mystery_meat.name=Überraschungsfleisch
+item.betterwithmods:cooked_mystery_meat.name=Gebratenes Überraschungsfleisch
+item.betterwithmods:kibble.name=Trockennahrung
+item.betterwithmods:apple_pie.name=Apfelkuchen
+item.betterwithmods:bat_wing.name=Fledermausflügel
+item.betterwithmods:cooked_bat_wing.name=Gebratener Feldermausflügel
 
-item.bwm:steel_helmet.name=Plattenhelm
-item.bwm:steel_chest.name=Plattenpanzer
-item.bwm:steel_pants.name=Plattenschienen
-item.bwm:steel_boots.name=Plattenstiefel
+item.betterwithmods:manual.name="Better With Mods" Benutzerhandbuch
 
-item.bwm:leather_tanned_helmet.name=Gegerbte Kappe
-item.bwm:leather_tanned_chest.name=Gegerbter Waffenrock
-item.bwm:leather_tanned_pants.name=Gegerbte Hose
-item.bwm:leather_tanned_boots.name=Gegerbte Stiefel
+item.betterwithmods:axle_generator.windmill.name=Windrad
+item.betterwithmods:axle_generator.waterwheel.name=Wasserrad
+item.betterwithmods:axle_generator.windmill_vertical.name=Vertikale Windrad
 
-item.bwm:composite_bow.name=Kompositbogen
-item.bwm:broadhead_arrow.name=Breitkopfpfeil
+item.betterwithmods:bark.oak.name=Eichenrinde
+item.betterwithmods:bark.spruce.name=Fichtenrinde
+item.betterwithmods:bark.birch.name=Birkenrinde
+item.betterwithmods:bark.jungle.name=Tropenrinde
+item.betterwithmods:bark.acacia.name=Akazienrinde
+item.betterwithmods:bark.dark_oak.name=Schwarzeichenrinde
+item.betterwithmods:bark.bloody.name=Blutrinde
+item.betterwithmods:bark.olive.name=Olivenrinde
+item.betterwithmods:bark.ironwood.name=Eisenholzrinde
 
-item.bwm:breeding_harness.name=Zuchtgeschirr
-item.bwm:breeding_harness_kf.name=Beschränkung
 
-item.bwm:arcane_scroll.name=Arkane Schriftrolle
+item.betterwithmods:steel_axe.name=Verstärkte Axt
+item.betterwithmods:steel_hoe.name=Verstärkte Hacke
+item.betterwithmods:steel_pickaxe.name=Verstärkte Spitzhacke
+item.betterwithmods:steel_shovel.name=Verstärkte Schaufel
+item.betterwithmods:steel_sword.name=Verstärktes Schwert
+item.betterwithmods:steel_mattock.name=Verstärkte Breithacke
+item.betterwithmods:steel_battleaxe.name=Verstärkte Kriegsaxt
+item.betterwithmods:steel_hacksaw.name=Verstärkte Bogensäge
 
-item.bwm:stump_remover.name=Stumpfentferner
+item.betterwithmods:steel_helmet.name=Plattenhelm
+item.betterwithmods:steel_chest.name=Plattenpanzer
+item.betterwithmods:steel_pants.name=Plattenschienen
+item.betterwithmods:steel_boots.name=Plattenstiefel
 
-item.bwm:gravel_pile.name=Kieshaufen
-item.bwm:dirt_pile.name=Erdhaufen
-item.bwm:sand_pile.name=Sandhaufen
-item.bwm:red_sand_pile.name=Rotsandhaufen
+item.betterwithmods:leather_tanned_helmet.name=Gegerbte Kappe
+item.betterwithmods:leather_tanned_chest.name=Gegerbter Waffenrock
+item.betterwithmods:leather_tanned_pants.name=Gegerbte Hose
+item.betterwithmods:leather_tanned_boots.name=Gegerbte Stiefel
 
-item.bwm:bop_piles.loamy_dirt_pile.name=Haufen Lehmiger Erde
-item.bwm:bop_piles.silty_dirt_pile.name=Haufen Schluffiger Erde
-item.bwm:bop_piles.sandy_dirt_pile.name=Haufen Sandiger Erde
+item.betterwithmods:composite_bow.name=Kompositbogen
+item.betterwithmods:broadhead_arrow.name=Breitkopfpfeil
+
+item.betterwithmods:breeding_harness.name=Zuchtgeschirr
+item.betterwithmods:breeding_harness_kf.name=Beschränkung
+
+item.betterwithmods:arcane_scroll.name=Arkane Schriftrolle
+
+item.betterwithmods:stump_remover.name=Stumpfentferner
+
+item.betterwithmods:gravel_pile.name=Kieshaufen
+item.betterwithmods:dirt_pile.name=Erdhaufen
+item.betterwithmods:sand_pile.name=Sandhaufen
+item.betterwithmods:red_sand_pile.name=Rotsandhaufen
+
+item.betterwithmods:bop_piles.loamy_dirt_pile.name=Haufen Lehmiger Erde
+item.betterwithmods:bop_piles.silty_dirt_pile.name=Haufen Schluffiger Erde
+item.betterwithmods:bop_piles.sandy_dirt_pile.name=Haufen Sandiger Erde
 
 enchantment.level.-1=
-bwm.infernalenchanter=Infernaler Verzauberer
+betterwithmods.infernalenchanter=Infernaler Verzauberer
 
-lore.bwm:dynamite=Zwergische Angel
+lore.betterwithmods:dynamite=Zwergische Angel
 
 material.hellfire=Höllenfeuer
 material.hellfire.ability=Geschmolzen
@@ -461,9 +461,9 @@ material.soulforgedsteel.ability=Seelensaugender
 fluid.molten.hellfire=Geschmolzenes Höllenfeuer
 fluid.molten.soulforge=Geschmolzenes Seelengeschiedeter Stahl
 
-message.bwm:async.enabled=Asynchroner Timer aktiviert
-message.bwm:async.disabled=Asynchroner Timer deaktiviert
-message.bwm:async.unavailable=Unmöglich den Asynchronen Timer zu Starten: In der Welt schreitet die Zeit nicht voran.
+message.betterwithmods:async.enabled=Asynchroner Timer aktiviert
+message.betterwithmods:async.disabled=Asynchroner Timer deaktiviert
+message.betterwithmods:async.unavailable=Unmöglich den Asynchronen Timer zu Starten: In der Welt schreitet die Zeit nicht voran.
 
 inv.cauldron.name=Kessel
 inv.cauldron.stoked.name=Angefachter Kessel
@@ -471,7 +471,7 @@ inv.crucible.name=Tiegel
 inv.crucible.stoked.name=Angefachter Tiegel
 inv.filtered_hopper.name=Gefilteter Trichter
 inv.mill.name=Mühlstein
-inv.bwm.dispenser.name=Blockspender
+inv.betterwithmods.dispenser.name=Blockspender
 inv.saw.name=Säge
 inv.kiln.name=Töpferofen
 inv.pulley.name=Flaschenzug
@@ -485,7 +485,7 @@ inv.hopper.outputs=Ergebnis
 inv.hopper.place=Platziere unterhalb des Trichters
 inv.hopper.soul_urn.name=Trichter Seelen-Urne Rezept
 
-itemGroup.bwm:bwTab=Better With Mods
+itemGroup.betterwithmods:bwTab=Better With Mods
 
 fluid.betterwithmods:soulforged_steel.name=Gescholzener Seelengeschiedeter Stahl
 fluid.betterwithmods:hellfire.name=Geschmolzenes Höllenfeuer
@@ -495,16 +495,16 @@ modifier.mending.name=Reparatur
 modifier.mending.desc=??oKillsteal!??r Absorbiert Erfahrung, um seine Werkzeuge zu raparieren.
 
 entity.entity_sheared_creeper.name=Geschorener Creeper
-entity.bwm_jungle_spider.name=Tropenspinne
+entity.betterwithmods_jungle_spider.name=Tropenspinne
 entity.extending_rope.name=Bewegende Plattform
-tile.bwm:single_machine=Mechanische Maschine
+tile.betterwithmods:single_machine=Mechanische Maschine
 
-subtitles.bwm.wood.creak=Holz knarrt
-subtitles.bwm.stone.grind=Steine mahlen
-subtitles.bwm.wood.bellow=Blasebalg bläst
-subtitles.bwm.wood.chime=Hölzernes Windspiel
-subtitles.bwm.metal.chime=Metallenes Windspiel
-subtitles.bwm.oof=Uff
+subtitles.betterwithmods.wood.creak=Holz knarrt
+subtitles.betterwithmods.stone.grind=Steine mahlen
+subtitles.betterwithmods.wood.bellow=Blasebalg bläst
+subtitles.betterwithmods.wood.chime=Hölzernes Windspiel
+subtitles.betterwithmods.metal.chime=Metallenes Windspiel
+subtitles.betterwithmods.oof=Uff
 death.attack.growth=%s wurde vom Wachstum verschlungen.
 death.attack.gloom=%s wurde vom Grue gegessen.
 death.attack.saw=%s hat seine Finger verloren.
@@ -515,30 +515,30 @@ death.blasting_oil=%s's Stimmung ist explosiv.
 death.acid_rain=%s hat sich aufgelöst.
 death.squid.attack=%s wurde von Tintenfischen verschlungen.
 
-bwm.message.immersive.0=Funktioniert nur, um mechanische Energie zu übertragen
-bwm.message.immersive.1=und Immersive Engineering Kinetische Dynamos zu betreiben.
-bwm.message.exhaustion=Du bist zu kraftlos, um das zu betätigen.
+betterwithmods.message.immersive.0=Funktioniert nur, um mechanische Energie zu übertragen
+betterwithmods.message.immersive.1=und Immersive Engineering Kinetische Dynamos zu betreiben.
+betterwithmods.message.exhaustion=Du bist zu kraftlos, um das zu betätigen.
 
-bwm.message.needs_bait=Die Fische wollen einfach nicht beißen, ich brauche einen Köder.
-bwm.message.needs_open_sky=Vielleicht solltest du dich unter freien Himmel begeben.
-bwm.message.needs_deep_water=Das Wasser ist nicht tief genug.
+betterwithmods.message.needs_bait=Die Fische wollen einfach nicht beißen, ich brauche einen Köder.
+betterwithmods.message.needs_open_sky=Vielleicht solltest du dich unter freien Himmel begeben.
+betterwithmods.message.needs_deep_water=Das Wasser ist nicht tief genug.
 
-bwm.message.waterwheel.0=Nicht genug Platz für das Wasserrad. Eine 5x5-Fläche wird benötigt.
-bwm.message.windmill.0=Nicht genug Platz für das Windrad. Eine 13x13-Fläche wird benötigt.
-bwm.message.vertical_windmill.0=Nicht genug Platz für das Windrad. Eine 9x7x9-Quader wird benötigt.
-bwm.message.vertical_windmill.1=Zu wenig vertikale Achsen. (Benötigt 7).
+betterwithmods.message.waterwheel.0=Nicht genug Platz für das Wasserrad. Eine 5x5-Fläche wird benötigt.
+betterwithmods.message.windmill.0=Nicht genug Platz für das Windrad. Eine 13x13-Fläche wird benötigt.
+betterwithmods.message.vertical_windmill.0=Nicht genug Platz für das Windrad. Eine 9x7x9-Quader wird benötigt.
+betterwithmods.message.vertical_windmill.1=Zu wenig vertikale Achsen. (Benötigt 7).
 
-bwm.config.hardcore.tooltip=Hardcore Features
-bwm.config.debug.tooltip=Debug-Info für bestimmte Features
-bwm.config.vanilla_tweaks.tooltip=Änderungen, wie Vanilla Minecraft funktioniert
-bwm.config.pulley.tooltip=Einschränkungen für die Plattformen des Seilzugs 
+betterwithmods.config.hardcore.tooltip=Hardcore Features
+betterwithmods.config.debug.tooltip=Debug-Info für bestimmte Features
+betterwithmods.config.vanilla_tweaks.tooltip=Änderungen, wie Vanilla Minecraft funktioniert
+betterwithmods.config.pulley.tooltip=Einschränkungen für die Plattformen des Seilzugs
 
-bwm.effect.slow_fall=Langsamer Fall
-bwm.effect.true_sight=Wahrheitssicht
-bwm.effect.fortune=Glück
-bwm.effect.looting=Plünderung
+betterwithmods.effect.slow_fall=Langsamer Fall
+betterwithmods.effect.true_sight=Wahrheitssicht
+betterwithmods.effect.fortune=Glück
+betterwithmods.effect.looting=Plünderung
 
-bwm.item.containment=Enthält:
+betterwithmods.item.containment=Enthält:
 
 config.sync.restart=Server-Änderungen für die configs benötigen einen Client-Neustart.
 config.sync.ok=Änderungen erfolgreich. Bei Problemen bitte an die Server-Admins wenden, damit diese die configs anpassen können.
@@ -550,15 +550,15 @@ tooltip.chime.name=Gibt ein Redstone-Signal aus, wenn es regnet, oder wenn eine 
 tooltip.gearbox.name=Getriebe gehen kaputt, wenn das Windrad sich zu schnell dreht. Schalte das es mit einem Redstone-Signal aus, um das zu verhindern!
 tooltip.broken_gearbox.name=Getriebe gehen kaputt, wenn das Windrad sich zu schnell dreht. Schalte das es mit einem Redstone-Signal aus, um das zu verhindern!
 tooltip.windmill.name=Windräder drehen sich um Regen und im Sturm schneller. Passe also auf deine Getriebe auf!
-tooltip.bwm_book.name=Das Buch des einzelnen.
+tooltip.betterwithmods_book.name=Das Buch des einzelnen.
 
 
-bwm.manual.message=Sie haben ein "Better With Mods"-Handbuch erhalten. Diese Mod mag anders sein, als du es erwatest. Bitte lese die Einführung.
+betterwithmods.manual.message=Sie haben ein "Better With Mods"-Handbuch erhalten. Diese Mod mag anders sein, als du es erwatest. Bitte lese die Einführung.
 
-bwm.manual.home=Home
-bwm.manual.blocks=Blöcke
-bwm.manual.items=Gegenstände
-bwm.manual.mechanical=Mechanische Energie
-bwm.manual.error.0=Document nicht gefunden:
-bwm.manual.error.1=Bitte melden sie dies
-bwm.manual.error.2=Wärenddessen, versuch das
+betterwithmods.manual.home=Home
+betterwithmods.manual.blocks=Blöcke
+betterwithmods.manual.items=Gegenstände
+betterwithmods.manual.mechanical=Mechanische Energie
+betterwithmods.manual.error.0=Document nicht gefunden:
+betterwithmods.manual.error.1=Bitte melden sie dies
+betterwithmods.manual.error.2=Wärenddessen, versuch das

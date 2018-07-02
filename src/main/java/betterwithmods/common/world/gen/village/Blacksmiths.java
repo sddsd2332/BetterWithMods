@@ -1,6 +1,5 @@
 package betterwithmods.common.world.gen.village;
 
-import betterwithmods.common.BWMBlocks;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,6 +11,7 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -33,7 +33,7 @@ public class Blacksmiths extends AbandonedVillagePiece {
      * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
      * Mineshafts at the end, it adds Fences...
      */
-    public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+    public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
         if (this.averageGroundLvl < 0) {
             this.averageGroundLvl = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -44,7 +44,7 @@ public class Blacksmiths extends AbandonedVillagePiece {
             this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 6 - 1, 0);
         }
 
-        IBlockState table = this.getBiomeSpecificBlockState(BWMBlocks.WOOD_TABLE.getDefaultState());
+
         IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
         IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
         IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
@@ -95,7 +95,7 @@ public class Blacksmiths extends AbandonedVillagePiece {
 //        this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 2, 2, 6, structureBoundingBoxIn);
 //        this.setBlockState(worldIn, Blocks.GLASS_PANE.getDefaultState(), 4, 2, 6, structureBoundingBoxIn);
 //        this.setBlockState(worldIn, iblockstate6, 2, 1, 4, structureBoundingBoxIn);
-        this.setBlockState(worldIn, table, 2, 1, 4, structureBoundingBoxIn);
+        this.setBlockState(worldIn, iblockstate, 2, 1, 4, structureBoundingBoxIn);
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 2, 2, 4, structureBoundingBoxIn);
         this.setBlockState(worldIn, iblockstate3, 1, 1, 5, structureBoundingBoxIn);
         this.setBlockState(worldIn, iblockstate1, 2, 1, 5, structureBoundingBoxIn);

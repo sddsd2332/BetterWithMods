@@ -10,6 +10,7 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public final class ItemImageProvider implements ImageProvider {
@@ -17,7 +18,7 @@ public final class ItemImageProvider implements ImageProvider {
 
     @Override
     @Nullable
-    public ImageRenderer getImage(final String data) {
+    public ImageRenderer getImage(@Nonnull final String data) {
         final int splitIndex = data.lastIndexOf('@');
         final String name, optMeta;
         if (splitIndex > 0) {

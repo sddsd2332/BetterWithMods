@@ -9,6 +9,8 @@ import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
 
+import javax.annotation.Nonnull;
+
 public class ItemSoulforgedShovel extends ItemSpade {
     public ItemSoulforgedShovel() {
         super(BWMItems.SOULFORGED_STEEL);
@@ -16,7 +18,7 @@ public class ItemSoulforgedShovel extends ItemSpade {
     }
 
     @Override
-    public boolean getIsRepairable(ItemStack toRepair, ItemStack repair) {
+    public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
         return BWOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
     }
 

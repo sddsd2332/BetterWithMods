@@ -5,8 +5,7 @@
   },
   "ingredients": [
     {
-      "item": "betterwithmods:aesthetic",
-      "data": 8
+      "item": "betterwithmods:ender_block"
     }
   ],
   "type": "minecraft:crafting_shapeless"

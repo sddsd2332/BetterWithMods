@@ -27,9 +27,8 @@ public class CookingPotRecipeCategory extends BWMRecipeCategory<BulkRecipeWrappe
     private static final ResourceLocation guiTexture = new ResourceLocation(BWMod.MODID, "textures/gui/jei/cooking.png");
     @Nonnull
     private final ICraftingGridHelper craftingGrid;
-    @Nonnull
     private IDrawableAnimated flame;
-    private IGuiHelper helper;
+    private final IGuiHelper helper;
 
     public CookingPotRecipeCategory(IGuiHelper helper, String uid) {
         super(helper.createDrawable(guiTexture, 0, 0, width, height), uid, String.format("inv.%s.name", uid.substring(4)));

@@ -1,14 +1,14 @@
 package betterwithmods.common.registry.block.managers;
 
+import betterwithmods.common.registry.base.CraftingManagerBase;
 import betterwithmods.common.registry.block.recipe.BlockRecipe;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Optional;
@@ -20,13 +20,11 @@ import java.util.stream.Collectors;
  * @author primetoxinz
  * @version 11/11/16
  */
-public abstract class CraftingManagerBlock<T extends BlockRecipe> {
+public abstract class CraftingManagerBlock<T extends BlockRecipe> extends CraftingManagerBase<T> {
 
-    protected final ArrayList<T> recipes = Lists.newArrayList();
+    protected final HashMap<IBlockState, T> recipeCache = Maps.newHashMap();
 
-    protected HashMap<IBlockState, T> recipeCache = Maps.newHashMap();
-
-    public T addRecipe(T recipe) {
+    public T addRecipe(@Nonnull T recipe) {
         if (!recipe.isInvalid())
             recipes.add(recipe);
         return recipe;
@@ -68,10 +66,6 @@ public abstract class CraftingManagerBlock<T extends BlockRecipe> {
     }
 
 
-    public boolean remove(T t) {
-        return t != null && recipes.remove(t);
-    }
-
     public boolean remove(List<ItemStack> outputs) {
         return recipes.removeAll(findRecipe(outputs));
     }
@@ -86,10 +80,6 @@ public abstract class CraftingManagerBlock<T extends BlockRecipe> {
 
     public boolean removeByInput(ItemStack input) {
         return recipes.removeAll(findRecipeByInput(input));
-    }
-
-    public List<T> getRecipes() {
-        return recipes;
     }
 
     public List<T> getDisplayRecipes() {

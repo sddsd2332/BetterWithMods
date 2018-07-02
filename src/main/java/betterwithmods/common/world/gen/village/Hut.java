@@ -1,6 +1,5 @@
 package betterwithmods.common.world.gen.village;
 
-import betterwithmods.common.BWMBlocks;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -14,6 +13,7 @@ import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -39,6 +39,7 @@ public class Hut extends AbandonedVillagePiece {
     public Class<?> getComponentClass() {
         return Hut.class;
     }
+
     /**
      * (abstract) Helper method to write subclass data to NBT
      */
@@ -61,7 +62,7 @@ public class Hut extends AbandonedVillagePiece {
      * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
      * Mineshafts at the end, it adds Fences...
      */
-    public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+    public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
         if (this.averageGroundLvl < 0) {
             this.averageGroundLvl = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -76,7 +77,6 @@ public class Hut extends AbandonedVillagePiece {
         IBlockState secondary = this.getBiomeSpecificBlockState(Blocks.PLANKS.getDefaultState());
         IBlockState stair = this.getBiomeSpecificBlockState(Blocks.STONE_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
         IBlockState supports = this.getBiomeSpecificBlockState(Blocks.LOG.getDefaultState());
-        IBlockState table = this.getBiomeSpecificBlockState(BWMBlocks.WOOD_TABLE.getDefaultState());
         this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 1, 1, 3, 5, 4, Blocks.AIR.getDefaultState(), Blocks.AIR.getDefaultState(), false);
         this.fillWithBlocks(worldIn, structureBoundingBoxIn, 0, 0, 0, 3, 0, 4, primary, primary, false);
         this.fillWithBlocks(worldIn, structureBoundingBoxIn, 1, 0, 1, 2, 0, 3, Blocks.DIRT.getDefaultState(), Blocks.DIRT.getDefaultState(), false);
@@ -108,7 +108,7 @@ public class Hut extends AbandonedVillagePiece {
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 0, 2, 2, structureBoundingBoxIn);
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 3, 2, 2, structureBoundingBoxIn);
         if (tablePosition > 0)
-            this.setBlockState(worldIn, table, this.tablePosition, 1, 3, structureBoundingBoxIn);
+            this.setBlockState(worldIn, primary, this.tablePosition, 1, 3, structureBoundingBoxIn);
 
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 1, 0, structureBoundingBoxIn);
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 1, 2, 0, structureBoundingBoxIn);

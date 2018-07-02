@@ -20,6 +20,7 @@ import net.minecraftforge.fml.common.FMLCommonHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.*;
 import java.util.regex.Pattern;
@@ -114,9 +115,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
 
     @Override
     public void addProvider(final ContentProvider provider) {
-        if (!contentProviders.contains(provider)) {
             contentProviders.add(provider);
-        }
     }
 
     @Override
@@ -155,10 +154,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
         final String cleanPath = Files.simplifyPath(path);
         final String language = FMLCommonHandler.instance().getCurrentLanguage();
         final Optional<Iterable<String>> result = contentForWithRedirects(PATTERN_LANGUAGE_KEY.matcher(cleanPath).replaceAll(language));
-        if (result.isPresent()) {
-            return result.get();
-        }
-        return contentForWithRedirects(PATTERN_LANGUAGE_KEY.matcher(cleanPath).replaceAll(FALLBACK_LANGUAGE)).orElse(null);
+        return result.orElseGet(() -> contentForWithRedirects(PATTERN_LANGUAGE_KEY.matcher(cleanPath).replaceAll(FALLBACK_LANGUAGE)).orElse(null));
     }
 
     @Override
@@ -183,7 +179,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public void openFor(final EntityPlayer player) {
+    public void openFor(@Nonnull final EntityPlayer player) {
         if (player.getEntityWorld().isRemote) {
             Minecraft.getMinecraft().displayGuiScreen(new GuiManual(this));
         }

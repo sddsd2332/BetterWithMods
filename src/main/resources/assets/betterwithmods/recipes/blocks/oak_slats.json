@@ -1,0 +1,21 @@
+{
+  "result": {
+    "item": "betterwithmods:oak_slats",
+    "count": 4
+  },
+  "pattern": [
+    "SS",
+    "SS"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "S": {
+      "type": "betterwithmods:minitype",
+      "minitype": "moulding",
+      "baseIngredient": {
+        "item": "minecraft:planks",
+        "data": 0
+      }
+    }
+  }
+}

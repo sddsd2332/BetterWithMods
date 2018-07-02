@@ -15,6 +15,6 @@ public class SaddleRecipe extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        BWRegistry.CAULDRON.addStokedRecipe(Ingredient.fromStacks(new ItemStack(Items.SADDLE)), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.GLUE, 2));
+        BWRegistry.CAULDRON.addStokedRecipe(Ingredient.fromStacks(new ItemStack(Items.SADDLE)), ItemMaterial.getStack(ItemMaterial.EnumMaterial.GLUE, 2));
     }
 }

@@ -5,9 +5,12 @@ import betterwithmods.common.BWIMCHandler;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.event.FakePlayerHandler;
+import betterwithmods.module.CompatModule;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.ModuleLoader;
-import betterwithmods.network.*;
+import betterwithmods.module.gameplay.Gameplay;
+import betterwithmods.module.hardcore.Hardcore;
+import betterwithmods.module.tweaks.Tweaks;
 import betterwithmods.proxy.IProxy;
 import betterwithmods.testing.BWMTests;
 import betterwithmods.util.commands.HealthCommand;
@@ -18,9 +21,9 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.event.FMLInterModComms.IMCEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
+@SuppressWarnings("unused")
 @Mod.EventBusSubscriber
 @Mod(modid = BWMod.MODID, name = BWMod.NAME, version = BWMod.VERSION, dependencies = BWMod.DEPENDENCIES, guiFactory = "betterwithmods.client.gui.BWGuiFactory", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class BWMod {
@@ -37,6 +40,16 @@ public class BWMod {
     @Mod.Instance(BWMod.MODID)
     public static BWMod instance;
 
+    public static final ModuleLoader MODULE_LOADER = new ModuleLoader() {
+        @Override
+        public void registerModules() {
+            registerModule(Gameplay.class);
+            registerModule(Hardcore.class);
+            registerModule(Tweaks.class);
+            registerModule(CompatModule.class);
+        }
+    };
+
     public static Logger getLog() {
         return logger;
     }
@@ -46,14 +59,12 @@ public class BWMod {
         ForgeModContainer.fullBoundingBoxLadders = true;
     }
 
-    @Mod.EventHandler
-    public void onConstruct(FMLConstructionEvent event) { }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
         logger = evt.getModLog();
         BWMAttributes.registerAttributes();
-        ModuleLoader.preInit(evt);
+        MODULE_LOADER.preInit(evt);
         BWRegistry.preInit();
         proxy.preInit(evt);
     }
@@ -61,7 +72,7 @@ public class BWMod {
     @Mod.EventHandler
     public void init(FMLInitializationEvent evt) {
         BWRegistry.init();
-        ModuleLoader.init(evt);
+        MODULE_LOADER.init(evt);
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new BWGuiHandler());
         proxy.init(evt);
     }
@@ -70,11 +81,8 @@ public class BWMod {
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent evt) {
         BWRegistry.postInit();
-        ModuleLoader.postInit(evt);
-
+        MODULE_LOADER.postInit(evt);
         proxy.postInit(evt);
-        BWRegistry.postPostInit();
-
     }
 
     @Mod.EventHandler
@@ -84,14 +92,19 @@ public class BWMod {
 
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent evt) {
-        ModuleLoader.serverStarting(evt);
-        if(isDev()) {
-            BWMTests.runTests();
-        }
+        MODULE_LOADER.serverStarting(evt);
         if(GlobalConfig.debug) {
             evt.registerServerCommand(new HealthCommand());
         }
     }
+
+    @Mod.EventHandler
+    public void serverStarted(FMLServerStartedEvent evt) {
+        if(isDev()) {
+            BWMTests.runTests();
+        }
+    }
+
 
     @Mod.EventHandler
     public void serverStopping(FMLServerStoppingEvent evt) {
@@ -100,6 +113,7 @@ public class BWMod {
     }
 
     public static boolean isDev() {
+        //noinspection ConstantConditions
         return BWMod.VERSION.equalsIgnoreCase("${version}");
     }
 

@@ -19,29 +19,33 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
  * Created by Christian on 21.10.2016.
  */
 public class BlockVineTrap extends BWMBlock {
-    public static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
-    protected static final AxisAlignedBB VINETRAP_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
-    protected static final AxisAlignedBB VINETRAP_TOP_AABB = new AxisAlignedBB(0.0D, 0.9375D, 0.0D, 1.0D, 1.0D, 1.0D);
+    private static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
+    private static final AxisAlignedBB VINETRAP_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
+    private static final AxisAlignedBB VINETRAP_TOP_AABB = new AxisAlignedBB(0.0D, 0.9375D, 0.0D, 1.0D, 1.0D, 1.0D);
 
     public BlockVineTrap() {
         super(Material.LEAVES);
         this.setSoundType(SoundType.PLANT);
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return state.getValue(HALF) == BlockSlab.EnumBlockHalf.BOTTOM ? VINETRAP_AABB : VINETRAP_TOP_AABB;
     }
 
-    @Override
     @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    @SuppressWarnings("deprecation")
+    @Override
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull IBlockAccess worldIn, @Nonnull BlockPos pos) {
         return NULL_AABB;
     }
 
@@ -55,37 +59,44 @@ public class BlockVineTrap extends BWMBlock {
         return Blocks.VINE.getFireSpreadSpeed(world, pos, face);
     }
 
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return Blocks.VINE.getBlockLayer();
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World worldIn, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ, int meta, @Nonnull EntityLivingBase placer, EnumHand hand) {
         IBlockState iblockstate = getDefaultState().withProperty(HALF, BlockSlab.EnumBlockHalf.BOTTOM);
         return (facing != EnumFacing.DOWN && (facing == EnumFacing.UP || (double) hitY <= 0.5D) ? iblockstate : iblockstate.withProperty(HALF, BlockSlab.EnumBlockHalf.TOP));
     }
 
     @SideOnly(Side.CLIENT)
+    @SuppressWarnings("deprecation")
     @Override
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
-        return world == null || world.getBlockState(pos.offset(side)).getBlock() != this || side.getAxis() == EnumFacing.Axis.Z;
+    public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
+        return world.getBlockState(pos.offset(side)).getBlock() != this || side.getAxis() == EnumFacing.Axis.Z;
     }
 
     /**
      * Convert the given metadata into a BlockState for this Block
      */
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(HALF, meta == 0 ? BlockSlab.EnumBlockHalf.BOTTOM : BlockSlab.EnumBlockHalf.TOP);
@@ -99,11 +110,14 @@ public class BlockVineTrap extends BWMBlock {
         return state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP ? 1 : 0;
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, HALF);
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;

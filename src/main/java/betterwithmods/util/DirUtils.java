@@ -12,6 +12,8 @@ import net.minecraft.util.math.BlockPos;
 import java.util.List;
 import java.util.Random;
 
+import static net.minecraft.util.EnumFacing.Axis.*;
+
 public class DirUtils {
 
     public static final EnumFacing[] X_AXIS = new EnumFacing[]{EnumFacing.WEST, EnumFacing.EAST};
@@ -115,6 +117,20 @@ public class DirUtils {
         }
 
         return facing;
+    }
+
+
+    @SuppressWarnings("SuspiciousNameCombination")
+    public static EnumFacing.Axis rotateAroundY(EnumFacing.Axis axis) {
+        switch (axis) {
+            case X:
+                return Z;
+            case Y:
+                return Y;
+            case Z:
+                return X;
+        }
+        return Y;
     }
 
     public static EnumFacing.Axis getAxis(int axis) {

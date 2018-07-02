@@ -1,25 +1,24 @@
 package betterwithmods.common.registry.bulk.recipes;
 
+import betterwithmods.api.tile.IBulkTile;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.eventhandler.Event;
-import net.minecraftforge.items.ItemStackHandler;
+
+import javax.annotation.Nullable;
 
 public class BulkCraftEvent extends Event {
-    private TileEntity tile;
-    private World world;
-    private ItemStackHandler inventory;
-    private BulkRecipe recipe;
-    private NonNullList<ItemStack> outputs;
+    private final IBulkTile tile;
+    private final World world;
+    private final BulkRecipe recipe;
+    private final NonNullList<ItemStack> outputs;
 
 
-    public BulkCraftEvent(TileEntity tile, World world, ItemStackHandler inventory, BulkRecipe recipe, NonNullList<ItemStack> outputs) {
+    public BulkCraftEvent(IBulkTile tile, World world, BulkRecipe recipe, NonNullList<ItemStack> outputs) {
         this.tile = tile;
         this.world = world;
-        this.inventory = inventory;
         this.recipe = recipe;
         this.outputs = outputs;
     }
@@ -29,17 +28,13 @@ public class BulkCraftEvent extends Event {
         return true;
     }
 
-
-    public TileEntity getTile() {
+    public IBulkTile getTile() {
         return tile;
     }
 
+    @Nullable
     public World getWorld() {
         return world;
-    }
-
-    public ItemStackHandler getInventory() {
-        return inventory;
     }
 
     public BulkRecipe getRecipe() {
@@ -50,8 +45,8 @@ public class BulkCraftEvent extends Event {
         return outputs;
     }
 
-    public static NonNullList<ItemStack> fireOnCraft(TileEntity tile, World world, ItemStackHandler inventory, BulkRecipe recipe, NonNullList<ItemStack> outputs) {
-        BulkCraftEvent event = new BulkCraftEvent(tile, world, inventory, recipe, outputs);
+    public static NonNullList<ItemStack> fireOnCraft(IBulkTile tile, World world,  BulkRecipe recipe, NonNullList<ItemStack> outputs) {
+        BulkCraftEvent event = new BulkCraftEvent(tile, world, recipe, outputs);
 
         if (MinecraftForge.EVENT_BUS.post(event)) {
             return NonNullList.create();

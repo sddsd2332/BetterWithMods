@@ -11,9 +11,12 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
+import javax.annotation.Nonnull;
+
 public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
 
-    public Block start, end;
+    public final Block start;
+    public final Block end;
 
     public MiniRecipe(Block start, Block end) {
         this.start = start;
@@ -22,15 +25,15 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
     }
 
     @Override
-    public boolean matches(InventoryCrafting inv, World worldIn) {
+    public boolean matches(@Nonnull InventoryCrafting inv, @Nonnull World worldIn) {
         ItemStack[] stacks = new ItemStack[2];
         int matches = 0;
         for (int x = 0; x < inv.getSizeInventory(); x++) {
             boolean inRecipe = false;
             ItemStack stack = inv.getStackInSlot(x);
             if (!stack.isEmpty()) {
-                if (stack.getItem() instanceof ItemMini && matches <= 1) {
-                    Block block = ((ItemMini) stack.getItem()).getBlock();
+                if (stack.getItem() instanceof ItemCamo && matches <= 1) {
+                    Block block = ((ItemCamo) stack.getItem()).getBlock();
                     if (block == start) {
                         stacks[matches] = stack;
                         inRecipe = true;
@@ -42,16 +45,17 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
             }
 
         }
-        return ItemMini.matches(stacks[0], stacks[1]);
+        return ItemCamo.matches(stacks[0], stacks[1]);
     }
 
+    @Nonnull
     @Override
-    public ItemStack getCraftingResult(InventoryCrafting inv) {
+    public ItemStack getCraftingResult(@Nonnull InventoryCrafting inv) {
         ItemStack first = ItemStack.EMPTY;
         for (int x = 0; x < inv.getSizeInventory(); x++) {
             ItemStack stack = inv.getStackInSlot(x);
             if (!stack.isEmpty()) {
-                if (stack.getItem() instanceof ItemMini) {
+                if (stack.getItem() instanceof ItemCamo) {
                     first = stack;
                     break;
                 }
@@ -65,6 +69,7 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
         return (width * height) >= 2;
     }
 
+    @Nonnull
     public ItemStack getRecipeOutput() {
         return ItemStack.EMPTY;
     }
@@ -85,7 +90,7 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
                 NBTTagCompound tag = input.getTagCompound();
                 result.setTagCompound(tag);
             } else {
-                IBlockState state = ItemMini.getState(input);
+                IBlockState state = ItemCamo.getState(input);
                 if (state != null)
                     result = BWMRecipes.getStackFromState(state);
             }

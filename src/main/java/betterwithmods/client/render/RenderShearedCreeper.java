@@ -7,6 +7,8 @@ import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.util.ResourceLocation;
 
+import javax.annotation.Nonnull;
+
 
 public class RenderShearedCreeper extends RenderLiving<EntityShearedCreeper> {
 
@@ -15,7 +17,7 @@ public class RenderShearedCreeper extends RenderLiving<EntityShearedCreeper> {
     }
 
     @Override
-    protected ResourceLocation getEntityTexture(EntityShearedCreeper entity) {
+    protected ResourceLocation getEntityTexture(@Nonnull EntityShearedCreeper entity) {
         return new ResourceLocation(BWMod.MODID, "textures/entity/sheared_creeper.png");
     }
 }

@@ -8,6 +8,7 @@ import team.chisel.ctm.api.util.TextureInfo;
 import team.chisel.ctm.client.texture.render.AbstractTexture;
 import team.chisel.ctm.client.util.Quad;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -18,7 +19,7 @@ public class TextureStump extends AbstractTexture<TextureTypeStump> {
     }
 
     @Override
-    public List<BakedQuad> transformQuad(BakedQuad quad, @Nullable ITextureContext context, int quadGoal) {
+    public List<BakedQuad> transformQuad(@Nonnull BakedQuad quad, @Nullable ITextureContext context, int quadGoal) {
         if (HCStumping.ENABLED && context instanceof TextureContextStump) {
             TextureContextStump c = (TextureContextStump) context;
             Quad q = makeQuad(quad, context);

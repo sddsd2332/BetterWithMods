@@ -14,7 +14,9 @@
       {}
     ],
     "powered" : {
-      "true": {},
+      "true": {
+        "model": "pressure_plate_down"
+      },
       "false": {
         "model": "pressure_plate_up"
       }

@@ -7,6 +7,7 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -14,12 +15,14 @@ import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import java.util.Arrays;
+import javax.annotation.Nonnull;
+import java.util.Collections;
 import java.util.List;
 import java.util.Random;
 
@@ -29,39 +32,44 @@ public class BlockBloodLeaves extends BlockLeaves {
         this.setCreativeTab(BWCreativeTabs.BWTAB);
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ, int meta, @Nonnull EntityLivingBase placer, EnumHand hand) {
         return this.getDefaultState();
     }
 
     @Override
-    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+    public boolean isFlammable(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing) {
         return false;
     }
 
+    @Nonnull
     @Override
-    public BlockPlanks.EnumType getWoodType(int meta)
-    {
+    public BlockPlanks.EnumType getWoodType(int meta) {
         return BlockPlanks.EnumType.JUNGLE;
     }
 
+    @Nonnull
     @Override
-    public List<ItemStack> onSheared(ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
-        return Arrays.asList(new ItemStack(this, 1, 0));
+    public List<ItemStack> onSheared(@Nonnull ItemStack item, IBlockAccess world, BlockPos pos, int fortune) {
+        return Collections.singletonList(new ItemStack(this, 1, 0));
     }
 
+    @Nonnull
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {
         return Item.getItemFromBlock(BWMBlocks.BLOOD_SAPLING);
     }
 
+    @Nonnull
     @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
         return new ItemStack(BWMBlocks.BLOOD_SAPLING);
     }
 
+    @Nonnull
     @Override
-    protected ItemStack getSilkTouchDrop(IBlockState state) {
+    protected ItemStack getSilkTouchDrop(@Nonnull IBlockState state) {
         return new ItemStack(BWMBlocks.BLOOD_LEAVES);
     }
 
@@ -70,6 +78,7 @@ public class BlockBloodLeaves extends BlockLeaves {
         return Blocks.LEAVES.isOpaqueCube(state);
     }
 
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
@@ -77,11 +86,13 @@ public class BlockBloodLeaves extends BlockLeaves {
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing side) {
         this.leavesFancy = !Blocks.LEAVES.isOpaqueCube(state);
         return super.shouldSideBeRendered(state, world, pos, side);
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(DECAYABLE, (meta & 4) == 0).withProperty(CHECK_DECAY, (meta & 8) > 0);
@@ -94,6 +105,7 @@ public class BlockBloodLeaves extends BlockLeaves {
         return meta;
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DECAYABLE, CHECK_DECAY);

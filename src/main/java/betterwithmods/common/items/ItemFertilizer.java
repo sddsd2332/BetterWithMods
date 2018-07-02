@@ -17,6 +17,8 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 
+import javax.annotation.Nonnull;
+
 public class ItemFertilizer extends Item {
     public ItemFertilizer() {
         super();
@@ -28,19 +30,20 @@ public class ItemFertilizer extends Item {
             world.setBlockState(pos, BWMBlocks.FERTILE_FARMLAND.getDefaultState().withProperty(BlockFarmland.MOISTURE, world.getBlockState(pos).getValue(BlockFarmland.MOISTURE)));
             world.playEvent(2005, pos.up(), 0);
             return true;
-        } else if (block == BWMBlocks.PLANTER && block.getMetaFromState(world.getBlockState(pos)) == 1) {
-            world.setBlockState(pos, BWMBlocks.PLANTER.getDefaultState().withProperty(BlockPlanter.TYPE, EnumType.FERTILE));
+        } else if (block == BlockPlanter.BLOCKS.get(EnumType.FARMLAND) && block.getMetaFromState(world.getBlockState(pos)) == 1) {
+            world.setBlockState(pos, BlockPlanter.BLOCKS.get(EnumType.FERTILE).getDefaultState());
             world.playEvent(2005, pos.up(), 0);
             return true;
         }
         return false;
     }
 
+    @Nonnull
     @Override
     public EnumActionResult onItemUse(EntityPlayer player, World world, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         ItemStack stack = player.getHeldItem(hand);
         Block block = world.getBlockState(pos).getBlock();
-        if (block != null && block instanceof IPlantable) {
+        if (block instanceof IPlantable) {
             Block below = world.getBlockState(pos.down()).getBlock();
             if (processBlock(below, world, pos.down())) {
                 if (!player.capabilities.isCreativeMode)

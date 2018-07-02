@@ -2,6 +2,7 @@ package betterwithmods.module.gameplay;
 
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
+import betterwithmods.util.CapabilityUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.nbt.NBTBase;
@@ -55,10 +56,7 @@ public class PlayerDataHandler extends Feature {
     }
 
     public static PlayerInfo getPlayerInfo(EntityPlayer player) {
-        if (player != null && player.hasCapability(CAP_PLAYER_INFO, null)) {
-            return player.getCapability(CAP_PLAYER_INFO, null);
-        }
-        return null;
+        return CapabilityUtils.getCapability(player, CAP_PLAYER_INFO, null).orElse(null);
     }
 
     @SuppressWarnings("CanBeFinal")

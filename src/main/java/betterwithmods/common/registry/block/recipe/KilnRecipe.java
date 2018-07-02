@@ -17,17 +17,27 @@ import java.util.Random;
  * Created by primetoxinz on 5/16/17.
  */
 public class KilnRecipe extends BlockRecipe implements IHeatRecipe {
-    private int heat;
+    private final int heat;
     private boolean ignoreHeat;
+    private int cookTime;
 
-    public KilnRecipe(BlockIngredient input, List<ItemStack> outputs, int heat) {
+    public KilnRecipe(BlockIngredient input, List<ItemStack> outputs, int heat, int cookTime) {
         super(input, outputs);
         this.heat = heat;
+        this.cookTime = cookTime;
     }
 
     @Override
     public int getHeat() {
         return heat;
+    }
+
+    public int getCookTime() {
+        return cookTime;
+    }
+
+    public void setCookTime(int cookTime) {
+        this.cookTime = cookTime;
     }
 
     @Override
@@ -52,7 +62,7 @@ public class KilnRecipe extends BlockRecipe implements IHeatRecipe {
     public boolean matches(World world, BlockPos pos, IBlockState state) {
         if(super.matches(world,pos,state)) {
            if(!ignore()) {
-               int heat =  KilnStructureManager.getHeat(world,pos.down());
+               int heat =  KilnStructureManager.getKiln().getHeat(world,pos.down());
                return heat == getHeat();
            }
            return true;

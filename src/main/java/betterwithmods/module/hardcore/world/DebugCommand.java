@@ -8,23 +8,26 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
 public class DebugCommand extends CommandBase {
+    @Nonnull
     @Override
     public String getName() {
         return "debug";
     }
 
+    @Nonnull
     @Override
-    public String getUsage(ICommandSender sender) {
+    public String getUsage(@Nonnull ICommandSender sender) {
         return null;
     }
 
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) {
+    public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) {
 
         new Thread(() -> {
             try {

@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.damagesource.BWDamageSource;
+import betterwithmods.common.BWDamageSource;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.Entity;
@@ -53,9 +53,7 @@ public class HeadDrops extends Feature {
             Entity e = source.getImmediateSource();
             if (e instanceof EntityLivingBase) {
                 ItemStack held = ((EntityLivingBase) e).getHeldItemMainhand();
-                if (!held.isEmpty() && held.isItemEqual(new ItemStack(BWMItems.STEEL_BATTLEAXE))) {
-                    return true;
-                }
+                return !held.isEmpty() && held.isItemEqual(new ItemStack(BWMItems.STEEL_BATTLEAXE));
             }
         }
         return false;

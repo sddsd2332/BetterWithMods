@@ -7,7 +7,6 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IAxle;
 import betterwithmods.api.tile.IAxleTick;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
 import betterwithmods.common.blocks.tile.TileBasic;
 import com.google.common.collect.Lists;
@@ -19,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -33,7 +33,7 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
     private byte signal;
     private int power;
 
-    public static List<IAxleTick> tickHandlers = Lists.newArrayList();
+    public static final List<IAxleTick> tickHandlers = Lists.newArrayList();
 
     public TileAxle() {
 
@@ -76,9 +76,6 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
                                 findPower = power;
                         } else {
                             findPower = power;
-                            if (getBlock() == BWMBlocks.STEEL_AXLE && mech.getClass() == TileGearbox.class) {
-                                findPower = Math.max(1, findPower / 2);
-                            }
                         }
                     }
                     if (axle == null) {
@@ -112,6 +109,7 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
     }
 
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setByte("signal", signal);
@@ -134,13 +132,13 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
     }
 
     @Override
-    public boolean hasCapability(Capability<?> capability, @Nullable EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
         return super.hasCapability(capability, facing) || capability == CapabilityMechanicalPower.MECHANICAL_POWER || capability == CapabilityAxle.AXLE;
     }
 
     @Nullable
     @Override
-    public <T> T getCapability(Capability<T> capability, @Nullable EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityMechanicalPower.MECHANICAL_POWER)
             return CapabilityMechanicalPower.MECHANICAL_POWER.cast(this);
         if (capability == CapabilityAxle.AXLE)

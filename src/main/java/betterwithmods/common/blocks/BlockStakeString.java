@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -28,10 +29,11 @@ public class BlockStakeString extends BWMBlock {
     }
 
     @Override
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox, List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185477_7_) {
+    public void addCollisionBoxToList(IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185477_7_) {
         super.addCollisionBoxToList(state, worldIn, pos, entityBox, collidingBoxes, entityIn, p_185477_7_);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         state = getActualState(state, source, pos);
@@ -56,21 +58,24 @@ public class BlockStakeString extends BWMBlock {
     }
 
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.UP, DirUtils.DOWN, DirUtils.NORTH, DirUtils.SOUTH, DirUtils.WEST, DirUtils.EAST);
     }
 
+    @Nonnull
     @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    public ItemStack getItem(World worldIn, BlockPos pos, @Nonnull IBlockState state) {
         return new ItemStack(Items.STRING);
     }
 
     @Override
-    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    public void getDrops(@Nonnull NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
         drops.add(getItem((World) world, pos, state));
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState();
@@ -81,8 +86,9 @@ public class BlockStakeString extends BWMBlock {
         return 0;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         IBlockState newState = state;
 
         for (int i = 0; i < EnumFacing.VALUES.length; i++) {
@@ -96,6 +102,7 @@ public class BlockStakeString extends BWMBlock {
         return block instanceof BlockStakeString || block instanceof BlockStake;
     }
 
+    @Nonnull
     @Override
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
@@ -109,7 +116,7 @@ public class BlockStakeString extends BWMBlock {
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         state = state.getActualState(worldIn,pos);
         for (int i = 0; i < DirUtils.DIR_PROP.length; i++) {
             if (state.getValue(DirUtils.DIR_PROP[i])) {
@@ -120,13 +127,14 @@ public class BlockStakeString extends BWMBlock {
     }
 
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess p_193383_1_, IBlockState p_193383_2_, BlockPos p_193383_3_, EnumFacing p_193383_4_) {
         return BlockFaceShape.UNDEFINED;
     }
 
     @Override
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean isSideSolid(IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return false;
     }
 

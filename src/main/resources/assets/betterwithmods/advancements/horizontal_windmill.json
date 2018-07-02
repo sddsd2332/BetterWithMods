@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:axle",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:horizontal_windmill"
+    },
+    "title": {
+      "translate": "tile.bwm:horizontal_windmill.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.horizontal_windmill.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:horizontal_windmill"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

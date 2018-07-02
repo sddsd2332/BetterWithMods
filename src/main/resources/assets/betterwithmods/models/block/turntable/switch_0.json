@@ -1,0 +1,151 @@
+{
+  "parent": "block/block",
+  "elements": [
+    {
+      "from": [
+        -1,
+        5,
+        4
+      ],
+      "to": [
+        1,
+        7,
+        6
+      ],
+      "faces": {
+        "down": {
+          "texture": "#switch"
+        },
+        "up": {
+          "texture": "#switch"
+        },
+        "north": {
+          "texture": "#switch"
+        },
+        "south": {
+          "texture": "#switch"
+        },
+        "west": {
+          "texture": "#switch"
+        },
+        "east": {
+          "texture": "#switch"
+        }
+      }
+    },
+    {
+      "from": [
+        16,
+        5,
+        10
+      ],
+      "to": [
+        17,
+        7,
+        12
+      ],
+      "faces": {
+        "down": {
+          "texture": "#switch"
+        },
+        "up": {
+          "texture": "#switch",
+          "uv": [
+            0,
+            0,
+            2,
+            1
+          ]
+        },
+        "north": {
+          "texture": "#switch"
+        },
+        "south": {
+          "texture": "#switch"
+        },
+        "west": {
+          "texture": "#switch"
+        },
+        "east": {
+          "texture": "#switch"
+        }
+      }
+    },
+    {
+      "from": [
+        4,
+        5,
+        16
+      ],
+      "to": [
+        6,
+        7,
+        17
+      ],
+      "faces": {
+        "down": {
+          "texture": "#switch"
+        },
+        "up": {
+          "texture": "#switch",
+          "uv": [
+            0,
+            0,
+            2,
+            1
+          ]
+        },
+        "north": {
+          "texture": "#switch"
+        },
+        "south": {
+          "texture": "#switch"
+        },
+        "west": {
+          "texture": "#switch"
+        },
+        "east": {
+          "texture": "#switch"
+        }
+      }
+    },
+    {
+      "from": [
+        10,
+        5,
+        -1
+      ],
+      "to": [
+        12,
+        7,
+        1
+      ],
+      "faces": {
+        "down": {
+          "texture": "#switch"
+        },
+        "up": {
+          "texture": "#switch",
+          "uv": [
+            0,
+            0,
+            2,
+            1
+          ]
+        },
+        "north": {
+          "texture": "#switch"
+        },
+        "south": {
+          "texture": "#switch"
+        },
+        "west": {
+          "texture": "#switch"
+        },
+        "east": {
+          "texture": "#switch"
+        }
+      }
+    }
+  ]
+}

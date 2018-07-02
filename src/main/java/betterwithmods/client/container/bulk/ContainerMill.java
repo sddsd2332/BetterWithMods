@@ -1,19 +1,22 @@
 package betterwithmods.client.container.bulk;
 
 import betterwithmods.client.container.ContainerProgress;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityMill;
+import betterwithmods.common.blocks.mechanical.tile.TileMill;
+import betterwithmods.util.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
+import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
+
 public class ContainerMill extends ContainerProgress {
-    private final TileEntityMill tile;
+    private final TileMill tile;
     public boolean blocked;
 
-    public ContainerMill(EntityPlayer player, TileEntityMill tile) {
+    public ContainerMill(EntityPlayer player, TileMill tile) {
         super(tile);
         this.tile = tile;
 
@@ -21,22 +24,25 @@ public class ContainerMill extends ContainerProgress {
             addSlotToContainer(new SlotItemHandler(tile.inventory, j, 62 + j * 18, 43));
         }
 
+        IItemHandler playerInv = CapabilityUtils.getEntityInventory(player);
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), j + i * 9 + 9, 8 + j * 18, 76 + i * 18));
+                addSlotToContainer(new SlotItemHandler(playerInv, j + i * 9 + 9, 8 + j * 18, 76 + i * 18));
             }
         }
 
         for (int i = 0; i < 9; i++) {
-            addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, 8 + i * 18, 134));
+            addSlotToContainer(new SlotItemHandler(playerInv, i, 8 + i * 18, 134));
         }
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer player) {
+    public boolean canInteractWith(@Nonnull EntityPlayer player) {
         return tile.isUseableByPlayer(player);
     }
 
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack stack = ItemStack.EMPTY;

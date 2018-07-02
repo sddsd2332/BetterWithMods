@@ -1,60 +1,47 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.block.IMultiVariants;
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.items.ItemMaterial;
-import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import java.util.List;
+import javax.annotation.Nonnull;
+import java.util.HashMap;
 
-public class BlockUnfiredPottery extends BWMBlock implements IMultiVariants {
-    public static final PropertyEnum<EnumType> TYPE = PropertyEnum.create("potterytype",
-            EnumType.class);
+public class BlockUnfiredPottery extends BWMBlock {
+
+    public static final HashMap<EnumType, Block> BLOCKS = Maps.newHashMap();
     private static final AxisAlignedBB BLOCK_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     private static final AxisAlignedBB URN_AABB = new AxisAlignedBB(0.3125D, 0.0F, 0.3125D, 0.6875D, 0.625D, 0.6875D);
     private static final AxisAlignedBB VASE_AABB = new AxisAlignedBB(0.125D, 0, 0.125D, 0.875D, 1.0D, 0.875D);
     private static final AxisAlignedBB BRICK_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.0625D, 0.75D, 0.375D, 0.9375D);
+    private final EnumType type;
 
-    public BlockUnfiredPottery() {
+    public BlockUnfiredPottery(EnumType type) {
         super(Material.CLAY);
         this.setSoundType(SoundType.GROUND);
         this.setHardness(0.5F);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, EnumType.CRUCIBLE));
+        this.setRegistryName("unfired_" + type.getName());
+        this.type = type;
+    }
+
+    public static void init() {
+        for (EnumType type : EnumType.VALUES) {
+            BLOCKS.put(type, new BlockUnfiredPottery(type));
+        }
     }
 
     public static ItemStack getStack(EnumType type) {
-        return new ItemStack(BWMBlocks.UNFIRED_POTTERY, 1, type.getMeta());
-    }
-
-    @Override
-    public String[] getVariants() {
-        return new String[]{"potterytype=crucible", "potterytype=planter", "potterytype=urn", "potterytype=vase", "potterytype=brick", "potterytype=nether_brick"};
-    }
-
-    @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ,
-                                            int meta, EntityLivingBase entity, EnumHand hand) {
-        IBlockState state = super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, entity, hand);
-        return state.withProperty(TYPE, EnumType.byMeta(meta));
+        return new ItemStack(BLOCKS.get(type));
     }
 
     @Override
@@ -67,61 +54,19 @@ public class BlockUnfiredPottery extends BWMBlock implements IMultiVariants {
         return false;
     }
 
-    @Override
-    public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for (EnumType type : EnumType.VALUES)
-                items.add(getStack(type));
-    }
-
-    @Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        EnumType type = state.getValue(TYPE);
-        switch (type) {
-            case BRICK:
-                return Lists.newArrayList(new ItemStack(Items.CLAY_BALL));
-            case NETHER_BRICK:
-                return Lists.newArrayList(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.NETHER_SLUDGE));
-            default:
-                return super.getDrops(world,pos,state,fortune);
-        }
-    }
-
-    @Override
-    public int damageDropped(IBlockState state) {
-        return state.getValue(TYPE).getMeta();
-    }
-
-    @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-        EnumType type = state.getValue(TYPE);
-        switch (type) {
-            case CRUCIBLE:
-            case PLANTER:
-                return BLOCK_AABB;
-            case URN:
-                return URN_AABB;
-            case VASE:
-                return VASE_AABB;
-            case BRICK:
-            case NETHER_BRICK:
-                return BRICK_AABB;
-            default:
-                return NULL_AABB;
-        }
-    }
-
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face != EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : BlockFaceShape.CENTER;
     }
 
     @Override
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean isSideSolid(IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return false;
     }
 
     @Override
-    public boolean canPlaceBlockAt(World world, BlockPos pos) {
+    public boolean canPlaceBlockAt(World world, @Nonnull BlockPos pos) {
         return world.isSideSolid(pos.down(), EnumFacing.UP);
     }
 
@@ -133,46 +78,40 @@ public class BlockUnfiredPottery extends BWMBlock implements IMultiVariants {
         }
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(TYPE, EnumType.byMeta(meta));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        return state.getValue(TYPE).getMeta();
-    }
-
-    @Override
-    public BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, TYPE);
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
+        return type.getBounds();
     }
 
     public enum EnumType implements IStringSerializable {
-        CRUCIBLE(0, "crucible"),
-        PLANTER(1, "planter"),
-        URN(2, "urn"),
-        VASE(3, "vase"),
-        BRICK(4, "brick"),
-        NETHER_BRICK(5, "nether_brick");
+        CRUCIBLE(0, "crucible", BLOCK_AABB),
+        PLANTER(1, "planter", BLOCK_AABB),
+        URN(2, "urn", URN_AABB),
+        VASE(3, "vase", VASE_AABB),
+        BRICK(4, "brick", BRICK_AABB),
+        NETHER_BRICK(5, "nether_brick", BRICK_AABB);
         private static final EnumType[] VALUES = values();
 
-        private String name;
-        private int meta;
+        private final String name;
+        private final int meta;
+        private final AxisAlignedBB bounds;
 
-        EnumType(int meta, String name) {
+        EnumType(int meta, String name, AxisAlignedBB bounds) {
             this.meta = meta;
             this.name = name;
+            this.bounds = bounds;
         }
 
-        public static EnumType byMeta(int meta) {
-            return VALUES[meta];
+        public AxisAlignedBB getBounds() {
+            return bounds;
         }
 
         public int getMeta() {
             return meta;
         }
 
+        @Nonnull
         @Override
         public String getName() {
             return name;

@@ -5,7 +5,7 @@ import net.minecraft.util.ResourceLocation;
 
 public abstract class GuiProgress extends GuiBase {
 
-    private ContainerProgress container;
+    private final ContainerProgress container;
 
     public GuiProgress(ContainerProgress container, ResourceLocation background) {
         super(container, background);

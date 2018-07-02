@@ -1,7 +1,6 @@
 package betterwithmods.client.gui;
 
 import betterwithmods.BWMod;
-import betterwithmods.module.ModuleLoader;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.GuiScreen;
 import net.minecraftforge.common.config.ConfigElement;
@@ -43,16 +42,16 @@ public class BWGuiFactory implements IModGuiFactory {
     public static class BWGuiConfig extends GuiConfig {
 
         public BWGuiConfig(GuiScreen parentScreen) {
-            super(parentScreen, getAllElements(), BWMod.MODID, false, false, GuiConfig.getAbridgedConfigPath(ModuleLoader.config.toString()));
+            super(parentScreen, getAllElements(), BWMod.MODID, false, false, GuiConfig.getAbridgedConfigPath(BWMod.MODULE_LOADER.configHelper.config.toString()));
         }
 
         public static List<IConfigElement> getAllElements() {
             List<IConfigElement> list = new ArrayList<>();
 
-            Set<String> categories = ModuleLoader.config.getCategoryNames();
+            Set<String> categories = BWMod.MODULE_LOADER.configHelper.config.getCategoryNames();
             for(String s : categories)
                 if(!s.contains("."))
-                    list.add(new DummyConfigElement.DummyCategoryElement(s, s, new ConfigElement(ModuleLoader.config.getCategory(s)).getChildElements()));
+                    list.add(new DummyConfigElement.DummyCategoryElement(s, s, new ConfigElement(BWMod.MODULE_LOADER.configHelper.config.getCategory(s)).getChildElements()));
 
             return list;
         }

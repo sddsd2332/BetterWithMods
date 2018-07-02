@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore;
 
+import betterwithmods.BWMod;
 import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.module.CompatModule;
 import betterwithmods.module.ModuleLoader;
@@ -20,7 +21,10 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
  * Created by primetoxinz on 4/20/17.
  */
 public class Hardcore extends CompatModule {
-    public Hardcore() {
+
+
+    public Hardcore(ModuleLoader loader) {
+        super(loader);
         priority = 1;
     }
 
@@ -39,6 +43,8 @@ public class Hardcore extends CompatModule {
         registerFeature(new HCRedstone().recipes());
         registerFeature(new HCBoating().recipes());
         registerFeature(new HCFishing().recipes());
+        registerFeature(new HCTorches().recipes());
+        registerFeature(new PowderKegs().recipes());
 
         registerFeature(new HCArmor());
         registerFeature(new HCBeacons());
@@ -69,7 +75,7 @@ public class Hardcore extends CompatModule {
         registerFeature(new HCStructures());
         registerFeature(new HCStumping());
         registerFeature(new HCTools());
-        registerFeature(new HCTorches());
+
         registerFeature(new HCVillages());
         registerFeature(new HCMovement());
         registerFeature(new HCCobblestone());
@@ -94,9 +100,9 @@ public class Hardcore extends CompatModule {
     @Override
     public void initClient(FMLInitializationEvent event) {
         super.initClient(event);
-        GuiStatus.isGloomLoaded = ModuleLoader.isFeatureEnabled(HCGloom.class);
-        GuiStatus.isHungerLoaded = ModuleLoader.isFeatureEnabled(HCHunger.class);
-        GuiStatus.isInjuryLoaded = ModuleLoader.isFeatureEnabled(HCInjury.class);
+        GuiStatus.isGloomLoaded = BWMod.MODULE_LOADER.isFeatureEnabled(HCGloom.class);
+        GuiStatus.isHungerLoaded = BWMod.MODULE_LOADER.isFeatureEnabled(HCHunger.class);
+        GuiStatus.isInjuryLoaded = BWMod.MODULE_LOADER.isFeatureEnabled(HCInjury.class);
     }
 
     @Override

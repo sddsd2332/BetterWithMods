@@ -1,0 +1,31 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "side": "betterwithmods:blocks/barrel_side",
+      "end": "betterwithmods:blocks/barrel_top"
+    },
+    "model": "cube_column",
+    "uvlock": false
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block"
+      }
+    ],
+    "axis": {
+      "y": {},
+      "x": {
+        "x": 90,
+        "y": 90
+      },
+      "z": {
+        "x": 90
+      }
+    }
+  }
+}

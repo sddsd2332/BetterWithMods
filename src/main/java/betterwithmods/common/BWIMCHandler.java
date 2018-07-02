@@ -37,7 +37,7 @@ public class BWIMCHandler {
 
         registerIMC("registerFertilizer", object -> {
             ItemStack stack = (ItemStack) object;
-            HCBonemeal.registerFertilzier(stack);
+            HCBonemeal.registerFertilizer(stack);
         });
     }
 

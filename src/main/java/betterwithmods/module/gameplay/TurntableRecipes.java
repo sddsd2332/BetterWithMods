@@ -1,6 +1,5 @@
 package betterwithmods.module.gameplay;
 
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.BlockUnfiredPottery;
 import betterwithmods.common.registry.TurntableRotationManager;
@@ -49,7 +48,7 @@ public class TurntableRecipes extends Feature {
             return state.getValue(BlockLever.FACING).getFacing().getAxis().isVertical();
         });
         TurntableRotationManager.addRotationBlacklist(block -> block instanceof BlockPistonExtension);
-        TurntableRotationManager.addRotationHandler(BWMBlocks.UNFIRED_POTTERY, new TurntableRotationManager.IRotation() {
+        TurntableRotationManager.addRotationHandler(block -> block instanceof BlockUnfiredPottery, new TurntableRotationManager.IRotation() {
             @Override
             public boolean isValid(World world, BlockPos pos) {
                 return true;

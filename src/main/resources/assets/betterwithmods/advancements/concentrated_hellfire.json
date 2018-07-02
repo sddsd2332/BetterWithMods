@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:hellfire_dust",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:concentrated_hellfire"
+    },
+    "title": {
+      "translate": "item.bwm:concentrated_hellfire.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.concentrated_hellfire.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:concentrated_hellfire"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

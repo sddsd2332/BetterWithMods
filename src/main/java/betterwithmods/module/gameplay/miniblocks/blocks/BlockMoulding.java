@@ -12,19 +12,16 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.function.Function;
 
 public class BlockMoulding extends BlockMini {
 
 
-    public BlockMoulding(Material material) {
-        super(material);
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileMoulding();
+    public BlockMoulding(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+        super(material, subtypes);
     }
 
     @Override
@@ -33,5 +30,15 @@ public class BlockMoulding extends BlockMini {
             return MouldingOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), facing);
         return BaseOrientation.DEFAULT;
     }
+
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+        return new TileMoulding();
+    }
+
+
+
 
 }

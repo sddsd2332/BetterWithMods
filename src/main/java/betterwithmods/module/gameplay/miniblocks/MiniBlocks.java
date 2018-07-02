@@ -1,25 +1,28 @@
 package betterwithmods.module.gameplay.miniblocks;
 
 import betterwithmods.BWMod;
+import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.BWRegistry;
+import betterwithmods.common.blocks.BlockAesthetic;
+import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
 import betterwithmods.module.gameplay.AnvilRecipes;
-import betterwithmods.module.gameplay.miniblocks.blocks.BlockCorner;
-import betterwithmods.module.gameplay.miniblocks.blocks.BlockMini;
-import betterwithmods.module.gameplay.miniblocks.blocks.BlockMoulding;
-import betterwithmods.module.gameplay.miniblocks.blocks.BlockSiding;
+import betterwithmods.module.gameplay.miniblocks.blocks.*;
+import betterwithmods.module.gameplay.miniblocks.client.CamoModel;
 import betterwithmods.module.gameplay.miniblocks.client.MiniModel;
-import betterwithmods.module.gameplay.miniblocks.tiles.TileCorner;
-import betterwithmods.module.gameplay.miniblocks.tiles.TileMoulding;
-import betterwithmods.module.gameplay.miniblocks.tiles.TileSiding;
-import betterwithmods.util.InvUtils;
+import betterwithmods.util.JsonUtils;
 import betterwithmods.util.ReflectionHelperBlock;
-import com.google.common.collect.*;
+import com.google.common.collect.HashMultimap;
+import com.google.common.collect.Maps;
+import com.google.common.collect.Multimap;
+import com.google.common.collect.Sets;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonObject;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -33,8 +36,8 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.EnumFacing;
@@ -45,38 +48,35 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.registry.IRegistry;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import java.io.File;
+import java.nio.file.Files;
 import java.util.*;
+import java.util.stream.Collectors;
+
 
 public class MiniBlocks extends Feature {
-    public static HashMap<MiniType, HashMap<Material, BlockMini>> MINI_MATERIAL_BLOCKS = Maps.newHashMap();
-    public static HashMap<Material, BlockMini> SIDINGS = Maps.newHashMap();
-    public static HashMap<Material, BlockMini> MOULDINGS = Maps.newHashMap();
-    public static HashMap<Material, BlockMini> CORNERS = Maps.newHashMap();
-    public static Multimap<Material, IBlockState> MATERIALS = HashMultimap.create();
-
-    private static Map<Material, String> names = Maps.newHashMap();
-    private static HashSet<String> whitelist = new HashSet<>();
-
-
-    private static boolean addConversionRecipes;
+    public static final HashMap<MiniType, HashMap<Material, BlockCamo>> MINI_MATERIAL_BLOCKS = Maps.newHashMap();
+    public static final Multimap<Material, IBlockState> MATERIALS = HashMultimap.create();
+    private static final Map<Material, String> names = Maps.newHashMap();
     private static boolean autoGeneration;
     private static boolean requiresAnvil;
+    private static Set<Ingredient> WHITELIST;
+
 
     static {
-        MINI_MATERIAL_BLOCKS.put(MiniType.SIDING, SIDINGS);
-        MINI_MATERIAL_BLOCKS.put(MiniType.MOULDING, MOULDINGS);
-        MINI_MATERIAL_BLOCKS.put(MiniType.CORNER, CORNERS);
+        for (MiniType type : MiniType.VALUES) {
+            MINI_MATERIAL_BLOCKS.put(type, Maps.newHashMap());
+        }
     }
 
     public MiniBlocks() {
@@ -89,10 +89,6 @@ public class MiniBlocks extends Feature {
     }
 
     public static boolean isValidMini(IBlockState state, ItemStack stack) {
-        ResourceLocation resloc = stack.getItem().getRegistryName();
-        if (!autoGeneration && resloc != null && !whitelist.contains(resloc.toString()) && !whitelist.contains(resloc.toString() + ":" + stack.getMetadata()))
-            return BWOreDictionary.hasPrefix(stack, "plankWood"); //Specifically planks are a-okay
-
         Block blk = state.getBlock();
         final ReflectionHelperBlock pb = new ReflectionHelperBlock();
         final Class<? extends Block> blkClass = blk.getClass();
@@ -152,12 +148,8 @@ public class MiniBlocks extends Feature {
         return stack.copy();
     }
 
-    public static void addWhitelistedBlock(ResourceLocation resloc) {
-        whitelist.add(resloc.toString());
-    }
-
-    public static void addWhitelistedBlock(ResourceLocation resloc, int meta) { //Delete this in 1.13
-        whitelist.add(resloc.toString() + ":" + meta);
+    public static void forceMiniBlock(Ingredient ingredient) {
+        WHITELIST.add(ingredient);
     }
 
     public static void addMaterial(Material material, String name) {
@@ -165,59 +157,44 @@ public class MiniBlocks extends Feature {
             names.put(material, name);
     }
 
-    private static void registerMiniSaw(IBlockState parent) {
-        ItemStack mini = BWMRecipes.getStackFromState(parent);
-        Material material = parent.getMaterial();
-        MiniBlockIngredient siding = new MiniBlockIngredient("siding", mini);
-        MiniBlockIngredient moulding = new MiniBlockIngredient("moulding", mini);
-        MiniBlockIngredient corner = new MiniBlockIngredient("corner", mini);
-        ItemStack sidingStack = MiniBlocks.fromParent(SIDINGS.get(material), parent, 2);
-        ItemStack mouldingStack = MiniBlocks.fromParent(MOULDINGS.get(material), parent, 2);
-        ItemStack cornerStack = MiniBlocks.fromParent(CORNERS.get(material), parent, 2);
-        BWRegistry.WOOD_SAW.addRecipe(mini, sidingStack);
-        BWRegistry.WOOD_SAW.addRecipe(siding, mouldingStack);
-        BWRegistry.WOOD_SAW.addRecipe(moulding, cornerStack);
-        if (BWOreDictionary.isOre(mini, "plankWood"))
-            BWRegistry.WOOD_SAW.addRecipe(corner, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.GEAR, 2));
+    @SideOnly(Side.CLIENT)
+    public static void registerModel(IRegistry<ModelResourceLocation, IBakedModel> registry, String name, IBakedModel model) {
+        registerModel(registry, name, model, Sets.newHashSet("normal", "inventory"));
     }
 
-    private static void registerMiniAnvil(IBlockState parent) {
-        Material material = parent.getMaterial();
-        ItemStack mini = BWMRecipes.getStackFromState(parent);
-        MiniBlockIngredient siding = new MiniBlockIngredient("siding", mini);
-        MiniBlockIngredient moulding = new MiniBlockIngredient("moulding", mini);
-        ItemStack sidingStack = MiniBlocks.fromParent(SIDINGS.get(material), parent, 8);
-        ItemStack mouldingStack = MiniBlocks.fromParent(MOULDINGS.get(material), parent, 8);
-        ItemStack cornerStack = MiniBlocks.fromParent(CORNERS.get(material), parent, 8);
-
-        AnvilRecipes.addSteelShapedRecipe(sidingStack.getItem().getRegistryName(), sidingStack, "XXXX", 'X', mini);
-        AnvilRecipes.addSteelShapedRecipe(mouldingStack.getItem().getRegistryName(), mouldingStack, "XXXX", 'X', siding);
-        AnvilRecipes.addSteelShapedRecipe(cornerStack.getItem().getRegistryName(), cornerStack, "XXXX", 'X', moulding);
+    @SideOnly(Side.CLIENT)
+    public static void registerModel(IRegistry<ModelResourceLocation, IBakedModel> registry, String name, IBakedModel model, Set<String> variants) {
+        for (String variant : variants) {
+            registry.putObject(new ModelResourceLocation(BWMod.MODID + ":" + name, variant), model);
+        }
     }
 
-    @Override
-    public void setupConfig() {
-        autoGeneration = loadPropBool("Auto Generate Miniblocks", "Automatically add miniblocks for many blocks, based on heuristics and probably planetary alignments. WARNING: Exposure to this config option can kill pack developers.", false);
-        addConversionRecipes = loadPropBool("Add Conversion Recipes", "Add recipes to convert the old, static, mini blocks to the new ones.", true);
-        whitelist = loadPropStringHashSet("Whitelist", "Whitelist for blocks to generate miniblocks for (aside from the ones required by BWM)", new String[]{});
-        whitelist.add("minecraft:stone:0");
-        whitelist.add("minecraft:stonebrick");
-        whitelist.add("minecraft:sandstone");
-        whitelist.add("minecraft:brick_block");
-        whitelist.add("minecraft:nether_brick");
-        whitelist.add("minecraft:quartz_block");
-        whitelist.add("betterwithmods:aesthetic:6");
-        requiresAnvil = loadPropBool("Stone Miniblocks require Anvil recipe", "When enabled stone and metal miniblocks will require an anvil recipe, when disabled they will all be made with the saw", true);
-    }
+    public Set<Ingredient> loadMiniblockWhitelist() {
+        File file = new File(configHelper.path, "betterwithmods/miniblocks.json");
 
-    public void addOldRecipeConversation(ItemStack old, Block mini, IBlockState base) {
-        ItemStack output = fromParent(mini, base);
-        addHardcoreRecipe(new ShapelessRecipes("mini_conversion", output, InvUtils.asNonnullList(Ingredient.fromStacks(old))).setRegistryName(BWMod.MODID + ":" + old.getItem().getUnlocalizedName(old).replace("tile.", "")));
-    }
-
-    @Override
-    public String getFeatureDescription() {
-        return "Dynamically generate Siding, Mouldings and Corners for many of the blocks in the game.";
+        //noinspection ResultOfMethodCallIgnored
+        file.getParentFile().mkdirs();
+        if (!Files.exists(file.toPath())) {
+            JsonArray DEFAULT_CONFIG = new JsonArray();
+            DEFAULT_CONFIG.add(JsonUtils.fromOre("plankWood"));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.COBBLESTONE)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.STONE)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.STONEBRICK)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.SANDSTONE)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.RED_SANDSTONE)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.PURPUR_BLOCK)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.BRICK_BLOCK)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.NETHER_BRICK)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.QUARTZ_BLOCK)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GOLD_BLOCK)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.IRON_BLOCK)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE)));
+            JsonUtils.writeFile(file, DEFAULT_CONFIG);
+        }
+        JsonObject[] objects = JsonUtils.readerFile(file);
+        if (objects != null)
+            return Arrays.stream(objects).map(object -> CraftingHelper.getIngredient(object, JsonUtils.BWM_CONTEXT)).collect(Collectors.toSet());
+        return Sets.newHashSet();
     }
 
     @Override
@@ -225,34 +202,44 @@ public class MiniBlocks extends Feature {
         names.put(Material.WOOD, "wood");
         names.put(Material.ROCK, "rock");
         names.put(Material.IRON, "iron");
-
-        GameRegistry.registerTileEntity(TileSiding.class, "bwm.siding");
-        GameRegistry.registerTileEntity(TileMoulding.class, "bwm.moulding");
-        GameRegistry.registerTileEntity(TileCorner.class, "bwm.corner");
+        MiniType.registerTiles();
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void beforeBlockRegister(RegistryEvent.Register<Block> event) {
+
         for (Material material : names.keySet()) {
             String name = names.get(material);
-            SIDINGS.put(material, (BlockMini) new BlockSiding(material).setRegistryName(String.format("%s_%s", "siding", name)));
-            MOULDINGS.put(material, (BlockMini) new BlockMoulding(material).setRegistryName(String.format("%s_%s", "moulding", name)));
-            CORNERS.put(material, (BlockMini) new BlockCorner(material).setRegistryName(String.format("%s_%s", "corner", name)));
+            MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).put(material, (BlockMini) new BlockSiding(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "siding", name)));
+            MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).put(material, (BlockMini) new BlockMoulding(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "moulding", name)));
+            MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).put(material, (BlockMini) new BlockCorner(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "corner", name)));
+            MINI_MATERIAL_BLOCKS.get(MiniType.COLUMN).put(material, (BlockMini) new BlockColumn(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "column", name)));
+            MINI_MATERIAL_BLOCKS.get(MiniType.PEDESTAL).put(material, (BlockMini) new BlockPedestals(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "pedestal", name)));
+            MINI_MATERIAL_BLOCKS.get(MiniType.TABLE).put(material, (BlockCamo) new BlockTable(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "table", name)));
+            MINI_MATERIAL_BLOCKS.get(MiniType.BENCH).put(material, (BlockCamo) new BlockBench(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "bench", name)));
+            MINI_MATERIAL_BLOCKS.get(MiniType.CHAIR).put(material, (BlockCamo) new BlockChair(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "chair", name)));
         }
 
-        SIDINGS.values().forEach(b -> BWMBlocks.registerBlock(b, new ItemMini(b)));
-        MOULDINGS.values().forEach(b -> BWMBlocks.registerBlock(b, new ItemMini(b)));
-        CORNERS.values().forEach(b -> BWMBlocks.registerBlock(b, new ItemMini(b)));
+        for (MiniType type : MiniType.VALUES) {
+            for (BlockCamo mini : MINI_MATERIAL_BLOCKS.get(type).values()) {
+                BWMBlocks.registerBlock(mini, new ItemCamo(mini));
+            }
+        }
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void afterItemRegister(RegistryEvent.Register<Item> event) {
+    public void registerMiniblocks() {
+        WHITELIST = loadMiniblockWhitelist();
+
         final NonNullList<ItemStack> list = NonNullList.create();
-        for (Item item : ForgeRegistries.ITEMS) {
+
+        Iterable<Item> items = ForgeRegistries.ITEMS;
+        if(!autoGeneration)
+            items = WHITELIST.stream().map(Ingredient::getMatchingStacks).flatMap(Arrays::stream).map(ItemStack::getItem).collect(Collectors.toSet());
+
+        for (Item item : items) {
             if (!(item instanceof ItemBlock))
                 continue;
             try {
-
                 final CreativeTabs ctab = item.getCreativeTab();
                 if (ctab != null) {
                     item.getSubItems(ctab, list);
@@ -260,7 +247,7 @@ public class MiniBlocks extends Feature {
                 for (final ItemStack stack : list) {
                     if (!(stack.getItem() instanceof ItemBlock))
                         continue;
-                    final IBlockState state = BWMRecipes.getStateFromStack(stack);
+                    IBlockState state = BWMRecipes.getStateFromStack(stack);
                     if (state != null && isValidMini(state, stack)) {
                         Material material = state.getMaterial();
                         if (names.containsKey(material)) {
@@ -274,64 +261,107 @@ public class MiniBlocks extends Feature {
         }
     }
 
-    @Override
-    public void init(FMLInitializationEvent event) {
 
-    }
+    @SubscribeEvent
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
 
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
+        registerMiniblocks();
+
+        BWOreDictionary.registerOre("miniblocks",
+                new ItemStack(MiniBlocks.MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(Material.WOOD)),
+                new ItemStack(MiniBlocks.MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(Material.WOOD)),
+                new ItemStack(MiniBlocks.MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(Material.WOOD)));
 
         for (Material material : names.keySet()) {
-            BlockMini siding = SIDINGS.get(material);
-            BlockMini moulding = MOULDINGS.get(material);
-            BlockMini corner = CORNERS.get(material);
+            BlockCamo siding = MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material);
+            BlockCamo moulding = MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(material);
+            BlockCamo corner = MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(material);
 
-            addHardcoreRecipe(new MiniRecipe(siding, null));
-            addHardcoreRecipe(new MiniRecipe(moulding, siding));
-            addHardcoreRecipe(new MiniRecipe(corner, moulding));
+            event.getRegistry().register(new MiniRecipe(siding, null));
+            event.getRegistry().register(new MiniRecipe(moulding, siding));
+            event.getRegistry().register(new MiniRecipe(corner, moulding));
         }
 
-        List<IBlockState> states = Lists.newArrayList();
+        for (IBlockState parent : MATERIALS.values()) {
+            ItemStack parentStack = BWMRecipes.getStackFromState(parent);
+            Material material = parent.getMaterial();
+            MiniBlockIngredient siding = new MiniBlockIngredient("siding", parentStack);
+            MiniBlockIngredient moulding = new MiniBlockIngredient("moulding", parentStack);
 
-        if (requiresAnvil) {
-            states.addAll(MATERIALS.get(Material.WOOD));
-            for (IBlockState parent : Iterables.concat(MATERIALS.get(Material.ROCK), MATERIALS.get(Material.IRON))) {
-                registerMiniAnvil(parent);
+            ItemStack columnStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.COLUMN).get(material), parent, 8);
+            ItemStack pedestalStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.PEDESTAL).get(material), parent, 8);
+            ItemStack tableStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.TABLE).get(material), parent, 1);
+            ItemStack benchStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.BENCH).get(material), parent, 1);
+            ItemStack chairStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.CHAIR).get(material), parent, 2);
+
+            AnvilRecipes.addSteelShapedRecipe(columnStack.getItem().getRegistryName(), columnStack, "XX", "XX", "XX", "XX", 'X', moulding);
+            AnvilRecipes.addSteelShapedRecipe(pedestalStack.getItem().getRegistryName(), pedestalStack, " XX ", "BBBB", "BBBB", "BBBB", 'X', siding, 'B', parentStack);
+
+            event.getRegistry().register(new ShapedOreRecipe(chairStack.getItem().getRegistryName(), chairStack, "  S", "SSS", "M M", 'S', siding, 'M', moulding).setMirrored(true).setRegistryName(getRecipeRegistry(chairStack, parentStack)));
+            event.getRegistry().register(new ShapedOreRecipe(tableStack.getItem().getRegistryName(), tableStack, "SSS", " M ", " M ", 'S', siding, 'M', moulding).setRegistryName(getRecipeRegistry(tableStack, parentStack)));
+            event.getRegistry().register(new ShapedOreRecipe(benchStack.getItem().getRegistryName(), benchStack, "SSS", " M ", 'S', siding, 'M', moulding).setRegistryName(getRecipeRegistry(benchStack, parentStack)));
+
+            IBlockVariants blockVariants = BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.BLOCK, parent);
+            if (blockVariants != null) {
+                ItemStack fence = blockVariants.getVariant(IBlockVariants.EnumBlock.FENCE, 2);
+                ItemStack fencegate = blockVariants.getVariant(IBlockVariants.EnumBlock.FENCE_GATE, 1);
+                ItemStack stairs = blockVariants.getVariant(IBlockVariants.EnumBlock.STAIR, 1);
+                ItemStack wall = blockVariants.getVariant(IBlockVariants.EnumBlock.WALL, 3);
+                if (!wall.isEmpty())
+                    event.getRegistry().register(new ShapedOreRecipe(wall.getItem().getRegistryName(), wall, "SSS", 'S', siding).setRegistryName(getRecipeRegistry(wall, parentStack)));
+                if (!stairs.isEmpty())
+                    event.getRegistry().register(new ShapedOreRecipe(stairs.getItem().getRegistryName(), stairs, "M ", "MM", 'M', moulding).setMirrored(true).setRegistryName(getRecipeRegistry(stairs, parentStack)));
+                if (!fence.isEmpty())
+                    event.getRegistry().register(new ShapedOreRecipe(fence.getItem().getRegistryName(), fence, "MMM", 'M', moulding).setRegistryName(getRecipeRegistry(fence, parentStack)));
+                if (!fencegate.isEmpty())
+                    event.getRegistry().register(new ShapedOreRecipe(fencegate.getItem().getRegistryName(), fencegate, "MSM", 'M', moulding, 'S', siding).setRegistryName(getRecipeRegistry(fencegate, parentStack)));
             }
-        } else {
-            states.addAll(MATERIALS.values());
-        }
 
-        for (IBlockState state : states) {
-            registerMiniSaw(state);
-        }
+            if (!requiresAnvil || material == Material.WOOD) {
+                MiniBlockIngredient corner = new MiniBlockIngredient("corner", parentStack);
+                ItemStack sidingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material), parent, 2);
+                ItemStack mouldingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(material), parent, 2);
+                ItemStack cornerStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(material), parent, 2);
+                BWRegistry.WOOD_SAW.addRecipe(parentStack, sidingStack);
+                BWRegistry.WOOD_SAW.addRecipe(siding, mouldingStack);
+                BWRegistry.WOOD_SAW.addRecipe(moulding, cornerStack);
+                if (BWOreDictionary.isOre(parentStack, "plankWood")) {
+                    BWRegistry.WOOD_SAW.addRecipe(corner, ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_GEAR, 2));
+                }
+            } else {
+                ItemStack sidingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material), parent, 8);
+                ItemStack mouldingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(material), parent, 8);
+                ItemStack cornerStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(material), parent, 8);
 
-        if (addConversionRecipes) {
-            for (BlockPlanks.EnumType type : BlockPlanks.EnumType.values()) {
-                addOldRecipeConversation(new ItemStack(BWMBlocks.WOOD_SIDING, 1, type.getMetadata()), SIDINGS.get(Material.WOOD), Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, type));
-                addOldRecipeConversation(new ItemStack(BWMBlocks.WOOD_MOULDING, 1, type.getMetadata()), MOULDINGS.get(Material.WOOD), Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, type));
-                addOldRecipeConversation(new ItemStack(BWMBlocks.WOOD_CORNER, 1, type.getMetadata()), CORNERS.get(Material.WOOD), Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, type));
+                AnvilRecipes.addSteelShapedRecipe(sidingStack.getItem().getRegistryName(), sidingStack, "XXXX", 'X', parentStack);
+                AnvilRecipes.addSteelShapedRecipe(mouldingStack.getItem().getRegistryName(), mouldingStack, "XXXX", 'X', siding);
+                AnvilRecipes.addSteelShapedRecipe(cornerStack.getItem().getRegistryName(), cornerStack, "XXXX", 'X', moulding);
             }
-
-            for (betterwithmods.common.blocks.mini.BlockMini.EnumType type : betterwithmods.common.blocks.mini.BlockMini.EnumType.VALUES) {
-                addOldRecipeConversation(new ItemStack(BWMBlocks.STONE_SIDING, 1, type.getMetadata()), SIDINGS.get(Material.ROCK), type.getState());
-                addOldRecipeConversation(new ItemStack(BWMBlocks.STONE_MOULDING, 1, type.getMetadata()), MOULDINGS.get(Material.ROCK), type.getState());
-                addOldRecipeConversation(new ItemStack(BWMBlocks.STONE_CORNER, 1, type.getMetadata()), CORNERS.get(Material.ROCK), type.getState());
-            }
         }
+
     }
+
+    private ResourceLocation getRecipeRegistry(ItemStack output, ItemStack parent) {
+        if (parent.getMetadata() > 0)
+            return new ResourceLocation(BWMod.MODID, output.getItem().getRegistryName().getResourcePath() + "_" + parent.getItem().getRegistryName().getResourcePath() + "_" + parent.getMetadata());
+        return new ResourceLocation(BWMod.MODID, output.getItem().getRegistryName().getResourcePath() + "_" + parent.getItem().getRegistryName().getResourcePath());
+    }
+
+    @Override
+    public void setupConfig() {
+        autoGeneration = loadPropBool("Auto Generate Miniblocks", "Automatically add miniblocks for many blocks, based on heuristics and probably planetary alignments. WARNING: Exposure to this config option can kill pack developers.", false);
+        requiresAnvil = loadPropBool("Stone Miniblocks require Anvil recipe", "When enabled stone and metal miniblocks will require an anvil recipe, when disabled they will all be made with the saw", true);
+    }
+
+    @Override
+    public String getFeatureDescription() {
+        return "Dynamically generate Siding, Mouldings and Corners for many of the blocks in the game.";
+    }
+
 
     @Override
     public boolean hasSubscriptions() {
         return true;
-    }
-
-
-    @SideOnly(Side.CLIENT)
-    private void registerModel(IRegistry<ModelResourceLocation, IBakedModel> registry, String name, IBakedModel model) {
-        registry.putObject(new ModelResourceLocation(BWMod.MODID + ":" + name, "normal"), model);
-        registry.putObject(new ModelResourceLocation(BWMod.MODID + ":" + name, "inventory"), model);
     }
 
     @SubscribeEvent
@@ -340,11 +370,28 @@ public class MiniBlocks extends Feature {
         MiniModel.SIDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/siding")));
         MiniModel.MOULDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/moulding")));
         MiniModel.CORNER = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/corner")));
+        MiniModel.COLUMN = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/column")));
+        MiniModel.PEDESTAL = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/pedestal")));
+        MiniModel.CHAIR = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/chair")));
+
+        CamoModel.TABLE_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/table_supported")));
+        CamoModel.TABLE_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/table_unsupported")));
+
+        CamoModel.BENCH_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/bench_supported")));
+        CamoModel.BENCH_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/bench_unsupported")));
+
         for (Material material : names.keySet()) {
             String name = names.get(material);
             registerModel(event.getModelRegistry(), String.format("%s_%s", "siding", name), MiniModel.SIDING);
             registerModel(event.getModelRegistry(), String.format("%s_%s", "moulding", name), MiniModel.MOULDING);
             registerModel(event.getModelRegistry(), String.format("%s_%s", "corner", name), MiniModel.CORNER);
+            registerModel(event.getModelRegistry(), String.format("%s_%s", "column", name), MiniModel.COLUMN);
+            registerModel(event.getModelRegistry(), String.format("%s_%s", "pedestal", name), MiniModel.PEDESTAL);
+            registerModel(event.getModelRegistry(), String.format("%s_%s", "chair", name), MiniModel.CHAIR);
+            registerModel(event.getModelRegistry(), String.format("%s_%s", "table", name), CamoModel.TABLE_SUPPORTED, Sets.newHashSet("normal", "inventory", "supported=true"));
+            registerModel(event.getModelRegistry(), String.format("%s_%s", "table", name), CamoModel.TABLE_UNSUPPORTED, Sets.newHashSet("supported=false"));
+            registerModel(event.getModelRegistry(), String.format("%s_%s", "bench", name), CamoModel.BENCH_SUPPORTED, Sets.newHashSet("normal", "inventory", "supported=true"));
+            registerModel(event.getModelRegistry(), String.format("%s_%s", "bench", name), CamoModel.BENCH_UNSUPPORTED, Sets.newHashSet("supported=false"));
         }
     }
 

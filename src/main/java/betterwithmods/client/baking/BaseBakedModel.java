@@ -26,15 +26,17 @@ import net.minecraftforge.common.model.TRSRTransformation;
 import org.apache.commons.lang3.tuple.ImmutablePair;
 import org.apache.commons.lang3.tuple.Pair;
 
+import javax.annotation.Nonnull;
 import javax.vecmath.Matrix4f;
 import javax.vecmath.Vector3f;
 import java.util.EnumMap;
 
 public abstract class BaseBakedModel implements IBakedModel {
-    private final EnumMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = new EnumMap(ItemCameraTransforms.TransformType.class);
+    private final EnumMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = new EnumMap<>(ItemCameraTransforms.TransformType.class);
 
+    @Nonnull
     @Override
-    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(ItemCameraTransforms.TransformType cameraTransformType) {
+    public Pair<? extends IBakedModel, Matrix4f> handlePerspective(@Nonnull ItemCameraTransforms.TransformType cameraTransformType) {
         return ImmutablePair.of(this,
                 transformMap.containsKey(cameraTransformType) ? transformMap.get(cameraTransformType).getMatrix() : null);
     }
@@ -54,6 +56,7 @@ public abstract class BaseBakedModel implements IBakedModel {
         return false;
     }
 
+    @Nonnull
     @Override
     public ItemOverrideList getOverrides() {
         return ItemOverrideList.NONE;

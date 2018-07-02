@@ -1,7 +1,7 @@
 package betterwithmods.module.gameplay.miniblocks.orientations;
 
 import net.minecraft.block.Block;
-import net.minecraft.util.EnumFacing;
+import net.minecraft.client.renderer.block.model.ModelRotation;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -13,7 +13,7 @@ public interface BaseOrientation extends IStringSerializable {
         @SideOnly(Side.CLIENT)
         @Override
         public TRSRTransformation toTransformation() {
-            return new TRSRTransformation(EnumFacing.UP);
+            return TRSRTransformation.from(ModelRotation.X0_Y0);
         }
 
         @Override

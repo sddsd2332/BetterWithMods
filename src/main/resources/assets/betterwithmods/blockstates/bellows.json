@@ -17,7 +17,8 @@
     ],
     "inventory": [
       {
-        "transform": "forge:default-block"
+        "transform": "forge:default-block",
+        "model": "betterwithmods:bellows_compressed"
       }
     ],
     "active": {
@@ -36,19 +37,6 @@
       },
       "east": {
         "y": 90
-      }
-    },
-    "tier": {
-      "wood": {},
-      "steel": {
-        "textures": {
-          "front": "betterwithmods:blocks/advanced_bellows_front_inactive",
-          "top": "betterwithmods:blocks/advanced_bellows_top",
-          "side": "betterwithmods:blocks/advanced_bellows_side_inactive",
-          "particle": "betterwithmods:blocks/advanced_bellows_top",
-          "front_active": "betterwithmods:blocks/advanced_bellows_front_active",
-          "side_active": "betterwithmods:blocks/advanced_bellows_side_active"
-        }
       }
     }
   }

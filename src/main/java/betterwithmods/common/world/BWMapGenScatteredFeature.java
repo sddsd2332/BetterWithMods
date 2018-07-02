@@ -11,6 +11,7 @@ import net.minecraft.world.gen.structure.MapGenScatteredFeature;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
@@ -19,7 +20,7 @@ import java.util.Set;
  * Created by blueyu2 on 11/27/16.
  */
 public class BWMapGenScatteredFeature extends MapGenScatteredFeature {
-    public static HashMap<String, Set<Biome>> STRUCTURE_BIOMES = new HashMap<>();
+    public static final HashMap<String, Set<Biome>> STRUCTURE_BIOMES = new HashMap<>();
 
     static {
         STRUCTURE_BIOMES.put("WitchHut", Sets.newHashSet(Biomes.SWAMPLAND, Biomes.MUTATED_SWAMPLAND, Biomes.ROOFED_FOREST, Biomes.MUTATED_ROOFED_FOREST, Biomes.EXTREME_HILLS));
@@ -48,6 +49,7 @@ public class BWMapGenScatteredFeature extends MapGenScatteredFeature {
         return null;
     }
 
+    @Nonnull
     @Override
     protected StructureStart getStructureStart(int chunkX, int chunkZ) {
         return new BWMapGenScatteredFeature.Start(this.world, this.rand, chunkX, chunkZ);

@@ -16,8 +16,8 @@ import java.util.Optional;
  * Created by primetoxinz on 4/22/17.
  */
 public class EntityAIEatFood extends EntityAIBase {
-    private EntityCreature entity;
-    private Ingredient validItem;
+    private final EntityCreature entity;
+    private final Ingredient validItem;
     private EntityItem targetItem;
     private int cooldown;
 

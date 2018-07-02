@@ -12,18 +12,15 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Collection;
+import java.util.function.Function;
 
 public class BlockCorner extends BlockMini {
 
-    public BlockCorner(Material material) {
-        super(material);
-    }
-
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileCorner();
+    public BlockCorner(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+        super(material, subtypes);
     }
 
     @Override
@@ -32,6 +29,15 @@ public class BlockCorner extends BlockMini {
             return CornerOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), facing);
         return BaseOrientation.DEFAULT;
     }
+
+
+    @Nullable
+    @Override
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+        return new TileCorner();
+    }
+
+
 
 
 }

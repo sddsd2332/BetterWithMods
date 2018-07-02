@@ -2,16 +2,20 @@ package betterwithmods.common.registry;
 
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.tile.TileKiln;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -21,7 +25,7 @@ import java.util.Set;
  */
 public class KilnStructureManager {
 
-    public static Set<IBlockState> KILN_BLOCKS = new HashSet<>();
+    public static final Set<IBlockState> KILN_BLOCKS = new HashSet<>();
 
     public static void registerKilnBlock(IBlockState state) {
         KILN_BLOCKS.add(state);
@@ -42,25 +46,18 @@ public class KilnStructureManager {
             world.setBlockState(pos, kiln);
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof TileKiln) {
-                ((TileKiln) tile).setCamoState(state);
+                ((TileKiln) tile).setState(state);
                 world.notifyBlockUpdate(pos, kiln, kiln, 8);
+                //TRIGGER ADVANCEMENT
+                world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(BWAdvancements.CONSTRUCT_KILN::trigger);
             }
             return true;
         }
         return false;
     }
 
-    //@Param BlockPos pos - the position of the kiln block
-    public static int getHeat(World world, BlockPos pos) {
-        return BWMHeatRegistry.getHeat(world,pos.down());
-    }
-
-    public static IHeated getKiln() {
-        return KilnStructureManager::getHeat;
-    }
-
     public static boolean isValidRecipe(World world, BlockPos pos, KilnRecipe recipe) {
-        return recipe.canCraft(getKiln(),world, pos);
+        return recipe.canCraft(getKiln(), world, pos);
     }
 
     public static boolean isValidKiln(IBlockAccess world, BlockPos pos) {
@@ -75,8 +72,38 @@ public class KilnStructureManager {
         return numBrick > 2;
     }
 
-
     public static void removeKilnBlock(IBlockState state) {
         KILN_BLOCKS.remove(state);
+    }
+
+    public static Set<IBlockState> getKilnBlocks() {
+        return KILN_BLOCKS;
+    }
+
+    public static Kiln getKiln() {
+        return new Kiln();
+    }
+
+    public static class Kiln implements IHeated {
+        @Override
+        public int getHeat(World world, BlockPos pos) {
+            return BWMHeatRegistry.getHeat(world, pos.down());
+        }
+
+
+        @Override
+        public World getWorld() {
+            return null;
+        }
+
+        @Override
+        public BlockPos getPos() {
+            return null;
+        }
+
+        @Override
+        public ItemStackHandler getInventory() {
+            return null;
+        }
     }
 }

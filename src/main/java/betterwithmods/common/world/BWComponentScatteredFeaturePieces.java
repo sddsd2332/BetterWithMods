@@ -2,7 +2,6 @@ package betterwithmods.common.world;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockAesthetic;
-import betterwithmods.common.blocks.mechanical.BlockCookingPot;
 import betterwithmods.module.hardcore.world.HCStructures;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +17,7 @@ import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
 import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.template.TemplateManager;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 /**
@@ -37,7 +37,7 @@ public class BWComponentScatteredFeaturePieces {
         }
 
         @Override
-        public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+        public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
             boolean result = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
 
             //Replace clay with obsidian
@@ -143,7 +143,7 @@ public class BWComponentScatteredFeaturePieces {
         }
 
         @Override
-        public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+        public boolean addComponentParts(@Nonnull World worldIn, Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
             if (!this.offsetToAverageGroundLevel(worldIn, structureBoundingBoxIn, 0)) {
                 return false;
             } else {
@@ -222,10 +222,10 @@ public class BWComponentScatteredFeaturePieces {
         }
 
         @Override
-        public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+        public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
             boolean result = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
-            this.setBlockState(worldIn, BWMBlocks.AESTHETIC.getDefaultState().withProperty(BlockAesthetic.TYPE, BlockAesthetic.EnumType.CHOPBLOCKBLOOD), 5, 4, 11, structureBoundingBoxIn);
-            this.setBlockState(worldIn, BWMBlocks.AESTHETIC.getDefaultState().withProperty(BlockAesthetic.TYPE, BlockAesthetic.EnumType.CHOPBLOCKBLOOD), 6, 4, 11, structureBoundingBoxIn);
+            this.setBlockState(worldIn, BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD), 5, 4, 11, structureBoundingBoxIn);
+            this.setBlockState(worldIn, BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD), 6, 4, 11, structureBoundingBoxIn);
             this.setAir(worldIn, 6, 3, 10, structureBoundingBoxIn);
             this.setAir(worldIn, 5, 3, 10, structureBoundingBoxIn);
 
@@ -261,7 +261,7 @@ public class BWComponentScatteredFeaturePieces {
                 removeChest(worldIn, 9, -3, 10, randomIn);
             } else {
                 this.setBlockState(worldIn, BWMBlocks.HAND_CRANK.getDefaultState(), 5, 3, 10, structureBoundingBoxIn);
-                this.setBlockState(worldIn, BWMBlocks.COOKING_POTS.getDefaultState().withProperty(BlockCookingPot.TYPE,BlockCookingPot.EnumType.DRAGONVESSEL), 6, 3, 10, structureBoundingBoxIn);
+                this.setBlockState(worldIn, BWMBlocks.DRAGON_VESSEL.getDefaultState(), 6, 3, 10, structureBoundingBoxIn);
             }
 
             return result;

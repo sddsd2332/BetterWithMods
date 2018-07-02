@@ -30,7 +30,7 @@ import java.util.stream.Collectors;
 public class HCPiles extends Feature {
     public static boolean keepSoilDrops;
 
-    public static Map<IBlockState, ItemStack> blockStateToPile = new HashMap<>();
+    public static final Map<IBlockState, ItemStack> blockStateToPile = new HashMap<>();
 
     public static void registerPile(Block block, int meta, ItemStack stack) {
         registerPile(block.getStateFromMeta(meta), stack);

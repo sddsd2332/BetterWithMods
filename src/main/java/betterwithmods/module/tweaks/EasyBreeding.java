@@ -1,9 +1,9 @@
 package betterwithmods.module.tweaks;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.ai.EntityAISearchFood;
 import betterwithmods.module.Feature;
-import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.util.ReflectionLib;
 import com.google.common.collect.Sets;
@@ -58,7 +58,7 @@ public class EasyBreeding extends Feature {
     @GameRegistry.ObjectHolder("betterwithmods:hemp")
     public static final Item HEMP_SEED = null;
 
-    public static HashMap<Item,IExtraFoodItem> EXTRA_FOOD_ITEMS = new HashMap<>();
+    public static final HashMap<Item,IExtraFoodItem> EXTRA_FOOD_ITEMS = new HashMap<>();
 
     public static boolean isOtherValidFood(ItemStack stack, EntityLivingBase animal) {
         Item item = stack.getItem();
@@ -95,7 +95,7 @@ public class EasyBreeding extends Feature {
             EntityLivingBase entity = (EntityLivingBase) event.getEntity();
             if (entity instanceof EntityAnimal) {
                 EntityAnimal animal = ((EntityAnimal) entity);
-                if (!ModuleLoader.isFeatureEnabled(HCChickens.class) || !(event.getEntity() instanceof EntityChicken)) {
+                if (!BWMod.MODULE_LOADER.isFeatureEnabled(HCChickens.class) || !(event.getEntity() instanceof EntityChicken)) {
                     animal.tasks.addTask(3, new EntityAISearchFood(((EntityAnimal) entity)));
                 }
                 if (!getTempted(animal).isEmpty()) {

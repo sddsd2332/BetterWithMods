@@ -1,6 +1,5 @@
 package betterwithmods.common.world.gen.village;
 
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.module.hardcore.world.HCVillages;
 import net.minecraft.block.BlockStairs;
 import net.minecraft.block.material.Material;
@@ -13,6 +12,7 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
 
@@ -32,7 +32,7 @@ public class Butchery extends AbandonedVillagePiece {
 
     @Override
     public StructureVillagePieces.PieceWeight getVillagePieceWeight(Random random, int size) {
-        return new StructureVillagePieces.PieceWeight(Butchery.class, 15, MathHelper.getInt(random, 0 + size, 2 + size));
+        return new StructureVillagePieces.PieceWeight(Butchery.class, 15, MathHelper.getInt(random, size, 2 + size));
     }
 
     @Override
@@ -43,10 +43,13 @@ public class Butchery extends AbandonedVillagePiece {
     @Override
     public StructureVillagePieces.Village buildComponent(StructureVillagePieces.PieceWeight villagePiece, StructureVillagePieces.Start startPiece, List<StructureComponent> pieces, Random random, int p1, int p2, int p3, EnumFacing facing, int p5) {
         StructureBoundingBox structureboundingbox = StructureBoundingBox.getComponentToAddBoundingBox(p1, p2, p3, 0, 0, 0, 9, 7, 11, facing);
-        return canVillageGoDeeper(structureboundingbox) && StructureComponent.findIntersecting(pieces, structureboundingbox) == null ? new Butchery(startPiece, p5, random, structureboundingbox, facing) : null;
+        if (canVillageGoDeeper(structureboundingbox)) {
+            StructureComponent.findIntersecting(pieces, structureboundingbox);
+        }
+        return null;
     }
 
-    public boolean addComponentParts(World worldIn, Random randomIn, StructureBoundingBox structureBoundingBoxIn) {
+    public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
         if (this.averageGroundLvl < 0) {
             this.averageGroundLvl = this.getAverageGroundLevel(worldIn, structureBoundingBoxIn);
 
@@ -56,8 +59,9 @@ public class Butchery extends AbandonedVillagePiece {
 
             this.boundingBox.offset(0, this.averageGroundLvl - this.boundingBox.maxY + 7 - 1, 0);
         }
-        IBlockState table = this.getBiomeSpecificBlockState(BWMBlocks.WOOD_TABLE.getDefaultState());
+
         IBlockState iblockstate = this.getBiomeSpecificBlockState(Blocks.COBBLESTONE.getDefaultState());
+        IBlockState table = iblockstate;//this.getBiomeSpecificBlockState(BWMBlocks.WOOD_TABLE.getDefaultState());
         IBlockState iblockstate1 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.NORTH));
         IBlockState iblockstate2 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.SOUTH));
         IBlockState iblockstate3 = this.getBiomeSpecificBlockState(Blocks.OAK_STAIRS.getDefaultState().withProperty(BlockStairs.FACING, EnumFacing.WEST));
@@ -66,12 +70,8 @@ public class Butchery extends AbandonedVillagePiece {
         IBlockState fence = this.getBiomeSpecificBlockState(Blocks.OAK_FENCE.getDefaultState());
         IBlockState stoneslab = Blocks.DOUBLE_STONE_SLAB.getDefaultState();
 
-        IBlockState iblockstate7 = iblockstate1;
-        IBlockState iblockstate8 = iblockstate2;
         if (HCVillages.disableAllComplexBlocks) {
             table = Blocks.AIR.getDefaultState();
-            iblockstate1 = iblockstate4;
-            iblockstate2 = iblockstate4;
             iblockstate3 = iblockstate4;
             fence = Blocks.AIR.getDefaultState();
             stoneslab = iblockstate;
@@ -101,8 +101,8 @@ public class Butchery extends AbandonedVillagePiece {
 
         for (int i = -1; i <= 2; ++i) {
             for (int j = 0; j <= 8; ++j) {
-                this.setBlockState(worldIn, iblockstate7, j, 4 + i, i, structureBoundingBoxIn);
-                this.setBlockState(worldIn, iblockstate8, j, 4 + i, 5 - i, structureBoundingBoxIn);
+                this.setBlockState(worldIn, iblockstate1, j, 4 + i, i, structureBoundingBoxIn);
+                this.setBlockState(worldIn, iblockstate2, j, 4 + i, 5 - i, structureBoundingBoxIn);
             }
         }
 
@@ -120,7 +120,7 @@ public class Butchery extends AbandonedVillagePiece {
         this.setBlockState(worldIn, Blocks.AIR.getDefaultState(), 6, 2, 5, structureBoundingBoxIn);
         this.setBlockState(worldIn, table, 2, 1, 3, structureBoundingBoxIn);
         this.setBlockState(worldIn, iblockstate4, 1, 1, 4, structureBoundingBoxIn);
-        this.setBlockState(worldIn, iblockstate7, 2, 1, 4, structureBoundingBoxIn);
+        this.setBlockState(worldIn, iblockstate1, 2, 1, 4, structureBoundingBoxIn);
         this.setBlockState(worldIn, iblockstate3, 1, 1, 3, structureBoundingBoxIn);
 
         this.fillWithBlocks(worldIn, structureBoundingBoxIn, 5, 0, 1, 7, 0, 3, stoneslab, stoneslab, false);
@@ -131,7 +131,7 @@ public class Butchery extends AbandonedVillagePiece {
         this.placeTorch(worldIn, EnumFacing.NORTH, 2, 3, 1, structureBoundingBoxIn);
 
         if (this.getBlockStateFromPos(worldIn, 2, 0, -1, structureBoundingBoxIn).getMaterial() == Material.AIR && this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getMaterial() != Material.AIR) {
-            this.setBlockState(worldIn, iblockstate7, 2, 0, -1, structureBoundingBoxIn);
+            this.setBlockState(worldIn, iblockstate1, 2, 0, -1, structureBoundingBoxIn);
 
             if (this.getBlockStateFromPos(worldIn, 2, -1, -1, structureBoundingBoxIn).getBlock() == Blocks.GRASS_PATH) {
                 this.setBlockState(worldIn, Blocks.GRASS.getDefaultState(), 2, -1, -1, structureBoundingBoxIn);

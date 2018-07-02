@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
@@ -32,6 +33,8 @@ public class BlockInvisibleLight extends BWMBlock {
         this.setDefaultState(this.blockState.getBaseState().withProperty(SUNLIGHT, false).withProperty(DirUtils.FACING, EnumFacing.UP));
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public EnumBlockRenderType getRenderType(IBlockState state) {
         return EnumBlockRenderType.INVISIBLE;
@@ -42,16 +45,20 @@ public class BlockInvisibleLight extends BWMBlock {
         return 6;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.DESTROY;
@@ -68,9 +75,10 @@ public class BlockInvisibleLight extends BWMBlock {
         return 0;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @Nullable
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull IBlockAccess worldIn, @Nonnull BlockPos pos) {
         return NULL_AABB;
     }
 
@@ -80,14 +88,15 @@ public class BlockInvisibleLight extends BWMBlock {
     }
 
     @Override
-    public boolean isReplaceable(IBlockAccess worldIn, BlockPos pos) {
+    public boolean isReplaceable(IBlockAccess worldIn, @Nonnull BlockPos pos) {
         return true;
     }
 
     @Override
-    public void dropBlockAsItemWithChance(World world, BlockPos pos, IBlockState state, float f, int fortune) {
+    public void dropBlockAsItemWithChance(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, float f, int fortune) {
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
         if (world.getBlockState(pos).getBlock() == BWMBlocks.LIGHT_SOURCE)
@@ -153,6 +162,8 @@ public class BlockInvisibleLight extends BWMBlock {
         return clear;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean sun = false;
@@ -169,6 +180,7 @@ public class BlockInvisibleLight extends BWMBlock {
         return meta + state.getValue(DirUtils.FACING).getIndex();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.FACING, SUNLIGHT);

@@ -18,11 +18,12 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockWolf extends BWMBlock {
 
-    private ResourceLocation entityName;
+    private final ResourceLocation entityName;
 
     public BlockWolf(ResourceLocation entityName) {
         super(Material.CLOTH);
@@ -44,6 +45,7 @@ public class BlockWolf extends BWMBlock {
         });
     }
 
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
@@ -68,8 +70,9 @@ public class BlockWolf extends BWMBlock {
         return false;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ, int meta, EntityLivingBase placer, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ, int meta, @Nonnull EntityLivingBase placer, EnumHand hand) {
         IBlockState state = super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, placer, hand);
         return state.withProperty(DirUtils.FACING, DirUtils.convertEntityOrientationToFacing(placer, side));
     }
@@ -90,11 +93,13 @@ public class BlockWolf extends BWMBlock {
         return state.getValue(DirUtils.FACING).ordinal();
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(DirUtils.FACING, EnumFacing.getFront(meta));
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.FACING);

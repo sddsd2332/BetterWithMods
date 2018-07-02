@@ -3,25 +3,23 @@ package betterwithmods.client.tesr;
 import betterwithmods.BWMod;
 import betterwithmods.client.model.ModelWaterwheel;
 import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityWaterwheel;
+import betterwithmods.common.blocks.mechanical.tile.TileWaterwheel;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
-public class TESRWaterwheel extends TileEntitySpecialRenderer<TileEntityWaterwheel> {
-
-    public static final ResourceLocation WATERWHEEL = new ResourceLocation(BWMod.MODID,"textures/blocks/waterwheel.png");
-
+public class TESRWaterwheel extends TileEntitySpecialRenderer<TileWaterwheel> {
     private final ModelWaterwheel waterwheel;
 
+    public static final ResourceLocation WATERWHEEL = new ResourceLocation(BWMod.MODID,"textures/blocks/waterwheel.png");
     public TESRWaterwheel() {
         this.waterwheel = new ModelWaterwheel();
     }
 
     @Override
-    public void render(TileEntityWaterwheel te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+    public void render(TileWaterwheel te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         BlockPos pos = te.getBlockPos();
         RenderUtils.renderDebugBoundingBox(x,y,z,te.getRenderBoundingBox().offset(-pos.getX(),-pos.getY(),-pos.getZ()));
 

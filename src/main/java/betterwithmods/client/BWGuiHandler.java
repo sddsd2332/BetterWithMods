@@ -13,9 +13,9 @@ import betterwithmods.client.gui.bulk.GuiCrucible;
 import betterwithmods.client.gui.bulk.GuiFilteredHopper;
 import betterwithmods.client.gui.bulk.GuiMill;
 import betterwithmods.common.blocks.mechanical.tile.*;
-import betterwithmods.common.blocks.tile.TileEntityBlockDispenser;
-import betterwithmods.common.blocks.tile.TileEntityInfernalEnchanter;
-import betterwithmods.common.blocks.tile.TileEntitySteelAnvil;
+import betterwithmods.common.blocks.tile.TileBlockDispenser;
+import betterwithmods.common.blocks.tile.TileInfernalEnchanter;
+import betterwithmods.common.blocks.tile.TileSteelAnvil;
 import betterwithmods.manual.client.gui.GuiManual;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -31,22 +31,22 @@ public class BWGuiHandler implements IGuiHandler {
         switch (Gui.VALUES[ID]) {
             case TILE:
                 TileEntity tile = world.getTileEntity(pos);
-                if (tile instanceof TileEntityPulley)
-                    return new ContainerPulley(player, (TileEntityPulley) tile);
-                if (tile instanceof TileEntityBlockDispenser)
-                    return new ContainerBlockDispenser(player, (TileEntityBlockDispenser) tile);
-                if (tile instanceof TileEntityCrucible)
-                    return new ContainerCookingPot(player, (TileEntityCrucible) tile);
-                if (tile instanceof TileEntityCauldron)
-                    return new ContainerCookingPot(player, (TileEntityCauldron) tile);
-                if (tile instanceof TileEntityMill)
-                    return new ContainerMill(player, (TileEntityMill) tile);
-                if (tile instanceof TileEntityFilteredHopper)
-                    return new ContainerFilteredHopper(player, (TileEntityFilteredHopper) tile);
-                if (tile instanceof TileEntitySteelAnvil)
-                    return new ContainerSteelAnvil(player.inventory, (TileEntitySteelAnvil) tile);
-                if(tile instanceof TileEntityInfernalEnchanter)
-                    return new ContainerInfernalEnchanter(player, (TileEntityInfernalEnchanter) tile);
+                if (tile instanceof TilePulley)
+                    return new ContainerPulley(player, (TilePulley) tile);
+                if (tile instanceof TileBlockDispenser)
+                    return new ContainerBlockDispenser(player, (TileBlockDispenser) tile);
+                if (tile instanceof TileCrucible)
+                    return new ContainerCookingPot(player, (TileCrucible) tile);
+                if (tile instanceof TileCauldron)
+                    return new ContainerCookingPot(player, (TileCauldron) tile);
+                if (tile instanceof TileMill)
+                    return new ContainerMill(player, (TileMill) tile);
+                if (tile instanceof TileFilteredHopper)
+                    return new ContainerFilteredHopper(player, (TileFilteredHopper) tile);
+                if (tile instanceof TileSteelAnvil)
+                    return new ContainerSteelAnvil(player.inventory, (TileSteelAnvil) tile);
+                if(tile instanceof TileInfernalEnchanter)
+                    return new ContainerInfernalEnchanter(player, (TileInfernalEnchanter) tile);
                 return null;
             default:
                 return null;
@@ -60,22 +60,22 @@ public class BWGuiHandler implements IGuiHandler {
         switch (Gui.VALUES[ID]) {
             case TILE:
                 TileEntity tile = world.getTileEntity(pos);
-                if (tile instanceof TileEntityPulley)
-                    return new GuiPulley(player, (TileEntityPulley) tile);
-                if (tile instanceof TileEntityBlockDispenser)
-                    return new GuiBlockDispenser(player, (TileEntityBlockDispenser) tile);
-                if (tile instanceof TileEntityCrucible)
-                    return new GuiCrucible(player, (TileEntityCrucible) tile);
-                if (tile instanceof TileEntityCauldron)
-                    return new GuiCauldron(player, (TileEntityCauldron) tile);
-                if (tile instanceof TileEntityMill)
-                    return new GuiMill(player, (TileEntityMill) tile);
-                if (tile instanceof TileEntityFilteredHopper)
-                    return new GuiFilteredHopper(player, (TileEntityFilteredHopper) tile);
-                if (tile instanceof TileEntitySteelAnvil)
-                    return new GuiSteelAnvil((TileEntitySteelAnvil) tile, new ContainerSteelAnvil(player.inventory, (TileEntitySteelAnvil) tile));
-                if(tile instanceof TileEntityInfernalEnchanter)
-                    return new GuiInfernalEnchanter(player, (TileEntityInfernalEnchanter) tile);
+                if (tile instanceof TilePulley)
+                    return new GuiPulley(player, (TilePulley) tile);
+                if (tile instanceof TileBlockDispenser)
+                    return new GuiBlockDispenser(player, (TileBlockDispenser) tile);
+                if (tile instanceof TileCrucible)
+                    return new GuiCrucible(player, (TileCrucible) tile);
+                if (tile instanceof TileCauldron)
+                    return new GuiCauldron(player, (TileCauldron) tile);
+                if (tile instanceof TileMill)
+                    return new GuiMill(player, (TileMill) tile);
+                if (tile instanceof TileFilteredHopper)
+                    return new GuiFilteredHopper(player, (TileFilteredHopper) tile);
+                if (tile instanceof TileSteelAnvil)
+                    return new GuiSteelAnvil((TileSteelAnvil) tile, new ContainerSteelAnvil(player.inventory, (TileSteelAnvil) tile));
+                if(tile instanceof TileInfernalEnchanter)
+                    return new GuiInfernalEnchanter(player, (TileInfernalEnchanter) tile);
                 return null;
             case MANUAL:
                 return new GuiManual();
@@ -88,7 +88,7 @@ public class BWGuiHandler implements IGuiHandler {
         TILE,
         MANUAL;
 
-        public static Gui[] VALUES = values();
+        public static final Gui[] VALUES = values();
     }
 
 }

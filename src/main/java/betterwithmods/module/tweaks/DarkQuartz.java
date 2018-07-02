@@ -1,6 +1,5 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 

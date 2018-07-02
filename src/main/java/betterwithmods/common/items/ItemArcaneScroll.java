@@ -11,6 +11,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -18,8 +19,6 @@ import java.util.List;
  * Created by primetoxinz on 9/11/16.
  */
 public class ItemArcaneScroll extends Item {
-
-
 
     public static ItemStack getScrollWithEnchant(Enchantment enchantment) {
         ItemStack stack = new ItemStack(BWMItems.ARCANE_SCROLL);
@@ -29,9 +28,10 @@ public class ItemArcaneScroll extends Item {
         return stack;
     }
 
+
     public static Enchantment getEnchantment(ItemStack scroll) {
         NBTTagCompound tag = scroll.getTagCompound();
-        if(tag.hasKey("enchant")) {
+        if (tag != null && tag.hasKey("enchant")) {
             int e = tag.getInteger("enchant");
             return Enchantment.getEnchantmentByID(e);
         }
@@ -44,7 +44,7 @@ public class ItemArcaneScroll extends Item {
     }
 
     @Override
-    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+    public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
         if (this.isInCreativeTab(tab)) {
             for (Enchantment enchantment : Enchantment.REGISTRY) {
                 items.add(getScrollWithEnchant(enchantment));
@@ -60,6 +60,7 @@ public class ItemArcaneScroll extends Item {
     /**
      * Return an item rarity from EnumRarity
      */
+    @Nonnull
     @Override
     public EnumRarity getRarity(ItemStack stack) {
         return EnumRarity.UNCOMMON;

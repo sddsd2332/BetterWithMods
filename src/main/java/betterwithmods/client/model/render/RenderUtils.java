@@ -1,8 +1,5 @@
 package betterwithmods.client.model.render;
 
-import betterwithmods.BWMod;
-import betterwithmods.client.model.filters.*;
-import betterwithmods.common.BWMBlocks;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
@@ -13,13 +10,11 @@ import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResource;
-import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.MathHelper;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoader;
@@ -28,47 +23,12 @@ import org.lwjgl.opengl.GL11;
 
 import java.awt.image.BufferedImage;
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.function.Function;
 
 public class RenderUtils {
     public static final Function<ResourceLocation, TextureAtlasSprite> textureGetter = ModelLoader.defaultTextureGetter();
     protected static final Minecraft minecraft = Minecraft.getMinecraft();
-    public static float FLUID_OFFSET = 0.005f;
-    private static HashMap<String, ModelWithResource> filterLocations = new HashMap<>();
     private static RenderItem renderItem;
-
-    public static String fromStack(ItemStack stack) {
-        return stack.getItem().getRegistryName().toString() + ":" + stack.getMetadata();
-    }
-
-    public static boolean filterContains(ItemStack stack) {
-        return !stack.isEmpty() && filterLocations.containsKey(fromStack(stack));
-    }
-
-    public static ModelWithResource getModelFromStack(ItemStack stack) {
-        if (filterContains(stack))
-            return filterLocations.get(fromStack(stack));
-        return null;
-    }
-
-    public static void addFilter(ItemStack stack, ModelWithResource resource) {
-        filterLocations.put(fromStack(stack), resource);
-    }
-
-    public static void registerFilters() {
-        String[] woodTypes = {"oak", "spruce", "birch", "jungle", "acacia", "dark_oak"};
-        for (int i = 0; i < 6; i++) {
-            addFilter(new ItemStack(BWMBlocks.SLATS, 1, i), new ModelSlats(new ResourceLocation(BWMod.MODID, "textures/blocks/wood_side_" + woodTypes[i] + ".png")));
-            addFilter(new ItemStack(BWMBlocks.GRATE, 1, i), new ModelGrate(new ResourceLocation(BWMod.MODID, "textures/blocks/wood_side_" + woodTypes[i] + ".png")));
-        }
-        addFilter(new ItemStack(BWMBlocks.WICKER, 1, 2), new ModelOpaque(new ResourceLocation(BWMod.MODID, "textures/blocks/wicker.png")));
-        addFilter(new ItemStack(Blocks.SOUL_SAND), new ModelOpaque(new ResourceLocation("minecraft", "textures/blocks/soul_sand.png")));
-        addFilter(new ItemStack(Blocks.IRON_BARS), new ModelTransparent(new ResourceLocation("minecraft", "textures/blocks/iron_bars.png")));
-        addFilter(new ItemStack(Blocks.LADDER), new ModelTransparent(new ResourceLocation("minecraft", "textures/blocks/ladder.png")));
-        addFilter(new ItemStack(Blocks.TRAPDOOR), new ModelTransparent(new ResourceLocation("minecraft", "textures/blocks/trapdoor.png")));
-        addFilter(new ItemStack(Blocks.IRON_TRAPDOOR), new ModelTransparent(new ResourceLocation("minecraft", "textures/blocks/iron_trapdoor.png")));
-    }
 
     public static void renderFill(ResourceLocation textureLocation, BlockPos pos, double x, double y, double z, double minX, double minY, double minZ, double maxX, double maxY, double maxZ) {
         renderFill(textureLocation, pos, x, y, z, minX, minY, minZ, maxX, maxY, maxZ, EnumFacing.VALUES);

@@ -1,7 +1,6 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.world.BWMapGenVillage;
 import betterwithmods.common.world.gen.village.*;
 import betterwithmods.common.world.gen.village.field.BWField1;
@@ -28,7 +27,8 @@ import java.util.concurrent.atomic.AtomicInteger;
  * Created by primetoxinz on 5/21/17.
  */
 public class HCVillages extends Feature {
-	public static AtomicInteger semiabandonedRadius = new AtomicInteger(), normalRadius = new AtomicInteger();
+	public static final AtomicInteger semiabandonedRadius = new AtomicInteger();
+    public static final AtomicInteger normalRadius = new AtomicInteger();
 
 	public static boolean disableAllComplexBlocks;
 	public static boolean disableVillagerSpawning;
@@ -82,10 +82,11 @@ public class HCVillages extends Feature {
 
 	@SubscribeEvent
 	public void biomeSpecificVillage(BiomeEvent.GetVillageBlockID event) {
-		if (event.getOriginal() == BWMBlocks.WOOD_TABLE.getDefaultState()) {
-			event.setReplacement(event.getOriginal().withProperty(BlockPlanks.VARIANT, plankFromBiome(event.getBiome())));
-		}
-		if (event.getOriginal() == Blocks.DIRT) {
+		//TODO tables in houses
+//		if (event.getOriginal() == BWMBlocks.WOOD_TABLE.getDefaultState()) {
+//			event.setReplacement(event.getOriginal().withProperty(BlockPlanks.VARIANT, plankFromBiome(event.getBiome())));
+//		}
+		if (event.getOriginal().getBlock() == Blocks.DIRT) {
 			if (BiomeDictionary.hasType(event.getBiome(), BiomeDictionary.Type.SANDY)) {
 				event.setReplacement(Blocks.SAND.getDefaultState());
 			}

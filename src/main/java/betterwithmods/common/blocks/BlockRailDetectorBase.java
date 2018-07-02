@@ -10,13 +10,16 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
+//TODO Guava
+@SuppressWarnings("Guava")
 public class BlockRailDetectorBase extends BlockRailDetector {
 
-    private Predicate<Entity> filter;
+    private final Predicate<Entity> filter;
 
     public BlockRailDetectorBase(Predicate<Entity> cart) {
         this.filter = cart;
@@ -35,8 +38,9 @@ public class BlockRailDetectorBase extends BlockRailDetector {
         return false;
     }
 
+    @SafeVarargs
     @Override
-    protected <T extends EntityMinecart> List<T> findMinecarts(World worldIn, BlockPos pos, Class<T> clazz, Predicate<Entity>... filters) {
+    protected final <T extends EntityMinecart> List<T> findMinecarts(World worldIn, BlockPos pos, @Nonnull Class<T> clazz, Predicate<Entity>... filters) {
         AxisAlignedBB axisalignedbb = this.getDectectionBox(pos);
         Set<Predicate<Entity>> p = Sets.newHashSet(filters);
         p.add(this.filter);

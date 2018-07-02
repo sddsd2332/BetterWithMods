@@ -1,7 +1,6 @@
 package betterwithmods.network.handler;
 
 import betterwithmods.BWMod;
-import betterwithmods.network.messages.MessageGloom;
 import betterwithmods.network.messages.MessagePlaced;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 

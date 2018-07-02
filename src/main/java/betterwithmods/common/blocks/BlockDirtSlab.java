@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.common.BWMItems;
 import betterwithmods.module.tweaks.GrassPath;
 import betterwithmods.util.WorldUtils;
@@ -26,6 +25,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.List;
@@ -36,7 +36,8 @@ import static net.minecraft.block.BlockDirt.SNOWY;
 /**
  * @author Koward
  */
-public class BlockDirtSlab extends BlockSimpleSlab implements IMultiVariants {
+@SuppressWarnings("deprecation")
+public class BlockDirtSlab extends BlockSimpleSlab {
     public static final PropertyEnum<DirtSlabType> VARIANT = PropertyEnum.create("variant", BlockDirtSlab.DirtSlabType.class);
     private static final EnumFacing[] CHECKED_FACINGS_FOR_SNOW = new EnumFacing[]{EnumFacing.NORTH, EnumFacing.SOUTH, EnumFacing.WEST, EnumFacing.EAST};
 
@@ -49,15 +50,22 @@ public class BlockDirtSlab extends BlockSimpleSlab implements IMultiVariants {
     }
 
     @Override
+    public int damageDropped(IBlockState state) {
+        return 0;
+    }
+
+    @Override
     public boolean getUseNeighborBrightness(IBlockState state) {
         return true;
     }
 
+    @Nonnull
     @Override
-    public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
+    public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
         return new ItemStack(this, 1, 0);
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         if (state.getValue(VARIANT) == DirtSlabType.PATH)
@@ -81,7 +89,7 @@ public class BlockDirtSlab extends BlockSimpleSlab implements IMultiVariants {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         return isOverSupport(worldIn, pos);
     }
 
@@ -102,20 +110,23 @@ public class BlockDirtSlab extends BlockSimpleSlab implements IMultiVariants {
         }
     }
 
+    @Nonnull
     @Override
-    public List<ItemStack> getDrops(IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    public List<ItemStack> getDrops(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull IBlockState state, int fortune) {
         List<ItemStack> drops = new ArrayList<>();
         drops.add(new ItemStack(this));
         return drops;
     }
 
+    @Nonnull
     @Override
     public MapColor getMapColor(IBlockState state, IBlockAccess world, BlockPos pos) {
         return (state.getValue(VARIANT)).getColor();
     }
 
+    @Nonnull
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         if (state.getValue(VARIANT) == DirtSlabType.PATH)
             return state;
         boolean snowy = false;
@@ -133,18 +144,13 @@ public class BlockDirtSlab extends BlockSimpleSlab implements IMultiVariants {
         return state;
     }
 
+    @Nonnull
     @Override
-    public void getSubBlocks(CreativeTabs tab, NonNullList<ItemStack> list) {
-        list.add(new ItemStack(this, 1, DirtSlabType.DIRT.getMetadata()));
-        list.add(new ItemStack(this, 1, DirtSlabType.GRASS.getMetadata()));
-        list.add(new ItemStack(this, 1, DirtSlabType.MYCELIUM.getMetadata()));
-    }
-
-    @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
+    public ItemStack getItem(World worldIn, BlockPos pos, @Nonnull IBlockState state) {
         return new ItemStack(this, 1, state.getValue(VARIANT).getMetadata());
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(VARIANT, DirtSlabType.byMetadata(meta));
@@ -155,31 +161,26 @@ public class BlockDirtSlab extends BlockSimpleSlab implements IMultiVariants {
         return state.getValue(VARIANT).getMetadata();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, VARIANT, SNOWY);
     }
 
+    @Nonnull
     @Override
     public Material getMaterial(IBlockState state) {
         return state.getValue(VARIANT).getMaterial();
     }
 
+    @Nonnull
     @SideOnly(Side.CLIENT)
     @Override
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
-    @Override
-    public String[] getVariants() {
-        ArrayList<String> variants = new ArrayList<>();
-        for (DirtSlabType enumtype : DirtSlabType.values()) {
-            variants.add("snowy=false,variant=" + enumtype.getName());
-        }
-        return variants.toArray(new String[DirtSlabType.values().length]);
-    }
-
+    @Nonnull
     @Override
     public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
         if (state.getValue(SNOWY)) return SoundType.SNOW;
@@ -298,6 +299,7 @@ public class BlockDirtSlab extends BlockSimpleSlab implements IMultiVariants {
             return this.name;
         }
 
+        @Nonnull
         public String getName() {
             return this.name;
         }

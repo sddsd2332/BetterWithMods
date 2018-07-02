@@ -1,6 +1,6 @@
 package betterwithmods.client.tesr;
 
-import betterwithmods.common.blocks.tile.TileEntityBeacon;
+import betterwithmods.common.blocks.tile.TileBeacon;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;
@@ -13,26 +13,26 @@ import java.util.List;
 
 /**
  * Created by primetoxinz on 7/17/17.
+ * adapted from {@link net.minecraft.client.renderer.tileentity.TileEntityBeaconRenderer}
  */
-public class TESRBeacon extends TileEntitySpecialRenderer<TileEntityBeacon> {
+public class TESRBeacon extends TileEntitySpecialRenderer<TileBeacon> {
 
     public static final ResourceLocation TEXTURE_BEACON_BEAM = new ResourceLocation("textures/entity/beacon_beam.png");
 
     @Override
-    public void render(TileEntityBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+    public void render(TileBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         renderBeacon(te,x,y,z,partialTicks);
     }
 
 
-    public void renderBeacon(TileEntityBeacon te, double x, double y, double z, float partialTicks) {
+    public void renderBeacon(TileBeacon te, double x, double y, double z, float partialTicks) {
         if (te.isEnabled()) {
             GlStateManager.alphaFunc(516, 0.1F);
             this.bindTexture(TEXTURE_BEACON_BEAM);
-            List<TileEntityBeacon.BeamSegment> segments = te.getSegments();
+            List<TileBeacon.BeamSegment> segments = te.getSegments();
             GlStateManager.disableFog();
             int i = 0;
-            for (int j = 0; j < segments.size(); ++j) {
-                TileEntityBeacon.BeamSegment segment = segments.get(j);
+            for (TileBeacon.BeamSegment segment : segments) {
                 renderBeamSegment(x, y, z, partialTicks, te.getBeamScale(), te.getWorld().getTotalWorldTime(), i, segment.getHeight(), segment.getColors());
                 i += segment.getHeight();
             }
@@ -70,8 +70,7 @@ public class TESRBeacon extends TileEntitySpecialRenderer<TileEntityBeacon> {
         double d9 = 0.5D + Math.sin(d3 + 3.9269908169872414D) * beamRadius;
         double d10 = 0.5D + Math.cos(d3 + 5.497787143782138D) * beamRadius;
         double d11 = 0.5D + Math.sin(d3 + 5.497787143782138D) * beamRadius;
-        double d12 = 0.0D;
-        double d13 = 1.0D;
+        double d13;
         double d14 = -1.0D + d2;
         double d15 = (double) height * textureScale * (0.5D / beamRadius) + d14;
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -103,8 +102,6 @@ public class TESRBeacon extends TileEntitySpecialRenderer<TileEntityBeacon> {
         d8 = 0.5D + glowRadius;
         d9 = 0.5D + glowRadius;
         d10 = 0.5D + glowRadius;
-        d11 = 0.0D;
-        d12 = 1.0D;
         d13 = -1.0D + d2;
         d14 = (double) height * textureScale + d13;
         bufferbuilder.begin(7, DefaultVertexFormats.POSITION_TEX_COLOR);
@@ -131,7 +128,7 @@ public class TESRBeacon extends TileEntitySpecialRenderer<TileEntityBeacon> {
     }
 
     @Override
-    public boolean isGlobalRenderer(TileEntityBeacon te) {
+    public boolean isGlobalRenderer(TileBeacon te) {
         return true;
     }
 }

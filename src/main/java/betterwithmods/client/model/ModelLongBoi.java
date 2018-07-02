@@ -14,26 +14,24 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class ModelLongBoi extends ModelBase
 {
     /** main box for the wolf head */
-    public ModelRenderer wolfHeadMain;
+    public final ModelRenderer wolfHeadMain;
     /** The wolf's body */
-    public ModelRenderer wolfBody;
+    public final ModelRenderer wolfBody;
     /** Wolf'se first leg */
-    public ModelRenderer wolfLeg1;
+    public final ModelRenderer wolfLeg1;
     /** Wolf's second leg */
-    public ModelRenderer wolfLeg2;
+    public final ModelRenderer wolfLeg2;
     /** Wolf's third leg */
-    public ModelRenderer wolfLeg3;
+    public final ModelRenderer wolfLeg3;
     /** Wolf's fourth leg */
-    public ModelRenderer wolfLeg4;
+    public final ModelRenderer wolfLeg4;
     /** The wolf's tail */
-    ModelRenderer wolfTail;
+    final ModelRenderer wolfTail;
     /** The wolf's mane */
-    ModelRenderer wolfMane;
+    final ModelRenderer wolfMane;
 
     public ModelLongBoi()
     {
-        float f = 0.0F;
-        float f1 = 13.5F;
         this.wolfHeadMain = new ModelRenderer(this, 0, 0);
         this.wolfHeadMain.addBox(-2.0F, -3.0F, -2.0F, 6, 6, 4, 0.0F);
         this.wolfHeadMain.setRotationPoint(-1.0F, 13.5F, -7.0F);
@@ -73,7 +71,6 @@ public class ModelLongBoi extends ModelBase
 
         if (this.isChild)
         {
-            float f = 2.0F;
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, 5.0F * scale, 2.0F * scale);
             this.wolfHeadMain.renderWithRotation(scale);

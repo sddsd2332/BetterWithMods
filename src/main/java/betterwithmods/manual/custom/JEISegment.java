@@ -7,6 +7,7 @@ import betterwithmods.module.compat.jei.JEI;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fml.common.Loader;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
@@ -57,6 +58,7 @@ public final class JEISegment extends TextSegment implements InteractiveSegment,
         }
     }
 
+    @Nonnull
     @Override
     public Optional<String> tooltip() {
         return Optional.ofNullable(recipeOutput);
@@ -80,6 +82,7 @@ public final class JEISegment extends TextSegment implements InteractiveSegment,
         lastHovered = System.currentTimeMillis();
     }
 
+    @Nonnull
     @Override
     public String toString() {
         return String.format("[%s](%s)", text(), recipeOutput);

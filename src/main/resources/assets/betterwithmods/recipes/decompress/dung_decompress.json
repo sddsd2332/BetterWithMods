@@ -1,14 +1,12 @@
 {
   "result": {
-    "item": "betterwithmods:material",
-    "data": 5,
+    "item": "betterwithmods:dung",
     "count": 9
   },
   "type": "minecraft:crafting_shapeless",
   "ingredients": [
     {
-      "item": "betterwithmods:aesthetic",
-      "data": 11
+      "item": "betterwithmods:dung_block"
     }
   ]
 }

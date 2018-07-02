@@ -10,8 +10,8 @@ public class BaseTest {
     private void before() {
         Class<? extends BaseTest> clazz = this.getClass();
         Method[] methods = clazz.getMethods();
-        for(Method method: methods) {
-            if(method.isAnnotationPresent(Before.class)) {
+        for (Method method : methods) {
+            if (method.isAnnotationPresent(Before.class)) {
                 try {
                     method.invoke(this);
                 } catch (IllegalAccessException | InvocationTargetException e) {
@@ -25,6 +25,7 @@ public class BaseTest {
         int passed = 0, failed = 0, count = 0;
         Class<? extends BaseTest> clazz = this.getClass();
 
+        BWMod.logger.warn("Starting: {}", clazz.getSimpleName());
         Method[] methods = clazz.getMethods();
         for (Method method : methods) {
             if (method.isAnnotationPresent(Test.class)) {
@@ -34,10 +35,10 @@ public class BaseTest {
                     BWMod.logger.warn("{} - Test '{}' - passed", ++count, method.getName());
                     passed++;
                 } catch (Throwable ex) {
-                    BWMod.logger.error("{} - Test '{}' - failed: {}", ++count, method.getName(), ex.getCause());
+                    BWMod.logger.error("{} - Test '{}' - failed:", ++count, method.getName());
+                    ex.printStackTrace();
                     failed++;
                 }
-
             }
         }
         BWMod.logger.warn("Result {} : Total : {}, Passed: {}, Failed {}", clazz.getSimpleName(), count, passed, failed);

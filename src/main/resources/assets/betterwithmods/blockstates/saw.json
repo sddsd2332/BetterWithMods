@@ -10,7 +10,7 @@
       "sawstate": "#sawoff"
     },
     "model": "betterwithmods:saw",
-    "uvlock": false
+    "uvlock": true
   },
   "variants": {
     "normal": [
@@ -18,29 +18,30 @@
     ],
     "inventory": [
       {
-        "transform": "forge:default-block",
-        "model": "betterwithmods:saw_inv"
+        "transform": "forge:default-block"
       }
     ],
     "facing": {
-      "down": {},
-      "up": {
+      "down": {
         "x": 180
       },
-      "north": {
-        "x": 270
+      "up": {
       },
-      "south": {
+      "north": {
         "x": 270,
         "y": 180
+
+      },
+      "south": {
+        "x": 270
       },
       "west": {
         "x": 270,
-        "y": 270
+        "y": 90
       },
       "east": {
         "x": 270,
-        "y": 90
+        "y": 270
       }
     },
     "active": {

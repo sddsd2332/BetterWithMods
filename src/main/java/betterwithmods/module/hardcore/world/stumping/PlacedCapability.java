@@ -19,9 +19,9 @@ import java.util.Set;
 public class PlacedCapability implements ICapabilitySerializable<NBTTagCompound> {
 
     @CapabilityInject(PlacedCapability.class)
-    public static Capability<PlacedCapability> PLACED_CAPABILITY = null;
+    public static final Capability<PlacedCapability> PLACED_CAPABILITY = null;
 
-    private Set<BlockPos> placed = Sets.newHashSet();
+    private final Set<BlockPos> placed = Sets.newHashSet();
 
     public Set<BlockPos> getPlaced() {
         return placed;

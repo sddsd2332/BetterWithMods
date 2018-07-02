@@ -1,6 +1,6 @@
 package betterwithmods.client.model;
 
-import betterwithmods.common.blocks.mechanical.tile.TileEntityWindmillHorizontal;
+import betterwithmods.common.blocks.mechanical.tile.TileWindmillHorizontal;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
@@ -22,7 +22,7 @@ public class ModelWindmillSail extends ModelBase {
             this.axle.addChild(this.components[i]);
     }
 
-    public void render(float scale, TileEntityWindmillHorizontal tile) {
+    public void render(float scale, TileWindmillHorizontal tile) {
         for (int i = 0; i < 4; i++) {
             int color = tile.getBladeColor(i);
             this.components[i].renderWithColor(scale, color);

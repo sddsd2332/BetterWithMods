@@ -1,12 +1,10 @@
 {
   "result": {
-    "item": "betterwithmods:material",
-    "data": 33,
+    "item": "betterwithmods:scoured_leather_cut",
     "count": 2
   },
   "type": "betterwithmods:cutting_recipe",
   "cut": {
-    "item": "betterwithmods:material",
-    "data": 7
+    "item": "betterwithmods:scoured_leather"
   }
 }

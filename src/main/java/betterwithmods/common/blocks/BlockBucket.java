@@ -1,8 +1,8 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.api.tile.IRopeConnector;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
-import betterwithmods.common.blocks.tile.TileEntityBucket;
+import betterwithmods.common.blocks.mechanical.tile.TilePulley;
+import betterwithmods.common.blocks.tile.TileBucket;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -21,6 +21,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockBucket extends BWMBlock implements IRopeConnector {
@@ -37,6 +38,7 @@ public class BlockBucket extends BWMBlock implements IRopeConnector {
         setSoundType(SoundType.METAL);
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, IN_WATER, HAS_WATER, CONNECTED);
@@ -59,8 +61,8 @@ public class BlockBucket extends BWMBlock implements IRopeConnector {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityBucket();
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+        return new TileBucket();
     }
 
     @Override
@@ -68,15 +70,19 @@ public class BlockBucket extends BWMBlock implements IRopeConnector {
         return 0;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState();
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
-    public IBlockState getActualState(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
         IBlockState above = worldIn.getBlockState(pos.up());
-        if (above.getBlock() instanceof BlockRope || worldIn.getTileEntity(pos.up()) instanceof TileEntityPulley) {
+        if (above.getBlock() instanceof BlockRope || worldIn.getTileEntity(pos.up()) instanceof TilePulley) {
             return getDefaultState().withProperty(CONNECTED, true);
         }
         return super.getActualState(state, worldIn, pos).withProperty(CONNECTED, false);
@@ -87,22 +93,27 @@ public class BlockBucket extends BWMBlock implements IRopeConnector {
         return false;
     }
 
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @Nonnull
+    @SuppressWarnings("deprecation")
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return BlockFaceShape.UNDEFINED;

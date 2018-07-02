@@ -7,6 +7,8 @@ import net.minecraft.item.ItemArrow;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 /**
  * Purpose:
  *
@@ -14,8 +16,9 @@ import net.minecraft.world.World;
  * @version 11/18/16
  */
 public class ItemBroadheadArrow extends ItemArrow {
+    @Nonnull
     @Override
-    public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
+    public EntityArrow createArrow(@Nonnull World worldIn, @Nonnull ItemStack stack, EntityLivingBase shooter) {
         if (!stack.isEmpty() && stack.getItem() == this)
             return new EntityBroadheadArrow(worldIn, shooter);
         return super.createArrow(worldIn, stack, shooter);

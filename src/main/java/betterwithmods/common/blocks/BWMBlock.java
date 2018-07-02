@@ -1,10 +1,12 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.BWMod;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
-import betterwithmods.common.blocks.mini.BlockMini;
 import betterwithmods.common.blocks.tile.TileBasic;
+import betterwithmods.util.CapabilityUtils;
+import betterwithmods.util.InvUtils;
 import betterwithmods.util.item.ToolsManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -15,11 +17,14 @@ import net.minecraft.client.particle.Particle;
 import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
+import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -28,16 +33,20 @@ import net.minecraft.world.WorldServer;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 
-public abstract class BWMBlock extends Block {
+public abstract class BWMBlock extends Block implements IRotate {
+
     public BWMBlock(Material material) {
         super(material);
         setCreativeTab(BWCreativeTabs.BWTAB);
-        if (material == Material.WOOD || material == BlockMini.MINI) {
+        if (material == Material.WOOD) {
             ToolsManager.setAxesAsEffectiveAgainst(this);
             this.setSoundType(SoundType.WOOD);
             this.setHarvestLevel("axe", 0);
+            this.setHardness(3.5f);
         } else if (material == Material.ROCK) {
             this.setSoundType(SoundType.STONE);
             setHarvestLevel("pickaxe", 1);
@@ -46,9 +55,12 @@ public abstract class BWMBlock extends Block {
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
-        if (!worldIn.isRemote && worldIn.getTileEntity(pos) instanceof TileBasic) {
-            ((TileBasic) worldIn.getTileEntity(pos)).onBreak();
+    public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+        if (!worldIn.isRemote) {
+            TileEntity tile = worldIn.getTileEntity(pos);
+            if (tile instanceof TileBasic) {
+                ((TileBasic) tile).onBreak();
+            }
             worldIn.updateComparatorOutputLevel(pos, this);
         }
         super.breakBlock(worldIn, pos, state);
@@ -69,6 +81,20 @@ public abstract class BWMBlock extends Block {
         }
     }
 
+    @SuppressWarnings("deprecation")
+    public boolean hasComparatorInputOverride(IBlockState state) {
+        return hasTileEntity(state);
+    }
+
+
+    @SuppressWarnings("deprecation")
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+        if (hasTileEntity(blockState)) {
+            TileEntity tile = worldIn.getTileEntity(pos);
+            return CapabilityUtils.getInventory(tile, EnumFacing.UP).map(InvUtils::calculateComparatorLevel).orElse(0);
+        }
+        return 0;
+    }
 
     @Override
     @SideOnly(Side.CLIENT)
@@ -155,19 +181,27 @@ public abstract class BWMBlock extends Block {
     @Override
     public boolean addLandingEffects(IBlockState state, WorldServer world, BlockPos pos, IBlockState stateAgain, EntityLivingBase entity, int numberOfParticles) {
         //TODO
-//        PacketCustomBlockDust packet = new PacketCustomBlockDust(world, pos, entity.posX, entity.posY, entity.posZ, numberOfParticles, 0.15f);
-//        CharsetLib.packet.sendToDimension(packet, world.provider.getDimension());
+//        MessageCustomBlockDust packet = new MessageCustomBlockDust(world, pos, entity.posX, entity.posY, entity.posZ, numberOfParticles, 0.15f);
+//        NetworkHandler.sendToAllAround(packet, world, pos);
         return super.addLandingEffects(state, world, pos, stateAgain, entity, numberOfParticles);
     }
 
     @Override
     public boolean addRunningEffects(IBlockState state, World world, BlockPos pos, Entity entity) {
-        return super.addRunningEffects(state, world, pos, entity);
-//        return UtilProxyCommon.proxy.addRunningParticles(state, world, pos, entity);
-
+        return BWMod.proxy.addRunningParticles(state, world, pos, entity);
     }
 
     public int getParticleTintIndex() {
         return -1;
+    }
+
+    @Override
+    public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
+        IRotate.super.addInformation(stack, player, tooltip, advanced);
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        return IRotate.super.onBlockActivated(this, worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
 }

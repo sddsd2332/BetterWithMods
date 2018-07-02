@@ -29,17 +29,17 @@ public class BlockBWMFluid extends BlockFluidClassic {
 
 
     @Override
-    public boolean isFireSource(World world, BlockPos pos, EnumFacing side) {
+    public boolean isFireSource(@Nonnull World world, BlockPos pos, EnumFacing side) {
         return getFluid().getName().equals("hellfire");
     }
 
     @Override
-    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
+    public boolean isFlammable(@Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull EnumFacing face) {
         return getFluid().getName().equals("hellfire");
     }
 
     @Override
-    public void randomTick(World worldIn, BlockPos pos, IBlockState state, Random random) {
+    public void randomTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random random) {
         switch(getFluid().getName()) {
             case "soulforged_steel":
                 worldIn.playSound(null,pos, SoundEvents.ENTITY_GHAST_AMBIENT, SoundCategory.AMBIENT,0.5f,random.nextFloat());

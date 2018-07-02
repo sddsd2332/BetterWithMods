@@ -1,0 +1,29 @@
+{
+  "parent": "betterwithmods:kiln",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:crucible"
+    },
+    "title": {
+      "translate": "tile.bwm:crucible.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.crucible.desc"
+    }
+  },
+  "criteria": {
+    "has_items": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:crucible"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [[
+    "has_items"
+  ]]
+}

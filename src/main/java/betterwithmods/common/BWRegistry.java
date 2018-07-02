@@ -6,38 +6,33 @@ import betterwithmods.api.capabilities.CapabilityAxle;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IAxle;
 import betterwithmods.api.tile.IMechanicalPower;
+import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.entity.*;
 import betterwithmods.common.entity.item.EntityFallingBlockCustom;
+import betterwithmods.common.fluid.BWFluidRegistry;
 import betterwithmods.common.penalties.PenaltyHandlerRegistry;
 import betterwithmods.common.potion.BWPotion;
 import betterwithmods.common.potion.PotionSlowfall;
 import betterwithmods.common.potion.PotionTruesight;
 import betterwithmods.common.registry.BellowsManager;
-import betterwithmods.common.registry.HopperFilters;
 import betterwithmods.common.registry.KilnStructureManager;
-import betterwithmods.common.registry.block.managers.KilnManagerBlock;
-import betterwithmods.common.registry.block.managers.SawManagerBlock;
-import betterwithmods.common.registry.block.managers.TurntableManagerBlock;
+import betterwithmods.common.registry.anvil.CraftingManagerAnvil;
+import betterwithmods.common.registry.block.managers.CrafingManagerKiln;
+import betterwithmods.common.registry.block.managers.CraftingManagerSaw;
+import betterwithmods.common.registry.block.managers.CraftingManagerTurntable;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.StateIngredient;
-import betterwithmods.common.registry.bulk.manager.CookingPotManager;
-import betterwithmods.common.registry.bulk.manager.MillManager;
+import betterwithmods.common.registry.bulk.manager.CraftingManagerMill;
+import betterwithmods.common.registry.bulk.manager.CraftingManagerPot;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
+import betterwithmods.common.registry.hopper.filters.HopperFilters;
+import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
 import betterwithmods.manual.api.API;
 import betterwithmods.manual.common.api.ManualDefinitionImpl;
-import betterwithmods.module.Feature;
-import betterwithmods.module.ModuleLoader;
-import betterwithmods.module.compat.Quark;
-import betterwithmods.module.compat.bop.BiomesOPlenty;
-import betterwithmods.module.gameplay.CraftingRecipes;
-import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
-import betterwithmods.module.hardcore.crafting.*;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
-import betterwithmods.module.hardcore.needs.HCTools;
-import betterwithmods.module.hardcore.world.HCTorches;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.util.DispenserBehaviorDynamite;
 import betterwithmods.util.InvUtils;
@@ -68,14 +63,13 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.registries.ForgeRegistry;
-import net.minecraftforge.registries.IForgeRegistry;
 
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
@@ -83,12 +77,16 @@ public class BWRegistry {
 
     public static final PenaltyHandlerRegistry PENALTY_HANDLERS = new PenaltyHandlerRegistry();
 
-    public static final CookingPotManager CAULDRON = new CookingPotManager();
-    public static final CookingPotManager CRUCIBLE = new CookingPotManager();
-    public static final MillManager MILLSTONE = new MillManager();
-    public static final SawManagerBlock WOOD_SAW = new SawManagerBlock();
-    public static final KilnManagerBlock KILN = new KilnManagerBlock();
-    public static final TurntableManagerBlock TURNTABLE = new TurntableManagerBlock();
+    public static final CraftingManagerPot CAULDRON = new CraftingManagerPot();
+    public static final CraftingManagerPot CRUCIBLE = new CraftingManagerPot();
+    public static final CraftingManagerMill MILLSTONE = new CraftingManagerMill();
+    public static final CraftingManagerSaw WOOD_SAW = new CraftingManagerSaw();
+    public static final CrafingManagerKiln KILN = new CrafingManagerKiln();
+    public static final CraftingManagerTurntable TURNTABLE = new CraftingManagerTurntable();
+    //TODO rename
+    public static final CraftingManagerHopper FILTERD_HOPPER = new CraftingManagerHopper();
+    public static final CraftingManagerAnvil ANVIL = new CraftingManagerAnvil();
+
     public static final HopperFilters HOPPER_FILTERS = new HopperFilters();
 
     @GameRegistry.ObjectHolder("betterwithmods:true_sight")
@@ -108,6 +106,8 @@ public class BWRegistry {
 
     public static void preInit() {
         API.manualAPI = ManualDefinitionImpl.INSTANCE;
+        BWFluidRegistry.registerFluids();
+        BWAdvancements.registerAdvancements();
         BWNetwork.registerNetworking();
         BWMBlocks.registerBlocks();
         BWMItems.registerItems();
@@ -131,18 +131,22 @@ public class BWRegistry {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void postPreInit(RegistryEvent.Register<Item> event) {
+        BWOreDictionary.registerOres();
+        BWOreDictionary.oreGathering();
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
 
-        for(IRecipe recipe: BWMRecipes.getRecipes()) {
-            event.getRegistry().register(recipe);
-        }
-
         for (IRecipe recipe : reg) {
             for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {
-                Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
-                if(matcher.matches()) {
-                    reg.remove(recipe.getRegistryName());
+                if (recipe.getRegistryName() != null) {
+                    Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
+                    if (matcher.matches()) {
+                        reg.remove(recipe.getRegistryName());
+                    }
                 }
             }
             for (ResourceLocation loc : BWMRecipes.REMOVE_RECIPE_BY_RL) {
@@ -168,12 +172,7 @@ public class BWRegistry {
     }
 
     public static void postInit() {
-        BWOreDictionary.postInitOreDictGathering();
         BellowsManager.postInit();
-    }
-
-    public static void postPostInit() {
-        registerRecipes();
     }
 
     /**
@@ -191,6 +190,7 @@ public class BWRegistry {
         BWRegistry.registerEntity(EntitySpiderWeb.class, "bwm_spider_web", 64, 20, true);
         BWRegistry.registerEntity(EntityHCFishHook.class, "bwm_fishing_hook", 64, 20, true);
         BWRegistry.registerEntity(EntityTentacle.class, "bwm_tentacle", 64, 1, true);
+        BWRegistry.registerEntity(EntitySitMount.class, "bwm_sit_mount", 64, 20, false);
 
         BWRegistry.registerEntity(EntityJungleSpider.class, "bwm_jungle_spider", 64, 1, true, 0x3C6432, 0x648C50 );
     }
@@ -278,16 +278,21 @@ public class BWRegistry {
     }
 
     private static Potion registerPotion(Potion potion) {
-        String potionName = potion.getRegistryName().getResourcePath();
-        potion.setPotionName("bwm.effect." + potionName);
+        if (potion.getRegistryName() != null) {
+            String potionName = potion.getRegistryName().getResourcePath();
+            potion.setPotionName("betterwithmods.effect." + potionName);
+        }
         return potion;
+
     }
 
     private static void registerFireInfo() {
+
         Blocks.FIRE.setFireInfo(BWMBlocks.WOODEN_AXLE, 5, 20);
         Blocks.FIRE.setFireInfo(BWMBlocks.WOODEN_BROKEN_GEARBOX, 5, 20);
         Blocks.FIRE.setFireInfo(BWMBlocks.WOODEN_GEARBOX, 5, 20);
-        Blocks.FIRE.setFireInfo(BWMBlocks.WINDMILL, 5, 20);
+        Blocks.FIRE.setFireInfo(BWMBlocks.HORIZONTAL_WINDMILL, 5, 20);
+        Blocks.FIRE.setFireInfo(BWMBlocks.VERTICAL_WINDMILL, 5, 20);
         Blocks.FIRE.setFireInfo(BWMBlocks.WATERWHEEL, 5, 20);
         Blocks.FIRE.setFireInfo(BWMBlocks.VINE_TRAP, 5, 20);
         //TODO 1.13 block of nethercoal
@@ -303,50 +308,6 @@ public class BWRegistry {
         }
     }
 
-    public static void registerRecipes() {
-        ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) ForgeRegistries.RECIPES;
-
-        replaceIRecipe(CraftingRecipes.class, reg);
-        replaceIRecipe(HCTools.class, reg);
-        replaceIRecipe(HCDiamond.class, reg);
-        replaceIRecipe(HCLumber.class, reg);
-        replaceIRecipe(HCOres.class, reg);
-        replaceIRecipe(HCRedstone.class, reg);
-        replaceIRecipe(HCTorches.class, reg);
-        replaceIRecipe(HCFishing.class, reg);
-        replaceIRecipe(MiniBlocks.class, reg);
-
-        replaceIRecipe(BiomesOPlenty.class, reg);
-        replaceIRecipe(Quark.class, reg);
-    }
-
-    private static void retrieveRecipes(String category, ForgeRegistry<IRecipe> reg) {
-        List<IRecipe> recipes = BWMRecipes.getHardcoreRecipes(category);
-        if (recipes != null) {
-            for (IRecipe recipe : recipes) {
-                ResourceLocation location = recipe.getRegistryName();
-                if (reg.containsKey(location))
-                    registerReplacements(reg.getValue(location), recipe);
-                else
-                    reg.register(recipe);
-            }
-        }
-    }
-
-    private static void replaceIRecipe(Class<? extends Feature> clazz, IForgeRegistry<IRecipe> reg) {
-        if (ModuleLoader.isFeatureEnabled(clazz)) {
-            List<IRecipe> recipes = BWMRecipes.getHardcoreRecipes(clazz.getSimpleName());
-            if (recipes != null) {
-                recipes.forEach(reg::register);
-            }
-        }
-    }
-
-    private static void registerReplacements(IRecipe original, IRecipe from) {
-        NonNullList<Ingredient> ing = original.getIngredients();
-        for (int i = 0; i < ing.size(); i++) {
-            ing.set(i, from.getIngredients().get(i));
-        }
-    }
 }
+
 

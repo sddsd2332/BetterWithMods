@@ -1,10 +1,9 @@
 package betterwithmods.common.blocks.mechanical;
 
-import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.BlockRotate;
+import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.mechanical.tile.TilePump;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
@@ -19,11 +18,11 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidRegistry;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
@@ -32,7 +31,7 @@ import java.util.Random;
  * @author mrebhan
  */
 
-public class BlockPump extends BlockRotate implements IBlockActive, IMultiVariants, IOverpower {
+public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
 
     public BlockPump() {
         super(Material.WOOD);
@@ -50,22 +49,19 @@ public class BlockPump extends BlockRotate implements IBlockActive, IMultiVarian
         IBlockState sourceState = world.getBlockState(source);
         Block block = sourceState.getBlock();
         Material mat = block.getMaterial(state);
-        return (block instanceof BlockFluidBase && ((BlockFluidBase)block).getFluid() == FluidRegistry.WATER) || (block instanceof BlockLiquid && mat == Material.WATER);
+        return (block instanceof BlockFluidBase && ((BlockFluidBase) block).getFluid() == FluidRegistry.WATER) || (block instanceof BlockLiquid && mat == Material.WATER);
     }
 
-    @Override
-    public String[] getVariants() {
-        return new String[]{"active=false,facing=north"};
-    }
 
     @Override
     public int tickRate(World world) {
         return 5;
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing side, float flX, float flY, float flZ,
-                                            int meta, EntityLivingBase entity, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ,
+                                            int meta, @Nonnull EntityLivingBase entity, EnumHand hand) {
         IBlockState state = super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, entity, hand);
         return setFacingInBlock(state, entity.getHorizontalFacing().getOpposite());
     }
@@ -81,6 +77,7 @@ public class BlockPump extends BlockRotate implements IBlockActive, IMultiVarian
         return state.withProperty(DirUtils.HORIZONTAL, facing);
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean isActive = false;
@@ -98,6 +95,7 @@ public class BlockPump extends BlockRotate implements IBlockActive, IMultiVarian
         return meta + state.getValue(DirUtils.HORIZONTAL).getIndex();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.HORIZONTAL, ACTIVE);
@@ -111,12 +109,12 @@ public class BlockPump extends BlockRotate implements IBlockActive, IMultiVarian
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        withTile(worldIn,pos).ifPresent(TilePump::onChanged);
+        withTile(worldIn, pos).ifPresent(TilePump::onChanged);
     }
 
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-        withTile(world,pos).ifPresent(TilePump::onChanged);
+        withTile(world, pos).ifPresent(TilePump::onChanged);
         if (isActive(state)) {
             if (world.isAirBlock(pos.up()) && hasWaterToPump(world, pos)) {
                 world.setBlockState(pos.up(), BWMBlocks.TEMP_LIQUID_SOURCE.getDefaultState());
@@ -137,7 +135,7 @@ public class BlockPump extends BlockRotate implements IBlockActive, IMultiVarian
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TilePump();
     }
 
@@ -155,5 +153,10 @@ public class BlockPump extends BlockRotate implements IBlockActive, IMultiVarian
         if (tile instanceof TilePump)
             return (TilePump) tile;
         return null;
+    }
+
+    @Override
+    public boolean rotates() {
+        return true;
     }
 }

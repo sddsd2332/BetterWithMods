@@ -18,6 +18,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 import java.util.Random;
 
 /**
@@ -38,7 +39,7 @@ public class TileSaw extends TileBasic implements IMechanicalPower {
         SawRecipe recipe = BWRegistry.WOOD_SAW.findRecipe(world, blockPos, state).orElse(null);
         if (recipe != null) {
             if (!recipe.craftRecipe(world, blockPos, rand, state)) {
-                if (!getBlock().isChoppingBlock(state) && WorldUtils.isSolid(world, blockPos, facing, state)) {
+                if (!getBlock().isChoppingBlock(state,false) && WorldUtils.isSolid(world, blockPos, facing, state)) {
                     world.playSound(null, blockPos, BWSounds.METAL_HACKSAW, SoundCategory.BLOCKS, 1.0f, 0.80f);
                 }
             }
@@ -58,6 +59,7 @@ public class TileSaw extends TileBasic implements IMechanicalPower {
         return true;
     }
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
         compound.setInteger("power", power);
@@ -93,15 +95,14 @@ public class TileSaw extends TileBasic implements IMechanicalPower {
     }
 
     @Override
-    public boolean hasCapability(@Nonnull Capability<?> capability, @Nonnull EnumFacing facing) {
+    public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityMechanicalPower.MECHANICAL_POWER)
             return true;
         return super.hasCapability(capability, facing);
     }
 
-    @Nonnull
     @Override
-    public <T> T getCapability(@Nonnull Capability<T> capability, @Nonnull EnumFacing facing) {
+    public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
         if (capability == CapabilityMechanicalPower.MECHANICAL_POWER)
             return CapabilityMechanicalPower.MECHANICAL_POWER.cast(this);
         return super.getCapability(capability, facing);

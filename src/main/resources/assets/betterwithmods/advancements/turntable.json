@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:saw",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:turntable"
+    },
+    "title": {
+      "translate": "tile.bwm:turntable.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.turntable.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:turntable"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "has_item"
+    ]
+  ]
+}

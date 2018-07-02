@@ -7,6 +7,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.function.Predicate;
@@ -14,7 +15,7 @@ import java.util.function.Predicate;
 public class IngredientSpecial extends Ingredient {
     ItemStack[] matchingStacks = new ItemStack[0];
     boolean matchingStacksCached;
-    Predicate<ItemStack> matcher;
+    final Predicate<ItemStack> matcher;
 
     public IngredientSpecial(Predicate<ItemStack> matcher) {
         super(0);
@@ -29,6 +30,7 @@ public class IngredientSpecial extends Ingredient {
         return matcher.test(stack);
     }
 
+    @Nonnull
     @Override
     public ItemStack[] getMatchingStacks() {
         if (!matchingStacksCached)
@@ -45,7 +47,7 @@ public class IngredientSpecial extends Ingredient {
                     continue;
                 NonNullList<ItemStack> items = NonNullList.create();
                 item.getSubItems(tab, items);
-                items.stream().filter(matcher::test).forEach(matches::add);
+                items.stream().filter(matcher).forEach(matches::add);
             }
         }
         matchingStacks = matches.toArray(matchingStacks);

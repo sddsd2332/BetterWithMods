@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "config",
+      "enabled": "hctorches"
+    }
+  ],
+  "result": {
+    "item": "minecraft:torch",
+    "count": 1
+  },
+  "pattern": [
+    "C",
+    "S"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "C": {
+      "ore": "coal",
+      "type": "forge:ore_dict"
+    },
+    "S": {
+      "ore": "stickWood",
+      "type": "forge:ore_dict"
+    }
+  }
+}

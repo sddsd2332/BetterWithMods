@@ -1,15 +1,12 @@
 package betterwithmods.common.blocks.mechanical;
 
+import betterwithmods.BWMod;
 import betterwithmods.api.BWMAPI;
-import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.mechanical.tile.TileCrank;
-import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
-import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -18,10 +15,7 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
-import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -32,10 +26,11 @@ import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
-public class BlockCrank extends BWMBlock implements IMultiVariants, IOverpower {
+public class BlockCrank extends BWMBlock implements IOverpower {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 7);
     public static final float BASE_HEIGHT = 0.25F;
     private static final int TICK_RATE = 3;
@@ -57,12 +52,7 @@ public class BlockCrank extends BWMBlock implements IMultiVariants, IOverpower {
     }
 
     @Override
-    public String[] getVariants() {
-        return new String[]{"stage=0"};
-    }
-
-    @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
         return CRANK_AABB;
     }
 
@@ -72,7 +62,7 @@ public class BlockCrank extends BWMBlock implements IMultiVariants, IOverpower {
     }
 
     @Override
-    public boolean canPlaceBlockAt(World world, BlockPos pos) {
+    public boolean canPlaceBlockAt(World world, @Nonnull BlockPos pos) {
         return world.isSideSolid(pos.down(), EnumFacing.UP);
     }
 
@@ -81,7 +71,7 @@ public class BlockCrank extends BWMBlock implements IMultiVariants, IOverpower {
         int meta = state.getValue(STAGE);
         if (meta == 0) {
             if (Gameplay.crankExhaustion > 0.0) {
-                int minHunger = ModuleLoader.isFeatureEnabled(HCHunger.class) ? 20 : 6;
+                int minHunger = BWMod.MODULE_LOADER.isFeatureEnabled(HCHunger.class) ? 20 : 6;
                 if (player.getFoodStats().getFoodLevel() > minHunger) {
                     player.addExhaustion((float) Gameplay.crankExhaustion);
                     if (!world.isRemote) {
@@ -122,7 +112,7 @@ public class BlockCrank extends BWMBlock implements IMultiVariants, IOverpower {
     }
 
     @Override
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return true;
     }
 
@@ -167,6 +157,7 @@ public class BlockCrank extends BWMBlock implements IMultiVariants, IOverpower {
         }
     }
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(STAGE, meta);
@@ -177,6 +168,7 @@ public class BlockCrank extends BWMBlock implements IMultiVariants, IOverpower {
         return state.getValue(STAGE);
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, STAGE);
@@ -189,18 +181,20 @@ public class BlockCrank extends BWMBlock implements IMultiVariants, IOverpower {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileCrank();
     }
 
     @Override
     public void overpower(World world, BlockPos pos) {
-        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.STICK));
-        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Blocks.COBBLESTONE, 2, 0));
-        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 1, 0));
+        //TODO replace with loot table
+//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.STICK));
+//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Blocks.COBBLESTONE, 2, 0));
+//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 1, 0));
         world.setBlockToAir(pos);
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face == EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : super.getBlockFaceShape(worldIn, state, pos, face);

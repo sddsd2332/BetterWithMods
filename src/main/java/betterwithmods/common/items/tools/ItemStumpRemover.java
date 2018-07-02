@@ -1,12 +1,11 @@
 package betterwithmods.common.items.tools;
 
 import betterwithmods.client.BWCreativeTabs;
-import betterwithmods.common.items.ItemAltName;
-import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
@@ -15,10 +14,12 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+
 /**
  * @author Koward
  */
-public class ItemStumpRemover extends ItemAltName {
+public class ItemStumpRemover extends Item {
     public ItemStumpRemover() {
         super();
         this.setCreativeTab(BWCreativeTabs.BWTAB);
@@ -27,6 +28,7 @@ public class ItemStumpRemover extends ItemAltName {
         this.maxStackSize = 16;
     }
 
+    @Nonnull
     @Override
     public EnumActionResult onItemUse(EntityPlayer playerIn, World worldIn, BlockPos pos, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         if (playerIn != null) {
@@ -53,13 +55,5 @@ public class ItemStumpRemover extends ItemAltName {
             }
         }
         return EnumActionResult.FAIL;
-    }
-
-    @Override
-    public String[] getLocations() {
-        if (Gameplay.kidFriendly)
-            return new String[]{"stump_remover_kf"};
-        else
-            return new String[]{"stump_remover"};
     }
 }

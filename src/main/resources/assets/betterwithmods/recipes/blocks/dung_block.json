@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "betterwithmods:dung_block"
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "X": {
+      "ore": "dung",
+      "type": "forge:ore_dict"
+    }
+  }
+}

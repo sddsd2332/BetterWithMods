@@ -1,0 +1,23 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "up": "betterwithmods:blocks/soap_top",
+      "down": "betterwithmods:blocks/soap",
+      "side": "betterwithmods:blocks/soap",
+      "particle": "#side"
+    },
+    "model": "cube_column",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block"
+      }
+    ]
+  }
+}

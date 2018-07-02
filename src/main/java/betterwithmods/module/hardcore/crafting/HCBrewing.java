@@ -79,13 +79,13 @@ public class HCBrewing extends Feature {
                 if (removeWitchPotionDrops && isWitchDropBlacklisted(stack))
                     iterator.remove();
                 else if (stack.getItem() == Items.REDSTONE)
-                    item.setItem(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.WITCH_WART, stack.getCount()));
+                    item.setItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WITCH_WART, stack.getCount()));
             }
         }
 
         if (entity instanceof EntitySquid) {
             if (entity.world.rand.nextInt(100) < 10) {
-                entity.entityDropItem(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.MYSTERY_GLAND), 0);
+                entity.entityDropItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.MYSTERY_GLAND), 0);
             }
         }
     }
@@ -112,9 +112,9 @@ public class HCBrewing extends Feature {
         Items.LINGERING_POTION.setMaxStackSize(potionStackSize);
 
         if (tryChangePotions) {
-            Ingredient extender = convertToPotionItem(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.WITCH_WART));
-            Ingredient strenthener = convertToPotionItem(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BRIMSTONE));
-            Ingredient inverter = convertToPotionItem(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.POISON_SAC));
+            Ingredient extender = convertToPotionItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WITCH_WART));
+            Ingredient strengthener = convertToPotionItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.BRIMSTONE));
+            Ingredient inverter = convertToPotionItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.POISON_SAC));
             Ingredient awkward = convertToPotionItem(Items.NETHER_WART);
             Ingredient fireResistance = convertToPotionItem(Items.MAGMA_CREAM);
             Ingredient nightVision = convertToPotionItem(Items.SPIDER_EYE);
@@ -126,14 +126,14 @@ public class HCBrewing extends Feature {
             Ingredient waterBreathing = convertToPotionItem(new ItemStack(Items.FISH, ItemFishFood.FishType.PUFFERFISH.getMetadata()));
             if (waterBreathingAnyFish)
                 waterBreathing = convertToPotionItem(Items.FISH);
-            Ingredient healing = convertToPotionItem(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.MYSTERY_GLAND));
+            Ingredient healing = convertToPotionItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.MYSTERY_GLAND));
 
             PotionHelper.addContainerRecipe(Items.POTIONITEM, BWMItems.CREEPER_OYSTER, Items.SPLASH_POTION);
             PotionHelper.addContainerRecipe(Items.SPLASH_POTION, Items.DRAGON_BREATH, Items.LINGERING_POTION);
 
             PotionHelper.addMix(PotionTypes.WATER, awkward, PotionTypes.AWKWARD);
             PotionHelper.addMix(PotionTypes.WATER, extender, PotionTypes.MUNDANE);
-            PotionHelper.addMix(PotionTypes.WATER, strenthener, PotionTypes.THICK);
+            PotionHelper.addMix(PotionTypes.WATER, strengthener, PotionTypes.THICK);
             PotionHelper.addMix(PotionTypes.WATER, fireResistance, PotionTypes.MUNDANE);
             PotionHelper.addMix(PotionTypes.WATER, nightVision, PotionTypes.MUNDANE);
             PotionHelper.addMix(PotionTypes.WATER, poison, PotionTypes.MUNDANE);
@@ -152,25 +152,25 @@ public class HCBrewing extends Feature {
             PotionHelper.addMix(PotionTypes.NIGHT_VISION, extender, PotionTypes.LONG_NIGHT_VISION);
 
             PotionHelper.addMix(PotionTypes.AWKWARD, poison, PotionTypes.POISON);
-            PotionHelper.addMix(PotionTypes.POISON, strenthener, PotionTypes.STRONG_POISON);
+            PotionHelper.addMix(PotionTypes.POISON, strengthener, PotionTypes.STRONG_POISON);
             PotionHelper.addMix(PotionTypes.POISON, extender, PotionTypes.LONG_POISON);
 
             PotionHelper.addMix(PotionTypes.AWKWARD, regeneration, PotionTypes.REGENERATION);
             PotionHelper.addMix(PotionTypes.REGENERATION, extender, PotionTypes.LONG_REGENERATION);
-            PotionHelper.addMix(PotionTypes.REGENERATION, strenthener, PotionTypes.STRONG_REGENERATION);
+            PotionHelper.addMix(PotionTypes.REGENERATION, strengthener, PotionTypes.STRONG_REGENERATION);
 
             PotionHelper.addMix(PotionTypes.AWKWARD, strength, PotionTypes.STRENGTH);
-            PotionHelper.addMix(PotionTypes.STRENGTH, strenthener, PotionTypes.STRONG_STRENGTH);
+            PotionHelper.addMix(PotionTypes.STRENGTH, strengthener, PotionTypes.STRONG_STRENGTH);
             PotionHelper.addMix(PotionTypes.STRENGTH, extender, PotionTypes.LONG_STRENGTH);
 
             if (!removeMovementPotions) {
                 PotionHelper.addMix(PotionTypes.AWKWARD, swiftness, PotionTypes.SWIFTNESS);
-                PotionHelper.addMix(PotionTypes.SWIFTNESS, strenthener, PotionTypes.STRONG_SWIFTNESS);
+                PotionHelper.addMix(PotionTypes.SWIFTNESS, strengthener, PotionTypes.STRONG_SWIFTNESS);
                 PotionHelper.addMix(PotionTypes.SWIFTNESS, extender, PotionTypes.LONG_SWIFTNESS);
 
                 PotionHelper.addMix(PotionTypes.AWKWARD, leaping, PotionTypes.LEAPING);
                 PotionHelper.addMix(PotionTypes.LEAPING, extender, PotionTypes.LONG_LEAPING);
-                PotionHelper.addMix(PotionTypes.LEAPING, strenthener, PotionTypes.STRONG_LEAPING);
+                PotionHelper.addMix(PotionTypes.LEAPING, strengthener, PotionTypes.STRONG_LEAPING);
 
                 PotionHelper.addMix(PotionTypes.SWIFTNESS, inverter, PotionTypes.SLOWNESS);
                 PotionHelper.addMix(PotionTypes.STRONG_SWIFTNESS, inverter, PotionTypes.SLOWNESS);
@@ -185,14 +185,14 @@ public class HCBrewing extends Feature {
             PotionHelper.addMix(PotionTypes.WATER_BREATHING, extender, PotionTypes.LONG_WATER_BREATHING);
 
             PotionHelper.addMix(PotionTypes.AWKWARD, healing, PotionTypes.HEALING);
-            PotionHelper.addMix(PotionTypes.HEALING, strenthener, PotionTypes.STRONG_HEALING);
+            PotionHelper.addMix(PotionTypes.HEALING, strengthener, PotionTypes.STRONG_HEALING);
 
             PotionHelper.addMix(PotionTypes.HEALING, inverter, PotionTypes.HARMING);
             PotionHelper.addMix(PotionTypes.STRONG_HEALING, inverter, PotionTypes.STRONG_HARMING);
             PotionHelper.addMix(PotionTypes.POISON, inverter, PotionTypes.HARMING);
             PotionHelper.addMix(PotionTypes.LONG_POISON, inverter, PotionTypes.HARMING);
             PotionHelper.addMix(PotionTypes.STRONG_POISON, inverter, PotionTypes.STRONG_HARMING);
-            PotionHelper.addMix(PotionTypes.HARMING, strenthener, PotionTypes.STRONG_HARMING);
+            PotionHelper.addMix(PotionTypes.HARMING, strengthener, PotionTypes.STRONG_HARMING);
 
             PotionHelper.addMix(PotionTypes.STRENGTH, inverter, PotionTypes.WEAKNESS);
             PotionHelper.addMix(PotionTypes.STRONG_STRENGTH, inverter, PotionTypes.WEAKNESS);
@@ -213,7 +213,7 @@ public class HCBrewing extends Feature {
                     if (moddedPotion.reagent.apply(extenderToReplace) && isExtended(moddedPotion.input.getEffects(), moddedPotion.output.getEffects()))
                         moddedPotion.reagent = extender;
                     if (moddedPotion.reagent.apply(strengthenerToReplace) && isStrong(moddedPotion.input.getEffects(), moddedPotion.output.getEffects()))
-                        moddedPotion.reagent = strenthener;
+                        moddedPotion.reagent = strengthener;
                     if (moddedPotion.reagent.apply(inverterToReplace) && isInverted(moddedPotion.input.getEffects(), moddedPotion.output.getEffects()))
                         moddedPotion.reagent = inverter;
                     mixPredicates.add(moddedPotion);
@@ -228,13 +228,13 @@ public class HCBrewing extends Feature {
                         AbstractBrewingRecipe abstractRecipe = (AbstractBrewingRecipe) recipe;
                         if (abstractRecipe.isIngredient(extenderToReplace) && isExtended(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                             iterator.remove();
-                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.WITCH_WART), abstractRecipe.getOutput()));
+                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getStack(ItemMaterial.EnumMaterial.WITCH_WART), abstractRecipe.getOutput()));
                         } else if (abstractRecipe.isIngredient(strengthenerToReplace) && isStrong(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                             iterator.remove();
-                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BRIMSTONE), abstractRecipe.getOutput()));
+                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getStack(ItemMaterial.EnumMaterial.BRIMSTONE), abstractRecipe.getOutput()));
                         } else if (abstractRecipe.isIngredient(inverterToReplace) && isInverted(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                             iterator.remove();
-                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.POISON_SAC), abstractRecipe.getOutput()));
+                            iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getStack(ItemMaterial.EnumMaterial.POISON_SAC), abstractRecipe.getOutput()));
                         } else if (abstractRecipe.isIngredient(splashToReplace) && isSplash(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                             iterator.remove();
                             iterator.add(new BrewingRecipe(abstractRecipe.getInput(), new ItemStack(BWMItems.CREEPER_OYSTER), abstractRecipe.getOutput()));

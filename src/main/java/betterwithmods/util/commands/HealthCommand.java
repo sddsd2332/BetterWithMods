@@ -1,19 +1,22 @@
 package betterwithmods.util.commands;
 
 import net.minecraft.command.CommandBase;
-import net.minecraft.command.CommandException;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.server.MinecraftServer;
 
+import javax.annotation.Nonnull;
+
 public class HealthCommand extends CommandBase {
+    @Nonnull
     @Override
     public String getName() {
         return "health";
     }
 
+    @Nonnull
     @Override
-    public String getUsage(ICommandSender sender) {
+    public String getUsage(@Nonnull ICommandSender sender) {
         return "/health <health points>";
     }
 
@@ -24,7 +27,7 @@ public class HealthCommand extends CommandBase {
     }
     
     @Override
-    public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
+    public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) {
         if (sender instanceof EntityPlayer) {
             if (args.length > 0) {
                 int health = Integer.parseInt(args[0]);

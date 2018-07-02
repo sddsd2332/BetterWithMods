@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.util.item.ToolsManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -16,34 +15,33 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockLight extends BWMBlock implements IMultiVariants {
+public class BlockLight extends BWMBlock {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
     public BlockLight() {
         super(Material.GLASS);
         this.setHardness(2.0F);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, true));
         this.setSoundType(SoundType.GLASS);
         ToolsManager.setPickaxesAsEffectiveAgainst(this);
     }
 
-    @Override
-    public String[] getVariants() {
-        return new String[]{"active=true"};
-    }
-
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public boolean isFullCube(IBlockState state) {
         return false;
     }
 
+    @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
     public BlockRenderLayer getBlockLayer() {
@@ -67,6 +65,7 @@ public class BlockLight extends BWMBlock implements IMultiVariants {
         }
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
         if (!world.isRemote) {
@@ -109,19 +108,23 @@ public class BlockLight extends BWMBlock implements IMultiVariants {
         return state.getValue(ACTIVE) ? 1 : 0;
     }
 
+    @SuppressWarnings("deprecation")
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return this.getDefaultState().withProperty(ACTIVE, meta == 1);
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, ACTIVE);
     }
 
+    @SuppressWarnings("deprecation")
     @Override
     @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         IBlockState neighbor = world.getBlockState(pos.offset(side));
         return state != neighbor;
     }

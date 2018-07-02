@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.blocks.tile.TileEntityBeacon;
+import betterwithmods.common.blocks.tile.TileBeacon;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 /**
@@ -26,23 +27,22 @@ public class BlockBeacon extends net.minecraft.block.BlockBeacon {
         setLightLevel(1.0f);
     }
 
-    public TileEntityBeacon getTile(IBlockAccess world, BlockPos pos) {
-        return ((TileEntityBeacon) world.getTileEntity(pos));
+    public TileBeacon getTile(IBlockAccess world, BlockPos pos) {
+        return ((TileBeacon) world.getTileEntity(pos));
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+    public boolean onBlockActivated(World worldIn, @Nonnull BlockPos pos, IBlockState state, @Nonnull EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
         getTile(worldIn, pos).processInteraction(worldIn, playerIn, playerIn.getHeldItemMainhand());
         return true;
     }
 
     @Override
     public void onBlockClicked(World worldIn, BlockPos pos, EntityPlayer playerIn) {
-        return;
     }
 
     @Override
-    public void breakBlock(World worldIn, BlockPos pos, IBlockState state) {
+    public void breakBlock(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         getTile(worldIn, pos).onRemoved();
         super.breakBlock(worldIn, pos, state);
     }
@@ -54,7 +54,7 @@ public class BlockBeacon extends net.minecraft.block.BlockBeacon {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
-        return new TileEntityBeacon();
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+        return new TileBeacon();
     }
 }

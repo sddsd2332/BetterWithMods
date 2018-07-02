@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Set;
 
@@ -39,14 +40,14 @@ public class BlockShaft extends BlockStickBase {
     private static final Set<Material> grounds = Sets.newHashSet(Material.GRASS, Material.SAND, Material.GROUND, Material.SNOW);
 
     @Override
-    public boolean canPlaceBlockAt(World worldIn, BlockPos pos) {
+    public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {
         Material material = worldIn.getBlockState(pos.down()).getMaterial();
         return grounds.contains(material);
     }
 
     @Nullable
     @Override
-    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, IBlockAccess worldIn, BlockPos pos) {
+    public AxisAlignedBB getCollisionBoundingBox(IBlockState blockState, @Nonnull IBlockAccess worldIn, @Nonnull BlockPos pos) {
         return Block.NULL_AABB;
     }
 

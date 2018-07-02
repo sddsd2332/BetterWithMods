@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.blocks.tile.TileEntityBeacon;
+import betterwithmods.common.blocks.tile.TileBeacon;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.player.EntityPlayer;
@@ -39,6 +39,7 @@ public class SpawnBeaconEffect implements IBeaconEffect {
         }
     }
 
+    @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     public static boolean containsEntry(BlockPos pos, BindingPoint point) {
         if (SPAWN_LIST.containsKey(pos)) {
             HashSet<BindingPoint> points = SPAWN_LIST.get(pos);
@@ -92,18 +93,21 @@ public class SpawnBeaconEffect implements IBeaconEffect {
 
         public boolean canSpawn(BlockPos beacon, EntityPlayer player, World world) {
             TileEntity tile = world.getTileEntity(beacon);
-            if (isPlayer(player) && (tile instanceof TileEntityBeacon) && (((TileEntityBeacon) tile).getLevels() - 1) == type.ordinal())
+            if (isPlayer(player) && (tile instanceof TileBeacon) && (((TileBeacon) tile).getLevels() - 1) == type.ordinal())
                 return type.inRange(beacon, player, world);
             return false;
         }
 
         public boolean isPlayer(EntityPlayer player) {
-            return player.getGameProfile() != null && player.getGameProfile().getId().equals(uuid);
+            return player.getGameProfile().getId().equals(uuid);
         }
 
         @Override
         public boolean equals(Object o) {
-            return this.hashCode() == o.hashCode();
+            if (o instanceof BindingPoint) {
+                return ((BindingPoint) o).uuid.equals(this.uuid) && this.type == ((BindingPoint) o).type;
+            }
+            return false;
         }
 
         @Override
@@ -133,7 +137,7 @@ public class SpawnBeaconEffect implements IBeaconEffect {
         LEVEL3(-1),
         LEVEL4(-2);
 
-        int range;
+        final int range;
 
         SpawnType(int range) {
             this.range = range;
@@ -151,6 +155,6 @@ public class SpawnBeaconEffect implements IBeaconEffect {
             }
         }
 
-        public static SpawnType[] VALUES = values();
+        public static final SpawnType[] VALUES = values();
     }
 }

@@ -36,7 +36,7 @@ import java.util.Optional;
 public class LongBoi extends Feature {
 
 
-    public static Block LONG_FRIEND = new BlockWolf(new ResourceLocation(BWMod.MODID, "longboi")).setRegistryName("long_friend");
+    public static final Block LONG_FRIEND = new BlockWolf(new ResourceLocation(BWMod.MODID, "longboi")).setRegistryName("long_friend");
 
     private static Optional<EntityLivingBase> getEntity(World world, BlockPos pos) {
         return world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Entity::isEntityAlive).stream().findFirst();
@@ -62,7 +62,7 @@ public class LongBoi extends Feature {
 
     private static class EntityIngredient extends BlockIngredient {
 
-        private ResourceLocation name;
+        private final ResourceLocation name;
 
         public EntityIngredient(ResourceLocation name) {
             this.name = name;

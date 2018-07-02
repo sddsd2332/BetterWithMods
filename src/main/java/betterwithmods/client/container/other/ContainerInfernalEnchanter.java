@@ -1,14 +1,16 @@
 package betterwithmods.client.container.other;
 
+import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.tile.FilteredStackHandler;
 import betterwithmods.common.blocks.tile.SimpleStackHandler;
-import betterwithmods.common.blocks.tile.TileEntityInfernalEnchanter;
+import betterwithmods.common.blocks.tile.TileInfernalEnchanter;
 import betterwithmods.common.items.ItemArcaneScroll;
 import betterwithmods.util.InfernalEnchantment;
 import betterwithmods.util.InvUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
@@ -21,6 +23,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.Set;
 
@@ -29,16 +32,17 @@ import java.util.Set;
  */
 public class ContainerInfernalEnchanter extends Container {
     public static final int INV_LAST = 1;
-    public int[] enchantLevels;
+    public final int[] enchantLevels;
     public int xpSeed;
     public int bookcaseCount;
-    private TileEntityInfernalEnchanter tile;
-    private SimpleStackHandler handler;
+    private final TileInfernalEnchanter tile;
+    private final SimpleStackHandler handler;
 
 
-    public ContainerInfernalEnchanter(EntityPlayer player, TileEntityInfernalEnchanter tile) {
+    public ContainerInfernalEnchanter(EntityPlayer player, TileInfernalEnchanter tile) {
         this.tile = tile;
         this.enchantLevels = new int[5];
+        Arrays.fill(enchantLevels, -1);
         this.bookcaseCount = tile.getBookcaseCount();
         handler = new FilteredStackHandler(2, tile, stack -> stack.getItem() instanceof ItemArcaneScroll, stack -> true) {
             @Override
@@ -104,8 +108,6 @@ public class ContainerInfernalEnchanter extends Container {
     public boolean areValidItems(ItemStack scroll, ItemStack item) {
         if (!scroll.isEmpty() && !item.isEmpty()) {
             Enchantment enchantment = new InfernalEnchantment(ItemArcaneScroll.getEnchantment(scroll));
-            if (enchantment == null)
-                return false;
             Set<Enchantment> enchantments = EnchantmentHelper.getEnchantments(item).keySet();
             if (enchantments.contains(enchantment))
                 return false;
@@ -113,10 +115,7 @@ public class ContainerInfernalEnchanter extends Container {
                 if (!e.isCompatibleWith(enchantment))
                     return false;
             }
-
-            if (item.getItem().canApplyAtEnchantingTable(item, enchantment)) {
-                return true;
-            }
+            return item.getItem().canApplyAtEnchantingTable(item, enchantment);
         }
         return false;
     }
@@ -146,6 +145,7 @@ public class ContainerInfernalEnchanter extends Container {
         }
     }
 
+    @Nonnull
     @Override
     public ItemStack transferStackInSlot(EntityPlayer player, int index) {
         ItemStack itemstack = ItemStack.EMPTY;
@@ -184,7 +184,7 @@ public class ContainerInfernalEnchanter extends Container {
     }
 
     @Override
-    public boolean canInteractWith(EntityPlayer playerIn) {
+    public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
         return true;
     }
 
@@ -213,11 +213,13 @@ public class ContainerInfernalEnchanter extends Container {
             if (!player.world.isRemote) {
                 ItemStack item = this.handler.getStackInSlot(1);
                 ItemStack scroll = this.handler.getStackInSlot(0);
+
                 Enchantment enchantment = ItemArcaneScroll.getEnchantment(scroll);
                 if (enchantment != null) {
                     scroll.shrink(1);
                     item.addEnchantment(enchantment, levelIndex + 1);
                     player.onEnchant(item, this.enchantLevels[levelIndex]);
+                    BWAdvancements.INFERNAL_ENCHANTED.trigger((EntityPlayerMP) player, item, this.enchantLevels[levelIndex]);
                     tile.getWorld().playSound(null, tile.getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F, tile.getWorld().rand.nextFloat() * 0.1F + 0.9F);
                     onContextChanged(this.handler);
                 }

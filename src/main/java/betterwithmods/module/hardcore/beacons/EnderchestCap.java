@@ -15,7 +15,7 @@ import javax.annotation.Nullable;
 public class EnderchestCap implements ICapabilitySerializable<NBTTagCompound> {
 
     @CapabilityInject(EnderchestCap.class)
-    public static Capability<EnderchestCap> ENDERCHEST_CAPABILITY = null;
+    public static final Capability<EnderchestCap> ENDERCHEST_CAPABILITY = null;
 
     private EnumFacing facing;
     private InventoryEnderChest inventory;

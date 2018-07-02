@@ -1,0 +1,51 @@
+{
+  "parent": "block/cube_column",
+  "textures": {
+    "side": "betterwithmods:blocks/turntable_side",
+    "up": "blocks/piston_top_normal",
+    "down": "betterwithmods:blocks/turntable_bottom",
+    "particle": "#side",
+    "invfill": "blocks/gravel",
+    "filter": "blocks/ladder"
+  },
+  "elements": [
+    {
+      "from": [
+        0,
+        0,
+        0
+      ],
+      "to": [
+        16,
+        16,
+        16
+      ],
+      "faces": {
+        "down": {
+          "texture": "#down",
+          "cullface": "down"
+        },
+        "up": {
+          "texture": "#up",
+          "cullface": "up"
+        },
+        "north": {
+          "texture": "#north",
+          "cullface": "north"
+        },
+        "south": {
+          "texture": "#south",
+          "cullface": "south"
+        },
+        "west": {
+          "texture": "#west",
+          "cullface": "west"
+        },
+        "east": {
+          "texture": "#east",
+          "cullface": "east"
+        }
+      }
+    }
+  ]
+}

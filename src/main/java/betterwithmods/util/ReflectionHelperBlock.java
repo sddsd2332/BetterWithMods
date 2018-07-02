@@ -12,6 +12,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
@@ -53,8 +54,8 @@ public class ReflectionHelperBlock extends Block {
     }
 
     @Override
-    public void addCollisionBoxToList(IBlockState state, World worldIn, BlockPos pos, AxisAlignedBB entityBox,
-                                      List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185477_7_) {
+    public void addCollisionBoxToList(IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox,
+                                      @Nonnull List<AxisAlignedBB> collidingBoxes, Entity entityIn, boolean p_185477_7_) {
         markMethod();
     }
 

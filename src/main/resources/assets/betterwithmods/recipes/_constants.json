@@ -29,6 +29,29 @@
         "modid": "betterwithmods"
       }
     ],
+    "name": "HE_MOULDING",
+    "ingredient": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "plankWood"
+      },
+      {
+        "type": "betterwithmods:minitype",
+        "baseIngredient": {
+          "ore": "plankWood",
+          "type": "forge:ore_dict"
+        },
+        "minitype": "moulding"
+      }
+    ]
+  },
+  {
+    "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "betterwithmods"
+      }
+    ],
     "name": "HE_SLAB",
     "ingredient": [
       {

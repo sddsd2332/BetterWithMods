@@ -13,6 +13,8 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
+
 @SideOnly(Side.CLIENT)
 public class RenderTentacle extends Render<EntityTentacle> {
     private static final ResourceLocation FISH_PARTICLES = new ResourceLocation("textures/particle/particles.png");
@@ -24,7 +26,7 @@ public class RenderTentacle extends Render<EntityTentacle> {
     /**
      * Renders the desired {@code T} type Entity.
      */
-    public void doRender(EntityTentacle entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    public void doRender(@Nonnull EntityTentacle entity, double x, double y, double z, float entityYaw, float partialTicks) {
         EntityLivingBase angler = entity.getAngler();
 
         if (angler != null && !this.renderOutlines) {
@@ -101,7 +103,7 @@ public class RenderTentacle extends Render<EntityTentacle> {
     /**
      * Returns the location of an entity's texture. Doesn't seem to be called unless you call Render.bindEntityTexture.
      */
-    protected ResourceLocation getEntityTexture(EntityTentacle entity) {
+    protected ResourceLocation getEntityTexture(@Nonnull EntityTentacle entity) {
         return FISH_PARTICLES;
     }
 }

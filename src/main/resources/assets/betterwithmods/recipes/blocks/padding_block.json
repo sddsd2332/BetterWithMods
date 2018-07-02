@@ -1,0 +1,17 @@
+{
+  "result": {
+    "item": "betterwithmods:padding_block"
+  },
+  "pattern": [
+    "XXX",
+    "XXX",
+    "XXX"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "X": {
+      "ore": "padding",
+      "type": "forge:ore_dict"
+    }
+  }
+}

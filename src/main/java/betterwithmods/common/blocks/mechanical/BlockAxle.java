@@ -3,20 +3,16 @@ package betterwithmods.common.blocks.mechanical;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWSounds;
-import betterwithmods.common.blocks.BlockRotate;
-import betterwithmods.common.blocks.EnumTier;
+import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.mechanical.tile.TileAxle;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
-import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -25,13 +21,13 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.FMLClientHandler;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
@@ -39,19 +35,17 @@ import java.util.Random;
 import static betterwithmods.util.DirUtils.AXIS;
 import static net.minecraft.util.EnumFacing.Axis.Y;
 
-public class BlockAxle extends BlockRotate implements IOverpower, IBlockActive {
+public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
 
     private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.0F, 0.375F, 0.375F, 1.0F, 0.625F, 0.625F);
     private static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
     private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
-    private EnumTier type;
     private final int minPower;
     private final int maxPower;
     private final int maxSignal;
 
-    public BlockAxle(EnumTier type, int minPower, int maxPower, int maxSignal) {
-        super(Material.WOOD);
-        this.type = type;
+    public BlockAxle(Material material, int minPower, int maxPower, int maxSignal) {
+        super(material);
         this.minPower = minPower;
         this.maxPower = maxPower;
         this.maxSignal = maxSignal;
@@ -59,21 +53,20 @@ public class BlockAxle extends BlockRotate implements IOverpower, IBlockActive {
         setCreativeTab(BWCreativeTabs.BWTAB);
     }
 
-    public EnumTier getType() {
-        return type;
-    }
-
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, AXIS, ACTIVE);
     }
 
+    @Nonnull
     @Override
-    public IBlockState getStateForPlacement(World world, BlockPos pos, EnumFacing facing, float hitX, float hitY, float hitZ, int meta, EntityLivingBase placer, EnumHand hand) {
+    public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing facing, float hitX, float hitY, float hitZ, int meta, @Nonnull EntityLivingBase placer, EnumHand hand) {
         return getDefaultState().withProperty(AXIS, facing.getAxis());
     }
 
 
+    @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState().withProperty(AXIS, DirUtils.getAxis(meta >> 2)).withProperty(ACTIVE, (meta & 1) == 1);
@@ -93,15 +86,16 @@ public class BlockAxle extends BlockRotate implements IOverpower, IBlockActive {
     }
 
     @Override
-    public boolean isSideSolid(IBlockState base_state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+    public boolean isSideSolid(IBlockState base_state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         return false;
     }
 
     @Override
-    public boolean canPlaceTorchOnTop(IBlockState state, IBlockAccess world, BlockPos pos) {
+    public boolean canPlaceTorchOnTop(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos) {
         return getAxis(state) == Y;
     }
 
+    @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face.getAxis() == getAxis(state) ? BlockFaceShape.CENTER : BlockFaceShape.UNDEFINED;
@@ -122,6 +116,7 @@ public class BlockAxle extends BlockRotate implements IOverpower, IBlockActive {
         return 0;
     }
 
+    @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         switch (state.getValue(AXIS)) {
@@ -135,11 +130,6 @@ public class BlockAxle extends BlockRotate implements IOverpower, IBlockActive {
         }
     }
 
-    @Override
-    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote) withTile(world, pos).ifPresent(System.out::println);
-        return super.onBlockActivated(world, pos, state, player, hand, facing, hitX, hitY, hitZ);
-    }
 
     @Override
     public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
@@ -171,7 +161,7 @@ public class BlockAxle extends BlockRotate implements IOverpower, IBlockActive {
 
     @Nullable
     @Override
-    public TileEntity createTileEntity(World world, IBlockState state) {
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileAxle(maxPower, minPower, (byte) (maxSignal + 1));
     }
 
@@ -228,44 +218,8 @@ public class BlockAxle extends BlockRotate implements IOverpower, IBlockActive {
         }
     }
 
-
     @Override
-    public float getExplosionResistance(World world, BlockPos pos, @Nullable Entity exploder, Explosion explosion) {
-        if (type == EnumTier.STEEL)
-            return 4000f;
-        return 0;
-    }
-
-    @Override
-    public float getBlockHardness(IBlockState state, World worldIn, BlockPos pos) {
-        if (type == EnumTier.STEEL)
-            return 100f;
-        return 3.5f;
-    }
-
-    @Override
-    public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
-        if (type == EnumTier.STEEL)
-            return SoundType.METAL;
-        return SoundType.WOOD;
-    }
-
-    @Override
-    public Material getMaterial(IBlockState state) {
-        if (type == EnumTier.STEEL)
-            return Material.IRON;
-        return Material.WOOD;
-    }
-
-    @Override
-    public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
-        return type != EnumTier.STEEL || entity instanceof EntityPlayer;
-    }
-
-    @Override
-    public void onBlockExploded(World world, BlockPos pos, Explosion explosion) {
-        if (type != EnumTier.STEEL) {
-            super.onBlockExploded(world, pos, explosion);
-        }
+    public boolean rotates() {
+        return true;
     }
 }

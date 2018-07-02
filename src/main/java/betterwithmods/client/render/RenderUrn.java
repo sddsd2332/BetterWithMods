@@ -1,6 +1,6 @@
 package betterwithmods.client.render;
 
-import betterwithmods.common.blocks.BlockUrn;
+import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.entity.EntityUrn;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
@@ -9,19 +9,22 @@ import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+
+import javax.annotation.Nonnull;
 
 /**
  * Created by primetoxinz on 6/13/17.
  */
 public class RenderUrn extends Render<EntityUrn> {
-    private RenderItem render = Minecraft.getMinecraft().getRenderItem();
+    private final RenderItem render = Minecraft.getMinecraft().getRenderItem();
 
     public RenderUrn(RenderManager renderManager) {
         super(renderManager);
     }
 
-    public void doRender(EntityUrn entity, double x, double y, double z, float entityYaw, float partialTicks) {
+    public void doRender(@Nonnull EntityUrn entity, double x, double y, double z, float entityYaw, float partialTicks) {
 
         GlStateManager.pushMatrix();
         GlStateManager.translate((float) x, (float) y, (float) z);
@@ -32,13 +35,14 @@ public class RenderUrn extends Render<EntityUrn> {
 
         GlStateManager.scale(4,4,4);
         this.bindTexture(getEntityTexture(entity));
-        render.renderItem(BlockUrn.getStack(BlockUrn.EnumType.FULL, 1), ItemCameraTransforms.TransformType.GROUND);
+        render.renderItem(new ItemStack(BWMBlocks.SOUL_URN), ItemCameraTransforms.TransformType.GROUND);
         GlStateManager.disableRescaleNormal();
         GlStateManager.popMatrix();
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
 
-    protected ResourceLocation getEntityTexture(EntityUrn entity) {
+    @Nonnull
+    protected ResourceLocation getEntityTexture(@Nonnull EntityUrn entity) {
         return TextureMap.LOCATION_BLOCKS_TEXTURE;
     }
 
