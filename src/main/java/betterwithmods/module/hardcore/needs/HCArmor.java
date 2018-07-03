@@ -6,21 +6,10 @@ import betterwithmods.common.penalties.ArmorPenalties;
 import betterwithmods.module.Feature;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.util.item.StackMap;
-import betterwithmods.util.player.PlayerHelper;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.SharedMonsterAttributes;
-import net.minecraft.entity.ai.attributes.AttributeModifier;
-import net.minecraft.entity.monster.AbstractSkeleton;
-import net.minecraft.entity.monster.EntityWitherSkeleton;
-import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
@@ -88,9 +77,12 @@ public class HCArmor extends Feature {
 
     @Override
     public void setupConfig() {
-        BWRegistry.PENALTY_HANDLERS.add(penalties = new ArmorPenalties());
         shieldRebalance = loadPropBool("Shield Rebalance", "Experimental recipes for rebalacing shields", false);
+    }
 
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        BWRegistry.PENALTY_HANDLERS.add(penalties = new ArmorPenalties());
     }
 
     @Override
