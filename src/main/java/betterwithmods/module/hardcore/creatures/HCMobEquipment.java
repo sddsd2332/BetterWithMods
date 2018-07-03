@@ -71,6 +71,7 @@ public class HCMobEquipment extends CompatFeature {
     @Override
     public void init(FMLInitializationEvent event) {
         addEquipmentOverride(new ResourceLocation("minecraft:zombie"), HCMobEquipment::zombie);
+        addEquipmentOverride(new ResourceLocation("minecraft:zombie_villager"), HCMobEquipment::zombie);
         addEquipmentOverride(new ResourceLocation("minecraft:husk"), HCMobEquipment::zombie);
         addEquipmentOverride(new ResourceLocation("minecraft:skeleton"), HCMobEquipment::skeleton);
         addEquipmentOverride(new ResourceLocation("minecraft:zombie_pigman"), HCMobEquipment::pigman);
