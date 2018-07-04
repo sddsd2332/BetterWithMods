@@ -1,12 +1,20 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMRecipes;
+import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.BlockRailDetectorBase;
+import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
+import betterwithmods.module.ModuleLoader;
+import betterwithmods.module.gameplay.MetalReclaming;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartEmpty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.util.Objects;
@@ -37,5 +45,13 @@ public class DetectorRail extends Feature {
         Blocks.DETECTOR_RAIL.setUnlocalizedName("detector_rail_wood");
 
         BWMRecipes.removeRecipe(Blocks.DETECTOR_RAIL.getRegistryName());
+    }
+
+    @Override
+    public void init(FMLInitializationEvent event) {
+        if (ModuleLoader.isFeatureEnabled(MetalReclaming.class)) {
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STONE, 6), new ItemStack(Items.IRON_INGOT, 6));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 2)));
+        }
     }
 }

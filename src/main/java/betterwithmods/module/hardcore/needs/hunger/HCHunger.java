@@ -95,7 +95,7 @@ public class HCHunger extends CompatFeature {
 
     @Override
     public void setupConfig() {
-        BWRegistry.PENALTY_HANDLERS.add(penalties = new HungerPenalties());
+
 
         blockBreakExhaustion = (float) loadPropDouble("Block Breaking Exhaustion", "Set Exhaustion from breaking a block", 0.1);
         passiveExhaustion = (float) loadPropDouble("Passive Exhaustion", "Passive Exhaustion value", 3f);
@@ -109,6 +109,8 @@ public class HCHunger extends CompatFeature {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        BWRegistry.PENALTY_HANDLERS.add(penalties = new HungerPenalties());
+
         if (overridePumpkinSeeds)
             BWMItems.registerItem(PUMPKIN_SEEDS);
         if (overrideMushrooms) {
