@@ -68,7 +68,7 @@ public class GuiHunger {
                 background = 1;
             }
 
-            BasicPenalty<Integer> p = HCHunger.penalties.getPenalty(player);
+            BasicPenalty<Integer> p = HCHunger.hungerPenalties.getPenalty(player);
             if (p != null && p.getSeverity() > 0 && mc.ingameGUI.getUpdateCounter() % (food * 5 + 1) == 0) {
                 y = top + (rand.nextInt(3) - 1);
             } else if (shakeCounter > 0) {
