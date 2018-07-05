@@ -152,11 +152,6 @@ public abstract class BlockMini extends BlockRotate implements IRenderRotationPl
     }
 
     @Override
-    public IBlockState getRenderState(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
-        return getDefaultState();
-    }
-
-    @Override
     public ItemStack getItem(World worldIn, BlockPos pos, IBlockState state) {
         return getPickBlock(state, null, worldIn, pos, null);
     }

@@ -25,6 +25,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.*;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
@@ -294,9 +295,10 @@ public class BlockGearbox extends BlockRotate implements IBlockActive, IOverpowe
 
     }
 
+
     @Override
-    public IBlockState getRenderState(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
-        return getStateForAdvancedRotationPlacement(getDefaultState(), facing, flX, flY, flZ);
+    public AxisAlignedBB getBounds(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
+        return getStateForAdvancedRotationPlacement(getDefaultState(), facing, flX, flY, flZ).getBoundingBox(world, pos);
     }
 
     @Override
