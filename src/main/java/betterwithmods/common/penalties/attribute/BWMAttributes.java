@@ -14,7 +14,7 @@ public class BWMAttributes {
         SWIM = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "swim"), true).setDescription("Can the player swim with this penalty active?");
         HEAL = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "heal"), true).setDescription("Can the player heal with this penalty active?");
         SPRINT = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "sprint"), true).setDescription("Can the player sprint with this penalty active?");
-        ATTACK = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "attack"), true).setDescription( "Can the player attack with this penalty active?");
+        ATTACK = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "attack"), true).setDescription("Can the player attack with this penalty active?");
         PAIN = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "pain"), false).setDescription("Is the player in pain? (Plays the OOF noise periodically)");
         GRUE = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "grue"), false).setDescription("Can the player be eaten by the Grue when this is active?");
 
@@ -22,28 +22,36 @@ public class BWMAttributes {
         SPOOKED = new FloatAttribute(new ResourceLocation(BWMod.MODID, "spooked"), 0f).setDescription("Does the player start to go insane when this is active?");
     }
 
+    public static boolean isCustom(String category) {
+        return BWMod.MODULE_LOADER.configHelper.loadPropBool("Customized", category, "Set this to true to allow more granular configs to generate and make the penalties work as you please. Requires the game to be started to generate more configs.", false);
+    }
+
     public static AttributeInstance<Boolean> getBooleanAttribute(IAttribute<Boolean> parent, String category, String penalty, String desc, Boolean defaultValue) {
-        boolean value = BWMod.MODULE_LOADER.configHelper.loadPropBool(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue);
+        boolean value = isCustom(category) ? BWMod.MODULE_LOADER.configHelper.loadPropBool(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
         return new AttributeInstance<>(parent, value);
     }
 
     public static AttributeInstance<Float> getFloatAttribute(IAttribute<Float> parent, String category, String penalty, String desc, Float defaultValue) {
-        float value = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue);
+        float value = isCustom(category) ? (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue): defaultValue;
         return new AttributeInstance<>(parent, value);
     }
 
 
     @SuppressWarnings("unchecked")
     public static <T extends Number & Comparable> Range<T> getRange(String category, String penalty, String desc, Range<T> defaultValue) {
-        Number max = defaultValue.getMaximum(), min = defaultValue.getMinimum();
-        if (max instanceof Float) {
-            Float upper = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble("Upper Range", String.join(".", category, penalty), desc, max.doubleValue());
-            Float lower = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble("Lower Range", String.join(".", category, penalty), desc, min.doubleValue());
-            return (Range<T>) Range.between(upper, lower);
-        } else if (max instanceof Integer) {
-            Integer upper = BWMod.MODULE_LOADER.configHelper.loadPropInt("Upper Range", String.join(".", category, penalty), desc, max.intValue());
-            Integer lower = BWMod.MODULE_LOADER.configHelper.loadPropInt("Lower Range", String.join(".", category, penalty), desc, min.intValue());
-            return (Range<T>) Range.between(upper, lower);
+        if (isCustom(category)) {
+            Number max = defaultValue.getMaximum(), min = defaultValue.getMinimum();
+            if (max instanceof Float) {
+                Float upper = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble("Upper Range", String.join(".", category, penalty), desc, max.doubleValue());
+                Float lower = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble("Lower Range", String.join(".", category, penalty), desc, min.doubleValue());
+                return (Range<T>) Range.between(upper, lower);
+            } else if (max instanceof Integer) {
+                Integer upper = BWMod.MODULE_LOADER.configHelper.loadPropInt("Upper Range", String.join(".", category, penalty), desc, max.intValue());
+                Integer lower = BWMod.MODULE_LOADER.configHelper.loadPropInt("Lower Range", String.join(".", category, penalty), desc, min.intValue());
+                return (Range<T>) Range.between(upper, lower);
+            }
+        } else {
+            return defaultValue;
         }
         return null;
     }

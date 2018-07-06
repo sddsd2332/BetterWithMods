@@ -6,6 +6,7 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.items.ItemBlockEdible;
 import betterwithmods.common.items.ItemEdibleSeeds;
+import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
 import betterwithmods.module.CompatFeature;
 import betterwithmods.module.hardcore.needs.HCTools;
@@ -75,6 +76,7 @@ public class HCHunger extends CompatFeature {
     public static final Item BROWN_MUSHROOM = new ItemBlockEdible(Blocks.BROWN_MUSHROOM, 1, 0, false).setRegistryName("minecraft:brown_mushroom");
     public static final Item RED_MUSHROOM = new ItemBlockEdible(Blocks.RED_MUSHROOM, 1, 0, false).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1).setRegistryName("minecraft:red_mushroom");
     public static HungerPenalties penalties;
+    public static FatPenalties fatPenalties;
 
     public HCHunger() {
         super("applecore");
@@ -91,8 +93,6 @@ public class HCHunger extends CompatFeature {
 
     @Override
     public void setupConfig() {
-        BWRegistry.PENALTY_HANDLERS.add(penalties = new HungerPenalties());
-
         blockBreakExhaustion = (float) loadPropDouble("Block Breaking Exhaustion", "Set Exhaustion from breaking a block", 0.1);
         passiveExhaustion = (float) loadPropDouble("Passive Exhaustion", "Passive Exhaustion value", 3f);
         passiveExhaustionTick = loadPropInt("Passive Exhaustion Tick", "Passive exhaustion tick time", 900);
@@ -100,11 +100,13 @@ public class HCHunger extends CompatFeature {
 
         overrideMushrooms = loadPropBool("Edible Mushrooms", "Override Mushrooms to be edible, be careful with the red one ;)", true);
         overridePumpkinSeeds = loadPropBool("Edible Pumpkin Seeds", "Override Pumpkin Seeds to be edible", true);
-
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        BWRegistry.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties());
+        BWRegistry.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties());
+
         if (overridePumpkinSeeds)
             BWMItems.registerItem(PUMPKIN_SEEDS);
         if (overrideMushrooms) {

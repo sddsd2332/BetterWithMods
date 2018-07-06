@@ -112,6 +112,9 @@ public class MetalReclaming extends Feature {
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.RAIL, 8), new ItemStack(Items.IRON_INGOT, 3));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.GOLDEN_RAIL, 6), new ItemStack(Items.GOLD_INGOT, 6));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.ACTIVATOR_RAIL, 6), new ItemStack(Items.IRON_INGOT, 6));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.DETECTOR_RAIL, 6), new ItemStack(Items.IRON_INGOT, 6));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMBlocks.BOOSTER, 6), new ItemStack(Items.IRON_INGOT, 6));
+
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.IRON_BARS, 8), new ItemStack(Items.IRON_INGOT, 3));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.ANVIL, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_INGOT, 31));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.HOPPER, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_INGOT, 5));
@@ -123,3 +126,4 @@ public class MetalReclaming extends Feature {
         }
     }
 }
+

@@ -54,14 +54,19 @@ public abstract class CraftingManagerBlock<T extends BlockRecipe> extends Crafti
     }
 
     public Optional<T> findRecipe(World world, BlockPos pos, IBlockState state) {
-        if (recipeCache.containsKey(state)) {
+        //Don't do caching for input states that have TEs, can't properly put extended states into hashmaps anyways.
+        boolean hasTile = state.getBlock().hasTileEntity(state);
+        if (!hasTile && recipeCache.containsKey(state)) {
             T t = recipeCache.get(state);
             if(t != null && t.matches(world,pos,state)) {
                 return Optional.of(t);
             }
         }
+
         Optional<T> recipe = findRecipes(world, pos, state).stream().findFirst();
-        recipe.ifPresent(t -> recipeCache.put(state, t));
+        if (!hasTile) {
+            recipe.ifPresent(t -> recipeCache.put(state, t));
+        }
         return recipe;
     }
 

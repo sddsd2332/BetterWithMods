@@ -87,11 +87,12 @@ public class HCGloom extends Feature {
     @Override
     public void setupConfig() {
         dimensionWhitelist = Sets.newHashSet(ArrayUtils.toObject(loadPropIntList("Gloom Dimension Whitelist", "Gloom is only available in these dimensions", new int[]{0})));
-        BWRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties());
+
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+        BWRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties());
         CapabilityManager.INSTANCE.register(Gloom.class, new CapabilityGloom(), Gloom::new);
     }
 

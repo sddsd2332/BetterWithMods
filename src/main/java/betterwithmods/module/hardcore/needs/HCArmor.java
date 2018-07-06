@@ -59,9 +59,12 @@ public class HCArmor extends Feature {
 
     @Override
     public void setupConfig() {
-        BWRegistry.PENALTY_HANDLERS.add(penalties = new ArmorPenalties());
         shieldRebalance = loadPropBool("Shield Rebalance", "Experimental recipes for rebalacing shields", false);
+    }
 
+    @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        BWRegistry.PENALTY_HANDLERS.add(penalties = new ArmorPenalties());
     }
 
     @Override

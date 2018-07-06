@@ -12,7 +12,7 @@ buildscript {
 apply plugin: "maven"
 apply plugin: 'net.minecraftforge.gradle.forge'
 
-version = "1.12-2.2.02"
+version = "1.12-2.2.04"
 group = "betterwithmods"
 archivesBaseName = "BetterWithMods"
 
@@ -26,7 +26,7 @@ if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of
 }
 
 minecraft {
-    version = "1.12.2-14.23.4.2716"
+    version = "1.12.2-14.23.4.2727"
     runDir = "run"
     mappings = "snapshot_20171125"
     replace "%VERSION%": "${project.version}"
