@@ -1,7 +1,7 @@
-package betterwithmods.api.recipe.impl;
+package betterwithmods.api.recipe.output.impl;
 
-import betterwithmods.api.recipe.IOutput;
-import betterwithmods.api.recipe.IRecipeOutputs;
+import betterwithmods.api.recipe.output.IOutput;
+import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
@@ -11,21 +11,21 @@ import java.util.List;
 import java.util.Random;
 import java.util.stream.Collectors;
 
-public class WeightedOutputs implements IRecipeOutputs {
+public class ChanceOutputs implements IRecipeOutputs {
     private static final Random RANDOM = new Random();
 
     protected final List<ChanceOutput> weightedItemStacks;
     private final List<ItemStack> itemStacksList;
 
-    public WeightedOutputs(ItemStack stack, double weight) {
-        this(new ChanceOutput(stack,weight));
+    public ChanceOutputs(ItemStack stack, double weight) {
+        this(new ChanceOutput(stack, weight));
     }
 
-    public WeightedOutputs(ChanceOutput... weightedItemStacks) {
+    public ChanceOutputs(ChanceOutput... weightedItemStacks) {
         this(Lists.newArrayList(weightedItemStacks));
     }
 
-    public WeightedOutputs(List<ChanceOutput> weightedItemStacks) {
+    public ChanceOutputs(List<ChanceOutput> weightedItemStacks) {
         this.weightedItemStacks = weightedItemStacks;
         this.itemStacksList = weightedItemStacks.stream().map(ChanceOutput::getOutput).collect(Collectors.toList());
     }
@@ -38,7 +38,13 @@ public class WeightedOutputs implements IRecipeOutputs {
 
     @Override
     public NonNullList<ItemStack> getOutputs() {
-        return InvUtils.asNonnullList(findResult());
+        NonNullList<ItemStack> outputs = NonNullList.create();
+        for (ChanceOutput output : weightedItemStacks) {
+            if (RANDOM.nextDouble() < output.getWeight()) {
+                outputs.add(output.getOutput());
+            }
+        }
+        return outputs;
     }
 
     @Override
@@ -54,19 +60,6 @@ public class WeightedOutputs implements IRecipeOutputs {
     @Override
     public boolean isInvalid() {
         return weightedItemStacks.isEmpty();
-    }
-
-    private ItemStack findResult() {
-        ItemStack result = ItemStack.EMPTY;
-        double bestValue = Double.MAX_VALUE;
-        for (ChanceOutput element : weightedItemStacks) {
-            double value = -Math.log(RANDOM.nextDouble()) / element.getWeight();
-            if (value < bestValue) {
-                bestValue = value;
-                result = element.getOutput();
-            }
-        }
-        return result;
     }
 
 }

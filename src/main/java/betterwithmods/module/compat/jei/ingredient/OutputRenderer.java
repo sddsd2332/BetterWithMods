@@ -1,6 +1,6 @@
 package betterwithmods.module.compat.jei.ingredient;
 
-import betterwithmods.api.recipe.IOutput;
+import betterwithmods.api.recipe.output.IOutput;
 import mezz.jei.api.ingredients.IIngredientRenderer;
 import mezz.jei.plugins.vanilla.ingredients.ItemStackRenderer;
 import net.minecraft.client.Minecraft;

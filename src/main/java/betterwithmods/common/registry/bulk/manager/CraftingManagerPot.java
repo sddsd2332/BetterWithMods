@@ -1,6 +1,6 @@
 package betterwithmods.common.registry.bulk.manager;
 
-import betterwithmods.api.recipe.IRecipeOutputs;
+import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.blocks.mechanical.tile.TileCookingPot;

@@ -1,7 +1,7 @@
 package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.BWMod;
-import betterwithmods.api.recipe.IOutput;
+import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.module.compat.jei.wrapper.BulkRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;

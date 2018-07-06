@@ -1,6 +1,6 @@
 package betterwithmods.common.registry.block.recipe;
 
-import betterwithmods.api.recipe.IRecipeOutputs;
+import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.common.BWSounds;
 import betterwithmods.util.StackEjector;
 import betterwithmods.util.VectorBuilder;

@@ -1,6 +1,6 @@
 package betterwithmods.common.registry.block.recipe;
 
-import betterwithmods.api.recipe.IRecipeOutputs;
+import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.common.blocks.mechanical.tile.TileTurntable;
 import betterwithmods.common.registry.block.managers.CraftingManagerTurntable;
 import betterwithmods.event.FakePlayerHandler;

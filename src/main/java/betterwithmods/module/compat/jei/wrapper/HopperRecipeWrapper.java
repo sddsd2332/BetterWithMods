@@ -1,6 +1,6 @@
 package betterwithmods.module.compat.jei.wrapper;
 
-import betterwithmods.api.recipe.IOutput;
+import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
 import com.google.common.collect.Lists;
 import mezz.jei.api.IJeiHelpers;

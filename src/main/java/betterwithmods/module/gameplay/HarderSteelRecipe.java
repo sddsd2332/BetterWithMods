@@ -1,9 +1,9 @@
 package betterwithmods.module.gameplay;
 
-import betterwithmods.api.recipe.IRecipeOutputs;
-import betterwithmods.api.recipe.impl.ChanceOutputs;
-import betterwithmods.api.recipe.impl.CombinedOutputs;
-import betterwithmods.api.recipe.impl.ListOutputs;
+import betterwithmods.api.recipe.output.IRecipeOutputs;
+import betterwithmods.api.recipe.output.impl.ChanceOutputs;
+import betterwithmods.api.recipe.output.impl.CombinedOutputs;
+import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.BlockAesthetic;

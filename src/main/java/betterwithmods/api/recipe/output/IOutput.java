@@ -1,4 +1,4 @@
-package betterwithmods.api.recipe;
+package betterwithmods.api.recipe.output;
 
 import net.minecraft.item.ItemStack;
 

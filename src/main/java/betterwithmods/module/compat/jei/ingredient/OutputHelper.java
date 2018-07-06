@@ -1,6 +1,6 @@
 package betterwithmods.module.compat.jei.ingredient;
 
-import betterwithmods.api.recipe.IOutput;
+import betterwithmods.api.recipe.output.IOutput;
 import mezz.jei.api.ingredients.IIngredientHelper;
 import mezz.jei.color.ColorGetter;
 import mezz.jei.startup.StackHelper;

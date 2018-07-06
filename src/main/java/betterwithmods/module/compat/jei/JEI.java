@@ -1,9 +1,9 @@
 package betterwithmods.module.compat.jei;
 
-import betterwithmods.api.recipe.IOutput;
-import betterwithmods.api.recipe.impl.ChanceOutput;
-import betterwithmods.api.recipe.impl.RandomOutput;
-import betterwithmods.api.recipe.impl.StackOutput;
+import betterwithmods.api.recipe.output.IOutput;
+import betterwithmods.api.recipe.output.impl.ChanceOutput;
+import betterwithmods.api.recipe.output.impl.RandomOutput;
+import betterwithmods.api.recipe.output.impl.StackOutput;
 import betterwithmods.client.container.anvil.ContainerSteelAnvil;
 import betterwithmods.client.gui.GuiSteelAnvil;
 import betterwithmods.client.gui.bulk.GuiCauldron;

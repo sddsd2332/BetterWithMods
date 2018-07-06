@@ -1,6 +1,6 @@
-package betterwithmods.api.recipe.impl;
+package betterwithmods.api.recipe.output.impl;
 
-import betterwithmods.api.recipe.IOutput;
+import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.util.InvUtils;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.item.ItemStack;
