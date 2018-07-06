@@ -250,6 +250,11 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
 
 
     @Override
+    public IBlockState getRenderState(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
+        return null;
+    }
+
+    @Override
     public AxisAlignedBB getBounds(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
         return getStateForAdvancedRotationPlacement(getDefaultState(), facing, flX, flY, flZ).getBoundingBox(world, pos);
     }

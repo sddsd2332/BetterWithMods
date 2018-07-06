@@ -2,7 +2,6 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.entity.EntityMiningCharge;
 import betterwithmods.util.DirUtils;
-import jline.internal.Nullable;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.SoundType;
@@ -23,6 +22,7 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 /**
  * Created by primetoxinz on 9/5/16.
@@ -83,7 +83,7 @@ public class BlockMiningCharge extends BlockTNT {
     }
 
     @Override
-    public void explode(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull @SuppressWarnings("NullableProblems") @Nullable EntityLivingBase igniter) {
+    public void explode(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nullable EntityLivingBase igniter) {
         if (!worldIn.isRemote && state.getValue(EXPLODE)) {
             EntityMiningCharge miningCharge = new EntityMiningCharge(worldIn, (double) ((float) pos.getX() + 0.5F), (double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), igniter, getFacing(state));
             worldIn.spawnEntity(miningCharge);
