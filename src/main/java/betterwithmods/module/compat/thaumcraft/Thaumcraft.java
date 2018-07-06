@@ -84,7 +84,7 @@ public class Thaumcraft extends CompatFeature {
                 if (tmp != null)
                     ThaumcraftApi.registerComplexObjectTag(recipe.getRecipeOutput(), tmp);
             } catch (ReflectionHelper.UnableToFindMethodException error) {
-                BWMod.logger.warn(error);
+                BWMod.getLog().warn(error);
             }
         }
         ThaumcraftApi.registerComplexObjectTag(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCKBLOOD), new AspectList(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK)).add(Aspect.DEATH, 5));

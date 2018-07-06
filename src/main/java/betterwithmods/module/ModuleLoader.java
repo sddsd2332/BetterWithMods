@@ -24,6 +24,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.logging.log4j.Logger;
 
 import java.io.File;
 import java.util.Comparator;
@@ -37,6 +38,7 @@ public abstract class ModuleLoader {
     private final Map<Class<? extends Module>, Module> moduleInstances;
     private final List<Module> enabledModules;
     public ConfigHelper configHelper;
+    public Logger logger;
 
     public ModuleLoader() {
         enabledModules = Lists.newArrayList();
@@ -45,9 +47,18 @@ public abstract class ModuleLoader {
         registerModules();
     }
 
+    public void setLogger(Logger logger) {
+        this.logger = logger;
+    }
+
     public abstract void registerModules();
 
     public void preInit(FMLPreInitializationEvent event) {
+
+        if (logger == null) {
+            throw new RuntimeException("Logger for ModuleLoader was not set");
+        }
+
         moduleClasses.forEach(clazz -> {
             try {
                 moduleInstances.put(clazz, clazz.getConstructor(ModuleLoader.class).newInstance(this));
@@ -58,10 +69,10 @@ public abstract class ModuleLoader {
 
         setupConfig(event);
 
-        forEachModule(module -> BWMod.logger.info("[BWM] Module " + module.getName() + " is " + (module.enabled ? "enabled" : "disabled")));
+        forEachModule(module -> logger.info("[BWM] Module " + module.getName() + " is " + (module.enabled ? "enabled" : "disabled")));
         enabledModules.sort(Comparator.comparingInt(Module::getPriority));
         forEachEnabled(module -> {
-            BWMod.logger.info("[BWM] Module PreInit : " + module.getName());
+            logger.info("[BWM] Module PreInit : " + module.getName());
             module.preInit(event);
         });
 
@@ -171,4 +182,7 @@ public abstract class ModuleLoader {
         return false;
     }
 
+    public Logger getLogger() {
+        return logger;
+    }
 }

@@ -32,6 +32,7 @@ public class BWMod {
     public static final String NAME = "Better With Mods";
     public static final String DEPENDENCIES = "after:thaumcraft;after:natura;before:survivalist;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
 
+
     public static Logger logger;
     @SuppressWarnings({"CanBeFinal", "unused"})
     @SidedProxy(serverSide = "betterwithmods.proxy.ServerProxy", clientSide = "betterwithmods.proxy.ClientProxy")
@@ -64,6 +65,7 @@ public class BWMod {
     public void preInit(FMLPreInitializationEvent evt) {
         logger = evt.getModLog();
         BWMAttributes.registerAttributes();
+        MODULE_LOADER.setLogger(logger);
         MODULE_LOADER.preInit(evt);
         BWRegistry.preInit();
         proxy.preInit(evt);
