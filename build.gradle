@@ -95,42 +95,11 @@ dependencies {
 uploadArchives {
     repositories {
         mavenDeployer {
-            repository(url: "file://" + System.getenv("local_maven"))
-            pom {
-                groupId = project.group
-                version
-                artifactId = project.archivesBaseName
-                project {
-                    name project.archivesBaseName
-                    packaging 'jar'
-                    description 'BetterWithMods'
-                    url 'https://github.com/BetterWithMods/BetterWithMods'
-                    scm {
-                        url 'https://github.com/BetterWithMods/BetterWithMods.git'
-                        connection 'scm:git:git@github.com:BetterWithMods/BetterWithMods.git'
-                        developerConnection 'scm:git:git@github.com:BetterWithMods/BetterWithMods.git'
-                    }
-                    issueManagement {
-                        system 'github'
-                        url 'https://github.com/BetterWithMods/BetterWithMods/issues'
-                    }
-                    developers {
-                        developer {
-                            id 'primetoxinz'
-                            name 'primetoxinz'
-                            roles { role 'developer' }
-                        }
-                        developer {
-                            id 'beetoguy'
-                            name 'beetoguy'
-                            roles { role 'developer' }
-                        }
-                    }
-                }
-            }
+            repository(url: "file://" + (System.getenv("local_maven") != null ? System.getenv("local_maven") : System.getenv("bamboo_local_maven")))
         }
     }
 }
+
 
 processResources {
     inputs.property "version", project.version
