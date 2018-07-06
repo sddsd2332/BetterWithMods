@@ -1,11 +1,11 @@
 package betterwithmods.module.tweaks;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.BlockRailDetectorBase;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
-import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.MetalReclaming;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -49,9 +49,9 @@ public class DetectorRail extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        if (ModuleLoader.isFeatureEnabled(MetalReclaming.class)) {
+        if (BWMod.MODULE_LOADER.isFeatureEnabled(MetalReclaming.class)) {
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STONE, 6), new ItemStack(Items.IRON_INGOT, 6));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL, 2)));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2)));
         }
     }
 }

@@ -8,6 +8,7 @@ import betterwithmods.util.IngredientMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * Created by primetoxinz on 5/10/17.
