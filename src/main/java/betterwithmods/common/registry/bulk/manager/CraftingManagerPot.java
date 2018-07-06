@@ -12,7 +12,6 @@ import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.List;
 import java.util.Optional;
@@ -94,19 +93,19 @@ public class CraftingManagerPot extends CraftingManagerBulk<CookingPotRecipe> {
     }
 
     @Override
-    public boolean canCraft(CookingPotRecipe recipe, IBulkTile tile, ItemStackHandler inv) {
+    public boolean canCraft(CookingPotRecipe recipe, IBulkTile tile) {
         return recipe != null && recipe.canCraft((IHeated) tile, tile.getWorld(), tile.getPos());
     }
 
     @Override
-    public boolean craftRecipe(World world, IBulkTile tile, ItemStackHandler inv) {
+    public boolean craftRecipe(World world, IBulkTile tile) {
         if (tile instanceof TileCookingPot) {
             TileCookingPot pot = (TileCookingPot) tile;
-            CookingPotRecipe r = findRecipe(tile, inv);
+            CookingPotRecipe r = findRecipe(tile);
 
-            if (canCraft(r, tile, inv)) {
+            if (canCraft(r, tile)) {
                 if (pot.cookProgress >= pot.getMax()) {
-                    InvUtils.insert(inv, craftItem(r, world, tile, inv), false);
+                    InvUtils.insert(tile.getInventory(), craftItem(r, world, tile), false);
                     pot.cookProgress = 0;
                     return true;
                 }
@@ -119,10 +118,10 @@ public class CraftingManagerPot extends CraftingManagerBulk<CookingPotRecipe> {
     }
 
     @Override
-    protected Optional<CookingPotRecipe> findRecipe(List<CookingPotRecipe> recipes, IBulkTile tile, ItemStackHandler inv) {
+    protected Optional<CookingPotRecipe> findRecipe(List<CookingPotRecipe> recipes, IBulkTile tile) {
         if (tile instanceof IHeated) {
             List<CookingPotRecipe> r1 = recipes.stream().filter(r -> r.canCraft((IHeated) tile, tile.getWorld(), tile.getPos())).collect(Collectors.toList());
-            return super.findRecipe(r1, tile, inv);
+            return super.findRecipe(r1, tile);
         }
         return Optional.empty();
     }

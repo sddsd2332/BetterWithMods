@@ -98,7 +98,7 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
         }
 
         if (isActive()) {
-            BWRegistry.MILLSTONE.craftRecipe(world, this, inventory);
+            BWRegistry.MILLSTONE.craftRecipe(world, this);
         }
     }
 

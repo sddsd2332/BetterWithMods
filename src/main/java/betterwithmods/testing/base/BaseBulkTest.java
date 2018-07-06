@@ -86,8 +86,8 @@ public abstract class BaseBulkTest<T extends BulkRecipe> extends BaseTest {
         TEST_MANAGER.addRecipe(recipe);
         Assertions.assertThat(TEST_MANAGER.getRecipes()).hasSize(1);
 
-        Assertions.assertThat(TEST_MANAGER.canCraft(recipe, TILE, TILE.getInventory())).isTrue();
-        Assertions.assertThat(TEST_MANAGER.craftItem(recipe, null, TILE, TILE.getInventory())).isNotEmpty();
+        Assertions.assertThat(TEST_MANAGER.canCraft(recipe, TILE)).isTrue();
+        Assertions.assertThat(TEST_MANAGER.craftItem(recipe, null, TILE)).isNotEmpty();
 
     }
 }

@@ -11,7 +11,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreIngredient;
 
 import java.util.List;
@@ -23,7 +22,7 @@ public class BulkRecipeTests extends BaseBulkTest<BulkRecipe> {
     public void beforeTest() {
         TEST_MANAGER = new CraftingManagerBulk<BulkRecipe>() {
             @Override
-            public boolean craftRecipe(World world, IBulkTile tile, ItemStackHandler inv) {
+            public boolean craftRecipe(World world, IBulkTile tile) {
                 return true;
             }
         };

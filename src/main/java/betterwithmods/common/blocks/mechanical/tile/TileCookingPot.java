@@ -145,7 +145,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
                     if (this.cookTime != time) {
                         this.cookTime = time;
                     }
-                    manager.craftRecipe(world, this, inventory);
+                    manager.craftRecipe(world, this);
                 }
             }
             if (facing != state.getValue(DirUtils.TILTING)) {

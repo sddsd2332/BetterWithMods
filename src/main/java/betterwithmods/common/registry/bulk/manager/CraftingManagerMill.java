@@ -12,7 +12,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemStackHandler;
 
 import java.util.List;
 
@@ -58,7 +57,7 @@ public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
     }
 
     @Override
-    public boolean canCraft(MillRecipe recipe, IBulkTile tile, ItemStackHandler inv) {
+    public boolean canCraft(MillRecipe recipe, IBulkTile tile) {
         if (recipe != null && tile instanceof TileMill) {
             TileMill mill = (TileMill) tile;
             return mill.grindCounter >= recipe.getTicks();
@@ -67,10 +66,10 @@ public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
     }
 
     @Override
-    public boolean craftRecipe(World world, IBulkTile tile, ItemStackHandler inv) {
+    public boolean craftRecipe(World world, IBulkTile tile) {
         if (tile instanceof TileMill) {
             TileMill mill = (TileMill) tile;
-            MillRecipe recipe = findRecipe(recipes, tile, inv).orElse(null);
+            MillRecipe recipe = findRecipe(recipes, tile).orElse(null);
 
             if (mill.getBlockWorld().rand.nextInt(20) == 0)
                 mill.getBlockWorld().playSound(null, mill.getBlockPos(), BWSounds.STONEGRIND, SoundCategory.BLOCKS, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F);
@@ -81,8 +80,8 @@ public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
                 //Play sounds
                 if (mill.getBlockWorld().rand.nextInt(40) < 2)
                     mill.getBlockWorld().playSound(null, mill.getBlockPos(), recipe.getSound(), SoundCategory.BLOCKS,  0.75F, mill.getWorld().rand.nextFloat() * 0.4F + 0.8F);
-                if (canCraft(recipe, tile, inv)) {
-                    mill.ejectRecipe(BWRegistry.MILLSTONE.craftItem(recipe, world, tile, inv));
+                if (canCraft(recipe, tile)) {
+                    mill.ejectRecipe(BWRegistry.MILLSTONE.craftItem(recipe, world, tile));
                     mill.grindCounter = 0;
                     return true;
                 } else {

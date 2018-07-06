@@ -6,7 +6,6 @@ import betterwithmods.common.registry.bulk.recipes.BulkRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
-import net.minecraftforge.items.ItemStackHandler;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -23,22 +22,22 @@ public abstract class CraftingManagerBulk<T extends BulkRecipe> extends Crafting
         return recipe;
     }
 
-    public abstract boolean craftRecipe(World world, IBulkTile tile, ItemStackHandler inv);
+    public abstract boolean craftRecipe(World world, IBulkTile tile);
 
     @Nonnull
-    public NonNullList<ItemStack> craftItem(T recipe, World world, IBulkTile tile, ItemStackHandler inv) {
-        return canCraft(recipe, tile, inv) ? recipe.onCraft(world, tile, inv) : NonNullList.create();
+    public NonNullList<ItemStack> craftItem(T recipe, World world, IBulkTile tile) {
+        return canCraft(recipe, tile) ? recipe.onCraft(world, tile) : NonNullList.create();
     }
 
-    protected Optional<T> findRecipe(List<T> recipes, IBulkTile tile, ItemStackHandler inv) {
+    protected Optional<T> findRecipe(List<T> recipes, IBulkTile tile) {
         return recipes.stream().map(r -> {
-            int i = r.matches(inv);
+            int i = r.matches(tile);
             return Pair.of(r, i);
         }).filter(p -> p.getValue() > -1).sorted(Comparator.comparingInt(Pair::getValue)).map(Pair::getKey).sorted().findFirst();
     }
 
-    public T findRecipe(IBulkTile tile, ItemStackHandler inv) {
-        return findRecipe(recipes, tile, inv).orElse(null);
+    public T findRecipe(IBulkTile tile) {
+        return findRecipe(recipes, tile).orElse(null);
     }
 
     protected List<T> findRecipe(List<ItemStack> outputs) {
@@ -56,12 +55,12 @@ public abstract class CraftingManagerBulk<T extends BulkRecipe> extends Crafting
         return recipes.stream().filter(r -> r.getRecipeOutput().matches(outputs)).collect(Collectors.toList());
     }
 
-    public boolean canCraft(T recipe, IBulkTile tile, ItemStackHandler inv) {
+    public boolean canCraft(T recipe, IBulkTile tile) {
         return recipe != null;
     }
 
-    public T getRecipe(IBulkTile tile, ItemStackHandler inv) {
-        return findRecipe(recipes, tile, inv).orElse(null);
+    public T getRecipe(IBulkTile tile) {
+        return findRecipe(recipes, tile).orElse(null);
     }
 
     public boolean remove(List<ItemStack> outputs) {
