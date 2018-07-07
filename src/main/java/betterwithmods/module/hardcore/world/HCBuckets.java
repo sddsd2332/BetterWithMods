@@ -48,7 +48,7 @@ public class HCBuckets extends Feature {
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
     private static boolean fixIce;
-    private static Block ICE = new BlockIce().setRegistryName("minecraft:ice");
+    private static Block ICE = new BlockIce().setRegistryName("minecraft:ice").setUnlocalizedName("ice");
     public static boolean modifyDispenserBehavior, stopDispenserFillBehavior;
 
     @Override

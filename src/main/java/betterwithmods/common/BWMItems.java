@@ -139,11 +139,18 @@ public final class BWMItems {
         }
     }
 
+    public static Item registerItem(Item item, String unlocalizedName) {
+        if (item.getUnlocalizedName().equals("item.null")) {
+            //TODO remove this in 1.13, it is done automatically
+            item.setUnlocalizedName(unlocalizedName);
+        }
+        ITEMS.add(item);
+        return item;
+    }
+
     public static Item registerItem(Item item) {
         if (item.getRegistryName() != null) {
-            //TODO remove this in 1.13, it is done automatically
-            item.setUnlocalizedName(item.getRegistryName().toString());
-            ITEMS.add(item);
+            return registerItem(item, item.getRegistryName().toString());
         }
         return item;
     }

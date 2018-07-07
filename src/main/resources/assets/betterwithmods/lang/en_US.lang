@@ -1,4 +1,5 @@
 tile.betterwithmods:stokedFire.name=Stoked Fire
+tile.betterwithmods:stokedFire.name=Stoked Fire
 tile.betterwithmods:hand_crank.name=Hand Crank
 tile.betterwithmods:wooden_axle.name=Wooden Axle
 tile.betterwithmods:steel_axle.name=Steel Axle
@@ -49,7 +50,7 @@ tile.betterwithmods:padding_block.name=Block of Padding
 tile.betterwithmods:soap_block.name=Block of Soap
 tile.betterwithmods:dung_block.name=Block of Dung
 tile.betterwithmods:wicker_block.name=Block of Wicker
-tile.betterwithmods:nether_coal.name=Block of Nethercoal
+tile.betterwithmods:nethercoal_block.name=Block of Nethercoal
 tile.betterwithmods:advanced_bellows.name=Spring-Action Bellows
 
 tile.betterwithmods:steel_block.name=Soulforged Steel Block
@@ -223,7 +224,7 @@ tile.betterwithmods:cobblestone_andesite.name=Andesite Cobblestone
 
 tile.betterwithmods:deadweight.name=Deadweight
 tile.betterwithmods:deadweight.intact.name=Deadweight
-tile.betterwithmods:deadweight.slightDamaged.name=Slightly Damaged Deadweight
+tile.betterwithmods:deadweight.slightlyDamaged.name=Slightly Damaged Deadweight
 tile.betterwithmods:deadweight.veryDamaged.name=Very Damaged Deadweight
 
 tile.betterwithmods:bucket.name=Well Bucket
@@ -321,6 +322,8 @@ item.betterwithmods:apple_pie.name=Apple Pie
 item.betterwithmods:melon_pie.name=Melon Pie
 item.betterwithmods:bat_wing.name=Bat Wing
 item.betterwithmods:cooked_bat_wing.name=Cooked Bat Wing
+item.betterwithmods:cooked_beetroot.name=Cooked Beetroot
+item.betterwithmods:cooked_carrot.name=Cooked Carrot
 
 item.betterwithmods:manual.name=Better With Mods Manual
 

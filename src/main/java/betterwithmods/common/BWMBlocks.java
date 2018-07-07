@@ -211,10 +211,10 @@ public final class BWMBlocks {
         GameRegistry.registerTileEntity(TileCrucible.class, new ResourceLocation(BWMod.MODID, "crucible"));
         GameRegistry.registerTileEntity(TileDragonVessel.class, new ResourceLocation(BWMod.MODID, "vessel"));
         GameRegistry.registerTileEntity(TileTurntable.class, new ResourceLocation(BWMod.MODID, "turntable"));
-        GameRegistry.registerTileEntity(TileSteelAnvil.class, new ResourceLocation(BWMod.MODID, "steelAnvil"));
+        GameRegistry.registerTileEntity(TileSteelAnvil.class, new ResourceLocation(BWMod.MODID, "steel_anvil"));
         GameRegistry.registerTileEntity(TileVase.class, new ResourceLocation(BWMod.MODID, "vase"));
-        GameRegistry.registerTileEntity(TileWindmillVertical.class, new ResourceLocation(BWMod.MODID, "vert_windmill"));
-        GameRegistry.registerTileEntity(TileWindmillHorizontal.class, new ResourceLocation(BWMod.MODID, "horiz_windmill"));
+        GameRegistry.registerTileEntity(TileWindmillVertical.class, new ResourceLocation(BWMod.MODID, "vertical_windmill"));
+        GameRegistry.registerTileEntity(TileWindmillHorizontal.class, new ResourceLocation(BWMod.MODID, "horizontal_windmill"));
         GameRegistry.registerTileEntity(TileWaterwheel.class, new ResourceLocation(BWMod.MODID, "waterwheel"));
         GameRegistry.registerTileEntity(TileBlockDispenser.class, new ResourceLocation(BWMod.MODID, "block_dispenser"));
         GameRegistry.registerTileEntity(TileCreativeGen.class, new ResourceLocation(BWMod.MODID, "creative_generator"));
@@ -248,7 +248,8 @@ public final class BWMBlocks {
     public static void registerBlock(Block block, @Nullable Item item) {
         if (block.getRegistryName() != null) {
             //TODO remove this in 1.13, it is done automatically
-            block.setUnlocalizedName(block.getRegistryName().toString());
+            if (block.getUnlocalizedName().equals("tile.null"))
+                block.setUnlocalizedName(block.getRegistryName().toString());
             BLOCKS.add(block);
             if (item != null) {
                 BWMItems.registerItem(item.setRegistryName(block.getRegistryName()));

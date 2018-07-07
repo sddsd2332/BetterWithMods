@@ -57,8 +57,8 @@ public class HCBeacons extends Feature {
         enderchestBeacon = loadPropBool("Enderchest Beacon", "Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Book of Single.", true);
     }
 
-    public static final Block ENDERCHEST = new BlockEnderchest().setRegistryName("minecraft:ender_chest");
-    public static final Block BEACON = new BlockBeacon().setRegistryName("minecraft:beacon");
+    public static final Block ENDERCHEST = new BlockEnderchest().setRegistryName("minecraft:ender_chest").setUnlocalizedName("enderChest");
+    public static final Block BEACON = new BlockBeacon().setRegistryName("minecraft:beacon").setUnlocalizedName("beacon");
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {

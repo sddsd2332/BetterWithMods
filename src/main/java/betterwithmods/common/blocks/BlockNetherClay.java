@@ -18,7 +18,6 @@ public class BlockNetherClay extends BlockClay {
         this.setCreativeTab(BWCreativeTabs.BWTAB);
         this.setHardness(0.6F);
         this.setSoundType(SoundType.GROUND);
-        this.setUnlocalizedName("bwm:nether_clay");
     }
 
     @Nonnull
