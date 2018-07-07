@@ -18,7 +18,6 @@ public class TextureContextStrata extends TextureContextPosition{
         return HCStrata.getStratification(world,position, world.provider.getDimension()).ordinal();
     }
 
-
     @Override
     public long getCompressedData() {
         return getStrata();

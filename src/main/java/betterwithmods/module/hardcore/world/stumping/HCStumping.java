@@ -106,6 +106,7 @@ public class HCStumping extends Feature {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(PlacedCapability.class, new PlacedCapability.Storage(), PlacedCapability::new);
+        ENABLED = true;
     }
 
     @Override
