@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.world.stumping;
+package betterwithmods.module.hardcore.world.strata.ctm;
 
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
@@ -11,27 +11,28 @@ import team.chisel.ctm.api.util.TextureInfo;
 
 import javax.annotation.Nonnull;
 
-@TextureType(value = "bwm_stump")
-public class TextureTypeStump implements ITextureType {
+@TextureType(value = "bwm_strata")
+public class TextureTypeStrata implements ITextureType {
+
 
     @SuppressWarnings("unchecked")
     @Override
-    public TextureStump makeTexture(@Nonnull TextureInfo info) {
-        return new TextureStump(this, info);
+    public TextureStrata makeTexture(@Nonnull TextureInfo info) {
+        return new TextureStrata(this, info);
     }
 
     @Override
     public ITextureContext getBlockRenderContext(@Nonnull IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, @Nonnull ICTMTexture<?> tex) {
-        return new TextureContextStump(pos);
+        return new TextureContextStrata(pos);
     }
 
     @Override
     public ITextureContext getContextFromData(long data) {
-        return new TextureContextStump(BlockPos.fromLong(data));
+        return new TextureContextStrata(BlockPos.fromLong(data));
     }
 
     @Override
     public int requiredTextures() {
-        return 2;
+        return 3;
     }
 }

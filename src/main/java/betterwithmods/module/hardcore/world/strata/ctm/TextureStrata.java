@@ -1,6 +1,6 @@
-package betterwithmods.module.hardcore.world.stumping;
+package betterwithmods.module.hardcore.world.strata.ctm;
 
-
+import betterwithmods.module.hardcore.world.strata.HCStrata;
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import team.chisel.ctm.api.texture.ITextureContext;
@@ -12,18 +12,17 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public class TextureStump extends AbstractTexture<TextureTypeStump> {
-
-    public TextureStump(TextureTypeStump type, TextureInfo info) {
+public class TextureStrata extends AbstractTexture<TextureTypeStrata> {
+    public TextureStrata(TextureTypeStrata type, TextureInfo info) {
         super(type, info);
     }
 
     @Override
     public List<BakedQuad> transformQuad(@Nonnull BakedQuad quad, @Nullable ITextureContext context, int quadGoal) {
-        if (HCStumping.ENABLED && context instanceof TextureContextStump) {
-            TextureContextStump c = (TextureContextStump) context;
-            Quad q = makeQuad(quad, context);
-            return Lists.newArrayList(q.transformUVs(sprites[c.isStump()]).rebake());
+        if (HCStrata.ENABLED && context instanceof TextureContextStrata) {
+            TextureContextStrata c = (TextureContextStrata) context;
+            Quad q = makeQuad(quad,context);
+            return Lists.newArrayList(q.transformUVs(sprites[c.getStrata()]).rebake());
         }
         return Lists.newArrayList(quad);
     }
