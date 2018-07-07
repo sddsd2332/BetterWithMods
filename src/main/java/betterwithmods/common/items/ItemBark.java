@@ -53,9 +53,11 @@ public class ItemBark extends Item {
 
     @Override
     public void getSubItems(@Nonnull CreativeTabs tab, @Nonnull NonNullList<ItemStack> items) {
-        List<ItemStack> logs = getLogs();
-        for (ItemStack log : logs) {
-            items.add(fromParentStack(this, log, 1));
+        if (isInCreativeTab(tab)) {
+            List<ItemStack> logs = getLogs();
+            for (ItemStack log : logs) {
+                items.add(fromParentStack(this, log, 1));
+            }
         }
     }
 
