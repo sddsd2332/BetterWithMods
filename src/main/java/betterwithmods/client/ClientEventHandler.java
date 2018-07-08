@@ -130,9 +130,12 @@ public class ClientEventHandler {
         GlStateManager.disableBlend();
     }
 
+    public static boolean blockPlacementHighlight;
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onBlockHighlight(DrawBlockHighlightEvent event) {
+        if (!blockPlacementHighlight)
+            return;
         EntityPlayer player = event.getPlayer();
         ItemStack stack = ItemStack.EMPTY;
         if ((player.getHeldItem(EnumHand.MAIN_HAND).isEmpty() || !(player.getHeldItem(EnumHand.MAIN_HAND).getItem() instanceof ItemBlock)) && !player.getHeldItem(EnumHand.OFF_HAND).isEmpty()) {

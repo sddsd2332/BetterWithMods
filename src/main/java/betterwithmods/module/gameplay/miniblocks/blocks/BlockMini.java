@@ -118,7 +118,7 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
     }
 
     @Override
-    public boolean rotateBlock(World world, @Nonnull BlockPos pos, @Nonnull EnumFacing axis) {
+    public boolean rotateBlock(World world, @Nonnull BlockPos pos, @Nullable EnumFacing axis) {
         return getTile(world, pos).map(t -> t.changeOrientation(t.getOrientation().next(), false)).orElse(false);
     }
 

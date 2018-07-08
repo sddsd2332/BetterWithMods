@@ -244,7 +244,7 @@ public class RenderUtils {
         try {
             return ModelLoaderRegistry.getModel(location);
         } catch (Exception e) {
-            return null;
+            throw new RuntimeException("No model found at " + location.toString());
         }
     }
 

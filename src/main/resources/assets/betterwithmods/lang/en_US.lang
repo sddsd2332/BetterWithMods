@@ -163,6 +163,11 @@ tile.betterwithmods:pedestal_rock.name=%s Pedestal
 tile.betterwithmods:pedestal_wood.name=%s Pedestal
 tile.betterwithmods:pedestal_iron.name=%s Pedestal
 
+tile.betterwithmods:stair_rock.name=%s Stairs
+tile.betterwithmods:stair_wood.name=%s Stairs
+tile.betterwithmods:stair_iron.name=%s Stairs
+
+
 tile.betterwithmods:block_dispenser.name=Block Dispenser
 tile.betterwithmods:companion_cube.name=Companion Cube
 tile.betterwithmods:long_friend.name=Long Friend
