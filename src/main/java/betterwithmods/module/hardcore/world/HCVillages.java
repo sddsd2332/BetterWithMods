@@ -86,6 +86,9 @@ public class HCVillages extends Feature {
 //		if (event.getOriginal() == BWMBlocks.WOOD_TABLE.getDefaultState()) {
 //			event.setReplacement(event.getOriginal().withProperty(BlockPlanks.VARIANT, plankFromBiome(event.getBiome())));
 //		}
+        if (event.getBiome() == null) {
+            return;
+        }
 		if (event.getOriginal().getBlock() == Blocks.DIRT) {
 			if (BiomeDictionary.hasType(event.getBiome(), BiomeDictionary.Type.SANDY)) {
 				event.setReplacement(Blocks.SAND.getDefaultState());
