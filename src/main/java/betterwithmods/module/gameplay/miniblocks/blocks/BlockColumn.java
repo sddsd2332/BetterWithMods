@@ -1,6 +1,7 @@
 package betterwithmods.module.gameplay.miniblocks.blocks;
 
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
+import betterwithmods.module.gameplay.miniblocks.orientations.ColumnOrientation;
 import betterwithmods.module.gameplay.miniblocks.tiles.TileColumn;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -10,6 +11,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -18,10 +20,7 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.function.Function;
 
-import static betterwithmods.module.gameplay.miniblocks.orientations.ColumnOrientation.DOWN;
-
 public class BlockColumn extends BlockMini {
-
 
     public BlockColumn(Material material, Function<Material, Collection<IBlockState>> subtypes) {
         super(material, subtypes);
@@ -29,7 +28,7 @@ public class BlockColumn extends BlockMini {
 
     @Override
     public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ) {
-        return DOWN;
+        return ColumnOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), face);
     }
 
     @Override
