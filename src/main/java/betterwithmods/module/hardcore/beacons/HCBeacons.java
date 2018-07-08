@@ -72,12 +72,7 @@ public class HCBeacons extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-
-//        Items.COMPASS.addPropertyOverride(new ResourceLocation("angle"), new CompassProperty());
         BEACON_EFFECTS.put(Blocks.GLASS.getDefaultState(), (world, pos, level) -> {
-        });
-        BEACON_EFFECTS.put(Blocks.IRON_BLOCK.getDefaultState(), (world, pos, level) -> {
-            //TODO substitute ItemCompass.
         });
         BEACON_EFFECTS.put(Blocks.EMERALD_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachEntityAround(EntityLivingBase.class, world, pos, level, entity -> entity.addPotionEffect(new PotionEffect(BWRegistry.POTION_LOOTING, 125, level - 1, true, false))));
         BEACON_EFFECTS.put(Blocks.LAPIS_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(BWRegistry.POTION_TRUESIGHT, 125, 1))));
@@ -111,7 +106,6 @@ public class HCBeacons extends Feature {
         if (enderchestBeacon) {
             BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.ENDERBLOCK), new EnderBeaconEffect());
         }
-
     }
 
     @Override
