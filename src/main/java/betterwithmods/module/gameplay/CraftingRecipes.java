@@ -63,7 +63,6 @@ public class CraftingRecipes extends Feature {
         GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 1), new ItemStack(Blocks.STONE, 1, 3), 0.1F);
         GameRegistry.addSmelting(new ItemStack(BWMBlocks.COBBLE, 1, 2), new ItemStack(Blocks.STONE, 1, 5), 0.1F);
 
-        BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.NETHERRACK));
 
     }
 
