@@ -15,11 +15,6 @@ import betterwithmods.network.messages.MessageHungerShake;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -376,30 +371,6 @@ public class HCHunger extends CompatFeature {
             }
         }
 
-        private static RenderPlayer getRenderPlayer(AbstractClientPlayer player) {
-            Minecraft mc = Minecraft.getMinecraft();
-            RenderManager manager = mc.getRenderManager();
-            return manager.getSkinMap().get(player.getSkinType());
-        }
-
-        private static ModelBiped getPlayerModel(AbstractClientPlayer player) {
-            return getRenderPlayer(player).getMainModel();
-        }
-
-//        public static void putFat(AbstractClientPlayer player, FatPenalty fat) {
-//            ModelBiped model = getPlayerModel(player);
-//            float scale = fat != FatPenalty.NO_PENALTY ? Math.max(0, fat.ordinal() / 2f) : 0.0f;
-//            model.bipedBody = new ModelRenderer(model, 16, 16);
-//            model.bipedBody.addBox(-4.0F, 0, -2.0F, 8, 12, 4, scale);
-//        }
-//
-//        public static void doFat(String uuid) {
-//            World world = Minecraft.getMinecraft().world;
-//            EntityPlayer player = world.getPlayerEntityByUUID(UUID.fromString(uuid));
-//            FatPenalty fat = PlayerHelper.getFatPenalty(player);
-//            if (player != null && player instanceof AbstractClientPlayer)
-//                putFat((AbstractClientPlayer) player, fat);
-//        }
     }
 
 

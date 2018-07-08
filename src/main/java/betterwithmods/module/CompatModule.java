@@ -48,7 +48,6 @@ public class CompatModule extends Module {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         super.preInit(event);
-
     }
 
     @Override
