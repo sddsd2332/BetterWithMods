@@ -26,10 +26,12 @@ public enum StairOrientation implements BaseOrientation {
     EAST_UP("east_up", 180, 0, EnumFacing.UP, EnumFacing.EAST, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D)),
     WEST_UP("west_up", 180, 180, EnumFacing.UP, EnumFacing.WEST, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 0.5D, 1.0D)),
     SOUTH_UP("south_up", 180, 90, EnumFacing.UP, EnumFacing.SOUTH, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.5D, 1.0D, 0.5D, 1.0D)),
+
     NORTH_DOWN("north_down", 0, 270, EnumFacing.DOWN, EnumFacing.NORTH, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 0.5D)),
     EAST_DOWN("east_down", 0, 0, EnumFacing.DOWN, EnumFacing.EAST, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.5D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D)),
     WEST_DOWN("west_down", 0, 180, EnumFacing.DOWN, EnumFacing.WEST, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.5D, 0.0D, 0.5D, 1.0D, 1.0D)),
     SOUTH_DOWN("south_down", 0, 90, EnumFacing.DOWN, EnumFacing.SOUTH, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.5D, 0.5D, 1.0D, 1.0D, 1.0D)),
+
     SOUTH_WEST("south_west", 90, 90, EnumFacing.SOUTH, EnumFacing.WEST, new AxisAlignedBB(0, 0.0D, 0.0D, 0.5D, 1.0D, 1.0D), new AxisAlignedBB(0.5D, 0.0D, 0.5D, 1.0D, 1.0D, 1.0D)),
     NORTH_WEST("north_west", 90, 180, EnumFacing.WEST, EnumFacing.WEST, new AxisAlignedBB(0, 0.0D, 0.0D, 0.5D, 1.0D, 1.0D), new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 1.0D, 0.5D)),
     NORTH_EAST("north_east", 90, 270, EnumFacing.NORTH, EnumFacing.EAST, new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 1.0D, 0.5D)),
@@ -170,24 +172,6 @@ public enum StairOrientation implements BaseOrientation {
             }
         }
 
-
-//
-//        StairOrientation backNeighbor = getFromPos(placer.getEntityWorld(), pos.offset(front.getOpposite()));
-//
-//
-//        for (EnumFacing direction : EnumFacing.HORIZONTALS) {
-//            BlockPos offset = pos.offset(direction);
-//
-//            StairOrientation neighbor = getFromPos(placer.getEntityWorld(), offset);
-//
-//            if (neighbor != null) {
-//                if (neighbor.getBottom() == orientation.getBottom()) {
-//                    if (neighbor.getFacing() == rotated) {
-//                        return INNER_CORNERS_Y[direction.getOpposite().getHorizontalIndex()];
-//                    }
-//                }
-//            }
-//        }
         return orientation;
     }
 
