@@ -127,11 +127,11 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
         return ClientEventHandler::renderMiniBlock;
     }
 
-    public abstract BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ);
+    public abstract BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ);
 
     @Override
     public AxisAlignedBB getBounds(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
-        return getOrientationFromPlacement(placer, facing, stack, flX, flY, flZ).getBounds();
+        return getOrientationFromPlacement(placer, facing, stack, pos, flX, flY, flZ).getBounds();
     }
 
     @Override

@@ -15,6 +15,7 @@ import betterwithmods.module.gameplay.AnvilRecipes;
 import betterwithmods.module.gameplay.miniblocks.blocks.*;
 import betterwithmods.module.gameplay.miniblocks.client.CamoModel;
 import betterwithmods.module.gameplay.miniblocks.client.MiniModel;
+import betterwithmods.module.gameplay.miniblocks.client.StairModel;
 import betterwithmods.util.JsonUtils;
 import betterwithmods.util.ReflectionHelperBlock;
 import com.google.common.collect.HashMultimap;
@@ -234,7 +235,7 @@ public class MiniBlocks extends Feature {
         final NonNullList<ItemStack> list = NonNullList.create();
 
         Iterable<Item> items = ForgeRegistries.ITEMS;
-        if(!autoGeneration)
+        if (!autoGeneration)
             items = WHITELIST.stream().map(Ingredient::getMatchingStacks).flatMap(Arrays::stream).map(ItemStack::getItem).collect(Collectors.toSet());
 
         for (Item item : items) {
@@ -373,7 +374,8 @@ public class MiniBlocks extends Feature {
         MiniModel.CORNER = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/corner")));
         MiniModel.COLUMN = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/column")));
         MiniModel.PEDESTAL = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/pedestal")));
-        MiniModel.STAIR = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/stair")));
+        MiniModel.STAIR = new StairModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/stair")),
+                RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/stair_inner_corner")));
         MiniModel.CHAIR = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/chair")));
 
         CamoModel.TABLE_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/table_supported")));

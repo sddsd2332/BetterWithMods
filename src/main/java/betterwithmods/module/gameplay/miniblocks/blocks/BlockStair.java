@@ -9,9 +9,12 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -31,9 +34,9 @@ public class BlockStair extends BlockMini {
     }
 
     private List<AxisAlignedBB> getCollisionBoxes(World world, BlockPos pos) {
-        StairOrientation o = (StairOrientation) getTile(world, pos).map(TileMini::getOrientation).orElse(null);
-        if (o != null) {
-            return o.getCollison();
+        BaseOrientation o = getTile(world, pos).map(TileMini::getOrientation).orElse(null);
+        if (o instanceof StairOrientation) {
+            return ((StairOrientation) o).getCollison();
         }
         return Lists.newArrayList();
     }
@@ -44,6 +47,14 @@ public class BlockStair extends BlockMini {
         for (AxisAlignedBB axisalignedbb : getCollisionBoxes(worldIn, pos)) {
             addCollisionBoxToList(pos, entityBox, collidingBoxes, axisalignedbb);
         }
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+
+        System.out.println(getTile(worldIn, pos).map(TileMini::getOrientation).map(IStringSerializable::getName).orElse("null"));
+
+        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
 
     @SuppressWarnings("deprecation")
@@ -78,7 +89,7 @@ public class BlockStair extends BlockMini {
     }
 
     @Override
-    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ) {
-        return StairOrientation.getFromVecAndNeighbors(new Vec3d(hitX, hitY, hitZ), face, placer.world);
+    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
+        return StairOrientation.fromNeighbors(placer, pos, new Vec3d(hitX, hitY, hitZ), face);
     }
 }

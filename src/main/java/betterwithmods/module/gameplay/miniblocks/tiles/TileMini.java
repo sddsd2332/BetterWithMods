@@ -54,7 +54,7 @@ public abstract class TileMini extends TileCamo {
     public void onPlacedBy(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ) {
         super.onPlacedBy(placer, face, stack, hitX, hitY, hitZ);
         if (getBlockType() instanceof BlockMini) {
-            orientation = ((BlockMini) getBlockType()).getOrientationFromPlacement(placer, face, stack, hitX, hitY, hitZ);
+            orientation = ((BlockMini) getBlockType()).getOrientationFromPlacement(placer, face, stack, getPos(), hitX, hitY, hitZ);
         }
     }
 

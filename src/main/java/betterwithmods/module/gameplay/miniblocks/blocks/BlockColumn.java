@@ -27,7 +27,7 @@ public class BlockColumn extends BlockMini {
     }
 
     @Override
-    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ) {
+    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
         return ColumnOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), face);
     }
 
