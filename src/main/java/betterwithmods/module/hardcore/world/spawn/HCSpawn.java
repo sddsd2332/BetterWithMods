@@ -113,13 +113,6 @@ public class HCSpawn extends Feature {
         }
     }
 
-    @SubscribeEvent
-    public void onTick(TickEvent.PlayerTickEvent event) {
-        if (event.player.isDead) {
-            event.player.respawnPlayer();
-        }
-    }
-
     /**
      * Find a random position to respawn. Tries 20 times maximum to find a
      * suitable place. Else, the previous SP will remain unchanged.
