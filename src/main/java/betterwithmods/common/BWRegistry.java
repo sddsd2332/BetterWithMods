@@ -6,6 +6,7 @@ import betterwithmods.api.capabilities.CapabilityAxle;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IAxle;
 import betterwithmods.api.tile.IMechanicalPower;
+import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
@@ -108,6 +109,7 @@ public class BWRegistry {
 
     public static void preInit() {
         API.manualAPI = ManualDefinitionImpl.INSTANCE;
+        BWAdvancements.registerAdvancements();
         BWNetwork.registerNetworking();
         BWMBlocks.registerBlocks();
         BWMItems.registerItems();

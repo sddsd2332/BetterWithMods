@@ -2,13 +2,16 @@ package betterwithmods.common.registry;
 
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.tile.TileKiln;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -44,6 +47,7 @@ public class KilnStructureManager {
             if (tile instanceof TileKiln) {
                 ((TileKiln) tile).setCamoState(state);
                 world.notifyBlockUpdate(pos, kiln, kiln, 8);
+                world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(BWAdvancements.CONSTRUCT_KILN::trigger);
             }
             return true;
         }

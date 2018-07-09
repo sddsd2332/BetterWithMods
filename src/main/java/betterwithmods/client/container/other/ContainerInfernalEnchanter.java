@@ -1,5 +1,6 @@
 package betterwithmods.client.container.other;
 
+import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.tile.FilteredStackHandler;
 import betterwithmods.common.blocks.tile.SimpleStackHandler;
 import betterwithmods.common.blocks.tile.TileEntityInfernalEnchanter;
@@ -9,6 +10,7 @@ import betterwithmods.util.InvUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
@@ -218,6 +220,7 @@ public class ContainerInfernalEnchanter extends Container {
                     scroll.shrink(1);
                     item.addEnchantment(enchantment, levelIndex + 1);
                     player.onEnchant(item, this.enchantLevels[levelIndex]);
+                    BWAdvancements.INFERNAL_ENCHANTED.trigger((EntityPlayerMP) player, item, this.enchantLevels[levelIndex]);
                     tile.getWorld().playSound(null, tile.getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F, tile.getWorld().rand.nextFloat() * 0.1F + 0.9F);
                     onContextChanged(this.handler);
                 }
