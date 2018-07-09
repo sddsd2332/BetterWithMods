@@ -48,6 +48,9 @@ public abstract class TileBaseWindmill extends TileAxleGenerator implements ICol
         return dyed;
     }
 
+    public int[] getColors() {
+        return bladeMeta;
+    }
 
     public int getBladeColor(int blade) {
         return bladeMeta[blade];

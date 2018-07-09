@@ -33,6 +33,7 @@ import org.lwjgl.opengl.GL11;
  */
 public class ClientEventHandler {
     public static final Minecraft mc = Minecraft.getMinecraft();
+    public static boolean blockPlacementHighlight;
 
     public static void renderBlock(IBlockState state, BlockPos pos, World world) {
         Tessellator tessellator = Tessellator.getInstance();
@@ -107,19 +108,29 @@ public class ClientEventHandler {
         GlStateManager.popMatrix();
     }
 
+    public static double[] getPlayerPositionDelta(EntityPlayer player, double partial) {
+        double dx = (player.lastTickPosX + (player.posX - player.lastTickPosX) * partial);
+        double dy = (player.lastTickPosY + (player.posY - player.lastTickPosY) * partial);
+        double dz = (player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partial);
+        return new double[]{dx, dy, dz};
+    }
+
     public static void renderMiniBlock(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial) {
-        Vec3d vec = target.hitVec.addVector(-target.getBlockPos().getX(),-target.getBlockPos().getY(),-target.getBlockPos().getZ());
-        float x = (float) vec.x , y = (float) vec.y, z = (float) vec.z;
+        Vec3d vec = target.hitVec.addVector(-target.getBlockPos().getX(), -target.getBlockPos().getY(), -target.getBlockPos().getZ());
+        float x = (float) vec.x, y = (float) vec.y, z = (float) vec.z;
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.glLineWidth(4.0F);
         GlStateManager.disableTexture2D();
         GlStateManager.depthMask(false);
         pos = pos.offset(side);
-        if (world.mayPlace(block,pos,true,side,player) && world.getWorldBorder().contains(pos)) {
-            double dx = (player.lastTickPosX + (player.posX - player.lastTickPosX) * partial);
-            double dy = (player.lastTickPosY + (player.posY - player.lastTickPosY) * partial);
-            double dz = (player.lastTickPosZ + (player.posZ - player.lastTickPosZ) * partial);
+        if (world.mayPlace(block, pos, true, side, player) && world.getWorldBorder().contains(pos)) {
+
+            double[] deltas = getPlayerPositionDelta(player, partial);
+
+            double dx = deltas[0];
+            double dy = deltas[1];
+            double dz = deltas[2];
 
             AxisAlignedBB box = ((IRenderRotationPlacement) block).getBounds(world, pos, side, x, y, z, stack, player).grow(0.002D).offset(pos).offset(-dx, -dy, -dz);
             RenderGlobal.drawSelectionBoundingBox(box, 0.0F, 0.0F, 0.0F, 0.4F);
@@ -130,7 +141,6 @@ public class ClientEventHandler {
         GlStateManager.disableBlend();
     }
 
-    public static boolean blockPlacementHighlight;
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void onBlockHighlight(DrawBlockHighlightEvent event) {
@@ -144,12 +154,16 @@ public class ClientEventHandler {
             stack = player.getHeldItem(EnumHand.MAIN_HAND);
         }
         Block block = Block.getBlockFromItem(stack.getItem());
-        if (event.getTarget().typeOfHit == RayTraceResult.Type.BLOCK && block instanceof IRenderRotationPlacement) {
+        if (event.getTarget().typeOfHit == RayTraceResult.Type.BLOCK) {
             World world = player.getEntityWorld();
             EnumFacing side = event.getTarget().sideHit;
             BlockPos pos = event.getTarget().getBlockPos();
-            if (world.getWorldBorder().contains(pos)) {
-                ((IRenderRotationPlacement) block).getRenderFunction().render(world, block, pos, stack, player, side, event.getTarget(), event.getPartialTicks());
+            if (block instanceof IRenderRotationPlacement) {
+                if (world.getWorldBorder().contains(pos)) {
+                    ((IRenderRotationPlacement) block).render(world, block, pos, stack, player, side, event.getTarget(), event.getPartialTicks());
+                }
+            } else if (stack.getItem() instanceof IRenderRotationPlacement) {
+                ((IRenderRotationPlacement) stack.getItem()).render(world, block, pos, stack, player, side, event.getTarget(), event.getPartialTicks());
             }
         }
     }

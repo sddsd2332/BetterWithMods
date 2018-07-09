@@ -1,5 +1,6 @@
 package betterwithmods.common.items;
 
+import betterwithmods.api.block.IRenderRotationPlacement;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
@@ -8,6 +9,7 @@ import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -25,7 +27,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public abstract class ItemAxleBase extends ItemBlock {
+public abstract class ItemAxleBase extends ItemBlock implements IRenderRotationPlacement {
     protected int radius;
 
     public ItemAxleBase(Block block) {
@@ -137,6 +139,10 @@ public abstract class ItemAxleBase extends ItemBlock {
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
+    @Override
+    public AxisAlignedBB getBounds(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
+        return getBounds(facing.getAxis(), this.radius);
+    }
 
     @SideOnly(Side.CLIENT)
     public enum Error {

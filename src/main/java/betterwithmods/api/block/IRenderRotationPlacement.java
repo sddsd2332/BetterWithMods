@@ -1,7 +1,6 @@
 package betterwithmods.api.block;
 
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -13,15 +12,8 @@ import net.minecraft.world.World;
 
 public interface IRenderRotationPlacement {
 
-    IBlockState getRenderState(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer);
+    AxisAlignedBB getBounds(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer);
 
-    default AxisAlignedBB getBounds(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
-        return getRenderState(world, pos, facing, flX, flY, flZ, stack, placer).getBoundingBox(world,pos);
-    }
+    void render(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial);
 
-    RenderFunction getRenderFunction();
-
-    interface RenderFunction {
-        void render(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial);
-    }
 }
