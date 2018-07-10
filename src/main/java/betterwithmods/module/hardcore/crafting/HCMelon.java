@@ -13,6 +13,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -27,6 +28,12 @@ public class HCMelon extends Feature{
     @Override
     public boolean requiresMinecraftRestartToEnable() {
         return true;
+    }
+
+    @Override
+    public void init(FMLInitializationEvent event) {
+        Blocks.MELON_STEM.setHardness(0.2F);
+        Blocks.PUMPKIN_STEM.setHardness(0.2F);
     }
 
     @SubscribeEvent
