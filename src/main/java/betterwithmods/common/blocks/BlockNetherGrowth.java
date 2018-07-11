@@ -1,7 +1,6 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.api.IMultiLocations;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.damagesource.BWDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.util.player.PlayerHelper;
@@ -47,7 +46,6 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
         setDefaultState(getDefaultState().withProperty(AGE, 0));
         setHardness(0.5f);
         setResistance(0.1f);
-
     }
 
 
@@ -66,7 +64,7 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
             boolean grew = false;
             for (BlockPos p : pool) {
                 IBlockState s = world.getBlockState(p);
-                if (s != null && s.getBlock() == BWMBlocks.NETHER_GROWTH) {
+                if (s.getBlock() == this) {
                     BlockNetherGrowth b = (BlockNetherGrowth) s.getBlock();
                     for (int i = 0; i < 10; i++)
                         b.grow(world, p, s, world.rand);
@@ -130,7 +128,6 @@ public class BlockNetherGrowth extends BWMBlock implements IMultiLocations {
     }
 
     public void spread(World world, BlockPos pos, Random rand) {
-
         BlockPos spread = pos.add(range(rand), range(rand), range(rand));
         if (canPlaceBlockAt(world, spread) && !spread.equals(pos)) {
             world.setBlockState(spread, getDefaultState());
