@@ -41,6 +41,7 @@ public class Tweaks extends Module {
         registerFeature(new LlamaDrops());
         registerFeature(new BabyJumping());
         registerFeature(new EnchantmentTooltip());
+        registerFeature(new NoSkeletonTrap());
     }
 
     @Override
