@@ -183,7 +183,7 @@ public class HCHunger extends CompatFeature {
         FoodHelper.registerFood(new ItemStack(Items.COOKIE), 3, 3, true);
         FoodHelper.registerFood(new ItemStack(Items.PUMPKIN_PIE), 9, 12, true);
         FoodHelper.registerFood(new ItemStack(Items.CAKE), 4, 12, true);
-
+        FoodHelper.registerFood(new ItemStack(PUMPKIN_SEEDS), 1);
 
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
     }

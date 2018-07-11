@@ -6,7 +6,7 @@
       "data": 1
     },
     "title": {
-      "translate": "tile.bwm:cooking_pot.0.name"
+      "translate": "tile.bwm:cooking_pot.1.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.cauldron.desc"
