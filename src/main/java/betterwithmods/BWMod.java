@@ -7,7 +7,6 @@ import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.event.FakePlayerHandler;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.ModuleLoader;
-import betterwithmods.network.*;
 import betterwithmods.proxy.IProxy;
 import betterwithmods.testing.BWMTests;
 import betterwithmods.util.commands.HealthCommand;
@@ -18,7 +17,6 @@ import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.event.FMLInterModComms.IMCEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
-import net.minecraftforge.fml.relauncher.Side;
 import org.apache.logging.log4j.Logger;
 
 @Mod.EventBusSubscriber
@@ -27,7 +25,7 @@ public class BWMod {
     public static final String MODID = "betterwithmods";
     public static final String VERSION = "${version}";
     public static final String NAME = "Better With Mods";
-    public static final String DEPENDENCIES = "after:thaumcraft;after:natura;before:survivalist;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
+    public static final String DEPENDENCIES = "before:survivalist;after:traverse;after:thaumcraft;after:natura;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
 
     public static Logger logger;
     @SuppressWarnings({"CanBeFinal", "unused"})
