@@ -6,14 +6,13 @@ import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.hardcore.needs.HCArmor;
 import com.google.common.collect.Sets;
 import com.mojang.authlib.GameProfile;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
-import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -113,6 +112,10 @@ public final class PlayerHelper {
             iattributeinstance.removeModifier(speedModifier);
         }
         iattributeinstance.applyModifier(speedModifier);
+    }
+
+    public static void removeModifier(EntityLivingBase entityLivingBase, IAttribute attribute, UUID uuid) {
+        entityLivingBase.getEntityAttribute(attribute).removeModifier(uuid);
     }
 
     public static int getWornArmorWeight(EntityPlayer player) {
