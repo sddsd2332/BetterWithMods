@@ -2,14 +2,14 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.module.Feature;
 import net.minecraft.entity.passive.EntitySkeletonHorse;
-import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class NoSkeletonTrap extends Feature {
 
     @SubscribeEvent
-    public void onEntitySpawn(LivingSpawnEvent event) {
-        if(event.getEntityLiving() instanceof EntitySkeletonHorse && ((EntitySkeletonHorse)event.getEntityLiving()).isTrap()) {
+    public void onEntitySpawn(EntityJoinWorldEvent event) {
+        if(event.getEntity() instanceof EntitySkeletonHorse && ((EntitySkeletonHorse)event.getEntity()).isTrap()) {
             event.setCanceled(true);
         }
     }
