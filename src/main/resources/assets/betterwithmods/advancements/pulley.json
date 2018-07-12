@@ -6,7 +6,7 @@
       "data": 1
     },
     "title": {
-      "translate": "tile.bwm:pulley.name"
+      "translate": "tile.bwm:single_machine.1.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.pulley.desc"

@@ -6,7 +6,7 @@
       "data": 2
     },
     "title": {
-      "translate": "tile.bwm:filtered_hopper.name"
+      "translate": "tile.bwm:single_machine.2.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.filtered_hopper.desc"
