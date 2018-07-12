@@ -195,7 +195,7 @@ public class HCBuckets extends Feature {
                 FluidStack filledFluidStack = FluidUtil.getFluidContained(filledContainer);
 
                 if (filledFluidStack != null && !fluidWhitelist.contains(filledFluidStack.getFluid().getName())) {
-                    event.setResult(Event.Result.DENY);
+                    event.setResult(Event.Result.DEFAULT);
                     return;
                 }
 

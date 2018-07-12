@@ -13,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Created by primetoxinz on 5/21/17.
  */
 public class HCNames extends Feature {
-    
+
     @SubscribeEvent
     public void onPlayerJoin(EntityJoinWorldEvent e) {
         if (e.getEntity() instanceof EntityPlayerMP) {
