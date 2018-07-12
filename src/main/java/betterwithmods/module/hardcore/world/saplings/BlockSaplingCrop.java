@@ -18,7 +18,9 @@ import java.util.Random;
 public class BlockSaplingCrop extends BlockBush implements IGrowable {
 
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
-    private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
+    private static final AxisAlignedBB AABB = new AxisAlignedBB(0.25D, 0.0D, 0.25D, 0.5D, 0, .75D);
+    private static final double BBAgeYGrowth = 0.075D;
+
     private IBlockState fullyGrown;
 
     public BlockSaplingCrop(IBlockState fullyGrown) {
@@ -92,7 +94,7 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return CROPS_AABB[getAge(state)];
+        return AABB.grow(0,  BBAgeYGrowth * getAge(state), 0);
     }
 
 
