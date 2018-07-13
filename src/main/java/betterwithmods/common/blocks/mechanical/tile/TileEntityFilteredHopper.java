@@ -25,6 +25,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
@@ -55,7 +56,7 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
         this.soulsRetained = 0;
         this.occupiedSlots = 0;
         this.hasCapability = facing -> facing == EnumFacing.DOWN || facing == EnumFacing.UP;
-        this.filter = new SimpleStackHandler(1, this);
+        this.filter = new FilterHandler(1, this);
     }
 
     @Override
@@ -367,6 +368,21 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
     @Override
     public int getProgress() {
         return Math.min(power, 1);
+    }
+
+    private class FilterHandler extends SimpleStackHandler {
+
+        public FilterHandler(int size, TileEntity tile) {
+            super(size, tile);
+        }
+
+        @Nonnull
+        @Override
+        public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
+            if (!BWRegistry.HOPPER_FILTERS.isFilter(stack))
+                return stack;
+            return super.insertItem(slot, stack, simulate);
+        }
     }
 
     private class HopperHandler extends SimpleStackHandler {

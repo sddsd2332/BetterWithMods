@@ -21,7 +21,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -32,6 +31,7 @@ import net.minecraftforge.oredict.OreIngredient;
  */
 public class HopperRecipes extends Feature {
     public static boolean brimstoneFiltering;
+    public static boolean useSelfFiltering;
 
     public HopperRecipes() {
         canDisable = false;
@@ -41,6 +41,7 @@ public class HopperRecipes extends Feature {
     @Override
     public void setupConfig() {
         brimstoneFiltering = loadPropBool("Glowstone Filtering", "Passing glowstone through a soulsand filter makes brimstone.", false);
+        useSelfFiltering = loadPropBool("Self Filtering", "Allow the Hopper to filter by the item in the filter slot.", false);
     }
 
     @Override
