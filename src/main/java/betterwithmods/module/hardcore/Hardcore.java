@@ -81,6 +81,7 @@ public class Hardcore extends CompatModule {
         registerFeature(new ExplosiveRecipes());
         registerFeature(new HCBabyZombies());
         registerFeature(new HCNetherBrick());
+        registerFeature(new HCFighting());
 //        registerFeature(new HCSquid());
 //        registerFeature(new HCVillagers());
         this.load();
