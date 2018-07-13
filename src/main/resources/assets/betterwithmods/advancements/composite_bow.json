@@ -5,7 +5,7 @@
       "item": "betterwithmods:composite_bow"
     },
     "title": {
-      "translate": "item.bwm:composite_bow.name"
+      "translate": "item.betterwithmods:composite_bow.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.composite_bow.desc"

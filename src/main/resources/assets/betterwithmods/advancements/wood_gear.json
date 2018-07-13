@@ -5,7 +5,7 @@
       "item": "betterwithmods:wood_gear"
     },
     "title": {
-      "translate": "item.bwm:wood_gear.name"
+      "translate": "item.betterwithmods:wood_gear.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.wood_gear.desc"

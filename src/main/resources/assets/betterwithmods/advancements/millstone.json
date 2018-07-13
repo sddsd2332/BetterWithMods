@@ -5,7 +5,7 @@
       "item": "betterwithmods:millstone"
     },
     "title": {
-      "translate": "tile.bwm:millstone.name"
+      "translate": "tile.betterwithmods:millstone.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.millstone.desc"

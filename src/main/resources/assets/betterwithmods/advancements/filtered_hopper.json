@@ -5,7 +5,7 @@
       "item": "betterwithmods:filtered_hopper"
     },
     "title": {
-      "translate": "tile.bwm:filtered_hopper.name"
+      "translate": "tile.betterwithmods:filtered_hopper.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.filtered_hopper.desc"

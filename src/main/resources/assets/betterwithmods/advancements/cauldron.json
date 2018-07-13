@@ -5,7 +5,7 @@
       "item": "betterwithmods:cauldron"
     },
     "title": {
-      "translate": "tile.bwm:cauldron.name"
+      "translate": "tile.betterwithmods:cauldron.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.cauldron.desc"

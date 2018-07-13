@@ -42,7 +42,7 @@ public class GuiMill extends GuiProgress {
     protected void drawExtras(float partialTicks, int mouseX, int mouseY, int centerX, int centerY) {
         super.drawExtras(partialTicks, mouseX, mouseY, centerX, centerY);
         if (container.blocked) {
-            String str = I18n.format("bwm.millstone_blocked.message");
+            String str = I18n.format("betterwithmods.millstone_blocked.message");
             int width = fontRenderer.getStringWidth(str) / 2;
             drawString(fontRenderer, str, centerX + this.xSize / 2 - width, centerY + 32, EnumDyeColor.RED.getColorValue());
             drawToolTip(mouseX, mouseY, centerX + this.xSize / 2 - width, centerY + 32, 32, 32, I18n.format("bwm.millstone_blocked.tooltip"));

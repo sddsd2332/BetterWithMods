@@ -2,7 +2,6 @@ package betterwithmods.module.gameplay;
 
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
-import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.hardcore.needs.HCNames;
 import betterwithmods.util.CapabilityUtils;
 import net.minecraft.entity.Entity;
@@ -121,6 +120,6 @@ public class PlayerDataHandler extends Feature {
         Scoreboard scoreboard = event.getServer().getEntityWorld().getScoreboard();
         if (scoreboard.getTeam(TEAM) == null)
             scoreboard.createTeam(TEAM);
-        scoreboard.getTeam(TEAM).setNameTagVisibility(ModuleLoader.isFeatureEnabled(HCNames.class) ? Team.EnumVisible.NEVER : Team.EnumVisible.ALWAYS);
+        scoreboard.getTeam(TEAM).setNameTagVisibility(BWMod.MODULE_LOADER.isFeatureEnabled(HCNames.class) ? Team.EnumVisible.NEVER : Team.EnumVisible.ALWAYS);
     }
 }

@@ -5,7 +5,7 @@
       "item": "betterwithmods:hemp_leaf"
     },
     "title": {
-      "translate": "item.bwm:hemp_leaf.name"
+      "translate": "item.betterwithmods:hemp_leaf.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.hemp.desc"

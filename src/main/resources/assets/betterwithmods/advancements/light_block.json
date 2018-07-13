@@ -5,7 +5,7 @@
       "item": "betterwithmods:light"
     },
     "title": {
-      "translate": "tile.bwm:light.name"
+      "translate": "tile.betterwithmods:light.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.light.desc"

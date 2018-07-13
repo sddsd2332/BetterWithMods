@@ -5,7 +5,7 @@
       "item": "betterwithmods:glue"
     },
     "title": {
-      "translate": "item.bwm:glue.name"
+      "translate": "item.betterwithmods:glue.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.glue.desc"

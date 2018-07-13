@@ -5,7 +5,7 @@
       "item": "betterwithmods:bellows"
     },
     "title": {
-      "translate": "tile.bwm:bellows.name"
+      "translate": "tile.betterwithmods:bellows.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.bellows.desc"

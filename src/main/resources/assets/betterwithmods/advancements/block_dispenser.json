@@ -5,7 +5,7 @@
       "item": "betterwithmods:block_dispenser"
     },
     "title": {
-      "translate": "tile.bwm:block_dispenser.name"
+      "translate": "tile.betterwithmods:block_dispenser.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.block_dispenser.desc"

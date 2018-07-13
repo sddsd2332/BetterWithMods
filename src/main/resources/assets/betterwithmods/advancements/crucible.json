@@ -5,7 +5,7 @@
       "item": "betterwithmods:crucible"
     },
     "title": {
-      "translate": "tile.bwm:crucible.name"
+      "translate": "tile.betterwithmods:crucible.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.crucible.desc"

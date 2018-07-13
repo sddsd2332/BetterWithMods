@@ -5,7 +5,7 @@
       "item": "betterwithmods:waterwheel"
     },
     "title": {
-      "translate": "tile.bwm:waterwheel.name"
+      "translate": "tile.betterwithmods:waterwheel.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.waterwheel.desc"

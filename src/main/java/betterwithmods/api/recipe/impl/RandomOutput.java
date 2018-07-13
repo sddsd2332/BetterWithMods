@@ -41,7 +41,7 @@ public class RandomOutput extends StackOutput {
     }
 
     public String getTooltip() {
-        return I18n.format("bwm.random_output.tooltip", min, max);
+        return I18n.format("betterwithmods.random_output.tooltip", min, max);
     }
 
     @Override

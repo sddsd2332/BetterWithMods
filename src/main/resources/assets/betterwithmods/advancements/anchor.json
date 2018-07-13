@@ -5,7 +5,7 @@
       "item": "betterwithmods:anchor"
     },
     "title": {
-      "translate": "tile.bwm:anchor.name"
+      "translate": "tile.betterwithmods:anchor.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.anchor.desc"

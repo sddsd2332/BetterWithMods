@@ -5,7 +5,7 @@
       "item": "betterwithmods:ender_spectacles"
     },
     "title": {
-      "translate": "item.bwm:ender_spectacles.name"
+      "translate": "item.betterwithmods:ender_spectacles.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.ender_spectacles.desc"

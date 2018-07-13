@@ -5,7 +5,7 @@
       "item": "betterwithmods:hemp"
     },
     "title": {
-      "translate": "tile.bwm:hemp.name"
+      "translate": "tile.betterwithmods:hemp.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.hemp_seed.desc"

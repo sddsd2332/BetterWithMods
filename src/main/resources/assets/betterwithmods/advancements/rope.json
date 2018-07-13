@@ -5,7 +5,7 @@
       "item": "betterwithmods:rope"
     },
     "title": {
-      "translate": "tile.bwm:rope.name"
+      "translate": "tile.betterwithmods:rope.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.rope.desc"

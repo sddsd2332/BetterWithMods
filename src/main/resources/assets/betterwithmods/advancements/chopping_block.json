@@ -5,7 +5,7 @@
       "item": "betterwithmods:bloody_chopping_block"
     },
     "title": {
-      "translate": "tile.bwm:bloody_chopping_block.name"
+      "translate": "tile.betterwithmods:bloody_chopping_block.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.bloody_chopping_block.desc"

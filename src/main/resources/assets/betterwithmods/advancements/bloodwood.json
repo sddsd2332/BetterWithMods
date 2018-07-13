@@ -5,7 +5,7 @@
       "item": "betterwithmods:blood_sapling"
     },
     "title": {
-      "translate": "tile.bwm:blood_log.name"
+      "translate": "tile.betterwithmods:blood_log.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.blood_wood.desc"

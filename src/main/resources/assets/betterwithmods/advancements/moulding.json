@@ -6,7 +6,7 @@
       "nbt": "{texture: {Properties: {variant: \"oak\"}, Name: \"minecraft:planks\"}}"
     },
     "title": {
-      "translate": "tile.bwm:moulding_wood.name"
+      "translate": "tile.betterwithmods:moulding_wood.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.moulding_wood.desc"

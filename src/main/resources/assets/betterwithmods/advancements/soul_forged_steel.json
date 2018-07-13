@@ -5,7 +5,7 @@
       "item": "betterwithmods:steel_ingot"
     },
     "title": {
-      "translate": "item.bwm:steel_ingot.name"
+      "translate": "item.betterwithmods:steel_ingot.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.steel_ingot.desc"

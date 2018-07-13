@@ -5,7 +5,7 @@
       "item": "betterwithmods:pulley"
     },
     "title": {
-      "translate": "tile.bwm:pulley.name"
+      "translate": "tile.betterwithmods:pulley.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.pulley.desc"
