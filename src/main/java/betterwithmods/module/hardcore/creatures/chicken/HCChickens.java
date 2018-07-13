@@ -76,9 +76,9 @@ public class HCChickens extends Feature {
         if (entityLiving.hasCapability(EGG_LAYER_CAP, EnumFacing.DOWN)) {
             EggLayer layer = entityLiving.getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
             if (layer != null) {
-                if(layer.isFeed()) {
+                if (layer.isFeed()) {
                     layer.setTicks(layer.getTicks() - 1);
-                    if(layer.canLayEgg()) {
+                    if (layer.canLayEgg()) {
                         layer.lay(entityLiving);
                     }
                 }
@@ -88,11 +88,13 @@ public class HCChickens extends Feature {
 
     @SubscribeEvent
     public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
-        if (SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving && event.getTarget().hasCapability(EGG_LAYER_CAP, EnumFacing.DOWN)) {
-            event.setCanceled(true);
-            event.setResult(Event.Result.DENY);
+        if (SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving) {
             EggLayer layer = event.getTarget().getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
             if (layer != null) {
+                event.setCanceled(true);
+                event.setResult(Event.Result.DENY);
+                if (((EntityLiving) event.getTarget()).isChild())
+                    return;
                 layer.feed((EntityLiving) event.getTarget(), event.getItemStack());
             }
         }
