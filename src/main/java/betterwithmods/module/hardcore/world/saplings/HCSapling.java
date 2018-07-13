@@ -9,8 +9,13 @@ import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.Item;
+import net.minecraftforge.common.MinecraftForge;
+import net.minecraftforge.common.util.BlockSnapshot;
+import net.minecraftforge.event.ForgeEventFactory;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Map;
@@ -44,7 +49,7 @@ public class HCSapling extends Feature {
 
             BlockPlanks.EnumType type = state.getValue(BlockSapling.TYPE);
             Block crop = SAPLING_CROPS.get(type);
-            if (crop != null && event.getBlockSnapshot().getReplacedBlock().getBlock() == Blocks.AIR) {
+            if (crop != null) {
                 event.getWorld().setBlockState(event.getPos(), crop.getDefaultState());
             }
         }

@@ -18,7 +18,16 @@ import java.util.Random;
 public class BlockSaplingCrop extends BlockBush implements IGrowable {
 
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
-    private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
+    private static final AxisAlignedBB CROP_AABB[] = {
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.5, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.575, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.65, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.725, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.8, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.875, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.95, 0.8D),
+    };
+
     private IBlockState fullyGrown;
 
     public BlockSaplingCrop(IBlockState fullyGrown) {
@@ -92,7 +101,7 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
     }
 
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return CROPS_AABB[getAge(state)];
+        return CROP_AABB[getAge(state)];
     }
 
 
