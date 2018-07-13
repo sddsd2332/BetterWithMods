@@ -115,6 +115,8 @@ public class AIFoodEggLayer extends EntityAIBase {
 
     private void processItemEating() {
         if (!entity.getEntityWorld().isRemote) {
+            if (entity.isChild())
+                return;
             ItemStack foodStack = targetItem.getItem().splitStack(1);
             boolean bred = false;
             if (layer.isBreedingItem(foodStack)) {

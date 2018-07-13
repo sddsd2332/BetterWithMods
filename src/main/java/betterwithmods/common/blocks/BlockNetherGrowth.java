@@ -50,7 +50,6 @@ public class BlockNetherGrowth extends BWMBlock {
         setDefaultState(getDefaultState().withProperty(AGE, 0));
         setHardness(0.5f);
         setResistance(0.1f);
-
     }
 
     public int getAge(IBlockState state) {
@@ -68,7 +67,7 @@ public class BlockNetherGrowth extends BWMBlock {
             boolean grew = false;
             for (BlockPos p : pool) {
                 IBlockState s = world.getBlockState(p);
-                if (s.getBlock() == BWMBlocks.NETHER_GROWTH) {
+                if (s.getBlock() == this) {
                     BlockNetherGrowth b = (BlockNetherGrowth) s.getBlock();
                     for (int i = 0; i < 10; i++)
                         b.grow(world, p, s, world.rand);
@@ -132,7 +131,6 @@ public class BlockNetherGrowth extends BWMBlock {
     }
 
     public void spread(World world, BlockPos pos, Random rand) {
-
         BlockPos spread = pos.add(range(rand), range(rand), range(rand));
         if (canPlaceBlockAt(world, spread) && !spread.equals(pos)) {
             world.setBlockState(spread, getDefaultState());

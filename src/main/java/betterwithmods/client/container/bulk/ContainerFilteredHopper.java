@@ -54,7 +54,7 @@ public class ContainerFilteredHopper extends ContainerProgress {
             if (index < 19) {
                 if (!mergeItemStack(processedStack, 19, this.inventorySlots.size(), true))
                     return ItemStack.EMPTY;
-            } else if (isItemFilter(processedStack)) {
+            } else if (BWRegistry.HOPPER_FILTERS.isFilter(processedStack)) {
                 if (!mergeItemStack(processedStack, 18, 19, false))
                     return ItemStack.EMPTY;
             } else if (!mergeItemStack(processedStack, 0, 18, false)) {

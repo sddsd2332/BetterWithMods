@@ -22,7 +22,7 @@ import java.util.List;
  */
 public final class ItemBookManual extends ItemBook {
     public ItemBookManual() {
-        setMaxStackSize(1);
+        setMaxStackSize(2);
     }
 
     public static boolean tryOpenManual(final World world, final EntityPlayer player, @Nullable final String path) {

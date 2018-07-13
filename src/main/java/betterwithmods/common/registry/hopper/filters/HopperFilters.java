@@ -32,7 +32,11 @@ public class HopperFilters {
     public IHopperFilter getFilter(ItemStack stack) {
         if (stack.isEmpty())
             return HopperFilter.NONE;
-        return FILTERS.values().stream().filter(filter -> filter.getFilter().apply(stack)).findFirst().orElse(new SelfHopperFilter(stack));
+        return FILTERS.values().stream().filter(filter -> filter.getFilter().apply(stack)).findFirst().orElse(HopperRecipes.useSelfFiltering ? new SelfHopperFilter(stack) : HopperFilter.NONE);
+    }
+
+    public boolean isFilter(ItemStack stack) {
+        return getFilter(stack) != HopperFilter.NONE;
     }
 
 }

@@ -40,7 +40,7 @@ public class ItemStumpRemover extends Item {
             } else {
                 IBlockState state = worldIn.getBlockState(pos);
                 IBlockState below = worldIn.getBlockState(pos.down());
-                if (worldIn.isAirBlock(pos.up()) && HCStumping.isLog(state) && HCStumping.isSoil(below)) {
+                if (worldIn.isAirBlock(pos.up()) && HCStumping.isLog(state) && HCStumping.isSoil(below, worldIn, pos.down())) {
                     if (!worldIn.isRemote) {
                         worldIn.playSound(null, pos, SoundEvents.ENTITY_SLIME_SQUISH, SoundCategory.BLOCKS, 1, 1);
                         state.getBlock().harvestBlock(worldIn, playerIn, pos, state, null, stack);

@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
+import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.registry.BrokenToolRegistry;
@@ -31,6 +32,10 @@ public class HCPiles extends Feature {
     public static boolean keepSoilDrops;
 
     public static final Map<IBlockState, ItemStack> blockStateToPile = new HashMap<>();
+
+    public static void removePile(ItemStack input) {
+        blockStateToPile.remove(BWMRecipes.getStateFromStack(input));
+    }
 
     public static void registerPile(Block block, int meta, ItemStack stack) {
         registerPile(block.getStateFromMeta(meta), stack);
@@ -72,7 +77,6 @@ public class HCPiles extends Feature {
         registerPile(Blocks.SAND, 1, new ItemStack(BWMItems.RED_SAND_PILE, 3));
         registerPile(BWMBlocks.DIRT_SLAB, new ItemStack(BWMItems.DIRT_PILE, 1));
         registerPile(Blocks.CLAY, new ItemStack(Items.CLAY_BALL, 3));
-
     }
 
 
@@ -88,19 +92,18 @@ public class HCPiles extends Feature {
         if (blockStateToPile.containsKey(state)) {
             ItemStack pile = blockStateToPile.get(state).copy();
             ArrayList<ItemStack> extraDrops = null;
-            if(keepSoilDrops) //Save a bit of time if it's disabled.
+            if (keepSoilDrops) //Save a bit of time if it's disabled.
                 extraDrops = event.getDrops().stream().filter(drop -> !drop.isItemEqual(pile) && !isBlockDrop(drop)).collect(Collectors.toCollection(ArrayList::new));
             event.getDrops().clear();
             if (event.getWorld().rand.nextFloat() <= event.getDropChance()) {
                 event.getDrops().add(pile);
             }
-            if(extraDrops != null)
+            if (extraDrops != null)
                 event.getDrops().addAll(extraDrops);
         }
     }
 
-    private boolean isBlockDrop(ItemStack stack)
-    {
+    private boolean isBlockDrop(ItemStack stack) {
         return !stack.isEmpty() && stack.getItem() instanceof ItemBlock;
     }
 

@@ -19,6 +19,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -49,11 +50,11 @@ public class HCStumping extends Feature {
     public static String[] BLACKLIST_CONFIG;
 
     public static boolean isStump(World world, BlockPos pos) {
-        return isLog(world.getBlockState(pos)) && !isPlaced(world, pos) && isSoil(world.getBlockState(pos.down()));
+        return isLog(world.getBlockState(pos)) && !isPlaced(world, pos) && isSoil(world.getBlockState(pos.down()), world, pos);
     }
 
     public static boolean isRoots(World world, BlockPos pos) {
-        return isLog(world.getBlockState(pos.up())) && !isPlaced(world, pos.up()) && isSoil(world.getBlockState(pos));
+        return isLog(world.getBlockState(pos.up())) && !isPlaced(world, pos.up()) && isSoil(world.getBlockState(pos), world, pos);
     }
 
     public static boolean isLog(IBlockState state) {
@@ -66,8 +67,8 @@ public class HCStumping extends Feature {
         return BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG, state) != null;
     }
 
-    public static boolean isSoil(IBlockState state) {
-        return state.getMaterial() == Material.GROUND || state.getMaterial() == Material.GRASS;
+    public static boolean isSoil(IBlockState state, World world, BlockPos pos) {
+        return state.isSideSolid(world, pos, EnumFacing.UP) && (state.getMaterial() == Material.GROUND || state.getMaterial() == Material.GRASS);
     }
 
     public static PlacedCapability getCapability(World world) {

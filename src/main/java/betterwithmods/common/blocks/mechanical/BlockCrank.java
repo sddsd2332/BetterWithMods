@@ -197,6 +197,6 @@ public class BlockCrank extends BWMBlock implements IOverpower {
     @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-        return face == EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : super.getBlockFaceShape(worldIn, state, pos, face);
+        return face != EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : super.getBlockFaceShape(worldIn, state, pos, face);
     }
 }

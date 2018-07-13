@@ -13,7 +13,7 @@
     "inventory": [
       {
         "transform": "forge:default-block",
-        "model": "betterwithmods:item/default"
+        "model": "betterwithmods:items/default"
       }
     ],
     "top": {
