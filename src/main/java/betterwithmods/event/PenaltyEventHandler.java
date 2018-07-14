@@ -17,9 +17,10 @@ public class PenaltyEventHandler {
 
     @SubscribeEvent
     public static void onJump(LivingEvent.LivingJumpEvent event) {
+
+        //This has to fun on clientside and serverside
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-
             //Whether the player can jump.
             if (!BWRegistry.PENALTY_HANDLERS.canJump(player)) {
                 event.getEntityLiving().motionX = 0;
@@ -32,6 +33,10 @@ public class PenaltyEventHandler {
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
+        //Don't run on client side
+        if (player.world.isRemote)
+            return;
+
         if (!PlayerHelper.isSurvival(player))
             return;
 
@@ -53,6 +58,7 @@ public class PenaltyEventHandler {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             if (!PlayerHelper.isSurvival(player)) {
+                //Remove the modifier when gamemode changes.
                 PlayerHelper.removeModifier(player, SharedMonsterAttributes.MOVEMENT_SPEED, PlayerHelper.PENALTY_SPEED_UUID);
                 return;
             }
@@ -62,6 +68,7 @@ public class PenaltyEventHandler {
             if (speed != 0) {
                 PlayerHelper.changeSpeed(player, "Penalty Speed Modifier", speed, PlayerHelper.PENALTY_SPEED_UUID);
             }
+
             //Pain
             if (BWRegistry.PENALTY_HANDLERS.inPain(player)) {
                 if (PlayerHelper.isMoving(player) && player.world.getWorldTime() % 60 == 0) {

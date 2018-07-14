@@ -1,6 +1,5 @@
 package betterwithmods.common.penalties;
 
-import com.google.common.collect.Comparators;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.player.EntityPlayer;
 
