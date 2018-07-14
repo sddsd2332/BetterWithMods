@@ -45,12 +45,14 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
         this.setTickRandomly(true);
         this.setHardness(3.5F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(TYPE, BlockMechMachines.EnumType.MILL).withProperty(ACTIVE, false));
+        this.setLightOpacity(255);
         this.useNeighborBrightness = true;
     }
 
     public static ItemStack getStack(EnumType type) {
         return new ItemStack(BWMBlocks.SINGLE_MACHINES, 1, type.getMeta());
     }
+
 
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
@@ -147,7 +149,6 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {
-
         return state.getValue(TYPE).getSolidity();
     }
 
@@ -160,7 +161,6 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
     public boolean isFullBlock(IBlockState state) {
         return state.getValue(TYPE).getSolidity();
     }
-
 
     @Override
     public boolean causesSuffocation(IBlockState state) {
@@ -324,6 +324,7 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
             default: return BlockFaceShape.SOLID;
         }
     }
+
 
     public enum EnumType implements IStringSerializable {
         MILL(0, "mill", true),
