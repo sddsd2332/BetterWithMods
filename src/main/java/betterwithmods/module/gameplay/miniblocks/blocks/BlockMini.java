@@ -189,7 +189,7 @@ public abstract class BlockMini extends BlockRotate implements IRenderRotationPl
         if (te instanceof TileMini) {
             drops.add(((TileMini) te).getPickBlock(null, null, state));
         } else {
-            super.getDrops(drops, world, pos, state, fortune);
+            throw new RuntimeException("No Tile Entity Found for " + state + " at " + pos + ", can't drop");
         }
     }
 
