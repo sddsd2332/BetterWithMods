@@ -1,5 +1,6 @@
 package betterwithmods.event;
 
+import betterwithmods.common.BWMItems;
 import betterwithmods.util.player.Profiles;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
@@ -14,10 +15,10 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class FakePlayerHandler {
-    private static FakePlayer player, creative;
+    private static FakePlayer player, creative, shoveler;
 
-    public static FakePlayer getCreativePlayer() {
-        return creative;
+    public static FakePlayer getShoveler() {
+        return shoveler;
     }
 
     public static FakePlayer getPlayer() {
@@ -41,8 +42,9 @@ public class FakePlayerHandler {
             sword.addEnchantment(Enchantment.getEnchantmentByLocation("looting"), 2);
             player.setHeldItem(EnumHand.MAIN_HAND, sword);
 
-            creative = FakePlayerFactory.get((WorldServer) evt.getWorld(), Profiles.BWMSAW_CREATIVE);
-            creative.capabilities.isCreativeMode = true;
+            shoveler = FakePlayerFactory.get((WorldServer) evt.getWorld(), Profiles.BWMSSHOVELER);
+            ItemStack shovel = new ItemStack(BWMItems.STEEL_MATTOCK);
+            shoveler.setHeldItem(EnumHand.MAIN_HAND, shovel);
         }
     }
 
