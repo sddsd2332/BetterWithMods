@@ -11,6 +11,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -57,13 +58,16 @@ public class MushroomFarming extends Feature {
         }
     }
 
-
-    @Override
-    public void init(FMLInitializationEvent event) {
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onBlockRecieps(RegistryEvent.Register<Block> event) {
         //attempt at fixing Blocks fields for subaliasing
         ReflectionHelper.setPrivateValue(Blocks.class, null, BROWN_MUSHROOM, "BROWN_MUSHROOM", "field_150338_P");
         ReflectionHelper.setPrivateValue(Blocks.class, null, RED_MUSHROOM, "RED_MUSHROOM", "field_150337_Q");
+    }
 
+
+    @Override
+    public void init(FMLInitializationEvent event) {
         Blocks.BROWN_MUSHROOM.setLightLevel(0);
     }
 
