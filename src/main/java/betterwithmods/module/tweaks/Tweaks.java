@@ -13,6 +13,7 @@ public class Tweaks extends Module {
         registerFeature(new CreeperShearing());
         registerFeature(new Dung());
         registerFeature(new EasyBreeding());
+        registerFeature(new MoreTempting());
         registerFeature(new EggDrops());
         registerFeature(new EquipmentDrop());
         registerFeature(new ImprovedFlee());

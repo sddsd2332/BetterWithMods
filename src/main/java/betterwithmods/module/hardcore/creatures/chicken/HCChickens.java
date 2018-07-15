@@ -1,12 +1,10 @@
 package betterwithmods.module.hardcore.creatures.chicken;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.entity.ai.AIFoodEggLayer;
 import betterwithmods.module.Feature;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -15,7 +13,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -52,14 +49,6 @@ public class HCChickens extends Feature {
     public void onAttachCap(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityChicken) {
             event.addCapability(EGG_LAYER, new EggLayer(new ItemStack(Items.EGG), SEEDS));
-        }
-    }
-
-    @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof EntityAnimal && event.getEntity().hasCapability(EGG_LAYER_CAP, EnumFacing.DOWN)) {
-            EntityAnimal animal = (EntityAnimal) event.getEntity();
-            animal.tasks.addTask(3, new AIFoodEggLayer(animal));
         }
     }
 
