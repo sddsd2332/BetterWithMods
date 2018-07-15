@@ -27,68 +27,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
-//TODO: Clean all of this up to work with any modded sheep with colored pelts?
 public class HCSheep extends Feature {
     public static final ResourceLocation NATURAL_COLOR = new ResourceLocation(BWMod.MODID, "natural_color");
     private static final HashMap<NaturalColorMix, EnumDyeColor> COLOR_MIX_TABLE = new HashMap<>();
     private static final ArrayList<EnumDyeColor> MUTATION_COLORS = new ArrayList<>();
-
-    private static int mutationChance = 500;
-
     @CapabilityInject(NaturalColor.class)
     public static Capability<NaturalColor> NATURAL_COLOR_CAP;
-
-    private static class NaturalColorMix {
-        final EnumDyeColor colorA;
-        final EnumDyeColor colorB;
-
-        public NaturalColorMix(EnumDyeColor colorA, EnumDyeColor colorB) {
-            this.colorA = colorA;
-            this.colorB = colorB;
-        }
-
-        @Override
-        public boolean equals(Object obj) {
-            if (obj instanceof NaturalColorMix)
-                return ((NaturalColorMix) obj).colorA.equals(colorA) && ((NaturalColorMix) obj).colorB.equals(colorB);
-
-            return false;
-        }
-
-        @Override
-        public int hashCode() {
-            return colorA.getMetadata() | colorB.getMetadata() << 4; //Unlikely that EnumDyeColor will ever change
-        }
-    }
-
-    public static class NaturalColor implements ICapabilitySerializable<NBTTagCompound> {
-        public EnumDyeColor color = EnumDyeColor.WHITE;
-
-        @Override
-        public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-            return capability == NATURAL_COLOR_CAP;
-        }
-
-        @Nullable
-        @Override
-        public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-            if (capability == NATURAL_COLOR_CAP)
-                return NATURAL_COLOR_CAP.cast(this);
-            return null;
-        }
-
-        @Override
-        public NBTTagCompound serializeNBT() {
-            NBTTagCompound nbt = new NBTTagCompound();
-            nbt.setInteger("NaturalColor", color.getMetadata());
-            return nbt;
-        }
-
-        @Override
-        public void deserializeNBT(NBTTagCompound nbt) {
-            color = EnumDyeColor.byMetadata(nbt.getInteger("NaturalColor"));
-        }
-    }
+    private static int mutationChance = 500;
 
     public static void addMutation(EnumDyeColor color) {
         MUTATION_COLORS.add(color);
@@ -262,56 +207,55 @@ public class HCSheep extends Feature {
         }
     }
 
-    /*@SubscribeEvent
-    public void sheepShearEvent(PlayerInteractEvent.EntityInteractSpecific event)
-    {
-        //TODO: this is unbearable
-        World world = event.getBlockWorld();
-        BlockPos pos = event.getEntity().getPosition();
-        ItemStack tool = event.getItemStack();
-        EntityPlayer player = event.getEntityPlayer();
-        if(!world.isRemote && event.getTarget() instanceof EntitySheep && tool.getItem() instanceof ItemShears)
-        {
-            EntitySheep sheep = (EntitySheep) event.getTarget();
+    private static class NaturalColorMix {
+        final EnumDyeColor colorA;
+        final EnumDyeColor colorB;
 
-            if(!sheep.isShearable(tool,world,pos))
-                return;
+        public NaturalColorMix(EnumDyeColor colorA, EnumDyeColor colorB) {
+            this.colorA = colorA;
+            this.colorB = colorB;
+        }
 
-            List<ItemStack> drops = sheep.onSheared(tool,world,pos, EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE,tool));
+        @Override
+        public boolean equals(Object obj) {
+            if (obj instanceof NaturalColorMix)
+                return ((NaturalColorMix) obj).colorA.equals(colorA) && ((NaturalColorMix) obj).colorB.equals(colorB);
 
-            java.util.Random rand = new java.util.Random();
-            for(ItemStack stack : drops)
-            {
-                ItemStack realstack = stack;
-                if(stack.getItem() == Item.getItemFromBlock(Blocks.WOOL))
-                    realstack = new ItemStack(BWMItems.WOOL,stack.getCount(),stack.getMetadata());
-                net.minecraft.entity.item.EntityItem ent = sheep.entityDropItem(realstack, 1.0F);
-                ent.motionY += rand.nextFloat() * 0.05F;
-                ent.motionX += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-                ent.motionZ += (rand.nextFloat() - rand.nextFloat()) * 0.1F;
-            }
-            tool.damageItem(1, player);
+            return false;
+        }
 
-            sheep.setFleeceColor(getNaturalColor(sheep));
-
-            event.setCanceled(true);
-            event.setCancellationResult(EnumActionResult.SUCCESS);
+        @Override
+        public int hashCode() {
+            return colorA.getMetadata() | colorB.getMetadata() << 4; //Unlikely that EnumDyeColor will ever change
         }
     }
 
-    @SubscribeEvent
-    public void sheepDropEvent(LivingDropsEvent event)
-    {
-        Entity entity = event.getEntity();
-        World world = entity.world;
+    public static class NaturalColor implements ICapabilitySerializable<NBTTagCompound> {
+        public EnumDyeColor color = EnumDyeColor.WHITE;
 
-        if(entity instanceof EntitySheep && !world.isRemote)
-        {
-            for (EntityItem item : event.getDrops()) {
-                ItemStack stack = item.getItem();
-                if(stack.getItem() == Item.getItemFromBlock(Blocks.WOOL))
-                    item.setItem(new ItemStack(BWMItems.WOOL,stack.getCount(),stack.getMetadata()));
-            }
+        @Override
+        public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
+            return capability == NATURAL_COLOR_CAP;
         }
-    }*/
+
+        @Nullable
+        @Override
+        public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
+            if (capability == NATURAL_COLOR_CAP)
+                return NATURAL_COLOR_CAP.cast(this);
+            return null;
+        }
+
+        @Override
+        public NBTTagCompound serializeNBT() {
+            NBTTagCompound nbt = new NBTTagCompound();
+            nbt.setInteger("NaturalColor", color.getMetadata());
+            return nbt;
+        }
+
+        @Override
+        public void deserializeNBT(NBTTagCompound nbt) {
+            color = EnumDyeColor.byMetadata(nbt.getInteger("NaturalColor"));
+        }
+    }
 }
