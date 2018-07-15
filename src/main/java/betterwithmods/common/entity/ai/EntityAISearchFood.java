@@ -16,8 +16,8 @@ public class EntityAISearchFood extends EntityAIBase {
     private EntityItem targetItem;
     private int timeoutCounter;
 
-    private double findRadius = 5;
-    private double eatRadius = 2;
+    private double findRadius = 7;
+    private double eatRadius = 5;
 
     public EntityAISearchFood(EntityAnimal creature) {
         this.entity = creature;
