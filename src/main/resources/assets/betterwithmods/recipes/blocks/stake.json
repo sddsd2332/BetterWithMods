@@ -9,8 +9,8 @@
   "type": "forge:ore_shaped",
   "key": {
     "S": {
-      "ore":"string",
-      "type":"forge:ore_dict"
+      "ore": "string",
+      "type": "forge:ore_dict"
     },
     "M": {
       "item": "#MOULDING_WOOD"

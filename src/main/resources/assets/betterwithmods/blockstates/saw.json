@@ -1,4 +1,4 @@
-  {
+{
   "forge_marker": 1,
   "defaults": {
     "textures": {
@@ -30,7 +30,6 @@
       "north": {
         "x": 270,
         "y": 180
-
       },
       "south": {
         "x": 270

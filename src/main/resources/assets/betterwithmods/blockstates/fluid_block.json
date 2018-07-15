@@ -4,11 +4,19 @@
     "model": "forge:fluid"
   },
   "variants": {
-    "hellfire": [{
-      "custom": { "fluid": "hellfire" }
-    }],
-    "soulforged_steel": [{
-      "custom": { "fluid": "soulforged_steel" }
-    }]
+    "hellfire": [
+      {
+        "custom": {
+          "fluid": "hellfire"
+        }
+      }
+    ],
+    "soulforged_steel": [
+      {
+        "custom": {
+          "fluid": "soulforged_steel"
+        }
+      }
+    ]
   }
 }

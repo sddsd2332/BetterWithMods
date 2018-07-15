@@ -8,8 +8,14 @@
     "model": "betterwithmods:stoked_flame"
   },
   "variants": {
-    "normal": [{}],
-    "inventory": [{ "transform": "forge:default-block" }],
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block"
+      }
+    ],
     "age": {
       "0": {},
       "1": {},

@@ -16,8 +16,8 @@
       "item": "minecraft:mutton"
     },
     {
-	  "type": "forge:ore_dict",
-	  "ore": "stickWood"
-	}
+      "type": "forge:ore_dict",
+      "ore": "stickWood"
+    }
   ]
 }

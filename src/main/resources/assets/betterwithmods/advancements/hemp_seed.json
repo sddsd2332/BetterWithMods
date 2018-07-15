@@ -23,7 +23,9 @@
       }
     }
   },
-  "requirements": [[
-    "has_items"
-  ]]
+  "requirements": [
+    [
+      "has_items"
+    ]
+  ]
 }
