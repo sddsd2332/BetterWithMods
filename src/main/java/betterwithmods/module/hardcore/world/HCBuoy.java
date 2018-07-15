@@ -69,7 +69,7 @@ public class HCBuoy extends CompatFeature {
 //        buoyancy.put(BWMItems.STUMP_REMOVER, 1.0F);
 //        buoyancy.put(BWMItems.CREEPER_OYSTER, 1.0F);
 //        buoyancy.put(BWMItems.DONUT, 1.0F);
-
+        //buoyancy.put(BWMItems.ARCANE_SCROLL, 1.0F);
 
     }
 

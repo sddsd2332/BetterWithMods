@@ -123,7 +123,6 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
             case SOULSAND:
                 break;
             case FERTILE:
-                break;
             case FARMLAND:
                 if (itemType == FERTILE) {
                     if (world.isRemote)

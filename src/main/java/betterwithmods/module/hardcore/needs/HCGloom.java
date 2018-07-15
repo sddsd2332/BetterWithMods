@@ -26,6 +26,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -132,10 +133,13 @@ public class HCGloom extends Feature {
         if (!PlayerHelper.isSurvival(player) || !dimensionWhitelist.contains(world.provider.getDimension()))
             return;
 
+
         if (e.player instanceof EntityPlayerMP) {
             EntityPlayerMP playermp = (EntityPlayerMP) player;
+
             if (!world.isRemote) {
-                int light = world.getLight(playermp.getPosition().up());
+                BlockPos head = playermp.getPosition().up();
+                int light = world.getLight(head, true);
                 int tick = getGloomTime(playermp);
                 if (PlayerHelper.isHolding(playermp, gloomOverrideItems))
                     light = 15;
@@ -173,9 +177,8 @@ public class HCGloom extends Feature {
                 }
             }
         }
-
-
     }
+
 
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent event) {

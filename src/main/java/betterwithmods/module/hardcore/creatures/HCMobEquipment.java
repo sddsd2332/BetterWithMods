@@ -27,9 +27,9 @@ public class HCMobEquipment extends CompatFeature {
         enabledByDefault = false;
     }
 
-    private static void pigman(EntityLivingBase entity ) {
+    private static void pigman(EntityLivingBase entity) {
         if (entity.getRNG().nextFloat() < 0.05F) {
-                entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
+            entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.GOLDEN_SWORD));
         }
         armor(entity, GOLD_ARMOR);
     }
@@ -39,7 +39,12 @@ public class HCMobEquipment extends CompatFeature {
         entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.BOW));
     }
 
-    private static void zombie(EntityLivingBase entity ) {
+    private static void witherSkeleton(EntityLivingBase entity) {
+        entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
+    }
+
+
+    private static void zombie(EntityLivingBase entity) {
         armor(entity, IRON_ARMOR);
         if (entity.getRNG().nextFloat() < 0.05F) {
             int i = entity.getRNG().nextInt(3);
@@ -75,11 +80,12 @@ public class HCMobEquipment extends CompatFeature {
         addEquipmentOverride(new ResourceLocation("minecraft:husk"), HCMobEquipment::zombie);
         addEquipmentOverride(new ResourceLocation("minecraft:skeleton"), HCMobEquipment::skeleton);
         addEquipmentOverride(new ResourceLocation("minecraft:zombie_pigman"), HCMobEquipment::pigman);
+        addEquipmentOverride(new ResourceLocation("minecraft:wither_skeleton"), HCMobEquipment::witherSkeleton);
     }
 
     public void addEquipmentOverride(ResourceLocation mob, Equipment equipment) {
-        if(loadPropBool("Override Equipment for " + mob.toString(), "", true)) {
-            entityMap.put(mob,equipment);
+        if (loadPropBool("Override Equipment for " + mob.toString(), "", true)) {
+            entityMap.put(mob, equipment);
         }
     }
 
@@ -94,20 +100,19 @@ public class HCMobEquipment extends CompatFeature {
             equipment.equip(entity);
         }
     }
-    
+
     @Override
     public String getFeatureDescription() {
         return "Change the equipment that mobs spawn with";
     }
 
+    @Override
+    public boolean hasSubscriptions() {
+        return true;
+    }
 
     @FunctionalInterface
     private interface Equipment {
         void equip(EntityLivingBase entity);
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 }

@@ -1,5 +1,6 @@
 package betterwithmods.common.entity;
 
+import betterwithmods.event.FakePlayerHandler;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -41,6 +42,9 @@ public class EntityMiningCharge extends Entity {
     private final HashMap<Block, IBlockState> dropMap = new HashMap<Block, IBlockState>() {{
         put(Blocks.COBBLESTONE, Blocks.GRAVEL.getDefaultState());
         put(Blocks.GRAVEL, Blocks.SAND.getDefaultState());
+        put(Blocks.GRASS, Blocks.DIRT.getDefaultState());
+        put(Blocks.DIRT, Blocks.DIRT.getDefaultState());
+        put(Blocks.SAND, Blocks.SAND.getDefaultState());
     }};
 
     public EntityMiningCharge(World worldIn) {
@@ -144,17 +148,15 @@ public class EntityMiningCharge extends Entity {
         entities.forEach(entity -> entity.attackEntityFrom(DamageSource.causeExplosionDamage(igniter), 45f));
     }
 
+
     private void explodeBlock(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
         float resistance = state.getBlock().getExplosionResistance(world, pos, null, null);
         if (resistance < 100) {
             Explosion explosion = new Explosion(world, igniter, posX, posY, posZ, 0, false, false);
             if (state.getBlock().canDropFromExplosion(explosion)) {
-                if (dropMap.containsKey(state.getBlock())) {
-                    IBlockState drop = dropMap.get(state.getBlock());
-                    drop.getBlock().dropBlockAsItem(world, pos, drop, 0);
-                } else
-                    state.getBlock().dropBlockAsItem(world, pos, state, 0);
+                IBlockState drop = dropMap.getOrDefault(state.getBlock(), state);
+                drop.getBlock().harvestBlock(world, FakePlayerHandler.getShoveler(), pos, drop, null, FakePlayerHandler.getShoveler().getHeldItemMainhand());
             }
             state.getBlock().onBlockExploded(world, pos, explosion);
             world.setBlockToAir(pos);

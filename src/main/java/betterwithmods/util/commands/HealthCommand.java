@@ -30,7 +30,7 @@ public class HealthCommand extends CommandBase {
     public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) {
         if (sender instanceof EntityPlayer) {
             if (args.length > 0) {
-                int health = Integer.parseInt(args[0]);
+                float health = Float.parseFloat(args[0]);
                 ((EntityPlayer) sender).setHealth(health);
             }
         }

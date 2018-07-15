@@ -34,7 +34,7 @@ public class Tweaks extends Module {
         registerFeature(new DarkQuartz());
         registerFeature(new CactusSkeleton());
         registerFeature(new BatWings());
-        registerFeature(new MushroomFarming());
+//        registerFeature(new MushroomFarming());
         registerFeature(new FoodPoisoning());
         registerFeature(new Notes());
         registerFeature(new MineshaftGeneration());
