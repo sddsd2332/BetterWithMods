@@ -16,6 +16,8 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import java.util.HashSet;
 
@@ -28,7 +30,10 @@ public class MushroomFarming extends Feature {
     public static int MAX_LIGHT_LEVEL_MISC;
     public static HashSet<String> MISC_MUSHROOMS;
 
+    @GameRegistry.ObjectHolder("minecraft:red_mushroom")
     public static Block RED_MUSHROOM;
+
+    @GameRegistry.ObjectHolder("minecraft:brown_mushroom")
     public static Block BROWN_MUSHROOM;
 
     @Override
@@ -52,8 +57,13 @@ public class MushroomFarming extends Feature {
         }
     }
 
+
     @Override
     public void init(FMLInitializationEvent event) {
+        //attempt at fixing Blocks fields for subaliasing
+        ReflectionHelper.setPrivateValue(Blocks.class, null, BROWN_MUSHROOM, "BROWN_MUSHROOM", "field_150338_P");
+        ReflectionHelper.setPrivateValue(Blocks.class, null, RED_MUSHROOM, "RED_MUSHROOM", "field_150337_Q");
+
         Blocks.BROWN_MUSHROOM.setLightLevel(0);
     }
 
