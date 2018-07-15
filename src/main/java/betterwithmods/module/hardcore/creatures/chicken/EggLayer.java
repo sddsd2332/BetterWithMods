@@ -65,13 +65,9 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
         return feedItems;
     }
 
-    public boolean isBreedingItem(ItemStack stack) {
-        return getFeedItems().apply(stack);
-    }
-
     public void feed(EntityLiving entity, ItemStack stack) {
         if (!isFeed()) {
-            if (isBreedingItem(stack)) {
+            if (getFeedItems().apply(stack)) {
                 setFeed(true);
                 World world = entity.world;
 
