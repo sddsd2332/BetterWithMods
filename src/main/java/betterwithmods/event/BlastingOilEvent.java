@@ -39,7 +39,7 @@ public class BlastingOilEvent {
         if(Gameplay.blacklistDamageSources.contains(e.getSource().damageType))
             return;
 
-        DamageSource BLAST_OIL = new DamageSource("blastingoil");
+        DamageSource BLAST_OIL = new DamageSource("blasting_oil");
         EntityLivingBase living = e.getEntityLiving();
         if (living.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
             IItemHandler inventory = living.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
