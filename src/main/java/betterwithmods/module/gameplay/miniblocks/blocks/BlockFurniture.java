@@ -1,7 +1,7 @@
 package betterwithmods.module.gameplay.miniblocks.blocks;
 
 import betterwithmods.common.blocks.camo.BlockCamo;
-import betterwithmods.common.blocks.camo.TileCamo;
+import betterwithmods.common.tile.TileCamo;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;

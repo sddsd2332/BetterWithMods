@@ -1,7 +1,7 @@
 package betterwithmods.module.gameplay.miniblocks;
 
 import betterwithmods.common.blocks.camo.BlockCamo;
-import betterwithmods.common.blocks.camo.TileCamo;
+import betterwithmods.common.tile.TileCamo;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

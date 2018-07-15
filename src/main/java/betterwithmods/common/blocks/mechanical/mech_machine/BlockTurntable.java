@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical.mech_machine;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.blocks.mechanical.tile.TileTurntable;
+import betterwithmods.common.tile.TileTurntable;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;

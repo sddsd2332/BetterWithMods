@@ -1,7 +1,7 @@
 package betterwithmods.module.gameplay;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.tile.TileWaterwheel;
+import betterwithmods.common.tile.TileWaterwheel;
 import betterwithmods.module.Module;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;

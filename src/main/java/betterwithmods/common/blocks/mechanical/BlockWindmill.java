@@ -1,8 +1,8 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.IColor;
-import betterwithmods.common.blocks.mechanical.tile.TileWindmillHorizontal;
-import betterwithmods.common.blocks.mechanical.tile.TileWindmillVertical;
+import betterwithmods.common.tile.TileWindmillHorizontal;
+import betterwithmods.common.tile.TileWindmillVertical;
 import betterwithmods.util.ColorUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

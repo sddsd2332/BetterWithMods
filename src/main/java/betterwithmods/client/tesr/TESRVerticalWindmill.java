@@ -5,7 +5,7 @@ import betterwithmods.client.model.ModelVerticalFrame;
 import betterwithmods.client.model.ModelVerticalSails;
 import betterwithmods.client.model.ModelVerticalShafts;
 import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.blocks.mechanical.tile.TileWindmillVertical;
+import betterwithmods.common.tile.TileWindmillVertical;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

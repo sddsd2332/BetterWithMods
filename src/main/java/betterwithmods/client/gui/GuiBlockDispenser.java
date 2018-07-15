@@ -2,7 +2,7 @@ package betterwithmods.client.gui;
 
 import betterwithmods.BWMod;
 import betterwithmods.client.container.other.ContainerBlockDispenser;
-import betterwithmods.common.blocks.tile.TileBlockDispenser;
+import betterwithmods.common.tile.TileBlockDispenser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 

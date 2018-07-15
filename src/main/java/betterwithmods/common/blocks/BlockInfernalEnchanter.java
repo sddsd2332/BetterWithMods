@@ -2,7 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.BWMod;
 import betterwithmods.client.BWGuiHandler;
-import betterwithmods.common.blocks.tile.TileInfernalEnchanter;
+import betterwithmods.common.tile.TileInfernalEnchanter;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;

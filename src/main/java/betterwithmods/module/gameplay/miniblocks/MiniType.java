@@ -2,7 +2,7 @@ package betterwithmods.module.gameplay.miniblocks;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.blocks.camo.BlockCamo;
-import betterwithmods.common.blocks.camo.TileCamo;
+import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.gameplay.miniblocks.blocks.*;
 import betterwithmods.module.gameplay.miniblocks.tiles.*;
 import net.minecraft.item.ItemStack;

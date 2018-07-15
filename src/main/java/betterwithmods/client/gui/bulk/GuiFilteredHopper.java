@@ -3,7 +3,7 @@ package betterwithmods.client.gui.bulk;
 import betterwithmods.BWMod;
 import betterwithmods.client.container.bulk.ContainerFilteredHopper;
 import betterwithmods.client.gui.GuiProgress;
-import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
+import betterwithmods.common.tile.TileFilteredHopper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 

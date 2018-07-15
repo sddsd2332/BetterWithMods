@@ -4,7 +4,7 @@ import betterwithmods.api.block.IOverpower;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.blocks.BWMBlock;
-import betterwithmods.common.blocks.mechanical.tile.TileAxle;
+import betterwithmods.common.tile.TileAxle;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;

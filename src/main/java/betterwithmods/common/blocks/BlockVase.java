@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.tile.TileVase;
+import betterwithmods.common.tile.TileVase;
 import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.ColorUtils;
 import betterwithmods.util.InvUtils;

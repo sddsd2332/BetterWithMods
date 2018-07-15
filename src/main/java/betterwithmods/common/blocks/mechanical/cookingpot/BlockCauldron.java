@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks.mechanical.cookingpot;
 
-import betterwithmods.common.blocks.mechanical.tile.TileCauldron;
+import betterwithmods.common.tile.TileCauldron;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;

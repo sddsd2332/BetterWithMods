@@ -3,7 +3,7 @@ package betterwithmods.client.tesr;
 import betterwithmods.BWMod;
 import betterwithmods.client.model.ModelWaterwheel;
 import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.blocks.mechanical.tile.TileWaterwheel;
+import betterwithmods.common.tile.TileWaterwheel;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;

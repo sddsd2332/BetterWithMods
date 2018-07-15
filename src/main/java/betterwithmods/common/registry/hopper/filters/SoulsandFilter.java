@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.hopper.filters;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
+import betterwithmods.common.tile.TileFilteredHopper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.item.crafting.Ingredient;

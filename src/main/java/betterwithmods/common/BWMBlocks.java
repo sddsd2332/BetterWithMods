@@ -11,10 +11,9 @@ import betterwithmods.common.blocks.mechanical.mech_machine.BlockFilteredHopper;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMillstone;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockTurntable;
-import betterwithmods.common.blocks.mechanical.tile.*;
-import betterwithmods.common.blocks.tile.*;
-import betterwithmods.common.items.*;
+import betterwithmods.common.items.itemblocks.*;
 import betterwithmods.common.registry.KilnStructureManager;
+import betterwithmods.common.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.MapColor;
@@ -203,7 +202,6 @@ public final class BWMBlocks {
     }
 
     public static void registerTileEntities() {
-        //TODO resourceloations
         GameRegistry.registerTileEntity(TileMill.class, new ResourceLocation(BWMod.MODID, "millstone"));
         GameRegistry.registerTileEntity(TilePulley.class, new ResourceLocation(BWMod.MODID, "pulley"));
         GameRegistry.registerTileEntity(TileFilteredHopper.class, new ResourceLocation(BWMod.MODID, "hopper"));

@@ -1,7 +1,7 @@
 package betterwithmods.common.entity;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.tile.TilePulley;
+import betterwithmods.common.tile.TilePulley;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.AABBArray;
 import com.google.common.collect.Maps;

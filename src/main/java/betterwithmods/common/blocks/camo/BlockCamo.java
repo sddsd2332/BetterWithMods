@@ -3,6 +3,7 @@ package betterwithmods.common.blocks.camo;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;

@@ -1,6 +1,6 @@
 package betterwithmods.client.tesr;
 
-import betterwithmods.common.blocks.tile.TileBeacon;
+import betterwithmods.common.tile.TileBeacon;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;

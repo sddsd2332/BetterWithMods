@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical.mech_machine;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.blocks.mechanical.tile.TilePulley;
+import betterwithmods.common.tile.TilePulley;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;

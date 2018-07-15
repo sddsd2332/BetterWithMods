@@ -1,6 +1,6 @@
 package betterwithmods.client.container.anvil;
 
-import betterwithmods.common.blocks.tile.TileSteelAnvil;
+import betterwithmods.common.tile.TileSteelAnvil;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.InventoryCraftResult;
 import net.minecraft.item.ItemStack;

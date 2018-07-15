@@ -1,6 +1,6 @@
 package betterwithmods.module.gameplay.miniblocks.tiles;
 
-import betterwithmods.common.blocks.camo.TileCamo;
+import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.gameplay.miniblocks.blocks.BlockMini;
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
 import net.minecraft.block.state.IBlockState;

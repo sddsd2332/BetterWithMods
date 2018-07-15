@@ -1,7 +1,7 @@
 package betterwithmods.client.container.inventory;
 
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.tile.TileSteelAnvil;
+import betterwithmods.common.tile.TileSteelAnvil;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraftforge.items.ItemStackHandler;
 

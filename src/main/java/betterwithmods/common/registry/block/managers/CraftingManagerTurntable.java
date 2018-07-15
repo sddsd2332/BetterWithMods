@@ -1,9 +1,9 @@
 package betterwithmods.common.registry.block.managers;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.blocks.mechanical.tile.TileTurntable;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
+import betterwithmods.common.tile.TileTurntable;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;

@@ -4,7 +4,7 @@ import betterwithmods.api.block.IOverpower;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BWMBlock;
-import betterwithmods.common.blocks.mechanical.tile.TilePump;
+import betterwithmods.common.tile.TilePump;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;

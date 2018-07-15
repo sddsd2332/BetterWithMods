@@ -1,7 +1,7 @@
 package betterwithmods.client.container.anvil;
 
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.tile.TileSteelAnvil;
+import betterwithmods.common.tile.TileSteelAnvil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;

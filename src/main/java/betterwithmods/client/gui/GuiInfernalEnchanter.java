@@ -2,7 +2,7 @@ package betterwithmods.client.gui;
 
 import betterwithmods.BWMod;
 import betterwithmods.client.container.other.ContainerInfernalEnchanter;
-import betterwithmods.common.blocks.tile.TileInfernalEnchanter;
+import betterwithmods.common.tile.TileInfernalEnchanter;
 import com.google.common.collect.Maps;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;

@@ -2,7 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.BWMod;
 import betterwithmods.client.BWCreativeTabs;
-import betterwithmods.common.blocks.tile.TileSteelAnvil;
+import betterwithmods.common.tile.TileSteelAnvil;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

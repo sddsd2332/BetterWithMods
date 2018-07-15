@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks.mechanical.cookingpot;
 
-import betterwithmods.common.blocks.mechanical.tile.TileCrucible;
+import betterwithmods.common.tile.TileCrucible;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;

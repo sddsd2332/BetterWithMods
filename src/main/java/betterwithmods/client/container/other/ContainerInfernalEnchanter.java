@@ -1,10 +1,10 @@
 package betterwithmods.client.container.other;
 
 import betterwithmods.common.advancements.BWAdvancements;
-import betterwithmods.common.blocks.tile.FilteredStackHandler;
-import betterwithmods.common.blocks.tile.SimpleStackHandler;
-import betterwithmods.common.blocks.tile.TileInfernalEnchanter;
 import betterwithmods.common.items.ItemArcaneScroll;
+import betterwithmods.common.tile.FilteredStackHandler;
+import betterwithmods.common.tile.SimpleStackHandler;
+import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.util.InfernalEnchantment;
 import betterwithmods.util.InvUtils;
 import net.minecraft.enchantment.Enchantment;

@@ -1,11 +1,11 @@
 package betterwithmods.common.registry.hopper.manager;
 
 
-import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
 import betterwithmods.common.registry.base.CraftingManagerBase;
 import betterwithmods.common.registry.hopper.recipes.DummySoulUrnRecipe;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
 import betterwithmods.common.registry.hopper.recipes.SoulUrnRecipe;
+import betterwithmods.common.tile.TileFilteredHopper;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 

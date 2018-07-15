@@ -1,7 +1,7 @@
 package betterwithmods.client.tesr;
 
 import betterwithmods.client.model.render.FluidRenderUtils;
-import betterwithmods.common.blocks.tile.TileFluid;
+import betterwithmods.common.tile.TileFluid;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fluids.FluidStack;
