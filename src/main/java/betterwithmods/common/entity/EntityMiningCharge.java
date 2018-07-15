@@ -156,7 +156,7 @@ public class EntityMiningCharge extends Entity {
             Explosion explosion = new Explosion(world, igniter, posX, posY, posZ, 0, false, false);
             if (state.getBlock().canDropFromExplosion(explosion)) {
                 IBlockState drop = dropMap.getOrDefault(state.getBlock(), state);
-                drop.getBlock().harvestBlock(world, FakePlayerHandler.getShoveler(), pos, drop, null, FakePlayerHandler.getShoveler().getHeldItemMainhand());
+                drop.getBlock().harvestBlock(world, FakePlayerHandler.getShovel(), pos, drop, null, FakePlayerHandler.getShovel().getHeldItemMainhand());
             }
             state.getBlock().onBlockExploded(world, pos, explosion);
             world.setBlockToAir(pos);

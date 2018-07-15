@@ -53,7 +53,7 @@ public class KilnRecipe extends BlockRecipe implements IHeatRecipe {
     @Override
     public boolean craftRecipe(World world, BlockPos pos, Random rand, IBlockState state) {
         InvUtils.ejectStackWithOffset(world, pos, onCraft(world, pos));
-        state.getBlock().onBlockHarvested(world, pos, state, FakePlayerHandler.getPlayer());
+        state.getBlock().onBlockHarvested(world, pos, state, FakePlayerHandler.getSword());
         world.setBlockState(pos, Blocks.AIR.getDefaultState(), world.isRemote ? 11 : 3);
         return true;
     }

@@ -28,16 +28,16 @@ public class BWDamageSource extends DamageSource {
     public static FakeDamageSource getSawDamage() {
         if (saw != null)
             return saw;
-        if (FakePlayerHandler.getPlayer() != null)
-            return saw = new FakeDamageSource("saw", FakePlayerHandler.getPlayer());
+        if (FakePlayerHandler.getSword() != null)
+            return saw = new FakeDamageSource("saw", FakePlayerHandler.getSword());
         return null;
     }
 
     public static FakeDamageSource getChoppingBlockDamage() {
         if (choppingBlock != null)
             return choppingBlock;
-        if (FakePlayerHandler.getPlayer() != null)
-            return choppingBlock = new FakeDamageSource("chopping_block", FakePlayerHandler.getPlayer());
+        if (FakePlayerHandler.getSword() != null)
+            return choppingBlock = new FakeDamageSource("chopping_block", FakePlayerHandler.getSword());
         return null;
     }
 

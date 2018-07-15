@@ -65,7 +65,7 @@ public class TurntableRecipe extends BlockRecipe {
         TileTurntable turntable = CraftingManagerTurntable.findTurntable(world, pos);
         if (turntable != null && turntable.getPotteryRotation() >= getRotations()) {
             InvUtils.ejectStackWithOffset(world, pos, onCraft(world, pos));
-            state.getBlock().onBlockHarvested(world, pos, state, FakePlayerHandler.getPlayer());
+            state.getBlock().onBlockHarvested(world, pos, state, FakePlayerHandler.getSword());
             world.setBlockState(pos, getProductState(), world.isRemote ? 11 : 3);
             return true;
         }

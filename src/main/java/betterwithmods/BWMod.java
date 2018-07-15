@@ -109,8 +109,7 @@ public class BWMod {
 
     @Mod.EventHandler
     public void serverStopping(FMLServerStoppingEvent evt) {
-        FakePlayerHandler.setPlayer(null);
-        FakePlayerHandler.setCreativePlayer(null);
+        FakePlayerHandler.reset();
     }
 
 }

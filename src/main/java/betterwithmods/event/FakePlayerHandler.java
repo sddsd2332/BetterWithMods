@@ -12,50 +12,43 @@ import net.minecraftforge.common.util.FakePlayerFactory;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
 @Mod.EventBusSubscriber
 public class FakePlayerHandler {
-    private static FakePlayer player, creative, shoveler;
+    @GameRegistry.ObjectHolder("minecraft:looting")
+    public static final Enchantment looting = null;
+    private static FakePlayer sword, shovel;
 
-    public static FakePlayer getShoveler() {
-        return shoveler;
+    public static FakePlayer getShovel() {
+        return shovel;
     }
 
-    public static FakePlayer getPlayer() {
-        return player;
+    public static FakePlayer getSword() {
+        return sword;
     }
 
-    public static void setPlayer(FakePlayer player) {
-        FakePlayerHandler.player = player;
+    public static void reset() {
+        sword = null;
+        shovel = null;
     }
 
-    public static void setCreativePlayer(FakePlayer creative) {
-        FakePlayerHandler.creative = creative;
-    }
-
-    //Initializing a static fake player for saws, so spawn isn't flooded with player equipping sounds when mobs hit the saw.
+    //Initializing a static fake sword for saws, so spawn isn't flooded with sword equipping sounds when mobs hit the saw.
+    @SuppressWarnings("ConstantConditions")
     @SubscribeEvent
     public static void onWorldLoad(WorldEvent.Load evt) {
         if (evt.getWorld() instanceof WorldServer) {
-            player = FakePlayerFactory.get((WorldServer) evt.getWorld(), Profiles.BWMSAW);
+            //Use for the saw
+            sword = FakePlayerFactory.get((WorldServer) evt.getWorld(), Profiles.BWMSAW);
             ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
-            sword.addEnchantment(Enchantment.getEnchantmentByLocation("looting"), 2);
-            player.setHeldItem(EnumHand.MAIN_HAND, sword);
+            sword.addEnchantment(looting, 2);
+            FakePlayerHandler.sword.setHeldItem(EnumHand.MAIN_HAND, sword);
 
-            shoveler = FakePlayerFactory.get((WorldServer) evt.getWorld(), Profiles.BWMSSHOVELER);
+
+            //Used by mining charges to overcome HCPiles
+            shovel = FakePlayerFactory.get((WorldServer) evt.getWorld(), Profiles.BWMSSHOVELER);
             ItemStack shovel = new ItemStack(BWMItems.STEEL_MATTOCK);
-            shoveler.setHeldItem(EnumHand.MAIN_HAND, shovel);
+            FakePlayerHandler.shovel.setHeldItem(EnumHand.MAIN_HAND, shovel);
         }
-    }
-
-    //Not sure if this would be needed, but can't be too safe.
-    @SubscribeEvent
-    public static void onWorldUnload(WorldEvent.Unload evt) {
-//        if (evt.getWorld() instanceof WorldServer) {
-//            if (player != null) {
-//                player.setHeldItem(EnumHand.MAIN_HAND, ItemStack.EMPTY);
-//                player = null;
-//            }
-//        }
     }
 }
