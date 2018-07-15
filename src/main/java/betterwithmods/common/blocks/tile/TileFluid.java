@@ -15,14 +15,14 @@ import javax.annotation.Nullable;
 public abstract class TileFluid extends TileBasic {
     protected FluidTank tank;
 
+    public TileFluid() {
+        this.tank = createTank();
+    }
+
     public FluidTank createTank() {
         FluidTank tank = new FluidTank(getCapacity());
         tank.setTileEntity(this);
         return tank;
-    }
-
-    public TileFluid() {
-        this.tank = createTank();
     }
 
     public FluidTank getTank() {

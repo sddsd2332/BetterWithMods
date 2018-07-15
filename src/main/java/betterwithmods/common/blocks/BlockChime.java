@@ -31,22 +31,9 @@ import java.util.Set;
 
 public class BlockChime extends BWMBlock {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
-    private static final AxisAlignedBB CHIME_AABB = new AxisAlignedBB(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.875D, 0.6875D);
-
     public static final Set<Block> BLOCKS = Sets.newHashSet();
-
-    public static void init() {
-        for (BlockPlanks.EnumType type : BlockPlanks.EnumType.values()) {
-            BLOCKS.add(new BlockChime(type, Material.WOOD));
-            BLOCKS.add(new BlockChime(type, Material.IRON));
-        }
-    }
-
+    private static final AxisAlignedBB CHIME_AABB = new AxisAlignedBB(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.875D, 0.6875D);
     private SoundEvent chimeSound;
-
-    private void setChimeSound(SoundEvent chimeSound) {
-        this.chimeSound = chimeSound;
-    }
 
     private BlockChime(BlockPlanks.EnumType type, Material material) {
         super(material);
@@ -55,6 +42,17 @@ public class BlockChime extends BWMBlock {
         this.setSoundType(SoundType.WOOD);
         this.setRegistryName((material == Material.WOOD ? "bamboo" : "metal") + "_chime_" + type.getName());
         this.setChimeSound(material == Material.IRON ? BWSounds.METALCHIME : BWSounds.WOODCHIME);
+    }
+
+    public static void init() {
+        for (BlockPlanks.EnumType type : BlockPlanks.EnumType.values()) {
+            BLOCKS.add(new BlockChime(type, Material.WOOD));
+            BLOCKS.add(new BlockChime(type, Material.IRON));
+        }
+    }
+
+    private void setChimeSound(SoundEvent chimeSound) {
+        this.chimeSound = chimeSound;
     }
 
     @Override

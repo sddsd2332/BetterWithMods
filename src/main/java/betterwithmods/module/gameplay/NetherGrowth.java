@@ -24,7 +24,7 @@ public class NetherGrowth extends Feature {
                 StackIngredient.fromStacks(new ItemStack(Blocks.MYCELIUM)),
                 new OreIngredient("cropNetherWart"),
                 StackIngredient.fromStacks(new ItemStack(Items.ROTTEN_FLESH)),
-                StackIngredient.fromOre(8,"blockSoulUrn")
+                StackIngredient.fromOre(8, "blockSoulUrn")
 
         ), Lists.newArrayList(new ItemStack(BWMBlocks.NETHER_GROWTH)));
     }

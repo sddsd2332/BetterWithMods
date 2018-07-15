@@ -27,10 +27,12 @@ public class Church extends AbandonedVillagePiece {
         this.setCoordBaseMode(facing);
         this.boundingBox = p_i45564_4_;
     }
+
     @Override
     public Class<?> getComponentClass() {
         return Church.class;
     }
+
     /**
      * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
      * Mineshafts at the end, it adds Fences...

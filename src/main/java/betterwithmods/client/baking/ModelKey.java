@@ -38,7 +38,7 @@ public class ModelKey<T extends IRenderComparable<T>> {
     @SuppressWarnings("unchecked")
     @Override
     public boolean equals(Object other) {
-        if (!(other instanceof ModelKey)){
+        if (!(other instanceof ModelKey)) {
             return false;
         }
 

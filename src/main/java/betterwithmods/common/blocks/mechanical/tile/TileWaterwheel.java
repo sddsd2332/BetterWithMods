@@ -22,7 +22,7 @@ import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 public class TileWaterwheel extends TileAxleGenerator {
-    static final HashMap<Block,IWaterCurrent> WATER_BLOCKS = new HashMap<>();
+    static final HashMap<Block, IWaterCurrent> WATER_BLOCKS = new HashMap<>();
 
     public TileWaterwheel() {
         super();

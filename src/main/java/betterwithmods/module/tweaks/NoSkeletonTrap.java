@@ -9,7 +9,7 @@ public class NoSkeletonTrap extends Feature {
 
     @SubscribeEvent
     public void onEntitySpawn(EntityJoinWorldEvent event) {
-        if(event.getEntity() instanceof EntitySkeletonHorse && ((EntitySkeletonHorse)event.getEntity()).isTrap()) {
+        if (event.getEntity() instanceof EntitySkeletonHorse && ((EntitySkeletonHorse) event.getEntity()).isTrap()) {
             event.setCanceled(true);
         }
     }

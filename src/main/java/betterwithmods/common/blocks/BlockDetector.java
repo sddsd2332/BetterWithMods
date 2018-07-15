@@ -167,7 +167,7 @@ public class BlockDetector extends BWMBlock {
                 IBlockState downState = world.getBlockState(downOffset);
                 Block downBlock = downState.getBlock();
 
-                if ( !(downBlock instanceof BlockHemp) && downBlock instanceof BlockCrops) {
+                if (!(downBlock instanceof BlockHemp) && downBlock instanceof BlockCrops) {
                     return ((BlockCrops) downBlock).isMaxAge(downState);
                 } else if (downBlock == Blocks.NETHER_WART) {
                     return downState.getValue(BlockNetherWart.AGE) >= 3;

@@ -21,7 +21,7 @@ public class RecipeArmorDye extends IForgeRegistryEntry.Impl<IRecipe> implements
 
     public RecipeArmorDye(Ingredient validArmor) {
         this.validArmor = validArmor;
-        setRegistryName(new ResourceLocation(BWMod.MODID,"armor_dye"));
+        setRegistryName(new ResourceLocation(BWMod.MODID, "armor_dye"));
     }
 
     @Override

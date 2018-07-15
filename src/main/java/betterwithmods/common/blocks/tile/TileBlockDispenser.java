@@ -43,7 +43,7 @@ public class TileBlockDispenser extends TileBasicInventory {
     }
 
     public void addStackToInventory(ItemStack stack, BlockPos pos) {
-        if (stack .isEmpty() ) return;
+        if (stack.isEmpty()) return;
         for (int i = 0; i < 16; i++) {
             ItemStack check = this.inventory.getStackInSlot(i);
             if (!check.isEmpty()) {
@@ -77,13 +77,13 @@ public class TileBlockDispenser extends TileBasicInventory {
     }
 
     public ItemStack getCurrentSlot() {
-        return inventory.getStackInSlot(nextIndex%16);
+        return inventory.getStackInSlot(nextIndex % 16);
     }
 
     public ItemStack getNextStackFromInv() {
         ItemStack nextStack;
 
-        if (this.nextIndex >= this.inventory.getSlots() || this.inventory.getStackInSlot(this.nextIndex) .isEmpty() ) {
+        if (this.nextIndex >= this.inventory.getSlots() || this.inventory.getStackInSlot(this.nextIndex).isEmpty()) {
             int slot = findNextValidSlot(this.nextIndex);
 
             if (slot < 0)

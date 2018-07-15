@@ -21,14 +21,10 @@ public class BWIMCHandler {
 
     private static final HashMap<String, Consumer<Object>> IMC_HANDLER = new HashMap<>();
 
-    public static void registerIMC(String key, Consumer<Object> function) {
-        IMC_HANDLER.put(key, function);
-    }
-
     static {
         registerIMC("registerKilnBlock", object -> {
             ItemStack stack = (ItemStack) object;
-            if(stack.getItem() instanceof ItemBlock) {
+            if (stack.getItem() instanceof ItemBlock) {
                 Block block = ((ItemBlock) stack.getItem()).getBlock();
                 IBlockState state = block.getStateFromMeta(stack.getMetadata());
                 KilnStructureManager.registerKilnBlock(state);
@@ -39,6 +35,10 @@ public class BWIMCHandler {
             ItemStack stack = (ItemStack) object;
             HCBonemeal.registerFertilizer(stack);
         });
+    }
+
+    public static void registerIMC(String key, Consumer<Object> function) {
+        IMC_HANDLER.put(key, function);
     }
 
     public static void processIMC(ImmutableList<IMCMessage> message) {

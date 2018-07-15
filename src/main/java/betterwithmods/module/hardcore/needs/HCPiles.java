@@ -29,9 +29,8 @@ import java.util.stream.Collectors;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCPiles extends Feature {
-    public static boolean keepSoilDrops;
-
     public static final Map<IBlockState, ItemStack> blockStateToPile = new HashMap<>();
+    public static boolean keepSoilDrops;
 
     public static void removePile(ItemStack input) {
         blockStateToPile.remove(BWMRecipes.getStateFromStack(input));

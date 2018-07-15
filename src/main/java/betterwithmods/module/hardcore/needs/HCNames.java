@@ -20,7 +20,7 @@ public class HCNames extends Feature {
             EntityPlayer player = (EntityPlayer) e.getEntity();
             Team team = player.getTeam();
             Scoreboard scoreboard = e.getWorld().getScoreboard();
-            if(team == null) {
+            if (team == null) {
                 scoreboard.addPlayerToTeam(player.getName(), PlayerDataHandler.TEAM);
             }
         }

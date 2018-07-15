@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderSheepHarness extends RenderSheep {
     private static final ResourceLocation HARNESS = new ResourceLocation(BWMod.MODID, "textures/entity/sheep_harness.png");
     private static final ResourceLocation HARNESS_KF = new ResourceLocation(BWMod.MODID, "textures/entity/sheep_harness_kf.png");
+
     public RenderSheepHarness(RenderManager renderManagerIn) {
         super(renderManagerIn);
     }

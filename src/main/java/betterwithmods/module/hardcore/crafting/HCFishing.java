@@ -53,13 +53,99 @@ import java.util.Random;
  * Created by primetoxinz on 7/23/17.
  */
 public class HCFishing extends Feature {
+    public static final ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "gameplay/fishing"));
+    private static final ResourceLocation BAITED_FISHING_ROD = new ResourceLocation(BWMod.MODID, "baited_fishing_rod");
     public static boolean requireBait, restrictToOpenWater;
     public static int minimumWaterDepth;
-
-    public static final ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "gameplay/fishing"));
-
-    private static final ResourceLocation BAITED_FISHING_ROD = new ResourceLocation(BWMod.MODID, "baited_fishing_rod");
     public static Ingredient BAIT = Ingredient.EMPTY;
+    @SuppressWarnings("CanBeFinal")
+    @CapabilityInject(FishingBait.class)
+    public static Capability<FishingBait> FISHING_ROD_CAP = null;
+
+    private static ActionResult<ItemStack> throwLine(Item item, EntityPlayer player, EnumHand hand, World world, Random rand) {
+        ItemStack itemstack = player.getHeldItem(hand);
+
+        if (player.fishEntity != null) {
+            int i = player.fishEntity.handleHookRetraction();
+            itemstack.damageItem(i, player);
+            player.swingArm(hand);
+            world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BOBBER_RETRIEVE, SoundCategory.NEUTRAL, 1.0F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
+        } else {
+            world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BOBBER_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
+
+            if (!world.isRemote) {
+                EntityHCFishHook entityfishhook = new EntityHCFishHook(world, player);
+                int j = EnchantmentHelper.getFishingSpeedBonus(itemstack);
+
+                if (j > 0) {
+                    entityfishhook.setLureSpeed(j);
+                }
+
+                int k = EnchantmentHelper.getFishingLuckBonus(itemstack);
+
+                if (k > 0) {
+                    entityfishhook.setLuck(k);
+                }
+
+                world.spawnEntity(entityfishhook);
+            }
+
+            player.swingArm(hand);
+            player.addStat(StatList.getObjectUseStats(item));
+        }
+
+        return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
+    }
+
+    public static boolean isFishingRod(ItemStack stack) {
+        return stack.getItem() instanceof ItemFishingRod && stack.hasCapability(FISHING_ROD_CAP, EnumFacing.UP);
+    }
+
+    //Override loottables
+
+    public static ItemStack getMostRelevantFishingRod(EntityPlayer player) {
+        ItemStack itemMain = player.getHeldItemMainhand();
+        if (isFishingRod(itemMain) && itemMain.getCapability(FISHING_ROD_CAP, EnumFacing.UP).hasBait()) {
+            return itemMain;
+        } else {
+            return player.getHeldItemOffhand();
+        }
+    }
+
+    public static boolean isBaited(ItemStack stack, boolean baited) {
+        return isFishingRod(stack) && stack.getCapability(FISHING_ROD_CAP, EnumFacing.UP).hasBait() == baited;
+    }
+
+    public static ItemStack setBaited(ItemStack rod, boolean baited) {
+        if (rod.hasCapability(FISHING_ROD_CAP, EnumFacing.UP)) {
+            FishingBait cap = rod.getCapability(FISHING_ROD_CAP, EnumFacing.UP);
+            cap.setBait(baited);
+        }
+        if (rod.getTagCompound() == null) {
+            rod.setTagCompound(new NBTTagCompound());
+        }
+        NBTTagCompound tag = rod.getTagCompound();
+        tag.setBoolean("bait", baited);
+        return new ItemStack(rod.serializeNBT());
+    }
+
+    public static BlockPos getHookSurfacePos(EntityFishHook hookEntity) {
+        World world = hookEntity.getEntityWorld();
+        BlockPos hookPos = hookEntity.getPosition();
+        int heightOffset = 0;
+        while (isWaterBlock(world, hookPos.add(0, heightOffset, 0)) && (hookPos.getY() + heightOffset < 255)) {
+            heightOffset++;
+        }
+        return hookPos.add(0, heightOffset, 0);
+    }
+
+    public static boolean isWaterBlock(World world, BlockPos pos) {
+        return (world.getBlockState(pos).getBlock() == Blocks.WATER || world.getBlockState(pos).getBlock() == Blocks.FLOWING_WATER);
+    }
+
+    public static boolean isAirBlock(World world, BlockPos pos) {
+        return (world.getBlockState(pos).getBlock() == Blocks.AIR);
+    }
 
     @Override
     public void setupConfig() {
@@ -88,8 +174,6 @@ public class HCFishing extends Feature {
         }));
         event.getRegistry().register(new BaitingRecipe());
     }
-
-    //Override loottables
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onLootTableLoad(LootTableLoadEvent event) {
@@ -147,41 +231,6 @@ public class HCFishing extends Feature {
         }
     }
 
-    private static ActionResult<ItemStack> throwLine(Item item, EntityPlayer player, EnumHand hand, World world, Random rand) {
-        ItemStack itemstack = player.getHeldItem(hand);
-
-        if (player.fishEntity != null) {
-            int i = player.fishEntity.handleHookRetraction();
-            itemstack.damageItem(i, player);
-            player.swingArm(hand);
-            world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BOBBER_RETRIEVE, SoundCategory.NEUTRAL, 1.0F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
-        } else {
-            world.playSound(null, player.posX, player.posY, player.posZ, SoundEvents.ENTITY_BOBBER_THROW, SoundCategory.NEUTRAL, 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
-
-            if (!world.isRemote) {
-                EntityHCFishHook entityfishhook = new EntityHCFishHook(world, player);
-                int j = EnchantmentHelper.getFishingSpeedBonus(itemstack);
-
-                if (j > 0) {
-                    entityfishhook.setLureSpeed(j);
-                }
-
-                int k = EnchantmentHelper.getFishingLuckBonus(itemstack);
-
-                if (k > 0) {
-                    entityfishhook.setLuck(k);
-                }
-
-                world.spawnEntity(entityfishhook);
-            }
-
-            player.swingArm(hand);
-            player.addStat(StatList.getObjectUseStats(item));
-        }
-
-        return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
-    }
-
     @SubscribeEvent
     public void useFishingRod(PlayerInteractEvent.RightClickItem event) {
         if (requireBait) {
@@ -225,59 +274,6 @@ public class HCFishing extends Feature {
         return true;
     }
 
-    public static boolean isFishingRod(ItemStack stack) {
-        return stack.getItem() instanceof ItemFishingRod && stack.hasCapability(FISHING_ROD_CAP, EnumFacing.UP);
-    }
-
-    public static ItemStack getMostRelevantFishingRod(EntityPlayer player) {
-        ItemStack itemMain = player.getHeldItemMainhand();
-        if (isFishingRod(itemMain) && itemMain.getCapability(FISHING_ROD_CAP, EnumFacing.UP).hasBait()) {
-            return itemMain;
-        } else {
-            return player.getHeldItemOffhand();
-        }
-    }
-
-    public static boolean isBaited(ItemStack stack, boolean baited) {
-        return isFishingRod(stack) && stack.getCapability(FISHING_ROD_CAP, EnumFacing.UP).hasBait() == baited;
-    }
-
-    public static ItemStack setBaited(ItemStack rod, boolean baited) {
-        if (rod.hasCapability(FISHING_ROD_CAP, EnumFacing.UP)) {
-            FishingBait cap = rod.getCapability(FISHING_ROD_CAP, EnumFacing.UP);
-            cap.setBait(baited);
-        }
-        if (rod.getTagCompound() == null) {
-            rod.setTagCompound(new NBTTagCompound());
-        }
-        NBTTagCompound tag = rod.getTagCompound();
-        tag.setBoolean("bait", baited);
-        return new ItemStack(rod.serializeNBT());
-    }
-
-    public static BlockPos getHookSurfacePos(EntityFishHook hookEntity) {
-        World world = hookEntity.getEntityWorld();
-        BlockPos hookPos = hookEntity.getPosition();
-        int heightOffset = 0;
-        while (isWaterBlock(world, hookPos.add(0, heightOffset, 0)) && (hookPos.getY() + heightOffset < 255)) {
-            heightOffset++;
-        }
-        return hookPos.add(0, heightOffset, 0);
-    }
-
-    public static boolean isWaterBlock(World world, BlockPos pos) {
-        return (world.getBlockState(pos).getBlock() == Blocks.WATER || world.getBlockState(pos).getBlock() == Blocks.FLOWING_WATER);
-    }
-
-    public static boolean isAirBlock(World world, BlockPos pos) {
-        return (world.getBlockState(pos).getBlock() == Blocks.AIR);
-    }
-
-
-    @SuppressWarnings("CanBeFinal")
-    @CapabilityInject(FishingBait.class)
-    public static Capability<FishingBait> FISHING_ROD_CAP = null;
-
     public static class CapabilityFishingRod implements Capability.IStorage<FishingBait> {
 
         @Nullable
@@ -295,7 +291,8 @@ public class HCFishing extends Feature {
     public static class FishingBait implements ICapabilitySerializable<NBTTagCompound> {
         private boolean bait;
 
-        public FishingBait() {}
+        public FishingBait() {
+        }
 
         public boolean hasBait() {
             return bait;

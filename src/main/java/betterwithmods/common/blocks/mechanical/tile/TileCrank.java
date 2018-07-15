@@ -20,8 +20,8 @@ import javax.annotation.Nullable;
 public class TileCrank extends TileBasic implements IAxle {
     @Override
     public int getMechanicalOutput(EnumFacing facing) {
-	    if (!(world.getTileEntity(pos.offset(facing)) instanceof ICrankable))
-		    return 0;
+        if (!(world.getTileEntity(pos.offset(facing)) instanceof ICrankable))
+            return 0;
 
         if (world.getBlockState(pos).getValue(BlockCrank.STAGE) > 1) {
             return 1;
@@ -51,7 +51,7 @@ public class TileCrank extends TileBasic implements IAxle {
 
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if (hasCapability(capability,facing))
+        if (hasCapability(capability, facing))
             return CapabilityMechanicalPower.MECHANICAL_POWER.cast(this);
         return super.getCapability(capability, facing);
     }

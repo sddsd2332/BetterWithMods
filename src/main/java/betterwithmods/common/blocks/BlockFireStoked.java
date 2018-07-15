@@ -56,8 +56,8 @@ public class BlockFireStoked extends BlockFire {
         }
         BlockPos above = pos.up();
 
-        KilnStructureManager.createKiln(world,above);
-        
+        KilnStructureManager.createKiln(world, above);
+
         if (world.getBlockState(pos).getBlock() == BWMBlocks.STOKED_FLAME) { //Attempt at alleviating an OptiFine crash
             int meta = world.getBlockState(pos).getValue(AGE);
 
@@ -109,18 +109,13 @@ public class BlockFireStoked extends BlockFire {
         }
     }
 
-    public int getNeighborEncouragement(World worldIn, @Nonnull BlockPos pos)
-    {
-        if (!worldIn.isAirBlock(pos))
-        {
+    public int getNeighborEncouragement(World worldIn, @Nonnull BlockPos pos) {
+        if (!worldIn.isAirBlock(pos)) {
             return 0;
-        }
-        else
-        {
+        } else {
             int i = 0;
 
-            for (EnumFacing enumfacing : EnumFacing.values())
-            {
+            for (EnumFacing enumfacing : EnumFacing.values()) {
                 i = Math.max(worldIn.getBlockState(pos.offset(enumfacing)).getBlock().getFireSpreadSpeed(worldIn, pos.offset(enumfacing), enumfacing.getOpposite()), i);
             }
 

@@ -56,7 +56,7 @@ public class BlockInfernalEnchanter extends BWMBlock {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        if(state.getValue(ACTIVE))
+        if (state.getValue(ACTIVE))
             return 15;
         return super.getLightValue(state, world, pos);
     }

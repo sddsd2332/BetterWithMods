@@ -32,7 +32,7 @@ public class BWMAttributes {
     }
 
     public static AttributeInstance<Float> getFloatAttribute(IAttribute<Float> parent, String category, String penalty, String desc, Float defaultValue) {
-        float value = isCustom(category) ? (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue): defaultValue;
+        float value = isCustom(category) ? (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
         return new AttributeInstance<>(parent, value);
     }
 

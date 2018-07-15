@@ -35,7 +35,7 @@ public class TileBasic extends TileEntity {
     @SideOnly(Side.CLIENT)
     @Override
     public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        super.onDataPacket(net,packet);
+        super.onDataPacket(net, packet);
         this.readFromNBT(packet.getNbtCompound());
     }
 

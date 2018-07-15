@@ -23,13 +23,13 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 
 public abstract class TileAxleGenerator extends TileBasic implements ITickable, IMechanicalPower {
-    //Every generator will take up a single block with no extended bounding box
-    protected byte power = 0;
-    public byte dyeIndex = 0;
     protected final float runningSpeed = 0.4F;
+    public byte dyeIndex = 0;
     public float currentRotation = 0.0F;
     public float previousRotation = 0.0F;
     public float waterMod = 1;
+    //Every generator will take up a single block with no extended bounding box
+    protected byte power = 0;
     protected boolean isValid;
 
     protected int tick;
@@ -113,7 +113,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
     @Override
     @SideOnly(Side.CLIENT)
     public double getMaxRenderDistanceSquared() {
-       return Gameplay.generatorRenderDistance * Gameplay.generatorRenderDistance;
+        return Gameplay.generatorRenderDistance * Gameplay.generatorRenderDistance;
     }
 
     @Override

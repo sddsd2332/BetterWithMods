@@ -28,8 +28,8 @@ public class BWMHeatRegistry {
     }
 
     public static HeatSource get(World world, BlockPos pos) {
-        for(HeatSource bm: HEAT_SOURCES) {
-            if(bm.matches(world, pos))
+        for (HeatSource bm : HEAT_SOURCES) {
+            if (bm.matches(world, pos))
                 return bm;
         }
         return null;

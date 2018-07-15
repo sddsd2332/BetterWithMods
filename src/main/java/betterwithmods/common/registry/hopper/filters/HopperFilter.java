@@ -14,13 +14,11 @@ import java.util.List;
 
 public class HopperFilter implements IHopperFilter {
 
-    public static final IHopperFilter NONE = new HopperFilter(new ResourceLocation(BWMod.MODID,"none"), Ingredient.EMPTY, Lists.newArrayList());
-
-    private ModelWithResource modelOverride;
-
+    public static final IHopperFilter NONE = new HopperFilter(new ResourceLocation(BWMod.MODID, "none"), Ingredient.EMPTY, Lists.newArrayList());
     public final ResourceLocation name;
     public final Ingredient filter;
     public final List<Ingredient> filtered;
+    private ModelWithResource modelOverride;
 
 
     public HopperFilter(ResourceLocation name, Ingredient filter, List<Ingredient> filtered) {
@@ -47,7 +45,7 @@ public class HopperFilter implements IHopperFilter {
 
     @Override
     public ModelWithResource getModelOverride(ItemStack filter) {
-        if(modelOverride == null)
+        if (modelOverride == null)
             return new ModelTransparent(RenderUtils.getResourceLocation(filter));
         return modelOverride;
     }

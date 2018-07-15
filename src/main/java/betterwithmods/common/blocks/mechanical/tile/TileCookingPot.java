@@ -40,10 +40,11 @@ import java.util.Random;
 
 public abstract class TileCookingPot extends TileVisibleInventory implements IMechanicalPower, IHeated, ICrankable, IProgressSource {
     private static final int MAX_TIME = 1000;
+    protected final CraftingManagerBulk<CookingPotRecipe> manager;
+    private final HashMap<BlockPos, BWMHeatRegistry.HeatSource> heatCache = new HashMap<>();
     public int cookProgress, cookTime;
     public EnumFacing facing;
     public int heat;
-    protected final CraftingManagerBulk<CookingPotRecipe> manager;
 
     public TileCookingPot(CraftingManagerBulk<CookingPotRecipe> manager) {
         this.manager = manager;
@@ -135,7 +136,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
 
                 entityCollision();
                 //Only do crafting on the server
-                if(!world.isRemote && !InvUtils.isEmpty(inventory)) {
+                if (!world.isRemote && !InvUtils.isEmpty(inventory)) {
                     int heat = findHeat(getPos());
                     if (this.heat != heat) {
                         this.heat = heat;
@@ -166,7 +167,6 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
         return MAX_TIME;
     }
 
-
     @Override
     public int getHeat(World world, BlockPos pos) {
         return heat;
@@ -176,16 +176,15 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
         return getHeatCached(pos.down());
     }
 
-    private final HashMap<BlockPos, BWMHeatRegistry.HeatSource> heatCache = new HashMap<>();
-    private int getHeatCached(BlockPos pos){
+    private int getHeatCached(BlockPos pos) {
         BWMHeatRegistry.HeatSource src = heatCache.get(pos);
-        if (src != null && src.matches(world, pos)){
+        if (src != null && src.matches(world, pos)) {
             return src.getHeat();
-        } else if (src!=null){
+        } else if (src != null) {
             heatCache.remove(pos);
         }
         src = BWMHeatRegistry.get(world, pos);
-        if (src != null){
+        if (src != null) {
             heatCache.put(pos, src);
             return src.getHeat();
         }

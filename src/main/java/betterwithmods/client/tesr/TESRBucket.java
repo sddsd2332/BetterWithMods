@@ -12,12 +12,6 @@ import javax.annotation.Nonnull;
 public class TESRBucket extends TileEntitySpecialRenderer<TileFluid> {
     private static float renderOffset = 12 / 16f;
 
-    @Override
-    public void render(@Nonnull TileFluid tile, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        FluidTank tank = tile.getTank();
-        render(tank, tile.getPos(), x, y, z, partialTicks, destroyStage, alpha);
-    }
-
     public static void render(FluidTank tank, BlockPos pos, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         FluidStack liquid = tank.getFluid();
 
@@ -33,5 +27,11 @@ public class TESRBucket extends TileEntitySpecialRenderer<TileFluid> {
             float d = FluidRenderUtils.FLUID_OFFSET;
             FluidRenderUtils.renderFluidCuboid(liquid, pos, x + 3 / 16d, y + 2 / 16D, z + 3 / 16d, d, d, d, 10 / 16D - d, height * (9 / 16D), 10 / 16D - d);
         }
+    }
+
+    @Override
+    public void render(@Nonnull TileFluid tile, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        FluidTank tank = tile.getTank();
+        render(tank, tile.getPos(), x, y, z, partialTicks, destroyStage, alpha);
     }
 }

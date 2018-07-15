@@ -35,7 +35,7 @@ import java.util.List;
 public class MobSpawning extends Feature {
     public static final SpawnWhitelist NETHER = new SpawnWhitelist();
     public static final SpawnWhitelist SLIME = new SpawnWhitelist();
-    
+
     private boolean slime;
     private boolean nether;
     private boolean witches;

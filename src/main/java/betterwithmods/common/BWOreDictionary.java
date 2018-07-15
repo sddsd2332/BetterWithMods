@@ -35,20 +35,15 @@ import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
  */
 public class BWOreDictionary {
 
+    public static final List<IBlockVariants> blockVariants = new ArrayList<>();
+    public static final List<IVariantProvider> variantProviders = new ArrayList<>();
+    public static final Set<IRecipe> logRecipes = Sets.newHashSet();
+    public static final HashMultimap<String, String> toolEffectiveOre = HashMultimap.create();
     public static List<Ore> nuggetNames;
     public static List<Ore> dustNames;
     public static List<Ore> oreNames;
     public static List<Ore> ingotNames;
-
-    public static final List<IBlockVariants> blockVariants = new ArrayList<>();
-    public static final List<IVariantProvider> variantProviders = new ArrayList<>();
-
-
     public static List<ItemStack> logs;
-    public static final Set<IRecipe> logRecipes = Sets.newHashSet();
-
-    public static final HashMultimap<String, String> toolEffectiveOre = HashMultimap.create();
-
 
     public static void registerOres() {
 

@@ -69,9 +69,9 @@ public abstract class BaseBlockTest<T extends BlockRecipe> extends BaseTest {
         Assertions.assertThat(recipe.isInvalid()).isFalse();
         Assertions.assertThat(TEST_MANAGER.getRecipes()).isEmpty();
         TEST_MANAGER.addRecipe(recipe);
-        Optional<T> foundRecipe = TEST_MANAGER.findRecipe(world,origin, world.getBlockState(pos));
+        Optional<T> foundRecipe = TEST_MANAGER.findRecipe(world, origin, world.getBlockState(pos));
         Assertions.assertThat(foundRecipe.isPresent()).isTrue();
-        if(foundRecipe.isPresent()) {
+        if (foundRecipe.isPresent()) {
             T actualRecipe = foundRecipe.get();
             Assertions.assertThat(actualRecipe.craftRecipe(world, origin, world.rand, world.getBlockState(pos))).isTrue();
             TEST_MANAGER.getRecipes().clear();

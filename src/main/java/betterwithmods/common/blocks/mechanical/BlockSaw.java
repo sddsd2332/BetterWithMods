@@ -133,8 +133,8 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
         withTile(world, pos).ifPresent(TileSaw::onChanged);
         if (isActive(state)) {
             if (!world.isRemote) {
-                TileSaw tile = getTile(world,pos);
-                if(tile != null) {
+                TileSaw tile = getTile(world, pos);
+                if (tile != null) {
                     tile.cut(world, pos, rand);
                     world.scheduleBlockUpdate(pos, this, tickRate(world) + rand.nextInt(6), 5);
                 }
@@ -168,10 +168,10 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
                 BlockPos pos2 = new BlockPos(pos.getX(), pos.getY() - i, pos.getZ()).offset(dir);
                 Block block = world.getBlockState(pos2).getBlock();
                 IBlockState blockState = world.getBlockState(pos2);
-                if (isChoppingBlock(blockState,true)) {
+                if (isChoppingBlock(blockState, true)) {
                     source = BWDamageSource.getChoppingBlockDamage();
                     damage *= 3;
-                    if (isChoppingBlock(blockState,false) && unobstructed)
+                    if (isChoppingBlock(blockState, false) && unobstructed)
                         world.setBlockState(pos2, BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD));
                     break;
                 } else if (!world.isAirBlock(pos2) && !(block instanceof BlockLiquid) && !(block instanceof IFluidBlock))

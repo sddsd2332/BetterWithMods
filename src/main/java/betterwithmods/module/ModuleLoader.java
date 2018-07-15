@@ -47,10 +47,6 @@ public abstract class ModuleLoader {
         registerModules();
     }
 
-    public void setLogger(Logger logger) {
-        this.logger = logger;
-    }
-
     public abstract void registerModules();
 
     public void preInit(FMLPreInitializationEvent event) {
@@ -151,7 +147,6 @@ public abstract class ModuleLoader {
         configHelper.save();
     }
 
-
     public void forEachModule(Consumer<Module> consumer) {
         moduleInstances.values().forEach(consumer);
     }
@@ -184,5 +179,9 @@ public abstract class ModuleLoader {
 
     public Logger getLogger() {
         return logger;
+    }
+
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 }

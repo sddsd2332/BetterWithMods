@@ -49,8 +49,8 @@ public class BWGuiFactory implements IModGuiFactory {
             List<IConfigElement> list = new ArrayList<>();
 
             Set<String> categories = BWMod.MODULE_LOADER.configHelper.config.getCategoryNames();
-            for(String s : categories)
-                if(!s.contains("."))
+            for (String s : categories)
+                if (!s.contains("."))
                     list.add(new DummyConfigElement.DummyCategoryElement(s, s, new ConfigElement(BWMod.MODULE_LOADER.configHelper.config.getCategory(s)).getChildElements()));
 
             return list;

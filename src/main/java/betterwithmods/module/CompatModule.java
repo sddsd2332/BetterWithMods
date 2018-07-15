@@ -74,7 +74,7 @@ public class CompatModule extends Module {
     }
 
     private boolean isLoaded(String modId) {
-        return loadPropBool(modId.toLowerCase() + "_compat", String.format("Requires %s to be installed" ,modId), true) && Loader.isModLoaded(modId);
+        return loadPropBool(modId.toLowerCase() + "_compat", String.format("Requires %s to be installed", modId), true) && Loader.isModLoaded(modId);
     }
 
     public ItemStack getItem(String location) {

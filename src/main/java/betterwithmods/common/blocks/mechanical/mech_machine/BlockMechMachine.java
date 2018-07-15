@@ -46,7 +46,7 @@ public abstract class BlockMechMachine extends BWMBlock implements IBlockActive,
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if(!world.isRemote) {
+        if (!world.isRemote) {
             boolean isInventory = Arrays.stream(EnumFacing.VALUES).anyMatch(f -> world.getTileEntity(pos).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, f));
             if (!player.isSneaking() && world.getTileEntity(pos) != null && isInventory) {
                 player.openGui(BWMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
@@ -80,8 +80,8 @@ public abstract class BlockMechMachine extends BWMBlock implements IBlockActive,
 
     @Override
     public void overpower(World world, BlockPos pos) {
-        overpowerSound(world,pos);
-        InvUtils.ejectBrokenItems(world,pos.offset(EnumFacing.random(world.rand)),overpowerDrops);
+        overpowerSound(world, pos);
+        InvUtils.ejectBrokenItems(world, pos.offset(EnumFacing.random(world.rand)), overpowerDrops);
         world.setBlockToAir(pos);
     }
 

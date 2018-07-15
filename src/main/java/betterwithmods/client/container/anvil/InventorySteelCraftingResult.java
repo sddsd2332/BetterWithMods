@@ -26,7 +26,7 @@ public class InventorySteelCraftingResult extends InventoryCraftResult {
     @Override
     public ItemStack decrStackSize(int slot, int decrement) {
         //return craft.decrStackSize(slot, decrement);
-        craft.getWorld().playSound(null,craft.getPos(),SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS,0.5f,1.0f);
+        craft.getWorld().playSound(null, craft.getPos(), SoundEvents.BLOCK_ANVIL_USE, SoundCategory.BLOCKS, 0.5f, 1.0f);
         ItemStack stack = craft.getResult();
         if (stack != null) {
             craft.setResult(null);

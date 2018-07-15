@@ -83,22 +83,17 @@ public class EntityShearedCreeper extends EntityMob {
         return LOOT;
     }
 
-    public void onDeath(@Nonnull DamageSource cause)
-    {
+    public void onDeath(@Nonnull DamageSource cause) {
         super.onDeath(cause);
 
-        if (this.world.getGameRules().getBoolean("doMobLoot"))
-        {
-            if (cause.getTrueSource() instanceof EntitySkeleton)
-            {
+        if (this.world.getGameRules().getBoolean("doMobLoot")) {
+            if (cause.getTrueSource() instanceof EntitySkeleton) {
                 int i = Item.getIdFromItem(Items.RECORD_13);
                 int j = Item.getIdFromItem(Items.RECORD_WAIT);
                 int k = i + this.rand.nextInt(j - i + 1);
                 this.dropItem(Item.getItemById(k), 1);
-            }
-            else if (cause.getTrueSource() instanceof EntityCreeper && cause.getTrueSource() != this && ((EntityCreeper)cause.getTrueSource()).getPowered() && ((EntityCreeper)cause.getTrueSource()).ableToCauseSkullDrop())
-            {
-                ((EntityCreeper)cause.getTrueSource()).incrementDroppedSkulls();
+            } else if (cause.getTrueSource() instanceof EntityCreeper && cause.getTrueSource() != this && ((EntityCreeper) cause.getTrueSource()).getPowered() && ((EntityCreeper) cause.getTrueSource()).ableToCauseSkullDrop()) {
+                ((EntityCreeper) cause.getTrueSource()).incrementDroppedSkulls();
                 this.entityDropItem(new ItemStack(Items.SKULL, 1, 4), 0.0F);
             }
         }

@@ -60,7 +60,7 @@ public class MessageDataHandler<DataType> {
 
     public static MessageDataHandler getHandler(@Nonnull Class type) {
         for (MessageDataHandler<?> handler : handlers) {
-            if(handler.typeMatches(type)) {
+            if (handler.typeMatches(type)) {
                 return handler;
             }
         }

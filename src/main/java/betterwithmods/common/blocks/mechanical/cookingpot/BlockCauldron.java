@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockCauldron extends BlockCookingPot{
+public class BlockCauldron extends BlockCookingPot {
     @Nullable
     @Override
     public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {

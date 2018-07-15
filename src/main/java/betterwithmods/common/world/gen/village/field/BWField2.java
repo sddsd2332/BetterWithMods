@@ -27,6 +27,7 @@ public class BWField2 extends BWFieldBase {
         this.setCoordBaseMode(facing);
         this.boundingBox = p_i45569_4_;
     }
+
     @Override
     public Class<?> getComponentClass() {
         return BWField2.class;

@@ -3,7 +3,6 @@ package betterwithmods.util;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 
-
 import java.util.Random;
 
 public class VectorBuilder {
@@ -55,7 +54,7 @@ public class VectorBuilder {
     }
 
     public VectorBuilder setGaussian(double multiplier) {
-        return setGaussian(multiplier,multiplier,multiplier);
+        return setGaussian(multiplier, multiplier, multiplier);
     }
 
     public VectorBuilder reset() {

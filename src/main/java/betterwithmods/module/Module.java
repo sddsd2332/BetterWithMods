@@ -34,9 +34,9 @@ public abstract class Module {
     public final String name = makeName();
     public final Map<String, Feature> features = Maps.newHashMap();
     public final List<Feature> enabledFeatures = Lists.newArrayList(), disabledFeatures = Lists.newArrayList();
+    protected final ModuleLoader loader;
     public boolean enabled;
     protected int priority = 0;
-    protected final ModuleLoader loader;
 
     public Module(ModuleLoader loader) {
         this.loader = loader;

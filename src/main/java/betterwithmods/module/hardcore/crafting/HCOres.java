@@ -31,7 +31,8 @@ public class HCOres extends Feature {
     private static Set<String> oreExclude, dustExclude;
     private static int oreProductionCount, dustProductionCount;
 
-    public HCOres() {}
+    public HCOres() {
+    }
 
     @Override
     public void setupConfig() {

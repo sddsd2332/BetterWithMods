@@ -10,7 +10,8 @@ public abstract class ModelWithResource extends ModelBase {
         this.location = location;
     }
 
-    public ModelWithResource() {}
+    public ModelWithResource() {
+    }
 
     public void render(float scale) {
         renderModels(scale);

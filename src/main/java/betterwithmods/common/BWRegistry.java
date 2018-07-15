@@ -141,7 +141,7 @@ public class BWRegistry {
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
 
         for (IRecipe recipe : reg) {
-            for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {
+            for (Pattern pattern : BWMRecipes.REMOVE_BY_REGEX) {
                 if (recipe.getRegistryName() != null) {
                     Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
                     if (matcher.matches()) {
@@ -192,7 +192,7 @@ public class BWRegistry {
         BWRegistry.registerEntity(EntityTentacle.class, "bwm_tentacle", 64, 1, true);
         BWRegistry.registerEntity(EntitySitMount.class, "bwm_sit_mount", 64, 20, false);
 
-        BWRegistry.registerEntity(EntityJungleSpider.class, "bwm_jungle_spider", 64, 1, true, 0x3C6432, 0x648C50 );
+        BWRegistry.registerEntity(EntityJungleSpider.class, "bwm_jungle_spider", 64, 1, true, 0x3C6432, 0x648C50);
     }
 
     public static void registerBlockDispenserBehavior() {

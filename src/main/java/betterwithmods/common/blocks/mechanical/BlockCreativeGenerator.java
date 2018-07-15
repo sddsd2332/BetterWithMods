@@ -13,7 +13,7 @@ import javax.annotation.Nonnull;
 /**
  * Created by primetoxinz on 8/5/16.
  */
-public class BlockCreativeGenerator extends BWMBlock  {
+public class BlockCreativeGenerator extends BWMBlock {
     public BlockCreativeGenerator() {
         super(Material.WOOD);
         setCreativeTab(BWCreativeTabs.BWTAB);

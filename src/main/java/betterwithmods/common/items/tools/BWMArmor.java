@@ -37,7 +37,7 @@ public class BWMArmor extends ItemArmor implements IColorable {
                 return nbttagcompound1.getInteger("color");
             }
         }
-        return  0x00FFFFFF;
+        return 0x00FFFFFF;
 //        return 0xa06540;
     }
 

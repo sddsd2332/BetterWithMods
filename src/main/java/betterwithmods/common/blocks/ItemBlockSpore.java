@@ -22,7 +22,7 @@ public class ItemBlockSpore extends ItemBlock {
 
     @Override
     public boolean placeBlockAt(@Nonnull ItemStack stack, @Nonnull EntityPlayer player, World world, @Nonnull BlockPos pos, EnumFacing side, float hitX, float hitY, float hitZ, @Nonnull IBlockState newState) {
-        if(!world.provider.isNether())
+        if (!world.provider.isNether())
             return false;
         return super.placeBlockAt(stack, player, world, pos, side, hitX, hitY, hitZ, newState);
     }

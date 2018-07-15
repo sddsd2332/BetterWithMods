@@ -83,7 +83,7 @@ public class RenderExtendingRope extends Render<EntityExtendingRope> {
         GlStateManager.enableLighting();
         GlStateManager.popMatrix();
 
-        RenderUtils.renderDebugBoundingBox(x,y,z,AABBArray.getParts(entity.getEntityBoundingBox().offset(-entity.posX,-entity.posY,-entity.posZ)));
+        RenderUtils.renderDebugBoundingBox(x, y, z, AABBArray.getParts(entity.getEntityBoundingBox().offset(-entity.posX, -entity.posY, -entity.posZ)));
 
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }

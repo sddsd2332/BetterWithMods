@@ -338,7 +338,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     }
 
     public void addBlock(Vec3i offset, World world, BlockPos pos) {
-        IBlockState state = world.getBlockState(pos).getActualState(world,pos);
+        IBlockState state = world.getBlockState(pos).getActualState(world, pos);
         TileEntity tile = world.getTileEntity(pos);
         blocks.put(offset, state);
         if (tile != null) {

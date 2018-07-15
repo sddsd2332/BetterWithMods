@@ -24,8 +24,8 @@ public class Sinkholes extends Feature {
             BlockPos pos = new BlockPos(j6, i1, k6);
             World world = player.world;
             IBlockState standing = world.getBlockState(pos);
-            if(world.isAirBlock(pos.down()) && standing.getBlock() instanceof BlockFalling) {
-                world.scheduleBlockUpdate(pos,standing.getBlock(),0,5);
+            if (world.isAirBlock(pos.down()) && standing.getBlock() instanceof BlockFalling) {
+                world.scheduleBlockUpdate(pos, standing.getBlock(), 0, 5);
             }
 
         }

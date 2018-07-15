@@ -35,7 +35,7 @@ public class CraftingManagerHopper extends CraftingManagerBase<HopperRecipe> {
     }
 
     public Optional<HopperRecipe> findRecipe(TileFilteredHopper hopper, ItemStack input) {
-        return recipes.stream().filter( r -> r.matches(hopper.getHopperFilter().getName(), input)).findFirst();
+        return recipes.stream().filter(r -> r.matches(hopper.getHopperFilter().getName(), input)).findFirst();
     }
 
     protected List<HopperRecipe> findRecipes(List<ItemStack> outputs, List<ItemStack> secondary) {

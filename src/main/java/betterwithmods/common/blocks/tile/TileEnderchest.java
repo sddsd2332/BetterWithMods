@@ -18,6 +18,31 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
 
 public class TileEnderchest extends TileEntityEnderChest {
 
+    private Type type = Type.NONE;
+
+    @Nonnull
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound.setInteger("type", type.ordinal());
+        return super.writeToNBT(compound);
+    }
+
+    @Override
+    public void readFromNBT(NBTTagCompound compound) {
+        if (compound.hasKey("type"))
+            this.type = Type.VALUES[compound.getInteger("type")];
+        super.readFromNBT(compound);
+    }
+
+    @Nonnull
+    public Type getType() {
+        return type;
+    }
+
+    public void setType(Type type) {
+        this.type = type;
+    }
+
     public enum Type {
         NONE((tile, player) -> CapabilityUtils.getCapability(tile.getWorld(), ENDERCHEST_CAPABILITY, EnumFacing.UP).map(EnderchestCap::getInventory).orElse(null)),
         DIMENSION1((tile, player) -> {
@@ -40,32 +65,6 @@ public class TileEnderchest extends TileEntityEnderChest {
             return function;
         }
     }
-
-    private Type type = Type.NONE;
-
-    @Nonnull
-    @Override
-    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setInteger("type", type.ordinal());
-        return super.writeToNBT(compound);
-    }
-
-    @Override
-    public void readFromNBT(NBTTagCompound compound) {
-        if (compound.hasKey("type"))
-            this.type = Type.VALUES[compound.getInteger("type")];
-        super.readFromNBT(compound);
-    }
-
-    public void setType(Type type) {
-        this.type = type;
-    }
-
-    @Nonnull
-    public Type getType() {
-        return type;
-    }
-
 
 
 }

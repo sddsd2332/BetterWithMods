@@ -44,12 +44,12 @@ import java.util.List;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCBuckets extends Feature {
+    public static boolean modifyDispenserBehavior, stopDispenserFillBehavior;
     private static List<String> fluidWhitelist;
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
     private static boolean fixIce;
     private static Block ICE = new BlockIce().setRegistryName("minecraft:ice").setUnlocalizedName("ice");
-    public static boolean modifyDispenserBehavior, stopDispenserFillBehavior;
 
     @Override
     public String getFeatureDescription() {

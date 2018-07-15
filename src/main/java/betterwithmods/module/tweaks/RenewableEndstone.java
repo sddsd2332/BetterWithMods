@@ -30,6 +30,7 @@ public class RenewableEndstone extends Feature {
             }
         }
     }
+
     @Override
     public String getFeatureDescription() {
         return "Endermen spawn with endstone in the End";

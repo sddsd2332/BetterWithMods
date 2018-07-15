@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWDamageSource;
+import betterwithmods.common.BWMItems;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.Entity;

@@ -31,7 +31,7 @@ public class StackEjector {
     public void ejectStack() {
         if (world.isRemote)
             return;
-        if(stack == null)
+        if (stack == null)
             return;
         if (position == null)
             return;

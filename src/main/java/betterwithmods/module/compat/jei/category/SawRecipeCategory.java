@@ -22,10 +22,10 @@ public class SawRecipeCategory extends BWMRecipeCategory<BlockRecipeWrapper<SawR
     public static final int HEIGHT = 36;
     public static final String UID = "bwm.saw";
 
-    public static final ResourceLocation LOCATION =  new ResourceLocation(BWMod.MODID, "textures/gui/jei/saw.png");
+    public static final ResourceLocation LOCATION = new ResourceLocation(BWMod.MODID, "textures/gui/jei/saw.png");
 
     public SawRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(LOCATION, 0, 0, WIDTH, HEIGHT), UID,Translator.translateToLocal("inv.saw.name"));
+        super(guiHelper.createDrawable(LOCATION, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.saw.name"));
     }
 
     @Override

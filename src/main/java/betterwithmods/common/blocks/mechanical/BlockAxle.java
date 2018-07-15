@@ -202,6 +202,7 @@ public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
                 world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, BWSounds.WOODCREAK, SoundCategory.BLOCKS, 0.15F, rand.nextFloat() * 0.1F + 0.5F, false);
         }
     }
+
     private void emitAxleParticles(World world, BlockPos pos, Random rand) {
         int pow;
         if (FMLClientHandler.instance().hasOptifine()) {

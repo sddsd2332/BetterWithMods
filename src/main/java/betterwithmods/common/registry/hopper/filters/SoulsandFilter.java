@@ -14,7 +14,7 @@ import java.util.List;
 public class SoulsandFilter extends HopperFilter {
 
     public SoulsandFilter(Ingredient filter, List<Ingredient> filtered) {
-        super(new ResourceLocation(BWMod.MODID,"soul_sand"), filter, filtered);
+        super(new ResourceLocation(BWMod.MODID, "soul_sand"), filter, filtered);
     }
 
     @Override
@@ -25,7 +25,7 @@ public class SoulsandFilter extends HopperFilter {
             int value = orb.getXpValue();
             if (remaining > 0) {
                 if (value <= remaining) {
-                    tile.setExperienceCount(tile.getExperienceCount()+value);
+                    tile.setExperienceCount(tile.getExperienceCount() + value);
                     orb.setDead();
                     return;
                 }

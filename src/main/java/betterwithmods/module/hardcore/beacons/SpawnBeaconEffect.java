@@ -72,6 +72,33 @@ public class SpawnBeaconEffect implements IBeaconEffect {
         //TODO Blight
     }
 
+    public enum SpawnType {
+
+        LEVEL1(40),
+        LEVEL2(160),
+        LEVEL3(-1),
+        LEVEL4(-2);
+
+        public static final SpawnType[] VALUES = values();
+        final int range;
+
+        SpawnType(int range) {
+            this.range = range;
+        }
+
+        public boolean inRange(BlockPos beacon, EntityPlayer player, World world) {
+            switch (this.range) {
+                case -1:
+                    return player.dimension == world.provider.getDimension();
+                case -2:
+                    return true;
+                default:
+                    double d = player.getDistance(beacon.getX(), beacon.getY(), beacon.getZ());
+                    return d <= this.range;
+            }
+        }
+    }
+
     public static class BindingPoint implements INBTSerializable<NBTTagCompound> {
 
         private UUID uuid;
@@ -128,33 +155,5 @@ public class SpawnBeaconEffect implements IBeaconEffect {
             this.type = SpawnType.VALUES[nbt.getInteger("type")];
             this.uuid = UUID.fromString(nbt.getString("uuid"));
         }
-    }
-
-    public enum SpawnType {
-
-        LEVEL1(40),
-        LEVEL2(160),
-        LEVEL3(-1),
-        LEVEL4(-2);
-
-        final int range;
-
-        SpawnType(int range) {
-            this.range = range;
-        }
-
-        public boolean inRange(BlockPos beacon, EntityPlayer player, World world) {
-            switch (this.range) {
-                case -1:
-                    return player.dimension == world.provider.getDimension();
-                case -2:
-                    return true;
-                default:
-                    double d = player.getDistance(beacon.getX(), beacon.getY(), beacon.getZ());
-                    return d <= this.range;
-            }
-        }
-
-        public static final SpawnType[] VALUES = values();
     }
 }

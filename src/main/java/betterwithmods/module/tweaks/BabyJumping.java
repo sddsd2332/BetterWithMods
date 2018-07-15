@@ -12,7 +12,7 @@ public class BabyJumping extends Feature {
     @SubscribeEvent
     public void onJump(LivingEvent.LivingJumpEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
-        if(entity instanceof EntityLiving) {
+        if (entity instanceof EntityLiving) {
             if (!entity.isChild())
                 return;
 

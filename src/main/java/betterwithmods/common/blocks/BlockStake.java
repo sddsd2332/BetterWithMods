@@ -32,9 +32,17 @@ import static net.minecraft.util.EnumFacing.Axis.*;
 public class BlockStake extends BWMBlock {
 
 
+    public static final PropertyBool[] Z_ROTATE = new PropertyBool[]{DirUtils.SOUTH, DirUtils.NORTH, DirUtils.DOWN, DirUtils.UP, DirUtils.EAST, DirUtils.WEST};
+    public static final PropertyBool[] X_ROTATE = new PropertyBool[]{DirUtils.SOUTH, DirUtils.NORTH, DirUtils.WEST, DirUtils.EAST, DirUtils.DOWN, DirUtils.UP};
+
     public BlockStake() {
         super(Material.WOOD);
         setDefaultState(getDefaultState().withProperty(DirUtils.NORTH, false).withProperty(DirUtils.SOUTH, false).withProperty(DirUtils.WEST, false).withProperty(DirUtils.EAST, false).withProperty(DirUtils.UP, false).withProperty(DirUtils.DOWN, false));
+    }
+
+    public static boolean getDirection(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+        Block block = world.getBlockState(pos.offset(facing)).getBlock();
+        return block instanceof BlockStakeString;
     }
 
     @Nonnull
@@ -60,7 +68,6 @@ public class BlockStake extends BWMBlock {
         return getDefaultState().withProperty(DirUtils.FACING, EnumFacing.getFront(meta));
     }
 
-
     public boolean isFullCube(IBlockState state) {
         return false;
     }
@@ -85,8 +92,7 @@ public class BlockStake extends BWMBlock {
             if (stake.getBlock() instanceof BlockStake) {
                 build = i;
                 break;
-            }
-            else if (!world.isAirBlock(pos.offset(facing, i)) && !stake.getBlock().isReplaceable(world, pos.offset(facing, i)) && stake.getBlock() != BWMBlocks.STAKE_STRING)
+            } else if (!world.isAirBlock(pos.offset(facing, i)) && !stake.getBlock().isReplaceable(world, pos.offset(facing, i)) && stake.getBlock() != BWMBlocks.STAKE_STRING)
                 return false;
         }
         if (build > -1 && count >= (build - 1)) {
@@ -103,7 +109,6 @@ public class BlockStake extends BWMBlock {
         }
         return false;
     }
-
 
     @Nonnull
     @Override
@@ -126,9 +131,6 @@ public class BlockStake extends BWMBlock {
         }
     }
 
-    public static final PropertyBool[] Z_ROTATE = new PropertyBool[]{DirUtils.SOUTH, DirUtils.NORTH, DirUtils.DOWN, DirUtils.UP, DirUtils.EAST, DirUtils.WEST};
-    public static final PropertyBool[] X_ROTATE = new PropertyBool[]{DirUtils.SOUTH, DirUtils.NORTH, DirUtils.WEST, DirUtils.EAST, DirUtils.DOWN, DirUtils.UP};
-
     @Nonnull
     @Override
     public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess worldIn, BlockPos pos) {
@@ -145,16 +147,11 @@ public class BlockStake extends BWMBlock {
 
         for (int i = 0; i < EnumFacing.VALUES.length; i++) {
             EnumFacing front = EnumFacing.getFront(i);
-            if(inverted && ((axis != Y && front.getAxis() != Y) || (axis == Y && front.getAxis() != X))) //Dude idk why but it needs this.
+            if (inverted && ((axis != Y && front.getAxis() != Y) || (axis == Y && front.getAxis() != X))) //Dude idk why but it needs this.
                 front = front.getOpposite();
             newState = newState.withProperty(transform[i], getDirection(worldIn, pos, front));
         }
         return newState;
-    }
-
-    public static boolean getDirection(IBlockAccess world, BlockPos pos, EnumFacing facing) {
-        Block block = world.getBlockState(pos.offset(facing)).getBlock();
-        return block instanceof BlockStakeString;
     }
 
     @Nonnull
@@ -176,7 +173,7 @@ public class BlockStake extends BWMBlock {
 
     @Override
     public boolean canPlaceBlockOnSide(@Nonnull World worldIn, @Nonnull BlockPos pos, EnumFacing side) {
-        return worldIn.isSideSolid(pos.offset(side.getOpposite()),side);
+        return worldIn.isSideSolid(pos.offset(side.getOpposite()), side);
     }
 
     @Override
@@ -198,8 +195,8 @@ public class BlockStake extends BWMBlock {
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        if(!isSupported(worldIn,pos,state)) {
-            InvUtils.ejectStackWithOffset(worldIn,pos,getItem(worldIn,pos,state));
+        if (!isSupported(worldIn, pos, state)) {
+            InvUtils.ejectStackWithOffset(worldIn, pos, getItem(worldIn, pos, state));
             worldIn.setBlockToAir(pos);
         }
     }

@@ -13,9 +13,9 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class IngredientTool extends Ingredient {
+    public static final HashMap<ItemStack, ItemStack[]> TOOLS = Maps.newHashMap();
     private final Predicate<ItemStack> tool;
     private final ItemStack example;
-    public static final HashMap<ItemStack, ItemStack[]> TOOLS = Maps.newHashMap();
 
     public IngredientTool(Predicate<ItemStack> tool, ItemStack exampleStack) {
         this.tool = tool;
@@ -27,6 +27,13 @@ public class IngredientTool extends Ingredient {
 
     public IngredientTool(String toolClass) {
         this(s -> s.getItem().getHarvestLevel(s, toolClass, null, null) > -1, ItemStack.EMPTY);
+    }
+
+    public static ItemStack[] collectAllTools(Predicate<ItemStack> tool) {
+        List<ItemStack> list = Streams.stream(ForgeRegistries.ITEMS).map(ItemStack::new).filter(tool).collect(Collectors.toList());
+        ItemStack[] stacks = new ItemStack[list.size()];
+        return list.toArray(stacks);
+
     }
 
     @Nonnull
@@ -41,12 +48,5 @@ public class IngredientTool extends Ingredient {
     @Override
     public boolean apply(ItemStack stack) {
         return tool.test(stack);
-    }
-
-    public static ItemStack[] collectAllTools(Predicate<ItemStack> tool) {
-        List<ItemStack> list = Streams.stream(ForgeRegistries.ITEMS).map(ItemStack::new).filter(tool).collect(Collectors.toList());
-        ItemStack[] stacks = new ItemStack[list.size()];
-        return list.toArray(stacks);
-
     }
 }

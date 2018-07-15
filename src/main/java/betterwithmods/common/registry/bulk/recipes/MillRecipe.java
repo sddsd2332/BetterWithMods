@@ -38,11 +38,6 @@ public class MillRecipe extends BulkRecipe {
         return sound;
     }
 
-    public MillRecipe setSound(SoundEvent sound) {
-        this.sound = sound;
-        return this;
-    }
-
     public MillRecipe setSound(String sound) {
         SoundEvent s = null;
         if (sound != null && !sound.isEmpty()) {
@@ -52,6 +47,11 @@ public class MillRecipe extends BulkRecipe {
             }
         }
         return setSound(s);
+    }
+
+    public MillRecipe setSound(SoundEvent sound) {
+        this.sound = sound;
+        return this;
     }
 
     @Override

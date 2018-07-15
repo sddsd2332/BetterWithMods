@@ -33,7 +33,7 @@ public class EntityDynamite extends Entity implements IProjectile {
     private int fuse;
 
     public EntityDynamite(World world) {
-        this(world,0,0,0, new ItemStack(BWMItems.DYNAMITE));
+        this(world, 0, 0, 0, new ItemStack(BWMItems.DYNAMITE));
     }
 
     public EntityDynamite(World world, double xPos, double yPos, double zPos, ItemStack stack) {

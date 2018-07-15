@@ -39,6 +39,4 @@ public class BlockCorner extends BlockMini {
     }
 
 
-
-
 }

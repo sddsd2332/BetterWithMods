@@ -23,7 +23,7 @@ public class HopperFilters {
     }
 
     public IHopperFilter getFilter(ResourceLocation name) {
-        return FILTERS.getOrDefault(name,HopperFilter.NONE);
+        return FILTERS.getOrDefault(name, HopperFilter.NONE);
     }
 
     public IHopperFilter getFilter(String name) {

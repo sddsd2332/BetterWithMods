@@ -12,7 +12,7 @@ public interface IBlockActive {
     PropertyBool ACTIVE = PropertyBool.create("active");
 
     default boolean isActive(IBlockState state) {
-        if(state.getBlock() instanceof IBlockActive)
+        if (state.getBlock() instanceof IBlockActive)
             return state.getValue(ACTIVE);
         return false;
     }
@@ -20,10 +20,10 @@ public interface IBlockActive {
     default void setActive(World world, BlockPos pos, boolean active) {
         IBlockState state = world.getBlockState(pos);
         if (state.getBlock() instanceof IBlockActive) {
-            if(state.getValue(ACTIVE) != active)
-                onChangeActive(world,pos,active);
+            if (state.getValue(ACTIVE) != active)
+                onChangeActive(world, pos, active);
             world.setBlockState(pos, state.withProperty(ACTIVE, active));
-            world.scheduleUpdate(pos, state.getBlock(),1);
+            world.scheduleUpdate(pos, state.getBlock(), 1);
         }
     }
 

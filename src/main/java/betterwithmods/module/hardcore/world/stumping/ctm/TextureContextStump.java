@@ -15,7 +15,7 @@ public class TextureContextStump extends TextureContextPosition {
 
     public int isStump() {
         WorldClient world = Minecraft.getMinecraft().world;
-        return HCStumping.isStump(world,position) ? 1 : 0;
+        return HCStumping.isStump(world, position) ? 1 : 0;
     }
 
     @Override

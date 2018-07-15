@@ -39,8 +39,7 @@ public class ItemBlockEdible extends ItemBlock {
         this.setCreativeTab(CreativeTabs.FOOD);
     }
 
-    public ItemBlockEdible setPotionEffect(PotionEffect effect, float probability)
-    {
+    public ItemBlockEdible setPotionEffect(PotionEffect effect, float probability) {
         this.potionId = effect;
         this.potionProbabilty = probability;
         return this;
@@ -75,8 +74,7 @@ public class ItemBlockEdible extends ItemBlock {
     }
 
 
-    public int getMaxItemUseDuration(ItemStack stack)
-    {
+    public int getMaxItemUseDuration(ItemStack stack) {
         return 32;
     }
 

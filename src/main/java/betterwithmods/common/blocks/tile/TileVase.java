@@ -17,7 +17,7 @@ public class TileVase extends TileBasicInventory {
         if (vaseitem.isItemEqual(ItemMaterial.getStack(ItemMaterial.EnumMaterial.BLASTING_OIL))) {
             float intensity = 1.5f;
             getWorld().createExplosion(null, pos.getX(), pos.getY(), pos.getZ(), intensity, true);
-        } else  {
+        } else {
             super.onBreak();
         }
     }

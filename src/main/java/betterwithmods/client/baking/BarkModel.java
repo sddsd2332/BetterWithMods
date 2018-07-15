@@ -32,7 +32,7 @@ public class BarkModel extends ModelFactory<CamoInfo> {
     @Override
     public IBakedModel bake(CamoInfo object, boolean isItem, BlockRenderLayer layer) {
         ImmutableMap.Builder<String, String> textures = new ImmutableMap.Builder<>();
-        textures.put("layer0",RenderUtils.getParticleTexture(object.getState()).getIconName());
+        textures.put("layer0", RenderUtils.getParticleTexture(object.getState()).getIconName());
         TRSRTransformation state = TRSRTransformation.from(ModelRotation.X0_Y0);
         IModel retexture = template.retexture(textures.build()).uvlock(true);
         return new WrappedBakedModel(retexture.bake(state, DefaultVertexFormats.BLOCK, RenderUtils.textureGetter), RenderUtils.getParticleTexture(object.getState())).addDefaultBlockTransforms();

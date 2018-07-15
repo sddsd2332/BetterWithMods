@@ -45,7 +45,7 @@ public class HopperRecipe {
     }
 
     public boolean craftRecipe(EntityItem inputStack, World world, BlockPos pos, TileFilteredHopper tile) {
-        if(!canCraft(world,pos, tile))
+        if (!canCraft(world, pos, tile))
             return false;
 
         SimpleStackHandler inventory = tile.inventory;

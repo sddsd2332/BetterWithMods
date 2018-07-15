@@ -14,21 +14,12 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileWindmillVertical> {
+    public static final ResourceLocation WINDMILL_SHAFTS = new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill_shaft.png");
+    public static final ResourceLocation WINDMILL = new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill.png");
+    public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill_sail.png");
     private static final ModelVerticalShafts modelShafts = new ModelVerticalShafts();
     private static final ModelVerticalSails modelSails = new ModelVerticalSails();
     private static final ModelVerticalFrame modelFrame = new ModelVerticalFrame();
-
-    public static final ResourceLocation WINDMILL_SHAFTS = new ResourceLocation(BWMod.MODID,"textures/blocks/vertical_windmill_shaft.png");
-    public static final ResourceLocation WINDMILL = new ResourceLocation(BWMod.MODID,"textures/blocks/vertical_windmill.png");
-    public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(BWMod.MODID,"textures/blocks/vertical_windmill_sail.png");
-
-    @Override
-    public void render(TileWindmillVertical te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        float rotation = -(te.getCurrentRotation() + (te.getMechanicalOutput(EnumFacing.UP) == 0 ? 0 : partialTicks * te.getPrevRotation()));
-        BlockPos pos = te.getBlockPos();
-        RenderUtils.renderDebugBoundingBox(x,y,z,te.getRenderBoundingBox().offset(-pos.getX(),-pos.getY(),-pos.getZ()));
-        renderWindmill(rotation, x, y, z, te.getColors());
-    }
 
     public static void renderWindmill(float rotation, double x, double y, double z, int[] colors) {
         GlStateManager.pushMatrix();
@@ -43,6 +34,14 @@ public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileWindmill
         Minecraft.getMinecraft().getTextureManager().bindTexture(WINDMILL_SAIL);
         modelSails.render(0.0625F, colors);
         GlStateManager.popMatrix();
+    }
+
+    @Override
+    public void render(TileWindmillVertical te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        float rotation = -(te.getCurrentRotation() + (te.getMechanicalOutput(EnumFacing.UP) == 0 ? 0 : partialTicks * te.getPrevRotation()));
+        BlockPos pos = te.getBlockPos();
+        RenderUtils.renderDebugBoundingBox(x, y, z, te.getRenderBoundingBox().offset(-pos.getX(), -pos.getY(), -pos.getZ()));
+        renderWindmill(rotation, x, y, z, te.getColors());
     }
 
 }

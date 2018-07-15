@@ -12,12 +12,12 @@ import net.minecraft.util.math.MathHelper;
  */
 public class ShooterSpiderWeb extends EntityAIBase {
     private final EntitySpider spider;
-    private EntityLivingBase target;
-    private int seeTime;
-    private int attackTime;
     private final int maxAttackTime;
     private final float radius;
     private final float maxRadius;
+    private EntityLivingBase target;
+    private int seeTime;
+    private int attackTime;
 
     public ShooterSpiderWeb(EntitySpider spider, int maxAttackTime, float radius) {
         this.spider = spider;
@@ -49,9 +49,9 @@ public class ShooterSpiderWeb extends EntityAIBase {
         }
         spider.getLookHelper().setLookPositionWithEntity(target, 30.0F, 30.0F);
         if (attackTime-- == 0) {
-        	if(canSee) {
-		        shootWeb();
-	        }
+            if (canSee) {
+                shootWeb();
+            }
             float f = MathHelper.sqrt(d) / (radius);
             attackTime = MathHelper.floor(f * maxAttackTime);
 
@@ -73,14 +73,14 @@ public class ShooterSpiderWeb extends EntityAIBase {
     }
 
     private void shootWeb() {
-	    EntitySpiderWeb web = new EntitySpiderWeb(spider.getEntityWorld(), spider);
-	    double d0 = target.posY;
-	    double d1 = target.posX - spider.posX;
-	    double d2 = d0 - web.posY;
-	    double d3 = target.posZ - spider.posZ;
-	    float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
-	    web.shoot(d1, d2 + (double)f, d3, 1.0F, 2);
-	    spider.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1.0F, 1.0F / (spider.getRNG().nextFloat() * 0.4F + 0.8F));
-	    spider.world.spawnEntity(web);
+        EntitySpiderWeb web = new EntitySpiderWeb(spider.getEntityWorld(), spider);
+        double d0 = target.posY;
+        double d1 = target.posX - spider.posX;
+        double d2 = d0 - web.posY;
+        double d3 = target.posZ - spider.posZ;
+        float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
+        web.shoot(d1, d2 + (double) f, d3, 1.0F, 2);
+        spider.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1.0F, 1.0F / (spider.getRNG().nextFloat() * 0.4F + 0.8F));
+        spider.world.spawnEntity(web);
     }
 }

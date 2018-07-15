@@ -9,7 +9,7 @@ public class HealthPenalities extends PenaltyHandler<Float, BasicPenalty<Float>>
 
     public HealthPenalities() {
         super();
-        
+
         addDefault(new BasicPenalty<>(true, true, true, true, true, false, 1f, 0f, "none", "bwm.health_penalty.none", category, Range.between(20f, 11f)));
         addPenalty(new BasicPenalty<>(true, true, true, true, true, false, 0.75f, 1 / 5f, "hurt", "bwm.health_penalty.hurt", category, Range.between(11f, 9f)));
         addPenalty(new BasicPenalty<>(true, true, true, true, false, true, 0.75f, 2 / 5f, "injured", "bwm.health_penalty.injured", category, Range.between(9f, 7f)));

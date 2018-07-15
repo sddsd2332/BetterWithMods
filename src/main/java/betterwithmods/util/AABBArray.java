@@ -75,7 +75,7 @@ public class AABBArray extends AxisAlignedBB {
 
     public AABBArray addBoundingBox(AxisAlignedBB aabb) {
         AxisAlignedBB[] bbs = new AxisAlignedBB[boundingBoxes.length + 1];
-        bbs[bbs.length-1] = aabb;
+        bbs[bbs.length - 1] = aabb;
         return new AABBArray(bbs);
     }
 

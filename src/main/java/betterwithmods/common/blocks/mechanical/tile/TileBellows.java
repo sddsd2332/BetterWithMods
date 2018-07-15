@@ -82,7 +82,7 @@ public class TileBellows extends TileBasic implements IMechanicalPower {
     }
 
     public BlockBellows getBlock() {
-        if(this.getBlockType() instanceof BlockBellows)
+        if (this.getBlockType() instanceof BlockBellows)
             return (BlockBellows) getBlockType();
         throw new IllegalStateException("This TileEntity does not have the correct block, something is severely wrong. Report to the mod author immediately");
     }

@@ -219,7 +219,7 @@ public class HCBrewing extends Feature {
                     mixPredicates.add(moddedPotion);
                 }
 
-                List<IBrewingRecipe> recipes = ReflectionHelper.getPrivateValue(BrewingRecipeRegistry.class, null,"recipes");
+                List<IBrewingRecipe> recipes = ReflectionHelper.getPrivateValue(BrewingRecipeRegistry.class, null, "recipes");
                 ListIterator<IBrewingRecipe> iterator = recipes.listIterator();
 
                 while (iterator.hasNext()) {

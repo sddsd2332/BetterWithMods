@@ -21,18 +21,6 @@ import java.util.List;
 public final class OreDictImageProvider implements ImageProvider {
     private static final String WARNING_ORE_DICT_MISSING = API.MOD_ID + ".manual.warning.missing.oreDict";
 
-    @Override
-    public ImageRenderer getImage(@Nonnull final String data) {
-        final ItemStack[] stacks = OreDictionary.getOres(data).stream()
-                .flatMap(stack -> getSubtypes(stack).stream())
-                .toArray(ItemStack[]::new);
-        if (stacks != null && stacks.length > 0) {
-            return new ItemStackImageRenderer(stacks);
-        } else {
-            return new MissingItemRenderer(WARNING_ORE_DICT_MISSING);
-        }
-    }
-
     /**
      * Stolen from JEI.
      *
@@ -88,5 +76,17 @@ public final class OreDictImageProvider implements ImageProvider {
         }
 
         return itemStacks;
+    }
+
+    @Override
+    public ImageRenderer getImage(@Nonnull final String data) {
+        final ItemStack[] stacks = OreDictionary.getOres(data).stream()
+                .flatMap(stack -> getSubtypes(stack).stream())
+                .toArray(ItemStack[]::new);
+        if (stacks != null && stacks.length > 0) {
+            return new ItemStackImageRenderer(stacks);
+        } else {
+            return new MissingItemRenderer(WARNING_ORE_DICT_MISSING);
+        }
     }
 }

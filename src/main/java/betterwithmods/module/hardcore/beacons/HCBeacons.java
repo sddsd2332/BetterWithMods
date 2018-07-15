@@ -42,6 +42,12 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
 public class HCBeacons extends Feature {
 
     public static final HashMap<IBlockState, IBeaconEffect> BEACON_EFFECTS = Maps.newHashMap();
+    public static final Block ENDERCHEST = new BlockEnderchest().setRegistryName("minecraft:ender_chest").setUnlocalizedName("enderChest");
+    public static final Block BEACON = new BlockBeacon().setRegistryName("minecraft:beacon").setUnlocalizedName("beacon");
+    public static final ResourceLocation WORLD1 = new ResourceLocation(BWMod.MODID, "world_enderchest");
+    public static final ResourceLocation WORLD2 = new ResourceLocation(BWMod.MODID, "world2_enderchest");
+    public static final ResourceLocation GLOBAL = new ResourceLocation(BWMod.MODID, "global_enderchest");
+    public static boolean enderchestBeacon;
 
     public static IBeaconEffect getBeaconEffect(IBlockState state) {
         if (BEACON_EFFECTS.containsKey(state))
@@ -50,15 +56,10 @@ public class HCBeacons extends Feature {
         };
     }
 
-    public static boolean enderchestBeacon;
-
     @Override
     public void setupConfig() {
         enderchestBeacon = loadPropBool("Enderchest Beacon", "Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Book of Single.", true);
     }
-
-    public static final Block ENDERCHEST = new BlockEnderchest().setRegistryName("minecraft:ender_chest").setUnlocalizedName("enderChest");
-    public static final Block BEACON = new BlockBeacon().setRegistryName("minecraft:beacon").setUnlocalizedName("beacon");
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -117,11 +118,6 @@ public class HCBeacons extends Feature {
     public boolean hasSubscriptions() {
         return true;
     }
-
-    public static final ResourceLocation WORLD1 = new ResourceLocation(BWMod.MODID, "world_enderchest");
-    public static final ResourceLocation WORLD2 = new ResourceLocation(BWMod.MODID, "world2_enderchest");
-    public static final ResourceLocation GLOBAL = new ResourceLocation(BWMod.MODID, "global_enderchest");
-
 
     @SubscribeEvent
     public void attachTileCapability(AttachCapabilitiesEvent<TileEntity> event) {

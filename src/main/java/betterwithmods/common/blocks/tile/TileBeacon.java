@@ -45,12 +45,11 @@ import static betterwithmods.module.hardcore.beacons.HCBeacons.BEACON_EFFECTS;
  */
 public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implements ITickable {
 
+    private final List<BeamSegment> segments = Lists.newArrayList();
     private int level, prevLevel;
     private IBlockState type = Blocks.AIR.getDefaultState();
     private IBeaconEffect effect, prevEffect;
     private int tick;
-    private final List<BeamSegment> segments = Lists.newArrayList();
-
     @SideOnly(Side.CLIENT)
     private long beamRenderCounter;
     @SideOnly(Side.CLIENT)
@@ -305,6 +304,11 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
         }
     }
 
+    public void breakBlock() {
+        if (effect != null) {
+            this.effect.breakBlock(world, pos, level);
+        }
+    }
 
     public class BeamSegment extends net.minecraft.tileentity.TileEntityBeacon.BeamSegment {
         public BeamSegment(float[] colorsIn) {
@@ -315,12 +319,6 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
         @Override
         protected void incrementHeight() {
             super.incrementHeight();
-        }
-    }
-
-    public void breakBlock() {
-        if (effect != null) {
-            this.effect.breakBlock(world, pos, level);
         }
     }
 }

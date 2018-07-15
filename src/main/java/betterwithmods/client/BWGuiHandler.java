@@ -7,7 +7,10 @@ import betterwithmods.client.container.bulk.ContainerMill;
 import betterwithmods.client.container.other.ContainerBlockDispenser;
 import betterwithmods.client.container.other.ContainerInfernalEnchanter;
 import betterwithmods.client.container.other.ContainerPulley;
-import betterwithmods.client.gui.*;
+import betterwithmods.client.gui.GuiBlockDispenser;
+import betterwithmods.client.gui.GuiInfernalEnchanter;
+import betterwithmods.client.gui.GuiPulley;
+import betterwithmods.client.gui.GuiSteelAnvil;
 import betterwithmods.client.gui.bulk.GuiCauldron;
 import betterwithmods.client.gui.bulk.GuiCrucible;
 import betterwithmods.client.gui.bulk.GuiFilteredHopper;
@@ -45,7 +48,7 @@ public class BWGuiHandler implements IGuiHandler {
                     return new ContainerFilteredHopper(player, (TileFilteredHopper) tile);
                 if (tile instanceof TileSteelAnvil)
                     return new ContainerSteelAnvil(player.inventory, (TileSteelAnvil) tile);
-                if(tile instanceof TileInfernalEnchanter)
+                if (tile instanceof TileInfernalEnchanter)
                     return new ContainerInfernalEnchanter(player, (TileInfernalEnchanter) tile);
                 return null;
             default:
@@ -74,7 +77,7 @@ public class BWGuiHandler implements IGuiHandler {
                     return new GuiFilteredHopper(player, (TileFilteredHopper) tile);
                 if (tile instanceof TileSteelAnvil)
                     return new GuiSteelAnvil((TileSteelAnvil) tile, new ContainerSteelAnvil(player.inventory, (TileSteelAnvil) tile));
-                if(tile instanceof TileInfernalEnchanter)
+                if (tile instanceof TileInfernalEnchanter)
                     return new GuiInfernalEnchanter(player, (TileInfernalEnchanter) tile);
                 return null;
             case MANUAL:

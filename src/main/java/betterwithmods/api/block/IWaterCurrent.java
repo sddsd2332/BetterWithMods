@@ -12,21 +12,19 @@ public interface IWaterCurrent {
     IWaterCurrent FORGE_LIQUID = fromForgeLiquid();
     IWaterCurrent NO_FLOW = (world, pos, state) -> Vec3d.ZERO;
 
-    Vec3d getFlowDirection(World world, BlockPos pos, IBlockState state);
-
-    static IWaterCurrent fromLiquid()
-    {
+    static IWaterCurrent fromLiquid() {
         return (world, pos, state) -> {
             BlockLiquid block = (BlockLiquid) state.getBlock();
-            return block.getFlow(world,pos,state);
+            return block.getFlow(world, pos, state);
         };
     }
 
-    static IWaterCurrent fromForgeLiquid()
-    {
+    static IWaterCurrent fromForgeLiquid() {
         return (world, pos, state) -> {
             BlockFluidBase block = (BlockFluidBase) state.getBlock();
-            return block.getFlowVector(world,pos);
+            return block.getFlowVector(world, pos);
         };
     }
+
+    Vec3d getFlowDirection(World world, BlockPos pos, IBlockState state);
 }

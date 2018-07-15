@@ -34,8 +34,8 @@ public class HCBeds extends Feature {
         if (PlayerHelper.isSurvival(event.getEntityPlayer())) {
             event.getEntityPlayer().sendStatusMessage(new TextComponentTranslation("tile.bed.tooRestless"), true);
             event.setResult(TOO_RESTLESS);
-            if(stillSetSpawn) {
-                event.getEntityPlayer().setSpawnPoint(event.getPos(),true);
+            if (stillSetSpawn) {
+                event.getEntityPlayer().setSpawnPoint(event.getPos(), true);
             }
         }
     }

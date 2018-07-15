@@ -25,6 +25,16 @@ public class TileCamo extends TileBasic {
     public TileCamo() {
     }
 
+    public static ItemStack fromParentState(Block mini, IBlockState state, int count) {
+        ItemStack stack = new ItemStack(mini, count);
+        NBTTagCompound tag = new NBTTagCompound();
+        NBTTagCompound texture = new NBTTagCompound();
+        NBTUtil.writeBlockState(texture, state);
+        tag.setTag("texture", texture);
+        stack.setTagCompound(tag);
+        return stack;
+    }
+
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
@@ -76,7 +86,7 @@ public class TileCamo extends TileBasic {
     }
 
     public IBlockState getState() {
-        if(state == null)
+        if (state == null)
             return Blocks.AIR.getDefaultState();
         return state;
     }
@@ -90,16 +100,6 @@ public class TileCamo extends TileBasic {
             return fromParentState(state.getBlock(), this.state, 1);
         }
         return ItemStack.EMPTY;
-    }
-
-    public static ItemStack fromParentState(Block mini, IBlockState state, int count) {
-        ItemStack stack = new ItemStack(mini, count);
-        NBTTagCompound tag = new NBTTagCompound();
-        NBTTagCompound texture = new NBTTagCompound();
-        NBTUtil.writeBlockState(texture, state);
-        tag.setTag("texture", texture);
-        stack.setTagCompound(tag);
-        return stack;
     }
 
 

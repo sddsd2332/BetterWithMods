@@ -28,7 +28,7 @@ public class PowderKegs extends Feature {
         Blocks.TNT.setUnlocalizedName("betterwithmods:powder_keg");
         Items.TNT_MINECART.setUnlocalizedName("betterwithmods:powder_keg_minecart");
     }
-    
+
     @Override
     public boolean hasSubscriptions() {
         return true;

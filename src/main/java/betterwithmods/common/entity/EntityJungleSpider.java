@@ -30,31 +30,23 @@ public class EntityJungleSpider extends EntityCaveSpider {
 
     @Override
     public boolean attackEntityAsMob(@Nonnull Entity entityIn) {
-        if (super.attackEntityAsMob(entityIn))
-        {
-            if (entityIn instanceof EntityLivingBase)
-            {
+        if (super.attackEntityAsMob(entityIn)) {
+            if (entityIn instanceof EntityLivingBase) {
                 int duration = 0;
 
-                if (this.world.getDifficulty() == EnumDifficulty.NORMAL)
-                {
+                if (this.world.getDifficulty() == EnumDifficulty.NORMAL) {
                     duration = 7;
-                }
-                else if (this.world.getDifficulty() == EnumDifficulty.HARD)
-                {
+                } else if (this.world.getDifficulty() == EnumDifficulty.HARD) {
                     duration = 15;
                 }
 
-                if (duration > 0)
-                {
-                    ((EntityLivingBase)entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, duration * 20, 0));
+                if (duration > 0) {
+                    ((EntityLivingBase) entityIn).addPotionEffect(new PotionEffect(MobEffects.HUNGER, duration * 20, 0));
                 }
             }
 
             return true;
-        }
-        else
-        {
+        } else {
             return false;
         }
     }
@@ -79,37 +71,34 @@ public class EntityJungleSpider extends EntityCaveSpider {
         IBlockState topBlock = world.getBlockState(topPos);
 
         //On the ground, search up a little, just so we can also spawn in caves
-        ArrayList<Integer> possible_spawns = getPossibleSpawnHeights(new BlockPos.MutableBlockPos(pos.up(32)),32);
+        ArrayList<Integer> possible_spawns = getPossibleSpawnHeights(new BlockPos.MutableBlockPos(pos.up(32)), 32);
         //Otherwise, if there's a leaf canopy search from there
-        if(possible_spawns.isEmpty() && topBlock.getBlock() == Blocks.LEAVES && topBlock.getValue(BlockLeaves.DECAYABLE)) {
+        if (possible_spawns.isEmpty() && topBlock.getBlock() == Blocks.LEAVES && topBlock.getValue(BlockLeaves.DECAYABLE)) {
             possible_spawns = getPossibleSpawnHeights(new BlockPos.MutableBlockPos(topPos), 16);
         }
-        if(possible_spawns.isEmpty())
+        if (possible_spawns.isEmpty())
             return false;
         this.setPosition(posX, possible_spawns.get(rand.nextInt(possible_spawns.size())), posZ);
         return super.getCanSpawnHere();
     }
 
-    private ArrayList<Integer> getPossibleSpawnHeights(BlockPos.MutableBlockPos pos, int limit)
-    {
+    private ArrayList<Integer> getPossibleSpawnHeights(BlockPos.MutableBlockPos pos, int limit) {
         ArrayList<Integer> heights = new ArrayList<>();
         int leaves = 0;
-        for(int i = 0; i < limit; i++)
-        {
+        for (int i = 0; i < limit; i++) {
             IBlockState state = world.getBlockState(pos);
-            if(isJungleLeaves(state))
+            if (isJungleLeaves(state))
                 leaves += 1;
             else
                 leaves = 0;
-            if(leaves == 2) //Only on top of leaves that are two blocks thick.
-                heights.add(pos.getY()+2);
+            if (leaves == 2) //Only on top of leaves that are two blocks thick.
+                heights.add(pos.getY() + 2);
             pos.move(EnumFacing.DOWN);
         }
         return heights;
     }
 
-    private boolean isJungleLeaves(IBlockState state)
-    {
+    private boolean isJungleLeaves(IBlockState state) {
         return state.getBlock() == Blocks.LEAVES && state.getValue(BlockLeaves.DECAYABLE);
     }
 }

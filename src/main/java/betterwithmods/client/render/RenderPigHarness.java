@@ -17,6 +17,7 @@ import net.minecraft.util.ResourceLocation;
 public class RenderPigHarness extends RenderPig {
     private static final ResourceLocation HARNESS = new ResourceLocation(BWMod.MODID, "textures/entity/pig_harness.png");
     private static final ResourceLocation HARNESS_KF = new ResourceLocation(BWMod.MODID, "textures/entity/pig_harness_kf.png");
+
     public RenderPigHarness(RenderManager renderManagerIn) {
         super(renderManagerIn);
     }

@@ -26,7 +26,7 @@ public class StackOutput implements IOutput {
 
     @Override
     public boolean equals(IOutput output) {
-        return InvUtils.matches(output.getOutput(),this.getOutput());
+        return InvUtils.matches(output.getOutput(), this.getOutput());
     }
 
     @Override

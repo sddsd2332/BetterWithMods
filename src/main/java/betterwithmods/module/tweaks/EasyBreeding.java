@@ -75,7 +75,7 @@ public class EasyBreeding extends Feature {
                         event.setCanceled(true);
                         event.setCancellationResult(EnumActionResult.FAIL);
                     }
-                    
+
                     EntityPlayer player = event.getEntityPlayer();
                     EnumHand hand = event.getHand();
                     ItemStack itemstack = player.getHeldItem(hand);

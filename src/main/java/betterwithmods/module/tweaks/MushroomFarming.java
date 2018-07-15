@@ -37,24 +37,31 @@ public class MushroomFarming extends Feature {
     @GameRegistry.ObjectHolder("minecraft:brown_mushroom")
     public static Block BROWN_MUSHROOM;
 
+    public static boolean isMushroomSoil(IBlockState state) {
+        if (state.getBlock() == Blocks.MYCELIUM)
+            return true;
+        else
+            return state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL;
+    }
+
     @Override
     public void setupConfig() {
         MAX_LIGHT_LEVEL_BROWN = loadPropInt("Maximum Light Level Brown", "The highest lightlevel at which brown mushrooms will grow.", 0);
         MAX_LIGHT_LEVEL_RED = loadPropInt("Maximum Light Level Red", "The highest lightlevel at which red mushrooms will grow.", 12);
         MAX_LIGHT_LEVEL_MISC = loadPropInt("Maximum Light Level Misc", "The highest lightlevel at which other mushrooms (see Valid Other Mushrooms) will grow.", 0);
-        MISC_MUSHROOMS = loadPropStringHashSet("Valid Other Mushrooms","Registry names of affected mushrooms other than vanilla ones.",new String[]{});
-        SPREAD_ON_MYCELLIUM = loadPropBool("Spread On Mycellium","Whether mushrooms can spread on mycellium even at a higher light level",false);
-        GROW_FAST_ON_DUNG = loadPropBool("Grow Faster On Dung","Whether mushrooms grow faster on dung blocks",false);
-        ALIAS_MUSHROOMS = loadPropBool("Alias Mushrooms","Aliases vanilla mushrooms to truly prevent them from growing. Turn this off if it causes conflicts.",true);
+        MISC_MUSHROOMS = loadPropStringHashSet("Valid Other Mushrooms", "Registry names of affected mushrooms other than vanilla ones.", new String[]{});
+        SPREAD_ON_MYCELLIUM = loadPropBool("Spread On Mycellium", "Whether mushrooms can spread on mycellium even at a higher light level", false);
+        GROW_FAST_ON_DUNG = loadPropBool("Grow Faster On Dung", "Whether mushrooms grow faster on dung blocks", false);
+        ALIAS_MUSHROOMS = loadPropBool("Alias Mushrooms", "Aliases vanilla mushrooms to truly prevent them from growing. Turn this off if it causes conflicts.", true);
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        if(ALIAS_MUSHROOMS) {
+        if (ALIAS_MUSHROOMS) {
             RED_MUSHROOM = new BlockMushroom(MAX_LIGHT_LEVEL_RED).setRegistryName("minecraft:red_mushroom");
             BROWN_MUSHROOM = new BlockMushroom(MAX_LIGHT_LEVEL_BROWN).setRegistryName("minecraft:brown_mushroom");
-            BWMBlocks.registerBlock(RED_MUSHROOM,null);
-            BWMBlocks.registerBlock(BROWN_MUSHROOM,null);
+            BWMBlocks.registerBlock(RED_MUSHROOM, null);
+            BWMBlocks.registerBlock(BROWN_MUSHROOM, null);
         }
     }
 
@@ -79,7 +86,7 @@ public class MushroomFarming extends Feature {
         BlockPos pos = event.getPos();
         IBlockState state = event.getPlacedBlock();
 
-        if(isMushroom(state) && !canGrowMushroom(world,pos)) {
+        if (isMushroom(state) && !canGrowMushroom(world, pos)) {
             event.setCanceled(true);
         }
     }
@@ -89,46 +96,38 @@ public class MushroomFarming extends Feature {
         World world = event.getWorld();
         BlockPos pos = event.getPos();
 
-        if(!world.isRemote) {
-            popOffMushroom(world,pos);
-            popOffMushroom(world,pos.up());
+        if (!world.isRemote) {
+            popOffMushroom(world, pos);
+            popOffMushroom(world, pos.up());
         }
     }
 
     private boolean isMushroom(IBlockState state) {
         ResourceLocation loc = state.getBlock().getRegistryName();
-        if(loc == null) //WEE WOO WEE WOO
-            throw new IllegalStateException("BetterWithMods Handler ("+this.getClass().getSimpleName()+") obtained an unregistered block from a blockstate! (Block -> "+state.getBlock().getClass().getName()+")");
+        if (loc == null) //WEE WOO WEE WOO
+            throw new IllegalStateException("BetterWithMods Handler (" + this.getClass().getSimpleName() + ") obtained an unregistered block from a blockstate! (Block -> " + state.getBlock().getClass().getName() + ")");
         return MISC_MUSHROOMS.contains(loc.toString());
     }
 
     private void popOffMushroom(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
-        if(isMushroom(state) && !canGrowMushroom(world,pos)) {
+        if (isMushroom(state) && !canGrowMushroom(world, pos)) {
             state.getBlock().dropBlockAsItem(world, pos, state, 0);
             world.setBlockToAir(pos);
         }
     }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
-    private boolean canGrowMushroom(World world, BlockPos pos)
-    {
+    private boolean canGrowMushroom(World world, BlockPos pos) {
         int light = world.getLight(pos);
         IBlockState soil = world.getBlockState(pos.down());
 
         return light <= MAX_LIGHT_LEVEL_MISC || isMushroomSoil(soil);
     }
 
-    public static boolean isMushroomSoil(IBlockState state) {
-        if (state.getBlock() == Blocks.MYCELIUM)
-            return true;
-        else
-            return state.getBlock() == Blocks.DIRT && state.getValue(BlockDirt.VARIANT) == BlockDirt.DirtType.PODZOL;
-    }
-
     @SubscribeEvent
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
-        if(event.getState().getBlock() instanceof BlockMushroom) {
+        if (event.getState().getBlock() instanceof BlockMushroom) {
             event.getDrops().clear();
             event.getDrops().add(BWMRecipes.getStackFromState(event.getState()));
         }

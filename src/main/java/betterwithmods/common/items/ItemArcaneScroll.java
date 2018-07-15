@@ -20,6 +20,11 @@ import java.util.List;
  */
 public class ItemArcaneScroll extends Item {
 
+    public ItemArcaneScroll() {
+        super();
+        setHasSubtypes(true);
+    }
+
     public static ItemStack getScrollWithEnchant(Enchantment enchantment) {
         ItemStack stack = new ItemStack(BWMItems.ARCANE_SCROLL);
         NBTTagCompound tag = new NBTTagCompound();
@@ -28,7 +33,6 @@ public class ItemArcaneScroll extends Item {
         return stack;
     }
 
-
     public static Enchantment getEnchantment(ItemStack scroll) {
         NBTTagCompound tag = scroll.getTagCompound();
         if (tag != null && tag.hasKey("enchant")) {
@@ -36,11 +40,6 @@ public class ItemArcaneScroll extends Item {
             return Enchantment.getEnchantmentByID(e);
         }
         return null;
-    }
-
-    public ItemArcaneScroll() {
-        super();
-        setHasSubtypes(true);
     }
 
     @Override

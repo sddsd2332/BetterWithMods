@@ -15,9 +15,9 @@ import javax.annotation.Nullable;
 public class BWDamageSource extends DamageSource {
     public static final BWDamageSource gloom = new BWDamageSource("gloom", true);
     public static final BWDamageSource growth = new BWDamageSource("growth", false);
+    public static final BWDamageSource squid = new BWDamageSource("squid", false);
     private static FakeDamageSource saw = null;
     private static FakeDamageSource choppingBlock = null;
-	public static final BWDamageSource squid = new BWDamageSource("squid", false);
 
     protected BWDamageSource(String name, boolean ignoreArmor) {
         super(name);

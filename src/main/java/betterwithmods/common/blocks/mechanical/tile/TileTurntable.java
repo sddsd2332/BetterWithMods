@@ -28,9 +28,9 @@ public class TileTurntable extends TileBasic implements ITickable, IMechanicalPo
 
     private static final int height = 3;
     private static final int[] ticksToRotate = {10, 20, 40, 80};
+    private final double[] offsets = {0.25D, 0.375D, 0.5D, 0.625D};
     private int timerPos = 0;
     private int potteryRotation = 0;
-    private final double[] offsets = {0.25D, 0.375D, 0.5D, 0.625D};
     private boolean asynchronous = false;
     private int rotationTime = 0;
     private int power;
@@ -132,7 +132,7 @@ public class TileTurntable extends TileBasic implements ITickable, IMechanicalPo
 
         for (int i = 1; i < height; i++) {
             pos.setY(pos.getY() + 1);
-            TurntableRotationManager.rotateEntities(world,pos,rotation);
+            TurntableRotationManager.rotateEntities(world, pos, rotation);
             TurntableRotationManager.IRotation handler = rotateBlock(pos, rotation);
             if (handler == null)
                 break;

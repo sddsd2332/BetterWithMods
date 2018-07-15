@@ -11,7 +11,7 @@ public class EntitySitMount extends Entity {
     private final double offset;
 
     public EntitySitMount(World worldIn) {
-        this(worldIn,0);
+        this(worldIn, 0);
     }
 
     public EntitySitMount(World worldIn, double offset) {

@@ -8,14 +8,14 @@ import team.chisel.ctm.client.texture.ctx.TextureContextPosition;
 
 import javax.annotation.Nonnull;
 
-public class TextureContextStrata extends TextureContextPosition{
+public class TextureContextStrata extends TextureContextPosition {
     public TextureContextStrata(@Nonnull BlockPos pos) {
         super(pos);
     }
 
     public int getStrata() {
         WorldClient world = Minecraft.getMinecraft().world;
-        return HCStrata.getStratification(world,position, world.provider.getDimension()).ordinal();
+        return HCStrata.getStratification(world, position, world.provider.getDimension()).ordinal();
     }
 
     @Override

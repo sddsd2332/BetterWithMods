@@ -21,15 +21,13 @@ public class BWMapGenMineshaft extends MapGenMineshaft {
         return new BWStructureMineshaftStart(this.world, this.rand, chunkX, chunkZ, type);
     }
 
-    public static class BWStructureMineshaftStart extends StructureStart
-    {
+    public static class BWStructureMineshaftStart extends StructureStart {
         private MapGenMineshaft.Type mineShaftType;
 
         public BWStructureMineshaftStart() {
         }
 
-        public BWStructureMineshaftStart(World world, Random random, int chunkX, int chunkZ, MapGenMineshaft.Type type)
-        {
+        public BWStructureMineshaftStart(World world, Random random, int chunkX, int chunkZ, MapGenMineshaft.Type type) {
             super(chunkX, chunkZ);
             this.mineShaftType = type;
             BWStructureMineshaftPieces.Room room = new BWStructureMineshaftPieces.Room(0, random, (chunkX << 4) + 2, (chunkZ << 4) + 2, this.mineShaftType);
@@ -37,18 +35,14 @@ public class BWMapGenMineshaft extends MapGenMineshaft {
             room.buildComponent(room, this.components, random);
             this.updateBoundingBox();
 
-            if (type == MapGenMineshaft.Type.MESA)
-            {
+            if (type == MapGenMineshaft.Type.MESA) {
                 int yoffset = world.getSeaLevel() - this.boundingBox.maxY + this.boundingBox.getYSize() / 2 + 5;
                 this.boundingBox.offset(0, yoffset, 0);
 
-                for (StructureComponent structurecomponent : this.components)
-                {
+                for (StructureComponent structurecomponent : this.components) {
                     structurecomponent.offset(0, yoffset, 0);
                 }
-            }
-            else
-            {
+            } else {
                 this.markAvailableHeight(world, random, 10);
             }
         }

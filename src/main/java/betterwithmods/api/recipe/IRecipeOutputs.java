@@ -24,7 +24,7 @@ public interface IRecipeOutputs {
     }
 
     default List<IOutput> cast(List<? extends IOutput> list) {
-        return list.stream().map(o -> (IOutput)o).collect(Collectors.toList());
+        return list.stream().map(o -> (IOutput) o).collect(Collectors.toList());
     }
 
 }

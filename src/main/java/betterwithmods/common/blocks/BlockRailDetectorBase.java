@@ -31,7 +31,7 @@ public class BlockRailDetectorBase extends BlockRailDetector {
         if (entity instanceof EntityMinecart) {
             EntityMinecart cart = (EntityMinecart) entity;
             Optional<Entity> riding = cart.getPassengers().stream().findFirst();
-            if(riding.isPresent()) {
+            if (riding.isPresent()) {
                 return rider.apply(riding.orElse(null));
             }
         }

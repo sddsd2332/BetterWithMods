@@ -60,12 +60,12 @@ public class KilnRecipe extends BlockRecipe implements IHeatRecipe {
 
     @Override
     public boolean matches(World world, BlockPos pos, IBlockState state) {
-        if(super.matches(world,pos,state)) {
-           if(!ignore()) {
-               int heat =  KilnStructureManager.getKiln().getHeat(world,pos.down());
-               return heat == getHeat();
-           }
-           return true;
+        if (super.matches(world, pos, state)) {
+            if (!ignore()) {
+                int heat = KilnStructureManager.getKiln().getHeat(world, pos.down());
+                return heat == getHeat();
+            }
+            return true;
         }
         return false;
     }

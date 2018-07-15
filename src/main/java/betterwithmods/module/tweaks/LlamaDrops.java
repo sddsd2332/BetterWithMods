@@ -11,6 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class LlamaDrops extends Feature {
 
     public static final ResourceLocation LLAMA_LOOT = new ResourceLocation(BWMod.MODID, "entity/llama");
+
     //Override loottables
     @SubscribeEvent
     public void onLootTableLoad(LootTableLoadEvent event) {

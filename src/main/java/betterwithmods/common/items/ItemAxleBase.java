@@ -63,7 +63,7 @@ public abstract class ItemAxleBase extends ItemBlock implements IRenderRotationP
         Iterable<BlockPos> positions = WorldUtils.getPosInBox(box.offset(center));
         for (BlockPos p : positions) {
             IBlockState state = world.getBlockState(p);
-            if(state.getBlock() instanceof BlockAxleGenerator) {
+            if (state.getBlock() instanceof BlockAxleGenerator) {
                 return true;
             }
         }

@@ -18,7 +18,7 @@ import net.minecraftforge.oredict.OreDictionary;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCDiamond extends Feature {
-     @Override
+    @Override
     public String getFeatureDescription() {
         return "Makes it so diamonds have to me made into an ingot alloy to be used in certain recipes";
     }
@@ -40,20 +40,20 @@ public class HCDiamond extends Feature {
     public void init(FMLInitializationEvent event) {
         if (BWMod.MODULE_LOADER.isFeatureEnabled(MetalReclaming.class) && MetalReclaming.reclaimCount > 0) {
             if (HCTools.changeAxeRecipe) {
-                BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_AXE, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
+                BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_AXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
 
             } else {
-                BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_AXE, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 3));
+                BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_AXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 3));
             }
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_HOE, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_PICKAXE, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 3));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_SHOVEL, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 1));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_SWORD, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_HOE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_PICKAXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 3));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_SHOVEL, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 1));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_SWORD, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
 
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_HELMET, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 5));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 8));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 7));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_BOOTS, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 4));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_HELMET, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 5));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 8));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 7));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_BOOTS, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 4));
 
         }
     }

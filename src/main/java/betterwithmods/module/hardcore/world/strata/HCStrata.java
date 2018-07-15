@@ -35,9 +35,8 @@ public class HCStrata extends Feature {
     public static HashMap<IBlockState, BlockType> STATES = Maps.newHashMap();
     public static HashMap<Integer, StrataConfig> STRATA_CONFIGS = Maps.newHashMap();
     public static StrataConfig DEFAULT = new StrataConfig(-1, -1);
-    private static Random random;
-
     public static NoiseGeneratorPerlin STRATA_NOISE1, STRATA_NOISE2;
+    private static Random random;
 
     public HCStrata() {
         enabledByDefault = false;

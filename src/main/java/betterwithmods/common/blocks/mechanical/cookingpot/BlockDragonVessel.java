@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockDragonVessel extends BlockCookingPot{
+public class BlockDragonVessel extends BlockCookingPot {
 
     @Nullable
     @Override

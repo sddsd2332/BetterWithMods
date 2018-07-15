@@ -17,6 +17,17 @@ abstract class BasicTextSegment extends AbstractSegment implements Segment {
         super(manual);
     }
 
+    protected static int indexOfFirstNonWhitespace(final String s) {
+        for (int i = 0; i < s.length(); i++) {
+            if (!Character.isWhitespace(s.charAt(i))) {
+                return i;
+            }
+        }
+        return s.length();
+    }
+
+    // ----------------------------------------------------------------------- //
+
     private String getRootPrefix() {
         if (rootPrefix == null) {
             final TextSegment segment = (TextSegment) root();
@@ -24,8 +35,6 @@ abstract class BasicTextSegment extends AbstractSegment implements Segment {
         }
         return rootPrefix;
     }
-
-    // ----------------------------------------------------------------------- //
 
     @Override
     public int nextX(final int indent, final int maxWidth, final FontRenderer renderer) {
@@ -69,12 +78,12 @@ abstract class BasicTextSegment extends AbstractSegment implements Segment {
         return lines * lineHeight(renderer);
     }
 
+    // ----------------------------------------------------------------------- //
+
     @Override
     public String toString() {
         return text();
     }
-
-    // ----------------------------------------------------------------------- //
 
     protected abstract String text();
 
@@ -118,6 +127,8 @@ abstract class BasicTextSegment extends AbstractSegment implements Segment {
         return pos;
     }
 
+    // ----------------------------------------------------------------------- //
+
     protected int computeWrapIndent(final FontRenderer renderer) {
         return (LISTS.contains(getRootPrefix())) ? renderer.getStringWidth(getRootPrefix()) : 0;
     }
@@ -127,16 +138,5 @@ abstract class BasicTextSegment extends AbstractSegment implements Segment {
     private boolean isLast() {
         final Segment next = next();
         return next == null || root() != next.root();
-    }
-
-    // ----------------------------------------------------------------------- //
-
-    protected static int indexOfFirstNonWhitespace(final String s) {
-        for (int i = 0; i < s.length(); i++) {
-            if (!Character.isWhitespace(s.charAt(i))) {
-                return i;
-            }
-        }
-        return s.length();
     }
 }

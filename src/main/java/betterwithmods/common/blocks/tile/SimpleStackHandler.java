@@ -8,10 +8,12 @@ import net.minecraftforge.items.ItemStackHandler;
  */
 public class SimpleStackHandler extends ItemStackHandler {
     private final TileEntity tile;
+
     public SimpleStackHandler(int size, TileEntity tile) {
         super(size);
         this.tile = tile;
     }
+
     @Override
     public void onContentsChanged(int slot) {
         tile.markDirty();

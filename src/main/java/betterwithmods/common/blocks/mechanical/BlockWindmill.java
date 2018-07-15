@@ -58,7 +58,7 @@ public class BlockWindmill extends BlockAxleGenerator {
 
     @Override
     public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
-        if(axis == EnumFacing.Axis.Y)
+        if (axis == EnumFacing.Axis.Y)
             return new TileWindmillVertical();
         return new TileWindmillHorizontal();
     }

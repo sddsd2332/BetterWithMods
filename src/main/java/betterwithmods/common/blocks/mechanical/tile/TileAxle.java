@@ -26,14 +26,12 @@ import java.util.List;
  * Created by primetoxinz on 7/18/17.
  */
 public class TileAxle extends TileBasic implements IAxle, ITickable {
+    public static final List<IAxleTick> tickHandlers = Lists.newArrayList();
     private byte maxSignal;
     private int maxPower;
     private int minPower;
-
     private byte signal;
     private int power;
-
-    public static final List<IAxleTick> tickHandlers = Lists.newArrayList();
 
     public TileAxle() {
 
@@ -177,6 +175,10 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
         return signal;
     }
 
+    public void setSignal(byte signal) {
+        this.signal = signal;
+    }
+
     @Override
     public byte getMaximumSignal() {
         return maxSignal;
@@ -201,14 +203,6 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
         return ((BlockAxle) getBlockType()).getAxis(world.getBlockState(pos));
     }
 
-    public void setSignal(byte signal) {
-        this.signal = signal;
-    }
-
-    public void setPower(int power) {
-        this.power = Math.min(power, maxPower + 1);
-    }
-
     @Override
     public void markDirty() {
         super.markDirty();
@@ -222,6 +216,10 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
 
     public int getPower() {
         return power;
+    }
+
+    public void setPower(int power) {
+        this.power = Math.min(power, maxPower + 1);
     }
 
     @Override
@@ -246,7 +244,7 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
 
     @Override
     public void update() {
-        if(!tickHandlers.isEmpty())
+        if (!tickHandlers.isEmpty())
             tickHandlers.forEach(t -> t.tick(world, pos, this));
     }
 }

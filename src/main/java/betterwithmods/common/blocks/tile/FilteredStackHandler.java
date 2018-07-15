@@ -20,9 +20,9 @@ public class FilteredStackHandler extends SimpleStackHandler {
     @Nonnull
     @Override
     public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-        if(predicate.length > slot) {
+        if (predicate.length > slot) {
             Predicate<ItemStack> p = predicate[slot];
-            if(p != null)
+            if (p != null)
                 if (!p.test(stack))
                     return stack;
         }

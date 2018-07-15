@@ -37,11 +37,11 @@ public class TileCreativeGen extends TileEntity implements IMechanicalPower {
 
     @Override
     public int getMechanicalOutput(EnumFacing facing) {
-        IAxle axle = BWMAPI.IMPLEMENTATION.getAxle(world,pos.offset(facing),facing.getOpposite());
-        if(axle != null)
+        IAxle axle = BWMAPI.IMPLEMENTATION.getAxle(world, pos.offset(facing), facing.getOpposite());
+        if (axle != null)
             return axle.getMaximumInput();
-        IMechanicalPower power = BWMAPI.IMPLEMENTATION.getMechanicalPower(world,pos.offset(facing),facing.getOpposite());
-        if(power != null)
+        IMechanicalPower power = BWMAPI.IMPLEMENTATION.getMechanicalPower(world, pos.offset(facing), facing.getOpposite());
+        if (power != null)
             return power.getMaximumInput(facing.getOpposite());
         return 0;
     }

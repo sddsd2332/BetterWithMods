@@ -19,27 +19,6 @@ public class TESRBeacon extends TileEntitySpecialRenderer<TileBeacon> {
 
     public static final ResourceLocation TEXTURE_BEACON_BEAM = new ResourceLocation("textures/entity/beacon_beam.png");
 
-    @Override
-    public void render(TileBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
-        renderBeacon(te,x,y,z,partialTicks);
-    }
-
-
-    public void renderBeacon(TileBeacon te, double x, double y, double z, float partialTicks) {
-        if (te.isEnabled()) {
-            GlStateManager.alphaFunc(516, 0.1F);
-            this.bindTexture(TEXTURE_BEACON_BEAM);
-            List<TileBeacon.BeamSegment> segments = te.getSegments();
-            GlStateManager.disableFog();
-            int i = 0;
-            for (TileBeacon.BeamSegment segment : segments) {
-                renderBeamSegment(x, y, z, partialTicks, te.getBeamScale(), te.getWorld().getTotalWorldTime(), i, segment.getHeight(), segment.getColors());
-                i += segment.getHeight();
-            }
-            GlStateManager.enableFog();
-        }
-    }
-
     public static void renderBeamSegment(double x, double y, double z, double partialTicks, double textureScale, double totalWorldTime, int yOffset, int height, float[] colors) {
         renderBeamSegment(x, y, z, partialTicks, textureScale, totalWorldTime, yOffset, height, colors, 0.2D, 0.25D);
     }
@@ -125,6 +104,26 @@ public class TESRBeacon extends TileEntitySpecialRenderer<TileBeacon> {
         GlStateManager.enableLighting();
         GlStateManager.enableTexture2D();
         GlStateManager.depthMask(true);
+    }
+
+    @Override
+    public void render(TileBeacon te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
+        renderBeacon(te, x, y, z, partialTicks);
+    }
+
+    public void renderBeacon(TileBeacon te, double x, double y, double z, float partialTicks) {
+        if (te.isEnabled()) {
+            GlStateManager.alphaFunc(516, 0.1F);
+            this.bindTexture(TEXTURE_BEACON_BEAM);
+            List<TileBeacon.BeamSegment> segments = te.getSegments();
+            GlStateManager.disableFog();
+            int i = 0;
+            for (TileBeacon.BeamSegment segment : segments) {
+                renderBeamSegment(x, y, z, partialTicks, te.getBeamScale(), te.getWorld().getTotalWorldTime(), i, segment.getHeight(), segment.getColors());
+                i += segment.getHeight();
+            }
+            GlStateManager.enableFog();
+        }
     }
 
     @Override

@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class ConstructKilnTrigger implements ICriterionTrigger<ConstructKilnTrigger.Instance> {
 
-    private static final ResourceLocation ID = new ResourceLocation(BWMod.MODID,"construct_kiln");
+    private static final ResourceLocation ID = new ResourceLocation(BWMod.MODID, "construct_kiln");
 
     private final Map<PlayerAdvancements, ConstructKilnTrigger.Listeners> listeners = Maps.newHashMap();
 

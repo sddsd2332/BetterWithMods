@@ -31,7 +31,7 @@ public class TESRCookingPot extends TileEntitySpecialRenderer<TileCookingPot> {
     }
 
     private ResourceLocation getResource(TileCookingPot tile) {
-        boolean stoked = tile.getHeat(tile.getBlockWorld(),tile.getBlockPos()) >= BWMHeatRegistry.STOKED_HEAT;
+        boolean stoked = tile.getHeat(tile.getBlockWorld(), tile.getBlockPos()) >= BWMHeatRegistry.STOKED_HEAT;
 
         if (tile instanceof TileCauldron) {
             return new ResourceLocation(BWMod.MODID, "blocks/cauldron_contents");

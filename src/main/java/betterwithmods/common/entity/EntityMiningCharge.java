@@ -33,12 +33,6 @@ import static net.minecraft.util.EnumFacing.*;
 public class EntityMiningCharge extends Entity {
     private static final DataParameter<Integer> FUSE = EntityDataManager.createKey(EntityMiningCharge.class, DataSerializers.VARINT);
     private static final DataParameter<Integer> FACING = EntityDataManager.createKey(EntityMiningCharge.class, DataSerializers.VARINT);
-    private EntityLivingBase igniter;
-    /**
-     * How long the fuse is
-     */
-    private int fuse;
-    private EnumFacing facing;
     private final HashMap<Block, IBlockState> dropMap = new HashMap<Block, IBlockState>() {{
         put(Blocks.COBBLESTONE, Blocks.GRAVEL.getDefaultState());
         put(Blocks.GRAVEL, Blocks.SAND.getDefaultState());
@@ -46,6 +40,12 @@ public class EntityMiningCharge extends Entity {
         put(Blocks.DIRT, Blocks.DIRT.getDefaultState());
         put(Blocks.SAND, Blocks.SAND.getDefaultState());
     }};
+    private EntityLivingBase igniter;
+    /**
+     * How long the fuse is
+     */
+    private int fuse;
+    private EnumFacing facing;
 
     public EntityMiningCharge(World worldIn) {
         super(worldIn);

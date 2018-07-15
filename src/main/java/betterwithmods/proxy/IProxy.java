@@ -32,7 +32,8 @@ public interface IProxy {
     default void syncHarness(int entityId, ItemStack harness) {
     }
 
-    default void rotateEntity(int entityId, float yaw, float pitch) {}
+    default void rotateEntity(int entityId, float yaw, float pitch) {
+    }
 
     default void spawnBlockDustClient(World world, BlockPos pos, Random rand, float posX, float posY, float posZ, int numberOfParticles, float particleSpeed, EnumFacing up) {
     }

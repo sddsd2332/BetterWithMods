@@ -34,12 +34,12 @@ public class TileSaw extends TileBasic implements IMechanicalPower {
         EnumFacing facing = getBlock().getFacing(world, pos);
         final BlockPos blockPos = pos.offset(facing);
         final IBlockState state = world.getBlockState(blockPos);
-        if(world.isAirBlock(blockPos))
+        if (world.isAirBlock(blockPos))
             return;
         SawRecipe recipe = BWRegistry.WOOD_SAW.findRecipe(world, blockPos, state).orElse(null);
         if (recipe != null) {
             if (!recipe.craftRecipe(world, blockPos, rand, state)) {
-                if (!getBlock().isChoppingBlock(state,false) && WorldUtils.isSolid(world, blockPos, facing, state)) {
+                if (!getBlock().isChoppingBlock(state, false) && WorldUtils.isSolid(world, blockPos, facing, state)) {
                     world.playSound(null, blockPos, BWSounds.METAL_HACKSAW, SoundCategory.BLOCKS, 1.0f, 0.80f);
                 }
             }

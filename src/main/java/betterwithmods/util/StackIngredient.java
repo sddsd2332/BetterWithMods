@@ -13,7 +13,7 @@ public class StackIngredient extends Ingredient {
     private final Map<Ingredient, Integer> internal;
     private ItemStack[] cachedStacks;
 
-    protected StackIngredient(Map<Ingredient,Integer> ingredients) {
+    protected StackIngredient(Map<Ingredient, Integer> ingredients) {
         super(0);
         internal = ingredients;
     }
@@ -45,7 +45,7 @@ public class StackIngredient extends Ingredient {
     }
 
     public static StackIngredient mergeStacked(List<StackIngredient> ingredients) {
-        HashMap<Ingredient,Integer> map = new HashMap<>();
+        HashMap<Ingredient, Integer> map = new HashMap<>();
         ingredients.forEach(stackIngredient -> map.putAll(stackIngredient.internal));
         return new StackIngredient(map);
     }
@@ -64,7 +64,7 @@ public class StackIngredient extends Ingredient {
     public ItemStack[] getMatchingStacks() {
         if (cachedStacks == null) {
             ArrayList<ItemStack> stacks = new ArrayList<>();
-            for (Map.Entry<Ingredient,Integer> entry : internal.entrySet())
+            for (Map.Entry<Ingredient, Integer> entry : internal.entrySet())
                 Arrays.stream(entry.getKey().getMatchingStacks()).map(stack -> withCount(stack, entry.getValue())).forEach(stacks::add);
             cachedStacks = stacks.toArray(new ItemStack[0]);
         }

@@ -32,7 +32,20 @@ import javax.vecmath.Vector3f;
 import java.util.EnumMap;
 
 public abstract class BaseBakedModel implements IBakedModel {
+    private static final TRSRTransformation flipX = new TRSRTransformation(null, null, new Vector3f(-1, 1, 1), null);
     private final EnumMap<ItemCameraTransforms.TransformType, TRSRTransformation> transformMap = new EnumMap<>(ItemCameraTransforms.TransformType.class);
+
+    protected static TRSRTransformation toLeftHand(TRSRTransformation transform) {
+        return TRSRTransformation.blockCenterToCorner(flipX.compose(TRSRTransformation.blockCornerToCenter(transform)).compose(flipX));
+    }
+
+    protected static TRSRTransformation getTransformation(float tx, float ty, float tz, float ax, float ay, float az, float s) {
+        return TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
+                new Vector3f(tx / 16, ty / 16, tz / 16),
+                TRSRTransformation.quatFromXYZDegrees(new Vector3f(ax, ay, az)),
+                new Vector3f(s, s, s),
+                null));
+    }
 
     @Nonnull
     @Override
@@ -56,6 +69,8 @@ public abstract class BaseBakedModel implements IBakedModel {
         return false;
     }
 
+    // ForgeBlockStateV1 transforms
+
     @Nonnull
     @Override
     public ItemOverrideList getOverrides() {
@@ -68,23 +83,7 @@ public abstract class BaseBakedModel implements IBakedModel {
 
     public void addThirdPersonTransformation(TRSRTransformation transformation) {
         addTransformation(ItemCameraTransforms.TransformType.THIRD_PERSON_RIGHT_HAND, transformation);
-        addTransformation(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND,  toLeftHand(transformation));
-    }
-
-    // ForgeBlockStateV1 transforms
-
-    private static final TRSRTransformation flipX = new TRSRTransformation(null, null, new Vector3f(-1, 1, 1), null);
-
-    protected static TRSRTransformation toLeftHand(TRSRTransformation transform) {
-        return TRSRTransformation.blockCenterToCorner(flipX.compose(TRSRTransformation.blockCornerToCenter(transform)).compose(flipX));
-    }
-
-    protected static TRSRTransformation getTransformation(float tx, float ty, float tz, float ax, float ay, float az, float s) {
-        return TRSRTransformation.blockCenterToCorner(new TRSRTransformation(
-                new Vector3f(tx / 16, ty / 16, tz / 16),
-                TRSRTransformation.quatFromXYZDegrees(new Vector3f(ax, ay, az)),
-                new Vector3f(s, s, s),
-                null));
+        addTransformation(ItemCameraTransforms.TransformType.THIRD_PERSON_LEFT_HAND, toLeftHand(transformation));
     }
 
     public BaseBakedModel addDefaultBlockTransforms() {

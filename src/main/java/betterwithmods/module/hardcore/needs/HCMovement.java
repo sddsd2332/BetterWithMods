@@ -32,6 +32,7 @@ public class HCMovement extends Feature {
     public static final HashMap<IBlockState, Float> BLOCK_OVERRIDE_MOVEMENT = Maps.newHashMap();
     public static final float DEFAULT_SPEED = 0.75f;
     public static final float FAST = 1.2f;
+    public static final HashMap<UUID, Float> PREVIOUS_SPEED = Maps.newHashMap();
     public static boolean dirtpathQuality;
 
     @Override
@@ -69,8 +70,6 @@ public class HCMovement extends Feature {
         BLOCK_OVERRIDE_MOVEMENT.put(Blocks.GRASS_PATH.getDefaultState(), FAST);
         BLOCK_OVERRIDE_MOVEMENT.put(BWMBlocks.DIRT_SLAB.getDefaultState().withProperty(BlockDirtSlab.VARIANT, BlockDirtSlab.DirtSlabType.PATH), FAST);
     }
-
-    public static final HashMap<UUID, Float> PREVIOUS_SPEED = Maps.newHashMap();
 
     @SubscribeEvent
     public void onWalk(TickEvent.PlayerTickEvent event) {

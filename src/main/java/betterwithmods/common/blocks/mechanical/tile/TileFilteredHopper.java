@@ -37,15 +37,14 @@ import java.util.Optional;
 
 public class TileFilteredHopper extends TileVisibleInventory implements IMechanicalPower, IProgressSource {
 
-    private final int STACK_SIZE = 8;
     public final SimpleStackHandler filter;
+    private final int STACK_SIZE = 8;
+    private final int maxExperienceCount = 1000;
     public IHopperFilter hopperFilter = HopperFilter.NONE;
-
     public int soulsRetained;
     public byte power;
     private int ejectCounter, ejectXPCounter;
     private int experienceCount;
-    private final int maxExperienceCount = 1000;
     private ISoulContainer prevContainer;
 
     public TileFilteredHopper() {

@@ -9,7 +9,7 @@ import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 public class HCInfo extends Feature {
     @Override
     public void serverStarting(FMLServerStartingEvent event) {
-        event.getServer().getEntityWorld().getGameRules().setOrCreateGameRule("reducedDebugInfo","true");
+        event.getServer().getEntityWorld().getGameRules().setOrCreateGameRule("reducedDebugInfo", "true");
     }
 
     @Override

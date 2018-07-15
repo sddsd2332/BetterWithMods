@@ -10,9 +10,8 @@ import net.minecraft.network.play.server.SPacketSetPassengers;
 public class AIMount extends EntityAIBase {
 
     public final EntityLiving rider;
-    public EntityLivingBase target;
-
     private final int range;
+    public EntityLivingBase target;
 
     public AIMount(EntityLiving rider, int range) {
         this.rider = rider;

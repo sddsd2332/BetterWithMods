@@ -25,5 +25,6 @@ public interface IHopperFilter {
     ModelWithResource getModelOverride(ItemStack filter);
 
     @SideOnly(Side.CLIENT)
-    default void setModelOverride(ModelWithResource model) {}
+    default void setModelOverride(ModelWithResource model) {
+    }
 }

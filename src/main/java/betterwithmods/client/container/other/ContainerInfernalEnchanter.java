@@ -33,10 +33,10 @@ import java.util.Set;
 public class ContainerInfernalEnchanter extends Container {
     public static final int INV_LAST = 1;
     public final int[] enchantLevels;
-    public int xpSeed;
-    public int bookcaseCount;
     private final TileInfernalEnchanter tile;
     private final SimpleStackHandler handler;
+    public int xpSeed;
+    public int bookcaseCount;
 
 
     public ContainerInfernalEnchanter(EntityPlayer player, TileInfernalEnchanter tile) {

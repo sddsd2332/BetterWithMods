@@ -26,16 +26,25 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class PlayerDataHandler extends Feature {
+    //TODO better way to handle the team.
+    public static final String TEAM = "BWMTeam";
+    private static final ResourceLocation PLAYER_INFO = new ResourceLocation(BWMod.MODID, "player_info");
+    @SuppressWarnings("CanBeFinal")
+    @CapabilityInject(PlayerInfo.class)
+    public static Capability<PlayerInfo> CAP_PLAYER_INFO = null;
+
     public PlayerDataHandler() {
         canDisable = false;
+    }
+
+    public static PlayerInfo getPlayerInfo(EntityPlayer player) {
+        return CapabilityUtils.getCapability(player, CAP_PLAYER_INFO, null).orElse(null);
     }
 
     @Override
     public boolean hasSubscriptions() {
         return true;
     }
-
-    private static final ResourceLocation PLAYER_INFO = new ResourceLocation(BWMod.MODID, "player_info");
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -59,13 +68,13 @@ public class PlayerDataHandler extends Feature {
         }
     }
 
-    public static PlayerInfo getPlayerInfo(EntityPlayer player) {
-        return CapabilityUtils.getCapability(player, CAP_PLAYER_INFO, null).orElse(null);
+    @Override
+    public void serverStarting(FMLServerStartingEvent event) {
+        Scoreboard scoreboard = event.getServer().getEntityWorld().getScoreboard();
+        if (scoreboard.getTeam(TEAM) == null)
+            scoreboard.createTeam(TEAM);
+        scoreboard.getTeam(TEAM).setNameTagVisibility(BWMod.MODULE_LOADER.isFeatureEnabled(HCNames.class) ? Team.EnumVisible.NEVER : Team.EnumVisible.ALWAYS);
     }
-
-    @SuppressWarnings("CanBeFinal")
-    @CapabilityInject(PlayerInfo.class)
-    public static Capability<PlayerInfo> CAP_PLAYER_INFO = null;
 
     public static class CapabilityPlayerInfo implements Capability.IStorage<PlayerInfo> {
         @Nullable
@@ -109,17 +118,5 @@ public class PlayerDataHandler extends Feature {
         public void deserializeNBT(NBTTagCompound nbt) {
             givenManual = nbt.getBoolean("givenManual");
         }
-    }
-
-
-    //TODO better way to handle the team.
-    public static final String TEAM = "BWMTeam";
-
-    @Override
-    public void serverStarting(FMLServerStartingEvent event) {
-        Scoreboard scoreboard = event.getServer().getEntityWorld().getScoreboard();
-        if (scoreboard.getTeam(TEAM) == null)
-            scoreboard.createTeam(TEAM);
-        scoreboard.getTeam(TEAM).setNameTagVisibility(BWMod.MODULE_LOADER.isFeatureEnabled(HCNames.class) ? Team.EnumVisible.NEVER : Team.EnumVisible.ALWAYS);
     }
 }

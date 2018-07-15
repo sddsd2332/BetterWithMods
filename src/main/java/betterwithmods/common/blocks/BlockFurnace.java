@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 public class BlockFurnace extends net.minecraft.block.BlockFurnace {
     public BlockFurnace(boolean isBurning) {
         super(isBurning);
-        if(isBurning) {
+        if (isBurning) {
             setLightLevel(0.875F);
         }
         setUnlocalizedName("furnace");
@@ -20,8 +20,7 @@ public class BlockFurnace extends net.minecraft.block.BlockFurnace {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileFurnace();
     }
 }

@@ -44,7 +44,7 @@ public class GuiCookingPot extends GuiProgress {
 
     @Override
     public int getTextureX() {
-        return 176 + (container.getHeat() > 1 ? getWidth(): 0);
+        return 176 + (container.getHeat() > 1 ? getWidth() : 0);
     }
 
     @Override

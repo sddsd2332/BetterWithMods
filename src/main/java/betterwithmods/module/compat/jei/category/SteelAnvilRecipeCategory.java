@@ -21,15 +21,13 @@ public class SteelAnvilRecipeCategory extends BWMRecipeCategory<IRecipeWrapper> 
 
     public static final int WIDTH = 134;
     public static final int HEIGHT = 72;
-
+    public static final String UID = "bwm.steel_anvil";
     private static final int craftOutputSlot = 16;
     private static final int craftInputSlot1 = 0;
-
-    public static final String UID = "bwm.steel_anvil";
     private static final ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/steel_anvil.png");
 
     public SteelAnvilRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(location, 0, 0, WIDTH, HEIGHT), UID,  Translator.translateToLocal("inv.steel_anvil.name"));
+        super(guiHelper.createDrawable(location, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.steel_anvil.name"));
     }
 
     @Override

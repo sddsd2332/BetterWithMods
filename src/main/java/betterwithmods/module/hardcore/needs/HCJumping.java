@@ -19,11 +19,12 @@ public class HCJumping extends Feature {
     public void onBlockPlace(PlayerInteractEvent.RightClickBlock e) {
         if (!PlayerHelper.isSurvival(e.getEntityPlayer()) || e.getEntityPlayer().isInWater() || e.getEntityPlayer().isOnLadder())
             return;
-        if(e.getItemStack().getItem() instanceof ItemBlock && !e.getEntityPlayer().onGround) {
+        if (e.getItemStack().getItem() instanceof ItemBlock && !e.getEntityPlayer().onGround) {
             e.setResult(Event.Result.DENY);
             e.setCanceled(true);
         }
     }
+
     @Override
     public String getFeatureDescription() {
         return "Stops the ability to place blocks while in the air. This stops the use of 'Derp Pillars' to escape attacks";

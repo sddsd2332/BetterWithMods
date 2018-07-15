@@ -17,8 +17,6 @@ public interface IBeaconEffect {
 
     int[] radii = new int[]{20, 40, 80, 160};
 
-    void effect(World world, BlockPos pos, int level);
-
     static void forEachPlayersAround(World world, BlockPos pos, int level, Consumer<? super EntityLivingBase> player) {
         forEachEntityAround(EntityPlayer.class, world, pos, level, player);
     }
@@ -30,12 +28,14 @@ public interface IBeaconEffect {
         entities.forEach(consumer);
     }
 
+    void effect(World world, BlockPos pos, int level);
+
     default boolean processInteractions(World world, BlockPos pos, int level, EntityPlayer player, ItemStack stack) {
         return false;
     }
 
     default void breakBlock(World world, BlockPos pos, int level) {
-        
+
     }
 
     default int getTickSpeed() {

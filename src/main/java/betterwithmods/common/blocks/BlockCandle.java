@@ -28,6 +28,11 @@ public class BlockCandle extends BWMBlock {
 
     public static final HashMap<EnumDyeColor, Block> BLOCKS = Maps.newHashMap();
 
+    public BlockCandle(EnumDyeColor color) {
+        super(Material.GROUND);
+        setRegistryName("candle_" + color.getName());
+    }
+
     public static void init() {
         for (EnumDyeColor color : ColorUtils.DYES) {
             BLOCKS.put(color, new BlockCandle(color));
@@ -37,11 +42,6 @@ public class BlockCandle extends BWMBlock {
 
     public static ItemStack getStack(EnumDyeColor type) {
         return new ItemStack(BLOCKS.get(type));
-    }
-
-    public BlockCandle(EnumDyeColor color) {
-        super(Material.GROUND);
-        setRegistryName("candle_" + color.getName());
     }
 
     @SideOnly(Side.CLIENT)

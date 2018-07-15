@@ -18,7 +18,7 @@ public class EntityUtils {
 
     @SuppressWarnings("unchecked")
     public static <T extends EntityAIBase> Optional<T> findFirst(EntityLiving entity, Class<T> clazz) {
-        return entity.tasks.taskEntries.stream().filter( t -> clazz.isAssignableFrom(t.getClass())).map( t -> (T)t.action).findFirst();
+        return entity.tasks.taskEntries.stream().filter(t -> clazz.isAssignableFrom(t.getClass())).map(t -> (T) t.action).findFirst();
     }
 
     public static void copyEntityInfo(EntityLivingBase copyFrom, EntityLivingBase copyTo) {

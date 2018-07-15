@@ -31,16 +31,6 @@ public class BWMod {
     public static final String VERSION = "${version}";
     public static final String NAME = "Better With Mods";
     public static final String DEPENDENCIES = "before:survivalist;after:traverse;after:thaumcraft;after:natura;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
-
-
-    public static Logger logger;
-    @SuppressWarnings({"CanBeFinal", "unused"})
-    @SidedProxy(serverSide = "betterwithmods.proxy.ServerProxy", clientSide = "betterwithmods.proxy.ClientProxy")
-    public static IProxy proxy;
-    @SuppressWarnings({"CanBeFinal", "unused"})
-    @Mod.Instance(BWMod.MODID)
-    public static BWMod instance;
-
     public static final ModuleLoader MODULE_LOADER = new ModuleLoader() {
         @Override
         public void registerModules() {
@@ -50,16 +40,27 @@ public class BWMod {
             registerModule(CompatModule.class);
         }
     };
-
-    public static Logger getLog() {
-        return logger;
-    }
+    public static Logger logger;
+    @SuppressWarnings({"CanBeFinal", "unused"})
+    @SidedProxy(serverSide = "betterwithmods.proxy.ServerProxy", clientSide = "betterwithmods.proxy.ClientProxy")
+    public static IProxy proxy;
+    @SuppressWarnings({"CanBeFinal", "unused"})
+    @Mod.Instance(BWMod.MODID)
+    public static BWMod instance;
 
     static {
         FluidRegistry.enableUniversalBucket();
         ForgeModContainer.fullBoundingBoxLadders = true;
     }
 
+    public static Logger getLog() {
+        return logger;
+    }
+
+    public static boolean isDev() {
+        //noinspection ConstantConditions
+        return BWMod.VERSION.equalsIgnoreCase("${version}");
+    }
 
     @Mod.EventHandler
     public void preInit(FMLPreInitializationEvent evt) {
@@ -79,7 +80,6 @@ public class BWMod {
         proxy.init(evt);
     }
 
-
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent evt) {
         BWRegistry.postInit();
@@ -95,28 +95,22 @@ public class BWMod {
     @Mod.EventHandler
     public void serverStarting(FMLServerStartingEvent evt) {
         MODULE_LOADER.serverStarting(evt);
-        if(GlobalConfig.debug) {
+        if (GlobalConfig.debug) {
             evt.registerServerCommand(new HealthCommand());
         }
     }
 
     @Mod.EventHandler
     public void serverStarted(FMLServerStartedEvent evt) {
-        if(isDev()) {
+        if (isDev()) {
             BWMTests.runTests();
         }
     }
-
 
     @Mod.EventHandler
     public void serverStopping(FMLServerStoppingEvent evt) {
         FakePlayerHandler.setPlayer(null);
         FakePlayerHandler.setCreativePlayer(null);
-    }
-
-    public static boolean isDev() {
-        //noinspection ConstantConditions
-        return BWMod.VERSION.equalsIgnoreCase("${version}");
     }
 
 }
