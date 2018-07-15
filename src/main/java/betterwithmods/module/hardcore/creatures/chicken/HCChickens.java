@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.creatures.chicken;
 
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -67,8 +68,11 @@ public class HCChickens extends Feature {
             if (layer != null) {
                 if (layer.isFeed()) {
                     layer.setTicks(layer.getTicks() - 1);
-                    if (layer.canLayEgg()) {
-                        layer.lay(entityLiving);
+
+                    if (WorldUtils.isTimeFrame(entityLiving.world, WorldUtils.TimeFrame.DAWN)) {
+                        if (layer.canLayEgg()) {
+                            layer.lay(entityLiving);
+                        }
                     }
                 }
             }
