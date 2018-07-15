@@ -82,17 +82,6 @@ public class BlockBloodSapling extends BlockBush {
         }
     }
 
-    @Override
-    public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
-        if (!world.isRemote && world.provider.isNether()) {
-            super.updateTick(world, pos, state, rand);
-            if (rand.nextInt(7) == 0) {
-                grow(world, pos, state, rand);
-            }
-        }
-    }
-
-
     public boolean generateTree(World world, BlockPos pos, IBlockState state, Random rand) {
         if (!TerrainGen.saplingGrowTree(world, rand, pos)) return false;
         WorldGenerator gen = new WorldGenBloodTree();
