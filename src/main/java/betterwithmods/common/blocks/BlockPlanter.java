@@ -125,7 +125,6 @@ public class BlockPlanter extends BWMBlock implements IMultiVariants, IGrowable 
             case SOULSAND:
                 break;
             case FERTILE:
-                break;
             case FARMLAND:
                 if (newType == FERTILE) {
                     if (world.isRemote)
