@@ -37,14 +37,15 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-
+import net.minecraft.tileentity.TileEntityBeacon.BeamSegment;
 
 /**
  * Created by primetoxinz on 7/17/17.
  */
 public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon implements ITickable {
 
-    private int level, prevLevel;
+    private int currentLevel;
+    private boolean active;
     private IBlockState type = Blocks.AIR.getDefaultState();
     private BeaconEffect effect, prevEffect;
     private int tick;
@@ -55,8 +56,57 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
     @SideOnly(Side.CLIENT)
     private float beamRenderScale;
 
-    public TileEntityBeacon() {
-        MinecraftForge.EVENT_BUS.register(this);
+    @Override
+    public void update() {
+        if (tick <= 0) {
+            if (!canSeeSky() && active) {
+                deactivate();
+                return;
+            }
+
+            effect = HCBeacons.getEffect(world, pos, world.getBlockState(pos.down()));
+            if(effect != null) {
+                BlockIngredient structureBlock = effect.getStructureBlock();
+                currentLevel = calcLevel(structureBlock);
+                if(currentLevel > 0) {
+                    if (!active) {
+                        activate();
+                    }
+                    effect.apply(effect.getEntitiesInRange(world, pos, currentLevel), world, pos, currentLevel);
+                    calcSegments();
+                } else if(active) {
+                    deactivate();
+                }
+            }
+            tick = 120;
+        }
+        tick--;
+    }
+
+    private void activate() {
+        CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
+        if (storage != null) {
+            storage.addBeacon(pos, currentLevel);
+        }
+        effect.onBeaconCreate(world, pos, currentLevel);
+        this.world.playBroadcastSound(1023, getPos(), 0);
+        this.world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, -4, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(player -> CriteriaTriggers.CONSTRUCT_BEACON.trigger(player, this));
+        this.active = true;
+    }
+
+    private void deactivate() {
+        this.segments.clear();
+        if(effect != null) {
+            effect.onBeaconBreak(world, pos, currentLevel);
+            this.effect = null;
+        }
+
+        CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
+        if (storage != null) {
+            storage.removeBeacon(pos);
+        }
+
+        this.active = false;
     }
 
     public boolean canSeeSky() {
@@ -74,58 +124,6 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
             return true;
         }
         return false;
-    }
-
-    @Override
-    public void update() {
-        if (tick <= 0) {
-            if (!canSeeSky()) {
-                if (level != 0) {
-                    this.level = 0;
-                    this.prevLevel = 0;
-                    world.playSound(null, pos, SoundEvents.ENTITY_WITHER_DEATH, SoundCategory.BLOCKS, 1.0f, 1.0f);
-                }
-                return;
-            }
-            effect = HCBeacons.getEffect(world, pos, world.getBlockState(pos.down()));
-            if(effect != null) {
-                BlockIngredient structureBlock = effect.getStructureBlock();
-                level = calcLevel(structureBlock);
-                if(level > 0) {
-                    if (level != prevLevel) {
-                        CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
-                        if (storage != null) {
-                            storage.addBeacon(pos, level);
-                        }
-                        effect.onBeaconCreate(world, pos, level);
-                        this.world.playBroadcastSound(1023, getPos(), 0);
-                        this.world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, -4, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(player -> CriteriaTriggers.CONSTRUCT_BEACON.trigger(player, this));
-                        prevLevel = level;
-                    }
-
-                    NonNullList<EntityLivingBase> entitiesInRange = effect.getEntitiesInRange(world, pos, level);
-                    effect.apply(entitiesInRange, world, pos, level);
-                    calcSegments();
-
-                    prevEffect = effect;
-                } else {
-                    this.segments.clear();
-                    this.effect = null;
-                    CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
-                    if (storage != null) {
-                        storage.removeBeacon(pos);
-                    }
-
-                    this.prevLevel = 0;
-                }
-
-                if (prevEffect != null && effect != prevEffect) {
-                    prevEffect.onBeaconBreak(world, pos, prevLevel);
-                }
-            }
-            tick = 120;
-        }
-        tick--;
     }
 
     @SideOnly(Side.CLIENT)
@@ -161,7 +159,7 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
 
         BeamSegment segment = new BeamSegment(ColorUtils.average(color, effectColor));
         this.segments.add(segment);
-
+        //TODO - Config for coloring based on beacon type
         BlockPos.MutableBlockPos pos;
         for (pos = new BlockPos.MutableBlockPos(getPos().up()); pos.getY() < 256; pos.move(EnumFacing.UP)) {
             color = ColorUtils.average(ColorUtils.getColorFromBlock(world, pos, getPos()),  effectColor);
@@ -204,9 +202,8 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-        compound.setInteger("level", level);
-        compound.setInteger("prevLevel", prevLevel);
-        compound.setInteger("tick", tick);
+
+        //TODO - This should all be in a class related to SpawnBeaconEffect not here
         NBTTagCompound tag = new NBTTagCompound();
         NBTUtil.writeBlockState(tag, type);
         compound.setTag("type", tag);
@@ -224,9 +221,7 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
-        level = compound.getInteger("level");
-        prevLevel = compound.getInteger("prevLevel");
-        tick = compound.getInteger("tick");
+        //TODO - This should all be in a class related to SpawnBeaconEffect not here
 
         NBTTagCompound type = (NBTTagCompound) compound.getTag("type");
         this.type = NBTUtil.readBlockState(type);
@@ -261,7 +256,7 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
         }
 
         if (!world.isRemote) {
-            if (this.effect != null) {
+            if (effect != null) {
                 boolean interacted = this.effect.onPlayerInteracted(world, getPos(), getLevels() - 1, player, player.getActiveHand(), stack);
                 if (interacted)
                     this.world.playBroadcastSound(1023, getPos(), 0);
@@ -273,16 +268,19 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
 
     @Override
     public int getLevels() {
-        return level;
+        return currentLevel;
     }
 
     public boolean isEnabled() {
-        return level > 0;
+        return active;
     }
 
 
     public void onRemoved() {
-        breakBlock();
+        if (effect != null) {
+            this.effect.onBeaconBreak(world, pos, currentLevel);
+        }
+
         SpawnBeaconEffect.removeAll(getPos());
         CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
         if (storage != null) {
@@ -299,12 +297,6 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
         @Override
         protected void incrementHeight() {
             super.incrementHeight();
-        }
-    }
-
-    public void breakBlock() {
-        if (effect != null) {
-            this.effect.onBeaconBreak(world, pos, level);
         }
     }
 }
