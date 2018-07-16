@@ -65,7 +65,7 @@ public class EasyBreeding extends Feature {
 
     @SubscribeEvent
     public void onInteract(PlayerInteractEvent.EntityInteract event) {
-        if (event.getEntity() instanceof EntityLivingBase) {
+        if (event.getTarget() instanceof EntityLivingBase) {
             EntityLivingBase entity = (EntityLivingBase) event.getTarget();
             if (entity instanceof EntityAnimal) {
                 EntityAnimal animal = ((EntityAnimal) entity);
