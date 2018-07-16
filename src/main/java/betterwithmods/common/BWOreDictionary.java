@@ -98,6 +98,7 @@ public class BWOreDictionary {
         registerOre("blockHardenedNetherClay", new ItemStack(BWMBlocks.AESTHETIC, 1, 2));
         registerOre("blockConcentratedHellfire", new ItemStack(BWMBlocks.AESTHETIC, 1, 3));
         registerOre("blockPadding", new ItemStack(BWMBlocks.AESTHETIC, 1, 9));
+        registerOre("blockSoulforgedSteel", new ItemStack(BWMBlocks.STEEL_BLOCK, 1, 0));
         //Added bark subtype entries for Roots compatibility
         registerOre("barkWood", new ItemStack(BWMItems.BARK, 1, OreDictionary.WILDCARD_VALUE));
         registerOre("barkOak", new ItemStack(BWMItems.BARK, 1, 0));
