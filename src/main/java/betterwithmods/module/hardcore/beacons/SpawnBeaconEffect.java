@@ -71,6 +71,11 @@ public class SpawnBeaconEffect extends BeaconEffect {
     }
 
     @Override
+    public void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
+
+    }
+
+    @Override
     public boolean onPlayerInteracted(World world, BlockPos pos, int level, EntityPlayer player, EnumHand hand, ItemStack stack) {
         BindingPoint point = new BindingPoint(player, level);
         if (!containsEntry(pos, point))

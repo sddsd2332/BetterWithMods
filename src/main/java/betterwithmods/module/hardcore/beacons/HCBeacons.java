@@ -90,11 +90,13 @@ public class HCBeacons extends Feature {
         });
         */
 
+        BEACON_EFFECTS.add(new GlassBeaconEffect());
+
         BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockEmerald"), EntityLivingBase.class).addPotionEffect(BWRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL).setBaseBeamColor(Color.GREEN));
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockLapis"), EntityLivingBase.class).addPotionEffect(BWRegistry.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE).setBaseBeamColor(Color.BLUE));
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockDiamond"), EntityLivingBase.class).addPotionEffect(BWRegistry.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.CYAN));
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("glowstone"), EntityLivingBase.class).addPotionEffect(MobEffects.NIGHT_VISION, 400, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.YELLOW));
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockGold"), EntityLivingBase.class).addPotionEffect(MobEffects.HASTE, 120, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.YELLOW));
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockLapis"), EntityPlayer.class).addPotionEffect(BWRegistry.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE).setBaseBeamColor(Color.BLUE));
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockDiamond"), EntityPlayer.class).addPotionEffect(BWRegistry.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.CYAN));
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("glowstone"), EntityPlayer.class).addPotionEffect(MobEffects.NIGHT_VISION, 400, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.YELLOW));
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockGold"), EntityPlayer.class).addPotionEffect(MobEffects.HASTE, 120, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.YELLOW));
 
         /*
         BEACON_EFFECTS.put(Blocks.SLIME_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 120, level))));

@@ -21,16 +21,22 @@ public abstract class BeaconEffect {
 
     protected BlockIngredient structureBlock;
     protected Class<? extends EntityLivingBase> validEntityType;
-    protected Color baseBeamColor;
+    protected float[] baseBeamColor;
     protected int[] effectRanges;
 
     public BeaconEffect(BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
         this.structureBlock = structureBlock;
         this.validEntityType = validEntityType;
         this.effectRanges = new int[]{20, 40, 60, 80};
+        this.setBaseBeamColor(Color.white);
     }
 
     public BeaconEffect setBaseBeamColor(Color baseBeamColor) {
+        this.baseBeamColor = new float[] {baseBeamColor.getRed(), baseBeamColor.getGreen(), baseBeamColor.getBlue()};
+        return this;
+    }
+
+    public BeaconEffect setBaseBeamColor(float[] baseBeamColor) {
         this.baseBeamColor = baseBeamColor;
         return this;
     }
@@ -43,7 +49,7 @@ public abstract class BeaconEffect {
         return validEntityType;
     }
 
-    public Color getBaseBeaconBeamColor() {
+    public float[] getBaseBeaconBeamColor() {
         return baseBeamColor;
     }
 
@@ -56,6 +62,8 @@ public abstract class BeaconEffect {
         AxisAlignedBB box = new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(radius);
         return InvUtils.asNonnullList(world.getEntitiesWithinAABB(getValidEntityType(), box));
     }
+
+    public abstract void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel);
 
     public abstract void apply(NonNullList<EntityLivingBase> entitiesInRange, @Nonnull World world, @Nonnull BlockPos pos, int beaconLevel);
 

@@ -1,5 +1,6 @@
 package betterwithmods.common.blocks.tile;
 
+import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.hardcore.beacons.BeaconEffect;
 import betterwithmods.module.hardcore.beacons.CapabilityBeacon;
 import betterwithmods.module.hardcore.beacons.HCBeacons;
@@ -33,8 +34,10 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.tuple.Pair;
 
+import java.awt.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -90,45 +93,42 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
                 }
                 return;
             }
-            Pair<Integer, IBlockState> current = calcLevel();
-            level = current.getKey();
-            type = current.getValue();
-            if (level > 0) {
-                effect = HCBeacons.getEffect(world, pos, type);
-                if (level != prevLevel) {
-                    CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
-                    if (storage != null) {
-                        storage.addBeacon(pos, level);
+            effect = HCBeacons.getEffect(world, pos, world.getBlockState(pos.down()));
+            if(effect != null) {
+                BlockIngredient structureBlock = effect.getStructureBlock();
+                level = calcLevel(structureBlock);
+                if(level > 0) {
+                    if (level != prevLevel) {
+                        CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
+                        if (storage != null) {
+                            storage.addBeacon(pos, level);
+                        }
+                        effect.onBeaconCreate(world, pos, level);
+                        this.world.playBroadcastSound(1023, getPos(), 0);
+                        this.world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, -4, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(player -> CriteriaTriggers.CONSTRUCT_BEACON.trigger(player, this));
+                        prevLevel = level;
                     }
-                    this.world.playBroadcastSound(1023, getPos(), 0);
-                    if (effect != null)
-                        effect.onBeaconBreak(world, pos, prevLevel);
-                    //TRIGGER ADVANCEMENT
-                    this.world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, -4, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(player -> CriteriaTriggers.CONSTRUCT_BEACON.trigger(player, this));
-                }
-                if (effect != null) {
+
                     NonNullList<EntityLivingBase> entitiesInRange = effect.getEntitiesInRange(world, pos, level);
                     effect.apply(entitiesInRange, world, pos, level);
                     calcSegments();
-                }
-                prevEffect = effect;
-            } else {
-                this.segments.clear();
-                this.effect = null;
-                CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
-                if (storage != null) {
-                    storage.removeBeacon(pos);
-                }
-            }
-            if (prevEffect != null && effect != prevEffect) {
-                prevEffect.onBeaconBreak(world, pos, prevLevel);
-            }
-            if (level != prevLevel) {
 
-                prevLevel = level;
+                    prevEffect = effect;
+                } else {
+                    this.segments.clear();
+                    this.effect = null;
+                    CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
+                    if (storage != null) {
+                        storage.removeBeacon(pos);
+                    }
+
+                    this.prevLevel = 0;
+                }
+
+                if (prevEffect != null && effect != prevEffect) {
+                    prevEffect.onBeaconBreak(world, pos, prevLevel);
+                }
             }
-            //todo
-            //tick = effect != null ? effect.getTickSpeed() : 120;
             tick = 120;
         }
         tick--;
@@ -159,11 +159,19 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
 
     private void calcSegments() {
         this.segments.clear();
-        BeamSegment segment = new BeamSegment(ColorUtils.getColorFromBlock(world, getPos().up(), getPos()));
+        float[] color = ColorUtils.getColorFromBlock(world, getPos().up(), getPos());
+        float[] effectColor = new float[] {1, 1, 1};
+        if(effect != null) {
+            effectColor = effect.getBaseBeaconBeamColor();
+        }
+
+        BeamSegment segment = new BeamSegment(ColorUtils.average(color, effectColor));
         this.segments.add(segment);
+
         BlockPos.MutableBlockPos pos;
         for (pos = new BlockPos.MutableBlockPos(getPos().up()); pos.getY() < 256; pos.move(EnumFacing.UP)) {
-            float[] color = ColorUtils.getColorFromBlock(world, pos, getPos());
+            color = ColorUtils.average(ColorUtils.getColorFromBlock(world, pos, getPos()),  effectColor);
+            //TODO - Glass Coloring Correctly
             if (!Arrays.equals(color, new float[]{1, 1, 1})) {
                 color = ColorUtils.average(color, segment.getColors());
                 if (Arrays.equals(color, segment.getColors())) {
@@ -182,25 +190,22 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
         return segments;
     }
 
-    private boolean isSameBlock(IBlockState state, int x, int y, int z) {
-        BlockPos pos = getPos().add(x, y, z);
-        return state == world.getBlockState(pos);
-    }
 
 
-    public Pair<Integer, IBlockState> calcLevel() {
-        IBlockState state = world.getBlockState(pos.down());
+    public int calcLevel(BlockIngredient structureBlock) {
+        IBlockState stateAtPos;
         int r;
         for (r = 1; r <= 4; r++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
-                    if (!isSameBlock(state, x, -r, z)) {
-                        return Pair.of(r - 1, state);
+                    stateAtPos = world.getBlockState(pos.add(x, -r, z));
+                    if(!structureBlock.apply(world, pos, stateAtPos)) {
+                        return r - 1;
                     }
                 }
             }
         }
-        return Pair.of(r - 1, state);
+        return r - 1;
     }
 
     @Override
@@ -250,7 +255,7 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
                 IBlockState state = block.getStateFromMeta(stack.getMetadata());
                 if (HCBeacons.isValidBeaconBase(state)) {
                     int r;
-                    for (r = 1; r <= stack.getCount(); r++) {
+                    for (r = 1; r <= 4; r++) {
                         for (int x = -r; x <= r; x++) {
                             for (int z = -r; z <= r; z++) {
                                 this.world.setBlockState(getPos().add(x, -r, z), state);

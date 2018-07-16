@@ -43,6 +43,11 @@ public class PotionBeaconEffect extends BeaconEffect {
     }
 
     @Override
+    public void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
+
+    }
+
+    @Override
     public void apply(NonNullList<EntityLivingBase> entitiesInRange, @Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
         List<PotionEffect> amplifiedPotionEffects = new ArrayList<>();
         potionEffects.forEach(((potionEffect, amplification) -> amplifiedPotionEffects.add(new PotionEffect(potionEffect.getPotion(), potionEffect.getDuration(), amplification.getForLevel(beaconLevel)))));
@@ -50,7 +55,7 @@ public class PotionBeaconEffect extends BeaconEffect {
         for(EntityLivingBase entity : entitiesInRange) {
             for(PotionEffect potionEffect : amplifiedPotionEffects) {
                 if(entity.isPotionApplicable(potionEffect)) {
-                    entity.addPotionEffect(potionEffect);
+                     entity.addPotionEffect(potionEffect);
                 }
             }
         }
