@@ -285,52 +285,61 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         return false;
     }
 
+    private void reconstruct() {
+        BlockPos pos = this.pulley.down(this.pulley.getY() - targetY);
+
+        int retries = 0;
+        while (!blocks.isEmpty() && retries < 10) {
+            retries++;
+            int skipped = 0;
+            for (Entry<Vec3i, IBlockState> entry : blocks.entrySet()) {
+                BlockPos blockPos = pos.add(entry.getKey());
+                IBlockState state = entry.getValue();
+                if (state.getBlock().canPlaceBlockAt(getEntityWorld(), blockPos)) {
+
+                    getEntityWorld().setBlockState(blockPos, state, 3);
+                    if (tiles.containsKey(entry.getKey())) {
+                        TileEntity tile = getEntityWorld().getTileEntity(blockPos);
+                        if (tile != null) {
+                            NBTTagCompound tag = tiles.get(entry.getKey());
+                            tile.readFromNBT(tag);
+                            tile.setPos(blockPos);
+                        }
+                    }
+                    blocks.remove(entry.getKey());
+                    tiles.remove(entry.getKey());
+                    skipped = 0;
+                    break;
+                }
+                skipped++;
+            }
+            if (skipped == 0) {
+                retries = 0;
+            }
+        }
+
+        if (retries > 0) {
+            blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> getEntityWorld()
+                    .spawnEntity(new EntityItem(getEntityWorld(), posX, posY, posZ, stack))));
+        }
+
+        updatePassengers(posY, targetY + 0.25, true);
+    }
+
     private boolean done() {
         if (!getEntityWorld().isRemote) {
             TileEntity te = getEntityWorld().getTileEntity(pulley);
             if (te instanceof TileEntityPulley) {
                 TileEntityPulley pulley = (TileEntityPulley) te;
                 if (!pulley.onJobCompleted(up, targetY, this)) {
-                    BlockPos pos = this.pulley.down(this.pulley.getY() - targetY);
-
-                    int retries = 0;
-                    while (!blocks.isEmpty() && retries < 10) {
-                        retries++;
-                        int skipped = 0;
-                        for (Entry<Vec3i, IBlockState> entry : blocks.entrySet()) {
-                            BlockPos blockPos = pos.add(entry.getKey());
-                            IBlockState state = entry.getValue();
-                            if (state.getBlock().canPlaceBlockAt(getEntityWorld(), blockPos)) {
-
-                                getEntityWorld().setBlockState(blockPos, state, 3);
-                                if (tiles.containsKey(entry.getKey())) {
-                                    TileEntity tile = getEntityWorld().getTileEntity(blockPos);
-                                    if (tile != null) {
-                                        NBTTagCompound tag = tiles.get(entry.getKey());
-                                        tile.readFromNBT(tag);
-                                        tile.setPos(blockPos);
-                                    }
-                                }
-                                blocks.remove(entry.getKey());
-                                tiles.remove(entry.getKey());
-                                skipped = 0;
-                                break;
-                            }
-                            skipped++;
-                        }
-                        if (skipped == 0) {
-                            retries = 0;
-                        }
-                    }
-
-                    if (retries > 0) {
-                        blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> getEntityWorld()
-                                .spawnEntity(new EntityItem(getEntityWorld(), posX, posY, posZ, stack))));
-                    }
-
-                    updatePassengers(posY, targetY + 0.25, true);
+                    reconstruct();
                     return true;
                 }
+            } else {
+                //The tile has been lost, abort
+                reconstruct();
+                this.setDead();
+                return true;
             }
         }
         return false;
