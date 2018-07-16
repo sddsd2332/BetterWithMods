@@ -24,9 +24,9 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
-import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.Random;
 
@@ -91,7 +91,7 @@ public class HCSpawn extends Feature {
     /**
      * Random Respawn. Less intense when there is a short time since death.
      */
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void randomRespawn(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof EntityPlayerMP)) return;
         if (event.getEntity().getEntityWorld().getWorldType() == FLAT)
@@ -109,7 +109,6 @@ public class HCSpawn extends Feature {
                 player.sendMessage(new TextComponentString(String.format("Spawn: %s, %s, %s, %s", isNew, currentSpawn, radius, timeSinceDeath)));
             BlockPos newPos = getRespawnPoint(player, currentSpawn, radius);
             setSpawn(player, newPos);
-            player.setSpawnPoint(newPos, true);
         }
     }
 

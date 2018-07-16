@@ -30,14 +30,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.event.entity.living.LivingDeathEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.OreDictionary;
-import org.apache.commons.lang3.tuple.Pair;
 
-import java.awt.*;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
@@ -59,7 +54,6 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
     private long beamRenderCounter;
     @SideOnly(Side.CLIENT)
     private float beamRenderScale;
-
 
     public TileEntityBeacon() {
         MinecraftForge.EVENT_BUS.register(this);
@@ -289,22 +283,10 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
 
     public void onRemoved() {
         breakBlock();
-        MinecraftForge.EVENT_BUS.unregister(this);
         SpawnBeaconEffect.removeAll(getPos());
         CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
         if (storage != null) {
             storage.removeBeacon(pos);
-        }
-    }
-
-    @SubscribeEvent
-    public void findSpawn(LivingDeathEvent event) {
-        if (!(event.getEntity() instanceof EntityPlayerMP)) return;
-        EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
-        if (SpawnBeaconEffect.shouldSpawnHere(this.getPos(), player, world)) {
-            player.setSpawnPoint(this.getPos().up(), true);
-        } else {
-            player.setSpawnPoint(world.getSpawnPoint(), false);
         }
     }
 
