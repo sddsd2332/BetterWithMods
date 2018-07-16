@@ -32,7 +32,7 @@ public abstract class BeaconEffect {
     }
 
     public BeaconEffect setBaseBeamColor(Color baseBeamColor) {
-        this.baseBeamColor = new float[] {baseBeamColor.getRed(), baseBeamColor.getGreen(), baseBeamColor.getBlue()};
+        this.baseBeamColor = new float[] {baseBeamColor.getRed() / 255, baseBeamColor.getGreen() / 255, baseBeamColor.getBlue() / 255};
         return this;
     }
 

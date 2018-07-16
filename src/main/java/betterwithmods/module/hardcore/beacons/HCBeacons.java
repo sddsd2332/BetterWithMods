@@ -90,45 +90,76 @@ public class HCBeacons extends Feature {
         });
         */
 
+        //TODO - Make this instance not shared across multiple instances
         BEACON_EFFECTS.add(new GlassBeaconEffect());
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockEmerald"), EntityLivingBase.class).addPotionEffect(BWRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL).setBaseBeamColor(Color.GREEN));
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockLapis"), EntityPlayer.class).addPotionEffect(BWRegistry.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE).setBaseBeamColor(Color.BLUE));
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockDiamond"), EntityPlayer.class).addPotionEffect(BWRegistry.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.CYAN));
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("glowstone"), EntityPlayer.class).addPotionEffect(MobEffects.NIGHT_VISION, 400, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.YELLOW));
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockGold"), EntityPlayer.class).addPotionEffect(MobEffects.HASTE, 120, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.YELLOW));
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockEmerald"), EntityLivingBase.class)
+                .addPotionEffect(BWRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL)
+                .setBaseBeamColor(Color.GREEN));
 
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockLapis"), EntityPlayer.class)
+                .addPotionEffect(BWRegistry.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE)
+                .setBaseBeamColor(Color.BLUE));
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockDiamond"), EntityPlayer.class)
+                .addPotionEffect(BWRegistry.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
+                .setBaseBeamColor(Color.CYAN));
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("glowstone"), EntityPlayer.class)
+                .addPotionEffect(MobEffects.NIGHT_VISION, 400, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
+                .setBaseBeamColor(Color.YELLOW));
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockGold"), EntityPlayer.class)
+                .addPotionEffect(MobEffects.HASTE, 120, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
+                .setBaseBeamColor(Color.YELLOW));
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockSlime"), EntityPlayer.class)
+                .addPotionEffect(MobEffects.JUMP_BOOST, 120, PotionBeaconEffect.Amplification.LEVEL)
+                .setBaseBeamColor(Color.GREEN));
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockDung"), EntityPlayer.class)
+                .setCanApply((entityPlayer) -> !PlayerHelper.hasFullSet(((EntityPlayer) entityPlayer), ItemSoulforgeArmor.class))
+                .addPotionEffect(MobEffects.POISON, 120, PotionBeaconEffect.Amplification.LEVEL)
+                .addPotionEffect(MobEffects.NAUSEA, 120, PotionBeaconEffect.Amplification.LEVEL)
+                .setBaseBeamColor(Color.BLACK)); //TODO - Color
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockCoal"), EntityPlayer.class)
+                .setCanApply((entityPlayer) -> !PlayerHelper.hasPart(entityPlayer, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class))
+                .addPotionEffect(MobEffects.BLINDNESS, 120, PotionBeaconEffect.Amplification.LEVEL)
+                .setBaseBeamColor(Color.BLACK));
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockConcentratedHellfire"), EntityPlayer.class)
+                .addPotionEffect(MobEffects.FIRE_RESISTANCE, 120, PotionBeaconEffect.Amplification.LEVEL)
+                .setBaseBeamColor(Color.ORANGE));
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockPrismarine"), EntityPlayer.class)
+                .addPotionEffect(MobEffects.WATER_BREATHING, 120, PotionBeaconEffect.Amplification.LEVEL)
+                .setBaseBeamColor(Color.BLUE));
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockPadding"), EntityPlayer.class)
+                .addPotionEffect(BWRegistry.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
+                .setBaseBeamColor(Color.PINK));
+
+
+        //TODO - Sponge Beacon
         /*
-        BEACON_EFFECTS.put(Blocks.SLIME_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 120, level))));
-        BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.DUNG), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> {
-                    if (!PlayerHelper.hasFullSet((EntityPlayer) player, ItemSoulforgeArmor.class)) {
-                        player.addPotionEffect(new PotionEffect(MobEffects.POISON, 120, level));
-                        player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, 120, level));
-                    }
-                }
-        ));
-        BEACON_EFFECTS.put(Blocks.COAL_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> {
-                    if (!PlayerHelper.hasPart(player, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class)) {
-                        player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 120, level));
-                    }
-                }
-        ));
-        BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.HELLFIRE), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(MobEffects.FIRE_RESISTANCE, 120, level))));
-        BEACON_EFFECTS.put(Blocks.PRISMARINE.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(MobEffects.WATER_BREATHING, 120, level))));
         BEACON_EFFECTS.put(Blocks.SPONGE.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachEntityAround(EntityLivingBase.class, world, pos, level, entity -> {
             if (!(entity instanceof EntityWaterMob) && !(entity.isEntityUndead() && !PlayerHelper.hasPart(entity, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class))) {
                 entity.setAir(entity.getAir() - 1);
             }
         }));
-        BEACON_EFFECTS.put(BWMBlocks.STEEL_BLOCK.getDefaultState().withProperty(BlockSteel.HEIGHT, 0), new SpawnBeaconEffect());
-
-        BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.PADDING), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> {
-            player.addPotionEffect(new PotionEffect(BWRegistry.POTION_SLOWFALL, 120, level));
-        }));
-        if (enderchestBeacon) {
-            BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.ENDERBLOCK), new EnderBeaconEffect());
-        }
         */
+
+
+
+        BEACON_EFFECTS.add(new SpawnBeaconEffect());
+
+
+        if (enderchestBeacon) {
+
+            //TODO - EnderBeacon
+            //BEACON_EFFECTS.add(new EnderBeaconEffect());
+        }
 
     }
 

@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.util.ColorUtils;
+import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,6 +15,7 @@ import org.apache.commons.lang3.tuple.Pair;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.List;
 
 public class GlassBeaconEffect extends BeaconEffect {
 
@@ -29,18 +31,22 @@ public class GlassBeaconEffect extends BeaconEffect {
 
     @Override
     public void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
-        float[] color = new float[]{0, 0, 0};
-        for (int r = 1; r <= 4; r++) {
+        List<float[]> colors = Lists.newArrayList();
+
+        float[] color = new float[]{1, 1, 1};
+        for (int r = 1; r <= beaconLevel; r++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
-                        BlockPos glassPos = new BlockPos(pos.getX() + x, pos.getY() - r, pos.getZ() + z);
-                        float[] blockColor = ColorUtils.getColorFromBlock(world, glassPos, pos);
-                        color = ColorUtils.average(color, blockColor);
-                    }
+                    BlockPos glassPos = new BlockPos(pos.getX() + x, pos.getY() - r, pos.getZ() + z);
+                    colors.add(ColorUtils.getColorFromBlock(world, glassPos, pos));
                 }
             }
+        }
 
-            this.setBaseBeamColor(color);
+        color = ColorUtils.average(colors.toArray(new float[colors.size()][3]));
+
+
+        this.setBaseBeamColor(color);
     }
 
     @Override
