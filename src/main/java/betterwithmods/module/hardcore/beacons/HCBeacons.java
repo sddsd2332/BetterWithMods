@@ -9,8 +9,10 @@ import betterwithmods.common.blocks.BlockEnderchest;
 import betterwithmods.common.blocks.BlockSteel;
 import betterwithmods.common.blocks.tile.TileEnderchest;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
+import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -24,6 +26,8 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.math.AxisAlignedBB;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -31,8 +35,13 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 
+import java.awt.*;
 import java.util.HashMap;
+import java.util.List;
+import java.util.function.Consumer;
+import java.util.function.Function;
 
 import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CAPABILITY;
 
@@ -40,26 +49,23 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
 /**
  * Created by primetoxinz on 7/17/17.
  */
+@GameRegistry.ObjectHolder("minecraft")
 public class HCBeacons extends Feature {
 
-    public static final HashMap<IBlockState, IBeaconEffect> BEACON_EFFECTS = Maps.newHashMap();
+    private static final List<BeaconEffect> BEACON_EFFECTS = Lists.newArrayList();
 
-    public static final IBeaconEffect getBeaconEffect(IBlockState state) {
-        if (BEACON_EFFECTS.containsKey(state))
-            return BEACON_EFFECTS.get(state);
-        return (world, pos, level) -> {
-        };
-    }
+    private static final Block ENDERCHEST = new BlockEnderchest().setRegistryName("minecraft:ender_chest");
+    private static final Block BEACON = new BlockBeacon().setRegistryName("minecraft:beacon");
 
-    public static boolean enderchestBeacon;
+    private static boolean enderchestBeacon;
+    private static boolean extendedConfig;
+
 
     @Override
     public void setupConfig() {
         enderchestBeacon = loadPropBool("Enderchest Beacon", "Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Book of Single.", true);
-    }
 
-    public static final Block ENDERCHEST = new BlockEnderchest().setRegistryName("minecraft:ender_chest");
-    public static final Block BEACON = new BlockBeacon().setRegistryName("minecraft:beacon");
+    }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
@@ -75,16 +81,22 @@ public class HCBeacons extends Feature {
     public void init(FMLInitializationEvent event) {
 
 //        Items.COMPASS.addPropertyOverride(new ResourceLocation("angle"), new CompassProperty());
+
+        /*
         BEACON_EFFECTS.put(Blocks.GLASS.getDefaultState(), (world, pos, level) -> {
         });
         BEACON_EFFECTS.put(Blocks.IRON_BLOCK.getDefaultState(), (world, pos, level) -> {
             //TODO substitute ItemCompass.
         });
-        BEACON_EFFECTS.put(Blocks.EMERALD_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachEntityAround(EntityLivingBase.class, world, pos, level, entity -> entity.addPotionEffect(new PotionEffect(BWRegistry.POTION_LOOTING, 125, level - 1, true, false))));
-        BEACON_EFFECTS.put(Blocks.LAPIS_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(BWRegistry.POTION_TRUESIGHT, 125, 1))));
-        BEACON_EFFECTS.put(Blocks.DIAMOND_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(BWRegistry.POTION_FORTUNE, 125, level - 1))));
-        BEACON_EFFECTS.put(Blocks.GLOWSTONE.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(MobEffects.NIGHT_VISION, 400, 1))));
-        BEACON_EFFECTS.put(Blocks.GOLD_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(MobEffects.HASTE, 120, level))));
+        */
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockEmerald"), EntityLivingBase.class).addPotionEffect(BWRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL).setBaseBeamColor(Color.GREEN));
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockLapis"), EntityLivingBase.class).addPotionEffect(BWRegistry.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE).setBaseBeamColor(Color.BLUE));
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockDiamond"), EntityLivingBase.class).addPotionEffect(BWRegistry.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.CYAN));
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("glowstone"), EntityLivingBase.class).addPotionEffect(MobEffects.NIGHT_VISION, 400, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.YELLOW));
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockGold"), EntityLivingBase.class).addPotionEffect(MobEffects.HASTE, 120, PotionBeaconEffect.Amplification.LEVEL_REDUCED).setBaseBeamColor(Color.YELLOW));
+
+        /*
         BEACON_EFFECTS.put(Blocks.SLIME_BLOCK.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> player.addPotionEffect(new PotionEffect(MobEffects.JUMP_BOOST, 120, level))));
         BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.DUNG), (world, pos, level) -> IBeaconEffect.forEachPlayersAround(world, pos, level, player -> {
                     if (!PlayerHelper.hasFullSet((EntityPlayer) player, ItemSoulforgeArmor.class)) {
@@ -114,8 +126,25 @@ public class HCBeacons extends Feature {
         if (enderchestBeacon) {
             BEACON_EFFECTS.put(BlockAesthetic.getVariant(BlockAesthetic.EnumType.ENDERBLOCK), new EnderBeaconEffect());
         }
+        */
 
     }
+
+
+    public static BeaconEffect getEffect(World world, BlockPos pos, IBlockState blockState) {
+        for(BeaconEffect beaconEffect : BEACON_EFFECTS) {
+            if(beaconEffect.isBlockStateValid(world, pos, blockState)) {
+                return beaconEffect;
+            }
+        }
+
+        return null;
+    }
+
+    public static boolean isValidBeaconBase(IBlockState blockState) {
+        return getEffect(null, null, blockState) != null;
+    }
+
 
     @Override
     public String getFeatureDescription() {
@@ -159,6 +188,4 @@ public class HCBeacons extends Feature {
             event.addCapability(WORLD2, new EnderchestCap(EnumFacing.NORTH));
         }
     }
-
-
 }

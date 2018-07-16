@@ -1,16 +1,23 @@
 package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.blocks.tile.TileEntityBeacon;
+import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
+import net.minecraft.client.entity.EntityPlayerSP;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.INBTSerializable;
 
+import javax.annotation.Nonnull;
+import java.awt.*;
 import java.util.HashMap;
 import java.util.HashSet;
 import java.util.Set;
@@ -19,10 +26,15 @@ import java.util.UUID;
 /**
  * Created by primetoxinz on 7/17/17.
  */
-public class SpawnBeaconEffect implements IBeaconEffect {
+public class SpawnBeaconEffect extends BeaconEffect {
 
     public static final HashMap<BlockPos, HashSet<BindingPoint>> SPAWN_LIST = Maps.newHashMap();
 
+
+    public SpawnBeaconEffect() {
+        super(new BlockIngredient("blockSoulforgedSteel"), EntityPlayer.class);
+        this.setBaseBeamColor(Color.GRAY);
+    }
 
     public static void removeAll(BlockPos pos) {
         SPAWN_LIST.remove(pos);
@@ -59,7 +71,7 @@ public class SpawnBeaconEffect implements IBeaconEffect {
     }
 
     @Override
-    public boolean processInteractions(World world, BlockPos pos, int level, EntityPlayer player, ItemStack stack) {
+    public boolean onPlayerInteracted(World world, BlockPos pos, int level, EntityPlayer player, EnumHand hand, ItemStack stack) {
         BindingPoint point = new BindingPoint(player, level);
         if (!containsEntry(pos, point))
             addPoint(pos, point);
@@ -67,8 +79,13 @@ public class SpawnBeaconEffect implements IBeaconEffect {
     }
 
     @Override
-    public void effect(World world, BlockPos pos, int level) {
+    public void apply(NonNullList<EntityLivingBase> entitiesInRange, @Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
         //TODO Blight
+    }
+
+    @Override
+    public void onBeaconBreak(World world, BlockPos pos, int level) {
+
     }
 
     public static class BindingPoint implements INBTSerializable<NBTTagCompound> {

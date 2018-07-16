@@ -19,8 +19,6 @@ import java.util.List;
  */
 public class ItemArcaneScroll extends Item {
 
-
-
     public static ItemStack getScrollWithEnchant(Enchantment enchantment) {
         ItemStack stack = new ItemStack(BWMItems.ARCANE_SCROLL);
         NBTTagCompound tag = new NBTTagCompound();

@@ -19,7 +19,7 @@ public class WeatherControl extends Feature {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         if(ModuleLoader.isFeatureEnabled(HCBeacons.class)) {
-            HCBeacons.BEACON_EFFECTS.put(Blocks.SEA_LANTERN.getDefaultState(), new WeatherBeaconEffect());
+            //HCBeacons.BEACON_EFFECTS.put(Blocks.SEA_LANTERN.getDefaultState(), new WeatherBeaconEffect());
         }
     }
 }

@@ -4,8 +4,9 @@ import betterwithmods.common.blocks.tile.TileEnderchest;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+/*
+public class EnderBeaconEffect extends BeaconEffect {
 
-public class EnderBeaconEffect implements IBeaconEffect {
     @Override
     public void effect(World world, BlockPos pos, int level) {
         int r;
@@ -45,3 +46,4 @@ public class EnderBeaconEffect implements IBeaconEffect {
         }
     }
 }
+*/
