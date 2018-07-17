@@ -118,7 +118,7 @@ public class HCHunger extends CompatFeature {
     public void init(FMLInitializationEvent event) {
         if (rawMeatDangerous) {
             Set<Item> RAW_FOOD = Sets.newHashSet(BWMItems.RAW_SCRAMBLED_EGG, BWMItems.RAW_EGG, BWMItems.RAW_OMELET, BWMItems.RAW_KEBAB, Items.FISH, BWMItems.WOLF_CHOP, Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.CHICKEN, Items.MUTTON, BWMItems.MYSTERY_MEAT);
-            RAW_FOOD.stream().map(i -> (ItemFood) i).forEach(i -> i.setPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 0), 0.3F));
+            RAW_FOOD.stream().map(i -> (ItemFood) i).forEach(i -> i.setPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 1), 0.3F));
         }
 
         FoodHelper.registerFood(new ItemStack(Items.BEEF), 12);
