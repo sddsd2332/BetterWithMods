@@ -273,10 +273,10 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             e.fallDistance = 0;
         }
         for (Entity e : entitiesInBlocks) {
-            e.setPosition(e.posX, Math.max(e.posY, entMaxY.get(e) + newPosY - posY), e.posZ);
             e.isAirBorne = false;
             e.onGround = true;
             e.motionY = Math.max(up ? 0 : -0.1, e.motionY);
+            e.setPosition(e.posX, Math.max(e.posY, entMaxY.get(e) + newPosY - posY), e.posZ);
         }
     }
 
@@ -325,9 +325,9 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         }
 
 
-                    if (retries > 0) {
-                        blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InvUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
-                    }
+        if (retries > 0) {
+            blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InvUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
+        }
 
         updatePassengers(posY, targetY + 0.25, true);
     }
@@ -390,9 +390,15 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         this.targetY = i;
     }
 
+
+    /*
+    FIXME this is a hack that fixes the odd camera jerking when descending the pulley.
+    FIXME From what I can tell, whenever Minecraft.objecctMousedOver is type entity something is effecting the player's position or motion in bizarre fashions. I have yet to find where this happens.
+    FIXME For the time being, there will be some odd quirks with warping on top of the pulley if you ever collide with any side but better than jumpiness.
+     */
     @Override
     public boolean canBeCollidedWith() {
-        return !this.isDead;
+        return false;
     }
 
     public boolean getUp() {
@@ -458,12 +464,14 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         return new AxisAlignedBB(pos, pos.addVector(1, getBlockStateHeight(state), 1));
     }
 
+
     @Override
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getCollisionBoundingBox() {
-        return canBeCollidedWith() ? (this.getEntityBoundingBox() instanceof AABBArray
+        return (this.getEntityBoundingBox() instanceof AABBArray
                 ? ((AABBArray) this.getEntityBoundingBox()).forEach(i -> i.setMaxY(i.maxY - 0.125))
-                : this.getEntityBoundingBox()) : null;
+                : this.getEntityBoundingBox());
     }
+
 
 }
