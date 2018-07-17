@@ -30,9 +30,6 @@ public class HCBuoy extends CompatFeature {
         //Blocks
         buoyancy.put(BWMBlocks.WOODEN_AXLE, 1.0F);
         buoyancy.put(BWMBlocks.PUMP, 0.0F);
-//        buoyancy.put(BWMBlocks.WOOD_SIDING, 1.0F);
-//        buoyancy.put(BWMBlocks.WOOD_MOULDING, 1.0F);
-//        buoyancy.put(BWMBlocks.WOOD_CORNER, 1.0F);
         buoyancy.put(BWMBlocks.SAW, 1.0F);
         buoyancy.put(BWMBlocks.PLATFORM, 1.0F);
         buoyancy.put(BWMBlocks.WOLF, 1.0F);
@@ -70,8 +67,9 @@ public class HCBuoy extends CompatFeature {
         buoyancy.put(BWMItems.CREEPER_OYSTER, 1.0F);
         buoyancy.put(BWMItems.AXLE_GENERATOR, 1.0F);
         buoyancy.put(BWMItems.DONUT, 1.0F);
+        buoyancy.put(BWMItems.ARCANE_SCROLL, 1.0F);
 
-
+        
 
     }
 

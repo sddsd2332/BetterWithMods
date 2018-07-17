@@ -15,4 +15,8 @@ public class Industry extends Module {
         return "The consequences of heavy industry.";
     }
 
+    @Override
+    public boolean isEnabledByDefault() {
+        return false;
+    }
 }

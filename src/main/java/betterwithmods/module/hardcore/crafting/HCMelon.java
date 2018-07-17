@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.entity.EntityFallingGourd;
 import betterwithmods.module.Feature;
+import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockMelon;
@@ -14,12 +15,13 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 4/20/17.
  */
-public class HCMelon extends Feature{
+public class HCMelon extends Feature {
     @Override
     public String getFeatureDescription() {
         return "Makes Melons have gravity, makes for cool automation abilities";
@@ -34,14 +36,39 @@ public class HCMelon extends Feature{
     public void init(FMLInitializationEvent event) {
         Blocks.MELON_STEM.setHardness(0.2F);
         Blocks.PUMPKIN_STEM.setHardness(0.2F);
+
+        Blocks.MELON_BLOCK.setHarvestLevel("axe", 1);
+        Blocks.PUMPKIN.setHarvestLevel("axe", 1);
     }
 
     @SubscribeEvent
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
-        if (event.getState().getBlock().equals(Blocks.MELON_BLOCK)) {
-            event.getDrops().removeIf(x -> x.getItem().equals(Items.MELON));
-            event.getDrops().add(new ItemStack(Blocks.MELON_BLOCK, 1));
+        Block block = event.getState().getBlock();
+
+        //Require an axe for melons and pumpkins
+        if (block.equals(Blocks.MELON_BLOCK) || block.equals(Blocks.PUMPKIN)) {
+            if (event.isSilkTouching() || event.getResult().equals(Event.Result.DENY))
+                return;
+
+            //Drop melon blocks when harvesting
+            if (event.getDrops().removeIf(x -> x.getItem().equals(Items.MELON)))
+                event.getDrops().add(new ItemStack(Blocks.MELON_BLOCK, 1));
+
+            if (!PlayerHelper.isCurrentToolEffectiveOnBlock(event.getHarvester(), event.getPos(), event.getState())) {
+                event.getDrops().clear();
+                if (block.equals(Blocks.MELON_BLOCK)) {
+                    event.getDrops().add(new ItemStack(Items.MELON_SEEDS));
+                } else {
+                    event.getDrops().add(new ItemStack(Items.PUMPKIN_SEEDS));
+                }
+            }
         }
+
+        if (block.equals(Blocks.MELON_STEM) || block.equals(Blocks.PUMPKIN_STEM)) {
+            event.getDrops().clear();
+        }
+
+
     }
 
     @SubscribeEvent
@@ -67,6 +94,7 @@ public class HCMelon extends Feature{
             }
         }
     }
+
     @Override
     public boolean hasSubscriptions() {
         return true;

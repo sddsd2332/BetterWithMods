@@ -3,7 +3,7 @@
   "display": {
     "icon": {
       "item": "betterwithmods:axle_generator",
-      "data": 1
+      "data": 2
     },
     "title": {
       "translate": "item.bwm:axle_generator.windmill_vertical.name"

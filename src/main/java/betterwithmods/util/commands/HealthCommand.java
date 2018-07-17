@@ -27,7 +27,7 @@ public class HealthCommand extends CommandBase {
     public void execute(MinecraftServer server, ICommandSender sender, String[] args) throws CommandException {
         if (sender instanceof EntityPlayer) {
             if (args.length > 0) {
-                int health = Integer.parseInt(args[0]);
+                float health = Float.parseFloat(args[0]);
                 ((EntityPlayer) sender).setHealth(health);
             }
         }

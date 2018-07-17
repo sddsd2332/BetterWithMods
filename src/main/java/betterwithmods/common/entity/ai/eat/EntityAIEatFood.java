@@ -1,9 +1,8 @@
-package betterwithmods.common.entity.ai;
+package betterwithmods.common.entity.ai.eat;
 
-import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -15,18 +14,20 @@ import java.util.Optional;
 /**
  * Created by primetoxinz on 4/22/17.
  */
-public class EntityAIEatFood extends EntityAIBase {
-    private EntityCreature entity;
+public abstract class EntityAIEatFood<T extends EntityLivingBase> extends EntityAIBase {
+    protected T entity;
     private Ingredient validItem;
     private EntityItem targetItem;
-    private int cooldown;
 
-    public EntityAIEatFood(EntityCreature creature, Ingredient validItem) {
-        this.entity = creature;
+    private double distance;
+
+    public EntityAIEatFood(T entity, Ingredient validItem, double distance) {
+        this.entity = entity;
         this.validItem = validItem;
+        this.distance = distance;
     }
 
-    public Optional<EntityItem> getTargetItem(List<EntityItem> items) {
+    private Optional<EntityItem> getTargetItem(List<EntityItem> items) {
         if (items.isEmpty())
             return Optional.empty();
         EntityItem target = null;
@@ -46,17 +47,19 @@ public class EntityAIEatFood extends EntityAIBase {
 
     @Override
     public boolean shouldExecute() {
-        if(cooldown > 0)
+        if (!isReady())
             return false;
+
         BlockPos entityPos = entity.getPosition();
         if (targetItem == null) {
-            List<EntityItem> entityItems = entity.getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entityPos, entityPos.add(1, 1, 1)).expand(2, 2,2));
+            List<EntityItem> entityItems = entity.getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entityPos, entityPos.add(1, 1, 1)).grow(distance),
+                    entity -> entity != null && entity.onGround);
             targetItem = getTargetItem(entityItems).orElse(null);
         }
 
         if (targetItem != null) {
             BlockPos targetPos = targetItem.getPosition();
-            if (entityPos.getDistance(targetPos.getX(), targetPos.getY(), targetPos.getZ()) <= 2D) {
+            if (entityPos.getDistance(targetPos.getX(), targetPos.getY(), targetPos.getZ()) <= distance) {
                 processItemEating();
                 return false;
             } else {
@@ -66,17 +69,20 @@ public class EntityAIEatFood extends EntityAIBase {
         return false;
     }
 
+    public abstract boolean isReady();
+
+    public abstract void onEaten(ItemStack food);
+
     @Override
     public boolean shouldContinueExecuting() {
-       return shouldExecute();
+        return shouldExecute();
     }
 
     private void processItemEating() {
-        if(targetItem != null) {
-            ItemStack foodStack = targetItem.getItem().splitStack(1);
-            entity.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, (entity.world.rand.nextFloat() - entity.world.rand.nextFloat()) * 0.2F + 1.0F);
-            foodStack.shrink(1);
-            cooldown = 500;
+        if (targetItem != null) {
+            ItemStack foodStack = targetItem.getItem();
+            if (!foodStack.isEmpty())
+                onEaten(foodStack);
         }
     }
 }
