@@ -20,6 +20,7 @@ import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 /**
@@ -61,7 +62,10 @@ public class RenderExtendingRope extends Render<EntityExtendingRope> {
             i++;
         }
 
-        entity.getBlocks().forEach((vec, state) -> {
+        IBlockState state;
+
+        for (Vec3i vec : entity.getBlocks().keySet()) {
+            state = entity.getBlocks().get(vec);
             blockrendererdispatcher.getBlockModelRenderer().renderModel(world,
                     blockrendererdispatcher.getModelForState(state), state, blockpos.add(vec), vertexbuffer, false, 0);
             if (state.getBlock() instanceof BlockBucket) {
@@ -73,7 +77,7 @@ public class RenderExtendingRope extends Render<EntityExtendingRope> {
                 }
             }
 
-        });
+        }
 
         tessellator.draw();
 

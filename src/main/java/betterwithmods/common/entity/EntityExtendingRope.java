@@ -4,7 +4,9 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.AABBArray;
+import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
+import com.google.common.collect.Sets;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
@@ -12,7 +14,6 @@ import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
@@ -165,17 +166,24 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
 
     private void serializeBlockmap(ByteBuf buf, Map<Vec3i, IBlockState> blocks) {
         buf.writeInt(blocks.size());
-        blocks.forEach((vec, state) -> {
-            buf.writeInt(vec.getX());
-            buf.writeInt(vec.getY());
-            buf.writeInt(vec.getZ());
-            Block block = state != null ? state.getBlock() : Blocks.AIR;
-            ResourceLocation resourcelocation = Block.REGISTRY.getNameForObject(block);
-            String blockName = resourcelocation == null ? "" : resourcelocation.toString();
-            buf.writeInt(blockName.length());
-            buf.writeBytes(blockName.getBytes(Charset.forName("UTF-8")));
-            buf.writeByte((byte) block.getMetaFromState(state));
-        });
+        IBlockState state;
+        for (Vec3i vec : blocks.keySet()) {
+            state = blocks.get(vec);
+            if (state != null) {
+                buf.writeInt(vec.getX());
+                buf.writeInt(vec.getY());
+                buf.writeInt(vec.getZ());
+
+                Block block = state.getBlock();
+                ResourceLocation resourcelocation = state.getBlock().getRegistryName();
+                if (resourcelocation != null) {
+                    String blockName = resourcelocation.toString();
+                    buf.writeInt(blockName.length());
+                    buf.writeBytes(blockName.getBytes(Charset.forName("UTF-8")));
+                    buf.writeByte((byte) block.getMetaFromState(state));
+                }
+            }
+        }
 
     }
 
@@ -189,6 +197,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             buf.readBytes(bytes);
             String name = new String(bytes, Charset.forName("UTF-8"));
             int meta = buf.readByte();
+            //TODO this cannot stay.
             @SuppressWarnings("deprecation")
             IBlockState state = Block.getBlockFromName(name).getStateFromMeta(meta);
             map.put(vec, state);
@@ -238,40 +247,37 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
 
     public void updatePassengers(double posY, double newPosY, boolean b) {
         HashSet<Entity> entitiesInBlocks = new HashSet<>();
-        HashSet<Entity> passengers = new HashSet<>();
         HashMap<Entity, Double> entMaxY = new HashMap<>();
-
-        blocks.forEach((vec, state) -> {
+        IBlockState state;
+        for (Vec3i vec : blocks.keySet()) {
+            state = blocks.get(vec);
             if (getBlockStateHeight(state) > 0) {
                 Vec3d pos = new Vec3d(pulley.getX(), posY, pulley.getZ()).addVector(vec.getX(), vec.getY(), vec.getZ());
-                getEntityWorld().getEntitiesWithinAABBExcludingEntity(this,
-                        createAABB(pos, pos.addVector(1, getBlockStateHeight(state), 1))).forEach(e -> {
-                    if (!(e instanceof EntityExtendingRope)) {
-                        double targetY = pos.y + getBlockStateHeight(state) - 0.01;
-                        if (!entMaxY.containsKey(e) || entMaxY.get(e) < targetY) {
-                            if ((!getEntityWorld().isRemote ^ e instanceof EntityPlayer) || b) {
-                                entitiesInBlocks.add(e);
-                                entMaxY.put(e, targetY);
-                            }
+                List<Entity> entities = getEntityWorld().getEntitiesWithinAABB(Entity.class, createAABB(pos, pos.addVector(1, getBlockStateHeight(state), 1)), e -> !(e instanceof EntityExtendingRope));
+                for (Entity e : entities) {
+                    double targetY = pos.y + getBlockStateHeight(state) - 0.01;
+                    if (!entMaxY.containsKey(e) || entMaxY.get(e) < targetY) {
+                        if ((!getEntityWorld().isRemote ^ e instanceof EntityPlayer) || b) {
+                            entitiesInBlocks.add(e);
+                            entMaxY.put(e, targetY);
                         }
                     }
-                });
+                }
             }
-        });
+        }
 
-        getEntityWorld().getEntitiesWithinAABBExcludingEntity(this,
-                AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0)).forEach(e -> {
-            if (!(e instanceof EntityExtendingRope)
-                    && (!(e instanceof EntityPlayer) || !((EntityPlayer) e).capabilities.isFlying))
-                passengers.add(e);
-        });
+        Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0), e -> !(e instanceof EntityExtendingRope) && (!(e instanceof EntityPlayer) || !((EntityPlayer) e).capabilities.isFlying)));
 
-        passengers.forEach(e -> e.move(null, 0, newPosY - posY, 0));
-        passengers.forEach(e -> e.fallDistance = 0);
-        entitiesInBlocks.forEach(e -> e.setPosition(e.posX, Math.max(e.posY, entMaxY.get(e) + newPosY - posY), e.posZ));
-        entitiesInBlocks.forEach(e -> e.isAirBorne = false);
-        entitiesInBlocks.forEach(e -> e.onGround = true);
-        entitiesInBlocks.forEach(e -> e.motionY = Math.max(up ? 0 : -0.1, e.motionY));
+        for (Entity e : passengers) {
+            e.move(null, 0, newPosY - posY, 0);
+            e.fallDistance = 0;
+        }
+        for (Entity e : entitiesInBlocks) {
+            e.setPosition(e.posX, Math.max(e.posY, entMaxY.get(e) + newPosY - posY), e.posZ);
+            e.isAirBorne = false;
+            e.onGround = true;
+            e.motionY = Math.max(up ? 0 : -0.1, e.motionY);
+        }
     }
 
     private double getBlockStateHeight(IBlockState blockState) {
@@ -324,8 +330,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                     }
 
                     if (retries > 0) {
-                        blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> getEntityWorld()
-                                .spawnEntity(new EntityItem(getEntityWorld(), posX, posY, posZ, stack))));
+                        blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InvUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
                     }
 
                     updatePassengers(posY, targetY + 0.25, true);
@@ -337,7 +342,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     }
 
     public void addBlock(Vec3i offset, World world, BlockPos pos) {
-        IBlockState state = world.getBlockState(pos).getActualState(world,pos);
+        IBlockState state = world.getBlockState(pos).getActualState(world, pos);
         TileEntity tile = world.getTileEntity(pos);
         blocks.put(offset, state);
         if (tile != null) {
