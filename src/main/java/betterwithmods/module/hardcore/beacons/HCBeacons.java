@@ -70,15 +70,6 @@ public class HCBeacons extends Feature {
     @Override
     public void init(FMLInitializationEvent event) {
 
-//        Items.COMPASS.addPropertyOverride(new ResourceLocation("angle"), new CompassProperty());
-
-        /*
-        BEACON_EFFECTS.put(Blocks.GLASS.getDefaultState(), (world, pos, level) -> {
-        });
-        BEACON_EFFECTS.put(Blocks.IRON_BLOCK.getDefaultState(), (world, pos, level) -> {
-            //TODO substitute ItemCompass.
-        });
-        */
 
         //TODO - Make this instance not shared across multiple instances
         BEACON_EFFECTS.add(new GlassBeaconEffect());
@@ -130,15 +121,6 @@ public class HCBeacons extends Feature {
                 .addPotionEffect(BWRegistry.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.PINK));
 
-
-        //TODO - Sponge Beacon
-        /*
-        BEACON_EFFECTS.put(Blocks.SPONGE.getDefaultState(), (world, pos, level) -> IBeaconEffect.forEachEntityAround(EntityLivingBase.class, world, pos, level, entity -> {
-            if (!(entity instanceof EntityWaterMob) && !(entity.isEntityUndead() && !PlayerHelper.hasPart(entity, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class))) {
-                entity.setAir(entity.getAir() - 1);
-            }
-        }));
-        */
 
         BEACON_EFFECTS.add(new SpawnBeaconEffect());
 
