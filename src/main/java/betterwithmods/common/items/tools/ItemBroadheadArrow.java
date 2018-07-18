@@ -13,6 +13,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
 
@@ -27,12 +29,13 @@ import java.util.List;
  */
 @Mod.EventBusSubscriber
 public class ItemBroadheadArrow extends ItemArrow {
+
+    @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(I18n.format("item.bwm:broadhead_arrow.tooltip.0"));
         tooltip.add(I18n.format("item.bwm:broadhead_arrow.tooltip.1"));
-
     }
 
     @Override
