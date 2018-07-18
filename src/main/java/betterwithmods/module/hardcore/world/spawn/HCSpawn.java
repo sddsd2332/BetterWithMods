@@ -103,7 +103,10 @@ public class HCSpawn extends Feature {
         if (PlayerHelper.isSurvival(player)) {
             int timeSinceDeath = info.getTicksSinceDeath();
             boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
-            info.setTicksSinceDeath(0);
+            if (isNew) {
+                //Only reset the death timer when the cooldown is met, so you can't prolong a spawn are by intentionally dying to reset the timer.
+                info.setTicksSinceDeath(0);
+            }
             BlockPos currentSpawn = isNew ? player.world.getSpawnPoint() : getSpawn(player);
             int radius = isNew ? HARDCORE_SPAWN_RADIUS : HARDCORE_SPAWN_COOLDOWN_RADIUS;
 
