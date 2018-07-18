@@ -105,12 +105,10 @@ public class EntityFallingGourd extends EntityFallingBlock {
     public void fall(float distance, float damageMultiplier) {
         int i = MathHelper.ceil(distance - 1.0F);
 
-        if (i > 0 && !world.isRemote)
-        {
+        if (i > 0 && !world.isRemote) {
             List<Entity> list = Lists.newArrayList(this.world.getEntitiesWithinAABBExcludingEntity(this, this.getEntityBoundingBox()));
 
-            for (Entity entity : list)
-            {
+            for (Entity entity : list) {
                 entity.attackEntityFrom(DamageSource.FALLING_BLOCK, 1);
                 smashOnImpact = true;
             }

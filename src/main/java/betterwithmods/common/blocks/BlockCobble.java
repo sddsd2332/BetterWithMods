@@ -41,9 +41,9 @@ public class BlockCobble extends Block {
     }
 
     public enum EnumType implements IStringSerializable {
-        GRANITE("granite", new ItemStack(Blocks.STONE,1,1), MapColor.DIRT),
-        DIORITE("diorite",  new ItemStack(Blocks.STONE,1,3), MapColor.QUARTZ),
-        ANDESITE("andesite",  new ItemStack(Blocks.STONE,1,5), MapColor.STONE);
+        GRANITE("granite", new ItemStack(Blocks.STONE, 1, 1), MapColor.DIRT),
+        DIORITE("diorite", new ItemStack(Blocks.STONE, 1, 3), MapColor.QUARTZ),
+        ANDESITE("andesite", new ItemStack(Blocks.STONE, 1, 5), MapColor.STONE);
 
         private static final EnumType[] VALUES = values();
         private final String name;

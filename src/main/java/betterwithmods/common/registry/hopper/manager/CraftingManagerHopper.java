@@ -1,11 +1,11 @@
 package betterwithmods.common.registry.hopper.manager;
 
 
-import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
 import betterwithmods.common.registry.base.CraftingManagerBase;
 import betterwithmods.common.registry.hopper.recipes.DummySoulUrnRecipe;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
 import betterwithmods.common.registry.hopper.recipes.SoulUrnRecipe;
+import betterwithmods.common.tile.TileFilteredHopper;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 
@@ -35,7 +35,7 @@ public class CraftingManagerHopper extends CraftingManagerBase<HopperRecipe> {
     }
 
     public Optional<HopperRecipe> findRecipe(TileFilteredHopper hopper, ItemStack input) {
-        return recipes.stream().filter( r -> r.matches(hopper.getHopperFilter().getName(), input)).findFirst();
+        return recipes.stream().filter(r -> r.matches(hopper.getHopperFilter().getName(), input)).findFirst();
     }
 
     protected List<HopperRecipe> findRecipes(List<ItemStack> outputs, List<ItemStack> secondary) {

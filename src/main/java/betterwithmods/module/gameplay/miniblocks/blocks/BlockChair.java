@@ -35,7 +35,7 @@ public class BlockChair extends BlockMini implements ISittable {
     }
 
     @Override
-    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ) {
+    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
         return ChairOrientation.getFromVec(placer, new Vec3d(hitX, hitY, hitZ), face);
     }
 

@@ -19,7 +19,6 @@ public class BellowsManager {
     }
 
 
-
     public static void postInit() {
         bellowing.put(Items.GUNPOWDER, 3f);
         bellowing.put(Items.PAPER, 3f);

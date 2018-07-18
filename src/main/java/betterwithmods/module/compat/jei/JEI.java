@@ -56,11 +56,9 @@ import java.util.function.Consumer;
 
 @mezz.jei.api.JEIPlugin
 public class JEI implements IModPlugin {
-    public static IJeiHelpers HELPER;
-
-    public static IJeiRuntime JEI_RUNTIME;
-
     public static final List<Class<? extends IOutput>> ALL_OUTPUTS = Lists.newArrayList();
+    public static IJeiHelpers HELPER;
+    public static IJeiRuntime JEI_RUNTIME;
 
     static {
         ALL_OUTPUTS.add(IOutput.class);

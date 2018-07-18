@@ -4,7 +4,7 @@ import betterwithmods.BWMod;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
-import betterwithmods.common.blocks.tile.TileBasic;
+import betterwithmods.common.tile.TileBasic;
 import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.InvUtils;
 import betterwithmods.util.item.ToolsManager;

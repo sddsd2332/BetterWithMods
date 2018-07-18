@@ -16,7 +16,7 @@ import net.minecraftforge.common.model.TRSRTransformation;
 
 public class MiniModel extends ModelFactory<MiniInfo> {
 
-    public static MiniModel SIDING, MOULDING, CORNER, COLUMN, PEDESTAL, CHAIR;
+    public static MiniModel SIDING, MOULDING, CORNER, COLUMN, PEDESTAL, STAIR, CHAIR;
 
     public final IModel template;
 
@@ -32,10 +32,14 @@ public class MiniModel extends ModelFactory<MiniInfo> {
             textures.put(facing.getName2(), RenderUtils.getTextureFromFace(object.getState(), facing).getIconName());
         }
         TRSRTransformation state = object.getOrientation().toTransformation();
-        IModel retexture = template.retexture(textures.build()).uvlock(true);
+        IModel retexture = getTemplate(object).retexture(textures.build()).uvlock(true);
         return new WrappedBakedModel(retexture.bake(state, DefaultVertexFormats.BLOCK, RenderUtils.textureGetter), RenderUtils.getParticleTexture(object.getState())).addDefaultBlockTransforms();
     }
 
+
+    public IModel getTemplate(MiniInfo object) {
+        return template;
+    }
 
     @Override
     public MiniInfo fromItemStack(ItemStack stack) {

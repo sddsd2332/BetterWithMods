@@ -185,6 +185,8 @@ public class RenderUtils {
 
     public static ResourceLocation getResourceLocation(ItemStack stack) {
         TextureAtlasSprite sprite = getSprite(stack);
+        if (sprite == null)
+            return null;
         String iconLoc = sprite.getIconName();
         String split[] = ResourceLocation.splitObjectName(iconLoc);
         return new ResourceLocation(split[0], "textures/" + split[1] + ".png");
@@ -242,7 +244,7 @@ public class RenderUtils {
         try {
             return ModelLoaderRegistry.getModel(location);
         } catch (Exception e) {
-            return null;
+            throw new RuntimeException("No model found at " + location.toString());
         }
     }
 

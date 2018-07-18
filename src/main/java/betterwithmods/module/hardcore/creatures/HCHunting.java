@@ -30,7 +30,7 @@ public class HCHunting extends Feature {
     public void setupConfig() {
         spidersShootWebs = loadPropBool("Spiders Shoot Web", "Spiders shoot webs at targets", true);
         String[] zombieStrings = loadPropStringList("Mobs Zombies Attack", "List of entity classes which zombies will attack", new String[]{"net.minecraft.entity.passive.EntityCow", "net.minecraft.entity.passive.EntitySheep", "net.minecraft.entity.passive.EntityPig", "net.minecraft.entity.passive.EntityLlama"});
-        String[] spiderStrings = loadPropStringList("Mobs Spider Attack", "List of entity classes which spiders will attack", new String[]{"net.minecraft.entity.passive.EntityChicken","net.minecraft.entity.passive.EntityRabbit",});
+        String[] spiderStrings = loadPropStringList("Mobs Spider Attack", "List of entity classes which spiders will attack", new String[]{"net.minecraft.entity.passive.EntityChicken", "net.minecraft.entity.passive.EntityRabbit",});
         zombiesAttack = Arrays.stream(zombieStrings).map(clazz -> {
             try {
                 return Class.forName(clazz);

@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.world.saplings;
 
+import betterwithmods.common.BWMRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
@@ -7,6 +8,8 @@ import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.ItemStack;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -19,8 +22,17 @@ import java.util.Random;
 public class BlockSaplingCrop extends BlockBush implements IGrowable {
 
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
-    private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[]{new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.125D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.25D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.375D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.625D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.75D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D), new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 1.0D, 1.0D)};
-    private final IBlockState fullyGrown;
+    private static final AxisAlignedBB CROP_AABB[] = {
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.5, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.575, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.65, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.725, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.8, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.875, 0.8D),
+            new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.95, 0.8D),
+    };
+
+    private IBlockState fullyGrown;
 
     public BlockSaplingCrop(IBlockState fullyGrown) {
         this.fullyGrown = fullyGrown;
@@ -94,7 +106,7 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
 
     @Nonnull
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        return CROPS_AABB[getAge(state)];
+        return CROP_AABB[getAge(state)];
     }
 
 
@@ -157,4 +169,8 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
     }
 
 
+    @Override
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        drops.add(BWMRecipes.getStackFromState(fullyGrown));
+    }
 }

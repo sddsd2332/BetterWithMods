@@ -5,7 +5,7 @@
       "item": "betterwithmods:wooden_gearbox"
     },
     "title": {
-      "translate": "tile.bwm:wooden_gearbox.name"
+      "translate": "tile.betterwithmods:wooden_gearbox.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.wooden_gearbox.desc"

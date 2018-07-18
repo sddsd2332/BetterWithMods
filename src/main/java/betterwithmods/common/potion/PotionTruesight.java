@@ -16,6 +16,26 @@ public class PotionTruesight extends BWPotion {
         super(name, b, potionColor);
     }
 
+    public static boolean canMobsSpawnHere(World world, BlockPos pos) {
+        if (!world.isSideSolid(pos.down(), EnumFacing.UP)) {
+            return false;
+        } else if (!world.isBlockNormalCube(pos, false) && !world.isBlockNormalCube(pos.up(), false)
+                && !world.getBlockState(pos).getMaterial().isLiquid()) {
+            IBlockState state = world.getBlockState(pos);
+            if (state == Blocks.BEDROCK.getDefaultState()) {
+                return false;
+            } else if (world.getWorldTime() < 11615 && world.getLightFor(EnumSkyBlock.SKY, pos) >= 15) {
+                return false;
+            } else {
+                int lightLevel = world.getLightFor(EnumSkyBlock.BLOCK, pos);
+                return lightLevel < 8 && (world.isAirBlock(pos) || state.getCollisionBoundingBox(world, pos) == null);
+            }
+        } else {
+            return false;
+        }
+
+    }
+
     @Override
     public void tick(EntityLivingBase entity) {
         World world = entity.getEntityWorld();
@@ -44,26 +64,6 @@ public class PotionTruesight extends BWPotion {
                     }
                 }
             }
-        }
-
-    }
-
-    public static boolean canMobsSpawnHere(World world, BlockPos pos) {
-        if (!world.isSideSolid(pos.down(), EnumFacing.UP)) {
-            return false;
-        } else if (!world.isBlockNormalCube(pos, false) && !world.isBlockNormalCube(pos.up(), false)
-                && !world.getBlockState(pos).getMaterial().isLiquid()) {
-            IBlockState state = world.getBlockState(pos);
-            if (state == Blocks.BEDROCK.getDefaultState()) {
-                return false;
-            } else if (world.getWorldTime() < 11615 && world.getLightFor(EnumSkyBlock.SKY, pos) >= 15) {
-                return false;
-            } else {
-                int lightLevel = world.getLightFor(EnumSkyBlock.BLOCK, pos);
-                return lightLevel < 8 && (world.isAirBlock(pos) || state.getCollisionBoundingBox(world, pos) == null);
-            }
-        } else {
-            return false;
         }
 
     }

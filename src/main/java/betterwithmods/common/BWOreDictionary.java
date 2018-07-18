@@ -35,20 +35,15 @@ import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
  */
 public class BWOreDictionary {
 
+    public static final List<IBlockVariants> blockVariants = new ArrayList<>();
+    public static final List<IVariantProvider> variantProviders = new ArrayList<>();
+    public static final Set<IRecipe> logRecipes = Sets.newHashSet();
+    public static final HashMultimap<String, String> toolEffectiveOre = HashMultimap.create();
     public static List<Ore> nuggetNames;
     public static List<Ore> dustNames;
     public static List<Ore> oreNames;
     public static List<Ore> ingotNames;
-
-    public static final List<IBlockVariants> blockVariants = new ArrayList<>();
-    public static final List<IVariantProvider> variantProviders = new ArrayList<>();
-
-
     public static List<ItemStack> logs;
-    public static final Set<IRecipe> logRecipes = Sets.newHashSet();
-
-    public static final HashMultimap<String, String> toolEffectiveOre = HashMultimap.create();
-
 
     public static void registerOres() {
 
@@ -95,6 +90,9 @@ public class BWOreDictionary {
 
         registerOre("blockHardenedNetherClay", BlockAesthetic.getStack(BlockAesthetic.EnumType.NETHERCLAY));
         registerOre("blockConcentratedHellfire", BlockAesthetic.getStack(BlockAesthetic.EnumType.HELLFIRE));
+        registerOre("blockPadding", BlockAesthetic.getStack(BlockAesthetic.EnumType.PADDING));
+        registerOre("blockEnder", BlockAesthetic.getStack(BlockAesthetic.EnumType.ENDERBLOCK));
+        registerOre("blockSoulforgedSteel", new ItemStack(BWMBlocks.STEEL_BLOCK, 1, 0));
         registerOre("blockBarrel", new ItemStack(BWMBlocks.BARREL));
         //Added bark subtype entries for Roots compatibility
         registerOre("barkWood", ItemBark.getBarks(1));

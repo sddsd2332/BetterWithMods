@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.tile.TileVase;
+import betterwithmods.common.tile.TileVase;
 import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.ColorUtils;
 import betterwithmods.util.InvUtils;
@@ -36,13 +36,6 @@ import java.util.Random;
  */
 public class BlockVase extends BWMBlock {
     public static final HashMap<EnumDyeColor, Block> BLOCKS = Maps.newHashMap();
-
-    public static void init() {
-        for (EnumDyeColor color : ColorUtils.DYES) {
-            BLOCKS.put(color, new BlockVase(color));
-        }
-    }
-
     private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125D, 0, 0.125D, 0.875D, 1.0D, 0.875D);
 
     public BlockVase(EnumDyeColor color) {
@@ -51,6 +44,12 @@ public class BlockVase extends BWMBlock {
         this.setHarvestLevel("pickaxe", -1);
         this.setSoundType(SoundType.GLASS);
         this.setRegistryName("vase_" + color.getName());
+    }
+
+    public static void init() {
+        for (EnumDyeColor color : ColorUtils.DYES) {
+            BLOCKS.put(color, new BlockVase(color));
+        }
     }
 
     public static ItemStack getStack(EnumDyeColor type) {

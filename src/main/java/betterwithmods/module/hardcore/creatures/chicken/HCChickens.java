@@ -1,12 +1,11 @@
 package betterwithmods.module.hardcore.creatures.chicken;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.entity.ai.AIFoodEggLayer;
 import betterwithmods.module.Feature;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -15,7 +14,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -31,7 +29,7 @@ import static betterwithmods.module.hardcore.creatures.chicken.EggLayer.EGG_LAYE
 public class HCChickens extends Feature {
 
     public static final ResourceLocation EGG_LAYER = new ResourceLocation(BWMod.MODID, "egglayer");
-    public static final Ingredient SEEDS = new OreIngredient("listAllSeeds");
+    public static Ingredient SEEDS = new OreIngredient("seed");
 
     @Override
     public void setupConfig() {
@@ -56,14 +54,6 @@ public class HCChickens extends Feature {
     }
 
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof EntityAnimal && event.getEntity().hasCapability(EGG_LAYER_CAP, EnumFacing.DOWN)) {
-            EntityAnimal animal = (EntityAnimal) event.getEntity();
-            animal.tasks.addTask(3, new AIFoodEggLayer(animal));
-        }
-    }
-
-    @SubscribeEvent
     public void onEntityTick(LivingEvent.LivingUpdateEvent event) {
         EntityLivingBase entityLiving = event.getEntityLiving();
         if (entityLiving.world.isRemote)
@@ -76,10 +66,13 @@ public class HCChickens extends Feature {
         if (entityLiving.hasCapability(EGG_LAYER_CAP, EnumFacing.DOWN)) {
             EggLayer layer = entityLiving.getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
             if (layer != null) {
-                if(layer.isFeed()) {
+                if (layer.isFeed()) {
                     layer.setTicks(layer.getTicks() - 1);
-                    if(layer.canLayEgg()) {
-                        layer.lay(entityLiving);
+
+                    if (WorldUtils.isTimeFrame(entityLiving.world, WorldUtils.TimeFrame.DAWN)) {
+                        if (layer.canLayEgg()) {
+                            layer.lay(entityLiving);
+                        }
                     }
                 }
             }
@@ -88,11 +81,13 @@ public class HCChickens extends Feature {
 
     @SubscribeEvent
     public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
-        if (SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving && event.getTarget().hasCapability(EGG_LAYER_CAP, EnumFacing.DOWN)) {
-            event.setCanceled(true);
-            event.setResult(Event.Result.DENY);
+        if (SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving) {
             EggLayer layer = event.getTarget().getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
             if (layer != null) {
+                event.setCanceled(true);
+                event.setResult(Event.Result.DENY);
+                if (((EntityLiving) event.getTarget()).isChild())
+                    return;
                 layer.feed((EntityLiving) event.getTarget(), event.getItemStack());
             }
         }

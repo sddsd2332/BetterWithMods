@@ -19,10 +19,10 @@ import java.util.function.Predicate;
  * Created by primetoxinz on 6/27/17.
  */
 public abstract class ToolBaseRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRecipe {
-    private final ResourceLocation group;
     protected final Predicate<ItemStack> isTool;
     protected final ItemStack result;
     protected final Ingredient input;
+    private final ResourceLocation group;
 
     public ToolBaseRecipe(ResourceLocation group, ItemStack result, Ingredient input, Predicate<ItemStack> isTool) {
         this.group = group;
@@ -105,7 +105,7 @@ public abstract class ToolBaseRecipe extends IForgeRegistryEntry.Impl<IRecipe> i
 
     public abstract SoundEvent getSound();
 
-    public abstract Pair<Float,Float> getSoundValues();
+    public abstract Pair<Float, Float> getSoundValues();
 
     @Nonnull
     @Override

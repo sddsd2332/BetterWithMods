@@ -151,7 +151,7 @@ public class HCFurnace extends Feature {
         if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {
             double ticks = HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING);
             double seconds = ticks / 20.0;
-            event.getToolTip().add(new TextComponentTranslation("bwm.hcfurnace.cook_time.tooltip", String.format("%.2f", seconds)).getFormattedText());
+            event.getToolTip().add(new TextComponentTranslation("betterwithmods.hcfurnace.cook_time.tooltip", String.format("%.2f", seconds)).getFormattedText());
         }
     }
 

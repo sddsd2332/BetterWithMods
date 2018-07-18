@@ -18,12 +18,11 @@ import org.lwjgl.opengl.GL11;
 
 public final class FluidRenderUtils {
 
+    public static final float FLUID_OFFSET = 0.005f;
+    protected static final Minecraft mc = Minecraft.getMinecraft();
+
     private FluidRenderUtils() {
     }
-
-    public static final float FLUID_OFFSET = 0.005f;
-
-    protected static final Minecraft mc = Minecraft.getMinecraft();
 
     public static void renderFluidCuboid(FluidStack fluid, BlockPos pos, double x, double y, double z, double x1, double y1, double z1, double x2, double y2, double z2) {
         int color = fluid.getFluid().getColor(fluid);

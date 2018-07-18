@@ -21,9 +21,8 @@ public class KilnRecipeCategory extends BWMRecipeCategory<KilnRecipeWrapper> {
     public static final int height = 80;
     public static final String UID = "bwm.kiln";
     private static final ResourceLocation guiTexture = new ResourceLocation(BWMod.MODID, "textures/gui/jei/kiln.png");
-
-    private IDrawableAnimated flame;
     private final IGuiHelper helper;
+    private IDrawableAnimated flame;
 
     public KilnRecipeCategory(IGuiHelper helper, String uid) {
         super(helper.createDrawable(guiTexture, 0, 0, width, height), uid, String.format("inv.%s.name", uid.substring(4)));
@@ -44,7 +43,7 @@ public class KilnRecipeCategory extends BWMRecipeCategory<KilnRecipeWrapper> {
         IGuiIngredientGroup<IOutput> outputs = layout.getIngredientsGroup(IOutput.class);
 
         stacks.init(0, true, 20, 31);
-        createSlotsHorizontal(outputs,false, 3, 1, 87,32);
+        createSlotsHorizontal(outputs, false, 3, 1, 87, 32);
         stacks.set(ingredients);
         outputs.set(ingredients);
 

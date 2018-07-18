@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.mechanical.mech_machine;
 
 import betterwithmods.BWMod;
 import betterwithmods.api.block.IUrnConnector;
-import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
+import betterwithmods.common.tile.TileFilteredHopper;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;

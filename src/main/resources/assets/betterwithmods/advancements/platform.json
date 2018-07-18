@@ -5,7 +5,7 @@
       "item": "betterwithmods:platform"
     },
     "title": {
-      "translate": "tile.bwm:platform.name"
+      "translate": "tile.betterwithmods:platform.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.platform.desc"

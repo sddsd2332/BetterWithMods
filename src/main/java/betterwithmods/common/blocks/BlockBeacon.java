@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.blocks.tile.TileBeacon;
+import betterwithmods.common.tile.TileBeacon;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +21,6 @@ public class BlockBeacon extends net.minecraft.block.BlockBeacon {
 
     public BlockBeacon() {
         super();
-
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         setUnlocalizedName("beacon");
         setLightLevel(1.0f);

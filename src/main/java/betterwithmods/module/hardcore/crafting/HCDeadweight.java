@@ -15,12 +15,12 @@ public class HCDeadweight extends Feature {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         BWMRecipes.removeRecipe(new ItemStack(Blocks.ANVIL));
-        Blocks.ANVIL.setUnlocalizedName("bwm:deadweight");
+        Blocks.ANVIL.setUnlocalizedName("betterwithmods:deadweight");
     }
 
     @SubscribeEvent
     public void onInteract(PlayerInteractEvent.RightClickBlock event) {
-        if(!PlayerHelper.isSurvival(event.getEntityPlayer()))
+        if (!PlayerHelper.isSurvival(event.getEntityPlayer()))
             return;
 
         if (event.getWorld().getBlockState(event.getPos()).getBlock().equals(Blocks.ANVIL)) {

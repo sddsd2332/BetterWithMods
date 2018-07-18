@@ -65,10 +65,8 @@ public class MineshaftGeneration extends Feature {
         }
     }
 
-    public IBlockState getPlankForType(MapGenMineshaft.Type mineShaftType)
-    {
-        switch (mineShaftType)
-        {
+    public IBlockState getPlankForType(MapGenMineshaft.Type mineShaftType) {
+        switch (mineShaftType) {
             case NORMAL:
             default:
                 return Blocks.PLANKS.getDefaultState();
@@ -77,10 +75,8 @@ public class MineshaftGeneration extends Feature {
         }
     }
 
-    public IBlockState getSupportForType(MapGenMineshaft.Type mineShaftType)
-    {
-        switch (mineShaftType)
-        {
+    public IBlockState getSupportForType(MapGenMineshaft.Type mineShaftType) {
+        switch (mineShaftType) {
             case NORMAL:
             default:
                 return Blocks.LOG.getDefaultState();
@@ -89,8 +85,7 @@ public class MineshaftGeneration extends Feature {
         }
     }
 
-    public interface IMineshaftBlockState
-    {
+    public interface IMineshaftBlockState {
         IBlockState getBlockState(StructureMineshaftPieces.Peice piece); //For evil plans
     }
 }

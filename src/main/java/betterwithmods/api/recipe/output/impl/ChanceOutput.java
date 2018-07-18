@@ -19,7 +19,7 @@ public class ChanceOutput extends StackOutput {
 
     @Override
     public String getTooltip() {
-        return I18n.format("bwm.chance_output.tooltip", weight*100);
+        return I18n.format("betterwithmods.chance_output.tooltip", weight * 100);
     }
 
     @Override

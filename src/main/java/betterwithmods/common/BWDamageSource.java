@@ -15,9 +15,9 @@ import javax.annotation.Nullable;
 public class BWDamageSource extends DamageSource {
     public static final BWDamageSource gloom = new BWDamageSource("gloom", true);
     public static final BWDamageSource growth = new BWDamageSource("growth", false);
+    public static final BWDamageSource squid = new BWDamageSource("squid", false);
     private static FakeDamageSource saw = null;
     private static FakeDamageSource choppingBlock = null;
-	public static final BWDamageSource squid = new BWDamageSource("squid", false);
 
     protected BWDamageSource(String name, boolean ignoreArmor) {
         super(name);
@@ -28,16 +28,16 @@ public class BWDamageSource extends DamageSource {
     public static FakeDamageSource getSawDamage() {
         if (saw != null)
             return saw;
-        if (FakePlayerHandler.getPlayer() != null)
-            return saw = new FakeDamageSource("saw", FakePlayerHandler.getPlayer());
+        if (FakePlayerHandler.getSword() != null)
+            return saw = new FakeDamageSource("saw", FakePlayerHandler.getSword());
         return null;
     }
 
     public static FakeDamageSource getChoppingBlockDamage() {
         if (choppingBlock != null)
             return choppingBlock;
-        if (FakePlayerHandler.getPlayer() != null)
-            return choppingBlock = new FakeDamageSource("chopping_block", FakePlayerHandler.getPlayer());
+        if (FakePlayerHandler.getSword() != null)
+            return choppingBlock = new FakeDamageSource("chopping_block", FakePlayerHandler.getSword());
         return null;
     }
 

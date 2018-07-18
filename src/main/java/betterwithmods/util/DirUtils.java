@@ -120,7 +120,7 @@ public class DirUtils {
     }
 
 
-    @SuppressWarnings("SuspiciousNameCombination")
+    @SuppressWarnings({"SuspiciousNameCombination", "Duplicates"})
     public static EnumFacing.Axis rotateAroundY(EnumFacing.Axis axis) {
         switch (axis) {
             case X:

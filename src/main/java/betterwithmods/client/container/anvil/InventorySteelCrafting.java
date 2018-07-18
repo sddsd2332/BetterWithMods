@@ -1,6 +1,6 @@
 package betterwithmods.client.container.anvil;
 
-import betterwithmods.common.blocks.tile.TileSteelAnvil;
+import betterwithmods.common.tile.TileSteelAnvil;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;

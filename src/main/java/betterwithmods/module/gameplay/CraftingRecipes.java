@@ -7,7 +7,6 @@ import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.crafting.RecipeArmorDye;
 import betterwithmods.module.Feature;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -55,10 +54,6 @@ public class CraftingRecipes extends Feature {
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.MELON), new ItemStack(BWMItems.MELON_PIE), 0.1F);
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.PUMPKIN), new ItemStack(Items.PUMPKIN_PIE), 0.1F);
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.COOKIE), new ItemStack(Items.COOKIE, 16), 0.1F);
-
-        //TODO config
-        BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.NETHERRACK));
-
     }
 
     @Override

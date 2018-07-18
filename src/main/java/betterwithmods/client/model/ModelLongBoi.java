@@ -11,27 +11,41 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 @SideOnly(Side.CLIENT)
-public class ModelLongBoi extends ModelBase
-{
-    /** main box for the wolf head */
+public class ModelLongBoi extends ModelBase {
+    /**
+     * main box for the wolf head
+     */
     public final ModelRenderer wolfHeadMain;
-    /** The wolf's body */
+    /**
+     * The wolf's body
+     */
     public final ModelRenderer wolfBody;
-    /** Wolf'se first leg */
+    /**
+     * Wolf'se first leg
+     */
     public final ModelRenderer wolfLeg1;
-    /** Wolf's second leg */
+    /**
+     * Wolf's second leg
+     */
     public final ModelRenderer wolfLeg2;
-    /** Wolf's third leg */
+    /**
+     * Wolf's third leg
+     */
     public final ModelRenderer wolfLeg3;
-    /** Wolf's fourth leg */
+    /**
+     * Wolf's fourth leg
+     */
     public final ModelRenderer wolfLeg4;
-    /** The wolf's tail */
+    /**
+     * The wolf's tail
+     */
     final ModelRenderer wolfTail;
-    /** The wolf's mane */
+    /**
+     * The wolf's mane
+     */
     final ModelRenderer wolfMane;
 
-    public ModelLongBoi()
-    {
+    public ModelLongBoi() {
         this.wolfHeadMain = new ModelRenderer(this, 0, 0);
         this.wolfHeadMain.addBox(-2.0F, -3.0F, -2.0F, 6, 6, 4, 0.0F);
         this.wolfHeadMain.setRotationPoint(-1.0F, 13.5F, -7.0F);
@@ -64,13 +78,11 @@ public class ModelLongBoi extends ModelBase
     /**
      * Sets the models various rotation angles then renders the model.
      */
-    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale)
-    {
+    public void render(Entity entityIn, float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         super.render(entityIn, limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale);
         this.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scale, entityIn);
 
-        if (this.isChild)
-        {
+        if (this.isChild) {
             GlStateManager.pushMatrix();
             GlStateManager.translate(0.0F, 5.0F * scale, 2.0F * scale);
             this.wolfHeadMain.renderWithRotation(scale);
@@ -86,9 +98,7 @@ public class ModelLongBoi extends ModelBase
             this.wolfTail.renderWithRotation(scale);
             this.wolfMane.render(scale);
             GlStateManager.popMatrix();
-        }
-        else
-        {
+        } else {
             this.wolfHeadMain.renderWithRotation(scale);
             this.wolfBody.render(scale);
             this.wolfLeg1.render(scale);
@@ -104,40 +114,33 @@ public class ModelLongBoi extends ModelBase
      * Used for easily adding entity-dependent animations. The second and third float params here are the same second
      * and third as in the setRotationAngles method.
      */
-    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime)
-    {
-        EntityWolf entitywolf = (EntityWolf)entitylivingbaseIn;
+    public void setLivingAnimations(EntityLivingBase entitylivingbaseIn, float limbSwing, float limbSwingAmount, float partialTickTime) {
+        EntityWolf entitywolf = (EntityWolf) entitylivingbaseIn;
 
-        if (entitywolf.isAngry())
-        {
+        if (entitywolf.isAngry()) {
             this.wolfTail.rotateAngleY = 0.0F;
-        }
-        else
-        {
+        } else {
             this.wolfTail.rotateAngleY = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         }
 
-        if (entitywolf.isSitting())
-        {
+        if (entitywolf.isSitting()) {
             this.wolfMane.setRotationPoint(-1.0F, 16.0F, -3.0F);
-            this.wolfMane.rotateAngleX = ((float)Math.PI * 2F / 5F);
+            this.wolfMane.rotateAngleX = ((float) Math.PI * 2F / 5F);
             this.wolfMane.rotateAngleY = 0.0F;
             this.wolfBody.setRotationPoint(0.0F, 18.0F, 0.0F);
-            this.wolfBody.rotateAngleX = ((float)Math.PI / 4F);
+            this.wolfBody.rotateAngleX = ((float) Math.PI / 4F);
             this.wolfTail.setRotationPoint(-1.0F, 21.0F, 6.0F);
             this.wolfLeg1.setRotationPoint(-2.5F, 22.0F, 2.0F);
-            this.wolfLeg1.rotateAngleX = ((float)Math.PI * 3F / 2F);
+            this.wolfLeg1.rotateAngleX = ((float) Math.PI * 3F / 2F);
             this.wolfLeg2.setRotationPoint(0.5F, 22.0F, 2.0F);
-            this.wolfLeg2.rotateAngleX = ((float)Math.PI * 3F / 2F);
+            this.wolfLeg2.rotateAngleX = ((float) Math.PI * 3F / 2F);
             this.wolfLeg3.rotateAngleX = 5.811947F;
             this.wolfLeg3.setRotationPoint(-2.49F, 17.0F, -4.0F);
             this.wolfLeg4.rotateAngleX = 5.811947F;
             this.wolfLeg4.setRotationPoint(0.51F, 17.0F, -4.0F);
-        }
-        else
-        {
+        } else {
             this.wolfBody.setRotationPoint(0.0F, 14.0F, 2.0F);
-            this.wolfBody.rotateAngleX = ((float)Math.PI / 2F);
+            this.wolfBody.rotateAngleX = ((float) Math.PI / 2F);
             this.wolfMane.setRotationPoint(-1.0F, 14.0F, -3.0F);
             this.wolfMane.rotateAngleX = this.wolfBody.rotateAngleX;
             this.wolfTail.setRotationPoint(-1.0F, 12.0F, 8.0F);
@@ -146,8 +149,8 @@ public class ModelLongBoi extends ModelBase
             this.wolfLeg3.setRotationPoint(-2.5F, 16.0F, -4.0F);
             this.wolfLeg4.setRotationPoint(0.5F, 16.0F, -4.0F);
             this.wolfLeg1.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
-            this.wolfLeg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
-            this.wolfLeg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float)Math.PI) * 1.4F * limbSwingAmount;
+            this.wolfLeg2.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
+            this.wolfLeg3.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F + (float) Math.PI) * 1.4F * limbSwingAmount;
             this.wolfLeg4.rotateAngleX = MathHelper.cos(limbSwing * 0.6662F) * 1.4F * limbSwingAmount;
         }
 
@@ -162,8 +165,7 @@ public class ModelLongBoi extends ModelBase
      * and legs, where par1 represents the time(so that arms and legs swing back and forth) and par2 represents how
      * "far" arms and legs can swing at most.
      */
-    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn)
-    {
+    public void setRotationAngles(float limbSwing, float limbSwingAmount, float ageInTicks, float netHeadYaw, float headPitch, float scaleFactor, Entity entityIn) {
         super.setRotationAngles(limbSwing, limbSwingAmount, ageInTicks, netHeadYaw, headPitch, scaleFactor, entityIn);
         this.wolfHeadMain.rotateAngleX = headPitch * 0.017453292F;
         this.wolfHeadMain.rotateAngleY = netHeadYaw * 0.017453292F;

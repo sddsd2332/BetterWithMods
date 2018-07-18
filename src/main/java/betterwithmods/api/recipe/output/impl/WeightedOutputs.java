@@ -18,7 +18,7 @@ public class WeightedOutputs implements IRecipeOutputs {
     private final List<ItemStack> itemStacksList;
 
     public WeightedOutputs(ItemStack stack, double weight) {
-        this(new ChanceOutput(stack,weight));
+        this(new ChanceOutput(stack, weight));
     }
 
     public WeightedOutputs(ChanceOutput... weightedItemStacks) {

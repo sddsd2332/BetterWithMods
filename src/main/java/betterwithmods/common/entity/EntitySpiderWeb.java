@@ -29,18 +29,18 @@ public class EntitySpiderWeb extends EntityThrowable {
     @Override
     protected void onImpact(@Nonnull RayTraceResult result) {
         BlockPos pos = result.getBlockPos();
-        if(pos == null || pos.getY() < 0 || pos.getY() >= 256)
+        if (pos == null || pos.getY() < 0 || pos.getY() >= 256)
             return;
         IBlockState state = world.getBlockState(pos);
-        if(state.getMaterial().isReplaceable()) {
+        if (state.getMaterial().isReplaceable()) {
             world.setBlockState(pos, Blocks.WEB.getDefaultState());
-	        setDead();
+            setDead();
         } else {
-        	BlockPos offset = pos.offset(result.sideHit);
-        	if(world.getBlockState(offset).getMaterial().isReplaceable()) {
-		        world.setBlockState(offset, Blocks.WEB.getDefaultState());
-		        setDead();
-	        }
+            BlockPos offset = pos.offset(result.sideHit);
+            if (world.getBlockState(offset).getMaterial().isReplaceable()) {
+                world.setBlockState(offset, Blocks.WEB.getDefaultState());
+                setDead();
+            }
         }
     }
 }

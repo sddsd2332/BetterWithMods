@@ -157,7 +157,9 @@ public class BWStructureMineshaftPieces {
             return MineshaftGeneration.planks.getBlockState(this);
         }
 
-        protected IBlockState getRailBlock() { return MineshaftGeneration.rail.getBlockState(this); }
+        protected IBlockState getRailBlock() {
+            return MineshaftGeneration.rail.getBlockState(this);
+        }
 
         public boolean addComponentParts(@Nonnull World worldIn, @Nonnull Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
             boolean success = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
@@ -330,12 +332,10 @@ public class BWStructureMineshaftPieces {
             return MineshaftGeneration.roomFloor.getBlockState(this);
         }
 
-        public boolean addComponentParts(@Nonnull World worldIn, Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn)
-        {
+        public boolean addComponentParts(@Nonnull World worldIn, Random randomIn, @Nonnull StructureBoundingBox structureBoundingBoxIn) {
             boolean success = super.addComponentParts(worldIn, randomIn, structureBoundingBoxIn);
 
-            if (success)
-            {
+            if (success) {
                 this.fillWithBlocks(worldIn, structureBoundingBoxIn, this.boundingBox.minX, this.boundingBox.minY, this.boundingBox.minZ, this.boundingBox.maxX, this.boundingBox.minY, this.boundingBox.maxZ, getFloorBlock(), Blocks.AIR.getDefaultState(), true);
             }
 

@@ -24,11 +24,11 @@ import java.util.List;
 
 public class EntityTentacle extends Entity implements IEntityAdditionalSpawnData {
     private static final DataParameter<Integer> DATA_HOOKED_ENTITY = EntityDataManager.createKey(net.minecraft.entity.projectile.EntityFishHook.class, DataSerializers.VARINT);
+    public Entity caughtEntity;
     private boolean inGround;
     private int ticksInGround;
     private EntityLivingBase angler;
     private int ticksInAir;
-    public Entity caughtEntity;
     private State currentState = State.FLYING;
 
     public EntityTentacle(World world) {

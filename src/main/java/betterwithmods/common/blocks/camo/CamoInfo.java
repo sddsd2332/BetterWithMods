@@ -1,6 +1,7 @@
 package betterwithmods.common.blocks.camo;
 
 import betterwithmods.client.baking.IRenderComparable;
+import betterwithmods.common.tile.TileCamo;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;

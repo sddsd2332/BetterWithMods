@@ -6,6 +6,7 @@ import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.ChunkPos;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
 import javax.annotation.Nonnull;
@@ -35,10 +36,10 @@ public class MessageDataHandler<DataType> {
         addHandler(String.class, ByteBufUtils::readUTF8String, ByteBufUtils::writeUTF8String);
         addHandler(NBTTagCompound.class, ByteBufUtils::readTag, ByteBufUtils::writeTag);
         addHandler(ItemStack.class, ByteBufUtils::readItemStack, ByteBufUtils::writeItemStack);
-        addHandler(BlockPos.class, buf -> new BlockPos(buf.readInt(), buf.readInt(), buf.readInt()), (buf, data) -> {
-            buf.writeInt(data.getX());
-            buf.writeInt(data.getY());
-            buf.writeInt(data.getZ());
+        addHandler(BlockPos.class, buf -> BlockPos.fromLong(buf.readLong()), (buf, data) -> buf.writeLong(data.toLong()));
+        addHandler(ChunkPos.class, buf -> new ChunkPos(buf.readInt(), buf.readInt()), (buf, data) -> {
+            buf.writeInt(data.x);
+            buf.writeInt(data.z);
         });
     }
 
@@ -53,13 +54,13 @@ public class MessageDataHandler<DataType> {
     }
 
     @ParametersAreNonnullByDefault
-    private static <DataType> void addHandler(Class<DataType> type, Function<ByteBuf, DataType> reader, BiConsumer<ByteBuf, DataType> writer) {
+    public static <DataType> void addHandler(Class<DataType> type, Function<ByteBuf, DataType> reader, BiConsumer<ByteBuf, DataType> writer) {
         handlers.add(new MessageDataHandler<>(type, reader, writer));
     }
 
     public static MessageDataHandler getHandler(@Nonnull Class type) {
         for (MessageDataHandler<?> handler : handlers) {
-            if(handler.typeMatches(type)) {
+            if (handler.typeMatches(type)) {
                 return handler;
             }
         }

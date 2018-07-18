@@ -19,6 +19,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -40,20 +41,20 @@ import static net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCStumping extends Feature {
+    public static final Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
     private static final ResourceLocation PLACED_LOG = new ResourceLocation(BWMod.MODID, "placed_log");
     public static boolean ENABLED;
     public static boolean SPEED_UP_WITH_TOOLS;
     public static float STUMP_BREAK_SPEED;
     public static float ROOT_BREAK_SPEED;
-    public static final Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
     public static String[] BLACKLIST_CONFIG;
 
     public static boolean isStump(World world, BlockPos pos) {
-        return isLog(world.getBlockState(pos)) && !isPlaced(world, pos) && isSoil(world.getBlockState(pos.down()));
+        return isLog(world.getBlockState(pos)) && !isPlaced(world, pos) && isSoil(world.getBlockState(pos.down()), world, pos);
     }
 
     public static boolean isRoots(World world, BlockPos pos) {
-        return isLog(world.getBlockState(pos.up())) && !isPlaced(world, pos.up()) && isSoil(world.getBlockState(pos));
+        return isLog(world.getBlockState(pos.up())) && !isPlaced(world, pos.up()) && isSoil(world.getBlockState(pos), world, pos);
     }
 
     public static boolean isLog(IBlockState state) {
@@ -66,8 +67,8 @@ public class HCStumping extends Feature {
         return BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG, state) != null;
     }
 
-    public static boolean isSoil(IBlockState state) {
-        return state.getMaterial() == Material.GROUND || state.getMaterial() == Material.GRASS;
+    public static boolean isSoil(IBlockState state, World world, BlockPos pos) {
+        return state.isSideSolid(world, pos, EnumFacing.UP) && (state.getMaterial() == Material.GROUND || state.getMaterial() == Material.GRASS);
     }
 
     public static PlacedCapability getCapability(World world) {
@@ -106,10 +107,12 @@ public class HCStumping extends Feature {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(PlacedCapability.class, new PlacedCapability.Storage(), PlacedCapability::new);
+        ENABLED = true;
     }
 
     @Override
-    public void init(FMLInitializationEvent event) { }
+    public void init(FMLInitializationEvent event) {
+    }
 
     @Override
     public boolean requiresMinecraftRestartToEnable() {
@@ -162,18 +165,18 @@ public class HCStumping extends Feature {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         if (isStump(event.getWorld(), event.getPos())) {
-            IBlockVariants wood = BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG,event.getState());
+            IBlockVariants wood = BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG, event.getState());
             if (wood != null) {
                 event.getDrops().clear();
-                event.getDrops().addAll(Lists.newArrayList(wood.getVariant(IBlockVariants.EnumBlock.SAWDUST,1), wood.getVariant(IBlockVariants.EnumBlock.BARK,1)));
+                event.getDrops().addAll(Lists.newArrayList(wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, 1), wood.getVariant(IBlockVariants.EnumBlock.BARK, 1)));
             }
         }
         if (isRoots(event.getWorld(), event.getPos())) {
-            IBlockVariants wood = BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG,event.getWorld().getBlockState(event.getPos().up()));
+            IBlockVariants wood = BWOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG, event.getWorld().getBlockState(event.getPos().up()));
             if (wood != null) {
                 event.setResult(Event.Result.DENY);
                 event.getDrops().clear();
-                event.getDrops().addAll(Lists.newArrayList(new ItemStack(BWMItems.DIRT_PILE, 2), wood.getVariant(IBlockVariants.EnumBlock.SAWDUST,1), wood.getVariant(IBlockVariants.EnumBlock.BARK,1)));
+                event.getDrops().addAll(Lists.newArrayList(new ItemStack(BWMItems.DIRT_PILE, 2), wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, 1), wood.getVariant(IBlockVariants.EnumBlock.BARK, 1)));
             }
         }
     }

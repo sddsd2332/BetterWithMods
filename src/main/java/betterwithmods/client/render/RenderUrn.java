@@ -33,7 +33,7 @@ public class RenderUrn extends Render<EntityUrn> {
         GlStateManager.rotate((float) (this.renderManager.options.thirdPersonView == 2 ? -1 : 1) * this.renderManager.playerViewX, 1.0F, 0.0F, 0.0F);
         GlStateManager.rotate(180.0F, 0.0F, 1.0F, 0.0F);
 
-        GlStateManager.scale(4,4,4);
+        GlStateManager.scale(4, 4, 4);
         this.bindTexture(getEntityTexture(entity));
         render.renderItem(new ItemStack(BWMBlocks.SOUL_URN), ItemCameraTransforms.TransformType.GROUND);
         GlStateManager.disableRescaleNormal();

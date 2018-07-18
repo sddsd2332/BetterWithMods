@@ -9,9 +9,8 @@ import java.util.Optional;
 import java.util.regex.Pattern;
 
 abstract class AbstractSegment implements Segment {
-    private Segment next;
-
     protected final ManualDefinitionImpl myManual;
+    private Segment next;
 
     public AbstractSegment(ManualDefinitionImpl manual) {
         myManual = manual;

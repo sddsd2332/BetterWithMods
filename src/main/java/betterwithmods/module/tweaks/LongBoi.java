@@ -83,7 +83,6 @@ public class LongBoi extends Feature {
         }
 
 
-
         @Override
         public NonNullList<ItemStack> onCraft(World world, BlockPos pos) {
 

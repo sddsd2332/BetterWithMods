@@ -18,6 +18,7 @@ public class Tweaks extends Module {
         registerFeature(new CreeperShearing());
         registerFeature(new Dung());
         registerFeature(new EasyBreeding());
+        registerFeature(new MoreTempting());
         registerFeature(new EggDrops());
         registerFeature(new EquipmentDrop());
         registerFeature(new ImprovedFlee());
@@ -34,7 +35,7 @@ public class Tweaks extends Module {
         registerFeature(new DarkQuartz());
         registerFeature(new CactusSkeleton());
         registerFeature(new BatWings());
-        registerFeature(new MushroomFarming());
+//        registerFeature(new MushroomFarming());
         registerFeature(new FoodPoisoning());
         registerFeature(new Notes());
         registerFeature(new MineshaftGeneration());
@@ -46,6 +47,8 @@ public class Tweaks extends Module {
         registerFeature(new LlamaDrops());
         registerFeature(new BabyJumping());
         registerFeature(new EnchantmentTooltip());
+        registerFeature(new NoSkeletonTrap());
+        registerFeature(new SilverfishClay());
     }
 
     @Override

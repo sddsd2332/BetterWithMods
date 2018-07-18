@@ -115,7 +115,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
 
     @Override
     public void addProvider(final ContentProvider provider) {
-            contentProviders.add(provider);
+        contentProviders.add(provider);
     }
 
     @Override

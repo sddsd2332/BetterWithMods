@@ -19,6 +19,7 @@ public enum ChairOrientation implements BaseOrientation {
     WEST("west", EnumFacing.WEST, 0, 270);
 
     public static final ChairOrientation[] VALUES = values();
+    private static final AxisAlignedBB BOX = new AxisAlignedBB(2 / 16d, 0, 2 / 16d, 14 / 16d, 1, 14 / 16d);
     private final String name;
     private final EnumFacing facing;
     private final int x;
@@ -66,7 +67,5 @@ public enum ChairOrientation implements BaseOrientation {
     public BaseOrientation next() {
         return VALUES[(this.ordinal() + 1) % (VALUES.length)];
     }
-
-    private static final AxisAlignedBB BOX = new AxisAlignedBB(2 / 16d, 0, 2 / 16d, 14 / 16d, 1, 14 / 16d);
 }
 

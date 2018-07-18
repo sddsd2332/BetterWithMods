@@ -28,6 +28,11 @@ public class BlockStakeString extends BWMBlock {
         setDefaultState(getDefaultState().withProperty(DirUtils.NORTH, false).withProperty(DirUtils.SOUTH, false).withProperty(DirUtils.WEST, false).withProperty(DirUtils.EAST, false).withProperty(DirUtils.UP, false).withProperty(DirUtils.DOWN, false));
     }
 
+    public static boolean getDirection(IBlockAccess world, BlockPos pos, EnumFacing facing) {
+        Block block = world.getBlockState(pos.offset(facing)).getBlock();
+        return block instanceof BlockStakeString || block instanceof BlockStake;
+    }
+
     @Override
     public void addCollisionBoxToList(IBlockState state, @Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> collidingBoxes, @Nullable Entity entityIn, boolean p_185477_7_) {
         super.addCollisionBoxToList(state, worldIn, pos, entityBox, collidingBoxes, entityIn, p_185477_7_);
@@ -56,7 +61,6 @@ public class BlockStakeString extends BWMBlock {
     public boolean isOpaqueCube(IBlockState state) {
         return false;
     }
-
 
     @Nonnull
     @Override
@@ -97,11 +101,6 @@ public class BlockStakeString extends BWMBlock {
         return newState;
     }
 
-    public static boolean getDirection(IBlockAccess world, BlockPos pos, EnumFacing facing) {
-        Block block = world.getBlockState(pos.offset(facing)).getBlock();
-        return block instanceof BlockStakeString || block instanceof BlockStake;
-    }
-
     @Nonnull
     @Override
     public BlockRenderLayer getBlockLayer() {
@@ -117,7 +116,7 @@ public class BlockStakeString extends BWMBlock {
 
     @Override
     public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-        state = state.getActualState(worldIn,pos);
+        state = state.getActualState(worldIn, pos);
         for (int i = 0; i < DirUtils.DIR_PROP.length; i++) {
             if (state.getValue(DirUtils.DIR_PROP[i])) {
                 drop(worldIn, pos.offset(EnumFacing.getFront(i)));

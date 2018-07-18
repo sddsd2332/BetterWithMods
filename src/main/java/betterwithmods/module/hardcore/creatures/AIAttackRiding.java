@@ -34,7 +34,7 @@ public class AIAttackRiding extends EntityAIBase {
         //Attack if not wearing a SFS helmet
         if (mount == null)
             return;
-        if(mount instanceof EntityPlayer) {
+        if (mount instanceof EntityPlayer) {
             if (!PlayerHelper.hasPart(mount, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class)) {
                 if (mount.world.rand.nextInt(5) == 0)
                     mount.world.playSound(null, mount.getPosition(), SoundEvents.ENTITY_SQUID_HURT, SoundCategory.HOSTILE, 0.5f, 1);

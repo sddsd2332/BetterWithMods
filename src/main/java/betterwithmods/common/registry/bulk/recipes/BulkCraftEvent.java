@@ -23,6 +23,16 @@ public class BulkCraftEvent extends Event {
         this.outputs = outputs;
     }
 
+    public static NonNullList<ItemStack> fireOnCraft(IBulkTile tile, World world, BulkRecipe recipe, NonNullList<ItemStack> outputs) {
+        BulkCraftEvent event = new BulkCraftEvent(tile, world, recipe, outputs);
+
+        if (MinecraftForge.EVENT_BUS.post(event)) {
+            return NonNullList.create();
+        } else {
+            return outputs;
+        }
+    }
+
     @Override
     public boolean isCancelable() {
         return true;
@@ -43,15 +53,5 @@ public class BulkCraftEvent extends Event {
 
     public NonNullList<ItemStack> getOutputs() {
         return outputs;
-    }
-
-    public static NonNullList<ItemStack> fireOnCraft(IBulkTile tile, World world,  BulkRecipe recipe, NonNullList<ItemStack> outputs) {
-        BulkCraftEvent event = new BulkCraftEvent(tile, world, recipe, outputs);
-
-        if (MinecraftForge.EVENT_BUS.post(event)) {
-            return NonNullList.create();
-        } else {
-            return outputs;
-        }
     }
 }

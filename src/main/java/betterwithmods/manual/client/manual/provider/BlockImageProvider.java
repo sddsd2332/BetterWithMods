@@ -43,7 +43,7 @@ public final class BlockImageProvider implements ImageProvider {
     //TODO - remove this, meta is being removed in 1.13!
     @Deprecated
     public int parseMeta(String optMeta) {
-        if(optMeta.equals("*")) {
+        if (optMeta.equals("*")) {
             return OreDictionary.WILDCARD_VALUE;
         } else {
             return Integer.parseInt(optMeta);

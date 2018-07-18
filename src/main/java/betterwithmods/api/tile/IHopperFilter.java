@@ -1,7 +1,7 @@
 package betterwithmods.api.tile;
 
 import betterwithmods.client.model.filters.ModelWithResource;
-import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
+import betterwithmods.common.tile.TileFilteredHopper;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -25,5 +25,6 @@ public interface IHopperFilter {
     ModelWithResource getModelOverride(ItemStack filter);
 
     @SideOnly(Side.CLIENT)
-    default void setModelOverride(ModelWithResource model) {}
+    default void setModelOverride(ModelWithResource model) {
+    }
 }

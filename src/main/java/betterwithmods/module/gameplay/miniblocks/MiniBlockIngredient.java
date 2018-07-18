@@ -38,7 +38,7 @@ public class MiniBlockIngredient extends BlockIngredient {
     }
 
     public MiniBlockIngredient(String type, ItemStack stack) {
-        this(type,StackIngredient.fromStacks(stack));
+        this(type, StackIngredient.fromStacks(stack));
     }
 
     @Override
@@ -53,8 +53,8 @@ public class MiniBlockIngredient extends BlockIngredient {
 
     @Override
     public boolean apply(World world, BlockPos pos, @Nullable IBlockState state) {
-        if(state != null) {
-            RayTraceResult rayTraceResult = new RayTraceResult(new Vec3d(pos).addVector(0.5,0.5,0.5), EnumFacing.UP, pos);
+        if (state != null) {
+            RayTraceResult rayTraceResult = new RayTraceResult(new Vec3d(pos).addVector(0.5, 0.5, 0.5), EnumFacing.UP, pos);
             try {
                 ItemStack stack = state.getBlock().getPickBlock(state, rayTraceResult, world, pos, null);
                 return apply(stack);
@@ -85,7 +85,7 @@ public class MiniBlockIngredient extends BlockIngredient {
                 if (!stack.isEmpty() && stack.getItem() instanceof ItemBlock) {
                     IBlockState state = BWMRecipes.getStateFromStack(stack);
                     Material material = state.getMaterial();
-                    if(MiniBlocks.isValidMini(state)) {
+                    if (MiniBlocks.isValidMini(state)) {
                         BlockCamo blockMini = MiniBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);
                         stacks.add(MiniBlocks.fromParent(blockMini, state));
                     }

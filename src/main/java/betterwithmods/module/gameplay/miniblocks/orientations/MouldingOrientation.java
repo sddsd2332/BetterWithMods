@@ -15,18 +15,18 @@ import static betterwithmods.module.gameplay.miniblocks.orientations.Orientation
 public enum MouldingOrientation implements BaseOrientation {
 
 
-    NORTH_UP("north_up", 180,270, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 0.5D)),
-    SOUTH_UP("south_up", 180,0,new AxisAlignedBB(0.5D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D)),
-    WEST_UP("west_up",180,180, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 0.5D, 1.0D, 1.0D)),
-    EAST_UP("east_up",180,90, new AxisAlignedBB(0.0D, 0.5D, 0.5D, 1.0D, 1.0D, 1.0D)),
-    NORTH_DOWN("north_down",0,270, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 0.5D)),
-    SOUTH_DOWN("south_down", 0,0, new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D)),
-    WEST_DOWN("west_down", 0,180, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 0.5D, 1.0D)),
-    EAST_DOWN("east_down", 0,90, new AxisAlignedBB(0.0D, 0.0D, 0.5D, 1.0D, 0.5D, 1.0D)),
-    SOUTH_WEST("south_west", 90,90, new AxisAlignedBB(0.0D, 0.0D, 0.5D, 0.5D, 1.0D, 1.0D)),
-    NORTH_WEST("north_west", 90,180, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 1.0D, 0.5D)),
-    NORTH_EAST("north_east",90,270, new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 1.0D, 0.5D)),
-    SOUTH_EAST("south_east", 90,0, new AxisAlignedBB(0.5D, 0.0D, 0.5D, 1.0D, 1.0D, 1.0D));
+    NORTH_UP("north_up", 180, 270, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 0.5D)),
+    SOUTH_UP("south_up", 180, 0, new AxisAlignedBB(0.5D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D)),
+    WEST_UP("west_up", 180, 180, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 0.5D, 1.0D, 1.0D)),
+    EAST_UP("east_up", 180, 90, new AxisAlignedBB(0.0D, 0.5D, 0.5D, 1.0D, 1.0D, 1.0D)),
+    NORTH_DOWN("north_down", 0, 270, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 0.5D)),
+    SOUTH_DOWN("south_down", 0, 0, new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D)),
+    WEST_DOWN("west_down", 0, 180, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 0.5D, 1.0D)),
+    EAST_DOWN("east_down", 0, 90, new AxisAlignedBB(0.0D, 0.0D, 0.5D, 1.0D, 0.5D, 1.0D)),
+    SOUTH_WEST("south_west", 90, 90, new AxisAlignedBB(0.0D, 0.0D, 0.5D, 0.5D, 1.0D, 1.0D)),
+    NORTH_WEST("north_west", 90, 180, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 1.0D, 0.5D)),
+    NORTH_EAST("north_east", 90, 270, new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 1.0D, 0.5D)),
+    SOUTH_EAST("south_east", 90, 0, new AxisAlignedBB(0.5D, 0.0D, 0.5D, 1.0D, 1.0D, 1.0D));
 
     public static final MouldingOrientation[] VALUES = values();
 
@@ -140,7 +140,7 @@ public enum MouldingOrientation implements BaseOrientation {
     @SideOnly(Side.CLIENT)
     @Override
     public TRSRTransformation toTransformation() {
-        return TRSRTransformation.from(ModelRotation.getModelRotation(x,y));
+        return TRSRTransformation.from(ModelRotation.getModelRotation(x, y));
     }
 
     @Override

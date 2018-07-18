@@ -37,23 +37,61 @@ import java.util.Set;
 public class BreedingHarness extends Feature {
 
     public static final Item BREEDING_HARNESS = new ItemBreedingHarness().setRegistryName("breeding_harness");
+    public static final Set<Class<? extends EntityAnimal>> HARNESS_ANIMALS = Sets.newHashSet();
+    private static final ResourceLocation CAPABILITY = new ResourceLocation(BWMod.MODID, "harness");
+    private static final Object2BooleanMap<Class<? extends Entity>> HARNESS_CACHE = new Object2BooleanOpenHashMap<>();
+
+    static {
+        HARNESS_ANIMALS.add(EntityCow.class);
+        HARNESS_ANIMALS.add(EntitySheep.class);
+        HARNESS_ANIMALS.add(EntityPig.class);
+        for (Class<? extends EntityAnimal> c : HARNESS_ANIMALS) {
+            HARNESS_CACHE.put(c, true);
+        }
+    }
 
     public BreedingHarness() {
+    }
+
+    private static void sendPacket(Entity entity) {
+        CapabilityHarness cap = getCapability(entity);
+        if (cap != null) {
+            BWNetwork.sendToAllAround(new MessageHarness(entity.getEntityId(), cap.getHarness()), entity.getEntityWorld(), entity.getPosition());
+        }
+    }
+
+    public static CapabilityHarness getCapability(Entity entity) {
+        return entity.getCapability(CapabilityHarness.HARNESS_CAPABILITY, null);
+    }
+
+    public static boolean hasHarness(Entity entity) {
+        CapabilityHarness cap = getCapability(entity);
+        return cap != null && cap.getHarness().getItem() instanceof ItemBreedingHarness;
+    }
+
+    public static boolean harnessEntity(Entity entity) {
+        if (!(entity instanceof EntityAnimal)) {
+            return false;
+        }
+        Class<? extends Entity> c = entity.getClass();
+        Boolean harness = HARNESS_CACHE.get(c);
+        if (harness != null) {
+            return harness;
+        }
+        boolean canHarness = false;
+        for (Class<? extends EntityAnimal> cTest : HARNESS_ANIMALS) {
+            if (cTest.isAssignableFrom(c)) {
+                canHarness = true;
+                break;
+            }
+        }
+        return HARNESS_CACHE.put(c, canHarness);
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         BWMItems.registerItem(BREEDING_HARNESS);
         CapabilityManager.INSTANCE.register(CapabilityHarness.class, new CapabilityHarness.Storage(), CapabilityHarness::new);
-    }
-
-    private static final ResourceLocation CAPABILITY = new ResourceLocation(BWMod.MODID, "harness");
-
-    private static void sendPacket(Entity entity) {
-        CapabilityHarness cap = getCapability(entity);
-        if (cap != null) {
-            BWNetwork.sendToAllAround(new MessageHarness(entity.getEntityId(), cap.getHarness()), entity.getEntityWorld(),entity.getPosition());
-        }
     }
 
     @SubscribeEvent
@@ -107,11 +145,10 @@ public class BreedingHarness extends Feature {
 
     }
 
-
     @SubscribeEvent
     public void onLivingTick(LivingEvent.LivingUpdateEvent e) {
         EntityLivingBase entity = e.getEntityLiving();
-        if(harnessEntity(entity)) {
+        if (harnessEntity(entity)) {
             if (hasHarness(entity)) {
                 entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(-1);
                 if (entity instanceof EntitySheep && !((EntitySheep) entity).getSheared()) {
@@ -121,45 +158,6 @@ public class BreedingHarness extends Feature {
                 entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25);
             }
         }
-    }
-
-
-    public static CapabilityHarness getCapability(Entity entity) {
-        return entity.getCapability(CapabilityHarness.HARNESS_CAPABILITY, null);
-    }
-
-    public static boolean hasHarness(Entity entity) {
-        CapabilityHarness cap = getCapability(entity);
-        return cap != null && cap.getHarness().getItem() instanceof ItemBreedingHarness;
-    }
-
-    public static final Set<Class<? extends EntityAnimal>> HARNESS_ANIMALS = Sets.newHashSet();
-    private static final Object2BooleanMap<Class<? extends Entity>> HARNESS_CACHE = new Object2BooleanOpenHashMap<>();
-    static {
-        HARNESS_ANIMALS.add(EntityCow.class);
-        HARNESS_ANIMALS.add(EntitySheep.class);
-        HARNESS_ANIMALS.add(EntityPig.class);
-        for (Class<? extends EntityAnimal> c : HARNESS_ANIMALS){
-            HARNESS_CACHE.put(c, true);
-        }
-    }
-    public static boolean harnessEntity(Entity entity) {
-        if (!(entity instanceof EntityAnimal)){
-            return false;
-        }
-        Class<? extends Entity> c = entity.getClass();
-        Boolean harness = HARNESS_CACHE.get(c);
-        if (harness != null){
-            return harness;
-        }
-        boolean canHarness = false;
-        for (Class<? extends EntityAnimal> cTest : HARNESS_ANIMALS){
-            if (cTest.isAssignableFrom(c)){
-                canHarness = true;
-                break;
-            }
-        }
-        return HARNESS_CACHE.put(c, canHarness);
     }
 
     @Override

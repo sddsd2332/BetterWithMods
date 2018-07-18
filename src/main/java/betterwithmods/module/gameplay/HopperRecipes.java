@@ -10,13 +10,13 @@ import betterwithmods.client.model.filters.ModelWithResource;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.block.recipe.IngredientSpecial;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.registry.hopper.filters.SoulsandFilter;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
 import betterwithmods.common.registry.hopper.recipes.SoulUrnRecipe;
+import betterwithmods.common.tile.TileFilteredHopper;
 import betterwithmods.module.Feature;
 import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
@@ -37,6 +37,7 @@ import net.minecraftforge.oredict.OreIngredient;
  */
 public class HopperRecipes extends Feature {
     public static boolean brimstoneFiltering;
+    public static boolean useSelfFiltering;
 
     public HopperRecipes() {
         canDisable = false;
@@ -46,6 +47,7 @@ public class HopperRecipes extends Feature {
     @Override
     public void setupConfig() {
         brimstoneFiltering = loadPropBool("Glowstone Filtering", "Passing glowstone through a soulsand filter makes brimstone.", false);
+        useSelfFiltering = loadPropBool("Self Filtering", "Allow the Hopper to filter by the item in the filter slot.", false);
     }
 
     @Override

@@ -5,7 +5,7 @@
       "item": "betterwithmods:buddy_block"
     },
     "title": {
-      "translate": "tile.bwm:buddy_block.name"
+      "translate": "tile.betterwithmods:buddy_block.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.buddy_block.desc"
@@ -23,7 +23,9 @@
       }
     }
   },
-  "requirements": [[
-    "has_items"
-  ]]
+  "requirements": [
+    [
+      "has_items"
+    ]
+  ]
 }

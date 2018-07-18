@@ -43,15 +43,14 @@ public class BlockRawPastry extends Block {
         }
     }
 
+    public static ItemStack getStack(EnumType type) {
+        return new ItemStack(BLOCKS.get(type));
+    }
 
     @Nonnull
     @Override
     public EnumPushReaction getMobilityFlag(IBlockState state) {
         return EnumPushReaction.NORMAL;
-    }
-
-    public static ItemStack getStack(EnumType type) {
-        return new ItemStack(BLOCKS.get(type));
     }
 
     @Override

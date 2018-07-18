@@ -1,10 +1,11 @@
 package betterwithmods.client.container.other;
 
 import betterwithmods.common.advancements.BWAdvancements;
-import betterwithmods.common.blocks.tile.FilteredStackHandler;
-import betterwithmods.common.blocks.tile.SimpleStackHandler;
-import betterwithmods.common.blocks.tile.TileInfernalEnchanter;
 import betterwithmods.common.items.ItemArcaneScroll;
+import betterwithmods.common.tile.FilteredStackHandler;
+import betterwithmods.common.tile.SimpleStackHandler;
+import betterwithmods.common.tile.TileInfernalEnchanter;
+import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.util.InfernalEnchantment;
 import betterwithmods.util.InvUtils;
 import net.minecraft.enchantment.Enchantment;
@@ -33,10 +34,10 @@ import java.util.Set;
 public class ContainerInfernalEnchanter extends Container {
     public static final int INV_LAST = 1;
     public final int[] enchantLevels;
-    public int xpSeed;
-    public int bookcaseCount;
     private final TileInfernalEnchanter tile;
     private final SimpleStackHandler handler;
+    public int xpSeed;
+    public int bookcaseCount;
 
 
     public ContainerInfernalEnchanter(EntityPlayer player, TileInfernalEnchanter tile) {
@@ -107,12 +108,16 @@ public class ContainerInfernalEnchanter extends Container {
 
     public boolean areValidItems(ItemStack scroll, ItemStack item) {
         if (!scroll.isEmpty() && !item.isEmpty()) {
-            Enchantment enchantment = new InfernalEnchantment(ItemArcaneScroll.getEnchantment(scroll));
+
+            Enchantment enchantment = ItemArcaneScroll.getEnchantment(scroll);
+            if (enchantment == null)
+                return false;
+            enchantment = new InfernalEnchantment(enchantment);
             Set<Enchantment> enchantments = EnchantmentHelper.getEnchantments(item).keySet();
             if (enchantments.contains(enchantment))
                 return false;
             for (Enchantment e : enchantments) {
-                if (!e.isCompatibleWith(enchantment))
+                if (e != null && !e.isCompatibleWith(enchantment))
                     return false;
             }
             return item.getItem().canApplyAtEnchantingTable(item, enchantment);
@@ -136,10 +141,10 @@ public class ContainerInfernalEnchanter extends Container {
     }
 
     private int getEnchantCost(int levelIndex, Enchantment enchantment, int enchantCount) {
-        if (enchantment == null || levelIndex > enchantment.getMaxLevel()) {
+        if (enchantment == null || levelIndex > HCEnchanting.getMaxLevel(enchantment)) {
             return -1;
         } else {
-            double max = Math.min(enchantment.getMaxLevel(), enchantLevels.length);
+            double max = Math.min(HCEnchanting.getMaxLevel(enchantment), enchantLevels.length);
             double multiplier = levelIndex / max;
             return (int) Math.ceil(30.0 * multiplier) + (30 * enchantCount);
         }
@@ -213,7 +218,6 @@ public class ContainerInfernalEnchanter extends Container {
             if (!player.world.isRemote) {
                 ItemStack item = this.handler.getStackInSlot(1);
                 ItemStack scroll = this.handler.getStackInSlot(0);
-
                 Enchantment enchantment = ItemArcaneScroll.getEnchantment(scroll);
                 if (enchantment != null) {
                     scroll.shrink(1);

@@ -17,13 +17,14 @@ import net.minecraft.util.ResourceLocation;
 public class RenderCowHarness extends RenderCow {
     private static final ResourceLocation HARNESS = new ResourceLocation(BWMod.MODID, "textures/entity/cow_harness.png");
     private static final ResourceLocation HARNESS_KF = new ResourceLocation(BWMod.MODID, "textures/entity/cow_harness_kf.png");
+
     public RenderCowHarness(RenderManager renderManagerIn) {
         super(renderManagerIn);
     }
 
     @Override
     protected ResourceLocation getEntityTexture(EntityCow entity) {
-        if(BreedingHarness.hasHarness(entity))
+        if (BreedingHarness.hasHarness(entity))
             return Gameplay.kidFriendly ? HARNESS_KF : HARNESS;
         return super.getEntityTexture(entity);
     }

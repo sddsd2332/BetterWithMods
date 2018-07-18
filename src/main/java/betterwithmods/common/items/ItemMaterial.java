@@ -15,6 +15,15 @@ import java.util.HashMap;
 
 public class ItemMaterial extends Item {
     public static final HashMap<EnumMaterial, ItemMaterial> MATERIALS = Maps.newHashMap();
+    private final EnumMaterial material;
+
+    public ItemMaterial(EnumMaterial material) {
+        super();
+        MATERIALS.put(material, this);
+        this.material = material;
+        this.setRegistryName(material.getName());
+        this.setCreativeTab(BWCreativeTabs.BWTAB);
+    }
 
     public static Ingredient getIngredient(EnumMaterial material) {
         return Ingredient.fromStacks(getStack(material));
@@ -36,16 +45,6 @@ public class ItemMaterial extends Item {
         for (EnumMaterial material : EnumMaterial.VALUES) {
             new ItemMaterial(material);
         }
-    }
-
-    private final EnumMaterial material;
-
-    public ItemMaterial(EnumMaterial material) {
-        super();
-        MATERIALS.put(material, this);
-        this.material = material;
-        this.setRegistryName(material.getName());
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
     }
 
     @Override

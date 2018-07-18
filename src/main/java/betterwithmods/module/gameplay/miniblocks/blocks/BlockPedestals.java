@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -31,12 +32,11 @@ public class BlockPedestals extends BlockMini {
     }
 
     @Override
-    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ) {
+    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
         if (face != null)
             return PedestalOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), placer.isSneaking() ? face.getOpposite() : face);
         return BaseOrientation.DEFAULT;
     }
-
 
 
 }

@@ -46,5 +46,4 @@ public abstract class GuiProgress extends GuiBase {
     public abstract int getWidth();
 
 
-
 }

@@ -36,14 +36,14 @@ public class ColorUtils {
         addFlower(BlockFlower.EnumFlowerType.WHITE_TULIP, new DyeAmount(EnumDyeColor.SILVER, 2));
         addFlower(BlockFlower.EnumFlowerType.PINK_TULIP, new DyeAmount(EnumDyeColor.PINK, 2));
         addFlower(BlockFlower.EnumFlowerType.OXEYE_DAISY, new DyeAmount(EnumDyeColor.SILVER, 2));
-        addFlower(BlockDoublePlant.EnumPlantType.PAEONIA, new DyeAmount(EnumDyeColor.PINK,4));
-        addFlower(BlockDoublePlant.EnumPlantType.ROSE, new DyeAmount(EnumDyeColor.RED,4));
-        addFlower(BlockDoublePlant.EnumPlantType.SYRINGA, new DyeAmount(EnumDyeColor.MAGENTA,4));
-        addFlower(BlockDoublePlant.EnumPlantType.SUNFLOWER, new DyeAmount(EnumDyeColor.YELLOW,4));
+        addFlower(BlockDoublePlant.EnumPlantType.PAEONIA, new DyeAmount(EnumDyeColor.PINK, 4));
+        addFlower(BlockDoublePlant.EnumPlantType.ROSE, new DyeAmount(EnumDyeColor.RED, 4));
+        addFlower(BlockDoublePlant.EnumPlantType.SYRINGA, new DyeAmount(EnumDyeColor.MAGENTA, 4));
+        addFlower(BlockDoublePlant.EnumPlantType.SUNFLOWER, new DyeAmount(EnumDyeColor.YELLOW, 4));
     }
 
     private static void addFlower(BlockIngredient ingredient, DyeAmount dyeAmount) {
-        FLOWER_TO_DYES.put(ingredient,dyeAmount);
+        FLOWER_TO_DYES.put(ingredient, dyeAmount);
     }
 
     private static void addFlower(BlockDoublePlant.EnumPlantType type, DyeAmount dyeAmount) {

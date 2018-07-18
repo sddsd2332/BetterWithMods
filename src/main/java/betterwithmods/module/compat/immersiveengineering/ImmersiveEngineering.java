@@ -13,12 +13,12 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 @SuppressWarnings("unused")
 public class ImmersiveEngineering extends CompatFeature {
 
+    @GameRegistry.ObjectHolder("immersiveengineering:seed")
+    public static final Item HEMP_SEED = null;
+
     public ImmersiveEngineering() {
         super("immersiveengineering");
     }
-
-    @GameRegistry.ObjectHolder("immersiveengineering:seed")
-    public static final Item HEMP_SEED = null;
 
     @Override
     public void init(FMLInitializationEvent event) {

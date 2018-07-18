@@ -9,6 +9,7 @@ import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
@@ -25,7 +26,7 @@ public class BlockSiding extends BlockMini {
     }
 
     @Override
-    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing facing, ItemStack stack, float hitX, float hitY, float hitZ) {
+    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing facing, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
         if (facing != null)
             return SidingOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), facing);
         return BaseOrientation.DEFAULT;
@@ -36,7 +37,6 @@ public class BlockSiding extends BlockMini {
     public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileSiding();
     }
-
 
 
 }

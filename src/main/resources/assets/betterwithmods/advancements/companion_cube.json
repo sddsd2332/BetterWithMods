@@ -5,7 +5,7 @@
       "item": "betterwithmods:companion_cube"
     },
     "title": {
-      "translate": "tile.bwm:companion_cube.name"
+      "translate": "tile.betterwithmods:companion_cube.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.companion_cube.desc"
@@ -24,7 +24,9 @@
       }
     }
   },
-  "requirements": [[
-    "has_items"
-  ]]
+  "requirements": [
+    [
+      "has_items"
+    ]
+  ]
 }

@@ -58,7 +58,7 @@ public abstract class CraftingManagerBlock<T extends BlockRecipe> extends Crafti
         boolean hasTile = state.getBlock().hasTileEntity(state);
         if (!hasTile && recipeCache.containsKey(state)) {
             T t = recipeCache.get(state);
-            if(t != null && t.matches(world,pos,state)) {
+            if (t != null && t.matches(world, pos, state)) {
                 return Optional.of(t);
             }
         }

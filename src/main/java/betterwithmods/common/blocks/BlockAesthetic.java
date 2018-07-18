@@ -24,13 +24,6 @@ import static betterwithmods.common.blocks.BlockAesthetic.EnumType.HELLFIRE;
 
 public class BlockAesthetic extends BWMBlock {
     public static final HashMap<EnumType, Block> BLOCKS = Maps.newHashMap();
-
-    public static void init() {
-        for (EnumType type : EnumType.VALUES) {
-            BLOCKS.put(type, new BlockAesthetic(type));
-        }
-    }
-
     private final EnumType type;
 
     public BlockAesthetic(EnumType type) {
@@ -40,12 +33,18 @@ public class BlockAesthetic extends BWMBlock {
         this.setRegistryName(type.getName());
     }
 
+    public static void init() {
+        for (EnumType type : EnumType.VALUES) {
+            BLOCKS.put(type, new BlockAesthetic(type));
+        }
+    }
+
     public static IBlockState getVariant(EnumType type) {
         return BLOCKS.get(type).getDefaultState();
     }
 
     public static ItemStack getStack(EnumType type) {
-        return getStack(type,1);
+        return getStack(type, 1);
     }
 
     public static ItemStack getStack(EnumType type, int count) {

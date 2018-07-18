@@ -8,7 +8,7 @@ import net.minecraft.item.crafting.Ingredient;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class CookingPotRecipe extends BulkRecipe implements IHeatRecipe{
+public class CookingPotRecipe extends BulkRecipe implements IHeatRecipe {
 
     private final int heat;
     private boolean ignoreHeat;

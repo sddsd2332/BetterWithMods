@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BlockSteel extends BWMBlock{
+public class BlockSteel extends BWMBlock {
 
     public BlockSteel() {
         super(Material.IRON);
@@ -23,6 +23,10 @@ public class BlockSteel extends BWMBlock{
         setResistance(4000F);
     }
 
+    @Deprecated
+    public static IBlockState getBlock(int height) {
+        return BWMBlocks.STEEL_BLOCK.getDefaultState();
+    }
 
     @Override
     public boolean canEntityDestroy(IBlockState state, IBlockAccess world, BlockPos pos, Entity entity) {
@@ -37,11 +41,6 @@ public class BlockSteel extends BWMBlock{
     @Override
     public int getHarvestLevel(@Nonnull IBlockState state) {
         return 4;
-    }
-
-@Deprecated
-    public static IBlockState getBlock(int height) {
-        return BWMBlocks.STEEL_BLOCK.getDefaultState();
     }
 
     //Cannot be pushed by a piston

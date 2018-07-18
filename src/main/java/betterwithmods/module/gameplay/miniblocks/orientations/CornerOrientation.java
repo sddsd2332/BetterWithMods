@@ -17,11 +17,11 @@ public enum CornerOrientation implements BaseOrientation {
     DOWN_NORTH("down_north", 0, 0, new AxisAlignedBB(0.0D, 0.0D, 0.5D, 0.5D, 0.5D, 1.0D)),
     DOWN_SOUTH("down_south", 0, 90, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 0.5D, 0.5D)),
     DOWN_EAST("down_east", 0, 270, new AxisAlignedBB(0.5D, 0.0D, 0.5D, 1.0D, 0.5D, 1.0D)),
-    DOWN_WEST("down_west", 0,180, new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 0.5D, 0.5D)),
-    UP_NORTH("up_north", 90,0, new AxisAlignedBB(0.0D, 0.5D, 0.5D, 0.5D, 1.0D, 1.0D)),
-    UP_SOUTH("up_south", 90,90, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 0.5D, 1.0D, 0.5D)),
-    UP_EAST("up_east",90,270, new AxisAlignedBB(0.5D, 0.5D, 0.5D, 1.0D, 1.0D, 1.0D)),
-    UP_WEST("up_west", 90,180, new AxisAlignedBB(0.5D, 0.5D, 0.0D, 1.0D, 1.0D, 0.5D));
+    DOWN_WEST("down_west", 0, 180, new AxisAlignedBB(0.5D, 0.0D, 0.0D, 1.0D, 0.5D, 0.5D)),
+    UP_NORTH("up_north", 90, 0, new AxisAlignedBB(0.0D, 0.5D, 0.5D, 0.5D, 1.0D, 1.0D)),
+    UP_SOUTH("up_south", 90, 90, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 0.5D, 1.0D, 0.5D)),
+    UP_EAST("up_east", 90, 270, new AxisAlignedBB(0.5D, 0.5D, 0.5D, 1.0D, 1.0D, 1.0D)),
+    UP_WEST("up_west", 90, 180, new AxisAlignedBB(0.5D, 0.5D, 0.0D, 1.0D, 1.0D, 0.5D));
 
     public static final CornerOrientation[] VALUES = values();
 
@@ -30,7 +30,7 @@ public enum CornerOrientation implements BaseOrientation {
     private final int x;
     private final int y;
 
-    CornerOrientation(String name, int x, int y,AxisAlignedBB bounds) {
+    CornerOrientation(String name, int x, int y, AxisAlignedBB bounds) {
         this.name = name;
         this.x = x;
         this.y = y;
@@ -85,7 +85,7 @@ public enum CornerOrientation implements BaseOrientation {
     @SideOnly(Side.CLIENT)
     @Override
     public TRSRTransformation toTransformation() {
-        return TRSRTransformation.from(ModelRotation.getModelRotation(x,y));
+        return TRSRTransformation.from(ModelRotation.getModelRotation(x, y));
     }
 
     @Override

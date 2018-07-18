@@ -20,7 +20,9 @@
       }
     }
   },
-  "requirements": [[
-    "built_library"
-  ]]
+  "requirements": [
+    [
+      "built_library"
+    ]
+  ]
 }

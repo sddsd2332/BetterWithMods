@@ -34,12 +34,12 @@ public class CombinedOutputs implements IRecipeOutputs {
 
     @Override
     public boolean matches(List<ItemStack> outputs) {
-        return recipeOutputs.stream().allMatch( r -> r.matches(outputs));
+        return recipeOutputs.stream().allMatch(r -> r.matches(outputs));
     }
 
     @Override
     public boolean matchesFuzzy(List<ItemStack> outputs) {
-        return recipeOutputs.stream().allMatch( r -> r.matchesFuzzy(outputs));
+        return recipeOutputs.stream().allMatch(r -> r.matchesFuzzy(outputs));
     }
 
     @Override

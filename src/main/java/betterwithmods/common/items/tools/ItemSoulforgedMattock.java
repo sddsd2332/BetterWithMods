@@ -24,8 +24,8 @@ import java.util.Set;
 public class ItemSoulforgedMattock extends ItemTool {
     private static final Set<Block> EFFECTIVE = Sets.union(ToolsManager.getEffectiveBlocks((ItemTool) BWMItems.STEEL_PICKAXE), ToolsManager.getEffectiveBlocks((ItemTool) BWMItems.STEEL_SHOVEL));
 
-    private static final Set<Material> EFFECTIVE_MATERIALS =  Sets.newHashSet(Material.ROCK,Material.IRON,Material.ANVIL,
-            Material.GROUND, Material.GRASS,Material.CLAY, Material.GLASS,Material.PISTON,Material.SNOW);
+    private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(Material.ROCK, Material.IRON, Material.ANVIL,
+            Material.GROUND, Material.GRASS, Material.CLAY, Material.GLASS, Material.PISTON, Material.SNOW);
 
     public ItemSoulforgedMattock() {
         super(BWMItems.SOULFORGED_STEEL, EFFECTIVE);
@@ -58,7 +58,7 @@ public class ItemSoulforgedMattock extends ItemTool {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return HCEnchanting.canEnchantSteel(enchantment) && super.canApplyAtEnchantingTable(stack,enchantment);
+        return HCEnchanting.canEnchantSteel(enchantment) && super.canApplyAtEnchantingTable(stack, enchantment);
     }
 
     @Override

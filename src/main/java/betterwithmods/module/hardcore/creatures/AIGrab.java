@@ -8,10 +8,10 @@ import net.minecraft.entity.player.EntityPlayer;
 public class AIGrab extends EntityAIBase {
 
     public final EntityLiving rider;
-    public EntityLivingBase target;
-    public EntityTentacle tentacle;
     private final int min;
     private final int max;
+    public EntityLivingBase target;
+    public EntityTentacle tentacle;
     private int ticks; //, cooldown;
 
     public AIGrab(EntityLiving rider, int min, int max) {
@@ -22,13 +22,13 @@ public class AIGrab extends EntityAIBase {
 
     @Override
     public void resetTask() {
-        if(tentacle != null)
+        if (tentacle != null)
             tentacle.setDead();
     }
 
     @Override
     public void startExecuting() {
-        if(tentacle != null)
+        if (tentacle != null)
             tentacle.setDead();
     }
 
@@ -55,7 +55,7 @@ public class AIGrab extends EntityAIBase {
             return;
         if (!target.isBeingRidden()) {
 
-            if(tentacle == null) {
+            if (tentacle == null) {
 
 //                cooldown++;
 //                if(cooldown > 40)
@@ -67,7 +67,7 @@ public class AIGrab extends EntityAIBase {
                 rider.world.spawnEntity(tentacle);
             } else {
                 ticks++;
-                if(ticks > 10) {
+                if (ticks > 10) {
                     tentacle.handleHookRetraction();
                     tentacle.setDead();
                     tentacle = null;

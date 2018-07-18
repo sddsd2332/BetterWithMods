@@ -2,7 +2,7 @@ package betterwithmods.client.gui;
 
 import betterwithmods.BWMod;
 import betterwithmods.client.container.anvil.ContainerSteelAnvil;
-import betterwithmods.common.blocks.tile.TileSteelAnvil;
+import betterwithmods.common.tile.TileSteelAnvil;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiSteelAnvil extends GuiBase {

@@ -45,20 +45,16 @@ public final class GuiManual extends GuiScreen {
     private static final int maxTabsPerSide = 7;
     private static final int windowWidth = 256;
     private static final int windowHeight = 256;
-
+    private final ManualDefinitionImpl myManual;
     private int guiLeft = 0;
     private int guiTop = 0;
     private int xSize = 0;
     private int ySize = 0;
-
     private boolean isDragging = false;
     private Segment document = null;
     private int documentHeight = 0;
     private Optional<InteractiveSegment> currentSegment = Optional.empty();
-
     private ImageButton scrollButton = null;
-
-    private final ManualDefinitionImpl myManual;
 
     public GuiManual() {
         myManual = ManualDefinitionImpl.INSTANCE;

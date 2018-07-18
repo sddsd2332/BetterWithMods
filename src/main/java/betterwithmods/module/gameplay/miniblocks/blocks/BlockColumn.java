@@ -22,16 +22,13 @@ import java.util.function.Function;
 
 public class BlockColumn extends BlockMini {
 
-
     public BlockColumn(Material material, Function<Material, Collection<IBlockState>> subtypes) {
         super(material, subtypes);
     }
 
     @Override
-    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ) {
-        if (face != null)
-            return ColumnOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), face);
-        return BaseOrientation.DEFAULT;
+    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
+        return ColumnOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), face);
     }
 
     @Override

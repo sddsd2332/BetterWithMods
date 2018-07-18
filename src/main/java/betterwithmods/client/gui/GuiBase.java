@@ -29,7 +29,7 @@ public abstract class GuiBase extends GuiContainer {
         int centerX = (this.width - this.xSize) / 2;
         int centerY = (this.height - this.ySize) / 2;
         drawTexturedModalRect(centerX, centerY, 0, 0, this.xSize, this.ySize);
-        drawExtras(partialTicks,mouseX,mouseY,centerX,centerY);
+        drawExtras(partialTicks, mouseX, mouseY, centerX, centerY);
     }
 
     @Override
@@ -39,11 +39,14 @@ public abstract class GuiBase extends GuiContainer {
     }
 
     public abstract String getTitle();
+
     public abstract int getTitleY();
+
     public int getTitleColor() {
         return 4210752;
     }
 
 
-    protected void drawExtras(float partialTicks, int mouseX, int mouseY, int centerX, int centerY) {}
+    protected void drawExtras(float partialTicks, int mouseX, int mouseY, int centerX, int centerY) {
+    }
 }

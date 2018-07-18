@@ -15,16 +15,8 @@ import java.util.Optional;
 
 public class SpawnSaving implements ICapabilitySerializable<NBTTagCompound> {
 
-    public static Optional<SpawnSaving> getCapability(EntityPlayer player) {
-        if (player.hasCapability(SpawnSaving.SPAWN_CAP, null)) {
-           return Optional.ofNullable(player.getCapability(SpawnSaving.SPAWN_CAP, null));
-        }
-        return Optional.empty();
-    }
-
     @CapabilityInject(SpawnSaving.class)
     public static Capability<SpawnSaving> SPAWN_CAP = null;
-
     private BlockPos pos;
 
     public SpawnSaving() {
@@ -32,6 +24,13 @@ public class SpawnSaving implements ICapabilitySerializable<NBTTagCompound> {
 
     public SpawnSaving(EntityPlayer player) {
         pos = player.world.getSpawnPoint();
+    }
+
+    public static Optional<SpawnSaving> getCapability(EntityPlayer player) {
+        if (player.hasCapability(SpawnSaving.SPAWN_CAP, null)) {
+            return Optional.ofNullable(player.getCapability(SpawnSaving.SPAWN_CAP, null));
+        }
+        return Optional.empty();
     }
 
     public BlockPos getPos() {

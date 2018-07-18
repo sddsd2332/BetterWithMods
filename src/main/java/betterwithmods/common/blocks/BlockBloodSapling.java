@@ -24,10 +24,13 @@ public class BlockBloodSapling extends BlockBush {
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 1);
     private static final AxisAlignedBB SAPLING_AABB = new AxisAlignedBB(0.09999999403953552D, 0.0D, 0.09999999403953552D, 0.8999999761581421D, 0.800000011920929D, 0.8999999761581421D);
 
+    private static int growthRate = 7;
+
     public BlockBloodSapling() {
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, 0));
         this.setCreativeTab(BWCreativeTabs.BWTAB);
         this.setSoundType(SoundType.PLANT);
+        this.setTickRandomly(true);
     }
 
     @Override
@@ -61,6 +64,16 @@ public class BlockBloodSapling extends BlockBush {
         return true;
     }
 
+    @Override
+    public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
+        if (!world.isRemote && world.provider.isNether()) {
+            super.updateTick(world, pos, state, rand);
+            if (rand.nextInt(growthRate) == 0) {
+                grow(world, pos, state, rand);
+            }
+        }
+    }
+
     public void grow(World world, BlockPos pos, IBlockState state, Random rand) {
         if (state.getValue(STAGE) == 0) {
             world.setBlockState(pos, state.cycleProperty(STAGE), 4);
@@ -68,17 +81,6 @@ public class BlockBloodSapling extends BlockBush {
             this.generateTree(world, pos, state, rand);
         }
     }
-
-    @Override
-    public void updateTick(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state, Random rand) {
-        if (!world.isRemote && world.provider.isNether()) {
-            super.updateTick(world, pos, state, rand);
-            if (rand.nextInt(7) == 0) {
-                grow(world, pos, state, rand);
-            }
-        }
-    }
-
 
     public boolean generateTree(World world, BlockPos pos, IBlockState state, Random rand) {
         if (!TerrainGen.saplingGrowTree(world, rand, pos)) return false;

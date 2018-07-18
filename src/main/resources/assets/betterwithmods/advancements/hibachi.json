@@ -5,7 +5,7 @@
       "item": "betterwithmods:hibachi"
     },
     "title": {
-      "translate": "tile.bwm:hibachi.name"
+      "translate": "tile.betterwithmods:hibachi.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.hibachi.desc"

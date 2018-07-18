@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
+import net.minecraft.entity.ai.attributes.IAttribute;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -23,6 +24,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.ForgeHooks;
 
+import javax.annotation.Nullable;
 import java.util.Objects;
 import java.util.Set;
 import java.util.UUID;
@@ -51,11 +53,16 @@ public final class PlayerHelper {
         return player.getHeldItem(EnumHand.MAIN_HAND);
     }
 
-    public static Set<ItemStack> getHolding(EntityPlayer player) {
-        return Sets.newHashSet(player.getHeldItemMainhand(),player.getHeldItemOffhand()).stream().filter(s -> !s.isEmpty()).collect(Collectors.toSet());
+    public static Set<ItemStack> getHolding(@Nullable EntityPlayer player) {
+        if (player == null)
+            return Sets.newHashSet();
+        return Sets.newHashSet(player.getHeldItemMainhand(), player.getHeldItemOffhand()).stream().filter(s -> !s.isEmpty()).collect(Collectors.toSet());
     }
 
-    public static boolean isHolding(EntityPlayer player, Ingredient ingredient) {
+    public static boolean isHolding(@Nullable EntityPlayer player, Ingredient ingredient) {
+        if (player == null)
+            return false;
+
         Set<ItemStack> held = getHolding(player);
         if (held.isEmpty())
             return false;
@@ -106,13 +113,17 @@ public final class PlayerHelper {
     public static void changeSpeed(EntityLivingBase entity,
                                    String name, double modifier, UUID penaltySpeedUuid) {
         //2 operator multiples the current value by 1+x, thus modifier-1 neutralizes the extra 1
-        AttributeModifier speedModifier = (new AttributeModifier(penaltySpeedUuid, name, modifier-1, 2));
+        AttributeModifier speedModifier = (new AttributeModifier(penaltySpeedUuid, name, modifier - 1, 2));
         IAttributeInstance iattributeinstance = entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
 
         if (iattributeinstance.getModifier(penaltySpeedUuid) != null) {
             iattributeinstance.removeModifier(speedModifier);
         }
         iattributeinstance.applyModifier(speedModifier);
+    }
+
+    public static void removeModifier(EntityLivingBase entityLivingBase, IAttribute attribute, UUID uuid) {
+        entityLivingBase.getEntityAttribute(attribute).removeModifier(uuid);
     }
 
     public static int getWornArmorWeight(EntityPlayer player) {

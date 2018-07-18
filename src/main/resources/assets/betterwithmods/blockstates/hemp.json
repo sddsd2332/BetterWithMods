@@ -11,7 +11,10 @@
       {}
     ],
     "inventory": [
-      {}
+      {
+        "transform": "forge:default-block",
+        "model": "betterwithmods:items/default"
+      }
     ],
     "top": {
       "false": {},

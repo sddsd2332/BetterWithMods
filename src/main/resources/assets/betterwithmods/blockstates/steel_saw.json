@@ -18,7 +18,6 @@
       {
         "transform": "forge:default-block",
         "model": "betterwithmods:item/default"
-
       }
     ],
     "axis": {

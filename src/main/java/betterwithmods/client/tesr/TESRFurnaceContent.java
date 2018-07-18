@@ -19,7 +19,7 @@ public class TESRFurnaceContent extends TileEntitySpecialRenderer<TileEntityFurn
 
         IBlockState state = te.getWorld().getBlockState(te.getPos());
 
-        if(state.getBlock() instanceof BlockFurnace) { //Listen, stop making ghost TEs and our mod won't crash it's simple shit really.
+        if (state.getBlock() instanceof BlockFurnace) { //Listen, stop making ghost TEs and our mod won't crash it's simple shit really.
             EnumFacing facing = state.getValue(BlockFurnace.FACING);
 
             double x1 = x, z1 = z;

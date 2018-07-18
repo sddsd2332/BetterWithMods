@@ -33,7 +33,7 @@ public class AnvilCraftingTransfer implements IRecipeTransferInfo<ContainerSteel
     @Nonnull
     @Override
     public List<Slot> getRecipeSlots(@Nonnull ContainerSteelAnvil container) {
-        int[] indicies = new int[]{1,2,3,5,6,7,9,10,11};
+        int[] indicies = new int[]{1, 2, 3, 5, 6, 7, 9, 10, 11};
         return Arrays.stream(indicies).mapToObj(container::getSlot).collect(Collectors.toList());
     }
 

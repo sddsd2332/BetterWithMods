@@ -37,13 +37,13 @@ public class BlockPane extends BWMBlock {
 
     public BlockPane(Material material) {
         super(material);
-        setDefaultState(getDefaultState().withProperty(DirUtils.NORTH,true).withProperty(DirUtils.SOUTH,true).withProperty(DirUtils.EAST,true).withProperty(DirUtils.WEST,true));
+        setDefaultState(getDefaultState().withProperty(DirUtils.NORTH, true).withProperty(DirUtils.SOUTH, true).withProperty(DirUtils.EAST, true).withProperty(DirUtils.WEST, true));
     }
 
     @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.NORTH,DirUtils.SOUTH, DirUtils.EAST, DirUtils.WEST);
+        return new BlockStateContainer(this, DirUtils.NORTH, DirUtils.SOUTH, DirUtils.EAST, DirUtils.WEST);
     }
 
     @Override
@@ -148,7 +148,7 @@ public class BlockPane extends BWMBlock {
     }
 
     public boolean canConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir) {
-        return isFenceGate(world, pos, dir) || isCompatiblePane(world, pos, dir) || world.isSideSolid(pos.offset(dir),dir.getOpposite(),true);
+        return isFenceGate(world, pos, dir) || isCompatiblePane(world, pos, dir) || world.isSideSolid(pos.offset(dir), dir.getOpposite(), true);
     }
 
     @Nonnull

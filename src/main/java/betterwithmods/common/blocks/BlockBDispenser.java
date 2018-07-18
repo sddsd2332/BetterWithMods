@@ -7,7 +7,7 @@ import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.behaviors.BehaviorBreakBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorDefaultDispenseBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorEntity;
-import betterwithmods.common.blocks.tile.TileBlockDispenser;
+import betterwithmods.common.tile.TileBlockDispenser;
 import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;

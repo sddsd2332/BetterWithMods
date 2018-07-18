@@ -34,10 +34,10 @@ import java.util.Random;
  * Created by primetoxinz on 4/20/17.
  */
 public class Dung extends Feature {
-    private boolean wolvesOnly;
     public static final ResourceLocation DUNG_PRODUCER = new ResourceLocation(BWMod.MODID, "dung_producer");
     @CapabilityInject(DungProducer.class)
     public static Capability<DungProducer> DUNG_PRODUCER_CAP;
+    private boolean wolvesOnly;
 
     @Override
     public String getFeatureDescription() {
@@ -114,6 +114,21 @@ public class Dung extends Feature {
         return null;
     }
 
+    @SubscribeEvent
+    public void dungCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
+        Entity entity = event.getObject();
+        if (entity instanceof EntityAnimal) {
+            if (wolvesOnly && !(entity instanceof EntityWolf))
+                return;
+            event.addCapability(DUNG_PRODUCER, new DungProducer());
+        }
+    }
+
+    @Override
+    public boolean hasSubscriptions() {
+        return true;
+    }
+
     public static class DungProducer implements ICapabilitySerializable<NBTTagCompound> {
         public int nextPoop = -1;
 
@@ -139,20 +154,5 @@ public class Dung extends Feature {
         public void deserializeNBT(NBTTagCompound nbt) {
             nextPoop = nbt.getInteger("NextPoop");
         }
-    }
-
-    @SubscribeEvent
-    public void dungCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
-        Entity entity = event.getObject();
-        if (entity instanceof EntityAnimal) {
-            if (wolvesOnly && !(entity instanceof EntityWolf))
-                return;
-            event.addCapability(DUNG_PRODUCER, new DungProducer());
-        }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 }

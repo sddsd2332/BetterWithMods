@@ -5,7 +5,7 @@
       "item": "betterwithmods:concentrated_hellfire"
     },
     "title": {
-      "translate": "item.bwm:concentrated_hellfire.name"
+      "translate": "item.betterwithmods:concentrated_hellfire.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.concentrated_hellfire.desc"

@@ -49,7 +49,7 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
             if (!flag)
                 return false;
             else {
-                boolean isSustained = world.getBlockState(pos.down()).getBlock().canSustainPlant(world.getBlockState(pos.down()), world, pos.down(), EnumFacing.UP, (IPlantable)BWMBlocks.BLOOD_SAPLING);
+                boolean isSustained = world.getBlockState(pos.down()).getBlock().canSustainPlant(world.getBlockState(pos.down()), world, pos.down(), EnumFacing.UP, (IPlantable) BWMBlocks.BLOOD_SAPLING);
 
                 if (isSustained && pos.getY() < world.getHeight() - height - 1) {
                     world.getBlockState(pos.down()).getBlock().onPlantGrow(world.getBlockState(pos.down()), world, pos.down(), pos);
@@ -58,15 +58,15 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
                         int w = y - (pos.getY() + height);
                         int width = 1 - w / 2;
 
-                        for(int x = pos.getX() - width; x <= pos.getX() + width; ++x) {
+                        for (int x = pos.getX() - width; x <= pos.getX() + width; ++x) {
                             int xWide = x - pos.getX();
-                            for(int z = pos.getZ() - width; z <= pos.getZ() + width; ++z) {
+                            for (int z = pos.getZ() - width; z <= pos.getZ() + width; ++z) {
                                 int zWide = z - pos.getZ();
 
-                                if(Math.abs(xWide) != width || Math.abs(zWide) != width || rand.nextInt(2) != 0 && w != 0) {
+                                if (Math.abs(xWide) != width || Math.abs(zWide) != width || rand.nextInt(2) != 0 && w != 0) {
                                     BlockPos leafPos = new BlockPos(x, y, z);
                                     IBlockState leafState = world.getBlockState(leafPos);
-                                    if(leafState.getBlock().isAir(leafState, world, leafPos)) {
+                                    if (leafState.getBlock().isAir(leafState, world, leafPos)) {
                                         this.setBlockAndNotifyAdequately(world, leafPos, leaves);
                                     }
                                 }
@@ -74,12 +74,10 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
                         }
                     }
 
-                    for(int y = 0; y < height; ++y)
-                    {
+                    for (int y = 0; y < height; ++y) {
                         BlockPos up = pos.up(y);
                         IBlockState logState = world.getBlockState(up);
-                        if(logState.getBlock().isAir(logState, world, up) || logState.getBlock().isLeaves(logState, world, up))
-                        {
+                        if (logState.getBlock().isAir(logState, world, up) || logState.getBlock().isLeaves(logState, world, up)) {
                             if (y > height - 4) {
                                 this.setBlockAndNotifyAdequately(world, up, log.withProperty(BlockBloodLog.EXPANDABLE, world.provider.isNether()));
                                 int face = rand.nextInt(6);
@@ -89,8 +87,7 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
                                         generateBranch(world, up.offset(facing, i), facing);
                                     }
                                 }
-                            }
-                            else
+                            } else
                                 this.setBlockAndNotifyAdequately(world, up, log);
                         }
                     }

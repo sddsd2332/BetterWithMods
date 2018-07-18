@@ -5,5 +5,6 @@ import net.minecraft.world.World;
 
 public interface IHeatSource {
     int getHeat();
+
     boolean matches(World world, BlockPos pos);
 }

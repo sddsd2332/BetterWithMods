@@ -13,9 +13,9 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class IngredientSpecial extends Ingredient {
+    final Predicate<ItemStack> matcher;
     ItemStack[] matchingStacks = new ItemStack[0];
     boolean matchingStacksCached;
-    final Predicate<ItemStack> matcher;
 
     public IngredientSpecial(Predicate<ItemStack> matcher) {
         super(0);

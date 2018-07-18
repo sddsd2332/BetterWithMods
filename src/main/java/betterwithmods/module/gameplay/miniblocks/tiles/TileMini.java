@@ -1,6 +1,6 @@
 package betterwithmods.module.gameplay.miniblocks.tiles;
 
-import betterwithmods.common.blocks.camo.TileCamo;
+import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.gameplay.miniblocks.blocks.BlockMini;
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
 import net.minecraft.block.state.IBlockState;
@@ -54,7 +54,7 @@ public abstract class TileMini extends TileCamo {
     public void onPlacedBy(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ) {
         super.onPlacedBy(placer, face, stack, hitX, hitY, hitZ);
         if (getBlockType() instanceof BlockMini) {
-            orientation = ((BlockMini) getBlockType()).getOrientationFromPlacement(placer, face, stack, hitX, hitY, hitZ);
+            orientation = ((BlockMini) getBlockType()).getOrientationFromPlacement(placer, face, stack, getPos(), hitX, hitY, hitZ);
         }
     }
 

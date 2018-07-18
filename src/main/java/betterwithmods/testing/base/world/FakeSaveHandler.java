@@ -20,7 +20,8 @@ public class FakeSaveHandler implements ISaveHandler {
     }
 
     @Override
-    public void checkSessionLock() { }
+    public void checkSessionLock() {
+    }
 
     @Nonnull
     @Override

@@ -5,7 +5,7 @@
       "item": "betterwithmods:mining_charge"
     },
     "title": {
-      "translate": "tile.bwm:mining_charge.name"
+      "translate": "tile.betterwithmods:mining_charge.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.mining_charge.desc"

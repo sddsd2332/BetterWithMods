@@ -84,10 +84,9 @@ public class Thaumcraft extends CompatFeature {
                 if (tmp != null)
                     ThaumcraftApi.registerComplexObjectTag(recipe.getRecipeOutput(), tmp);
             } catch (ReflectionHelper.UnableToFindMethodException error) {
-                BWMod.logger.warn(error);
+                BWMod.getLog().warn(error);
             }
         }
-        ThaumcraftApi.registerObjectTag(new ItemStack(BWMBlocks.STEEL_BROKEN_GEARBOX), new AspectList(new ItemStack(BWMBlocks.STEEL_GEARBOX)));
         ThaumcraftApi.registerComplexObjectTag(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCKBLOOD), new AspectList(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK)).add(Aspect.DEATH, 5));
     }
 
@@ -349,7 +348,6 @@ public class Thaumcraft extends CompatFeature {
         ThaumcraftApi.registerObjectTag(ItemMaterial.getStack(ItemMaterial.EnumMaterial.COAL_DUST), new AspectList().add(Aspect.ENERGY, 10).add(Aspect.FIRE, 10));
 
         ThaumcraftApi.registerObjectTag(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT), new AspectList().add(Aspect.METAL, 15).add(Aspect.ENERGY, 10).add(Aspect.FIRE, 10).add(Aspect.SOUL, 16));
-        ThaumcraftApi.registerObjectTag(ItemMaterial.getStack(ItemMaterial.EnumMaterial.PLATE_STEEL), new AspectList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT)));
 
         ThaumcraftApi.registerObjectTag(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TALLOW), new AspectList().add(Aspect.BEAST, 5).add(Aspect.LIFE, 5).add(Aspect.FIRE, 1).add(Aspect.EARTH, 5));
         ThaumcraftApi.registerObjectTag(ItemMaterial.getStack(ItemMaterial.EnumMaterial.BROADHEAD), new AspectList().add(Aspect.METAL, 1).add(Aspect.ENERGY, 1).add(Aspect.FIRE, 1).add(Aspect.SOUL, 1));

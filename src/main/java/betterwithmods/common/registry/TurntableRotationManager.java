@@ -127,7 +127,7 @@ public class TurntableRotationManager {
         else
             angle = 180;
         float newYaw = entity.rotationYaw + angle;
-        entity.setPositionAndRotation(entity.posX,entity.posY,entity.posZ,newYaw,entity.rotationPitch);
+        entity.setPositionAndRotation(entity.posX, entity.posY, entity.posZ, newYaw, entity.rotationPitch);
         BWNetwork.sendToAllAround(new MessageRotate(entity.getEntityId(), newYaw, entity.rotationPitch), entity.world, entity.getPosition());
     }
 

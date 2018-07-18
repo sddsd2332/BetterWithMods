@@ -27,7 +27,6 @@ public class BlockBWMFluid extends BlockFluidClassic {
     }
 
 
-
     @Override
     public boolean isFireSource(@Nonnull World world, BlockPos pos, EnumFacing side) {
         return getFluid().getName().equals("hellfire");
@@ -40,9 +39,9 @@ public class BlockBWMFluid extends BlockFluidClassic {
 
     @Override
     public void randomTick(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nonnull Random random) {
-        switch(getFluid().getName()) {
+        switch (getFluid().getName()) {
             case "soulforged_steel":
-                worldIn.playSound(null,pos, SoundEvents.ENTITY_GHAST_AMBIENT, SoundCategory.AMBIENT,0.5f,random.nextFloat());
+                worldIn.playSound(null, pos, SoundEvents.ENTITY_GHAST_AMBIENT, SoundCategory.AMBIENT, 0.5f, random.nextFloat());
                 break;
         }
         super.randomTick(worldIn, pos, state, random);
@@ -52,7 +51,7 @@ public class BlockBWMFluid extends BlockFluidClassic {
     @Override
     public String getUnlocalizedName() {
         Fluid fluid = FluidRegistry.getFluid(fluidName);
-        if(fluid != null) {
+        if (fluid != null) {
             return fluid.getUnlocalizedName();
         }
         return super.getUnlocalizedName();

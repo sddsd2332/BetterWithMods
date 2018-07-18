@@ -5,7 +5,7 @@
       "item": "betterwithmods:hand_crank"
     },
     "title": {
-      "translate": "tile.bwm:hand_crank.name"
+      "translate": "tile.betterwithmods:hand_crank.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.hand_crank.desc"

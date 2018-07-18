@@ -3,8 +3,8 @@ package betterwithmods.common.registry.hopper.recipes;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
-import betterwithmods.common.blocks.tile.SimpleStackHandler;
+import betterwithmods.common.tile.SimpleStackHandler;
+import betterwithmods.common.tile.TileFilteredHopper;
 import betterwithmods.util.InvUtils;
 import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
@@ -45,7 +45,7 @@ public class HopperRecipe {
     }
 
     public boolean craftRecipe(EntityItem inputStack, World world, BlockPos pos, TileFilteredHopper tile) {
-        if(!canCraft(world,pos, tile))
+        if (!canCraft(world, pos, tile))
             return false;
 
         SimpleStackHandler inventory = tile.inventory;

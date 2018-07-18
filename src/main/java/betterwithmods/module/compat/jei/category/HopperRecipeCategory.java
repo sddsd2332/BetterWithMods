@@ -75,7 +75,7 @@ public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper>
         guiItemStacks.set(7, new ItemStack(BWMBlocks.FILTERED_HOPPER));
 
         List<List<ItemStack>> containers = ingredients.getOutputs(ItemStack.class);
-        if(!containers.isEmpty()) {
+        if (!containers.isEmpty()) {
             List<ItemStack> container = containers.get(0);
             if (container != null)
                 guiItemStacks.set(8, container);

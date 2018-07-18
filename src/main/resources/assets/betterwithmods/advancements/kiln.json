@@ -5,7 +5,7 @@
       "item": "minecraft:brick_block"
     },
     "title": {
-      "translate": "tile.bwm:kiln.name"
+      "translate": "tile.betterwithmods:kiln.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.kiln.desc"

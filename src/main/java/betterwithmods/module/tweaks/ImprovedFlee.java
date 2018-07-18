@@ -27,7 +27,7 @@ public class ImprovedFlee extends Feature {
     private static boolean blockPlace, blockBreak, groupFlee;
 
     public static boolean canSeeBlock(BlockPos pos, EntityLiving entity) {
-        RayTraceResult result = entity.world.rayTraceBlocks(entity.getPositionVector(), new Vec3d(pos).addVector(0.5,0.5,0.5));
+        RayTraceResult result = entity.world.rayTraceBlocks(entity.getPositionVector(), new Vec3d(pos).addVector(0.5, 0.5, 0.5));
         return result != null && pos.equals(result.getBlockPos());
     }
 

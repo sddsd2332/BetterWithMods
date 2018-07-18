@@ -47,8 +47,8 @@
         "submodel": {
           "north": {
             "model": "betterwithmods:string_extension_north",
-            "x":0,
-            "y":0
+            "x": 0,
+            "y": 0
           }
         }
       },
@@ -59,9 +59,8 @@
         "submodel": {
           "south": {
             "model": "betterwithmods:string_extension_south",
-            "x":0,
-            "y":0
-
+            "x": 0,
+            "y": 0
           }
         }
       },
@@ -72,8 +71,8 @@
         "submodel": {
           "east": {
             "model": "betterwithmods:string_extension_east",
-            "x":0,
-            "y":0
+            "x": 0,
+            "y": 0
           }
         }
       },
@@ -84,8 +83,8 @@
         "submodel": {
           "west": {
             "model": "betterwithmods:string_extension_west",
-            "x":0,
-            "y":0
+            "x": 0,
+            "y": 0
           }
         }
       },
@@ -96,8 +95,8 @@
         "submodel": {
           "up": {
             "model": "betterwithmods:string_extension_up",
-            "x":0,
-            "y":0
+            "x": 0,
+            "y": 0
           }
         }
       },
@@ -108,8 +107,8 @@
         "submodel": {
           "down": {
             "model": "betterwithmods:string_extension_down",
-            "x":0,
-            "y":0
+            "x": 0,
+            "y": 0
           }
         }
       },

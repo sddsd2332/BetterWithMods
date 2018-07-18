@@ -24,7 +24,6 @@
     "speed": {
       "0": {
         "submodel": "betterwithmods:turntable/switch_0"
-
       },
       "1": {
         "submodel": "betterwithmods:turntable/switch_1"

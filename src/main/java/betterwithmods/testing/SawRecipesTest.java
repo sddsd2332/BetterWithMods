@@ -43,7 +43,7 @@ public class SawRecipesTest extends BaseBlockTest<SawRecipe> {
     public void testLogs() {
 
         List<IBlockState> states = Blocks.LOG.getBlockState().getValidStates();
-        for(IBlockState state: states) {
+        for (IBlockState state : states) {
             world.setBlockState(origin.up(), state);
             testRecipe(blockDropRecipe, origin.up());
         }

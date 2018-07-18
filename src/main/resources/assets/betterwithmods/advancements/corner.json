@@ -6,7 +6,7 @@
       "nbt": "{texture: {Properties: {variant: \"oak\"}, Name: \"minecraft:planks\"}}"
     },
     "title": {
-      "translate": "tile.bwm:corner_wood.name"
+      "translate": "tile.betterwithmods:corner_wood.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.corner_wood.desc"

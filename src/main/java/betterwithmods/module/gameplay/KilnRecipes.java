@@ -18,9 +18,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -70,8 +70,7 @@ public class KilnRecipes extends Feature {
 
     @SubscribeEvent
     public void onKilnPlace(BlockEvent.PlaceEvent event) {
-        //TODO isAir
-        if (event.getPlacedBlock().getBlock() != Blocks.AIR) {
+        if (event.getPlacedBlock().getBlock().isAir(event.getPlacedBlock(), event.getWorld(), event.getPos())) {
             KilnStructureManager.createKiln(event.getWorld(), event.getPos());
         }
     }

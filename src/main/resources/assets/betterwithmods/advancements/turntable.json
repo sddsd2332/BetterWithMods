@@ -5,7 +5,7 @@
       "item": "betterwithmods:turntable"
     },
     "title": {
-      "translate": "tile.bwm:turntable.name"
+      "translate": "tile.betterwithmods:turntable.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.turntable.desc"

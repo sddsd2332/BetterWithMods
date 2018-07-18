@@ -35,8 +35,8 @@ import java.util.stream.IntStream;
 public class InvUtils {
 
     public static boolean containsIngredient(List<Ingredient> collection, List<Ingredient> ingredient) {
-        return matchesPredicate(collection, ingredient, (a,b) -> {
-            if(a.getMatchingStacks().length > 0)
+        return matchesPredicate(collection, ingredient, (a, b) -> {
+            if (a.getMatchingStacks().length > 0)
                 return Arrays.stream(a.getMatchingStacks()).allMatch(b::apply);
             return false;
         });
@@ -429,7 +429,7 @@ public class InvUtils {
         if (stack.isEmpty())
             return;
         VectorBuilder builder = new VectorBuilder();
-        new StackEjector(world, stack,builder.set(pos).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f).build()).ejectStack();
+        new StackEjector(world, stack, builder.set(pos).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f).build()).ejectStack();
     }
 
 
@@ -438,7 +438,7 @@ public class InvUtils {
             return;
 
         VectorBuilder builder = new VectorBuilder();
-        StackEjector ejector = new StackEjector(world, stack,builder.set(x,y,z).build());
+        StackEjector ejector = new StackEjector(world, stack, builder.set(x, y, z).build());
         ejector.setPickupDelay(pickupDelay);
         ejector.ejectStack();
     }
@@ -499,7 +499,7 @@ public class InvUtils {
     }
 
     public static ItemStack setCount(ItemStack input, int count) {
-        if(input.isEmpty())
+        if (input.isEmpty())
             return input;
         ItemStack stack = input.copy();
         stack.setCount(count);
@@ -516,12 +516,12 @@ public class InvUtils {
     }
 
 
-    public static <T> boolean matchesPredicate(List<T> oneList, List<T> twoList, BiPredicate<T,T> matches) {
+    public static <T> boolean matchesPredicate(List<T> oneList, List<T> twoList, BiPredicate<T, T> matches) {
         if (oneList.size() != twoList.size())
             return false; //trivial case
         HashSet<T> alreadyMatched = new HashSet<>();
         for (T one : oneList) {
-            Optional<T> found = twoList.stream().filter(two -> !alreadyMatched.contains(two) && matches.test(one,two)).findFirst();
+            Optional<T> found = twoList.stream().filter(two -> !alreadyMatched.contains(two) && matches.test(one, two)).findFirst();
             if (found.isPresent())
                 alreadyMatched.add(found.get()); //Don't match twice
             else
@@ -536,7 +536,7 @@ public class InvUtils {
     }
 
     public static boolean matches(List<ItemStack> oneList, List<ItemStack> twoList) {
-        return matchesPredicate(oneList,twoList, InvUtils::matches);
+        return matchesPredicate(oneList, twoList, InvUtils::matches);
     }
 
     public static <T> List<List<T>> splitIntoBoxes(List<T> stacks, int boxes) {
@@ -550,13 +550,14 @@ public class InvUtils {
 
     public static boolean isEmpty(IItemHandler inventory) {
         int inventorySize = inventory.getSlots();
-        for (int i = 0; i < inventorySize; i++){
-            if (!inventory.getStackInSlot(i).isEmpty()){
+        for (int i = 0; i < inventorySize; i++) {
+            if (!inventory.getStackInSlot(i).isEmpty()) {
                 return false;
             }
         }
         return true;
     }
+
     public static boolean applyIngredients(Collection<Ingredient> ingredients, ItemStack stack) {
         return ingredients.stream().anyMatch(i -> i.apply(stack));
     }

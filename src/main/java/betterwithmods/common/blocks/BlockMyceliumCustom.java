@@ -23,6 +23,7 @@ public class BlockMyceliumCustom extends BlockMycelium {
         this.setRegistryName("minecraft:mycelium");
         this.setUnlocalizedName("mycelium");
     }
+
     /**
      * Spread mycelium or turn mycelium back to dirt.
      * Based on {@link BlockMycelium#updateTick(World, BlockPos, IBlockState, Random)} build 2185

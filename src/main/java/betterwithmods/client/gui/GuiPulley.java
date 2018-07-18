@@ -2,7 +2,7 @@ package betterwithmods.client.gui;
 
 import betterwithmods.BWMod;
 import betterwithmods.client.container.other.ContainerPulley;
-import betterwithmods.common.blocks.mechanical.tile.TilePulley;
+import betterwithmods.common.tile.TilePulley;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 

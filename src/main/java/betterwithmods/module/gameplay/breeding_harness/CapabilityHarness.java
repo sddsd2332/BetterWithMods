@@ -15,11 +15,10 @@ public class CapabilityHarness implements ICapabilitySerializable<NBTTagCompound
 
     @CapabilityInject(CapabilityHarness.class)
     public static final Capability<CapabilityHarness> HARNESS_CAPABILITY = null;
+    public ItemStack harness = ItemStack.EMPTY;
 
     public CapabilityHarness() {
     }
-
-    public ItemStack harness = ItemStack.EMPTY;
 
     @Nonnull
     public ItemStack getHarness() {
@@ -38,7 +37,7 @@ public class CapabilityHarness implements ICapabilitySerializable<NBTTagCompound
     @Nullable
     @Override
     public <T> T getCapability(@Nonnull Capability<T> capability, @Nullable EnumFacing facing) {
-        if(hasCapability(capability,facing))
+        if (hasCapability(capability, facing))
             return HARNESS_CAPABILITY.cast(this);
         return null;
     }

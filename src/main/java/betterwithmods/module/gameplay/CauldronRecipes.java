@@ -89,7 +89,7 @@ public class CauldronRecipes extends Feature {
         BWRegistry.CAULDRON.addStokedRecipe(new ItemStack(BWMItems.LEATHER_TANNED_BOOTS, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.GLUE, 2));
 
         BWRegistry.CAULDRON.addStokedRecipe(Lists.newArrayList(
-               StackIngredient.fromItem(Items.SUGAR),
+                StackIngredient.fromItem(Items.SUGAR),
                 StackIngredient.fromOre(4, "meatRotten"),
                 StackIngredient.fromStacks(new ItemStack(Items.DYE, 4, EnumDyeColor.WHITE.getDyeDamage()))
         ), Lists.newArrayList(new ItemStack(BWMItems.KIBBLE, 2)));
@@ -178,18 +178,18 @@ public class CauldronRecipes extends Feature {
         ), new ItemStack(BWMItems.HEARTY_STEW, 5));
 
         BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
-               StackIngredient.fromItem(Items.MILK_BUCKET),
-               StackIngredient.fromItem(Items.BOWL),
+                StackIngredient.fromItem(Items.MILK_BUCKET),
+                StackIngredient.fromItem(Items.BOWL),
                 StackIngredient.fromStacks(new ItemStack(Blocks.BROWN_MUSHROOM, 3))
         ), new ItemStack(Items.MUSHROOM_STEW));
 
         BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
-               StackIngredient.fromItem(Items.BOWL),
+                StackIngredient.fromItem(Items.BOWL),
                 StackIngredient.fromStacks(new ItemStack(Items.BEETROOT, 6))
         ), new ItemStack(Items.BEETROOT_SOUP));
 
         BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
-               StackIngredient.fromItem(Items.COOKED_RABBIT),
+                StackIngredient.fromItem(Items.COOKED_RABBIT),
                 new OreIngredient("cookedCarrot"),
                 new OreIngredient("cookedPotato"),
                 StackIngredient.fromOre("foodFlour"),
@@ -198,13 +198,13 @@ public class CauldronRecipes extends Feature {
         ), new ItemStack(Items.RABBIT_STEW, 5));
 
         BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
-               StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING)),
-               StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 1)),
-               StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 2)),
-               StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 3)),
-               StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 4)),
-               StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 5)),
-               StackIngredient.fromStacks(new ItemStack(Items.NETHER_WART)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 1)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 2)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 3)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 4)),
+                StackIngredient.fromStacks(new ItemStack(Blocks.SAPLING, 1, 5)),
+                StackIngredient.fromStacks(new ItemStack(Items.NETHER_WART)),
                 StackIngredient.fromOre(8, "blockSoulUrn")
         ), new ItemStack(BWMBlocks.BLOOD_SAPLING));
 

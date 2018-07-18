@@ -28,7 +28,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Created by primetoxinz on 5/14/17.
  */
 public class HCBonemeal extends Feature {
-    public static StackIngredient FERTILIZERS = StackIngredient.fromStacks(new ItemStack(BWMItems.FERTILIZER), new ItemStack(Items.DYE, 1,EnumDyeColor.WHITE.getDyeDamage()));
+    public static StackIngredient FERTILIZERS = StackIngredient.fromStacks(new ItemStack(BWMItems.FERTILIZER), new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()));
     private static boolean removeBonemealRecipe;
 
     //TODO find a better solution to adding valid stacks to an ingredient.

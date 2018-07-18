@@ -29,24 +29,34 @@ public class VisibleStorms extends Feature {
     public static boolean SAND_STORMS;
     public static int DUST_PARTICLES;
     public static int AIR_PARTICLES;
+    float currentRed, currentGreen, currentBlue;
+    float currentDistance, currentDistanceScale;
+    float desiredRed, desiredGreen, desiredBlue;
+    float desiredDistance, desiredDistanceScale;
+
+    @SideOnly(Side.CLIENT)
+    private static void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale) {
+        if (fogMode < 0) {
+            GlStateManager.setFogStart(0.0F);
+            GlStateManager.setFogEnd(farPlaneDistance);
+        } else {
+            GlStateManager.setFogEnd(farPlaneDistance);
+            GlStateManager.setFogStart(farPlaneDistance * farPlaneDistanceScale);
+        }
+    }
 
     @Override
     public void setupConfig() {
-        DUST_STORMS = loadPropBool("Dust Storms","Storms are clearly visible in dry biomes.",true);
-        SAND_STORMS = loadPropBool("Sand Storms","Adds a fog change during storms in deserts.",true);
-        DUST_PARTICLES = loadPropInt("Dust Particle Count","How many dust particles should be created, too many may contribute to lag.",2);
-        AIR_PARTICLES = loadPropInt("Air Particle Count","How many air particles should be created, too many may contribute to lag.",3);
+        DUST_STORMS = loadPropBool("Dust Storms", "Storms are clearly visible in dry biomes.", true);
+        SAND_STORMS = loadPropBool("Sand Storms", "Adds a fog change during storms in deserts.", true);
+        DUST_PARTICLES = loadPropInt("Dust Particle Count", "How many dust particles should be created, too many may contribute to lag.", 2);
+        AIR_PARTICLES = loadPropInt("Air Particle Count", "How many air particles should be created, too many may contribute to lag.", 3);
     }
 
     @Override
     public boolean hasSubscriptions() {
         return true;
     }
-
-    float currentRed, currentGreen, currentBlue;
-    float currentDistance, currentDistanceScale;
-    float desiredRed, desiredGreen, desiredBlue;
-    float desiredDistance, desiredDistanceScale;
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
@@ -77,7 +87,7 @@ public class VisibleStorms extends Feature {
                 BlockPos posAir = pos.add(random.nextInt(radius * 2 + 1) - radius, random.nextInt(radius * 2 + 1) - radius, random.nextInt(radius * 2 + 1) - radius);
                 if (world.canSeeSky(posAir) && shouldStorm(world, posAir)) {
                     Particle particleAir = particleManager.spawnEffectParticle(EnumParticleTypes.SMOKE_NORMAL.getParticleID(), posAir.getX() + random.nextDouble(), posAir.getY() + random.nextDouble(), posAir.getZ() + random.nextDouble(), -0.5 - random.nextDouble() * 0.6, 0.0, 0.0);
-                    if(particleAir != null)
+                    if (particleAir != null)
                         particleAir.setRBGColorF(1.0f, 1.0f, 1.0f);
                 }
             }
@@ -146,9 +156,9 @@ public class VisibleStorms extends Feature {
         World world = entity.world;
         BlockPos pos = entity.getPosition();
         Color desiredcolor = new Color(
-                Math.min(fogEvent.getRed(),1.0f),
-                Math.min(fogEvent.getGreen(),1.0f),
-                Math.min(fogEvent.getBlue(),1.0f)
+                Math.min(fogEvent.getRed(), 1.0f),
+                Math.min(fogEvent.getGreen(), 1.0f),
+                Math.min(fogEvent.getBlue(), 1.0f)
         );
 
         if (world.isRaining()) {
@@ -161,7 +171,7 @@ public class VisibleStorms extends Feature {
                 boolean aboveground = world.canSeeSky(probepos);
                 if (isDesert(world, probepos)) {
                     Biome biome = world.getBiome(probepos);
-                    MapColor mapcolor = biome.topBlock.getMapColor(world,probepos);
+                    MapColor mapcolor = biome.topBlock.getMapColor(world, probepos);
                     Color color = new Color(mapcolor.colorValue);
                     red += 2 * (color.getRed() / 255.0f);
                     green += 2 * (color.getGreen() / 255.0f);
@@ -174,7 +184,7 @@ public class VisibleStorms extends Feature {
                     totalweight += 1;
                 }
             }
-            desiredcolor = new Color(Math.min(red / totalweight,1.0f), Math.min(green / totalweight,1.0f), Math.min(blue / totalweight,1.0f));
+            desiredcolor = new Color(Math.min(red / totalweight, 1.0f), Math.min(green / totalweight, 1.0f), Math.min(blue / totalweight, 1.0f));
             fogEvent.setRed(currentRed / 255.0f);
             fogEvent.setGreen(currentGreen / 255.0f);
             fogEvent.setBlue(currentBlue / 255.0f);
@@ -195,16 +205,5 @@ public class VisibleStorms extends Feature {
         Biome biome = world.getBiome(pos);
 
         return BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY);
-    }
-
-    @SideOnly(Side.CLIENT)
-    private static void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale) {
-        if (fogMode < 0) {
-            GlStateManager.setFogStart(0.0F);
-            GlStateManager.setFogEnd(farPlaneDistance);
-        } else {
-            GlStateManager.setFogEnd(farPlaneDistance);
-            GlStateManager.setFogStart(farPlaneDistance * farPlaneDistanceScale);
-        }
     }
 }

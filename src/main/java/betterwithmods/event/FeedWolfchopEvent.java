@@ -25,12 +25,12 @@ public class FeedWolfchopEvent {
         if (event.getTarget() instanceof EntityWolf && stack.getItem() == BWMItems.WOLF_CHOP) {
             Random rand = event.getWorld().rand;
             EntityWolf wolf = (EntityWolf) event.getTarget();
-            if(!wolf.isAngry() && stack.getCount() > 0) {
-                if(wolf.isTamed())
+            if (!wolf.isAngry() && stack.getCount() > 0) {
+                if (wolf.isTamed())
                     wolf.setTamed(false);
                 stack.shrink(1);
-                wolf.playSound(SoundEvents.ENTITY_PLAYER_BURP,1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
-                wolf.playSound(SoundEvents.ENTITY_WOLF_GROWL,1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+                wolf.playSound(SoundEvents.ENTITY_PLAYER_BURP, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
+                wolf.playSound(SoundEvents.ENTITY_WOLF_GROWL, 1.0F, (rand.nextFloat() - rand.nextFloat()) * 0.2F + 1.0F);
                 wolf.setAttackTarget(event.getEntityPlayer());
             }
 

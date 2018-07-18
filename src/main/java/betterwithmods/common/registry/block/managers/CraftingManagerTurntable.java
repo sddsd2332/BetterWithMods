@@ -1,9 +1,9 @@
 package betterwithmods.common.registry.block.managers;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.blocks.mechanical.tile.TileTurntable;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
+import betterwithmods.common.tile.TileTurntable;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
@@ -16,6 +16,16 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CraftingManagerTurntable extends CraftingManagerBlock<TurntableRecipe> {
+
+    public static TileTurntable findTurntable(World world, BlockPos craftingPos) {
+        for (int i = 1; i <= 2; i++) {
+            TileEntity tile = world.getTileEntity(craftingPos.down(i));
+            if (tile instanceof TileTurntable) {
+                return (TileTurntable) tile;
+            }
+        }
+        return null;
+    }
 
     public TurntableRecipe addDefaultRecipe(ItemStack input, ItemStack productState) {
         return addDefaultRecipe(new BlockIngredient(input), BWMRecipes.getStateFromStack(productState), Lists.newArrayList());
@@ -48,15 +58,5 @@ public class CraftingManagerTurntable extends CraftingManagerBlock<TurntableReci
     @Override
     public TurntableRecipe addRecipe(@Nonnull TurntableRecipe recipe) {
         return super.addRecipe(recipe);
-    }
-
-    public static TileTurntable findTurntable(World world, BlockPos craftingPos) {
-        for (int i = 1; i <= 2; i++) {
-            TileEntity tile = world.getTileEntity(craftingPos.down(i));
-            if(tile instanceof TileTurntable) {
-                return (TileTurntable) tile;
-            }
-        }
-        return null;
     }
 }

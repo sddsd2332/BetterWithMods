@@ -5,7 +5,7 @@
       "item": "betterwithmods:saw"
     },
     "title": {
-      "translate": "tile.bwm:saw.name"
+      "translate": "tile.betterwithmods:saw.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.saw.desc"

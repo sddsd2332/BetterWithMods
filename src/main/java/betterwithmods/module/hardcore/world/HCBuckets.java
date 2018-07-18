@@ -44,12 +44,12 @@ import java.util.List;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCBuckets extends Feature {
+    public static boolean modifyDispenserBehavior, stopDispenserFillBehavior;
     private static List<String> fluidWhitelist;
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
     private static boolean fixIce;
-    private static Block ICE = new BlockIce().setRegistryName("minecraft:ice");
-    public static boolean modifyDispenserBehavior, stopDispenserFillBehavior;
+    private static Block ICE = new BlockIce().setRegistryName("minecraft:ice").setUnlocalizedName("ice");
 
     @Override
     public String getFeatureDescription() {
@@ -61,6 +61,7 @@ public class HCBuckets extends Feature {
         dimensionBlacklist = Ints.asList(loadPropIntList("Dimension Black List", "A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to create.", new int[]{DimensionType.THE_END.getId()}));
         fluidWhitelist = Lists.newArrayList(loadPropStringList("Fluid Whitelist", "List of fluids that will be handled by HCBuckets.", new String[]{
                 FluidRegistry.WATER.getName(),
+                FluidRegistry.LAVA.getName(),
                 "swamp_water",
                 "milk",
                 "stagnant_water",
@@ -194,7 +195,7 @@ public class HCBuckets extends Feature {
                 FluidStack filledFluidStack = FluidUtil.getFluidContained(filledContainer);
 
                 if (filledFluidStack != null && !fluidWhitelist.contains(filledFluidStack.getFluid().getName())) {
-                    event.setResult(Event.Result.DENY);
+                    event.setResult(Event.Result.DEFAULT);
                     return;
                 }
 

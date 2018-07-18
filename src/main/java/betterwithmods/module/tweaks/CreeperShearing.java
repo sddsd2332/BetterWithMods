@@ -24,15 +24,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class CreeperShearing extends Feature {
 
-    public static final ResourceLocation CREEPER = new ResourceLocation("minecraft","creeper");
+    public static final ResourceLocation CREEPER = new ResourceLocation("minecraft", "creeper");
 
     @SubscribeEvent
     public void mobDrops(LivingDropsEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
-        if(EntityList.isMatchingName(entity, CREEPER)) {
+        if (EntityList.isMatchingName(entity, CREEPER)) {
             double chance = entity.getRNG().nextDouble() + (0.1 * event.getLootingLevel());
             if (chance <= 0.05) {
-                WorldUtils.addDrop(event,new ItemStack(BWMItems.CREEPER_OYSTER));
+                WorldUtils.addDrop(event, new ItemStack(BWMItems.CREEPER_OYSTER));
             }
         }
     }
@@ -41,14 +41,14 @@ public class CreeperShearing extends Feature {
     public void shearCreeper(PlayerInteractEvent.EntityInteractSpecific e) {
         if (e.getTarget() instanceof EntityLivingBase) {
             EntityLivingBase creeper = (EntityLivingBase) e.getTarget();
-            if(EntityList.isMatchingName(creeper, CREEPER)) {
+            if (EntityList.isMatchingName(creeper, CREEPER)) {
                 if (e.getSide().isServer() && creeper.isEntityAlive() && !e.getItemStack().isEmpty()) {
                     Item item = e.getItemStack().getItem();
-                    if (item instanceof ItemShears) {
-                        if(e.getEntityPlayer().getCooldownTracker().hasCooldown(item))
+                    if (item instanceof ItemShears || item.getHarvestLevel(e.getItemStack(), "shear", e.getEntityPlayer(), null) > 0) {
+                        if (e.getEntityPlayer().getCooldownTracker().hasCooldown(item))
                             return;
                         e.getEntityPlayer().getCooldownTracker().setCooldown(item, 20);
-                        e.getItemStack().damageItem(1,e.getEntityLiving());
+                        e.getItemStack().damageItem(1, e.getEntityLiving());
                         InvUtils.ejectStack(e.getWorld(), creeper.posX, creeper.posY, creeper.posZ, new ItemStack(BWMItems.CREEPER_OYSTER));
                         EntityShearedCreeper shearedCreeper = new EntityShearedCreeper(e.getWorld());
                         creeper.attackEntityFrom(new DamageSource(""), 0);

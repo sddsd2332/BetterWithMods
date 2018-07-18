@@ -53,7 +53,7 @@
     ],
     "subtitle": "subtitles.bwm.oof"
   },
-  "block.millstone.netherrack":{
+  "block.millstone.netherrack": {
     "category": "block",
     "sounds": [
       "mob/ghast/scream1",

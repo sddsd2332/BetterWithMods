@@ -5,7 +5,7 @@
       "item": "betterwithmods:vertical_windmill"
     },
     "title": {
-      "translate": "tile.bwm:vertical_windmill.name"
+      "translate": "tile.betterwithmods:vertical_windmill.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.vertical_windmill.desc"

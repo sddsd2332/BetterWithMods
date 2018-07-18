@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWRegistry;
 import betterwithmods.common.BWDamageSource;
+import betterwithmods.common.BWRegistry;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
@@ -26,6 +26,7 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
+import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -50,12 +51,12 @@ import java.util.Set;
  */
 public class HCGloom extends Feature {
     private static final List<SoundEvent> sounds = Lists.newArrayList(SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundEvents.ENTITY_ENDERMEN_SCREAM, SoundEvents.ENTITY_SILVERFISH_AMBIENT, SoundEvents.ENTITY_WOLF_GROWL);
+    private static final ResourceLocation PLAYER_GLOOM = new ResourceLocation(BWMod.MODID, "gloom");
     @CapabilityInject(Gloom.class)
     public static Capability<Gloom> GLOOM_CAPABILITY;
     public static GloomPenalties PENALTIES;
     private static Set<Integer> dimensionWhitelist;
     private static Ingredient gloomOverrideItems;
-    private static final ResourceLocation PLAYER_GLOOM = new ResourceLocation(BWMod.MODID, "gloom");
 
     public static int getGloomTime(EntityPlayer player) {
         Gloom gloom = getGloom(player);
@@ -132,10 +133,13 @@ public class HCGloom extends Feature {
         if (!PlayerHelper.isSurvival(player) || !dimensionWhitelist.contains(world.provider.getDimension()))
             return;
 
+
         if (e.player instanceof EntityPlayerMP) {
             EntityPlayerMP playermp = (EntityPlayerMP) player;
+
             if (!world.isRemote) {
-                int light = world.getLight(playermp.getPosition().up());
+                BlockPos head = playermp.getPosition().up();
+                int light = world.getLight(head, true);
                 int tick = getGloomTime(playermp);
                 if (PlayerHelper.isHolding(playermp, gloomOverrideItems))
                     light = 15;
@@ -173,9 +177,8 @@ public class HCGloom extends Feature {
                 }
             }
         }
-
-
     }
+
 
     @SubscribeEvent
     public void onFOVUpdate(FOVUpdateEvent event) {

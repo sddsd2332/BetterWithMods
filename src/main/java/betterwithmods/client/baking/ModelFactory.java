@@ -48,37 +48,9 @@ import java.util.concurrent.TimeUnit;
 public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseBakedModel implements IStateParticleBakedModel {
     public static final boolean DISABLE_CACHE = true;
     private static final Set<ModelFactory> FACTORIES = new HashSet<>();
-
-    private static class MFItemOverride extends ItemOverrideList {
-        public static final MFItemOverride INSTANCE = new MFItemOverride();
-
-        private MFItemOverride() {
-            super(ImmutableList.of());
-        }
-
-        @Override
-        @SuppressWarnings("unchecked")
-        public @Nonnull
-        IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
-            if (originalModel instanceof ModelFactory) {
-                ModelFactory factory = (ModelFactory) originalModel;
-                IRenderComparable o = factory.fromItemStack(stack);
-                if (o != null) {
-                    IBakedModel model = factory.getModel(o, null);
-                    if (model != null) {
-                        return model;
-                    }
-                }
-            }
-
-            return originalModel;
-        }
-    }
-
     private final Cache<ModelKey<T>, IBakedModel> cache;
     private final IUnlistedProperty<T> property;
     private final ResourceLocation particle;
-
     protected ModelFactory(IUnlistedProperty<T> property, ResourceLocation particle) {
         super();
         FACTORIES.add(this);
@@ -162,5 +134,31 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
     @Override
     public ItemOverrideList getOverrides() {
         return MFItemOverride.INSTANCE;
+    }
+
+    private static class MFItemOverride extends ItemOverrideList {
+        public static final MFItemOverride INSTANCE = new MFItemOverride();
+
+        private MFItemOverride() {
+            super(ImmutableList.of());
+        }
+
+        @Override
+        @SuppressWarnings("unchecked")
+        public @Nonnull
+        IBakedModel handleItemState(@Nonnull IBakedModel originalModel, ItemStack stack, World world, EntityLivingBase entity) {
+            if (originalModel instanceof ModelFactory) {
+                ModelFactory factory = (ModelFactory) originalModel;
+                IRenderComparable o = factory.fromItemStack(stack);
+                if (o != null) {
+                    IBakedModel model = factory.getModel(o, null);
+                    if (model != null) {
+                        return model;
+                    }
+                }
+            }
+
+            return originalModel;
+        }
     }
 }

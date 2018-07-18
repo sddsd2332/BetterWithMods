@@ -2,7 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.BWMod;
 import betterwithmods.client.BWGuiHandler;
-import betterwithmods.common.blocks.tile.TileInfernalEnchanter;
+import betterwithmods.common.tile.TileInfernalEnchanter;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
@@ -56,7 +56,7 @@ public class BlockInfernalEnchanter extends BWMBlock {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        if(state.getValue(ACTIVE))
+        if (state.getValue(ACTIVE))
             return 15;
         return super.getLightValue(state, world, pos);
     }

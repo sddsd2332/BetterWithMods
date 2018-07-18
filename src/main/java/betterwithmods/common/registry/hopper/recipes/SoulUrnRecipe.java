@@ -1,6 +1,6 @@
 package betterwithmods.common.registry.hopper.recipes;
 
-import betterwithmods.common.blocks.mechanical.tile.TileFilteredHopper;
+import betterwithmods.common.tile.TileFilteredHopper;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;

@@ -7,6 +7,8 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public interface IBulkTile extends IRecipeContext {
     World getWorld();
+
     BlockPos getPos();
+
     ItemStackHandler getInventory();
 }

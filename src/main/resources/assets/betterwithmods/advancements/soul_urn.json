@@ -5,7 +5,7 @@
       "item": "betterwithmods:soul_urn"
     },
     "title": {
-      "translate": "tile.bwm:soul_urn.name"
+      "translate": "tile.betterwithmods:soul_urn.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.soul_urn.desc"

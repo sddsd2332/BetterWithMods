@@ -11,10 +11,9 @@ import betterwithmods.common.blocks.mechanical.mech_machine.BlockFilteredHopper;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMillstone;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockTurntable;
-import betterwithmods.common.blocks.mechanical.tile.*;
-import betterwithmods.common.blocks.tile.*;
-import betterwithmods.common.items.*;
+import betterwithmods.common.items.itemblocks.*;
 import betterwithmods.common.registry.KilnStructureManager;
+import betterwithmods.common.tile.*;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.MapColor;
@@ -203,7 +202,6 @@ public final class BWMBlocks {
     }
 
     public static void registerTileEntities() {
-        //TODO resourceloations
         GameRegistry.registerTileEntity(TileMill.class, new ResourceLocation(BWMod.MODID, "millstone"));
         GameRegistry.registerTileEntity(TilePulley.class, new ResourceLocation(BWMod.MODID, "pulley"));
         GameRegistry.registerTileEntity(TileFilteredHopper.class, new ResourceLocation(BWMod.MODID, "hopper"));
@@ -211,10 +209,10 @@ public final class BWMBlocks {
         GameRegistry.registerTileEntity(TileCrucible.class, new ResourceLocation(BWMod.MODID, "crucible"));
         GameRegistry.registerTileEntity(TileDragonVessel.class, new ResourceLocation(BWMod.MODID, "vessel"));
         GameRegistry.registerTileEntity(TileTurntable.class, new ResourceLocation(BWMod.MODID, "turntable"));
-        GameRegistry.registerTileEntity(TileSteelAnvil.class, new ResourceLocation(BWMod.MODID, "steelAnvil"));
+        GameRegistry.registerTileEntity(TileSteelAnvil.class, new ResourceLocation(BWMod.MODID, "steel_anvil"));
         GameRegistry.registerTileEntity(TileVase.class, new ResourceLocation(BWMod.MODID, "vase"));
-        GameRegistry.registerTileEntity(TileWindmillVertical.class, new ResourceLocation(BWMod.MODID, "vert_windmill"));
-        GameRegistry.registerTileEntity(TileWindmillHorizontal.class, new ResourceLocation(BWMod.MODID, "horiz_windmill"));
+        GameRegistry.registerTileEntity(TileWindmillVertical.class, new ResourceLocation(BWMod.MODID, "vertical_windmill"));
+        GameRegistry.registerTileEntity(TileWindmillHorizontal.class, new ResourceLocation(BWMod.MODID, "horizontal_windmill"));
         GameRegistry.registerTileEntity(TileWaterwheel.class, new ResourceLocation(BWMod.MODID, "waterwheel"));
         GameRegistry.registerTileEntity(TileBlockDispenser.class, new ResourceLocation(BWMod.MODID, "block_dispenser"));
         GameRegistry.registerTileEntity(TileCreativeGen.class, new ResourceLocation(BWMod.MODID, "creative_generator"));
@@ -248,7 +246,8 @@ public final class BWMBlocks {
     public static void registerBlock(Block block, @Nullable Item item) {
         if (block.getRegistryName() != null) {
             //TODO remove this in 1.13, it is done automatically
-            block.setUnlocalizedName(block.getRegistryName().toString());
+            if (block.getUnlocalizedName().equals("tile.null"))
+                block.setUnlocalizedName(block.getRegistryName().toString());
             BLOCKS.add(block);
             if (item != null) {
                 BWMItems.registerItem(item.setRegistryName(block.getRegistryName()));

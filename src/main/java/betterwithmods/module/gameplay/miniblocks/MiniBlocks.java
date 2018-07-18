@@ -15,6 +15,7 @@ import betterwithmods.module.gameplay.AnvilRecipes;
 import betterwithmods.module.gameplay.miniblocks.blocks.*;
 import betterwithmods.module.gameplay.miniblocks.client.CamoModel;
 import betterwithmods.module.gameplay.miniblocks.client.MiniModel;
+import betterwithmods.module.gameplay.miniblocks.client.StairModel;
 import betterwithmods.util.JsonUtils;
 import betterwithmods.util.ReflectionHelperBlock;
 import com.google.common.collect.HashMultimap;
@@ -215,6 +216,7 @@ public class MiniBlocks extends Feature {
             MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).put(material, (BlockMini) new BlockCorner(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "corner", name)));
             MINI_MATERIAL_BLOCKS.get(MiniType.COLUMN).put(material, (BlockMini) new BlockColumn(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "column", name)));
             MINI_MATERIAL_BLOCKS.get(MiniType.PEDESTAL).put(material, (BlockMini) new BlockPedestals(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "pedestal", name)));
+            MINI_MATERIAL_BLOCKS.get(MiniType.STAIR).put(material, (BlockMini) new BlockStair(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "stair", name)));
             MINI_MATERIAL_BLOCKS.get(MiniType.TABLE).put(material, (BlockCamo) new BlockTable(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "table", name)));
             MINI_MATERIAL_BLOCKS.get(MiniType.BENCH).put(material, (BlockCamo) new BlockBench(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "bench", name)));
             MINI_MATERIAL_BLOCKS.get(MiniType.CHAIR).put(material, (BlockCamo) new BlockChair(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "chair", name)));
@@ -233,7 +235,7 @@ public class MiniBlocks extends Feature {
         final NonNullList<ItemStack> list = NonNullList.create();
 
         Iterable<Item> items = ForgeRegistries.ITEMS;
-        if(!autoGeneration)
+        if (!autoGeneration)
             items = WHITELIST.stream().map(Ingredient::getMatchingStacks).flatMap(Arrays::stream).map(ItemStack::getItem).collect(Collectors.toSet());
 
         for (Item item : items) {
@@ -372,6 +374,8 @@ public class MiniBlocks extends Feature {
         MiniModel.CORNER = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/corner")));
         MiniModel.COLUMN = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/column")));
         MiniModel.PEDESTAL = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/pedestal")));
+        MiniModel.STAIR = new StairModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/stair")),
+                RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/stair_inner_corner")));
         MiniModel.CHAIR = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/chair")));
 
         CamoModel.TABLE_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/table_supported")));
@@ -387,11 +391,13 @@ public class MiniBlocks extends Feature {
             registerModel(event.getModelRegistry(), String.format("%s_%s", "corner", name), MiniModel.CORNER);
             registerModel(event.getModelRegistry(), String.format("%s_%s", "column", name), MiniModel.COLUMN);
             registerModel(event.getModelRegistry(), String.format("%s_%s", "pedestal", name), MiniModel.PEDESTAL);
+            registerModel(event.getModelRegistry(), String.format("%s_%s", "stair", name), MiniModel.STAIR);
             registerModel(event.getModelRegistry(), String.format("%s_%s", "chair", name), MiniModel.CHAIR);
             registerModel(event.getModelRegistry(), String.format("%s_%s", "table", name), CamoModel.TABLE_SUPPORTED, Sets.newHashSet("normal", "inventory", "supported=true"));
             registerModel(event.getModelRegistry(), String.format("%s_%s", "table", name), CamoModel.TABLE_UNSUPPORTED, Sets.newHashSet("supported=false"));
             registerModel(event.getModelRegistry(), String.format("%s_%s", "bench", name), CamoModel.BENCH_SUPPORTED, Sets.newHashSet("normal", "inventory", "supported=true"));
             registerModel(event.getModelRegistry(), String.format("%s_%s", "bench", name), CamoModel.BENCH_UNSUPPORTED, Sets.newHashSet("supported=false"));
+
         }
     }
 

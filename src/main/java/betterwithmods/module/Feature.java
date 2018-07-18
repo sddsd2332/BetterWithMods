@@ -44,9 +44,8 @@ public class Feature {
 
     public boolean forceLoad;
     public boolean recipeCondition;
-    protected boolean canDisable = true;
-
     public ConfigHelper configHelper;
+    protected boolean canDisable = true;
 
     public Feature recipes() {
         recipeCondition = true;

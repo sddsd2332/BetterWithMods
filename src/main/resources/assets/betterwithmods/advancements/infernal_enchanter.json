@@ -5,7 +5,7 @@
       "item": "betterwithmods:infernal_enchanter"
     },
     "title": {
-      "translate": "tile.bwm:infernal_enchanter.name"
+      "translate": "tile.betterwithmods:infernal_enchanter.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.infernal_enchanter.desc"
@@ -23,7 +23,9 @@
       }
     }
   },
-  "requirements": [[
-    "has_items"
-  ]]
+  "requirements": [
+    [
+      "has_items"
+    ]
+  ]
 }

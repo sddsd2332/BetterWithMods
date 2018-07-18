@@ -11,8 +11,12 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 
 public enum PedestalOrientation implements BaseOrientation {
-    DOWN("down", EnumFacing.DOWN, 0, 0, new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
-    UP("up", EnumFacing.DOWN, 180, 0, new AxisAlignedBB(0, 0, 0, 1, 1, 1));
+    DOWN("down", EnumFacing.DOWN, 180, 0, new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
+    UP("up", EnumFacing.DOWN, 0, 0, new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
+    NORTH("north", EnumFacing.NORTH, 90, 0, new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
+    SOUTH("south", EnumFacing.SOUTH, 270, 0, new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
+    WEST("west", EnumFacing.WEST, 270, 90, new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
+    EAST("east", EnumFacing.EAST, 270, 270, new AxisAlignedBB(0, 0, 0, 1, 1, 1));
 
     public static final PedestalOrientation[] VALUES = values();
 
@@ -37,10 +41,7 @@ public enum PedestalOrientation implements BaseOrientation {
     }
 
     public static BaseOrientation getFromVec(Vec3d hit, EnumFacing facing) {
-        if (facing.getAxis().isVertical()) {
-            return fromFace(facing.getOpposite());
-        }
-        return DOWN;
+        return fromFace(facing);
     }
 
     @Nonnull

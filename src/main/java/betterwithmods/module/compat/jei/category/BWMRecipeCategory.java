@@ -23,6 +23,12 @@ public abstract class BWMRecipeCategory<T extends IRecipeWrapper> implements IRe
         this.uid = uid;
     }
 
+    public static void createSlotsHorizontal(IGuiIngredientGroup group, boolean input, int count, int start, int x, int y) {
+        for (int i = 0; i < count; i++) {
+            group.init(i + start, input, x + (i * 18), y);
+        }
+    }
+
     @Nonnull
     @Override
     public String getTitle() {
@@ -45,12 +51,6 @@ public abstract class BWMRecipeCategory<T extends IRecipeWrapper> implements IRe
     @Override
     public String getModName() {
         return BWMod.NAME;
-    }
-
-    public static void createSlotsHorizontal(IGuiIngredientGroup group, boolean input, int count, int start, int x, int y) {
-        for(int i = 0; i < count; i++) {
-            group.init(i + start, input, x + (i * 18), y);
-        }
     }
 
 }

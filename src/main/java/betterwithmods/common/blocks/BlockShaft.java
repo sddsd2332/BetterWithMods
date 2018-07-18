@@ -16,6 +16,8 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 public class BlockShaft extends BlockStickBase {
+    private static final Set<Material> grounds = Sets.newHashSet(Material.GRASS, Material.SAND, Material.GROUND, Material.SNOW);
+
     public BlockShaft() {
         super(Material.WOOD);
     }
@@ -36,8 +38,6 @@ public class BlockShaft extends BlockStickBase {
         Connection c = state.getValue(CONNECTION);
         return c == Connection.DISCONNECTED ? 12d / 16d : 1;
     }
-
-    private static final Set<Material> grounds = Sets.newHashSet(Material.GRASS, Material.SAND, Material.GROUND, Material.SNOW);
 
     @Override
     public boolean canPlaceBlockAt(World worldIn, @Nonnull BlockPos pos) {

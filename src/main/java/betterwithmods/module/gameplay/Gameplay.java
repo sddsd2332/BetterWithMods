@@ -1,7 +1,7 @@
 package betterwithmods.module.gameplay;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.tile.TileWaterwheel;
+import betterwithmods.common.tile.TileWaterwheel;
 import betterwithmods.module.Module;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
@@ -28,13 +28,11 @@ public class Gameplay extends Module {
     public static float cauldronNormalSpeedFactor, cauldronStokedSpeedFactor, cauldronMultipleFiresFactor;
 
     public static boolean dropHempSeeds;
-
+    public static List<String> blacklistDamageSources;
+    private String[] waterwheelFluidConfig;
     public Gameplay(ModuleLoader loader) {
         super(loader);
     }
-
-    private String[] waterwheelFluidConfig;
-    public static List<String> blacklistDamageSources;
 
     @Override
     public void addFeatures() {
@@ -90,6 +88,7 @@ public class Gameplay extends Module {
     public boolean canBeDisabled() {
         return false;
     }
+
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);

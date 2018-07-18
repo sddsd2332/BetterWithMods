@@ -19,6 +19,9 @@ import javax.annotation.Nullable;
  * dedicated servers (i.e. <tt>API.manual</tt> will be <tt>null</tt>).
  */
 public final class ManualAPI {
+    private ManualAPI() {
+    }
+
     /**
      * Register a tab to be displayed next to the manual.
      * <p>
@@ -91,6 +94,8 @@ public final class ManualAPI {
         }
     }
 
+    // ----------------------------------------------------------------------- //
+
     /**
      * Get the image renderer for the specified image path.
      * <p>
@@ -108,8 +113,6 @@ public final class ManualAPI {
         }
         return null;
     }
-
-    // ----------------------------------------------------------------------- //
 
     /**
      * Look up the documentation path for the specified item stack.
@@ -140,6 +143,8 @@ public final class ManualAPI {
         return null;
     }
 
+    // ----------------------------------------------------------------------- //
+
     /**
      * Get the content of the documentation page at the specified location.
      *
@@ -153,8 +158,6 @@ public final class ManualAPI {
         }
         return null;
     }
-
-    // ----------------------------------------------------------------------- //
 
     /**
      * Open the manual for the specified player.
@@ -179,6 +182,8 @@ public final class ManualAPI {
         }
     }
 
+    // ----------------------------------------------------------------------- //
+
     /**
      * Navigate to a page in the manual.
      *
@@ -188,10 +193,5 @@ public final class ManualAPI {
         if (API.manualAPI != null) {
             API.manualAPI.navigate(path);
         }
-    }
-
-    // ----------------------------------------------------------------------- //
-
-    private ManualAPI() {
     }
 }

@@ -1,7 +1,7 @@
 package betterwithmods.client.container.anvil;
 
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.tile.TileSteelAnvil;
+import betterwithmods.common.tile.TileSteelAnvil;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -14,14 +14,13 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 
 public class ContainerSteelAnvil extends Container {
-    private final int INV_FIRST = 17;
-    private final int INV_LAST = 44;
-    private final int HOT_LAST = 53;
     public final InventoryCrafting craftMatrix;
     public final IInventory craftResult;
     public final InventoryPlayer inventoryPlayer;
-
     public final EntityPlayer player;
+    private final int INV_FIRST = 17;
+    private final int INV_LAST = 44;
+    private final int HOT_LAST = 53;
     private final TileSteelAnvil te;
     private final IItemHandler handler;
 

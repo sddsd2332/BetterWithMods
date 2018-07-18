@@ -4,7 +4,7 @@ import betterwithmods.BWMod;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.blocks.BWMBlock;
-import betterwithmods.common.blocks.mechanical.tile.TileCrank;
+import betterwithmods.common.tile.TileCrank;
 import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import net.minecraft.block.Block;
@@ -197,6 +197,6 @@ public class BlockCrank extends BWMBlock implements IOverpower {
     @Nonnull
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-        return face == EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : super.getBlockFaceShape(worldIn, state, pos, face);
+        return face != EnumFacing.DOWN ? BlockFaceShape.UNDEFINED : super.getBlockFaceShape(worldIn, state, pos, face);
     }
 }

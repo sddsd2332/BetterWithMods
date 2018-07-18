@@ -10,7 +10,6 @@
  */
 package betterwithmods.module;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.FeatureEnabledEvent;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -35,9 +34,9 @@ public abstract class Module {
     public final String name = makeName();
     public final Map<String, Feature> features = Maps.newHashMap();
     public final List<Feature> enabledFeatures = Lists.newArrayList(), disabledFeatures = Lists.newArrayList();
+    protected final ModuleLoader loader;
     public boolean enabled;
     protected int priority = 0;
-    protected final ModuleLoader loader;
 
     public Module(ModuleLoader loader) {
         this.loader = loader;
@@ -102,7 +101,7 @@ public abstract class Module {
                         }
 
                     if (!failiures.isEmpty())
-                        BWMod.logger.info("[BWM] '" + feature.configName + "' is forcefully disabled as it's incompatible with the following loaded mods: " + failiures);
+                        loader.getLogger().info(feature.configName + "' is forcefully disabled as it's incompatible with the following loaded mods: " + failiures);
                 }
             }
 
@@ -146,7 +145,7 @@ public abstract class Module {
 
     public void preInit(FMLPreInitializationEvent event) {
         forEachEnabled(feature -> {
-            BWMod.logger.info("[BWM] Feature PreInit : " + feature.configName);
+            loader.getLogger().info("Feature PreInit : " + feature.configName);
             feature.preInit(event);
         });
         forEachDisabled(feature -> feature.disabledPreInit(event));

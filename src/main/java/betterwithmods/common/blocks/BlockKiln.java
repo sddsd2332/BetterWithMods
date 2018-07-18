@@ -2,8 +2,8 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.blocks.camo.CamoInfo;
-import betterwithmods.common.blocks.camo.TileCamo;
-import betterwithmods.common.blocks.tile.TileKiln;
+import betterwithmods.common.tile.TileCamo;
+import betterwithmods.common.tile.TileKiln;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

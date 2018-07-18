@@ -27,7 +27,7 @@ public class HCBabyZombies extends Feature {
     public void onJoinWorld(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntityZombie) {
             EntityZombie entity = (EntityZombie) event.getEntity();
-            if(entity.isChild()) {
+            if (entity.isChild()) {
 
                 IAttributeInstance movement = entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED);
                 if (!movement.hasModifier(BABY_SLOWNESS))

@@ -5,7 +5,7 @@
       "item": "betterwithmods:urn"
     },
     "title": {
-      "translate": "tile.bwm:urn.name"
+      "translate": "tile.betterwithmods:urn.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.urn.desc"

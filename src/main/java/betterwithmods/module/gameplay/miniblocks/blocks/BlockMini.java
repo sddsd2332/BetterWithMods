@@ -4,7 +4,7 @@ import betterwithmods.api.block.IRenderRotationPlacement;
 import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.blocks.camo.BlockCamo;
-import betterwithmods.common.blocks.camo.TileCamo;
+import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
 import betterwithmods.module.gameplay.miniblocks.client.MiniInfo;
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
@@ -16,17 +16,21 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.common.property.ExtendedBlockState;
 import net.minecraftforge.common.property.IExtendedBlockState;
 import net.minecraftforge.common.property.IUnlistedProperty;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -118,25 +122,21 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
     }
 
     @Override
-    public boolean rotateBlock(World world, @Nonnull BlockPos pos, @Nonnull EnumFacing axis) {
+    public boolean rotateBlock(World world, @Nonnull BlockPos pos, @Nullable EnumFacing axis) {
         return getTile(world, pos).map(t -> t.changeOrientation(t.getOrientation().next(), false)).orElse(false);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
-    public RenderFunction getRenderFunction() {
-        return ClientEventHandler::renderMiniBlock;
+    public void render(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial) {
+        ClientEventHandler.renderMiniBlock(world, block, pos, stack, player, side, target, partial);
     }
 
-    public abstract BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, float hitX, float hitY, float hitZ);
+    public abstract BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ);
 
     @Override
     public AxisAlignedBB getBounds(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
-        return getOrientationFromPlacement(placer, facing, stack, flX, flY, flZ).getBounds();
-    }
-
-    @Override
-    public IBlockState getRenderState(World world, BlockPos pos, EnumFacing facing, float flX, float flY, float flZ, ItemStack stack, EntityLivingBase placer) {
-        return getDefaultState();
+        return getOrientationFromPlacement(placer, facing, stack, pos, flX, flY, flZ).getBounds();
     }
 
     @Override

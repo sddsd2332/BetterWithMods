@@ -35,12 +35,10 @@ import java.util.stream.Collectors;
 public class ConfigHelper {
 
     public static final HashMap<String, Boolean> CONDITIONS = Maps.newHashMap();
-
-    public boolean needsRestart;
     public final boolean allNeedRestart = false;
-
     public final Configuration config;
     public final String path;
+    public boolean needsRestart;
 
     public ConfigHelper(String path, Configuration configuration) {
         this.path = path;
@@ -104,7 +102,7 @@ public class ConfigHelper {
     }
 
     public void setDescription(String category, String comment) {
-        config.setCategoryComment(category,comment);
+        config.setCategoryComment(category, comment);
     }
 
     public void setCategoryComment(String category, String comment) {

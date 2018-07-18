@@ -25,6 +25,7 @@ public class Harvestcraft extends CompatFeature {
     public static final Block logMaple = null;
     @GameRegistry.ObjectHolder("harvestcraft:pampaperbark")
     public static final Block logPaperbark = null;
+
     public Harvestcraft() {
         super("harvestcraft");
     }
@@ -57,16 +58,16 @@ public class Harvestcraft extends CompatFeature {
 
 
         BWOreDictionary.blockVariants.add(WoodVariant.builder()
-                        .addVariant(LOG, new ItemStack(logMaple))
-                        .addVariant(BLOCK, new ItemStack(Blocks.PLANKS, 1, BlockPlanks.EnumType.SPRUCE.getMetadata())));
+                .addVariant(LOG, new ItemStack(logMaple))
+                .addVariant(BLOCK, new ItemStack(Blocks.PLANKS, 1, BlockPlanks.EnumType.SPRUCE.getMetadata())));
 
         BWOreDictionary.blockVariants.add(WoodVariant.builder()
-                        .addVariant(LOG, new ItemStack(logCinnamon))
-                        .addVariant(BLOCK, new ItemStack(Blocks.PLANKS, 1, BlockPlanks.EnumType.JUNGLE.getMetadata())));
+                .addVariant(LOG, new ItemStack(logCinnamon))
+                .addVariant(BLOCK, new ItemStack(Blocks.PLANKS, 1, BlockPlanks.EnumType.JUNGLE.getMetadata())));
 
         BWOreDictionary.blockVariants.add(WoodVariant.builder()
-                        .addVariant(LOG, new ItemStack(logPaperbark))
-                        .addVariant(BLOCK, new ItemStack(Blocks.PLANKS, 1, BlockPlanks.EnumType.JUNGLE.getMetadata())));
+                .addVariant(LOG, new ItemStack(logPaperbark))
+                .addVariant(BLOCK, new ItemStack(Blocks.PLANKS, 1, BlockPlanks.EnumType.JUNGLE.getMetadata())));
 
     }
 

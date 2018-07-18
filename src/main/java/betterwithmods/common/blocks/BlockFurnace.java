@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.blocks.tile.TileFurnace;
+import betterwithmods.common.tile.TileFurnace;
 import net.minecraft.block.SoundType;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.tileentity.TileEntity;
@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 public class BlockFurnace extends net.minecraft.block.BlockFurnace {
     public BlockFurnace(boolean isBurning) {
         super(isBurning);
-        if(isBurning) {
+        if (isBurning) {
             setLightLevel(0.875F);
         }
         setUnlocalizedName("furnace");
@@ -20,8 +20,7 @@ public class BlockFurnace extends net.minecraft.block.BlockFurnace {
     }
 
     @Override
-    public TileEntity createNewTileEntity(World worldIn, int meta)
-    {
+    public TileEntity createNewTileEntity(World worldIn, int meta) {
         return new TileFurnace();
     }
 }

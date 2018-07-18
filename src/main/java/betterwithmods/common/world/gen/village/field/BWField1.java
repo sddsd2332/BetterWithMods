@@ -26,10 +26,12 @@ public class BWField1 extends BWFieldBase {
         this.setCoordBaseMode(facing);
         this.boundingBox = p_i45570_4_;
     }
+
     @Override
     public Class<?> getComponentClass() {
         return BWField1.class;
     }
+
     /**
      * second Part of Structure generating, this for example places Spiderwebs, Mob Spawners, it closes
      * Mineshafts at the end, it adds Fences...

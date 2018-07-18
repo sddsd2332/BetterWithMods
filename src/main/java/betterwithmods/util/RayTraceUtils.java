@@ -32,167 +32,153 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public final class RayTraceUtils {
-	public static class Result {
-		public final AxisAlignedBB box;
-		public final RayTraceResult hit;
+    private RayTraceUtils() {
 
-		public Result(RayTraceResult mop, AxisAlignedBB box) {
-			this.hit = mop;
-			this.box = box;
-		}
+    }
 
-		public boolean valid() {
-			return hit != null && box != null;
-		}
-	}
+    public static Vec3d getStart(EntityLivingBase player) {
+        return new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
+    }
 
-	private RayTraceUtils() {
+    public static Vec3d getEnd(EntityLivingBase player) {
+        IAttributeInstance attributeInstance = player.getEntityAttribute(EntityPlayer.REACH_DISTANCE);
+        double reachDistance = attributeInstance != null ? attributeInstance.getAttributeValue() : 5.0D;
+        Vec3d lookVec = player.getLookVec();
 
-	}
+        return getStart(player).addVector(lookVec.x * reachDistance, lookVec.y * reachDistance, lookVec.z * reachDistance);
+    }
 
-	public static Vec3d getStart(EntityLivingBase player) {
-		return new Vec3d(player.posX, player.posY + player.getEyeHeight(), player.posZ);
-	}
+    public static Result getCollision(World world, BlockPos pos, EntityLivingBase player, List<AxisAlignedBB> list) {
+        Vec3d origin = getStart(player);
+        Vec3d direction = getEnd(player);
 
-	public static Vec3d getEnd(EntityLivingBase player) {
-		IAttributeInstance attributeInstance = player.getEntityAttribute(EntityPlayer.REACH_DISTANCE);
-		double reachDistance = attributeInstance != null ? attributeInstance.getAttributeValue() : 5.0D;
-		Vec3d lookVec = player.getLookVec();
+        return getCollision(world, pos, origin, direction, list);
+    }
 
-		return getStart(player).addVector(lookVec.x * reachDistance, lookVec.y * reachDistance, lookVec.z * reachDistance);
-	}
+    public static RayTraceResult getCollision(World world, BlockPos pos, EntityLivingBase player, AxisAlignedBB aabb, int subHit) {
+        Vec3d origin = getStart(player);
+        Vec3d direction = getEnd(player);
 
-	public static Result getCollision(World world, BlockPos pos, EntityLivingBase player, List<AxisAlignedBB> list) {
-		Vec3d origin = getStart(player);
-		Vec3d direction = getEnd(player);
+        return getCollision(pos, origin, direction, aabb, subHit);
+    }
 
-		return getCollision(world, pos, origin, direction, list);
-	}
+    public static Result getCollision(World world, BlockPos pos, Vec3d origin, Vec3d direction, List<AxisAlignedBB> list) {
+        double minDistance = Double.POSITIVE_INFINITY;
+        RayTraceResult hit = null;
 
-	public static RayTraceResult getCollision(World world, BlockPos pos, EntityLivingBase player, AxisAlignedBB aabb, int subHit) {
-		Vec3d origin = getStart(player);
-		Vec3d direction = getEnd(player);
+        for (int i = 0; i < list.size(); i++) {
+            if (list.get(i) == null) {
+                continue;
+            }
 
-		return getCollision(pos, origin, direction, aabb, subHit);
-	}
+            RayTraceResult mop = getCollision(pos, origin, direction, list.get(i), i);
+            if (mop != null) {
+                double d = mop.hitVec.squareDistanceTo(origin);
+                if (d < minDistance) {
+                    minDistance = d;
+                    hit = mop;
+                }
+            }
+        }
 
-	public static Result getCollision(World world, BlockPos pos, Vec3d origin, Vec3d direction, List<AxisAlignedBB> list) {
-		double minDistance = Double.POSITIVE_INFINITY;
-		RayTraceResult hit = null;
+        return new Result(hit, hit != null ? list.get(hit.subHit) : null);
+    }
 
-		for (int i = 0; i < list.size(); i++) {
-			if (list.get(i) == null) {
-				continue;
-			}
+    public static RayTraceResult getCollision(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB aabb, int subHit) {
+        start = start.addVector((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
+        end = end.addVector((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
 
-			RayTraceResult mop = getCollision(pos, origin, direction, list.get(i), i);
-			if (mop != null) {
-				double d = mop.hitVec.squareDistanceTo(origin);
-				if (d < minDistance) {
-					minDistance = d;
-					hit = mop;
-				}
-			}
-		}
+        Vec3d vecWest = start.getIntermediateWithXValue(end, aabb.minX);
+        Vec3d vecEast = start.getIntermediateWithXValue(end, aabb.maxX);
+        Vec3d vecDown = start.getIntermediateWithYValue(end, aabb.minY);
+        Vec3d vecUp = start.getIntermediateWithYValue(end, aabb.maxY);
+        Vec3d vecNorth = start.getIntermediateWithZValue(end, aabb.minZ);
+        Vec3d vecSouth = start.getIntermediateWithZValue(end, aabb.maxZ);
 
-		return new Result(hit, hit != null ? list.get(hit.subHit) : null);
-	}
+        if (!isVecInsideYZBounds(aabb, vecWest)) {
+            vecWest = null;
+        }
 
-	public static RayTraceResult getCollision(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB aabb, int subHit) {
-		start = start.addVector((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
-		end = end.addVector((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
+        if (!isVecInsideYZBounds(aabb, vecEast)) {
+            vecEast = null;
+        }
 
-		Vec3d vecWest = start.getIntermediateWithXValue(end, aabb.minX);
-		Vec3d vecEast = start.getIntermediateWithXValue(end, aabb.maxX);
-		Vec3d vecDown = start.getIntermediateWithYValue(end, aabb.minY);
-		Vec3d vecUp = start.getIntermediateWithYValue(end, aabb.maxY);
-		Vec3d vecNorth = start.getIntermediateWithZValue(end, aabb.minZ);
-		Vec3d vecSouth = start.getIntermediateWithZValue(end, aabb.maxZ);
+        if (!isVecInsideXZBounds(aabb, vecDown)) {
+            vecDown = null;
+        }
 
-		if (!isVecInsideYZBounds(aabb, vecWest)) {
-			vecWest = null;
-		}
+        if (!isVecInsideXZBounds(aabb, vecUp)) {
+            vecUp = null;
+        }
 
-		if (!isVecInsideYZBounds(aabb, vecEast)) {
-			vecEast = null;
-		}
+        if (!isVecInsideXYBounds(aabb, vecNorth)) {
+            vecNorth = null;
+        }
 
-		if (!isVecInsideXZBounds(aabb, vecDown)) {
-			vecDown = null;
-		}
+        if (!isVecInsideXYBounds(aabb, vecSouth)) {
+            vecSouth = null;
+        }
 
-		if (!isVecInsideXZBounds(aabb, vecUp)) {
-			vecUp = null;
-		}
+        Vec3d vecHit = null;
 
-		if (!isVecInsideXYBounds(aabb, vecNorth)) {
-			vecNorth = null;
-		}
+        if (vecWest != null && (vecHit == null || start.squareDistanceTo(vecWest) < start.squareDistanceTo(vecHit))) {
+            vecHit = vecWest;
+        }
 
-		if (!isVecInsideXYBounds(aabb, vecSouth)) {
-			vecSouth = null;
-		}
+        if (vecEast != null && (vecHit == null || start.squareDistanceTo(vecEast) < start.squareDistanceTo(vecHit))) {
+            vecHit = vecEast;
+        }
 
-		Vec3d vecHit = null;
+        if (vecDown != null && (vecHit == null || start.squareDistanceTo(vecDown) < start.squareDistanceTo(vecHit))) {
+            vecHit = vecDown;
+        }
 
-		if (vecWest != null && (vecHit == null || start.squareDistanceTo(vecWest) < start.squareDistanceTo(vecHit))) {
-			vecHit = vecWest;
-		}
+        if (vecUp != null && (vecHit == null || start.squareDistanceTo(vecUp) < start.squareDistanceTo(vecHit))) {
+            vecHit = vecUp;
+        }
 
-		if (vecEast != null && (vecHit == null || start.squareDistanceTo(vecEast) < start.squareDistanceTo(vecHit))) {
-			vecHit = vecEast;
-		}
+        if (vecNorth != null && (vecHit == null || start.squareDistanceTo(vecNorth) < start.squareDistanceTo(vecHit))) {
+            vecHit = vecNorth;
+        }
 
-		if (vecDown != null && (vecHit == null || start.squareDistanceTo(vecDown) < start.squareDistanceTo(vecHit))) {
-			vecHit = vecDown;
-		}
+        if (vecSouth != null && (vecHit == null || start.squareDistanceTo(vecSouth) < start.squareDistanceTo(vecHit))) {
+            vecHit = vecSouth;
+        }
 
-		if (vecUp != null && (vecHit == null || start.squareDistanceTo(vecUp) < start.squareDistanceTo(vecHit))) {
-			vecHit = vecUp;
-		}
+        if (vecHit == null) {
+            return null;
+        } else {
+            EnumFacing sideHit = null;
 
-		if (vecNorth != null && (vecHit == null || start.squareDistanceTo(vecNorth) < start.squareDistanceTo(vecHit))) {
-			vecHit = vecNorth;
-		}
+            if (vecHit == vecWest) {
+                sideHit = EnumFacing.WEST;
+            }
 
-		if (vecSouth != null && (vecHit == null || start.squareDistanceTo(vecSouth) < start.squareDistanceTo(vecHit))) {
-			vecHit = vecSouth;
-		}
+            if (vecHit == vecEast) {
+                sideHit = EnumFacing.EAST;
+            }
 
-		if (vecHit == null) {
-			return null;
-		} else {
-			EnumFacing sideHit = null;
+            if (vecHit == vecDown) {
+                sideHit = EnumFacing.DOWN;
+            }
 
-			if (vecHit == vecWest) {
-				sideHit = EnumFacing.WEST;
-			}
+            if (vecHit == vecUp) {
+                sideHit = EnumFacing.UP;
+            }
 
-			if (vecHit == vecEast) {
-				sideHit = EnumFacing.EAST;
-			}
+            if (vecHit == vecNorth) {
+                sideHit = EnumFacing.NORTH;
+            }
 
-			if (vecHit == vecDown) {
-				sideHit = EnumFacing.DOWN;
-			}
+            if (vecHit == vecSouth) {
+                sideHit = EnumFacing.SOUTH;
+            }
 
-			if (vecHit == vecUp) {
-				sideHit = EnumFacing.UP;
-			}
-
-			if (vecHit == vecNorth) {
-				sideHit = EnumFacing.NORTH;
-			}
-
-			if (vecHit == vecSouth) {
-				sideHit = EnumFacing.SOUTH;
-			}
-
-			RayTraceResult mop = new RayTraceResult(vecHit.addVector((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), sideHit, pos);
-			mop.subHit = subHit;
-			return mop;
-		}
-	}
+            RayTraceResult mop = new RayTraceResult(vecHit.addVector((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), sideHit, pos);
+            mop.subHit = subHit;
+            return mop;
+        }
+    }
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private static boolean isVecInsideYZBounds(AxisAlignedBB aabb, Vec3d point) {
@@ -206,6 +192,20 @@ public final class RayTraceUtils {
 
     @SuppressWarnings("BooleanMethodIsAlwaysInverted")
     private static boolean isVecInsideXYBounds(AxisAlignedBB aabb, Vec3d point) {
-		return point != null && (point.x >= aabb.minX && point.x <= aabb.maxX && point.y >= aabb.minY && point.y <= aabb.maxY);
-	}
+        return point != null && (point.x >= aabb.minX && point.x <= aabb.maxX && point.y >= aabb.minY && point.y <= aabb.maxY);
+    }
+
+    public static class Result {
+        public final AxisAlignedBB box;
+        public final RayTraceResult hit;
+
+        public Result(RayTraceResult mop, AxisAlignedBB box) {
+            this.hit = mop;
+            this.box = box;
+        }
+
+        public boolean valid() {
+            return hit != null && box != null;
+        }
+    }
 }

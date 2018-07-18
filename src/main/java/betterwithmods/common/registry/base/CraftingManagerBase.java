@@ -21,5 +21,4 @@ public abstract class CraftingManagerBase<T> {
     }
 
 
-
 }

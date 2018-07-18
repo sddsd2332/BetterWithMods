@@ -5,7 +5,7 @@
       "item": "betterwithmods:hellfire_dust"
     },
     "title": {
-      "translate": "item.bwm:hellfire_dust.name"
+      "translate": "item.betterwithmods:hellfire_dust.name"
     },
     "description": {
       "translate": "advancement.betterwithmods.hellfire_dust.desc"

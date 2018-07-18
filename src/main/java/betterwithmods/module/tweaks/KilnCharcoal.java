@@ -4,12 +4,10 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.module.Feature;
 import com.google.common.collect.Lists;
-
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
@@ -50,7 +48,7 @@ public class KilnCharcoal extends Feature {
                     continue;
                 if (disableFurnaceCharcoal)
                     BWMRecipes.removeFurnaceRecipe(stack);
-                BWRegistry.KILN.addStokedRecipe(stack,charcoalOutput);
+                BWRegistry.KILN.addStokedRecipe(stack, charcoalOutput);
             }
         }
     }

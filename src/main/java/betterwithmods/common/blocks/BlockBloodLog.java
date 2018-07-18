@@ -34,7 +34,7 @@ public class BlockBloodLog extends BlockLog {
 
     @Override
     public boolean removedByPlayer(@Nonnull IBlockState state, World world, @Nonnull BlockPos pos, @Nonnull EntityPlayer player, boolean willHarvest) {
-        world.playSound(null, pos, SoundEvents.ENTITY_GHAST_HURT, SoundCategory.BLOCKS, 1f,0.2f);
+        world.playSound(null, pos, SoundEvents.ENTITY_GHAST_HURT, SoundCategory.BLOCKS, 1f, 0.2f);
         return super.removedByPlayer(state, world, pos, player, willHarvest);
     }
 
@@ -82,8 +82,7 @@ public class BlockBloodLog extends BlockLog {
     public int getMetaFromState(IBlockState state) {
         int meta = state.getValue(EXPANDABLE) ? 1 : 0;
 
-        switch (state.getValue(LOG_AXIS))
-        {
+        switch (state.getValue(LOG_AXIS)) {
             case X:
                 meta |= 4;
                 break;

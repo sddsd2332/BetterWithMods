@@ -28,7 +28,7 @@ public class BlockWolf extends BWMBlock {
     public BlockWolf(ResourceLocation entityName) {
         super(Material.CLOTH);
         this.entityName = entityName;
-        this.setHardness(2.0F);
+        this.setHardness(0.5F);
         this.setSoundType(SoundType.CLOTH);
         this.setDefaultState(this.blockState.getBaseState().withProperty(DirUtils.FACING, EnumFacing.NORTH));
         registerBehavior();
@@ -58,11 +58,12 @@ public class BlockWolf extends BWMBlock {
             for (int i = 0; i < 15; i++)
                 world.spawnParticle(EnumParticleTypes.HEART, pos.getX() + world.rand.nextFloat(), pos.getY() + 1.0F, pos.getZ() + world.rand.nextFloat(), 0.0F, 0.1F, 0.0F);
         }
+        world.playSound(null, pos, SoundEvents.ENTITY_WOLF_WHINE, SoundCategory.BLOCKS, 0.7F, 1.0F);
     }
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (player.getHeldItemMainhand() .isEmpty()  && player.getHeldItemOffhand() .isEmpty() ) {
+        if (player.getHeldItemMainhand().isEmpty() && player.getHeldItemOffhand().isEmpty()) {
             if (world.isRemote)
                 world.spawnParticle(EnumParticleTypes.HEART, pos.getX() + world.rand.nextFloat(), pos.getY() + 1.0F, pos.getZ() + world.rand.nextFloat(), 0.0F, 0.1F, 0.0F);
             return true;

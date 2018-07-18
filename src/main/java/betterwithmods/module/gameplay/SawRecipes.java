@@ -36,7 +36,6 @@ public class SawRecipes extends Feature {
 
     @Override
     public void setupConfig() {
-        //TODO make the default 4 in 1.13
         plankCount = loadPropInt("Saw Plank Output", "Plank count that is output when a log is chopped by a Saw.", 4);
         barkCount = loadPropInt("Saw Bark Output", "Bark count that is output when a log is chopped by a Saw.", 1);
         sawDustCount = loadPropInt("Saw sawdust Output", "Sawdust count that is output when a log is chopped by a Saw.", 2);
@@ -58,11 +57,11 @@ public class SawRecipes extends Feature {
         BWOreDictionary.findLogRecipes();
         //TODO configure this
         BWOreDictionary.logRecipes.forEach(BWMRecipes::removeRecipe);
-        int plankCount = BWMod.MODULE_LOADER.isFeatureEnabled(HCLumber.class) ? HCLumber.axePlankAmount: 4;
+        int plankCount = BWMod.MODULE_LOADER.isFeatureEnabled(HCLumber.class) ? HCLumber.axePlankAmount : 4;
         if (!Loader.isModLoaded("primal")) {
-            for(IBlockVariants variant: BWOreDictionary.blockVariants) {
-                ItemStack log = variant.getVariant(IBlockVariants.EnumBlock.LOG,1);
-                if(!log.isEmpty()) {
+            for (IBlockVariants variant : BWOreDictionary.blockVariants) {
+                ItemStack log = variant.getVariant(IBlockVariants.EnumBlock.LOG, 1);
+                if (!log.isEmpty()) {
                     ResourceLocation location = new ResourceLocation(BWMod.MODID, log.getItem().getRegistryName().getResourcePath() + "_" + log.getMetadata());
                     BWMRecipes.addRecipe(new ChoppingRecipe(variant, plankCount).setRegistryName(location));
                 }
@@ -77,6 +76,7 @@ public class SawRecipes extends Feature {
             BWRegistry.WOOD_SAW.addRecipe(new BlockDropIngredient(wood.getVariant(IBlockVariants.EnumBlock.LOG, 1)), Lists.newArrayList(wood.getVariant(IBlockVariants.EnumBlock.BLOCK, count), wood.getVariant(IBlockVariants.EnumBlock.BARK, 1), wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, 2)));
         }
     }
+
     @Override
     public boolean hasSubscriptions() {
         return true;

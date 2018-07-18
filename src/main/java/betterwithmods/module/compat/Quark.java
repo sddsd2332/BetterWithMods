@@ -48,7 +48,7 @@ public class Quark extends CompatFeature {
             BWMRecipes.removeRecipe(Pattern.compile("quark:.*trapdoor"));
         }
 
-        if(BWMod.MODULE_LOADER.isFeatureEnabled(HCRedstone.class)) {
+        if (BWMod.MODULE_LOADER.isFeatureEnabled(HCRedstone.class)) {
             BWMRecipes.removeRecipe("quark:hopper");
         }
     }

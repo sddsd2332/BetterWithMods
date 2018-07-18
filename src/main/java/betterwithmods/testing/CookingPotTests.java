@@ -24,6 +24,7 @@ import java.util.List;
 
 public class CookingPotTests extends BaseBulkTest<CookingPotRecipe> {
     private CookingPotRecipe stokedRecipe;
+
     public CookingPotTests() {
         super(new IHeated() {
             private final MockInventory inventory = MockInventory.createInventory(0, new ItemStack(Blocks.COBBLESTONE, 64));

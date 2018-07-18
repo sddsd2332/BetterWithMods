@@ -19,7 +19,7 @@ import static betterwithmods.module.hardcore.crafting.HCFishing.setBaited;
 public class BaitingRecipe extends ToolBaseRecipe {
 
     public BaitingRecipe() {
-        super(new ResourceLocation(BWMod.MODID,"baiting_recipe"), ItemStack.EMPTY, HCFishing.BAIT, stack -> HCFishing.isBaited(stack, false));
+        super(new ResourceLocation(BWMod.MODID, "baiting_recipe"), ItemStack.EMPTY, HCFishing.BAIT, stack -> HCFishing.isBaited(stack, false));
         setRegistryName(getGroup());
     }
 
@@ -43,7 +43,8 @@ public class BaitingRecipe extends ToolBaseRecipe {
     }
 
     @Override
-    public void playSound(InventoryCrafting inv) {}
+    public void playSound(InventoryCrafting inv) {
+    }
 
     @Override
     public SoundEvent getSound() {

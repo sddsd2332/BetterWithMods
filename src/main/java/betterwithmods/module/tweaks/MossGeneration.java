@@ -27,12 +27,12 @@ import java.util.stream.Collectors;
  * Created by primetoxinz on 4/20/17.
  */
 public class MossGeneration extends Feature {
+    private static final HashMap<BlockIngredient, IBlockState> CONVERTED_BLOCKS = new HashMap<>();
     public static int RADIUS;
     public static int RATE;
     public static boolean DISABLE_VINE_RECIPES;
-    private static final HashMap<BlockIngredient, IBlockState> CONVERTED_BLOCKS = new HashMap<>();
 
-    public static void addBlockConversion(BlockIngredient ingredient, IBlockState mossyState) { //TODO: Could be the new block meta ingredient possibly
+    public static void addBlockConversion(BlockIngredient ingredient, IBlockState mossyState) {
         CONVERTED_BLOCKS.put(ingredient, mossyState);
     }
 

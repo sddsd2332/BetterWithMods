@@ -1,4 +1,5 @@
 package betterwithmods.proxy;
 
 @SuppressWarnings("unused")
-public class ServerProxy implements IProxy { }
+public class ServerProxy implements IProxy {
+}

@@ -2,13 +2,12 @@ package betterwithmods.module.gameplay.miniblocks;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.blocks.camo.BlockCamo;
-import betterwithmods.common.blocks.camo.TileCamo;
+import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.gameplay.miniblocks.blocks.*;
 import betterwithmods.module.gameplay.miniblocks.tiles.*;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
-
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -24,7 +23,9 @@ public enum MiniType {
     TABLE(BlockTable.class, TileCamo.class, "table"),
     BENCH(BlockBench.class, TileCamo.class, "bench"),
     CHAIR(BlockChair.class, TileChair.class, "chair"),
+    STAIR(BlockStair.class, TileStair.class, "stair"),
     UNKNOWN(null, null, "");
+
     public static final MiniType[] VALUES = values();
 
     private final Class<? extends BlockCamo> block;

@@ -21,16 +21,15 @@ public class HealthCommand extends CommandBase {
     }
 
     @Override
-    public int getRequiredPermissionLevel()
-    {
+    public int getRequiredPermissionLevel() {
         return 4;
     }
-    
+
     @Override
     public void execute(@Nonnull MinecraftServer server, @Nonnull ICommandSender sender, @Nonnull String[] args) {
         if (sender instanceof EntityPlayer) {
             if (args.length > 0) {
-                int health = Integer.parseInt(args[0]);
+                float health = Float.parseFloat(args[0]);
                 ((EntityPlayer) sender).setHealth(health);
             }
         }

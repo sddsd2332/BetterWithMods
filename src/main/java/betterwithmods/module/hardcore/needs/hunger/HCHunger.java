@@ -4,8 +4,8 @@ import betterwithmods.BWMod;
 import betterwithmods.client.gui.GuiHunger;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.items.ItemBlockEdible;
 import betterwithmods.common.items.ItemEdibleSeeds;
+import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
 import betterwithmods.module.CompatFeature;
@@ -15,11 +15,6 @@ import betterwithmods.network.messages.MessageHungerShake;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.entity.AbstractClientPlayer;
-import net.minecraft.client.model.ModelBiped;
-import net.minecraft.client.renderer.entity.RenderManager;
-import net.minecraft.client.renderer.entity.RenderPlayer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
@@ -65,6 +60,9 @@ import java.util.Set;
  * Created by primetoxinz on 6/20/17.
  */
 public class HCHunger extends CompatFeature {
+    public static final Item PUMPKIN_SEEDS = new ItemEdibleSeeds(Blocks.PUMPKIN_STEM, Blocks.FARMLAND, 1, 0).setRegistryName("minecraft:pumpkin_seeds").setUnlocalizedName("seeds_pumpkin");
+    public static final Item BROWN_MUSHROOM = new ItemBlockEdible(Blocks.BROWN_MUSHROOM, 1, 0, false).setRegistryName("minecraft:brown_mushroom").setUnlocalizedName("brown_mushroom");
+    public static final Item RED_MUSHROOM = new ItemBlockEdible(Blocks.RED_MUSHROOM, 1, 0, false).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1).setRegistryName("minecraft:red_mushroom").setUnlocalizedName("red_mushroom");
     private static final DataParameter<Integer> EXHAUSTION_TICK = EntityDataManager.createKey(EntityPlayer.class, DataSerializers.VARINT);
     public static float blockBreakExhaustion;
     public static float passiveExhaustion;
@@ -72,9 +70,6 @@ public class HCHunger extends CompatFeature {
     public static boolean rawMeatDangerous;
     public static boolean overridePumpkinSeeds;
     public static boolean overrideMushrooms;
-    public static final Item PUMPKIN_SEEDS = new ItemEdibleSeeds(Blocks.PUMPKIN_STEM, Blocks.FARMLAND, 1, 0).setRegistryName("minecraft:pumpkin_seeds").setUnlocalizedName("seeds_pumpkin");
-    public static final Item BROWN_MUSHROOM = new ItemBlockEdible(Blocks.BROWN_MUSHROOM, 1, 0, false).setRegistryName("minecraft:brown_mushroom");
-    public static final Item RED_MUSHROOM = new ItemBlockEdible(Blocks.RED_MUSHROOM, 1, 0, false).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1).setRegistryName("minecraft:red_mushroom");
     public static HungerPenalties hungerPenalties;
     public static FatPenalties fatPenalties;
 
@@ -119,7 +114,7 @@ public class HCHunger extends CompatFeature {
     public void init(FMLInitializationEvent event) {
         if (rawMeatDangerous) {
             Set<Item> RAW_FOOD = Sets.newHashSet(BWMItems.RAW_SCRAMBLED_EGG, BWMItems.RAW_EGG, BWMItems.RAW_OMELET, BWMItems.RAW_KEBAB, Items.FISH, BWMItems.WOLF_CHOP, Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.CHICKEN, Items.MUTTON, BWMItems.MYSTERY_MEAT);
-            RAW_FOOD.stream().map(i -> (ItemFood) i).forEach(i -> i.setPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 0), 0.3F));
+            RAW_FOOD.stream().map(i -> (ItemFood) i).forEach(i -> i.setPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 1), 0.3F));
         }
 
         FoodHelper.registerFood(new ItemStack(Items.BEEF), 12);
@@ -184,7 +179,7 @@ public class HCHunger extends CompatFeature {
         FoodHelper.registerFood(new ItemStack(Items.COOKIE), 3, 3, true);
         FoodHelper.registerFood(new ItemStack(Items.PUMPKIN_PIE), 9, 12, true);
         FoodHelper.registerFood(new ItemStack(Items.CAKE), 4, 12, true);
-
+        FoodHelper.registerFood(new ItemStack(PUMPKIN_SEEDS), 1);
 
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
     }
@@ -376,30 +371,6 @@ public class HCHunger extends CompatFeature {
             }
         }
 
-        private static RenderPlayer getRenderPlayer(AbstractClientPlayer player) {
-            Minecraft mc = Minecraft.getMinecraft();
-            RenderManager manager = mc.getRenderManager();
-            return manager.getSkinMap().get(player.getSkinType());
-        }
-
-        private static ModelBiped getPlayerModel(AbstractClientPlayer player) {
-            return getRenderPlayer(player).getMainModel();
-        }
-
-//        public static void putFat(AbstractClientPlayer player, FatPenalty fat) {
-//            ModelBiped model = getPlayerModel(player);
-//            float scale = fat != FatPenalty.NO_PENALTY ? Math.max(0, fat.ordinal() / 2f) : 0.0f;
-//            model.bipedBody = new ModelRenderer(model, 16, 16);
-//            model.bipedBody.addBox(-4.0F, 0, -2.0F, 8, 12, 4, scale);
-//        }
-//
-//        public static void doFat(String uuid) {
-//            World world = Minecraft.getMinecraft().world;
-//            EntityPlayer player = world.getPlayerEntityByUUID(UUID.fromString(uuid));
-//            FatPenalty fat = PlayerHelper.getFatPenalty(player);
-//            if (player != null && player instanceof AbstractClientPlayer)
-//                putFat((AbstractClientPlayer) player, fat);
-//        }
     }
 
 
