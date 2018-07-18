@@ -1,16 +1,32 @@
 package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.blocks.tile.TileEnderchest;
+import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumHand;
+import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-/*
+
+import javax.annotation.Nonnull;
+
 public class EnderBeaconEffect extends BeaconEffect {
 
+    public EnderBeaconEffect() {
+        super(new BlockIngredient("blockEnder"), EntityPlayer.class);
+    }
+
     @Override
-    public void effect(World world, BlockPos pos, int level) {
+    public void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
+    }
+
+    @Override
+    public void apply(NonNullList<EntityLivingBase> entitiesInRange, @Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
         int r;
-        for (r = -1; r < level; r++) {
+        for (r = -1; r < beaconLevel; r++) {
             for (int x = -(r + 1); x <= (r + 1); x++) {
                 for (int z = -(r + 1); z <= (r + 1); z++) {
                     if (Math.abs(x) > r || Math.abs(z) > r) {
@@ -29,7 +45,12 @@ public class EnderBeaconEffect extends BeaconEffect {
     }
 
     @Override
-    public void breakBlock(World world, BlockPos pos, int level) {
+    public boolean onPlayerInteracted(World world, BlockPos pos, int level, EntityPlayer player, EnumHand hand, ItemStack stack) {
+        return false;
+    }
+
+    @Override
+    public void onBeaconBreak(World world, BlockPos pos, int level) {
         int r;
         for (r = 0; r <= level; r++) {
             for (int x = -(r + 1); x <= (r + 1); x++) {
@@ -46,4 +67,4 @@ public class EnderBeaconEffect extends BeaconEffect {
         }
     }
 }
-*/
+

@@ -3,30 +3,23 @@ package betterwithmods.module.hardcore.beacons;
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWRegistry;
-import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.blocks.BlockEnderchest;
-import betterwithmods.common.blocks.BlockSteel;
 import betterwithmods.common.blocks.tile.TileEnderchest;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.passive.EntityWaterMob;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
@@ -38,10 +31,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.awt.*;
-import java.util.HashMap;
 import java.util.List;
-import java.util.function.Consumer;
-import java.util.function.Function;
 
 import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CAPABILITY;
 
@@ -150,15 +140,10 @@ public class HCBeacons extends Feature {
         }));
         */
 
-
-
         BEACON_EFFECTS.add(new SpawnBeaconEffect());
 
-
         if (enderchestBeacon) {
-
-            //TODO - EnderBeacon
-            //BEACON_EFFECTS.add(new EnderBeaconEffect());
+            BEACON_EFFECTS.add(new EnderBeaconEffect());
         }
 
     }
