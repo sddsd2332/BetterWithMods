@@ -30,14 +30,15 @@ import java.util.function.Predicate;
  * Created by primetoxinz on 5/21/17.
  */
 public class HCSeeds extends Feature {
-    public static final Set<ItemStack> SEED_BLACKLIST = Sets.newHashSet(new ItemStack(Items.WHEAT_SEEDS));
-    public static final Set<IBlockState> BLOCKS_TO_STOP = Sets.newHashSet();
     private static final Random RANDOM = new Random();
-    private static final Predicate<IBlockState> STOP_SEEDS = state -> {
+    public static Set<ItemStack> SEED_BLACKLIST;
+    public static Set<IBlockState> BLOCKS_TO_STOP = Sets.newHashSet();
+    private static boolean stopZombieCropLoot;
+
+    private static Predicate<IBlockState> STOP_SEEDS = state -> {
         Block block = state.getBlock();
         return BLOCKS_TO_STOP.contains(state) || block instanceof BlockTallGrass || (block instanceof BlockDoublePlant && (state.getValue(BlockDoublePlant.VARIANT) == BlockDoublePlant.EnumPlantType.GRASS || state.getValue(BlockDoublePlant.VARIANT) == BlockDoublePlant.EnumPlantType.FERN));
     };
-    private static boolean stopZombieCropLoot;
 
     @Override
     public String getFeatureDescription() {
@@ -47,6 +48,7 @@ public class HCSeeds extends Feature {
     @Override
     public void setupConfig() {
         stopZombieCropLoot = loadPropBool("Stop Zombie Crop Loot", "Stops Zombies from dropping potatoes or carrots", true);
+        SEED_BLACKLIST = Sets.newHashSet(loadItemStackList("Seed Blacklist", "Blacklist seeds from being dropped when tilling grass. Defaulted to Wheat seeds for HCVillages.", new ItemStack[]{new ItemStack(Items.WHEAT_SEEDS)}));
     }
 
     @SubscribeEvent

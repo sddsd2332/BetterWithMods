@@ -2,8 +2,11 @@ package betterwithmods.module.hardcore.world.saplings;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.BWMRecipes;
+import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
+import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.Feature;
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.BlockSapling;
@@ -13,11 +16,11 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.util.Map;
+import java.util.List;
 
 public class HCSapling extends Feature {
 
-    public static final Map<BlockPlanks.EnumType, Block> SAPLING_CROPS = Maps.newHashMap();
+    public static List<SaplingConversion> SAPLING_CONVERSIONS = Lists.newArrayList();
 
     public static IBlockState getSapling(BlockPlanks.EnumType type) {
         return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, type);
@@ -31,9 +34,10 @@ public class HCSapling extends Feature {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         for (BlockPlanks.EnumType type : BlockPlanks.EnumType.values()) {
-            Block crop = new BlockSaplingCrop(getSapling(type)).setRegistryName(BWMod.MODID, String.format("sapling_crop_%s", type.getName()));
+            IBlockState sapling = getSapling(type);
+            Block crop = new BlockSaplingCrop(sapling).setRegistryName(BWMod.MODID, String.format("sapling_crop_%s", type.getName()));
             BWMBlocks.registerBlock(crop, null);
-            SAPLING_CROPS.put(type, crop);
+            SAPLING_CONVERSIONS.add(new SaplingConversion(new BlockDropIngredient(BWMRecipes.getStackFromState(sapling)), crop));
         }
     }
 
@@ -41,11 +45,10 @@ public class HCSapling extends Feature {
     public void onBlockPlaced(BlockEvent.PlaceEvent event) {
         if (event.getPlayer() != null && event.getPlacedBlock().getBlock() instanceof BlockSapling) {
             IBlockState state = event.getPlacedBlock();
-
-            BlockPlanks.EnumType type = state.getValue(BlockSapling.TYPE);
-            Block crop = SAPLING_CROPS.get(type);
-            if (crop != null) {
-                event.getWorld().setBlockState(event.getPos(), crop.getDefaultState());
+            for (SaplingConversion conversion : SAPLING_CONVERSIONS) {
+                if (conversion.ingredient.apply(event.getWorld(), event.getPos(), state)) {
+                    event.getWorld().setBlockState(event.getPos(), conversion.getReplacement().getDefaultState());
+                }
             }
         }
     }
@@ -53,5 +56,23 @@ public class HCSapling extends Feature {
     @Override
     public boolean hasSubscriptions() {
         return true;
+    }
+
+    public class SaplingConversion {
+        private final BlockIngredient ingredient;
+        private final Block replacement;
+
+        public SaplingConversion(BlockIngredient ingredient, Block replacement) {
+            this.ingredient = ingredient;
+            this.replacement = replacement;
+        }
+
+        public BlockIngredient getIngredient() {
+            return ingredient;
+        }
+
+        public Block getReplacement() {
+            return replacement;
+        }
     }
 }

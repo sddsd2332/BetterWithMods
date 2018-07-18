@@ -21,7 +21,6 @@ public class BlockBeacon extends net.minecraft.block.BlockBeacon {
 
     public BlockBeacon() {
         super();
-
         setCreativeTab(CreativeTabs.BUILDING_BLOCKS);
         setUnlocalizedName("beacon");
         setLightLevel(1.0f);

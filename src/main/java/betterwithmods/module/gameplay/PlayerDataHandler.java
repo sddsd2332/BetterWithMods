@@ -53,7 +53,6 @@ public class PlayerDataHandler extends Feature {
 
     @SubscribeEvent
     public void clone(PlayerEvent.Clone event) {
-
         PlayerInfo o = getPlayerInfo(event.getOriginal());
         PlayerInfo n = getPlayerInfo(event.getEntityPlayer());
         if (o != null && n != null) {
@@ -92,6 +91,19 @@ public class PlayerDataHandler extends Feature {
     //TODO make this extensible.
     public static class PlayerInfo implements ICapabilitySerializable<NBTTagCompound> {
         public boolean givenManual;
+        private int ticksSinceDeath;
+
+        public int getTicksSinceDeath() {
+            return ticksSinceDeath;
+        }
+
+        public void setTicksSinceDeath(int ticks) {
+            this.ticksSinceDeath = ticks;
+        }
+
+        public void incrementTicksSinceDeath(int i) {
+            this.ticksSinceDeath += i;
+        }
 
         @Override
         public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
@@ -111,12 +123,14 @@ public class PlayerDataHandler extends Feature {
         public NBTTagCompound serializeNBT() {
             NBTTagCompound tag = new NBTTagCompound();
             tag.setBoolean("givenManual", givenManual);
+            tag.setInteger("ticksSinceDeath", ticksSinceDeath);
             return tag;
         }
 
         @Override
         public void deserializeNBT(NBTTagCompound nbt) {
             givenManual = nbt.getBoolean("givenManual");
+            ticksSinceDeath = nbt.getInteger("ticksSinceDeath");
         }
     }
 }

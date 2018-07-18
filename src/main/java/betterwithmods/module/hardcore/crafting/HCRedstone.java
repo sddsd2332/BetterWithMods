@@ -4,6 +4,7 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
+import betterwithmods.module.gameplay.AnvilRecipes;
 import betterwithmods.util.StackIngredient;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -68,6 +69,10 @@ public class HCRedstone extends Feature {
     public void init(FMLInitializationEvent event) {
 
         BWRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 4));
+
+        //New observer recipe :)
+        AnvilRecipes.addSteelShapedRecipe(new ResourceLocation("betterwithmods", "observer"), new ItemStack(Blocks.OBSERVER), "LSSL", "SRRS", "STTS", 'S', "stone", 'R', "dustRedstone", 'T', Blocks.REDSTONE_TORCH, 'L', ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.POLISHED_LAPIS));
+
 
     }
 

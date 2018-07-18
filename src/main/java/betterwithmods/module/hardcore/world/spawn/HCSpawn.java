@@ -3,6 +3,7 @@ package betterwithmods.module.hardcore.world.spawn;
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
+import betterwithmods.module.gameplay.PlayerDataHandler;
 import betterwithmods.util.WorldUtils;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.material.Material;
@@ -11,7 +12,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
-import net.minecraft.stats.StatList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -24,6 +24,7 @@ import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 
@@ -90,17 +91,22 @@ public class HCSpawn extends Feature {
     /**
      * Random Respawn. Less intense when there is a short time since death.
      */
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void randomRespawn(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof EntityPlayerMP)) return;
         if (event.getEntity().getEntityWorld().getWorldType() == FLAT)
             return;
         EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
 
-        if (PlayerHelper.isSurvival(player)) {
-            int timeSinceDeath = player.getStatFile().readStat(StatList.TIME_SINCE_DEATH);
-            boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
+        PlayerDataHandler.PlayerInfo info = PlayerDataHandler.getPlayerInfo(player);
 
+        if (PlayerHelper.isSurvival(player)) {
+            int timeSinceDeath = info.getTicksSinceDeath();
+            boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
+            if (isNew) {
+                //Only reset the death timer when the cooldown is met, so you can't prolong a spawn are by intentionally dying to reset the timer.
+                info.setTicksSinceDeath(0);
+            }
             BlockPos currentSpawn = isNew ? player.world.getSpawnPoint() : getSpawn(player);
             int radius = isNew ? HARDCORE_SPAWN_RADIUS : HARDCORE_SPAWN_COOLDOWN_RADIUS;
 
@@ -108,7 +114,6 @@ public class HCSpawn extends Feature {
                 player.sendMessage(new TextComponentString(String.format("Spawn: %s, %s, %s, %s", isNew, currentSpawn, radius, timeSinceDeath)));
             BlockPos newPos = getRespawnPoint(player, currentSpawn, radius);
             setSpawn(player, newPos);
-            player.setSpawnPoint(newPos, true);
         }
     }
 
@@ -179,8 +184,9 @@ public class HCSpawn extends Feature {
 
         MinecraftServer server = player.getServer();
         if (server != null && server.getPlayerList().getPlayers().size() == 1) {
+            PlayerDataHandler.PlayerInfo info = PlayerDataHandler.getPlayerInfo(player);
 
-            int timeSinceDeath = ((EntityPlayerMP) player).getStatFile().readStat(StatList.TIME_SINCE_DEATH);
+            int timeSinceDeath = info.getTicksSinceDeath();
             boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
             if (isNew) {
                 WorldUtils.setWeatherCleared(server);
@@ -190,4 +196,11 @@ public class HCSpawn extends Feature {
 
     }
 
+    @SubscribeEvent
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.player instanceof EntityPlayerMP) {
+            PlayerDataHandler.PlayerInfo info = PlayerDataHandler.getPlayerInfo(event.player);
+            info.incrementTicksSinceDeath(1);
+        }
+    }
 }
