@@ -1,4 +1,4 @@
-package betterwithmods.common.blocks.tile;
+package betterwithmods.common.tile;
 
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.hardcore.beacons.BeaconEffect;
@@ -11,11 +11,9 @@ import com.google.common.collect.Sets;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
-import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -24,12 +22,9 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.NonNullList;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -37,12 +32,11 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
 import java.util.List;
-import net.minecraft.tileentity.TileEntityBeacon.BeamSegment;
 
 /**
  * Created by primetoxinz on 7/17/17.
  */
-public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon implements ITickable {
+public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implements ITickable {
 
     private int currentLevel;
     private boolean active;

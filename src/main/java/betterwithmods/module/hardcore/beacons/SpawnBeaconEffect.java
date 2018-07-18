@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.tile.TileBeacon;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.common.tile.TileBeacon;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -172,7 +172,7 @@ public class SpawnBeaconEffect extends BeaconEffect {
         }
 
         public boolean isPlayer(EntityPlayer player) {
-            return player.getGameProfile().getId().equals(uuid);
+            return player.getGameProfile() != null && player.getGameProfile().getId().equals(uuid);
         }
 
         @Override

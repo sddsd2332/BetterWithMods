@@ -176,9 +176,9 @@ public class BWOreDictionary {
         registerOre("listAllExplosives", new ItemStack(BWMItems.DYNAMITE));
         registerOre("listAllExplosives", new ItemStack(BWMBlocks.MINING_CHARGE));
         registerOre("listAllExplosives", BlockAesthetic.getStack(BlockAesthetic.EnumType.HELLFIRE));
-        registerOre("listAllExplosives", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BLASTING_OIL));
-        registerOre("listAllExplosives", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HELLFIRE_DUST));
-        registerOre("listAllExplosives", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.CONCENTRATED_HELLFIRE));
+        registerOre("listAllExplosives", ItemMaterial.getStack(ItemMaterial.EnumMaterial.BLASTING_OIL));
+        registerOre("listAllExplosives", ItemMaterial.getStack(ItemMaterial.EnumMaterial.HELLFIRE_DUST));
+        registerOre("listAllExplosives", ItemMaterial.getStack(ItemMaterial.EnumMaterial.CONCENTRATED_HELLFIRE));
 
 
         registerOre("seed", new ItemStack(BWMBlocks.HEMP), new ItemStack(Items.WHEAT_SEEDS), new ItemStack(Items.MELON_SEEDS), new ItemStack(Items.PUMPKIN_SEEDS), new ItemStack(Items.BEETROOT_SEEDS));

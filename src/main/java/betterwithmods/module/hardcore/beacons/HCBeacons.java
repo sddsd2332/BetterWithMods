@@ -5,9 +5,9 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.blocks.BlockEnderchest;
-import betterwithmods.common.blocks.tile.TileEnderchest;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.common.tile.TileEnderchest;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -188,4 +188,6 @@ public class HCBeacons extends Feature {
             event.addCapability(WORLD2, new EnderchestCap(EnumFacing.NORTH));
         }
     }
+
+
 }
