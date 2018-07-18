@@ -1,7 +1,6 @@
 package betterwithmods.module.industry;
 
 import betterwithmods.common.blocks.BlockUrn;
-import betterwithmods.module.hardcore.beacons.IBeaconEffect;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -17,6 +16,7 @@ import javax.annotation.Nullable;
 /**
  * Created by primetoxinz on 7/25/17.
  */
+/*
 public class WeatherBeaconEffect implements IBeaconEffect {
     private static final int MAX_WATER_CONSUMPTION = 64;
 
@@ -125,3 +125,4 @@ public class WeatherBeaconEffect implements IBeaconEffect {
 
 
 }
+*/
