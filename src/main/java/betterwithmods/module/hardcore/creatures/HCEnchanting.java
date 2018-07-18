@@ -6,6 +6,7 @@ import betterwithmods.util.InfernalEnchantment;
 import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.enchantment.Enchantment;
+import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
@@ -18,15 +19,26 @@ import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 import java.util.HashMap;
+import java.util.Map;
 
 public class HCEnchanting extends Feature {
     private static final HashMap<Class<? extends EntityLivingBase>, ScrollDrop> SCROLL_DROPS = Maps.newHashMap();
 
+    private static Map<Enchantment, Integer> LEVEL_OVERRIDE = Maps.newHashMap();
     private static double dropChance, lootingDropBonus;
     private static boolean fuckMending;
     private static boolean steelRequiresInfernal;
+
+    public static void addEnchantOverride(Enchantment enchantment, int max) {
+        LEVEL_OVERRIDE.put(enchantment, max);
+    }
+
+    public static int getMaxLevel(Enchantment enchantment) {
+        return LEVEL_OVERRIDE.getOrDefault(enchantment, enchantment.getMaxLevel());
+    }
 
     public static boolean canEnchantSteel(Enchantment enchantment) {
         return !steelRequiresInfernal || enchantment instanceof InfernalEnchantment;
@@ -59,6 +71,7 @@ public class HCEnchanting extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
+
         addScrollDrop(EntitySlime.class, Enchantments.PROTECTION);
         addScrollDrop(EntityPigZombie.class, Enchantments.FIRE_PROTECTION);
         addScrollDrop(EntityBat.class, Enchantments.FEATHER_FALLING);
@@ -123,6 +136,9 @@ public class HCEnchanting extends Feature {
             return null;
         });
 
+        addEnchantOverride(Enchantments.RESPIRATION, 5);
+
+
         //TODO
         // SHARPNESS -> Butcher Trade
         // LOOTING -> Farmer Trade
@@ -166,4 +182,14 @@ public class HCEnchanting extends Feature {
         }
     }
 
+
+    @SubscribeEvent
+    public void onTick(TickEvent.PlayerTickEvent event) {
+        if(!event.player.getEntityWorld().isRemote) {
+            int mod = EnchantmentHelper.getRespirationModifier(event.player);
+            if(mod >= 5) {
+                event.player.setAir(300);
+            }
+        }
+    }
 }
