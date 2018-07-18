@@ -25,8 +25,7 @@ public class EnderBeaconEffect extends BeaconEffect {
 
     @Override
     public void apply(NonNullList<EntityLivingBase> entitiesInRange, @Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
-        int r;
-        for (r = -1; r < beaconLevel; r++) {
+        for (int r = -1; r < beaconLevel; r++) {
             for (int x = -(r + 1); x <= (r + 1); x++) {
                 for (int z = -(r + 1); z <= (r + 1); z++) {
                     if (Math.abs(x) > r || Math.abs(z) > r) {
@@ -51,8 +50,7 @@ public class EnderBeaconEffect extends BeaconEffect {
 
     @Override
     public void onBeaconBreak(World world, BlockPos pos, int level) {
-        int r;
-        for (r = 0; r <= level; r++) {
+        for (int r = 0; r <= level; r++) {
             for (int x = -(r + 1); x <= (r + 1); x++) {
                 for (int z = -(r + 1); z <= (r + 1); z++) {
                     if (Math.abs(x) > r || Math.abs(z) > r) {
@@ -66,5 +64,7 @@ public class EnderBeaconEffect extends BeaconEffect {
             }
         }
     }
+
+
 }
 

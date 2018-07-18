@@ -43,6 +43,7 @@ public class Tweaks extends Module {
         registerFeature(new BabyJumping());
         registerFeature(new EnchantmentTooltip());
         registerFeature(new NoSkeletonTrap());
+        registerFeature(new SilverfishClay());
     }
 
     @Override
