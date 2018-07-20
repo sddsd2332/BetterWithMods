@@ -17,7 +17,6 @@ import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
@@ -37,6 +36,11 @@ import java.util.Set;
 public class BreedingHarness extends Feature {
 
     public BreedingHarness() {
+    }
+
+    @Override
+    public String getFeatureDescription() {
+        return "Add the Breeding Harness, which can be put on most domesticated animals and making their legs immobile, they are still able to eat food and breed while restrained.";
     }
 
     @Override
@@ -83,7 +87,8 @@ public class BreedingHarness extends Feature {
             if (harness.isEmpty() && !event.getEntityPlayer().isSneaking()) {
                 if (hand.getItem() instanceof ItemBreedingHarness) {
                     cap.setHarness(InvUtils.setCount(hand.copy(), 1));
-                    hand.shrink(1);
+                    if(!event.getEntityPlayer().capabilities.isCreativeMode)
+                        hand.shrink(1);
                     event.getWorld().playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.NEUTRAL, 0.5f, 1.3f);
                     event.getWorld().playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, SoundCategory.NEUTRAL, 0.5f, 1.3f);
                     event.getEntityPlayer().swingArm(EnumHand.MAIN_HAND);
