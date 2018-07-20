@@ -32,9 +32,9 @@ public class DebugCommand extends CommandBase {
                 writer.write("pos,chunk\n");
                 World world = sender.getEntityWorld();
                 for (int i = 0; i < 2000; i++) {
-                    BlockPos pos = HCSpawn.getRandomPoint(world, world.getSpawnPoint(), 2000);
+                    BlockPos pos = HCSpawn.getRandomPoint(world, world.getSpawnPoint(), 0, 2000);
                     ChunkPos c = world.getChunkFromBlockCoords(pos).getPos();
-                    writer.write(String.format("%d,%d\n",c.getXStart(), c.getZStart()));
+                    writer.write(String.format("%d,%d\n", c.getXStart(), c.getZStart()));
                 }
                 writer.close();
             } catch (IOException e) {

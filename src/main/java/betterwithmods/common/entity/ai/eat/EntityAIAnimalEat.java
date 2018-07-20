@@ -1,11 +1,11 @@
 package betterwithmods.common.entity.ai.eat;
 
 import betterwithmods.module.hardcore.creatures.chicken.EggLayer;
+import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.EnumFacing;
 
 public class EntityAIAnimalEat extends EntityAIEatFood<EntityAnimal> {
 
@@ -20,7 +20,7 @@ public class EntityAIAnimalEat extends EntityAIEatFood<EntityAnimal> {
 
     @Override
     public void onEaten(ItemStack food) {
-        EggLayer layer = entity.getCapability(EggLayer.EGG_LAYER_CAP, EnumFacing.DOWN);
+        EggLayer layer = HCChickens.getLayer(entity);
         if (layer != null) {
             layer.feed(entity, food);
         } else {
@@ -31,7 +31,7 @@ public class EntityAIAnimalEat extends EntityAIEatFood<EntityAnimal> {
 
     private boolean canBreed(EntityAnimal entity) {
         //Handle HCChickens
-        EggLayer layer = entity.getCapability(EggLayer.EGG_LAYER_CAP, EnumFacing.DOWN);
+        EggLayer layer = HCChickens.getLayer(entity);
         if (layer != null) {
             return !layer.isFeed();
         }

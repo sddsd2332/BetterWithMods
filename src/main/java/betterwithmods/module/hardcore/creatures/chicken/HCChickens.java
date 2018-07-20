@@ -10,6 +10,7 @@ import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
@@ -17,9 +18,11 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
+
+import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 import static betterwithmods.module.hardcore.creatures.chicken.EggLayer.EGG_LAYER_CAP;
 
@@ -64,7 +67,7 @@ public class HCChickens extends Feature {
             chicken.timeUntilNextEgg = 6000000;
         }
         if (entityLiving.hasCapability(EGG_LAYER_CAP, EnumFacing.DOWN)) {
-            EggLayer layer = entityLiving.getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
+            EggLayer layer = getLayer(entityLiving);
             if (layer != null) {
                 if (layer.isFeed()) {
                     layer.setTicks(layer.getTicks() - 1);
@@ -79,15 +82,18 @@ public class HCChickens extends Feature {
         }
     }
 
+    @Nullable
+    public static EggLayer getLayer(@Nonnull Entity entity) {
+        return entity.getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
+    }
+
     @SubscribeEvent
     public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         if (SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving) {
-            EggLayer layer = event.getTarget().getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
+            EggLayer layer = getLayer(event.getTarget());
             if (layer != null) {
                 event.setCanceled(true);
-                event.setResult(Event.Result.DENY);
-                if (((EntityLiving) event.getTarget()).isChild())
-                    return;
+                event.setCancellationResult(EnumActionResult.SUCCESS);
                 layer.feed((EntityLiving) event.getTarget(), event.getItemStack());
             }
         }

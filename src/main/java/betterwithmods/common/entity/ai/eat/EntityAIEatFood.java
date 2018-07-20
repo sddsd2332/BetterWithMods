@@ -32,7 +32,7 @@ public abstract class EntityAIEatFood<T extends EntityLivingBase> extends Entity
             return Optional.empty();
         EntityItem target = null;
         for (EntityItem item : items) {
-            if (validItem.test(item.getItem())) {
+            if (validItem.apply(item.getItem())) {
                 target = item;
                 break;
             }
@@ -52,8 +52,7 @@ public abstract class EntityAIEatFood<T extends EntityLivingBase> extends Entity
 
         BlockPos entityPos = entity.getPosition();
         if (targetItem == null) {
-            List<EntityItem> entityItems = entity.getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entityPos, entityPos.add(1, 1, 1)).grow(distance),
-                    entity -> entity != null && entity.onGround);
+            List<EntityItem> entityItems = entity.getEntityWorld().getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(entityPos, entityPos.add(1, 1, 1)).grow(distance), entity -> entity != null && entity.onGround);
             targetItem = getTargetItem(entityItems).orElse(null);
         }
 
