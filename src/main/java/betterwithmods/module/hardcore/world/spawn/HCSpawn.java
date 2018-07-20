@@ -41,6 +41,7 @@ public class HCSpawn extends Feature {
 
     public static final Random RANDOM = new Random();
     public static final String GAMERULE_CHANGETIME = "doChangeTimeOnDeath";
+    public static int HARDCORE_SPAWN_INTERNAL_RADIUS;
     public static int HARDCORE_SPAWN_RADIUS;
     public static int HARDCORE_SPAWN_COOLDOWN_RADIUS;
     public static int HARDCORE_SPAWN_COOLDOWN; //20 min
@@ -56,12 +57,12 @@ public class HCSpawn extends Feature {
         return SpawnSaving.getCapability(player).map(SpawnSaving::getPos).orElse(player.world.getSpawnPoint());
     }
 
-    public static BlockPos getRandomPoint(World world, BlockPos origin, int spawnFuzz) {
+    public static BlockPos getRandomPoint(World world, BlockPos origin, int min, int max) {
         BlockPos ret = origin;
-        double fuzzVar = MathHelper.getInt(RANDOM, 0, spawnFuzz);
+        double length = MathHelper.getInt(RANDOM, min, max);
         double angle = MathHelper.nextDouble(RANDOM, 0, 360);
-        double customX = -Math.sin(angle) * fuzzVar;
-        double customZ = Math.cos(angle) * fuzzVar;
+        double customX = -Math.sin(angle) * length;
+        double customZ = Math.cos(angle) * length;
         ret = ret.add(MathHelper.floor(customX) + 0.5D, 1.5D, MathHelper.floor(customZ) + 0.5D);
         ret = world.getTopSolidOrLiquidBlock(ret);
         return ret;
@@ -77,6 +78,7 @@ public class HCSpawn extends Feature {
         HARDCORE_SPAWN_RADIUS = loadPropInt("Hardcore Spawn Radius", "Radius from original spawn which you will be randomly spawned", 2000);
         HARDCORE_SPAWN_COOLDOWN_RADIUS = loadPropInt("Hardcore Spawn Cooldown Radius", "Radius from your previous spawn you will spawn if you die during a cooldown period", 100);
         HARDCORE_SPAWN_COOLDOWN = loadPropInt("Hardcore Spawn Cooldown Ticks", "Amount of time after a HCSpawn which you will continue to spawn in the same area", 12000);
+        HARDCORE_SPAWN_INTERNAL_RADIUS = loadPropInt("Hardcore Spawn Internal Radius", "This internal radius will stop the player from spawning too close to the original spawn", 125);
     }
 
     @Override
@@ -111,9 +113,11 @@ public class HCSpawn extends Feature {
             BlockPos currentSpawn = isNew ? player.world.getSpawnPoint() : getSpawn(player);
             int radius = isNew ? HARDCORE_SPAWN_RADIUS : HARDCORE_SPAWN_COOLDOWN_RADIUS;
 
+            int internalRadius = isNew ? HARDCORE_SPAWN_INTERNAL_RADIUS : 0;
+
             if (GlobalConfig.debug)
                 player.sendMessage(new TextComponentString(String.format("Spawn: %s, %s, %s, %s", isNew, currentSpawn, radius, timeSinceDeath)));
-            BlockPos newPos = getRespawnPoint(player, currentSpawn, radius);
+            BlockPos newPos = getRespawnPoint(player, currentSpawn, internalRadius, radius);
             setSpawn(player, newPos);
         }
     }
@@ -122,18 +126,16 @@ public class HCSpawn extends Feature {
      * Find a random position to respawn. Tries 20 times maximum to find a
      * suitable place. Else, the previous SP will remain unchanged.
      *
-     * @param spawnFuzz A "size coefficient" variable. Proportional to distance
-     *                  between spawn points.
      * @return The new BlockPos
      */
-    private BlockPos getRespawnPoint(EntityPlayer player, BlockPos spawnPoint, int spawnFuzz) {
+    private BlockPos getRespawnPoint(EntityPlayer player, BlockPos spawnPoint, int min, int max) {
         World world = player.getEntityWorld();
         BlockPos ret = spawnPoint;
         if (!world.provider.isNether()) {
             boolean found = false;
             for (int tryCounter = 0; tryCounter < HARDCORE_SPAWN_MAX_ATTEMPTS; tryCounter++) {
 
-                ret = getRandomPoint(world, spawnPoint, spawnFuzz);
+                ret = getRandomPoint(world, spawnPoint, min, max);
                 // Check if the position is correct
                 int cmp = ret.getY() - world.provider.getAverageGroundLevel();
                 Material check = world.getBlockState(ret).getMaterial();
