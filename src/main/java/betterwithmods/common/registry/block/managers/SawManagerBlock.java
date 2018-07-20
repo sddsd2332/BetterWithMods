@@ -1,5 +1,6 @@
 package betterwithmods.common.registry.block.managers;
 
+import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import com.google.common.collect.Lists;
@@ -26,7 +27,7 @@ public class SawManagerBlock extends CraftingManagerBlock<SawRecipe> {
     }
 
     public SawRecipe addSelfdropRecipe(ItemStack stack) {
-        return addRecipe(new BlockIngredient(stack), Lists.newArrayList(stack));
+        return addRecipe(new BlockDropIngredient(stack), Lists.newArrayList(stack));
     }
 
 }
