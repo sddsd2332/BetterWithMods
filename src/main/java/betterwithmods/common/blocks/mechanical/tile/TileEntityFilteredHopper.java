@@ -9,6 +9,7 @@ import betterwithmods.api.util.IProgressSource;
 import betterwithmods.client.model.filters.ModelWithResource;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWRegistry;
+import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.mechanical.BlockMechMachines;
 import betterwithmods.common.blocks.tile.SimpleStackHandler;
 import betterwithmods.common.blocks.tile.TileEntityVisibleInventory;
@@ -22,12 +23,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -35,6 +38,7 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 
 public class TileEntityFilteredHopper extends TileEntityVisibleInventory implements IMechanicalPower, IProgressSource {
@@ -252,9 +256,11 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
 
         } else {
             if (this.soulsRetained > 7 && !isPowered()) {
-                if (WorldUtils.spawnGhast(world, pos))
+                if (WorldUtils.spawnGhast(world, pos)) {
+                    world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(BWAdvancements.SPAWN_HOPPER_FRIEND::trigger);
                     this.getBlockWorld().playSound(null, this.pos, SoundEvents.ENTITY_GHAST_SCREAM, SoundCategory.BLOCKS, 1.0F, getBlockWorld().rand.nextFloat() * 0.1F + 0.8F);
-                overpower();
+                    overpower();
+                }
             }
         }
         prevContainer = container;
