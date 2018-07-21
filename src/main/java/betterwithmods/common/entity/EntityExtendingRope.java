@@ -1,5 +1,6 @@
 package betterwithmods.common.entity;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
 import betterwithmods.module.GlobalConfig;
@@ -267,6 +268,12 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         }
 
         Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0), e -> !(e instanceof EntityExtendingRope) && (!(e instanceof EntityPlayer) || !((EntityPlayer) e).capabilities.isFlying)));
+
+        if(GlobalConfig.debug) {
+            BWMod.logger.info("Passengers: {}, {}", passengers.size(), passengers);
+
+            BWMod.logger.info("entitiesInBlocks: {}, {}", entitiesInBlocks.size(), entitiesInBlocks);
+        }
 
         for (Entity e : passengers) {
             e.move(null, 0, newPosY - posY, 0);
