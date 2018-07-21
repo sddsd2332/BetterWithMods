@@ -104,27 +104,27 @@ public class HCFurnace extends Feature {
         BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_HORSE_ARMOR);
 
         FURNACE_TIMINGS = loadItemStackIntMap("Furnace Timing Recipes", "example recipes  minecraft:iron_ore=1000  or ore:oreIron=1000", new String[]{
-                "ore:oreIron=3200",
-                "ore:oreGold=3200",
-                "ore:cobblestone=3200",
-                "ore:sand=3200"
+                "ore:oreIron=1600",
+                "ore:oreGold=1600",
+                "ore:cobblestone=1600",
+                "ore:sand=1600"
         });
 
         FUEL_TIMINGS = loadItemStackIntMap("Furnace Fuel Timing Overrides", "Overrides the fuel time for inputted items or oredict, see Furnace Timing for entry format", new String[]{
                 "minecraft:boat=750",
-                "minecraft:log:0=3200",
-                "minecraft:log:1=2400",
-                "minecraft:log:2=4200",
-                "minecraft:log:3=1600",
-                "minecraft:log2:0=3200",
+                "minecraft:log:0=1600",
+                "minecraft:log:1=1200",
+                "minecraft:log:2=2000",
+                "minecraft:log:3=1200",
+                "minecraft:log2:0=1600",
                 "minecraft:log2:1=1600",
-                "minecraft:coal:0=3200",
-                "minecraft:planks:0=900",
-                "minecraft:planks:1=700",
-                "minecraft:planks:2=1100",
-                "minecraft:planks:3=500",
-                "minecraft:planks:4=900",
-                "minecraft:planks:5=700",
+                "minecraft:coal:0=1600",
+                "minecraft:planks:0=400",
+                "minecraft:planks:1=300",
+                "minecraft:planks:2=500",
+                "minecraft:planks:3=300",
+                "minecraft:planks:4=400",
+                "minecraft:planks:5=300",
                 "minecart:sapling=25"
         });
     }
