@@ -237,6 +237,10 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             }
         }
 
+        this.prevPosX = this.posX;
+        this.prevPosY = this.posY;
+        this.prevPosZ = this.posZ;
+
         setPosition(
                 pulley.getX() + 0.5,
                 this.posY + 0.1 * (up ? 1 : -1),
@@ -247,10 +251,6 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             updatePassengers(prevPosY, posY, false);
 
         this.world.updateEntityWithOptionalForce(this, false);
-
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
     }
 
     public void updatePassengers(double posY, double newPosY, boolean b) {
