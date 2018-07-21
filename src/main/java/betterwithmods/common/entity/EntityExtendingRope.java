@@ -1,15 +1,8 @@
 package betterwithmods.common.entity;
 
-import betterwithmods.BWMod;
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
-import betterwithmods.module.GlobalConfig;
-import betterwithmods.util.AABBArray;
-import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRedstoneWire;
@@ -31,12 +24,22 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
 
-/**
- * @author mrebhan
- */
+import betterwithmods.BWMod;
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
+import betterwithmods.module.GlobalConfig;
+import betterwithmods.util.AABBArray;
+import betterwithmods.util.InvUtils;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
 
@@ -58,7 +61,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         this.targetY = targetY;
         if (source != null) {
             this.up = source.getY() < targetY;
-            this.setPositionAndUpdate(source.getX() + 0.5, source.getY(), source.getZ() + 0.5);
+            this.setPosition(source.getX() + 0.5, source.getY(), source.getZ() + 0.5);
         }
         this.blocks = Maps.newHashMap();
         this.tiles = Maps.newHashMap();
@@ -242,20 +245,23 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             }
         }
 
-        this.setPosition(pulley.getX() + 0.5, this.posY + (up ? 0.1 : -0.1),
+        this.setPositionAndUpdate(pulley.getX() + 0.5, this.posY + (up ? 0.1 : -0.1),
                 pulley.getZ() + 0.5);
     }
 
     public void updatePassengers(double posY, double newPosY, boolean b) {
+        Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0), e -> !(e instanceof EntityExtendingRope) && (!(e instanceof EntityPlayer) || !((EntityPlayer) e).capabilities.isFlying)));
+
         HashSet<Entity> entitiesInBlocks = new HashSet<>();
         HashMap<Entity, Double> entMaxY = new HashMap<>();
-        IBlockState state;
+
         for (Vec3i vec : blocks.keySet()) {
-            state = blocks.get(vec);
+            IBlockState state = blocks.get(vec);
             if (getBlockStateHeight(state) > 0) {
                 Vec3d pos = new Vec3d(pulley.getX(), posY, pulley.getZ()).addVector(vec.getX(), vec.getY(), vec.getZ());
-                List<Entity> entities = getEntityWorld().getEntitiesWithinAABB(Entity.class, createAABB(pos, pos.addVector(1, getBlockStateHeight(state), 1)), e -> !(e instanceof EntityExtendingRope));
-                for (Entity e : entities) {
+                AxisAlignedBB blockAABB = createAABB(pos, pos.addVector(1, getBlockStateHeight(state), 1));
+                for (Entity e : passengers) {
+                    if (!e.getEntityBoundingBox().intersects(blockAABB)) continue;
                     double targetY = pos.y + getBlockStateHeight(state) - 0.01;
                     if (!entMaxY.containsKey(e) || entMaxY.get(e) < targetY) {
                         if ((!getEntityWorld().isRemote ^ e instanceof EntityPlayer) || b) {
@@ -267,9 +273,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             }
         }
 
-        Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0), e -> !(e instanceof EntityExtendingRope) && (!(e instanceof EntityPlayer) || !((EntityPlayer) e).capabilities.isFlying)));
-
-        if(GlobalConfig.debug) {
+        if (GlobalConfig.debug) {
             BWMod.logger.info("Passengers: {}, {}", passengers.size(), passengers);
 
             BWMod.logger.info("entitiesInBlocks: {}, {}", entitiesInBlocks.size(), entitiesInBlocks);
