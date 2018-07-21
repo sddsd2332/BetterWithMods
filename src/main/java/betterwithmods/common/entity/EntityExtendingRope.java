@@ -32,7 +32,6 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Set;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
 import betterwithmods.module.GlobalConfig;
@@ -40,6 +39,8 @@ import betterwithmods.util.AABBArray;
 import betterwithmods.util.InvUtils;
 import io.netty.buffer.ByteBuf;
 import io.netty.buffer.Unpooled;
+
+import static java.lang.Math.max;
 
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
 
@@ -50,6 +51,8 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     private Map<Vec3i, IBlockState> blocks;
     private Map<Vec3i, NBTTagCompound> tiles;
     private AABBArray blockBB;
+
+    private double prevPosYUpd;
 
     public EntityExtendingRope(World worldIn) {
         this(worldIn, null, null, 0);
@@ -82,13 +85,6 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     @Override
     public float getEyeHeight() {
         return -1;
-    }
-
-    @Override
-    public void setPosition(double x, double y, double z) {
-        if (blocks != null)
-            updatePassengers(posY, y, false);
-        super.setPosition(x, y, z);
     }
 
     @Override
@@ -229,10 +225,6 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
 
     @Override
     public void onUpdate() {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-
         if (up) {
             if (posY > targetY) {
                 if (done())
@@ -245,49 +237,43 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             }
         }
 
-        this.setPositionAndUpdate(pulley.getX() + 0.5, this.posY + (up ? 0.1 : -0.1),
-                pulley.getZ() + 0.5);
+        setPosition(
+                pulley.getX() + 0.5,
+                this.posY + 0.1 * (up ? 1 : -1),
+                pulley.getZ() + 0.5
+        );
+
+        if (blocks != null)
+            updatePassengers(prevPosY, posY, false);
+
+        this.world.updateEntityWithOptionalForce(this, false);
+
+        this.prevPosX = this.posX;
+        this.prevPosY = this.posY;
+        this.prevPosZ = this.posZ;
     }
 
     public void updatePassengers(double posY, double newPosY, boolean b) {
-        Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0), e -> !(e instanceof EntityExtendingRope) && (!(e instanceof EntityPlayer) || !((EntityPlayer) e).capabilities.isFlying)));
-
-        HashSet<Entity> entitiesInBlocks = new HashSet<>();
-        HashMap<Entity, Double> entMaxY = new HashMap<>();
-
-        for (Vec3i vec : blocks.keySet()) {
-            IBlockState state = blocks.get(vec);
-            if (getBlockStateHeight(state) > 0) {
-                Vec3d pos = new Vec3d(pulley.getX(), posY, pulley.getZ()).addVector(vec.getX(), vec.getY(), vec.getZ());
-                AxisAlignedBB blockAABB = createAABB(pos, pos.addVector(1, getBlockStateHeight(state), 1));
-                for (Entity e : passengers) {
-                    if (!e.getEntityBoundingBox().intersects(blockAABB)) continue;
-                    double targetY = pos.y + getBlockStateHeight(state) - 0.01;
-                    if (!entMaxY.containsKey(e) || entMaxY.get(e) < targetY) {
-                        if ((!getEntityWorld().isRemote ^ e instanceof EntityPlayer) || b) {
-                            entitiesInBlocks.add(e);
-                            entMaxY.put(e, targetY);
-                        }
-                    }
-                }
-            }
-        }
-
-        if (GlobalConfig.debug) {
-            BWMod.logger.info("Passengers: {}, {}", passengers.size(), passengers);
-
-            BWMod.logger.info("entitiesInBlocks: {}, {}", entitiesInBlocks.size(), entitiesInBlocks);
-        }
-
+        if (blockBB == null) return;
+        Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0), e -> !(e instanceof EntityExtendingRope)));
+        AABBArray oldBB = blockBB.offset(posX, posY, posZ);
+        AABBArray newBB = blockBB.offset(posX, newPosY, posZ);
         for (Entity e : passengers) {
-            e.move(null, 0, newPosY - posY, 0);
-            e.fallDistance = 0;
-        }
-        for (Entity e : entitiesInBlocks) {
-            e.isAirBorne = false;
-            e.onGround = true;
-            e.motionY = Math.max(up ? 0 : -0.1, e.motionY);
-            e.setPosition(e.posX, Math.max(e.posY, entMaxY.get(e) + newPosY - posY), e.posZ);
+            AxisAlignedBB ebb = e.getEntityBoundingBox();
+            if (!newBB.intersects(ebb)) continue;
+
+            double yoff = -oldBB.calculateYOffset(ebb, posY - newPosY);
+
+            if (yoff != 0) {
+                if (getEntityWorld().isRemote || !(e instanceof EntityPlayer) || b)
+                    e.move(null, 0, yoff, 0);
+
+                e.motionY = max(up ? 0 : -0.1, e.motionY);
+                e.isAirBorne = false;
+                e.onGround = true;
+                e.collided = e.collidedVertically = true;
+                e.fallDistance = 0;
+            }
         }
     }
 
@@ -334,7 +320,6 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                 retries = 0;
             }
         }
-
 
         if (retries > 0) {
             blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InvUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
