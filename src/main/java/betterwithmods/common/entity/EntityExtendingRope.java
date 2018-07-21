@@ -1,8 +1,14 @@
 package betterwithmods.common.entity;
 
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
+import betterwithmods.module.GlobalConfig;
+import betterwithmods.util.AABBArray;
+import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRedstoneWire;
@@ -24,23 +30,8 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
-import betterwithmods.module.GlobalConfig;
-import betterwithmods.util.AABBArray;
-import betterwithmods.util.InvUtils;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
-import static java.lang.Math.max;
 
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
 
@@ -52,7 +43,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     private Map<Vec3i, NBTTagCompound> tiles;
     private AABBArray blockBB;
 
-    private double prevPosYUpd;
+    private float speed = 0.1f;
 
     public EntityExtendingRope(World worldIn) {
         this(worldIn, null, null, 0);
@@ -243,9 +234,10 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
 
         setPosition(
                 pulley.getX() + 0.5,
-                this.posY + 0.1 * (up ? 1 : -1),
+                this.posY + (speed * (up ? 1 : -1)),
                 pulley.getZ() + 0.5
         );
+
 
         if (blocks != null)
             updatePassengers(prevPosY, posY, false);
@@ -268,7 +260,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                 if (getEntityWorld().isRemote || !(e instanceof EntityPlayer) || b)
                     e.move(null, 0, yoff, 0);
 
-                e.motionY = max(up ? 0 : -0.1, e.motionY);
+                e.motionY = up ? 0 : -speed;
                 e.isAirBorne = false;
                 e.onGround = true;
                 e.collided = e.collidedVertically = true;
@@ -378,23 +370,8 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         blocks = deserializeBlockmap(additionalData);
     }
 
-    public int getTargetY() {
-        return this.targetY;
-    }
-
     public void setTargetY(int i) {
         this.targetY = i;
-    }
-
-
-    /*
-    FIXME this is a hack that fixes the odd camera jerking when descending the pulley.
-    FIXME From what I can tell, whenever Minecraft.objecctMousedOver is type entity something is effecting the player's position or motion in bizarre fashions. I have yet to find where this happens.
-    FIXME For the time being, there will be some odd quirks with warping on top of the pulley if you ever collide with any side but better than jumpiness.
-     */
-    @Override
-    public boolean canBeCollidedWith() {
-        return false;
     }
 
     public boolean getUp() {
@@ -454,12 +431,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         rebuildBlockBoundingBox();
         super.setEntityBoundingBox(blockBB != null ? blockBB.offset(this.posX, this.posY, this.posZ) : bb);
     }
-
-    public AxisAlignedBB getBlockBoundingBox(Vec3i block, IBlockState state) {
-        Vec3d pos = new Vec3d(pulley.getX(), posY, pulley.getZ()).addVector(block.getX(), block.getY(), block.getZ());
-        return new AxisAlignedBB(pos, pos.addVector(1, getBlockStateHeight(state), 1));
-    }
-
+    
 
     @Override
     @SideOnly(Side.CLIENT)
