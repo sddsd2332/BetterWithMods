@@ -15,8 +15,7 @@
       "type": "forge:ore_dict"
     },
     "W": {
-      "ore": "slabWood",
-      "type": "forge:ore_dict"
+      "item": "#SIDING_WOOD"
     }
   }
 }
