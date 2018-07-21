@@ -496,6 +496,7 @@ modifier.mending.desc=??oKillsteal!?? Absorbs experience to repair the tool.
 entity.entity_sheared_creeper.name=Sheared Creeper
 entity.bwm_jungle_spider.name=Jungle Spider
 entity.extending_rope.name=Moving Platform
+entity.longboi.name=Longboi
 tile.bwm:single_machine=Mechanical Machine
 
 subtitles.bwm.wood.creak=Wood creaks
@@ -548,7 +549,6 @@ bwm.fat_penalty.plump=Plump
 bwm.fat_penalty.chubby=Chubby
 bwm.fat_penalty.fat=Fat
 bwm.fat_penalty.obese=Obese
-fishing_rod
 bwm.gloom_penalty.none=
 bwm.gloom_penalty.gloom=Gloom
 bwm.gloom_penalty.dread=Dread
