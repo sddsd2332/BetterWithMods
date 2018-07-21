@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.world.strata;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
@@ -26,8 +27,6 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class HCStrata extends Feature {
-
-
     private static final Pattern PATTERN = Pattern.compile("^([\\-]?\\d+)=(\\d{1,255}),(\\d{1,255}).*");
     public static boolean ENABLED;
     public static float[] STRATA_SPEEDS;
@@ -35,9 +34,9 @@ public class HCStrata extends Feature {
     public static HashMap<IBlockState, BlockType> STATES = Maps.newHashMap();
     public static HashMap<Integer, StrataConfig> STRATA_CONFIGS = Maps.newHashMap();
     public static StrataConfig DEFAULT = new StrataConfig(-1, -1);
-    private static Random random;
-
     public static NoiseGeneratorPerlin STRATA_NOISE1, STRATA_NOISE2;
+    private static Random random;
+    private boolean debugging;
 
     public HCStrata() {
         enabledByDefault = false;
@@ -102,6 +101,8 @@ public class HCStrata extends Feature {
 
     @Override
     public void setupConfig() {
+        debugging = loadPropBool("Debugging", "Super fine debugging for HCStrata, don't use this.", true);
+
         STRATA_SPEEDS = new float[]{(float) loadPropDouble("Light Strata", "Speed for Light Strata", 1.0),
                 (float) loadPropDouble("Medium Strata", "Speed for Medium Strata", 1.0),
                 (float) loadPropDouble("Dark Strata", "Speed for Dark Strata", 1.0)
@@ -148,7 +149,9 @@ public class HCStrata extends Feature {
                     event.getDrops().clear();
                 }
             }
+            BWMod.logger.info("HarvestDropsEvent pos: {}, state: {}, held: {}, strata: {}", event.getPos(), event.getState(), stack, strata);
         }
+
     }
 
     @SubscribeEvent
@@ -157,15 +160,18 @@ public class HCStrata extends Feature {
         BlockPos pos = event.getPos();
         if (shouldStratify(world, pos)) {
             ItemStack stack = BrokenToolRegistry.findItem(event.getEntityPlayer(), event.getState());
-            float scale = 1; //ToolsManager.getSpeed(stack, event.getState());
+            float scale = 1;
             int strata = getStratification(world, pos, world.provider.getDimension()).ordinal();
+
             if (STATES.getOrDefault(event.getState(), BlockType.STONE) == BlockType.STONE) {
                 int level = Math.max(1, stack.getItem().getHarvestLevel(stack, "pickaxe", event.getEntityPlayer(), event.getState()));
                 if (level <= strata) {
                     scale = INCORRECT_STRATA_SCALE;
                 }
             }
-            event.setNewSpeed(scale * STRATA_SPEEDS[strata] * event.getOriginalSpeed());
+            float speed = scale * STRATA_SPEEDS[strata] * event.getOriginalSpeed();
+            event.setNewSpeed(speed);
+            BWMod.logger.info("BreakSpeedEvent pos: {}, state: {}, held: {}, strata: {}, speed: {}", event.getPos(), event.getState(), stack, strata, speed);
         }
     }
 
