@@ -58,15 +58,6 @@ public class BreedingHarness extends Feature {
         return "Add the Breeding Harness, which can be put on most domesticated animals and making their legs immobile, they are still able to eat food and breed while restrained.";
     }
 
-
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        BWMItems.registerItem(BWMItems.BREEDING_HARNESS);
-        CapabilityManager.INSTANCE.register(CapabilityHarness.class, new CapabilityHarness.Storage(), CapabilityHarness::new);
-    }
-
-    private static final ResourceLocation CAPABILITY = new ResourceLocation(BWMod.MODID, "harness");
-
     private static void sendPacket(Entity entity) {
         CapabilityHarness cap = getCapability(entity);
         if (cap != null) {

@@ -9,15 +9,11 @@ import betterwithmods.api.util.IProgressSource;
 import betterwithmods.client.model.filters.ModelWithResource;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.advancements.BWAdvancements;
-import betterwithmods.common.blocks.mechanical.BlockMechMachines;
-import betterwithmods.common.blocks.tile.SimpleStackHandler;
-import betterwithmods.common.blocks.tile.TileEntityVisibleInventory;
-import betterwithmods.common.registry.HopperFilter;
-import betterwithmods.common.registry.HopperInteractions;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -39,7 +35,6 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Optional;
 
 public class TileFilteredHopper extends TileVisibleInventory implements IMechanicalPower, IProgressSource {
@@ -272,8 +267,13 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     @Override
     public void overpower() {
         getBlock().overpower(getBlockWorld(), getBlockPos());
-        if (this.soulsRetained > 7)
+        if (this.soulsRetained > 7) {
             this.getBlockWorld().playSound(null, this.pos, SoundEvents.ENTITY_GHAST_SCREAM, SoundCategory.BLOCKS, 1.0F, getBlockWorld().rand.nextFloat() * 0.1F + 0.8F);
+            if (WorldUtils.spawnGhast(world, pos)) {
+                world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(BWAdvancements.SPAWN_HOPPER_FRIEND::trigger);
+            }
+        }
+
     }
 
     @Override
