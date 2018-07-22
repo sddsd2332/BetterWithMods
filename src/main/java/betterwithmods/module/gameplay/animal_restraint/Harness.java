@@ -1,4 +1,4 @@
-package betterwithmods.module.gameplay.breeding_harness;
+package betterwithmods.module.gameplay.animal_restraint;
 
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
@@ -11,13 +11,15 @@ import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class CapabilityHarness implements ICapabilitySerializable<NBTTagCompound> {
+@SuppressWarnings("ALL")
+public class Harness implements ICapabilitySerializable<NBTTagCompound> {
 
-    @CapabilityInject(CapabilityHarness.class)
-    public static final Capability<CapabilityHarness> HARNESS_CAPABILITY = null;
-    public ItemStack harness = ItemStack.EMPTY;
+    @CapabilityInject(Harness.class)
+    public static final Capability<Harness> HARNESS_CAPABILITY = null;
 
-    public CapabilityHarness() {
+    private ItemStack harness = ItemStack.EMPTY;
+
+    public Harness() {
     }
 
     @Nonnull
@@ -54,14 +56,14 @@ public class CapabilityHarness implements ICapabilitySerializable<NBTTagCompound
         harness = new ItemStack(nbt.getCompoundTag("harness"));
     }
 
-    public static class Storage implements Capability.IStorage<CapabilityHarness> {
+    public static class Storage implements Capability.IStorage<Harness> {
         @Override
-        public NBTBase writeNBT(Capability<CapabilityHarness> capability, CapabilityHarness instance, EnumFacing side) {
+        public NBTBase writeNBT(Capability<Harness> capability, Harness instance, EnumFacing side) {
             return instance.serializeNBT();
         }
 
         @Override
-        public void readNBT(Capability<CapabilityHarness> capability, CapabilityHarness instance, EnumFacing side, NBTBase base) {
+        public void readNBT(Capability<Harness> capability, Harness instance, EnumFacing side, NBTBase base) {
             instance.deserializeNBT((NBTTagCompound) base);
         }
     }

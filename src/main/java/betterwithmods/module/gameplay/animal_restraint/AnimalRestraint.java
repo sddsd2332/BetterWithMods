@@ -1,4 +1,4 @@
-package betterwithmods.module.gameplay.breeding_harness;
+package betterwithmods.module.gameplay.animal_restraint;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
@@ -34,9 +34,9 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.Set;
 
-public class BreedingHarness extends Feature {
+public class AnimalRestraint extends Feature {
 
-    public static final Item BREEDING_HARNESS = new ItemBreedingHarness().setRegistryName("breeding_harness");
+    public static final Item ANIMAL_RESTRAINT = new ItemBreedingHarness().setRegistryName("animal_restraint");
     public static final Set<Class<? extends EntityAnimal>> HARNESS_ANIMALS = Sets.newHashSet();
     private static final ResourceLocation CAPABILITY = new ResourceLocation(BWMod.MODID, "harness");
     private static final Object2BooleanMap<Class<? extends Entity>> HARNESS_CACHE = new Object2BooleanOpenHashMap<>();
@@ -50,31 +50,26 @@ public class BreedingHarness extends Feature {
         }
     }
 
-    public BreedingHarness() {
-    }
-
-    @Override
-    public String getFeatureDescription() {
-        return "Add the Breeding Harness, which can be put on most domesticated animals and making their legs immobile, they are still able to eat food and breed while restrained.";
+    public AnimalRestraint() {
     }
 
     private static void sendPacket(Entity entity) {
-        CapabilityHarness cap = getCapability(entity);
+        Harness cap = getHarnessCapability(entity);
         if (cap != null) {
             BWNetwork.sendToAllAround(new MessageHarness(entity.getEntityId(), cap.getHarness()), entity.getEntityWorld(), entity.getPosition());
         }
     }
 
-    public static CapabilityHarness getCapability(Entity entity) {
-        return entity.getCapability(CapabilityHarness.HARNESS_CAPABILITY, null);
+    public static Harness getHarnessCapability(Entity entity) {
+        return entity.getCapability(Harness.HARNESS_CAPABILITY, null);
     }
 
     public static boolean hasHarness(Entity entity) {
-        CapabilityHarness cap = getCapability(entity);
+        Harness cap = getHarnessCapability(entity);
         return cap != null && cap.getHarness().getItem() instanceof ItemBreedingHarness;
     }
 
-    public static boolean harnessEntity(Entity entity) {
+    private static boolean harnessEntity(Entity entity) {
         if (!(entity instanceof EntityAnimal)) {
             return false;
         }
@@ -94,16 +89,21 @@ public class BreedingHarness extends Feature {
     }
 
     @Override
+    public String getFeatureDescription() {
+        return "Add the Animal Restraint, which can be put on most domesticated animals and making their legs immobile, they are still able to eat food and breed while restrained.";
+    }
+
+    @Override
     public void preInit(FMLPreInitializationEvent event) {
-        BWMItems.registerItem(BREEDING_HARNESS);
-        CapabilityManager.INSTANCE.register(CapabilityHarness.class, new CapabilityHarness.Storage(), CapabilityHarness::new);
+        BWMItems.registerItem(ANIMAL_RESTRAINT);
+        CapabilityManager.INSTANCE.register(Harness.class, new Harness.Storage(), Harness::new);
     }
 
     @SubscribeEvent
     public void onAttach(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (harnessEntity(entity)) {
-            event.addCapability(CAPABILITY, new CapabilityHarness());
+            event.addCapability(CAPABILITY, new Harness());
         }
     }
 
@@ -119,16 +119,17 @@ public class BreedingHarness extends Feature {
     public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         if (event.getWorld().isRemote)
             return;
+
         Entity entity = event.getTarget();
 
-        CapabilityHarness cap = getCapability(entity);
+        Harness cap = getHarnessCapability(entity);
         if (cap != null) {
             ItemStack hand = event.getItemStack();
             ItemStack harness = cap.getHarness();
             if (harness.isEmpty() && !event.getEntityPlayer().isSneaking()) {
                 if (hand.getItem() instanceof ItemBreedingHarness) {
                     cap.setHarness(InvUtils.setCount(hand.copy(), 1));
-                    if(!event.getEntityPlayer().capabilities.isCreativeMode)
+                    if (!event.getEntityPlayer().capabilities.isCreativeMode)
                         hand.shrink(1);
                     event.getWorld().playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.NEUTRAL, 0.5f, 1.3f);
                     event.getWorld().playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_CHAIN, SoundCategory.NEUTRAL, 0.5f, 1.3f);
@@ -146,16 +147,17 @@ public class BreedingHarness extends Feature {
                 event.getEntityPlayer().swingArm(EnumHand.MAIN_HAND);
                 sendPacket(entity);
             }
-
         }
-
     }
 
     @SubscribeEvent
     public void onLivingTick(LivingEvent.LivingUpdateEvent e) {
         EntityLivingBase entity = e.getEntityLiving();
-        if (harnessEntity(entity)) {
-            if (hasHarness(entity)) {
+
+        Harness cap = getHarnessCapability(entity);
+        if (cap != null) {
+            ItemStack harness = cap.getHarness();
+            if (!harness.isEmpty()) {
                 entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(-1);
                 if (entity instanceof EntitySheep && !((EntitySheep) entity).getSheared()) {
                     ((EntitySheep) entity).setSheared(true);

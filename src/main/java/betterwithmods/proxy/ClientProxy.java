@@ -18,8 +18,8 @@ import betterwithmods.manual.api.ManualAPI;
 import betterwithmods.manual.api.prefab.manual.TextureTabIconRenderer;
 import betterwithmods.manual.common.DirectoryDefaultProvider;
 import betterwithmods.manual.common.api.ManualDefinitionImpl;
-import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
-import betterwithmods.module.gameplay.breeding_harness.CapabilityHarness;
+import betterwithmods.module.gameplay.animal_restraint.AnimalRestraint;
+import betterwithmods.module.gameplay.animal_restraint.Harness;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
 import betterwithmods.module.hardcore.needs.HCGloom;
@@ -200,7 +200,7 @@ public class ClientProxy implements IProxy {
     public void syncHarness(int entityId, ItemStack harness) {
         Entity entity = getEntityByID(entityId);
         if (entity != null) {
-            CapabilityHarness cap = BreedingHarness.getCapability(entity);
+            Harness cap = AnimalRestraint.getHarnessCapability(entity);
             if (cap != null) {
                 cap.setHarness(harness);
             }
