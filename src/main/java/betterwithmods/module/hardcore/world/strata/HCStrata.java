@@ -149,7 +149,8 @@ public class HCStrata extends Feature {
                     event.getDrops().clear();
                 }
             }
-            BWMod.logger.info("HarvestDropsEvent pos: {}, state: {}, held: {}, strata: {}", event.getPos(), event.getState(), stack, strata);
+            if(debugging)
+                BWMod.logger.info("HarvestDropsEvent pos: {}, state: {}, held: {}, strata: {}", event.getPos(), event.getState(), stack, strata);
         }
 
     }
@@ -171,7 +172,8 @@ public class HCStrata extends Feature {
             }
             float speed = scale * STRATA_SPEEDS[strata] * event.getOriginalSpeed();
             event.setNewSpeed(speed);
-            BWMod.logger.info("BreakSpeedEvent pos: {}, state: {}, held: {}, strata: {}, speed: {}", event.getPos(), event.getState(), stack, strata, speed);
+            if(debugging)
+                BWMod.logger.info("BreakSpeedEvent pos: {}, state: {}, held: {}, strata: {}, speed: {}", event.getPos(), event.getState(), stack, strata, speed);
         }
     }
 
