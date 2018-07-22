@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.module.Feature;
+import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -19,6 +20,8 @@ public class HCFighting extends Feature {
     public void onKnockback(LivingKnockBackEvent event) {
         Entity attacker = event.getAttacker();
         if (attacker instanceof EntityPlayer) {
+            if (!PlayerHelper.isSurvival((EntityPlayer) attacker))
+                return;
             boolean attack = false;
             for (EnumHand hand : EnumHand.values()) {
                 ItemStack stack = ((EntityPlayer) attacker).getHeldItem(hand);
