@@ -34,10 +34,6 @@ import java.nio.charset.Charset;
 import java.util.*;
 import java.util.Map.Entry;
 
-/**
- * @author mrebhan
- */
-
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
 
     private BlockPos pulley;
@@ -47,6 +43,8 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     private Map<Vec3i, IBlockState> blocks;
     private Map<Vec3i, NBTTagCompound> tiles;
     private AABBArray blockBB;
+
+    private float speed = 0.1f;
 
     public EntityExtendingRope(World worldIn) {
         this(worldIn, null, null, 0);
@@ -58,7 +56,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         this.targetY = targetY;
         if (source != null) {
             this.up = source.getY() < targetY;
-            this.setPositionAndUpdate(source.getX() + 0.5, source.getY(), source.getZ() + 0.5);
+            this.setPosition(source.getX() + 0.5, source.getY(), source.getZ() + 0.5);
         }
         this.blocks = Maps.newHashMap();
         this.tiles = Maps.newHashMap();
@@ -79,13 +77,6 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     @Override
     public float getEyeHeight() {
         return -1;
-    }
-
-    @Override
-    public void setPosition(double x, double y, double z) {
-        if (blocks != null)
-            updatePassengers(posY, y, false);
-        super.setPosition(x, y, z);
     }
 
     @Override
@@ -226,10 +217,6 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
 
     @Override
     public void onUpdate() {
-        this.prevPosX = this.posX;
-        this.prevPosY = this.posY;
-        this.prevPosZ = this.posZ;
-
         if (up) {
             if (posY > targetY) {
                 if (done())
@@ -242,42 +229,44 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             }
         }
 
-        this.setPosition(pulley.getX() + 0.5, this.posY + (up ? 0.1 : -0.1),
-                pulley.getZ() + 0.5);
+        this.prevPosX = this.posX;
+        this.prevPosY = this.posY;
+        this.prevPosZ = this.posZ;
+
+        setPosition(
+                pulley.getX() + 0.5,
+                this.posY + (speed * (up ? 1 : -1)),
+                pulley.getZ() + 0.5
+        );
+
+
+        if (blocks != null)
+            updatePassengers(prevPosY, posY, false);
+
+        this.world.updateEntityWithOptionalForce(this, false);
     }
 
     public void updatePassengers(double posY, double newPosY, boolean b) {
-        HashSet<Entity> entitiesInBlocks = new HashSet<>();
-        HashMap<Entity, Double> entMaxY = new HashMap<>();
-        IBlockState state;
-        for (Vec3i vec : blocks.keySet()) {
-            state = blocks.get(vec);
-            if (getBlockStateHeight(state) > 0) {
-                Vec3d pos = new Vec3d(pulley.getX(), posY, pulley.getZ()).addVector(vec.getX(), vec.getY(), vec.getZ());
-                List<Entity> entities = getEntityWorld().getEntitiesWithinAABB(Entity.class, createAABB(pos, pos.addVector(1, getBlockStateHeight(state), 1)), e -> !(e instanceof EntityExtendingRope));
-                for (Entity e : entities) {
-                    double targetY = pos.y + getBlockStateHeight(state) - 0.01;
-                    if (!entMaxY.containsKey(e) || entMaxY.get(e) < targetY) {
-                        if ((!getEntityWorld().isRemote ^ e instanceof EntityPlayer) || b) {
-                            entitiesInBlocks.add(e);
-                            entMaxY.put(e, targetY);
-                        }
-                    }
-                }
-            }
-        }
-
-        Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0), e -> !(e instanceof EntityExtendingRope) && (!(e instanceof EntityPlayer) || !((EntityPlayer) e).capabilities.isFlying)));
-
+        if (blockBB == null) return;
+        Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0), e -> !(e instanceof EntityExtendingRope)));
+        AABBArray oldBB = blockBB.offset(posX, posY, posZ);
+        AABBArray newBB = blockBB.offset(posX, newPosY, posZ);
         for (Entity e : passengers) {
-            e.move(null, 0, newPosY - posY, 0);
-            e.fallDistance = 0;
-        }
-        for (Entity e : entitiesInBlocks) {
-            e.isAirBorne = false;
-            e.onGround = true;
-            e.motionY = Math.max(up ? 0 : -0.1, e.motionY);
-            e.setPosition(e.posX, Math.max(e.posY, entMaxY.get(e) + newPosY - posY), e.posZ);
+            AxisAlignedBB ebb = e.getEntityBoundingBox();
+            if (!newBB.intersects(ebb)) continue;
+
+            double yoff = -oldBB.calculateYOffset(ebb, posY - newPosY);
+
+            if (yoff != 0) {
+                if (getEntityWorld().isRemote || !(e instanceof EntityPlayer) || b)
+                    e.move(null, 0, yoff, 0);
+
+                e.motionY = up ? 0 : -speed;
+                e.isAirBorne = false;
+                e.onGround = true;
+                e.collided = e.collidedVertically = true;
+                e.fallDistance = 0;
+            }
         }
     }
 
@@ -324,7 +313,6 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                 retries = 0;
             }
         }
-
 
         if (retries > 0) {
             blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InvUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
@@ -383,23 +371,8 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         blocks = deserializeBlockmap(additionalData);
     }
 
-    public int getTargetY() {
-        return this.targetY;
-    }
-
     public void setTargetY(int i) {
         this.targetY = i;
-    }
-
-
-    /*
-    FIXME this is a hack that fixes the odd camera jerking when descending the pulley.
-    FIXME From what I can tell, whenever Minecraft.objecctMousedOver is type entity something is effecting the player's position or motion in bizarre fashions. I have yet to find where this happens.
-    FIXME For the time being, there will be some odd quirks with warping on top of the pulley if you ever collide with any side but better than jumpiness.
-     */
-    @Override
-    public boolean canBeCollidedWith() {
-        return false;
     }
 
     public boolean getUp() {
@@ -458,11 +431,6 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     public void setEntityBoundingBox(@Nonnull AxisAlignedBB bb) {
         rebuildBlockBoundingBox();
         super.setEntityBoundingBox(blockBB != null ? blockBB.offset(this.posX, this.posY, this.posZ) : bb);
-    }
-
-    public AxisAlignedBB getBlockBoundingBox(Vec3i block, IBlockState state) {
-        Vec3d pos = new Vec3d(pulley.getX(), posY, pulley.getZ()).addVector(block.getX(), block.getY(), block.getZ());
-        return new AxisAlignedBB(pos, pos.addVector(1, getBlockStateHeight(state), 1));
     }
 
 

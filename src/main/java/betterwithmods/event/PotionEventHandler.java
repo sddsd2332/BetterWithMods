@@ -97,7 +97,7 @@ public class PotionEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
-        if (event.getHarvester() != null && event.getHarvester().isPotionActive(BWRegistry.POTION_FORTUNE)) {
+        if (event.getHarvester() != null && !event.isSilkTouching() && event.getHarvester().isPotionActive(BWRegistry.POTION_FORTUNE)) {
             PotionEffect effect = event.getHarvester().getActivePotionEffect(BWRegistry.POTION_FORTUNE);
             int level = effect.getAmplifier() + 1;
             if (event.getFortuneLevel() < level) {

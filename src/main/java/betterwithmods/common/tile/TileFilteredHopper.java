@@ -8,6 +8,12 @@ import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.util.IProgressSource;
 import betterwithmods.client.model.filters.ModelWithResource;
 import betterwithmods.common.BWRegistry;
+import betterwithmods.common.advancements.BWAdvancements;
+import betterwithmods.common.blocks.mechanical.BlockMechMachines;
+import betterwithmods.common.blocks.tile.SimpleStackHandler;
+import betterwithmods.common.blocks.tile.TileEntityVisibleInventory;
+import betterwithmods.common.registry.HopperFilter;
+import betterwithmods.common.registry.HopperInteractions;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
@@ -18,12 +24,14 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -31,6 +39,7 @@ import net.minecraftforge.items.IItemHandler;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.List;
 import java.util.Optional;
 
 public class TileFilteredHopper extends TileVisibleInventory implements IMechanicalPower, IProgressSource {

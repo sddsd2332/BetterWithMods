@@ -37,6 +37,10 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
     public EggLayer() {
     }
 
+    public boolean isValidLayer(EntityLivingBase entity) {
+        return !entity.isChild();
+    }
+
     public boolean canLayEgg() {
         return getTicks() <= 0;
     }
@@ -65,20 +69,27 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
         return feedItems;
     }
 
+    private int calculateLayTime(EntityLiving entity) {
+        World world = entity.world;
+
+        int time = (int) (world.getTotalWorldTime() % WorldUtils.Time.DAY.getTicks());
+        int timeLeft = (int) (WorldUtils.Time.DAY.getTicks() - time);
+        int ticks = timeLeft + WorldUtils.TimeFrame.DAWN.randomBetween() / 2;
+        if (WorldUtils.isPast(world, WorldUtils.TimeFrame.NIGHT)) {
+            ticks += WorldUtils.Time.DAY.getTicks();
+        }
+
+        return ticks;
+    }
+
     public void feed(EntityLiving entity, ItemStack stack) {
+        if(!isValidLayer(entity))
+            return;
+
         if (!isFeed()) {
             if (getFeedItems().apply(stack)) {
                 setFeed(true);
-                World world = entity.world;
-
-                int time = (int) (world.getTotalWorldTime() % WorldUtils.Time.DAY.getTicks());
-                int timeLeft = (int) (WorldUtils.Time.DAY.getTicks() - time);
-                int ticks = timeLeft + WorldUtils.TimeFrame.DAWN.randomBetween() / 2;
-                if (WorldUtils.isPast(world, WorldUtils.TimeFrame.NIGHT)) {
-                    ticks += WorldUtils.Time.DAY.getTicks();
-                }
-
-                setTicks(ticks);
+                setTicks(calculateLayTime(entity));
                 stack.shrink(1);
                 entity.attackEntityFrom(new DamageSource("feed"), 0);
             }
@@ -86,6 +97,9 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
     }
 
     public void lay(EntityLivingBase entityLiving) {
+        if(!isValidLayer(entityLiving))
+            return;
+
         entityLiving.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (entityLiving.getRNG().nextFloat() - entityLiving.getRNG().nextFloat()) * 0.2F + 1.0F);
         InvUtils.ejectStackWithOffset(entityLiving.world, entityLiving.getPosition(), getEggItem());
         setFeed(false);

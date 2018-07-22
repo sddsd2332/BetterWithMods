@@ -8,7 +8,11 @@ import betterwithmods.common.tile.TileBucket;
 import betterwithmods.util.AABBArray;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.*;
+import net.minecraft.client.renderer.BlockRendererDispatcher;
+import net.minecraft.client.renderer.BufferBuilder;
+import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.RenderHelper;
+import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
@@ -19,6 +23,11 @@ import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
+
+import betterwithmods.client.model.render.RenderUtils;
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.entity.EntityExtendingRope;
+import betterwithmods.util.AABBArray;
 
 /**
  * @author mrebhan
@@ -56,6 +65,7 @@ public class RenderExtendingRope extends Render<EntityExtendingRope> {
         vertexbuffer.begin(7, DefaultVertexFormats.BLOCK);
         BlockPos blockpos = new BlockPos(entity.posX, entity.getEntityBoundingBox().maxY, entity.posZ);
         GlStateManager.translate(x - blockpos.getX() - 0.5, (float) (y - (double) blockpos.getY()), z - blockpos.getZ() - 0.5);
+        GlStateManager.translate(0, (entity.posY - entity.prevPosY) * partialTicks, 0);
         BlockRendererDispatcher blockrendererdispatcher = Minecraft.getMinecraft().getBlockRendererDispatcher();
 
         int i = 0;

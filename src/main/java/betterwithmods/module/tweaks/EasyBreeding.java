@@ -3,6 +3,8 @@ package betterwithmods.module.tweaks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.ai.eat.EntityAIAnimalEat;
 import betterwithmods.module.Feature;
+import betterwithmods.module.hardcore.creatures.chicken.EggLayer;
+import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.*;
 import net.minecraft.entity.player.EntityPlayer;
@@ -27,6 +29,9 @@ public class EasyBreeding extends Feature {
     private static Ingredient HERD_ANIMAL;
 
     private static Ingredient breedingIngredients(EntityAnimal entity) {
+        EggLayer layer = HCChickens.getLayer(entity);
+        if (layer != null)
+            return layer.getFeedItems();
         if (entity instanceof EntityPig)
             return PIG;
         if (entity instanceof EntitySheep || entity instanceof EntityCow)
@@ -44,7 +49,7 @@ public class EasyBreeding extends Feature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        CHICKEN = new OreIngredient("seeds");
+        CHICKEN = new OreIngredient("seed");
         PIG = Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT, BWMItems.KIBBLE);
         HERD_ANIMAL = Ingredient.fromStacks(new ItemStack(Items.WHEAT));
     }
@@ -67,6 +72,10 @@ public class EasyBreeding extends Feature {
     public void onInteract(PlayerInteractEvent.EntityInteract event) {
         if (event.getTarget() instanceof EntityLivingBase) {
             EntityLivingBase entity = (EntityLivingBase) event.getTarget();
+            //Don't do this for EggLayers
+            if (HCChickens.getLayer(entity) != null)
+                return;
+
             if (entity instanceof EntityAnimal) {
                 EntityAnimal animal = ((EntityAnimal) entity);
                 Ingredient ingredient = breedingIngredients(animal);
@@ -79,10 +88,13 @@ public class EasyBreeding extends Feature {
                     EntityPlayer player = event.getEntityPlayer();
                     EnumHand hand = event.getHand();
                     ItemStack itemstack = player.getHeldItem(hand);
+
+
                     if ((ingredient.apply(itemstack) || animal.isBreedingItem(itemstack)) && animal.getGrowingAge() == 0 && !animal.isInLove()) {
                         if (player.capabilities.isCreativeMode) {
                             itemstack.shrink(1);
                         }
+
                         animal.setInLove(player);
                         event.setCanceled(true);
                         event.setCancellationResult(EnumActionResult.SUCCESS);

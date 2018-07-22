@@ -228,7 +228,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
                 break;
             case X:
                 if (inCenter(hitYFromCenter, hitZFromCenter, 1 / 16f)) {
-                    newFacing = facing;
+                    newFacing = facing.getOpposite();
                 } else if (isMax(hitYFromCenter, hitZFromCenter)) {
                     newFacing = ((hitYFromCenter > 0) ? EnumFacing.UP : EnumFacing.DOWN);
                 } else {
@@ -237,7 +237,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
                 break;
             case Z:
                 if (inCenter(hitYFromCenter, hitXFromCenter, 1 / 16f)) {
-                    newFacing = facing;
+                    newFacing = facing.getOpposite();
                 } else if (isMax(hitYFromCenter, hitXFromCenter)) {
                     newFacing = ((hitYFromCenter > 0) ? EnumFacing.UP : EnumFacing.DOWN);
                 } else {
