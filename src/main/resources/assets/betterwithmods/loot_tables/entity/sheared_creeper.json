@@ -2,11 +2,11 @@
   "pools": [
     {
       "rolls": 1,
-      "name": "main",
+      "name": "niter",
       "entries": [
         {
           "type": "item",
-          "name": "betterwithmods:material",
+          "name": "minecraft:gunpowder",
           "weight": 1,
           "functions": [
             {
@@ -15,10 +15,6 @@
                 "min": 0,
                 "max": 1
               }
-            },
-            {
-              "function": "set_data",
-              "data": 26
             }
           ]
         }

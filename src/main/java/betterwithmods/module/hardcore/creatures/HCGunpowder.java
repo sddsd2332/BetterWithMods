@@ -18,10 +18,16 @@ import java.util.stream.Collectors;
  */
 public class HCGunpowder extends Feature {
     public static List<Class> disableGunpowder = Lists.newArrayList();
+
     @Override
     public void setupConfig() {
 
-        String[] array = loadPropStringList("Disable Gunpowder Drop", "List of entity classes which gunpowder will be replaced with niter", new String[]{"net.minecraft.entity.monster.EntityCreeper","net.minecraft.entity.monster.EntityGhast", "net.minecraft.entity.monster.EntityWitch"});
+        String[] array = loadPropStringList("Disable Gunpowder Drop", "List of entity classes which gunpowder will be replaced with niter", new String[]{
+                "net.minecraft.entity.monster.EntityCreeper",
+                "net.minecraft.entity.monster.EntityGhast",
+                "net.minecraft.entity.monster.EntityWitch",
+                "betterwithmods.common.entity.EntityShearedCreeper"
+        });
         disableGunpowder = Arrays.stream(array).map(clazz -> {
             try {
                 return Class.forName(clazz);
