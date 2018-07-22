@@ -8,7 +8,6 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
-import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipe;
@@ -27,18 +26,6 @@ import java.util.Map;
 import java.util.Set;
 
 public class RecipeShapedColor extends ShapedOreRecipe {
-
-    public RecipeShapedColor(ResourceLocation group, Block result, Object... recipe) {
-        super(group, result, recipe);
-    }
-
-    public RecipeShapedColor(ResourceLocation group, Item result, Object... recipe) {
-        super(group, result, recipe);
-    }
-
-    public RecipeShapedColor(ResourceLocation group, @Nonnull ItemStack result, Object... recipe) {
-        super(group, result, recipe);
-    }
 
     public RecipeShapedColor(ResourceLocation group, @Nonnull ItemStack result, CraftingHelper.ShapedPrimer primer) {
         super(group, result, primer);
@@ -67,11 +54,11 @@ public class RecipeShapedColor extends ShapedOreRecipe {
 
         int rgb = ((components[0] & 0xff) << 16) | ((components[1] & 0x0ff) << 8) | (components[2] & 0xff);
 
-        ItemStack output = getRecipeOutput().copy();
+        ItemStack output = this.output;
         if (output.getItem() instanceof ItemArmor) {
             ((ItemArmor) output.getItem()).setColor(output, rgb);
         }
-        return output;
+        return output.copy();
     }
 
 
@@ -86,6 +73,7 @@ public class RecipeShapedColor extends ShapedOreRecipe {
     }
 
 
+    @SuppressWarnings("unused")
     public static class Factory implements IRecipeFactory {
         @Override
         public IRecipe parse(JsonContext context, JsonObject json) {

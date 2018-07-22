@@ -27,12 +27,7 @@ public class CraftingRecipes extends Feature {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        BWMRecipes.addRecipe(new RecipeArmorDye(
-                Ingredient.fromItems(
-                        BWMItems.LEATHER_TANNED_HELMET, BWMItems.LEATHER_TANNED_CHEST, BWMItems.LEATHER_TANNED_PANTS, BWMItems.LEATHER_TANNED_BOOTS,
-                        BWMItems.WOOL_HELMET, BWMItems.WOOL_CHEST, BWMItems.WOOL_PANTS, BWMItems.WOOL_BOOTS
-                )
-        ));
+        BWMRecipes.addRecipe(new RecipeArmorDye(Ingredient.fromItems(BWMItems.LEATHER_TANNED_HELMET, BWMItems.LEATHER_TANNED_CHEST, BWMItems.LEATHER_TANNED_PANTS, BWMItems.LEATHER_TANNED_BOOTS)));
     }
 
     @Override
