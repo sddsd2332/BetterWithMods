@@ -128,7 +128,7 @@ public class AnimalRestraint extends Feature {
     public void onAttach(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (harnessEntity(entity)) {
-            event.addCapability(CAPABILITY, new CapabilityHarness());
+            event.addCapability(CAPABILITY, new Harness());
         }
     }
 

@@ -1,4 +1,4 @@
-package betterwithmods.module.gameplay.breeding_harness;
+package betterwithmods.module.gameplay.animal_restraint;
 
 import betterwithmods.module.gameplay.breeding_harness.models.ModelSheepHarness;
 import net.minecraft.client.model.ModelBase;
@@ -25,7 +25,7 @@ public class LayerHarness<T extends EntityLiving> implements LayerRenderer<T> {
     public void doRenderLayer(T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
         if(entity instanceof EntitySheep)
             model = new ModelSheepHarness(0.5f);
-        if (BreedingHarness.hasHarness(entity)) {
+        if (AnimalRestraint.hasHarness(entity)) {
             GlStateManager.pushMatrix();
             render.bindTexture(texture);
             this.model.isChild = entity.isChild();
