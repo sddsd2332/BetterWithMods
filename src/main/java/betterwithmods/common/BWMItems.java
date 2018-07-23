@@ -108,10 +108,6 @@ public final class BWMItems {
     public static final Item LEATHER_TANNED_PANTS = new ItemLeatherTannedArmor(EntityEquipmentSlot.LEGS).setRegistryName("leather_tanned_pants");
     public static final Item LEATHER_TANNED_BOOTS = new ItemLeatherTannedArmor(EntityEquipmentSlot.FEET).setRegistryName("leather_tanned_boots");
 
-    public static final Item WOOL_HELMET = new ItemWoolArmor(EntityEquipmentSlot.HEAD).setRegistryName("wool_helmet");
-    public static final Item WOOL_CHEST = new ItemWoolArmor(EntityEquipmentSlot.CHEST).setRegistryName("wool_chest");
-    public static final Item WOOL_PANTS = new ItemWoolArmor(EntityEquipmentSlot.LEGS).setRegistryName("wool_pants");
-    public static final Item WOOL_BOOTS = new ItemWoolArmor(EntityEquipmentSlot.FEET).setRegistryName("wool_boots");
 
     private static final List<Item> ITEMS = new ArrayList<>();
 

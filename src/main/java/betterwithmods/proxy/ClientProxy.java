@@ -40,9 +40,6 @@ import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.passive.EntityCow;
-import net.minecraft.entity.passive.EntityPig;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -176,15 +173,19 @@ public class ClientProxy implements IProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityMiningCharge.class, RenderMiningCharge::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityExtendingRope.class, RenderExtendingRope::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityShearedCreeper.class, RenderShearedCreeper::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityCow.class, RenderCowHarness::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntityPig.class, RenderPigHarness::new);
-        RenderingRegistry.registerEntityRenderingHandler(EntitySheep.class, RenderSheepHarness::new);
+
+
+//        RenderingRegistry.registerEntityRenderingHandler(EntityCow.class, RenderCowHarness::new);
+//        RenderingRegistry.registerEntityRenderingHandler(EntityPig.class, RenderPigHarness::new);
+//        RenderingRegistry.registerEntityRenderingHandler(EntitySheep.class, RenderSheepHarness::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityBroadheadArrow.class, RenderBroadheadArrow::new);
         RenderingRegistry.registerEntityRenderingHandler(EntitySpiderWeb.class, manager -> new RenderSnowball<>(manager, Item.getItemFromBlock(Blocks.WEB), Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityJungleSpider.class, RenderJungleSpider::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityTentacle.class, RenderTentacle::new);
         RenderingRegistry.registerEntityRenderingHandler(EntitySitMount.class, RenderInvisible::new);
     }
+
+
 
     @Override
     public void addResourceOverride(String space, String dir, String file, String ext) {

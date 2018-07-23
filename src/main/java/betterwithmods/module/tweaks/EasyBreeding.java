@@ -91,10 +91,9 @@ public class EasyBreeding extends Feature {
 
 
                     if ((ingredient.apply(itemstack) || animal.isBreedingItem(itemstack)) && animal.getGrowingAge() == 0 && !animal.isInLove()) {
-                        if (player.capabilities.isCreativeMode) {
+                        if (!player.capabilities.isCreativeMode) {
                             itemstack.shrink(1);
                         }
-
                         animal.setInLove(player);
                         event.setCanceled(true);
                         event.setCancellationResult(EnumActionResult.SUCCESS);

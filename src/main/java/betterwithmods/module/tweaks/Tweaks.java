@@ -35,7 +35,6 @@ public class Tweaks extends Module {
         registerFeature(new DarkQuartz());
         registerFeature(new CactusSkeleton());
         registerFeature(new BatWings());
-//        registerFeature(new MushroomFarming());
         registerFeature(new FoodPoisoning());
         registerFeature(new Notes());
         registerFeature(new MineshaftGeneration());
@@ -50,6 +49,8 @@ public class Tweaks extends Module {
         registerFeature(new NoSkeletonTrap());
         registerFeature(new SilverfishClay());
         registerFeature(new AnimalBirth());
+        registerFeature(new WoolArmor().recipes());
+        //        registerFeature(new MushroomFarming());
     }
 
     @Override

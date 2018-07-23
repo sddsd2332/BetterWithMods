@@ -1,16 +1,23 @@
 package betterwithmods.module.gameplay.animal_restraint;
 
 import betterwithmods.BWMod;
+import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemBreedingHarness;
 import betterwithmods.module.Feature;
+import betterwithmods.module.gameplay.breeding_harness.models.ModelCowHarness;
+import betterwithmods.module.gameplay.breeding_harness.models.ModelSheepHarness;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessageHarness;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
+import net.minecraft.client.model.ModelBase;
+import net.minecraft.client.model.ModelPig;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -28,8 +35,11 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.Set;
@@ -99,11 +109,26 @@ public class AnimalRestraint extends Feature {
         CapabilityManager.INSTANCE.register(Harness.class, new Harness.Storage(), Harness::new);
     }
 
+
+    private static <T extends EntityLiving> void addLayer(Class<T> entity, ModelBase model, ResourceLocation texture) {
+        RenderLiving<T> render = RenderUtils.getRender(entity);
+        LayerHarness<T> layer = new LayerHarness<>(model, render, texture);
+        render.addLayer(layer);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void postInitClient(FMLPostInitializationEvent event) {
+        addLayer(EntityCow.class, new ModelCowHarness(0.5f), new ResourceLocation(BWMod.MODID, "textures/entity/cow_harness.png"));
+        addLayer(EntityPig.class, new ModelPig(0.5f), new ResourceLocation(BWMod.MODID, "textures/entity/pig_harness.png"));
+        addLayer(EntitySheep.class, new ModelSheepHarness(0.5f), new ResourceLocation(BWMod.MODID, "textures/entity/sheep_harness.png"));
+    }
+
     @SubscribeEvent
     public void onAttach(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (harnessEntity(entity)) {
-            event.addCapability(CAPABILITY, new Harness());
+            event.addCapability(CAPABILITY, new CapabilityHarness());
         }
     }
 

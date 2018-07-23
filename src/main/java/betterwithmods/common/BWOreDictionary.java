@@ -50,6 +50,38 @@ public class BWOreDictionary {
         toolEffectiveOre.putAll("axe", Lists.newArrayList("logWood", "plankWood"));
         toolEffectiveOre.putAll("mattock", Lists.newArrayList("stone", "cobblestone"));
 
+        //TODO for 1.13
+        registerOre("wool", new ItemStack(Blocks.WOOL, OreDictionary.WILDCARD_VALUE));
+        registerOre("scroll", BWMItems.ARCANE_SCROLL);
+        registerOre("book", BWMItems.MANUAL, Items.BOOK, Items.WRITTEN_BOOK);
+        registerOre("dung", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.DUNG));
+        registerOre("padding", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.PADDING));
+        registerOre("soap", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SOAP));
+        registerOre("archimedesScrew", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SCREW));
+        registerOre("filament", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.FILAMENT));
+        registerOre("latchRedstone", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.REDSTONE_LATCH));
+        registerOre("plateSoulforgedSteel", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.PLATE_STEEL));
+        registerOre("arrowSoulforgedSteel", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BROADHEAD));
+        registerOre("springSoulforgedSteel", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.STEEL_SPRING));
+        registerOre("gearSoulforgedSteel", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.STEEL_GEAR));
+        registerOre("gearWood", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.GEAR));
+        registerOre("cropHemp", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HEMP));
+        registerOre("dyeBrown", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.DUNG));
+        registerOre("dung", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.DUNG));
+        registerOre("slimeball", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.GLUE));
+        registerOre("glue", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.GLUE));
+        registerOre("ingotSoulforgedSteel", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.INGOT_STEEL));
+        registerOre("dustNetherrack", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.GROUND_NETHERRACK));
+        registerOre("dustHellfire", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HELLFIRE_DUST));
+        registerOre("dustSoul", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SOUL_DUST));
+        registerOre("dustWood", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SOUL_DUST));
+        registerOre("ingotConcentratedHellfire", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.CONCENTRATED_HELLFIRE));
+        registerOre("dustCoal", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.COAL_DUST));
+        registerOre("dustPotash", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.POTASH));
+        registerOre("dustWood", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SAWDUST));
+        registerOre("dustSulfur", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BRIMSTONE));
+        registerOre("dustSaltpeter", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.NITER));
+        registerOre("nuggetSoulforgedSteel", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.NUGGET_STEEL));
         registerOre("book", BWMItems.MANUAL);
         registerOre("dung", ItemMaterial.getStack(ItemMaterial.EnumMaterial.DUNG));
         registerOre("padding", ItemMaterial.getStack(ItemMaterial.EnumMaterial.PADDING));
@@ -372,6 +404,10 @@ public class BWOreDictionary {
             }
         }
         return blockVariant;
+    }
+
+    public static List<Ingredient> fromOres(String... ores) {
+        return Arrays.stream(ores).map(OreIngredient::new).collect(Collectors.toList());
     }
 
     public static class Ore extends OreIngredient {

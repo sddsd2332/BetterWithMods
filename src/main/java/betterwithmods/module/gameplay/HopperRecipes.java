@@ -85,10 +85,35 @@ public class HopperRecipes extends Feature {
                 new IngredientSpecial(stack -> stack.getMaxStackSize() > 1)
         )));
 
-        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(new ResourceLocation(BWMod.MODID, "slats"), new OreIngredient("slats"), Lists.newArrayList(
-                //TODO flat items
-                new IngredientSpecial(stack -> true)
-        )) {
+        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":slats", new OreIngredient("slats"),
+                BWOreDictionary.fromOres(
+                        "paper",
+                        "scroll",
+                        "string",
+                        "fiberHemp",
+                        "hideTanned",
+                        "hideTanned",
+                        "hideBelt",
+                        "hideScoured",
+                        "hideStrap",
+                        "leather",
+                        "wool"
+                )
+        ));
+        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(new ResourceLocation(BWMod.MODID, "slats"), new OreIngredient("slats"),
+                BWOreDictionary.fromOres(
+                        "paper",
+                        "scroll",
+                        "string",
+                        "fiberHemp",
+                        "hideTanned",
+                        "hideTanned",
+                        "hideBelt",
+                        "hideScoured",
+                        "hideStrap",
+                        "leather",
+                        "wool"
+                )) {
             @Override
             public ModelWithResource getModelOverride(ItemStack filter) {
                 return new ModelSlats(filter);

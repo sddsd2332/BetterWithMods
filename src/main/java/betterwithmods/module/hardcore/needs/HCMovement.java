@@ -75,7 +75,10 @@ public class HCMovement extends Feature {
     public void onWalk(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             EntityPlayer player = event.player;
+            if(player.isRiding())
+                return;
             float speed = 0;
+
             if (player.onGround) {
                 BlockPos blockpos = new BlockPos(MathHelper.floor(player.posX), MathHelper.floor(player.posY - 0.2D), MathHelper.floor(player.posZ));
                 IBlockState state = player.world.getBlockState(blockpos);
