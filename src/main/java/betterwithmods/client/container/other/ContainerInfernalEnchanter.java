@@ -110,7 +110,7 @@ public class ContainerInfernalEnchanter extends Container {
             Enchantment enchantment = ItemArcaneScroll.getEnchantment(scroll);
             if (enchantment == null)
                 return false;
-            enchantment = new InfernalEnchantment(enchantment);
+
             Set<Enchantment> enchantments = EnchantmentHelper.getEnchantments(item).keySet();
             if (enchantments.contains(enchantment))
                 return false;
@@ -118,7 +118,7 @@ public class ContainerInfernalEnchanter extends Container {
                 if (e != null && !e.isCompatibleWith(enchantment))
                     return false;
             }
-
+            enchantment = new InfernalEnchantment(enchantment);
             if (item.getItem().canApplyAtEnchantingTable(item, enchantment)) {
                 return true;
             }
@@ -220,12 +220,14 @@ public class ContainerInfernalEnchanter extends Container {
                 ItemStack scroll = this.handler.getStackInSlot(0);
                 Enchantment enchantment = ItemArcaneScroll.getEnchantment(scroll);
                 if (enchantment != null) {
-                    scroll.shrink(1);
-                    item.addEnchantment(enchantment, levelIndex + 1);
-                    player.onEnchant(item, this.enchantLevels[levelIndex]);
-                    BWAdvancements.INFERNAL_ENCHANTED.trigger((EntityPlayerMP) player, item, this.enchantLevels[levelIndex]);
-                    tile.getWorld().playSound(null, tile.getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F, tile.getWorld().rand.nextFloat() * 0.1F + 0.9F);
-                    onContextChanged(this.handler);
+                    if (!EnchantmentHelper.getEnchantments(item).containsKey(enchantment)) {
+                        scroll.shrink(1);
+                        item.addEnchantment(enchantment, levelIndex + 1);
+                        player.onEnchant(item, this.enchantLevels[levelIndex]);
+                        BWAdvancements.INFERNAL_ENCHANTED.trigger((EntityPlayerMP) player, item, this.enchantLevels[levelIndex]);
+                        tile.getWorld().playSound(null, tile.getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F, tile.getWorld().rand.nextFloat() * 0.1F + 0.9F);
+                        onContextChanged(this.handler);
+                    }
                 }
             }
             return true;
