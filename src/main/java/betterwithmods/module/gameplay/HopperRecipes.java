@@ -74,10 +74,21 @@ public class HopperRecipes extends Feature {
                 new IngredientSpecial(stack -> stack.getMaxStackSize() > 1)
         )));
 
-        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":slats", new OreIngredient("slats"), Lists.newArrayList(
-                //TODO flat items
-                new IngredientSpecial(stack -> true)
-        )));
+        BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(BWMod.MODID + ":slats", new OreIngredient("slats"),
+                BWOreDictionary.fromOres(
+                        "paper",
+                        "scroll",
+                        "string",
+                        "fiberHemp",
+                        "hideTanned",
+                        "hideTanned",
+                        "hideBelt",
+                        "hideScoured",
+                        "hideStrap",
+                        "leather",
+                        "wool"
+                )
+        ));
 
         HopperInteractions.addHopperRecipe(new HopperInteractions.SoulUrnRecipe(new OreIngredient("dustNetherrack"), ItemStack.EMPTY, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HELLFIRE_DUST)));
 

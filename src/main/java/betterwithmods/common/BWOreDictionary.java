@@ -55,6 +55,9 @@ public class BWOreDictionary {
         toolEffectiveOre.putAll("axe", Lists.newArrayList("logWood", "plankWood"));
         toolEffectiveOre.putAll("mattock", Lists.newArrayList("stone", "cobblestone"));
 
+        //TODO for 1.13
+        registerOre("wool", new ItemStack(Blocks.WOOL, OreDictionary.WILDCARD_VALUE));
+        registerOre("scroll", BWMItems.ARCANE_SCROLL);
         registerOre("book", BWMItems.MANUAL, Items.BOOK, Items.WRITTEN_BOOK);
         registerOre("dung", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.DUNG));
         registerOre("padding", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.PADDING));
@@ -116,6 +119,7 @@ public class BWOreDictionary {
         registerOre("hideScoured", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SCOURED_LEATHER));
         registerOre("hideStrap", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.LEATHER_STRAP));
         registerOre("leather", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.LEATHER_CUT));
+
 
         registerOre("fiberHemp", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HEMP_FIBERS));
         registerOre("fabricHemp", ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.HEMP_CLOTH));
@@ -353,6 +357,10 @@ public class BWOreDictionary {
             }
         }
         return wood;
+    }
+
+    public static List<Ingredient> fromOres(String... ores) {
+        return Arrays.stream(ores).map(OreIngredient::new).collect(Collectors.toList());
     }
 
     public static class Ore extends OreIngredient {
