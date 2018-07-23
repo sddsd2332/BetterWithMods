@@ -8,11 +8,13 @@ import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.texture.TextureUtil;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.client.resources.IResource;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -23,6 +25,8 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.client.model.ModelLoaderRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.lwjgl.opengl.GL11;
 
 import java.awt.image.BufferedImage;
@@ -36,6 +40,12 @@ public class RenderUtils {
     public static float FLUID_OFFSET = 0.005f;
     private static HashMap<String, ModelWithResource> filterLocations = new HashMap<>();
     private static RenderItem renderItem;
+
+    @SideOnly(Side.CLIENT)
+    @SuppressWarnings("unchecked")
+    public static <T extends EntityLiving> RenderLiving<T> getRender(Class<T> entity) {
+        return (RenderLiving<T>) Minecraft.getMinecraft().getRenderManager().entityRenderMap.get(entity);
+    }
 
     public static String fromStack(ItemStack stack) {
         return stack.getItem().getRegistryName().toString() + ":" + stack.getMetadata();
