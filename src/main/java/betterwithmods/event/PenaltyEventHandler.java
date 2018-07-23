@@ -57,12 +57,14 @@ public class PenaltyEventHandler {
     public static void onPlayerUpdate(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            if (!PlayerHelper.isSurvival(player)) {
+
+
+
+            if (!PlayerHelper.isSurvival(player) || player.isRiding()) {
                 //Remove the modifier when gamemode changes.
                 PlayerHelper.removeModifier(player, SharedMonsterAttributes.MOVEMENT_SPEED, PlayerHelper.PENALTY_SPEED_UUID);
                 return;
             }
-
             //Speed
             double speed = BWRegistry.PENALTY_HANDLERS.getSpeedModifier(player);
             if (speed != 0) {
