@@ -33,6 +33,8 @@ import java.nio.charset.Charset;
 import java.util.*;
 import java.util.Map.Entry;
 
+import static java.lang.Math.max;
+
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
 
     private BlockPos pulley;
@@ -260,7 +262,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                 if (getEntityWorld().isRemote || !(e instanceof EntityPlayer) || b)
                     e.move(null, 0, yoff, 0);
 
-                e.motionY = up ? 0 : -speed;
+                e.motionY = max(up ? 0 : -0.1, e.motionY);
                 e.isAirBorne = false;
                 e.onGround = true;
                 e.collided = e.collidedVertically = true;
