@@ -37,14 +37,12 @@ import static java.lang.Math.max;
 
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
 
+    public AABBArray blockBB;
     private BlockPos pulley;
     private int targetY;
     private boolean up;
-
     private Map<Vec3i, IBlockState> blocks;
     private Map<Vec3i, NBTTagCompound> tiles;
-    private AABBArray blockBB;
-
     private float speed = 0.1f;
 
     public EntityExtendingRope(World worldIn) {
@@ -216,6 +214,10 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         }
     }
 
+    private double getSpeed() {
+        return up ? speed : -speed;
+    }
+
     @Override
     public void onUpdate() {
         if (up) {
@@ -236,7 +238,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
 
         setPosition(
                 pulley.getX() + 0.5,
-                this.posY + (speed * (up ? 1 : -1)),
+                this.posY + getSpeed(),
                 pulley.getZ() + 0.5
         );
 
@@ -249,9 +251,10 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
 
     public void updatePassengers(double posY, double newPosY, boolean b) {
         if (blockBB == null) return;
-        Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, AABBArray.toAABB(this.getEntityBoundingBox()).expand(0, 0.5, 0).offset(0, 0.5, 0), e -> !(e instanceof EntityExtendingRope)));
+
         AABBArray oldBB = blockBB.offset(posX, posY, posZ);
         AABBArray newBB = blockBB.offset(posX, newPosY, posZ);
+        Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, newBB, e -> !(e instanceof EntityExtendingRope)));
         for (Entity e : passengers) {
             AxisAlignedBB ebb = e.getEntityBoundingBox();
             if (!newBB.intersects(ebb)) continue;
@@ -262,7 +265,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                 if (getEntityWorld().isRemote || !(e instanceof EntityPlayer) || b)
                     e.move(null, 0, yoff, 0);
 
-                e.motionY = max(up ? 0 : -0.1, e.motionY);
+                e.motionY = max(getSpeed(), e.motionY);
                 e.isAirBorne = false;
                 e.onGround = true;
                 e.collided = e.collidedVertically = true;
@@ -319,7 +322,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InvUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
         }
 
-        updatePassengers(posY, targetY + 0.25, true);
+        updatePassengers(posY, targetY + 1, true);
     }
 
     private boolean done() {
@@ -433,7 +436,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         rebuildBlockBoundingBox();
         super.setEntityBoundingBox(blockBB != null ? blockBB.offset(this.posX, this.posY, this.posZ) : bb);
     }
-    
+
 
     @Override
     @SideOnly(Side.CLIENT)

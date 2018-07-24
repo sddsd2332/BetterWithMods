@@ -1,25 +1,21 @@
 package betterwithmods.client.render;
 
+import betterwithmods.client.model.render.RenderUtils;
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.entity.EntityExtendingRope;
+import betterwithmods.util.AABBArray;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.renderer.BlockRendererDispatcher;
-import net.minecraft.client.renderer.BufferBuilder;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.Tessellator;
+import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
-
-import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.entity.EntityExtendingRope;
-import betterwithmods.util.AABBArray;
 
 /**
  * @author mrebhan
@@ -80,7 +76,9 @@ public class RenderExtendingRope extends Render<EntityExtendingRope> {
         RenderHelper.enableStandardItemLighting();
         GlStateManager.popMatrix();
 
-        RenderUtils.renderDebugBoundingBox(x, y, z, AABBArray.getParts(entity.getEntityBoundingBox().offset(-entity.posX, -entity.posY, -entity.posZ)));
+        RenderUtils.renderBoundingBox(new Vec3d(x,y,z), new Vec3d(0xFF,0,0), entity.blockBB);
+        RenderUtils.renderDebugBoundingBox(x, y, z, AABBArray.toAABB(entity.getEntityBoundingBox()).grow(1/16d).offset(-entity.posX, -entity.posY, -entity.posZ));
+//        RenderUtils.renderDebugBoundingBox(x, y, z, AABBArray.getParts(entity.getEntityBoundingBox().offset(-entity.posX, -entity.posY, -entity.posZ)));
 
         super.doRender(entity, x, y, z, entityYaw, partialTicks);
     }
