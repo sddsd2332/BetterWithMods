@@ -8,6 +8,7 @@ import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
+import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.*;
 import net.minecraft.item.crafting.IRecipe;
@@ -26,7 +27,18 @@ import java.util.Map;
 import java.util.Set;
 
 public class RecipeShapedColor extends ShapedOreRecipe {
+    
+    public RecipeShapedColor(ResourceLocation group, Block result, Object... recipe) {
+        super(group, result, recipe);
+    }
 
+    public RecipeShapedColor(ResourceLocation group, Item result, Object... recipe) {
+        super(group, result, recipe);
+    }
+
+    public RecipeShapedColor(ResourceLocation group, @Nonnull ItemStack result, Object... recipe) {
+        super(group, result, recipe);
+    }
     public RecipeShapedColor(ResourceLocation group, @Nonnull ItemStack result, CraftingHelper.ShapedPrimer primer) {
         super(group, result, primer);
     }
