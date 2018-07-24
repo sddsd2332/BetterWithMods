@@ -27,7 +27,7 @@ import java.util.Map;
 import java.util.Set;
 
 public class RecipeShapedColor extends ShapedOreRecipe {
-    
+
     public RecipeShapedColor(ResourceLocation group, Block result, Object... recipe) {
         super(group, result, recipe);
     }

@@ -61,6 +61,7 @@ public class BreedingHarness extends Feature {
 
 
 
+    @SideOnly(Side.CLIENT)
     private static <T extends EntityLiving> void addLayer(Class<T> entity, ModelBase model, ResourceLocation texture) {
         RenderLiving<T> render = RenderUtils.getRender(entity);
         LayerHarness<T> layer = new LayerHarness<>(model, render, texture);
