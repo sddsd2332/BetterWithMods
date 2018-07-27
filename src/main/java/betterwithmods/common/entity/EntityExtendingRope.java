@@ -1,14 +1,8 @@
 package betterwithmods.common.entity;
 
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
-import betterwithmods.module.GlobalConfig;
-import betterwithmods.util.AABBArray;
-import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
+
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRedstoneWire;
@@ -25,16 +19,32 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import net.minecraftforge.event.world.GetCollisionBoxesEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.nio.charset.Charset;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Map;
 import java.util.Map.Entry;
+import java.util.Set;
+
+import betterwithmods.BWMod;
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
+import betterwithmods.module.GlobalConfig;
+import betterwithmods.util.AABBArray;
+import betterwithmods.util.InvUtils;
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 
 import static java.lang.Math.max;
 
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
 
     public AABBArray blockBB;
@@ -62,6 +72,15 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         this.blockBB = null;
         this.setSize(0.1F, 1F);
         this.ignoreFrustumCheck = true;
+    }
+
+    @Override
+    public void setPosition(double x, double y, double z) {
+        double pY = posY;
+
+        super.setPosition(x, y, z);
+
+        if (blocks != null) updatePassengers(pY, posY, false);
     }
 
     private static AxisAlignedBB createAABB(Vec3d part1, Vec3d part2) {
@@ -242,16 +261,11 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                 pulley.getZ() + 0.5
         );
 
-
-        if (blocks != null)
-            updatePassengers(prevPosY, posY, false);
-
         this.world.updateEntityWithOptionalForce(this, false);
     }
 
     public void updatePassengers(double posY, double newPosY, boolean b) {
-        if (blockBB == null) return;
-
+        if (blockBB == null || world == null) return;
         AABBArray oldBB = blockBB.offset(posX, posY, posZ);
         AABBArray newBB = blockBB.offset(posX, newPosY, posZ);
         Set<Entity> passengers = Sets.newHashSet(getEntityWorld().getEntitiesWithinAABB(Entity.class, newBB, e -> !(e instanceof EntityExtendingRope)));
@@ -265,7 +279,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                 if (getEntityWorld().isRemote || !(e instanceof EntityPlayer) || b)
                     e.move(null, 0, yoff, 0);
 
-                e.motionY = max(getSpeed(), e.motionY);
+                e.motionY = up ? 0 : -speed;
                 e.isAirBorne = false;
                 e.onGround = true;
                 e.collided = e.collidedVertically = true;
@@ -437,14 +451,19 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         super.setEntityBoundingBox(blockBB != null ? blockBB.offset(this.posX, this.posY, this.posZ) : bb);
     }
 
-
     @Override
-    @SideOnly(Side.CLIENT)
     public AxisAlignedBB getCollisionBoundingBox() {
         return (this.getEntityBoundingBox() instanceof AABBArray
                 ? ((AABBArray) this.getEntityBoundingBox()).forEach(i -> i.setMaxY(i.maxY - 0.125))
                 : this.getEntityBoundingBox());
     }
 
+    // Handle collision for players only on the client side
+    @SubscribeEvent
+    public static void getCollisionBoxes(GetCollisionBoxesEvent e) {
+        if (e.getEntity() instanceof EntityPlayer && !e.getEntity().world.isRemote) {
+            e.getCollisionBoxesList().removeIf(it -> it instanceof AABBArray);
+        }
+    }
 
 }
