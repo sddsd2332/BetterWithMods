@@ -2,7 +2,7 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "side": "minecraft:blocks/planks_oak",
+      "side": "betterwithmods:blocks/pump_side",
       "side_grate": "betterwithmods:blocks/pump_grate",
       "top": "betterwithmods:blocks/pump_top",
       "bottom": "betterwithmods:blocks/pump_bottom",
@@ -10,7 +10,7 @@
       "south": "#side",
       "east": "#side",
       "west": "#side",
-      "particle": "minecraft:blocks/planks_oak"
+      "particle": "#side"
     },
     "model": "betterwithmods:screw_pump",
     "uvlock": true

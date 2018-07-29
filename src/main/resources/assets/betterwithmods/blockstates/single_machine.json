@@ -38,12 +38,11 @@
         "model": "betterwithmods:hopper",
         "textures": {
           "up": "betterwithmods:blocks/hopper_top",
-          "side": "blocks/planks_oak"
+          "side": "betterwithmods:blocks/hopper_side"
         }
       },
       "turntable": {
         "textures": {
-          "invfill": "blocks/planks_oak",
           "up": "blocks/piston_top_normal",
           "down": "betterwithmods:blocks/turntable_bottom",
           "side": "betterwithmods:blocks/turntable_side",

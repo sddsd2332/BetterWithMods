@@ -4,7 +4,7 @@
     "textures": {
       "particle": "betterwithmods:blocks/saw_top",
       "front": "betterwithmods:blocks/saw_top",
-      "side": "blocks/planks_oak",
+      "side": "betterwithmods:blocks/saw_side",
       "sawon": "betterwithmods:blocks/saw_blade_on",
       "sawoff": "betterwithmods:blocks/saw_blade_off",
       "sawstate": "#sawoff"
