@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.items.ItemMaterial;
 import net.minecraft.block.Block;
@@ -41,7 +40,7 @@ public class BlockHemp extends BlockCrops implements IPlantable {
 
     public BlockHemp() {
         super();
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setDefaultState(getDefaultState().withProperty(TOP, false));
     }
 

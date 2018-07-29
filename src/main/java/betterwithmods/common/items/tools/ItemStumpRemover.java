@@ -1,6 +1,5 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +21,7 @@ import javax.annotation.Nonnull;
 public class ItemStumpRemover extends Item {
     public ItemStumpRemover() {
         super();
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setMaxDamage(0);
         this.setHasSubtypes(false);
         this.maxStackSize = 16;

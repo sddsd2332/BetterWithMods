@@ -1,6 +1,5 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWOreDictionary;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.SoundEvents;
@@ -16,7 +15,7 @@ public class ItemLeatherTannedArmor extends BWMArmor {
 
     public ItemLeatherTannedArmor(EntityEquipmentSlot equipmentSlotIn) {
         super(LEATHER_TANNED, equipmentSlotIn, "leather_tanned");
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Override

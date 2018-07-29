@@ -1,6 +1,5 @@
 package betterwithmods.common.items;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.entity.EntityDynamite;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -19,7 +18,7 @@ import javax.annotation.Nonnull;
 public class ItemDynamite extends Item {
     public ItemDynamite() {
         super();
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Nonnull

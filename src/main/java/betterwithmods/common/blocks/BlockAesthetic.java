@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -29,7 +28,6 @@ public class BlockAesthetic extends BWMBlock {
     public BlockAesthetic(EnumType type) {
         super(Material.ROCK);
         this.type = type;
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
         this.setRegistryName(type.getName());
     }
 

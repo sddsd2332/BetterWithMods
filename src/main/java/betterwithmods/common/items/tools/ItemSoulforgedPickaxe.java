@@ -1,6 +1,5 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
@@ -19,7 +18,7 @@ import java.util.Set;
 public class ItemSoulforgedPickaxe extends ItemPickaxe {
     public ItemSoulforgedPickaxe() {
         super(BWMItems.SOULFORGED_STEEL);
-        setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Override

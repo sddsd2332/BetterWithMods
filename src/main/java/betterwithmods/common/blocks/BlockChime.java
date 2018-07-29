@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWSounds;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -38,7 +37,7 @@ public class BlockChime extends BWMBlock {
     private BlockChime(BlockPlanks.EnumType type, Material material) {
         super(material);
         this.setHardness(2.0F);
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setSoundType(SoundType.WOOD);
         this.setRegistryName((material == Material.WOOD ? "bamboo" : "metal") + "_chime_" + type.getName());
         this.setChimeSound(material == Material.IRON ? BWSounds.METALCHIME : BWSounds.WOODCHIME);

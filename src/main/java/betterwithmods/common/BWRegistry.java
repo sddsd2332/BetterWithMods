@@ -180,19 +180,18 @@ public class BWRegistry {
      */
     private static void registerEntities() {
         BWRegistry.registerEntity(EntityExtendingRope.class, "extending_rope", 64, 20, true);
-        BWRegistry.registerEntity(EntityDynamite.class, "bwm_dynamite", 10, 50, true);
-        BWRegistry.registerEntity(EntityUrn.class, "bwm_urn", 10, 50, true);
-        BWRegistry.registerEntity(EntityMiningCharge.class, "bwm_mining_charge", 10, 50, true);
-        BWRegistry.registerEntity(EntityShearedCreeper.class, "entity_sheared_creeper", 64, 1, true);
-        BWRegistry.registerEntity(EntityBroadheadArrow.class, "entity_broadhead_arrow", 64, 1, true);
-        BWRegistry.registerEntity(EntityFallingGourd.class, "entity_falling_gourd", 64, 1, true);
+        BWRegistry.registerEntity(EntityDynamite.class, "dynamite", 10, 50, true);
+        BWRegistry.registerEntity(EntityUrn.class, "urn", 10, 50, true);
+        BWRegistry.registerEntity(EntityMiningCharge.class, "mining_charge", 10, 50, true);
+        BWRegistry.registerEntity(EntityShearedCreeper.class, "sheared_creeper", 64, 1, true);
+        BWRegistry.registerEntity(EntityBroadheadArrow.class, "broadhead_arrow", 64, 1, true);
+        BWRegistry.registerEntity(EntityFallingGourd.class, "falling_gourd", 64, 1, true);
         BWRegistry.registerEntity(EntityFallingBlockCustom.class, "falling_block_custom", 64, 20, true);
-        BWRegistry.registerEntity(EntitySpiderWeb.class, "bwm_spider_web", 64, 20, true);
-        BWRegistry.registerEntity(EntityHCFishHook.class, "bwm_fishing_hook", 64, 20, true);
-        BWRegistry.registerEntity(EntityTentacle.class, "bwm_tentacle", 64, 1, true);
-        BWRegistry.registerEntity(EntitySitMount.class, "bwm_sit_mount", 64, 20, false);
-
-        BWRegistry.registerEntity(EntityJungleSpider.class, "bwm_jungle_spider", 64, 1, true, 0x3C6432, 0x648C50);
+        BWRegistry.registerEntity(EntitySpiderWeb.class, "spider_web", 64, 20, true);
+        BWRegistry.registerEntity(EntityHCFishHook.class, "fishing_hook", 64, 20, true);
+        BWRegistry.registerEntity(EntityTentacle.class, "tentacle", 64, 1, true);
+        BWRegistry.registerEntity(EntitySitMount.class, "sit_mount", 64, 20, false);
+        BWRegistry.registerEntity(EntityJungleSpider.class, "jungle_spider", 64, 1, true, 0x3C6432, 0x648C50);
     }
 
     public static void registerBlockDispenserBehavior() {

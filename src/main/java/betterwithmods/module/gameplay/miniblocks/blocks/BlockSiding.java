@@ -26,7 +26,7 @@ public class BlockSiding extends BlockMini {
 
     @Override
     public BaseOrientation getDefaultOrientation(ItemStack stack) {
-        return SidingOrientation.NORTH;
+        return SidingOrientation.SOUTH;
     }
 
     @Override

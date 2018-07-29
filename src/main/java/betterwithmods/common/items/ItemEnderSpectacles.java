@@ -1,7 +1,6 @@
 package betterwithmods.common.items;
 
 import betterwithmods.BWMod;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
@@ -15,7 +14,7 @@ public class ItemEnderSpectacles extends ItemArmor {
 
     public ItemEnderSpectacles() {
         super(ItemArmor.ArmorMaterial.LEATHER, 0, EntityEquipmentSlot.HEAD);
-        setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Override

@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks.mechanical;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileCreativeGen;
 import net.minecraft.block.material.Material;
@@ -16,7 +15,7 @@ import javax.annotation.Nonnull;
 public class BlockCreativeGenerator extends BWMBlock {
     public BlockCreativeGenerator() {
         super(Material.WOOD);
-        setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Override

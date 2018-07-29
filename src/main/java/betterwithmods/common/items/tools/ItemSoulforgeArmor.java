@@ -1,7 +1,6 @@
 package betterwithmods.common.items.tools;
 
 import betterwithmods.BWMod;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import net.minecraft.enchantment.Enchantment;
@@ -26,7 +25,7 @@ public class ItemSoulforgeArmor extends ItemArmor {
 
     public ItemSoulforgeArmor(EntityEquipmentSlot equipmentSlotIn) {
         super(SOULFORGED_STEEL, 2, equipmentSlotIn);
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Override

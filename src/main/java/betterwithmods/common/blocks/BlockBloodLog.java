@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.world.gen.feature.WorldGenBloodTree;
 import betterwithmods.util.DirUtils;
@@ -28,7 +27,7 @@ public class BlockBloodLog extends BlockLog {
     public BlockBloodLog() {
         this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y).withProperty(EXPANDABLE, false));
         this.setTickRandomly(true);
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setSoundType(BLOODWOOD);
     }
 

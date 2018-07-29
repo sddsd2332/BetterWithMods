@@ -1,6 +1,5 @@
 package betterwithmods.common.items;
 
-import betterwithmods.client.BWCreativeTabs;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -22,7 +21,7 @@ public class ItemMaterial extends Item {
         MATERIALS.put(material, this);
         this.material = material;
         this.setRegistryName(material.getName());
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     public static Ingredient getIngredient(EnumMaterial material) {

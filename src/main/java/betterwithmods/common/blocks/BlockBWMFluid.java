@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.SoundEvents;
@@ -23,7 +22,7 @@ public class BlockBWMFluid extends BlockFluidClassic {
 
     public BlockBWMFluid(Fluid fluid, Material material) {
         super(fluid, material);
-        setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
 

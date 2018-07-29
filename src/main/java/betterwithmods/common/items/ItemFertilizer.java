@@ -1,6 +1,5 @@
 package betterwithmods.common.items;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.blocks.BlockPlanter.EnumType;
@@ -22,7 +21,7 @@ import javax.annotation.Nonnull;
 public class ItemFertilizer extends Item {
     public ItemFertilizer() {
         super();
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     public static boolean processBlock(Block block, World world, BlockPos pos) {

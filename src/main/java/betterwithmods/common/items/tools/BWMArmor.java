@@ -2,7 +2,6 @@ package betterwithmods.common.items.tools;
 
 import betterwithmods.BWMod;
 import betterwithmods.api.client.IColorable;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.client.ColorHandlers;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
@@ -20,7 +19,7 @@ public class BWMArmor extends ItemArmor implements IColorable {
     public BWMArmor(ArmorMaterial material, EntityEquipmentSlot equipmentSlotIn, String name) {
         super(material, 2, equipmentSlotIn);
         this.name = name;
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Override

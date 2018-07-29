@@ -1,7 +1,6 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.api.tile.IRopeConnector;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
 import betterwithmods.util.InvUtils;
@@ -43,7 +42,7 @@ public class BlockAnchor extends BWMBlock implements IRopeConnector {
 
     public BlockAnchor() {
         super(Material.ROCK);
-        setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setHardness(2.0F);
         this.setHarvestLevel("pickaxe", 0);
 

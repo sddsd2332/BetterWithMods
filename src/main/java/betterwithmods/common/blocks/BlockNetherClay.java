@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.items.ItemMaterial;
 import net.minecraft.block.BlockClay;
 import net.minecraft.block.SoundType;
@@ -15,7 +14,7 @@ import java.util.Random;
 
 public class BlockNetherClay extends BlockClay {
     public BlockNetherClay() {
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setHardness(0.6F);
         this.setSoundType(SoundType.GROUND);
     }

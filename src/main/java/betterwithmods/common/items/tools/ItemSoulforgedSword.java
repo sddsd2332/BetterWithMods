@@ -1,6 +1,5 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
@@ -14,7 +13,7 @@ import javax.annotation.Nonnull;
 public class ItemSoulforgedSword extends ItemSword {
     public ItemSoulforgedSword() {
         super(BWMItems.SOULFORGED_STEEL);
-        setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Override

@@ -1,7 +1,6 @@
 package betterwithmods.common.items.itemblocks;
 
 import betterwithmods.api.block.IRenderRotationPlacement;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
 import betterwithmods.util.DirUtils;
@@ -30,7 +29,7 @@ public abstract class ItemAxleBase extends ItemBlock implements IRenderRotationP
 
     public ItemAxleBase(Block block) {
         super(block);
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setMaxStackSize(1);
     }
 

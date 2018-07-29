@@ -1,7 +1,6 @@
 package betterwithmods.common.items;
 
 import betterwithmods.api.util.IBlockVariants;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWOreDictionary;
 import net.minecraft.block.state.IBlockState;
@@ -24,7 +23,7 @@ public class ItemBark extends Item {
 
     public ItemBark() {
         super();
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setHasSubtypes(true);
     }
 

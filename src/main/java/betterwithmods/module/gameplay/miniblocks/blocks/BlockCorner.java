@@ -2,7 +2,6 @@ package betterwithmods.module.gameplay.miniblocks.blocks;
 
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.gameplay.miniblocks.orientations.CornerOrientation;
-import betterwithmods.module.gameplay.miniblocks.orientations.SidingOrientation;
 import betterwithmods.module.gameplay.miniblocks.tiles.TileCorner;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -27,7 +26,7 @@ public class BlockCorner extends BlockMini {
 
     @Override
     public BaseOrientation getDefaultOrientation(ItemStack stack) {
-        return SidingOrientation.NORTH;
+        return CornerOrientation.DOWN_SOUTH;
     }
 
 

@@ -1,7 +1,6 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.BWMod;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
 import betterwithmods.common.tile.TileBasic;
@@ -41,7 +40,7 @@ public abstract class BWMBlock extends Block implements IRotate {
 
     public BWMBlock(Material material) {
         super(material);
-        setCreativeTab(BWCreativeTabs.BWTAB);
+
         if (material == Material.WOOD) {
             ToolsManager.setAxesAsEffectiveAgainst(this);
             this.setSoundType(SoundType.WOOD);

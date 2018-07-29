@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.world.gen.feature.WorldGenBloodTree;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.SoundType;
@@ -28,7 +27,7 @@ public class BlockBloodSapling extends BlockBush {
 
     public BlockBloodSapling() {
         this.setDefaultState(this.blockState.getBaseState().withProperty(STAGE, 0));
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setSoundType(SoundType.PLANT);
         this.setTickRandomly(true);
     }

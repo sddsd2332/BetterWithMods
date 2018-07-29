@@ -2,7 +2,6 @@ package betterwithmods.common.items.itemblocks;
 
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -36,7 +35,6 @@ public class ItemBlockEdible extends ItemBlock {
         this.food = amount;
         this.wolfFood = isWolfFood;
         this.saturation = saturation;
-        this.setCreativeTab(CreativeTabs.FOOD);
     }
 
     public ItemBlockEdible setPotionEffect(PotionEffect effect, float probability) {

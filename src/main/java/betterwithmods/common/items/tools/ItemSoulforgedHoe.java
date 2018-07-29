@@ -1,6 +1,5 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
@@ -12,7 +11,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class ItemSoulforgedHoe extends ItemHoe {
     public ItemSoulforgedHoe() {
         super(BWMItems.SOULFORGED_STEEL);
-        setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Override

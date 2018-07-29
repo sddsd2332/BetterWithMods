@@ -1,7 +1,6 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.BWMod;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.tile.TileSteelAnvil;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.SoundType;
@@ -29,7 +28,6 @@ public class BlockSteelAnvil extends BWMBlock {
 
     public BlockSteelAnvil() {
         super(Material.IRON);
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
         this.setHardness(5.0F);
         this.setResistance(2000.0F);
         this.setHarvestLevel("pickaxe", 1);

@@ -1,7 +1,6 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileAxle;
@@ -50,7 +49,6 @@ public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
         this.maxPower = maxPower;
         this.maxSignal = maxSignal;
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, Y).withProperty(ACTIVE, false));
-        setCreativeTab(BWCreativeTabs.BWTAB);
     }
 
     @Nonnull

@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -23,7 +22,7 @@ public class BlockCobble extends Block {
         super(Material.ROCK);
         this.setHardness(2.0F);
         this.setResistance(5.0F);
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setRegistryName("cobblestone_" + type.getName());
         this.type = type;
     }

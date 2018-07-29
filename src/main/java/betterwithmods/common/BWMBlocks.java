@@ -3,6 +3,7 @@ package betterwithmods.common;
 import betterwithmods.BWMod;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.*;
+import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.blocks.mechanical.*;
 import betterwithmods.common.blocks.mechanical.cookingpot.BlockCauldron;
 import betterwithmods.common.blocks.mechanical.cookingpot.BlockCrucible;
@@ -95,9 +96,9 @@ public final class BWMBlocks {
     public static final Block BLOOD_LEAVES = new BlockBloodLeaves().setRegistryName("blood_leaves");
     public static final Block BLOOD_SAPLING = new BlockBloodSapling().setRegistryName("blood_sapling");
     public static final Block NETHER_CLAY = new BlockNetherClay().setRegistryName("nether_clay");
-    public static final Block STEEL_PRESSURE_PLATE = new BlockSteelPressurePlate().setRegistryName("steel_pressure_plate").setCreativeTab(BWCreativeTabs.BWTAB);
-    public static final Block INFERNAL_ENCHANTER = new BlockInfernalEnchanter().setRegistryName("infernal_enchanter").setCreativeTab(BWCreativeTabs.BWTAB);
-    public static final Block CANDLE_HOLDER = new BlockCandleHolder().setRegistryName("candle_holder").setCreativeTab(BWCreativeTabs.BWTAB);
+    public static final Block STEEL_PRESSURE_PLATE = new BlockSteelPressurePlate().setRegistryName("steel_pressure_plate");
+    public static final Block INFERNAL_ENCHANTER = new BlockInfernalEnchanter().setRegistryName("infernal_enchanter");
+    public static final Block CANDLE_HOLDER = new BlockCandleHolder().setRegistryName("candle_holder");
     public static final Block SHAFT = new BlockShaft().setRegistryName("shaft");
     public static final Block BUCKET = new BlockBucket().setRegistryName("bucket");
     public static final Block BARREL = new BlockBarrel(Material.WOOD).setRegistryName("barrel");
@@ -243,6 +244,12 @@ public final class BWMBlocks {
      */
     public static void registerBlock(Block block, @Nullable Item item) {
         if (block.getRegistryName() != null) {
+
+            if(block instanceof BlockCamo) {
+                block.setCreativeTab(BWCreativeTabs.MINI_BLOCKS);
+            } else {
+                block.setCreativeTab(BWCreativeTabs.BLOCKS);
+            }
             //TODO remove this in 1.13, it is done automatically
             if (block.getUnlocalizedName().equals("tile.null"))
                 block.setUnlocalizedName(block.getRegistryName().toString());

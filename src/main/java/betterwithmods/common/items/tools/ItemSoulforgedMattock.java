@@ -1,6 +1,5 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
@@ -29,7 +28,7 @@ public class ItemSoulforgedMattock extends ItemTool {
 
     public ItemSoulforgedMattock() {
         super(BWMItems.SOULFORGED_STEEL, EFFECTIVE);
-        setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Override

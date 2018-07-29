@@ -1,7 +1,6 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TilePump;
@@ -35,7 +34,7 @@ public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
 
     public BlockPump() {
         super(Material.WOOD);
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setTickRandomly(true);
         this.setHardness(3.5F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(DirUtils.HORIZONTAL, EnumFacing.NORTH).withProperty(ACTIVE, false));

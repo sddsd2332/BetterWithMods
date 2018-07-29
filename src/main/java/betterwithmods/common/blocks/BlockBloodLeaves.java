@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMBlocks;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockPlanks;
@@ -29,7 +28,7 @@ import java.util.Random;
 public class BlockBloodLeaves extends BlockLeaves {
     public BlockBloodLeaves() {
         this.setDefaultState(this.blockState.getBaseState().withProperty(CHECK_DECAY, false).withProperty(DECAYABLE, false));
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
     }
 
     @Nonnull

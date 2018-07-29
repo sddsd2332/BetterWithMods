@@ -3,7 +3,6 @@ package betterwithmods.common.blocks;
 import betterwithmods.BWMod;
 import betterwithmods.api.tile.dispenser.IBehaviorCollect;
 import betterwithmods.api.tile.dispenser.IBehaviorEntity;
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.behaviors.BehaviorBreakBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorDefaultDispenseBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorEntity;
@@ -42,7 +41,7 @@ public class BlockBDispenser extends BlockDispenser {
 
     public BlockBDispenser() {
         super();
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setHardness(3.5F);
         this.setHarvestLevel("pickaxe", 0);
         this.setDefaultState(getDefaultState().withProperty(FACING, EnumFacing.NORTH).withProperty(TRIGGERED, false));

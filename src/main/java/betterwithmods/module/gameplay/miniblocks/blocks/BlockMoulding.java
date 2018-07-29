@@ -2,7 +2,6 @@ package betterwithmods.module.gameplay.miniblocks.blocks;
 
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.gameplay.miniblocks.orientations.MouldingOrientation;
-import betterwithmods.module.gameplay.miniblocks.orientations.SidingOrientation;
 import betterwithmods.module.gameplay.miniblocks.tiles.TileMoulding;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -28,9 +27,8 @@ public class BlockMoulding extends BlockMini {
 
     @Override
     public BaseOrientation getDefaultOrientation(ItemStack stack) {
-        return SidingOrientation.NORTH;
+        return MouldingOrientation.NORTH_DOWN;
     }
-
 
     @Override
     public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing facing, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {

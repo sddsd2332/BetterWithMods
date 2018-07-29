@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.client.BWCreativeTabs;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -32,7 +31,7 @@ public class BlockRawPastry extends Block {
         this.setDefaultState(this.blockState.getBaseState());
         this.setHardness(0.1F);
         this.setSoundType(SoundType.CLOTH);
-        this.setCreativeTab(BWCreativeTabs.BWTAB);
+
         this.setRegistryName(type.getName());
         this.type = type;
     }
