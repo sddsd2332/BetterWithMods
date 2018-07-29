@@ -4,7 +4,6 @@ import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.tesr.TESRWindmill;
 import net.minecraft.block.Block;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -22,11 +21,6 @@ public class ItemHorizontalWindmill extends ItemAxleBase {
     @Override
     public boolean isAxis(EnumFacing.Axis axis) {
         return axis.isHorizontal();
-    }
-
-    @Override
-    public String tooltip() {
-        return I18n.format("bwm.tooltip.horizontal_windmill.name");
     }
 
 

@@ -4,10 +4,12 @@ import betterwithmods.BWMod;
 import betterwithmods.client.container.bulk.ContainerMill;
 import betterwithmods.client.gui.GuiProgress;
 import betterwithmods.common.tile.TileMill;
-import net.minecraft.client.resources.I18n;
+import betterwithmods.util.TooltipLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
+
+import static betterwithmods.util.TooltipLib.MILLSTONE_BLOCKED;
 
 public class GuiMill extends GuiProgress {
 
@@ -42,10 +44,11 @@ public class GuiMill extends GuiProgress {
     protected void drawExtras(float partialTicks, int mouseX, int mouseY, int centerX, int centerY) {
         super.drawExtras(partialTicks, mouseX, mouseY, centerX, centerY);
         if (container.blocked) {
-            String str = I18n.format("betterwithmods.millstone_blocked.message");
+            String str = TooltipLib.getMessage(MILLSTONE_BLOCKED);
             int width = fontRenderer.getStringWidth(str) / 2;
             drawString(fontRenderer, str, centerX + this.xSize / 2 - width, centerY + 32, EnumDyeColor.RED.getColorValue());
-            drawToolTip(mouseX, mouseY, centerX + this.xSize / 2 - width, centerY + 32, 32, 32, I18n.format("bwm.millstone_blocked.tooltip"));
+            drawToolTip(mouseX, mouseY, centerX + this.xSize / 2 - width, centerY + 32, 32, 32,
+                    TooltipLib.getTooltip(MILLSTONE_BLOCKED));
         }
     }
 

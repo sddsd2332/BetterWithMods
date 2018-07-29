@@ -1,14 +1,7 @@
-tile.betterwithmods:stokedFire.name=Stoked Fire
-tile.betterwithmods:stokedFire.name=Stoked Fire
 tile.betterwithmods:hand_crank.name=Hand Crank
 tile.betterwithmods:wooden_axle.name=Wooden Axle
-tile.betterwithmods:steel_axle.name=Steel Axle
 tile.betterwithmods:wooden_gearbox.name=Wooden Gearbox
-tile.betterwithmods:steel_gearbox.name=Steel Gearbox
 tile.betterwithmods:wooden_broken_gearbox.name=Broken Wooden Gearbox
-tile.betterwithmods:steel_broken_gearbox.name=Broken Steel Gearbox
-
-
 tile.betterwithmods:millstone.name=Mill Stone
 tile.betterwithmods:pulley.name=Pulley
 tile.betterwithmods:filtered_hopper.name=Filtered Hopper
@@ -27,14 +20,11 @@ tile.betterwithmods:jungle_slats.name=Jungle Slats
 tile.betterwithmods:acacia_slats.name=Acacia Slats
 tile.betterwithmods:dark_oak_slats.name=Dark Oak Slats
 tile.betterwithmods:screw_pump.name=Screw Pump
-
 tile.betterwithmods:crucible.name=Crucible
 tile.betterwithmods:cauldron.name=Cauldron
 tile.betterwithmods:dragon_vessel.name=Mysterious Vessel
-
 tile.betterwithmods:kiln.name=Kiln
 tile.betterwithmods:bellows.name=Bellows
-tile.betterwithmods:spring_action_bellows.name=Spring Action Bellows
 tile.betterwithmods:saw.name=Saw
 tile.betterwithmods:steel_anvil.name=Soulforged Steel Anvil
 tile.betterwithmods:chopping_block.name=Chopping Block
@@ -52,15 +42,12 @@ tile.betterwithmods:dung_block.name=Block of Dung
 tile.betterwithmods:wicker_block.name=Block of Wicker
 tile.betterwithmods:nethercoal_block.name=Block of Nethercoal
 tile.betterwithmods:advanced_bellows.name=Spring-Action Bellows
-
 tile.betterwithmods:steel_block.name=Soulforged Steel Block
 tile.betterwithmods:cut_steel_block.name=Cut Soulforged Steel Block
 tile.betterwithmods:steel_pressure_plate.name=Steel Pressure Plate
-
 tile.betterwithmods:horizontal_windmill.name=Horizontal Windmill
 tile.betterwithmods:waterwheel.name=Waterwheel
 tile.betterwithmods:vertical_windmill.name=Vertical Windmill
-
 tile.betterwithmods:planter_empty.name=Planter
 tile.betterwithmods:planter_farmland.name=Farmland Planter
 tile.betterwithmods:planter_grass.name=Grass Planter
@@ -71,7 +58,6 @@ tile.betterwithmods:planter_water_still.name=Water Planter
 tile.betterwithmods:planter_gravel.name=Gravel Planter
 tile.betterwithmods:planter_red_sand.name=Red Sand Planter
 tile.betterwithmods:planter_dirt.name=Dirt Planter
-
 tile.betterwithmods:vase_white.name=White Vase
 tile.betterwithmods:vase_orange.name=Orange Vase
 tile.betterwithmods:vase_magenta.name=Magenta Vase
@@ -88,7 +74,6 @@ tile.betterwithmods:vase_brown.name=Brown Vase
 tile.betterwithmods:vase_green.name=Green Vase
 tile.betterwithmods:vase_red.name=Red Vase
 tile.betterwithmods:vase_black.name=Black Vase
-
 tile.betterwithmods:candle_white.name=White Candle
 tile.betterwithmods:candle_orange.name=Orange Candle
 tile.betterwithmods:candle_magenta.name=Magenta Candle
@@ -105,19 +90,15 @@ tile.betterwithmods:candle_brown.name=Brown Candle
 tile.betterwithmods:candle_green.name=Green Candle
 tile.betterwithmods:candle_red.name=Red Candle
 tile.betterwithmods:candle_black.name=Black Candle
-
-
 tile.betterwithmods:urn.name=Urn
 tile.betterwithmods:soul_urn.name=Soul Urn
 tile.betterwithmods:void_urn.name=Void Urn
-
 tile.betterwithmods:unfired_crucible.name=Unfired Crucible
 tile.betterwithmods:unfired_planter.name=Unfired Planter
 tile.betterwithmods:unfired_urn.name=Unfired Urn
 tile.betterwithmods:unfired_vase.name=Unfired Vase
 tile.betterwithmods:unfired_brick.name=Unfired Brick
 tile.betterwithmods:unfired_nether_brick.name=Unfired Netherbrick
-
 tile.betterwithmods:anchor.name=Anchor
 tile.betterwithmods:rope.name=Hemp Rope
 tile.betterwithmods:hibachi.name=Hibachi
@@ -125,53 +106,39 @@ tile.betterwithmods:hemp.name=Hemp Seeds
 tile.betterwithmods:detector.name=Detector Block
 tile.betterwithmods:lens.name=Lens Focus
 tile.betterwithmods:vine_trap.name=Vine Trap
-
 tile.betterwithmods:booster.name=Mechanical Booster Rail
-tile.detector_rail_wood.name=Wooden Detector Rail
 tile.betterwithmods:detector_rail_stone.name=Stone Detector Rail
 tile.betterwithmods:detector_rail_steel.name=Soulforged Steel Detector Rail
-
 tile.betterwithmods:siding_rock.name=%s Siding
 tile.betterwithmods:siding_wood.name=%s Siding
 tile.betterwithmods:siding_iron.name=%s Siding
-
 tile.betterwithmods:moulding_rock.name=%s Moulding
 tile.betterwithmods:moulding_wood.name=%s Moulding
 tile.betterwithmods:moulding_iron.name=%s Moulding
-
 tile.betterwithmods:corner_rock.name=%s Corner
 tile.betterwithmods:corner_wood.name=%s Corner
 tile.betterwithmods:corner_iron.name=%s Corner
-
 tile.betterwithmods:column_rock.name=%s Column
 tile.betterwithmods:column_wood.name=%s Column
 tile.betterwithmods:column_iron.name=%s Column
-
 tile.betterwithmods:table_rock.name=%s Table
 tile.betterwithmods:table_wood.name=%s Table
 tile.betterwithmods:table_iron.name=%s Table
-
 tile.betterwithmods:bench_rock.name=%s Bench
 tile.betterwithmods:bench_wood.name=%s Bench
 tile.betterwithmods:bench_iron.name=%s Bench
-
 tile.betterwithmods:chair_rock.name=%s Chair
 tile.betterwithmods:chair_wood.name=%s Chair
 tile.betterwithmods:chair_iron.name=%s Chair
-
 tile.betterwithmods:pedestal_rock.name=%s Pedestal
 tile.betterwithmods:pedestal_wood.name=%s Pedestal
 tile.betterwithmods:pedestal_iron.name=%s Pedestal
-
 tile.betterwithmods:stair_rock.name=%s Stairs
 tile.betterwithmods:stair_wood.name=%s Stairs
 tile.betterwithmods:stair_iron.name=%s Stairs
-
-
 tile.betterwithmods:block_dispenser.name=Block Dispenser
 tile.betterwithmods:companion_cube.name=Companion Cube
 tile.betterwithmods:long_friend.name=Long Friend
-
 tile.betterwithmods:bamboo_chime_oak.name=Oak Bamboo Chime
 tile.betterwithmods:bamboo_chime_spruce.name=Spruce Bamboo Chime
 tile.betterwithmods:bamboo_chime_birch.name=Birch Bamboo Chime
@@ -184,7 +151,6 @@ tile.betterwithmods:metal_chime_birch.name=Birch Wind Chime
 tile.betterwithmods:metal_chime_jungle.name=Jungle Wind Chime
 tile.betterwithmods:metal_chime_acacia.name=Acacia Wind Chime
 tile.betterwithmods:metal_chime_dark_oak.name=Dark Oak Wind Chime
-
 tile.betterwithmods:buddy_block.name=Buddy Block
 tile.betterwithmods:creative_generator.name=Creative Mechanical Generator
 tile.betterwithmods:light.name=Light Block
@@ -195,7 +161,6 @@ tile.betterwithmods:advanced_gearbox.name=Advanced Gearbox
 tile.betterwithmods:barrel.name=Wooden Barrel
 tile.betterwithmods:powder_keg.name=Powder Keg
 item.betterwithmods:powder_keg_minecart.name=Powder Keg Minecart
-
 tile.betterwithmods:raw_cake.name=Cake Batter
 tile.betterwithmods:raw_pumpkin_pie.name=Oven Ready Pumpkin Pie
 tile.betterwithmods:raw_cookie.name=Raw Cookie Dough
@@ -203,36 +168,26 @@ tile.betterwithmods:raw_flour.name=Flour
 tile.betterwithmods:raw_apple_pie.name=Oven Ready Apple Pie
 tile.betterwithmods:raw_melon_pie.name=Oven Ready Melon Pie
 tile.betterwithmods:dirt_slab.name=Dirt Slab
-
 tile.betterwithmods:infernal_enchanter.name=Infernal Enchanter
 tile.betterwithmods:candle_holder.name=Candle Holder
 tile.betterwithmods:shaft.name=Shaft
-
 tile.betterwithmods:broken_gearbox.name=Broken Gearbox
-
 tile.betterwithmods:stake.name=Stake
-
 tile.betterwithmods:iron_wall.name=Iron Wall
 tile.betterwithmods:nether_growth.name=Nether Growth Spore
-
-tile.betterwithmods:steel_saw.name=Soulforged Steel Saw
-
 tile.betterwithmods:blood_log.name=Bloodwood
 tile.betterwithmods:blood_leaves.name=Bloodwood Leaves
 tile.betterwithmods:blood_sapling.name=Bloodwood Sapling
-
 tile.betterwithmods:nether_clay.name=Nether Sludge Block
-
 tile.betterwithmods:cobblestone_granite.name=Granite Cobblestone
 tile.betterwithmods:cobblestone_diorite.name=Diorite Cobblestone
 tile.betterwithmods:cobblestone_andesite.name=Andesite Cobblestone
-
 tile.betterwithmods:deadweight.name=Deadweight
 tile.betterwithmods:deadweight.intact.name=Deadweight
 tile.betterwithmods:deadweight.slightlyDamaged.name=Slightly Damaged Deadweight
 tile.betterwithmods:deadweight.veryDamaged.name=Very Damaged Deadweight
-
 tile.betterwithmods:bucket.name=Well Bucket
+tile.betterwithmods:detector_rail_wood.name=Wooden Detector Rail
 
 item.betterwithmods:wood_gear.name=Wooden Gear
 item.betterwithmods:nethercoal.name=Nethercoal
@@ -285,20 +240,15 @@ item.betterwithmods:cocoa_powder.name=Cocoa Powder
 item.betterwithmods:diamond_ingot.name=Diamond Ingot
 item.betterwithmods:diamond_nugget.name=Diamond Nugget
 item.betterwithmods:chain_mail.name=Chain Mail
-item.betterwithmods:steel_gear.name=Soulforged Steel Gear
-item.betterwithmods:steel_spring.name=Soulforged Steel Spring
 item.betterwithmods:soap.name=Soap
 item.betterwithmods:mystery_gland.name=Mysterious Gland
 item.betterwithmods:witch_wart.name=Witch Wart
 item.betterwithmods:poison_sac.name=Poison Sac
-
-
 item.betterwithmods:donut.name=Donut
 item.betterwithmods:knife.name=Iron Knife
 item.betterwithmods:dynamite.name=Dynamite
 item.betterwithmods:fertilizer.name=Fertilizer
 item.betterwithmods:creeper_oyster.name=Creeper Oyster
-item.betterwithmods:creeper_oyster_kf.name=Creeper Fuse
 item.betterwithmods:ender_spectacles.name=Ender Spectacles
 item.betterwithmods:raw_egg.name=Raw Egg
 item.betterwithmods:boiled_egg.name=Boiled Egg
@@ -329,16 +279,12 @@ item.betterwithmods:bat_wing.name=Bat Wing
 item.betterwithmods:cooked_bat_wing.name=Cooked Bat Wing
 item.betterwithmods:cooked_beetroot.name=Cooked Beetroot
 item.betterwithmods:cooked_carrot.name=Cooked Carrot
-
 item.betterwithmods:manual.name=Better With Mods Manual
-
 item.betterwithmods:axle_generator.windmill.name=Windmill
 item.betterwithmods:axle_generator.waterwheel.name=Water Wheel
 item.betterwithmods:axle_generator.windmill_vertical.name=Vertical Windmill
-
 item.betterwithmods:bark.name=Bark
 item.betterwithmods.unknown_bark.name=Unknown Bark
-
 item.betterwithmods:steel_axe.name=Refined Axe
 item.betterwithmods:steel_hoe.name=Refined Hoe
 item.betterwithmods:steel_pickaxe.name=Refined Pickaxe
@@ -346,55 +292,30 @@ item.betterwithmods:steel_shovel.name=Refined Shovel
 item.betterwithmods:steel_sword.name=Refined Sword
 item.betterwithmods:steel_mattock.name=Refined Mattock
 item.betterwithmods:steel_battleaxe.name=Refined Battleaxe
-item.betterwithmods:steel_hacksaw.name=Refined Hacksaw
-
 item.betterwithmods:steel_helmet.name=Plate Armor Helmet
 item.betterwithmods:steel_chest.name=Plate Armor Chest
 item.betterwithmods:steel_pants.name=Plate Armor Leggings
 item.betterwithmods:steel_boots.name=Plate Armor Boots
-
 item.betterwithmods:leather_tanned_helmet.name=Tanned Leather Cap
 item.betterwithmods:leather_tanned_chest.name=Tanned Leather Tunic
 item.betterwithmods:leather_tanned_pants.name=Tanned Leather Pants
 item.betterwithmods:leather_tanned_boots.name=Tanned Leather Boots
-
 item.betterwithmods:wool_helmet.name=Wool Cap
 item.betterwithmods:wool_chest.name=Wool Shirt
 item.betterwithmods:wool_pants.name=Wool Pants
 item.betterwithmods:wool_boots.name=Wool Socks
-
-
 item.betterwithmods:composite_bow.name=Composite Bow
 item.betterwithmods:broadhead_arrow.name=Broadhead Arrow
-
 item.betterwithmods:breeding_harness.name=Breeding Harness
-item.betterwithmods:breeding_harness_kf.name=Restraints
-
 item.betterwithmods:arcane_scroll.name=Arcane Scroll
-
 item.betterwithmods:stump_remover.name=Stump Remover
-
 item.betterwithmods:gravel_pile.name=Pile of Gravel
 item.betterwithmods:dirt_pile.name=Pile of Dirt
 item.betterwithmods:sand_pile.name=Pile of Sand
 item.betterwithmods:red_sand_pile.name=Pile of Red Sand
 
-item.betterwithmods:bop_piles.loamy_dirt_pile.name=Pile of Loamy Dirt
-item.betterwithmods:bop_piles.silty_dirt_pile.name=Pile of Silty Dirt
-item.betterwithmods:bop_piles.sandy_dirt_pile.name=Pile of Sandy Dirt
-
 enchantment.level.-1=
 betterwithmods.infernalenchanter=Infernal Enchanter
-
-lore.betterwithmods:dynamite=Dwarven Fishing Pole
-
-hellfire=Hellfire
-hellfire.ability=Molten
-soulforgedsteel.name=Soulforged Steel
-soulforgedsteel.ability=Soul-Sucking
-fluid.molten.hellfire=Molten Hellfire
-fluid.molten.soulforge=Molten Soulforged Steel
-fluid.milk=Milk
 
 message.betterwithmods:async.enabled=Asynchronous timer enabled
 message.betterwithmods:async.disabled=Asynchronous timer disabled
@@ -413,7 +334,6 @@ inv.kiln.stoked.name=Stoked Kiln
 inv.pulley.name=Pulley
 inv.turntable.name=Turntable
 inv.steel_anvil.name=Soulforged Steel Anvil
-
 inv.hopper.name=Hopper Recipes
 inv.hopper.throw=Throw
 inv.hopper.filter=Filter
@@ -423,19 +343,10 @@ inv.hopper.soul_urn.name=Hopper Soul Urn Recipes
 
 itemGroup.betterwithmods:creative_tab=Better With Mods
 
-fluid.betterwithmods:soulforged_steel.name=Molten Soulforged Steel
-fluid.betterwithmods:hellfire.name=Molten Hellfire
-soulforged_steel.name=Soulforged Steel
-hellfire.name=Hellfire
-modifier.mending.name=Mending
-modifier.mending.desc=??oKillsteal!?? Absorbs experience to repair the tool.
-
 entity.entity_sheared_creeper.name=Sheared Creeper
 entity.betterwithmods_jungle_spider.name=Jungle Spider
 entity.extending_rope.name=Moving Platform
 entity.longboi.name=Longboi
-tile.bwm:single_machine=Mechanical Machine
-
 
 subtitles.betterwithmods.wood.creak=Wood creaks
 subtitles.betterwithmods.stone.grind=Stones grinding
@@ -447,53 +358,44 @@ subtitles.betterwithmods.millstone.netherrack=Screams of the damned
 subtitle.betterwithmods.saw.cut=Saw cuts
 subtitle.betterwithmods.mechanical.overpower=Mechanical Device Overpowered
 subtitles.betterwithmods.bloodwood.break=Block broken
+
 death.attack.growth=%s was devoured by the Growth
 death.attack.gloom=%s was eaten by a Grue
 death.attack.saw=%s forgot the lessons of wood shop safety
-death.attack.steel_saw.0=became a %s siding.
-death.attack.steel_saw.1=%s forgot the lessons of steel shop safety
 death.attack.chopping_block=%s lost their head
 death.attack.blasting_oil=%s was not careful with their unstable explosives
 death.acid_rain=%s should have packed a steel umbrella
 death.squid.attack=%s was eaten by a Squid.
 
-betterwithmods.message.immersive.0=Only works to bridge mechanical power
-betterwithmods.message.immersive.1=and Immersive Engineering Kinetic Dynamos
-betterwithmods.message.exhaustion=You are too exhausted to turn it.
+fluid.milk=Milk
 
-betterwithmods.message.needs_bait=The fish probably won't nibble, needs some bait.
-betterwithmods.message.needs_open_sky=Didn't catch anything, should try a topside water source.
-betterwithmods.message.needs_deep_water=Didn't catch anything, this water source is too shallow.
+message.betterwithmods:bed_too_restless=You are too restless to sleep
+message.betterwithmods:fishing_needs_bait=The fish probably won't nibble, needs some bait.
+message.betterwithmods:fishing_needs_open_sky=Didn't catch anything, should try a topside water source.
+message.betterwithmods:fishing_needs_deep_water=Didn't catch anything, this water source is too shallow.
 
-betterwithmods.message.waterwheel.space=Not enough room to place the waterwheel. Need a 5x5 area to work.
-betterwithmods.message.horizontal_windmill.space=Not enough room to place the windmill. Need a 13x13 area to work.
+message.betterwithmods:waterwheel.space=Not enough room to place the waterwheel. Need a 5x5 area to work.
+message.betterwithmods:horizontal_windmill.space=Not enough room to place the windmill. Need a 13x13 area to work.
+message.betterwithmods:vertical_windmill.space=Not enough room to place the windmill. Need a 9x9 area with a HEIGHT of seven to work.
+message.betterwithmods:vertical_windmill.axle=Too few vertical axles in column to place here. (Need 7).
 
-betterwithmods.message.vertical_windmill.space=Not enough room to place the windmill. Need a 9x9 area with a HEIGHT of seven to work.
-betterwithmods.message.vertical_windmill.axle=Too few vertical axles in column to place here. (Need 7).
+message.betterwithmods:give_manual=You have been given a Better With Mods Manual. This mod might be different than what you are expecting. Please read the Crash Course section.
+message.betterwithmods:handcrank_exhaustion=You are too exhausted to turn it.
+message.betterwithmods:millstone_blocked=Blocked
+message.betterwithmods:barrel_info=%s : %d/%d
 
-betterwithmods.message.barrel.info=%s : %d/%d
-betterwithmods.config.hardcore.tooltip=Hardcore Features
-betterwithmods.config.debug.tooltip=Debug Info for certain features
-betterwithmods.config.vanilla_tweaks.tooltip=Changes to how Vanilla Minecraft works
-betterwithmods.config.pulley.tooltip=Limitations of the platforms of the pulley
-betterwithmods.hcfurnace.cook_time.tooltip=Cook Time: %s ticks
 
-betterwithmods.random_output.tooltip=Count: %s-%s
-betterwithmods.chance_output.tooltip=Chance: %d%%
+tooltip.betterwithmods:random_output=Count: %s-%s
+tooltip.betterwithmods:chance_output=Chance: %d%%
+tooltip.betterwithmods:book=The Book of Single
+tooltip.betterwithmods:furnace_fuel=Cook Time: %s ticks
+tooltip.betterwithmods:millstone_blocked=The Millstone has too many solid blocks around it.
 
-betterwithmods.millstone_blocked.message=Blocked
-betterwithmods.millstone_blocked.tooltip=The Millstone has too many solid blocks around it.
-
-bwm.fat_penalty.none=
-bwm.fat_penalty.plump=Plump
-bwm.fat_penalty.chubby=Chubby
-bwm.fat_penalty.fat=Fat
-bwm.fat_penalty.obese=Obese
-
-bwm.gloom_penalty.none=
-bwm.gloom_penalty.gloom=Gloom
-bwm.gloom_penalty.dread=Dread
-bwm.gloom_penalty.terror=Terror
+betterwithmods.fat_penalty.none=
+betterwithmods.fat_penalty.plump=Plump
+betterwithmods.fat_penalty.chubby=Chubby
+betterwithmods.fat_penalty.fat=Fat
+betterwithmods.fat_penalty.obese=Obese
 
 betterwithmods.gloom_penalty.none=
 betterwithmods.gloom_penalty.gloom=Gloom
@@ -519,25 +421,7 @@ betterwithmods.effect.true_sight=True Sight
 betterwithmods.effect.fortune=Fortune
 betterwithmods.effect.looting=Looting
 
-betterwithmods.item.containment=Contains:
-
-config.sync.restart=Server changes to the configs require a client restart. Sorry about that.
-config.sync.ok=Changes to the configs successful. If you see issues from not restarting the client, please report it to the server admins so they can report the changes made to the config file.
-
-tile.bed.tooRestless=You are too restless to sleep
-
-tooltip.rotate_with_hand.name=Shift-Click with both hands empty to rotate this Block
-tooltip.chime.name=Emits a Redstone Signal when Raining, or when an Entity passes through it.
-tooltip.gearbox.name=Gearboxes get overpowered when the Windmill spins too quickly, disable it with Redstone before this happen!
-tooltip.broken_gearbox.name=Gearboxes get overpowered when the Windmill spins too quickly, disable it with Redstone before this happen!
-betterwithmods.tooltip.vertical_windmill.name=Windmills spin quicker when it's Raining or Storming, check your Gearboxes!
-betterwithmods.tooltip.horizontal_windmill.name=Windmills spin quicker when it's Raining or Storming, check your Gearboxes!
-tooltip.betterwithmods_book.name=The Book of Single
-
-
-betterwithmods.manual.message=You have been given a Better With Mods Manual. This mod might be different than what you are expecting. Please read the Crash Course section.
 betterwithmods.manual.warning.missing.block=Image is missing: %s
-
 betterwithmods.manual.home=Home
 betterwithmods.manual.blocks=Block
 betterwithmods.manual.items=Items
@@ -545,68 +429,6 @@ betterwithmods.manual.mechanical=Mechanical Power
 betterwithmods.manual.error.0=Document not found:
 betterwithmods.manual.error.1=Please report this %s
 betterwithmods.manual.error.2=In the mean time, try the %s
-
-
-advancement.betterwithmods.crucible.desc=
-advancement.betterwithmods.cauldron.desc=
-advancement.betterwithmods.turntable.desc=
-advancement.betterwithmods.screw_pump.desc=
-advancement.betterwithmods.chair_wood.desc=
-advancement.betterwithmods.companion_cube.desc=
-advancement.betterwithmods.anchor.desc=
-advancement.betterwithmods.millstone.desc=
-advancement.betterwithmods.hibachi.desc=
-advancement.betterwithmods.kiln.desc=
-advancement.betterwithmods.infernal_enchanter.desc=
-advancement.betterwithmods.bloody_chopping_block.desc=
-advancement.betterwithmods.vertical_windmill.desc=
-advancement.betterwithmods.hellfire_dust.desc=
-advancement.betterwithmods.light.desc=
-advancement.betterwithmods.concentrated_hellfire.desc=
-advancement.betterwithmods.desc=Better Than Starting Unmanualed
-advancement.betterwithmods.plated_armor.name=
-advancement.betterwithmods.plated_armor.desc=
-advancement.betterwithmods.dynamite.desc=
-advancement.betterwithmods.soul_urn.desc=
-advancement.betterwithmods.library.name=
-advancement.betterwithmods.library.desc=
-advancement.betterwithmods.rope.desc=
-advancement.betterwithmods.wooden_gearbox.desc=
-advancement.betterwithmods.wooden_axle.desc=
-advancement.betterwithmods.hemp_seed.desc=
-advancement.betterwithmods.refined_tools.name=
-advancement.betterwithmods.refined_tools.desc=
-advancement.betterwithmods.siding_wood.desc=
-advancement.betterwithmods.steel_ingot.desc=
-advancement.betterwithmods.saw.desc=
-advancement.betterwithmods.bellows.desc=
-advancement.betterwithmods.blood_wood.desc=
-advancement.betterwithmods.ender_spectacles.desc=
-advancement.betterwithmods.moulding_wood.desc=
-advancement.betterwithmods.filtered_hopper.desc=
-advancement.betterwithmods.hand_crank.desc=
-advancement.betterwithmods.whitestone.desc=
-advancement.betterwithmods.buddy_block.desc=
-advancement.betterwithmods.horizontal_windmill.desc=
-advancement.betterwithmods.waterwheel.desc=
-advancement.betterwithmods.plated_armor.name=
-advancement.betterwithmods.plated_armor.desc=
-advancement.betterwithmods.planter.name=
-advancement.betterwithmods.planter.desc=
-advancement.betterwithmods.tanned_leather.desc=
-advancement.betterwithmods.hemp.desc=
-advancement.betterwithmods.detector.desc=
-advancement.betterwithmods.glue.desc=
-advancement.betterwithmods.urn.desc=
-advancement.betterwithmods.block_dispenser.desc=
-advancement.betterwithmods.table_wood.desc=
-advancement.betterwithmods.wood_gear.desc=
-advancement.betterwithmods.platform.desc=
-advancement.betterwithmods.composite_bow.desc=
-advancement.betterwithmods.pulley.desc=
-advancement.betterwithmods.mining_charge.desc=
-advancement.betterwithmods.steel_anvil.desc=
-advancement.betterwithmods.corner_wood.desc=
 
 betterwithmods.got.feverdream=You never could get to sleep, in your insomnia you scribbled some notes. What do they mean?
 

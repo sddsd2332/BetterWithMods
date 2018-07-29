@@ -7,6 +7,7 @@ import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileCrank;
 import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
+import betterwithmods.util.TooltipLib;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -22,7 +23,6 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
@@ -79,7 +79,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
                     }
                 } else if (world.isRemote) {
                     if (hand == EnumHand.MAIN_HAND)
-                        player.sendStatusMessage(new TextComponentTranslation("bwm.message.exhaustion"), true);
+                        player.sendStatusMessage(TooltipLib.getMessageComponent(TooltipLib.HANDCRANK_EXHAUSTION), true);
                     return false;
                 }
             } else

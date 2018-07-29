@@ -4,6 +4,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockFurnace;
 import betterwithmods.module.Feature;
+import betterwithmods.util.TooltipLib;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -12,7 +13,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
@@ -25,6 +25,8 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.OptionalInt;
+
+import static betterwithmods.util.TooltipLib.FURNACE_TIME;
 
 public class HCFurnace extends Feature {
     public static final Block FURNACE = new BlockFurnace(false).setRegistryName("minecraft:furnace");
@@ -151,7 +153,7 @@ public class HCFurnace extends Feature {
         if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {
             double ticks = HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING);
             double seconds = ticks / 20.0;
-            event.getToolTip().add(new TextComponentTranslation("betterwithmods.hcfurnace.cook_time.tooltip", String.format("%.2f", seconds)).getFormattedText());
+            event.getToolTip().add(TooltipLib.getTooltip(FURNACE_TIME, String.format("%.2f", seconds)));
         }
     }
 

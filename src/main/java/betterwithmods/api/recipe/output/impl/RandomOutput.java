@@ -2,10 +2,12 @@ package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.util.InvUtils;
-import net.minecraft.client.resources.I18n;
+import betterwithmods.util.TooltipLib;
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
+
+import static betterwithmods.util.TooltipLib.RANDOM_OUTPUT;
 
 public class RandomOutput extends StackOutput {
     private static final Random RANDOM = new Random();
@@ -41,7 +43,7 @@ public class RandomOutput extends StackOutput {
     }
 
     public String getTooltip() {
-        return I18n.format("betterwithmods.random_output.tooltip", min, max);
+        return TooltipLib.getTooltip(RANDOM_OUTPUT, min, max);
     }
 
     @Override

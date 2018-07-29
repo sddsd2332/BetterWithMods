@@ -25,6 +25,7 @@ public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActiv
     private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.0F, 0.375F, 0.375F, 1.0F, 0.625F, 0.625F);
     private static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
     private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
+    private static final AxisAlignedBB[] BOXES = new AxisAlignedBB[]{X_AABB, Y_AABB,Z_AABB};
 
     public BlockAxleGenerator(Material material) {
         super(material);
@@ -63,15 +64,7 @@ public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActiv
     @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
-        switch (state.getValue(AXIS)) {
-            case X:
-                return X_AABB;
-            case Y:
-                return Y_AABB;
-            case Z:
-            default:
-                return Z_AABB;
-        }
+        return BOXES[state.getValue(AXIS).ordinal()];
     }
 
     @Override

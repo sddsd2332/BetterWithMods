@@ -7,6 +7,7 @@ import betterwithmods.common.entity.EntityHCFishHook;
 import betterwithmods.common.registry.crafting.BaitingRecipe;
 import betterwithmods.module.Feature;
 import betterwithmods.util.StackIngredient;
+import betterwithmods.util.TooltipLib;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
@@ -23,7 +24,6 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.stats.StatList;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
@@ -98,27 +98,35 @@ public class HCFishing extends Feature {
     }
 
     public static boolean isFishingRod(ItemStack stack) {
-        return stack.getItem() instanceof ItemFishingRod && stack.hasCapability(FISHING_ROD_CAP, EnumFacing.UP);
+        return stack.getItem() instanceof ItemFishingRod;
     }
 
     //Override loottables
 
     public static ItemStack getMostRelevantFishingRod(EntityPlayer player) {
         ItemStack itemMain = player.getHeldItemMainhand();
-        if (isFishingRod(itemMain) && itemMain.getCapability(FISHING_ROD_CAP, EnumFacing.UP).hasBait()) {
-            return itemMain;
+        if (isFishingRod(itemMain)) {
+            FishingBait cap = itemMain.getCapability(FISHING_ROD_CAP, EnumFacing.UP);
+            if (cap != null && cap.hasBait()) {
+                return itemMain;
+            }
         } else {
             return player.getHeldItemOffhand();
         }
+        return ItemStack.EMPTY;
     }
 
     public static boolean isBaited(ItemStack stack, boolean baited) {
-        return isFishingRod(stack) && stack.getCapability(FISHING_ROD_CAP, EnumFacing.UP).hasBait() == baited;
+        if (isFishingRod(stack)) {
+            FishingBait cap = stack.getCapability(FISHING_ROD_CAP, EnumFacing.UP);
+            return cap != null && cap.hasBait() == baited;
+        }
+        return false;
     }
 
     public static ItemStack setBaited(ItemStack rod, boolean baited) {
-        if (rod.hasCapability(FISHING_ROD_CAP, EnumFacing.UP)) {
-            FishingBait cap = rod.getCapability(FISHING_ROD_CAP, EnumFacing.UP);
+        FishingBait cap = rod.getCapability(FISHING_ROD_CAP, EnumFacing.UP);
+        if (cap != null) {
             cap.setBait(baited);
         }
         if (rod.getTagCompound() == null) {
@@ -203,7 +211,7 @@ public class HCFishing extends Feature {
         if (restrictToOpenWater) {
             if (event.getHookEntity().getEntityWorld().getHeight(hookPos.getX(), hookPos.getZ()) > hookPos.getY() || !isAirBlock(event.getHookEntity().getEntityWorld(), hookPos)) {
                 event.setCanceled(true);
-                event.getEntityPlayer().sendMessage(new TextComponentTranslation("bwm.message.needs_open_sky"));
+                event.getEntityPlayer().sendMessage(TooltipLib.getMessageComponent(TooltipLib.FISHING_NEEDS_OPEN_SKY));
                 return;
             }
         }
@@ -211,7 +219,7 @@ public class HCFishing extends Feature {
             for (int i = 1; i <= minimumWaterDepth; i++) {
                 if (!isWaterBlock(event.getHookEntity().getEntityWorld(), hookPos.add(0, (i * -1), 0))) {
                     event.setCanceled(true);
-                    event.getEntityPlayer().sendMessage(new TextComponentTranslation("bwm.message.needs_deep_water"));
+                    event.getEntityPlayer().sendMessage(TooltipLib.getMessageComponent(TooltipLib.FISHING_NEEDS_DEEP_WATER));
                     return;
                 }
             }
@@ -220,7 +228,8 @@ public class HCFishing extends Feature {
             ItemStack stack = getMostRelevantFishingRod(event.getEntityPlayer());
             if (isFishingRod(stack)) {
                 FishingBait cap = stack.getCapability(FISHING_ROD_CAP, EnumFacing.UP);
-                if (cap.hasBait()) {
+
+                if (cap != null && cap.hasBait()) {
                     cap.setBait(false);
                     NBTTagCompound tag = stack.getTagCompound();
                     if (tag != null && tag.hasKey("bait")) {
@@ -242,7 +251,7 @@ public class HCFishing extends Feature {
                     if (cap.hasBait() || event.getEntityPlayer().isCreative()) {
                         throwLine(event.getItemStack().getItem(), event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getWorld().rand).getType();
                     } else if (!event.getWorld().isRemote && (event.getHand() == EnumHand.MAIN_HAND || event.getHand() == EnumHand.OFF_HAND)) {
-                        event.getEntityPlayer().sendMessage(new TextComponentTranslation("bwm.message.needs_bait"));
+                        event.getEntityPlayer().sendMessage(TooltipLib.getMessageComponent(TooltipLib.FISHING_NEEDS_BAIT));
                     }
                 }
             }
@@ -256,15 +265,18 @@ public class HCFishing extends Feature {
             ItemStack stack = event.getItemStack();
             if (isFishingRod(stack)) {
                 FishingBait cap = event.getItemStack().getCapability(FISHING_ROD_CAP, EnumFacing.UP);
-                boolean bait = cap.hasBait();
-                String tooltip = bait ? "Baited" : "Unbaited";
-                if (!bait) {
-                    NBTTagCompound tag = stack.getTagCompound();
-                    if (tag != null && tag.hasKey("bait")) {
-                        tooltip = tag.getBoolean("bait") ? "Baited" : "Unbaited";
+                if (cap != null) {
+                    boolean bait = cap.hasBait();
+                    String tooltip = bait ? TooltipLib.FISHING_ROD_BAITED : TooltipLib.FISHING_ROD_UNBAITED;
+                    if (!bait) {
+                        //Used to sync this on the client.
+                        NBTTagCompound tag = stack.getTagCompound();
+                        if (tag != null && tag.hasKey("bait")) {
+                            tooltip = tag.getBoolean("bait") ? TooltipLib.FISHING_ROD_BAITED : TooltipLib.FISHING_ROD_UNBAITED;
+                        }
                     }
+                    event.getToolTip().add(TooltipLib.getTooltip(tooltip));
                 }
-                event.getToolTip().add(tooltip);
             }
         }
     }

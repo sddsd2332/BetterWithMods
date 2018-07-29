@@ -4,9 +4,9 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
 import betterwithmods.module.Feature;
 import betterwithmods.util.InvUtils;
+import betterwithmods.util.TooltipLib;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
@@ -22,7 +22,7 @@ public class ReadTheFingManual extends Feature {
                 if (save != null && !save.givenManual) {
                     save.givenManual = true;
                     InvUtils.spawnStack(event.player.world, event.player.getPosition(), new ItemStack(BWMItems.MANUAL), 10);
-                    event.player.sendMessage(new TextComponentTranslation("bwm.manual.message"));
+                    event.player.sendMessage(TooltipLib.getMessageComponent("give_manual"));
                 }
             }
         }

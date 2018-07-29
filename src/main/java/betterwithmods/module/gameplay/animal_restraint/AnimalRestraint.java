@@ -3,7 +3,7 @@ package betterwithmods.module.gameplay.animal_restraint;
 import betterwithmods.BWMod;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.items.ItemBreedingHarness;
+import betterwithmods.common.items.ItemAnimalHarness;
 import betterwithmods.module.Feature;
 import betterwithmods.module.gameplay.breeding_harness.models.ModelCowHarness;
 import betterwithmods.module.gameplay.breeding_harness.models.ModelSheepHarness;
@@ -46,7 +46,7 @@ import java.util.Set;
 
 public class AnimalRestraint extends Feature {
 
-    public static final Item ANIMAL_RESTRAINT = new ItemBreedingHarness().setRegistryName("animal_restraint");
+    public static final Item ANIMAL_RESTRAINT = new ItemAnimalHarness().setRegistryName("animal_restraint");
     public static final Set<Class<? extends EntityAnimal>> HARNESS_ANIMALS = Sets.newHashSet();
     private static final ResourceLocation CAPABILITY = new ResourceLocation(BWMod.MODID, "harness");
     private static final Object2BooleanMap<Class<? extends Entity>> HARNESS_CACHE = new Object2BooleanOpenHashMap<>();
@@ -76,7 +76,7 @@ public class AnimalRestraint extends Feature {
 
     public static boolean hasHarness(Entity entity) {
         Harness cap = getHarnessCapability(entity);
-        return cap != null && cap.getHarness().getItem() instanceof ItemBreedingHarness;
+        return cap != null && cap.getHarness().getItem() instanceof ItemAnimalHarness;
     }
 
     private static boolean harnessEntity(Entity entity) {
@@ -154,7 +154,7 @@ public class AnimalRestraint extends Feature {
             ItemStack hand = event.getItemStack();
             ItemStack harness = cap.getHarness();
             if (harness.isEmpty() && !event.getEntityPlayer().isSneaking()) {
-                if (hand.getItem() instanceof ItemBreedingHarness) {
+                if (hand.getItem() instanceof ItemAnimalHarness) {
                     cap.setHarness(InvUtils.setCount(hand.copy(), 1));
                     if (!event.getEntityPlayer().capabilities.isCreativeMode)
                         hand.shrink(1);

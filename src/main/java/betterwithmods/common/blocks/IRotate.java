@@ -1,9 +1,9 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.util.TooltipLib;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,8 +26,9 @@ public interface IRotate {
     }
 
     default void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
-        if (rotates())
-            tooltip.add(I18n.format("tooltip.rotate_with_hand.name"));
+        if (rotates()) {
+            tooltip.add(TooltipLib.getTooltip(TooltipLib.ROTATE_WITH_HAND));
+        }
     }
 
     default void nextState(World world, BlockPos pos, IBlockState state) {

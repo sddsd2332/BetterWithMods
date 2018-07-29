@@ -5,10 +5,10 @@ import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
 import betterwithmods.util.DirUtils;
+import betterwithmods.util.TooltipLib;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
@@ -18,14 +18,12 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
-import java.util.List;
+import java.util.Objects;
 
 public abstract class ItemAxleBase extends ItemBlock implements IRenderRotationPlacement {
     protected int radius;
@@ -38,12 +36,9 @@ public abstract class ItemAxleBase extends ItemBlock implements IRenderRotationP
 
     public abstract boolean isAxis(EnumFacing.Axis axis);
 
-    @SideOnly(Side.CLIENT)
-    public abstract String tooltip();
-
     private void showErrorMessage(EntityPlayer player, Error error) {
-        String block = getRegistryName().getResourcePath();
-        player.sendMessage(new TextComponentTranslation(error.format(block)));
+        String block = Objects.requireNonNull(getRegistryName()).getResourcePath();
+        player.sendMessage(TooltipLib.getMessageComponent(error.format(block)));
     }
 
     public AxisAlignedBB getBounds(EnumFacing.Axis axis, int radius) {
@@ -119,6 +114,8 @@ public abstract class ItemAxleBase extends ItemBlock implements IRenderRotationP
             } else {
                 showErrorMessage(player, Error.SPACE);
             }
+        } else {
+            showErrorMessage(player, Error.AXLE);
         }
         return EnumActionResult.PASS;
     }
@@ -130,13 +127,6 @@ public abstract class ItemAxleBase extends ItemBlock implements IRenderRotationP
             return isAxis(axis) ? axis : null;
         }
         return null;
-    }
-
-
-    @Override
-    public void addInformation(@Nonnull ItemStack stack, @Nullable World worldIn, @Nonnull List<String> tooltip, @Nonnull ITooltipFlag flagIn) {
-        tooltip.add(tooltip());
-        super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 
     @Override

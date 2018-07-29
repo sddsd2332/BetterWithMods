@@ -1,7 +1,6 @@
 package betterwithmods.common.items.itemblocks;
 
 import net.minecraft.block.Block;
-import net.minecraft.client.resources.I18n;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -20,11 +19,6 @@ public class ItemVerticalWindmill extends ItemAxleBase {
     @Override
     public boolean isAxis(EnumFacing.Axis axis) {
         return axis.isVertical();
-    }
-
-    @Override
-    public String tooltip() {
-        return I18n.format("bwm.tooltip.vertical_windmill.name");
     }
 
     @Override

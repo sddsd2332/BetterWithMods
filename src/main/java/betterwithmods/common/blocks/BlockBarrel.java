@@ -1,6 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.tile.TileBarrel;
+import betterwithmods.util.TooltipLib;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -8,7 +9,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
@@ -38,7 +38,7 @@ public class BlockBarrel extends BWMBlockAxis {
             FluidStack fluid = handler.getFluid();
             if (fluid != null) {
                 int f = handler.getFluidAmount(), c = handler.getCapacity();
-                playerIn.sendStatusMessage(new TextComponentTranslation("bwm.message.barrel.info", fluid.getLocalizedName(), f, c), false);
+                playerIn.sendStatusMessage(TooltipLib.getMessageComponent("barrel_info", fluid.getLocalizedName(), f, c), false);
             }
         }
         return true;
