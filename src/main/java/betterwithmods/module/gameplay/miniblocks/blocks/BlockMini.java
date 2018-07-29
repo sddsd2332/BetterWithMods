@@ -5,6 +5,7 @@ import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.tile.TileCamo;
+import betterwithmods.module.gameplay.miniblocks.ItemMini;
 import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
 import betterwithmods.module.gameplay.miniblocks.client.MiniInfo;
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
@@ -17,6 +18,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -47,9 +49,18 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
         super(material, subtypes);
     }
 
+    public BaseOrientation getDefaultOrientation(ItemStack stack) {
+        return BaseOrientation.DEFAULT;
+    }
+
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
         items.addAll(MiniBlocks.MATERIALS.get(blockMaterial).stream().sorted(this::compareBlockStates).map(state -> MiniBlocks.fromParent(this, state)).collect(Collectors.toList()));
+    }
+
+    @Override
+    public ItemBlock createItemBlock(Block block) {
+        return new ItemMini(block);
     }
 
     private int compareBlockStates(IBlockState a, IBlockState b) {

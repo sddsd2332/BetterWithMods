@@ -4,7 +4,9 @@ import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileCamo;
+import betterwithmods.module.gameplay.miniblocks.ItemCamo;
 import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
+import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -15,6 +17,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Enchantments;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
@@ -54,6 +57,9 @@ public abstract class BlockCamo extends BWMBlock {
         return Optional.empty();
     }
 
+    public ItemBlock createItemBlock(Block block) {
+        return new ItemCamo(block);
+    }
 
     @SuppressWarnings("deprecation")
     @Override

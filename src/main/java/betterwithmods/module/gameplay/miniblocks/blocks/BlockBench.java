@@ -26,6 +26,7 @@ public class BlockBench extends BlockFurniture implements ISittable {
         setDefaultState(getDefaultState().withProperty(SUPPORTED, true));
     }
 
+
     @Nonnull
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {

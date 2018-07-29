@@ -2,6 +2,7 @@ package betterwithmods.module.gameplay.miniblocks.client;
 
 import betterwithmods.client.baking.IRenderComparable;
 import betterwithmods.common.blocks.camo.CamoInfo;
+import betterwithmods.module.gameplay.miniblocks.ItemMini;
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.gameplay.miniblocks.tiles.TileMini;
 import net.minecraft.block.state.IBlockState;
@@ -19,7 +20,7 @@ public class MiniInfo implements IRenderComparable<MiniInfo> {
 
     public MiniInfo(ItemStack stack) {
         this.camo = new CamoInfo(stack);
-        this.orientation = BaseOrientation.DEFAULT;
+        this.orientation = ((ItemMini) stack.getItem()).getDefaultOrientation(stack);
     }
 
     public MiniInfo(TileMini tile) {

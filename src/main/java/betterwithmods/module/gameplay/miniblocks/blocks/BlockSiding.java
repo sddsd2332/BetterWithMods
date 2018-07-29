@@ -20,9 +20,13 @@ import java.util.function.Function;
 
 public class BlockSiding extends BlockMini {
 
-
     public BlockSiding(Material material, Function<Material, Collection<IBlockState>> subtypes) {
         super(material, subtypes);
+    }
+
+    @Override
+    public BaseOrientation getDefaultOrientation(ItemStack stack) {
+        return SidingOrientation.NORTH;
     }
 
     @Override

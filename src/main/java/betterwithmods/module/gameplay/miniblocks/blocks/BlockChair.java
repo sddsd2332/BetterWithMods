@@ -28,6 +28,11 @@ public class BlockChair extends BlockMini implements ISittable {
         super(material, subtypes);
     }
 
+    @Override
+    public BaseOrientation getDefaultOrientation(ItemStack stack) {
+        return ChairOrientation.NORTH;
+    }
+
 
     @Override
     public double getOffset() {

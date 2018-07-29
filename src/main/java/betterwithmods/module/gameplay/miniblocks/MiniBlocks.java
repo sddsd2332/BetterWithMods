@@ -224,7 +224,7 @@ public class MiniBlocks extends Feature {
 
         for (MiniType type : MiniType.VALUES) {
             for (BlockCamo mini : MINI_MATERIAL_BLOCKS.get(type).values()) {
-                BWMBlocks.registerBlock(mini, new ItemCamo(mini));
+                BWMBlocks.registerBlock(mini, mini.createItemBlock(mini));
             }
         }
     }

@@ -2,6 +2,7 @@ package betterwithmods.module.gameplay.miniblocks.blocks;
 
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.gameplay.miniblocks.orientations.CornerOrientation;
+import betterwithmods.module.gameplay.miniblocks.orientations.SidingOrientation;
 import betterwithmods.module.gameplay.miniblocks.tiles.TileCorner;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -23,6 +24,12 @@ public class BlockCorner extends BlockMini {
     public BlockCorner(Material material, Function<Material, Collection<IBlockState>> subtypes) {
         super(material, subtypes);
     }
+
+    @Override
+    public BaseOrientation getDefaultOrientation(ItemStack stack) {
+        return SidingOrientation.NORTH;
+    }
+
 
     @Override
     public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing facing, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
