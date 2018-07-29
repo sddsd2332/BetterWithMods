@@ -16,42 +16,42 @@
     "age": {
       "0": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_big_oak_0"
+          "cross": "betterwithmods:blocks/saplings/sapling_big_oak_0"
         }
       },
       "1": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_big_oak_1"
+          "cross": "betterwithmods:blocks/saplings/sapling_big_oak_1"
         }
       },
       "2": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_big_oak_2"
+          "cross": "betterwithmods:blocks/saplings/sapling_big_oak_2"
         }
       },
       "3": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_big_oak_3"
+          "cross": "betterwithmods:blocks/saplings/sapling_big_oak_3"
         }
       },
       "4": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_big_oak_4"
+          "cross": "betterwithmods:blocks/saplings/sapling_big_oak_4"
         }
       },
       "5": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_big_oak_5"
+          "cross": "betterwithmods:blocks/saplings/sapling_big_oak_5"
         }
       },
       "6": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_big_oak_6"
+          "cross": "betterwithmods:blocks/saplings/sapling_big_oak_6"
         }
       },
       "7": {
         "textures": {
-          "cross": "minecraft:blocks/sapling_roofed_oak"
+          "cross": "minecraft:blocks/saplings/sapling_roofed_oak"
         }
       }
     }
