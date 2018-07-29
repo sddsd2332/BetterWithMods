@@ -3,7 +3,7 @@
   "defaults": {
     "textures": {
       "up": "betterwithmods:blocks/hopper_top",
-      "side": "blocks/planks_oak"
+      "side": "betterwithmods:blocks/hopper_side"
     },
     "model": "betterwithmods:hopper",
     "uvlock": false

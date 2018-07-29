@@ -2,14 +2,13 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "up": "betterwithmods:blocks/pump_top",
-      "down": "betterwithmods:blocks/pump_bottom",
-      "side": "minecraft:blocks/planks_oak",
-      "front": "betterwithmods:blocks/pump_grate",
-      "north": "#front",
+      "side": "betterwithmods:blocks/pump_side",
+      "side_grate": "betterwithmods:blocks/pump_grate",
+      "top": "betterwithmods:blocks/pump_top",
+      "bottom": "betterwithmods:blocks/pump_bottom",
+      "north": "#side",
       "south": "#side",
       "west": "#side",
-      "east": "#side",
       "particle": "#side"
     },
     "model": "cube",

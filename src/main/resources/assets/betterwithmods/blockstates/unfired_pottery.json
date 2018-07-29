@@ -2,10 +2,11 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "particle": "blocks/clay",
-      "side": "blocks/clay",
-      "top": "#side",
-      "bottom": "#side"
+      "all": "betterwithmods:blocks/unfired_clay",
+      "side": "#all",
+      "top": "#all",
+      "bottom": "#all",
+      "particle": "#all"
     },
     "model": "betterwithmods:cooking_pot",
     "uvlock": false
@@ -37,9 +38,8 @@
       "nether_brick": {
         "model": "betterwithmods:brick",
         "textures": {
-          "particle": "betterwithmods:blocks/nether_sludge",
-          "side": "betterwithmods:blocks/nether_sludge"
-        }
+          "all":  "betterwithmods:blocks/nether_sludge"
+		}
       }
     }
   }

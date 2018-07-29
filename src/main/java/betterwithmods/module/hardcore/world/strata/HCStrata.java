@@ -100,7 +100,7 @@ public class HCStrata extends Feature {
 
     @Override
     public void setupConfig() {
-        debugging = loadPropBool("Debugging", "Super fine debugging for HCStrata, don't use this.", true);
+        debugging = false;
 
         STRATA_SPEEDS = new float[]{(float) loadPropDouble("Light Strata", "Speed for Light Strata", 1.0),
                 (float) loadPropDouble("Medium Strata", "Speed for Medium Strata", 1.0),
