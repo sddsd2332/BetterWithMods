@@ -6,7 +6,7 @@ import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.manual.custom.JEIRenderSegment;
 import betterwithmods.manual.custom.JEISegment;
 import com.google.common.base.Strings;
-import com.google.common.collect.Sets;
+import com.google.common.collect.Lists;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -15,7 +15,6 @@ import org.lwjgl.opengl.GL11;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
-import java.util.Set;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -36,7 +35,7 @@ import java.util.regex.Pattern;
  * nodes, up to the root.
  */
 public final class Document {
-    public static final Set<PatternMapping> SEGMENT_TYPES = Sets.newHashSet(
+    public static final List<PatternMapping> SEGMENT_TYPES = Lists.newArrayList(
             new PatternMapping("^(#+)\\s(.*)", Document::HeaderSegment), // headers: # ...
             new PatternMapping("(`)(.*?)\\1", Document::CodeSegment), // code: `...`
             new PatternMapping("!\\[([^\\[]*)\\]\\(([^\\)]+)\\)", Document::ImageSegment), // images: ![...](...)
