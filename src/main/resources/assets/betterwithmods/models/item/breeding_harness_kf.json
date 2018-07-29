@@ -1,6 +1,0 @@
-{
-  "parent": "betterwithmods:item/default",
-  "textures": {
-    "layer0": "betterwithmods:items/breeding_harness_kf"
-  }
-}

@@ -56,7 +56,6 @@ public final class BWMBlocks {
     public static final Block ACACIA_SLATS = new BlockPane(Material.WOOD).setRegistryName("acacia_slats");
     public static final Block DARK_OAK_SLATS = new BlockPane(Material.WOOD).setRegistryName("dark_oak_slats");
     public static final Block URN = new BlockUrn(BlockUrn.EnumType.EMPTY).setRegistryName("urn");
-    public static final Block VOID_URN = new BlockUrn(BlockUrn.EnumType.VOID).setRegistryName("void_urn");
     public static final Block SOUL_URN = new BlockUrn(BlockUrn.EnumType.SOUL).setRegistryName("soul_urn");
     public static final Block STOKED_FLAME = new BlockFireStoked().setRegistryName("stoked_flame");
     public static final Block HIBACHI = new BlockHibachi().setRegistryName("hibachi");
@@ -154,7 +153,6 @@ public final class BWMBlocks {
         registerBlock(DARK_OAK_SLATS);
         registerBlock(URN);
         registerBlock(SOUL_URN, new ItemBlockUrn(SOUL_URN));
-        registerBlock(VOID_URN);
         registerBlock(STOKED_FLAME, null);
         registerBlock(HIBACHI);
         registerBlock(BELLOWS);

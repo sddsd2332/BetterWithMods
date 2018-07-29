@@ -153,8 +153,8 @@ public class BlockUrn extends BWMBlock implements ISoulContainer {
 
     public enum EnumType {
         EMPTY(8),
-        SOUL(0),
-        VOID(1);
+        SOUL(0);
+        
         final int souls;
 
         EnumType(int souls) {

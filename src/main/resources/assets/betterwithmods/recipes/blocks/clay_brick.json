@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "betterwithmods:unfired_brick",
-    "data": 4
+    "item": "betterwithmods:unfired_brick"
   },
   "type": "minecraft:crafting_shapeless",
   "ingredients": [

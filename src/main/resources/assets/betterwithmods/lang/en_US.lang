@@ -388,6 +388,7 @@ message.betterwithmods:barrel_info=%s : %d/%d
 tooltip.betterwithmods:random_output=Count: %s-%s
 tooltip.betterwithmods:chance_output=Chance: %d%%
 tooltip.betterwithmods:book=The Book of Single
+tooltip.betterwithmods:rotate_with_hand=Rotate by Shift Right-Clicking with both hands empty.
 tooltip.betterwithmods:furnace_fuel=Cook Time: %s ticks
 tooltip.betterwithmods:millstone_blocked=The Millstone has too many solid blocks around it.
 

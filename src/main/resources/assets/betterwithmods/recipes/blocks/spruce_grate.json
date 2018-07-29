@@ -1,8 +1,6 @@
 {
   "result": {
-    "item": "betterwithmods:spruce_grate",
-    "data": 1,
-    "count": 4
+    "item": "betterwithmods:spruce_grate"
   },
   "pattern": [
     "WSW",

@@ -44,8 +44,6 @@ public class Quark extends CompatFeature {
 
             //Chests made of logs
             BWMRecipes.removeRecipe(Pattern.compile("quark:custom_chest_([13579])"));
-            //Trapdoors
-            BWMRecipes.removeRecipe(Pattern.compile("quark:.*trapdoor"));
         }
 
         if (BWMod.MODULE_LOADER.isFeatureEnabled(HCRedstone.class)) {

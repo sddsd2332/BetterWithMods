@@ -1,7 +1,6 @@
 {
   "result": {
-    "item": "betterwithmods:leather_belt",
-    "data": 9
+    "item": "betterwithmods:leather_belt"
   },
   "pattern": [
     " L ",
@@ -11,8 +10,7 @@
   "type": "minecraft:crafting_shaped",
   "key": {
     "L": {
-      "item": "betterwithmods:leather_strap",
-      "data": 8
+      "item": "betterwithmods:leather_strap"
     }
   }
 }
