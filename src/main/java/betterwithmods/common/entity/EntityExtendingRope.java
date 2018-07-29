@@ -1,5 +1,6 @@
 package betterwithmods.common.entity;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.tile.TilePulley;
 import betterwithmods.module.GlobalConfig;
@@ -7,7 +8,8 @@ import betterwithmods.util.AABBArray;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRedstoneWire;
@@ -31,24 +33,8 @@ import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import javax.annotation.Nonnull;
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-
-import betterwithmods.BWMod;
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
-import betterwithmods.module.GlobalConfig;
-import betterwithmods.util.AABBArray;
-import betterwithmods.util.InvUtils;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
-import static java.lang.Math.max;
 
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
