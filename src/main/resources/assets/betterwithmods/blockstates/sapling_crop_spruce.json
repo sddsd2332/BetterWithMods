@@ -51,7 +51,7 @@
       },
       "7": {
         "textures": {
-          "cross": "minecraft:blocks/saplings/sapling_spruce"
+          "cross": "minecraft:blocks/sapling_spruce"
         }
       }
     }
