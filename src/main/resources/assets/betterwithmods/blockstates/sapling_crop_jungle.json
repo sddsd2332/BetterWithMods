@@ -16,42 +16,42 @@
     "age": {
       "0": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_jungle_0"
+          "cross": "betterwithmods:blocks/saplings/sapling_jungle_0"
         }
       },
       "1": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_jungle_1"
+          "cross": "betterwithmods:blocks/saplings/sapling_jungle_1"
         }
       },
       "2": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_jungle_2"
+          "cross": "betterwithmods:blocks/saplings/sapling_jungle_2"
         }
       },
       "3": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_jungle_3"
+          "cross": "betterwithmods:blocks/saplings/sapling_jungle_3"
         }
       },
       "4": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_jungle_4"
+          "cross": "betterwithmods:blocks/saplings/sapling_jungle_4"
         }
       },
       "5": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_jungle_5"
+          "cross": "betterwithmods:blocks/saplings/sapling_jungle_5"
         }
       },
       "6": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_jungle_6"
+          "cross": "betterwithmods:blocks/saplings/sapling_jungle_6"
         }
       },
       "7": {
         "textures": {
-          "cross": "minecraft:blocks/sapling_jungle"
+          "cross": "minecraft:blocks/saplings/sapling_jungle"
         }
       }
     }

@@ -16,42 +16,42 @@
     "age": {
       "0": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_birch_0"
+          "cross": "betterwithmods:blocks/saplings/sapling_birch_0"
         }
       },
       "1": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_birch_1"
+          "cross": "betterwithmods:blocks/saplings/sapling_birch_1"
         }
       },
       "2": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_birch_2"
+          "cross": "betterwithmods:blocks/saplings/sapling_birch_2"
         }
       },
       "3": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_birch_3"
+          "cross": "betterwithmods:blocks/saplings/sapling_birch_3"
         }
       },
       "4": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_birch_4"
+          "cross": "betterwithmods:blocks/saplings/sapling_birch_4"
         }
       },
       "5": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_birch_5"
+          "cross": "betterwithmods:blocks/saplings/sapling_birch_5"
         }
       },
       "6": {
         "textures": {
-          "cross": "betterwithmods:blocks/sapling_birch_6"
+          "cross": "betterwithmods:blocks/saplings/sapling_birch_6"
         }
       },
       "7": {
         "textures": {
-          "cross": "minecraft:blocks/sapling_birch"
+          "cross": "minecraft:blocks/saplings/sapling_birch"
         }
       }
     }
