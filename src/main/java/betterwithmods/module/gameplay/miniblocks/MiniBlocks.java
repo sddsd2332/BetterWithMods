@@ -18,10 +18,7 @@ import betterwithmods.module.gameplay.miniblocks.client.MiniModel;
 import betterwithmods.module.gameplay.miniblocks.client.StairModel;
 import betterwithmods.util.JsonUtils;
 import betterwithmods.util.ReflectionHelperBlock;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
-import com.google.common.collect.Sets;
+import com.google.common.collect.*;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import net.minecraft.block.*;
@@ -82,6 +79,15 @@ public class MiniBlocks extends Feature {
 
     public MiniBlocks() {
         enabledByDefault = false;
+    }
+
+    public static List<ItemStack> getStacks(MiniType type, Material material) {
+        List<ItemStack> stacks = Lists.newArrayList();
+        Block block = MiniBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);
+        for (IBlockState state : MiniBlocks.MATERIALS.get(material)) {
+            stacks.add(MiniBlocks.fromParent(block, state));
+        }
+        return stacks;
     }
 
     public static boolean isValidMini(IBlockState state) {

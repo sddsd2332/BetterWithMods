@@ -1,10 +1,13 @@
 package betterwithmods.manual.client.manual.provider;
 
+import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.manual.api.API;
 import betterwithmods.manual.api.manual.ImageProvider;
 import betterwithmods.manual.api.manual.ImageRenderer;
 import betterwithmods.manual.client.manual.segment.render.ItemStackImageRenderer;
 import betterwithmods.manual.client.manual.segment.render.MissingItemRenderer;
+import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
+import betterwithmods.module.gameplay.miniblocks.MiniType;
 import com.google.common.base.Strings;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
@@ -34,6 +37,9 @@ public final class BlockImageProvider implements ImageProvider {
         final int meta = (Strings.isNullOrEmpty(optMeta)) ? 0 : Integer.parseInt(optMeta.substring(1));
         final Block block = Block.REGISTRY.getObject(new ResourceLocation(name));
         if (Item.getItemFromBlock(block) != Items.AIR) {
+            if (block instanceof BlockCamo) {
+                return new ItemStackImageRenderer(MiniBlocks.getStacks(MiniType.fromBlock((BlockCamo) block), block.getMaterial(block.getDefaultState())).toArray(new ItemStack[0]));
+            }
             return new ItemStackImageRenderer(new ItemStack(block, 1, meta));
         } else {
             return new MissingItemRenderer(WARNING_BLOCK_MISSING);
@@ -49,4 +55,5 @@ public final class BlockImageProvider implements ImageProvider {
             return Integer.parseInt(optMeta);
         }
     }
+
 }

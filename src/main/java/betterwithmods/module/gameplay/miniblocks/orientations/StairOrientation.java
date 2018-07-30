@@ -73,13 +73,20 @@ public enum StairOrientation implements BaseOrientation {
 
     public static final StairOrientation[][] LEFT_CORNERS = new StairOrientation[][]{
             DOWN_LEFT_CORNER,
-            UP_LEFT_CORNER
+            UP_LEFT_CORNER,
+            UP_LEFT_CORNER,
+            UP_LEFT_CORNER,
+            UP_LEFT_CORNER,
     };
 
 
     public static final StairOrientation[][] RIGHT_CORNERS = new StairOrientation[][]{
             DOWN_RIGHT_CORNER,
-            UP_RIGHT_CORNER
+            UP_RIGHT_CORNER,
+            UP_RIGHT_CORNER,
+            UP_RIGHT_CORNER,
+            UP_RIGHT_CORNER,
+            UP_RIGHT_CORNER,
     };
 
 
