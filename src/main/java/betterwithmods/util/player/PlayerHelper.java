@@ -76,6 +76,10 @@ public final class PlayerHelper {
         return player != null && !player.isCreative() && !player.isSpectator() && !player.isSpectator();
     }
 
+    public static boolean isSitting(EntityPlayer player) {
+        return player.getRidingEntity() != null && player.getRidingEntity().getName().equals("sit_mount");
+    }
+
     /**
      * This will at least keep players from sticking to the bottom of a pool.
      *

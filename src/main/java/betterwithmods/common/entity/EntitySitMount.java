@@ -30,14 +30,10 @@ public class EntitySitMount extends Entity {
     }
 
     @Override
-    protected void readEntityFromNBT(@Nonnull NBTTagCompound compound) {
-
-    }
+    protected void readEntityFromNBT(@Nonnull NBTTagCompound compound) {}
 
     @Override
-    protected void writeEntityToNBT(@Nonnull NBTTagCompound compound) {
-
-    }
+    protected void writeEntityToNBT(@Nonnull NBTTagCompound compound) { }
 
     @Override
     public void dismountRidingEntity() {

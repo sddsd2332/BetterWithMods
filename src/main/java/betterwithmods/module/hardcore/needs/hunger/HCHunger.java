@@ -290,8 +290,11 @@ public class HCHunger extends CompatFeature {
             if (!PlayerHelper.isSurvival(player) || player.world.getDifficulty() == EnumDifficulty.PEACEFUL)
                 return;
             int tick = getExhaustionTick(player);
-            if (tick > passiveExhaustionTick) {
-                BWMod.getLog().debug("Adding Exhaustion ({}) after {} ticks", passiveExhaustion, passiveExhaustionTick);
+
+            int totalTicks = passiveExhaustionTick * (PlayerHelper.isSitting(player) ? 2 : 1);
+
+            if (tick > totalTicks) {
+                BWMod.getLog().debug("Adding Exhaustion ({}) after {} ticks", passiveExhaustion, totalTicks);
                 player.addExhaustion(passiveExhaustion);
                 setExhaustionTick(player, 0);
             } else {
