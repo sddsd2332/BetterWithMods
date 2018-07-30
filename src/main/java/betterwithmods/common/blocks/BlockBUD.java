@@ -1,6 +1,8 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.common.registry.block.recipe.BlockIngredientSpecial;
 import betterwithmods.util.DirUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -12,6 +14,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -29,7 +32,20 @@ import static net.minecraft.util.EnumFacing.UP;
  */
 public class BlockBUD extends BWMBlock {
     private static final PropertyBool REDSTONE = PropertyBool.create("redstone");
-    private static Set<Block> BLACKLIST = Sets.newHashSet(BWMBlocks.BUDDY_BLOCK, Blocks.REDSTONE_WIRE, Blocks.POWERED_REPEATER, Blocks.UNPOWERED_REPEATER, Blocks.REDSTONE_TORCH, Blocks.UNLIT_REDSTONE_TORCH, BWMBlocks.LIGHT);
+    private static final Set<BlockIngredient> BLACKLIST = Sets.newHashSet(
+            new BlockIngredient(new ItemStack(BWMBlocks.BUDDY_BLOCK)),
+            new BlockIngredient(new ItemStack(Blocks.REDSTONE_WIRE)),
+            new BlockIngredient(new ItemStack(Blocks.POWERED_REPEATER)),
+            new BlockIngredient(new ItemStack(Blocks.UNPOWERED_REPEATER)),
+            new BlockIngredient(new ItemStack(Blocks.REDSTONE_TORCH)),
+            new BlockIngredient(new ItemStack(Blocks.UNLIT_REDSTONE_TORCH)),
+            new BlockIngredient(new ItemStack(BWMBlocks.LIGHT)),
+            //Blacklist all tileentites from causing buds
+            new BlockIngredientSpecial((world, pos) -> {
+                IBlockState state = world.getBlockState(pos);
+                return state.getBlock().hasTileEntity(state);
+            })
+    );
 
     public BlockBUD() {
         super(Material.ROCK);
@@ -37,10 +53,6 @@ public class BlockBUD extends BWMBlock {
         setSoundType(SoundType.STONE);
         setDefaultState(getDefaultState().withProperty(DirUtils.FACING, UP));
         this.setHarvestLevel("pickaxe", 0);
-    }
-
-    public static void addBlacklistBlock(Block block) {
-        BLACKLIST.add(block);
     }
 
     @Override
@@ -88,9 +100,17 @@ public class BlockBUD extends BWMBlock {
         return true;
     }
 
+    private boolean isBlacklisted(World world, BlockPos pos) {
+        for (BlockIngredient ingredient : BLACKLIST) {
+            if (ingredient.apply(world, pos, world.getBlockState(pos)))
+                return true;
+        }
+        return false;
+    }
+
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos other) {
-        if (!isRedstoneOn(world, pos) && !BLACKLIST.contains(blockIn)) {
+        if (!isRedstoneOn(world, pos) && !isBlacklisted(world, other)) {
             world.scheduleUpdate(pos, state.getBlock(), tickRate(world));
         }
     }
