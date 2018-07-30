@@ -2,7 +2,6 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.common.registry.block.recipe.BlockIngredientSpecial;
 import betterwithmods.util.DirUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -39,12 +38,7 @@ public class BlockBUD extends BWMBlock {
             new BlockIngredient(new ItemStack(Blocks.UNPOWERED_REPEATER)),
             new BlockIngredient(new ItemStack(Blocks.REDSTONE_TORCH)),
             new BlockIngredient(new ItemStack(Blocks.UNLIT_REDSTONE_TORCH)),
-            new BlockIngredient(new ItemStack(BWMBlocks.LIGHT)),
-            //Blacklist all tileentites from causing buds
-            new BlockIngredientSpecial((world, pos) -> {
-                IBlockState state = world.getBlockState(pos);
-                return state.getBlock().hasTileEntity(state);
-            })
+            new BlockIngredient(new ItemStack(BWMBlocks.LIGHT))
     );
 
     public BlockBUD() {
