@@ -41,7 +41,7 @@ public class BWCreativeTabs {
         @Override
         @SideOnly(Side.CLIENT)
         public ItemStack getTabIconItem() {
-            return MiniBlocks.fromParent(MiniBlocks.MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(Material.WOOD), MiniBlocks.MATERIALS.get(Material.WOOD).stream().findFirst().orElse(null));
+            return MiniBlocks.fromParent(MiniBlocks.MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(Material.WOOD), MiniBlocks.MATERIALS.get(Material.WOOD).stream().findAny().orElse(null));
         }
     };
 }
