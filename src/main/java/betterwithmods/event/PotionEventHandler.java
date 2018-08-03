@@ -132,10 +132,13 @@ public class PotionEventHandler {
 
     @SubscribeEvent
     public static void saveSoup(LivingEntityUseItemEvent.Finish event) {
-        if (event.getItem().getItem() instanceof ItemSoup) {
-            if (event.getItem().getCount() > 0) {
+        ItemStack item = event.getItem();
+        if (item.getItem() instanceof ItemSoup) {
+            if (item.getCount() > 0) {
                 ItemStack result = event.getResultStack();
-                event.setResultStack(event.getItem());
+                ItemStack copy = item.copy();
+                copy.shrink(1);
+                event.setResultStack(copy);
                 if (event.getEntityLiving() instanceof EntityPlayer) {
                     EntityPlayer player = (EntityPlayer) event.getEntityLiving();
                     if (!player.inventory.addItemStackToInventory(result)) {
