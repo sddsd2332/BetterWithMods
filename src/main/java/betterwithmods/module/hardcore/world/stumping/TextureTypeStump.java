@@ -1,6 +1,8 @@
 package betterwithmods.module.hardcore.world.stumping;
 
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
+import net.minecraft.client.multiplayer.WorldClient;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import team.chisel.ctm.api.texture.ICTMTexture;
@@ -19,13 +21,12 @@ public class TextureTypeStump implements ITextureType {
 
     @Override
     public ITextureContext getBlockRenderContext(IBlockState state, IBlockAccess world, BlockPos pos, ICTMTexture<?> tex) {
-        return new TextureContextStump(pos);
+        WorldClient worldClient = Minecraft.getMinecraft().world;
+        return new TextureContextStump(HCStumping.isStump(worldClient, pos));
     }
 
     @Override
-    public ITextureContext getContextFromData(long data) {
-        return new TextureContextStump(BlockPos.fromLong(data));
-    }
+    public ITextureContext getContextFromData(long data) { return new TextureContextStump(data == 1); }
 
     @Override
     public int requiredTextures() {

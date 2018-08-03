@@ -22,7 +22,7 @@ public class TextureStump extends AbstractTexture<TextureTypeStump> {
         if (HCStumping.ENABLED && context instanceof TextureContextStump) {
             TextureContextStump c = (TextureContextStump) context;
             Quad q = makeQuad(quad, context);
-            return Lists.newArrayList(q.transformUVs(sprites[c.isStump()]).rebake());
+            return Lists.newArrayList(q.transformUVs(sprites[(int) c.getCompressedData()]).rebake());
         }
         return Lists.newArrayList(quad);
     }
