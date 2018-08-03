@@ -21,7 +21,7 @@ public class AnvilCraftingManager {
      */
     public static ItemStack findMatchingResult(InventoryCrafting inventory, World world) {
 
-        if (recipe.matches(inventory, world)) {
+        if (recipe != null && recipe.matches(inventory, world)) {
             return recipe.getCraftingResult(inventory);
         }
 
@@ -45,18 +45,20 @@ public class AnvilCraftingManager {
 
     public static NonNullList<ItemStack> getRemainingItems(InventoryCrafting inventory, World craftMatrix) {
 
-        if (recipe.matches(inventory, craftMatrix)) {
+        if (recipe != null && recipe.matches(inventory, craftMatrix)) {
             return recipe.getRemainingItems(inventory);
         }
         
         for (IRecipe irecipe : ANVIL_CRAFTING) {
             if (irecipe.matches(inventory, craftMatrix)) {
+                recipe = irecipe;
                 return irecipe.getRemainingItems(inventory);
             }
         }
 
         for (IRecipe irecipe : CraftingManager.REGISTRY) {
             if (irecipe.matches(inventory, craftMatrix)) {
+                recipe = irecipe;
                 return irecipe.getRemainingItems(inventory);
             }
         }
