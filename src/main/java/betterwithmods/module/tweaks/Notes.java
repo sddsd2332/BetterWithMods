@@ -31,7 +31,7 @@ public class Notes extends Feature {
             return;
 
         int type = getType(event.getWorld(), pos);
-        if (type != -1 && type != 3) {
+        if (type > 0) {
             event.setCanceled(true);
 
             SoundEvent sound = null;
