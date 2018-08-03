@@ -14,18 +14,27 @@ public class AnvilCraftingManager {
 
     public static List<IRecipe> ANVIL_CRAFTING = new ArrayList<>();
 
+    private static IRecipe recipe;
+
     /**
      * Retrieves an ItemStack that has multiple recipes for it.
      */
     public static ItemStack findMatchingResult(InventoryCrafting inventory, World world) {
+
+        if (recipe.matches(inventory, world)) {
+            return recipe.getCraftingResult(inventory);
+        }
+
         for (IRecipe irecipe : ANVIL_CRAFTING) {
             if (irecipe.matches(inventory, world)) {
+                recipe = irecipe;
                 return irecipe.getCraftingResult(inventory);
             }
         }
 
         for (IRecipe irecipe : CraftingManager.REGISTRY) {
             if (irecipe.matches(inventory, world)) {
+                recipe = irecipe;
                 return irecipe.getCraftingResult(inventory);
             }
         }
@@ -34,9 +43,12 @@ public class AnvilCraftingManager {
     }
 
 
-
     public static NonNullList<ItemStack> getRemainingItems(InventoryCrafting inventory, World craftMatrix) {
 
+        if (recipe.matches(inventory, craftMatrix)) {
+            return recipe.getRemainingItems(inventory);
+        }
+        
         for (IRecipe irecipe : ANVIL_CRAFTING) {
             if (irecipe.matches(inventory, craftMatrix)) {
                 return irecipe.getRemainingItems(inventory);
