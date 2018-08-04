@@ -5,14 +5,14 @@ import team.chisel.ctm.api.texture.ITextureContext;
 public class TextureContextStump implements ITextureContext {
 
 
-    private boolean stump;
+    private int stump;
 
-    public TextureContextStump(boolean stump) {
+    public TextureContextStump(int stump) {
         this.stump = stump;
     }
 
     @Override
     public long getCompressedData() {
-        return stump ? 1 : 0;
+        return stump;
     }
 }

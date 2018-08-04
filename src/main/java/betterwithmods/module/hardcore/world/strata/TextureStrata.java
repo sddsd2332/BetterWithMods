@@ -17,7 +17,7 @@ public class TextureStrata extends AbstractTexture<TextureTypeStrata> {
 
     @Override
     public List<BakedQuad> transformQuad(BakedQuad quad, @Nullable ITextureContext context, int quadGoal) {
-        if (HCStrata.ENABLED && context instanceof TextureContextStrata) {
+        if (HCStrata.CTM && context instanceof TextureContextStrata) {
             TextureContextStrata c = (TextureContextStrata) context;
             Quad q = makeQuad(quad,context);
             return Lists.newArrayList(q.transformUVs(sprites[c.getStrata()]).rebake());

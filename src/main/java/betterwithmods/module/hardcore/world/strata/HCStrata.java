@@ -5,7 +5,6 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.Feature;
-import betterwithmods.module.ModuleLoader;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -28,7 +27,7 @@ import java.util.regex.Pattern;
 
 public class HCStrata extends Feature {
     private static final Pattern PATTERN = Pattern.compile("^([\\-]?\\d+)=(\\d{1,255}),(\\d{1,255}).*");
-    public static boolean ENABLED;
+    public static boolean CTM;
     public static float[] STRATA_SPEEDS;
     public static float INCORRECT_STRATA_SCALE;
     public static HashMap<IBlockState, BlockType> STATES = Maps.newHashMap();
@@ -109,6 +108,8 @@ public class HCStrata extends Feature {
         };
         INCORRECT_STRATA_SCALE = (float) loadPropDouble("Incorrect Strata", "Speed scale for when the Strata is higher than the tool", 0.10);
 
+        CTM = loadPropBool("CTM Support", "Use the ConnectedTextureMod to visualize the stratas", true);
+
         Arrays.stream(loadPropStringList("Strata Configs", "Set the strata levels for a given dimension, <dim>=< medium start y>,<hard start y>", new String[]{
                 "0=42,21"
         })).map(s -> s.replaceAll(" ", "")).forEach(HCStrata::loadStrataConfig);
@@ -121,7 +122,6 @@ public class HCStrata extends Feature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        ENABLED = ModuleLoader.isFeatureEnabled(HCStrata.class);
         for (BWOreDictionary.Ore ore : BWOreDictionary.oreNames) {
             for (ItemStack stack : ore.getOres()) {
                 if (stack.getItem() instanceof ItemBlock) {

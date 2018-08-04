@@ -19,7 +19,7 @@ public class TextureStump extends AbstractTexture<TextureTypeStump> {
 
     @Override
     public List<BakedQuad> transformQuad(BakedQuad quad, @Nullable ITextureContext context, int quadGoal) {
-        if (HCStumping.ENABLED && context instanceof TextureContextStump) {
+        if (HCStumping.CTM && context instanceof TextureContextStump) {
             TextureContextStump c = (TextureContextStump) context;
             Quad q = makeQuad(quad, context);
             return Lists.newArrayList(q.transformUVs(sprites[(int) c.getCompressedData()]).rebake());

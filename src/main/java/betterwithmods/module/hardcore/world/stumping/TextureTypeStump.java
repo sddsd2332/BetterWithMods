@@ -22,11 +22,13 @@ public class TextureTypeStump implements ITextureType {
     @Override
     public ITextureContext getBlockRenderContext(IBlockState state, IBlockAccess world, BlockPos pos, ICTMTexture<?> tex) {
         WorldClient worldClient = Minecraft.getMinecraft().world;
-        return new TextureContextStump(HCStumping.isStump(worldClient, pos));
+        return new TextureContextStump(HCStumping.isStump(worldClient, pos) ? 1 : 0);
     }
 
     @Override
-    public ITextureContext getContextFromData(long data) { return new TextureContextStump(data == 1); }
+    public ITextureContext getContextFromData(long data) {
+        return new TextureContextStump((int) data);
+    }
 
     @Override
     public int requiredTextures() {
