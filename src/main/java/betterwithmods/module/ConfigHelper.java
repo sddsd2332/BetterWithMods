@@ -28,6 +28,7 @@ import net.minecraftforge.oredict.OreIngredient;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
@@ -113,6 +114,11 @@ public class ConfigHelper {
     public static List<ResourceLocation> loadPropRLList(String propName, String category, String desc, String[] default_) {
         String[] l = loadPropStringList(propName, category, desc, default_);
         return Arrays.stream(l).map(ConfigHelper::rlFromString).collect(Collectors.toList());
+    }
+
+    public static Set<ResourceLocation> loadPropRLSet(String propName, String category, String desc, String[] default_) {
+        String[] l = loadPropStringList(propName, category, desc, default_);
+        return Arrays.stream(l).map(ConfigHelper::rlFromString).collect(Collectors.toSet());
     }
 
     public static ResourceLocation rlFromString(String loc) {

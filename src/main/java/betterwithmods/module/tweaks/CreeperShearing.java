@@ -2,6 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityShearedCreeper;
+import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.util.EntityUtils;
 import betterwithmods.util.InvUtils;
@@ -19,17 +20,28 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+import java.util.Set;
+
 /**
  * Created by primetoxinz on 4/20/17.
  */
 public class CreeperShearing extends Feature {
 
-    public static ResourceLocation CREEPER = new ResourceLocation("minecraft", "creeper");
+    public static Set<ResourceLocation> CREEPERS;
+
+    @Override
+    public void setupConfig() {
+        CREEPERS = ConfigHelper.loadPropRLSet("Creepers", "List of valid creepers","", new String[]{"minecraft:creeper"});
+    }
+
+    private boolean isMatching(EntityLivingBase entity) {
+        return CREEPERS.stream().anyMatch(r -> EntityList.isMatchingName(entity,r));
+    }
 
     @SubscribeEvent
     public void mobDrops(LivingDropsEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
-        if (EntityList.isMatchingName(entity, CREEPER)) {
+        if (isMatching(entity)) {
             double chance = entity.getRNG().nextDouble() + (0.1 * event.getLootingLevel());
             if (chance <= 0.05) {
                 WorldUtils.addDrop(event, new ItemStack(BWMItems.CREEPER_OYSTER));
@@ -41,7 +53,7 @@ public class CreeperShearing extends Feature {
     public void shearCreeper(PlayerInteractEvent.EntityInteractSpecific e) {
         if (e.getTarget() instanceof EntityLivingBase) {
             EntityLivingBase creeper = (EntityLivingBase) e.getTarget();
-            if (EntityList.isMatchingName(creeper, CREEPER)) {
+            if (isMatching(creeper)) {
                 if (e.getSide().isServer() && creeper.isEntityAlive() && !e.getItemStack().isEmpty()) {
                     Item item = e.getItemStack().getItem();
                     if (item instanceof ItemShears || item.getHarvestLevel(e.getItemStack(), "shear", e.getEntityPlayer(), null) > 0) {
