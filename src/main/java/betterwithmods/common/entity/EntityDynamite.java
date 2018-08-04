@@ -30,7 +30,7 @@ import javax.annotation.Nonnull;
 public class EntityDynamite extends Entity implements IProjectile {
     private static final float pi = 3.141593F;
     public ItemStack stack;
-    private int fuse;
+    private int fuse = -1;
 
     public EntityDynamite(World world) {
         this(world, 0, 0, 0, new ItemStack(BWMItems.DYNAMITE));
@@ -43,7 +43,6 @@ public class EntityDynamite extends Entity implements IProjectile {
         this.stack = stack;
         this.fuse = 100;
         this.preventEntitySpawning = true;
-        this.stack = stack;
         this.isImmuneToFire = true;
     }
 
@@ -59,8 +58,7 @@ public class EntityDynamite extends Entity implements IProjectile {
         this.motionY = (-MathHelper.sin(this.rotationPitch / 180.0F * pi) * 0.4F);
         this.stack = stack;
         this.shoot(this.motionX, this.motionY, this.motionZ, 0.75F, 1.0F);
-        if (isLit)
-            fuse = 100;
+        this.fuse = isLit ? 100: -1;
     }
 
     @Override
