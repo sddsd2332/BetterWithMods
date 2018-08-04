@@ -30,8 +30,7 @@ import java.util.List;
 import java.util.Objects;
 
 public final class BWMItems {
-    public static final ToolMaterial SOULFORGED_STEEL = EnumHelper.addToolMaterial("SOULFORGED_STEEL", 4, 2250, 10f, 3,
-            22);
+    public static final ToolMaterial SOULFORGED_STEEL = EnumHelper.addToolMaterial("SOULFORGED_STEEL", 4, 2250, 10f, 3, 22);
     public static final Item MATERIAL = new ItemMaterial().setRegistryName("material");
     public static final Item AXLE_GENERATOR = new ItemAxleGenerator().setRegistryName("axle_generator");
     public static final Item BARK = new ItemBark().setRegistryName("bark");

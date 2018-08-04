@@ -9,6 +9,7 @@ public class Tweaks extends Module {
     @Override
     public void addFeatures() {
         registerFeature(new FastStick().recipes());
+        registerFeature(new CheaperAxes().recipes());
         registerFeature(new AxeLeaves());
         registerFeature(new CreeperShearing());
         registerFeature(new Dung());
