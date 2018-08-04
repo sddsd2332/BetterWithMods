@@ -11,7 +11,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.ItemTool;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
@@ -38,16 +37,13 @@ public class HCTools extends Feature {
     );
     public static boolean earlyPickaxesRebalance;
     public static boolean removeLowTools;
+    public static int noHungerThreshold;
+    public static int noDamageThreshold;
     private static int woodDurability;
     private static int stoneDurability;
     private static int ironDurability;
     private static int diamondDurability;
     private static int goldDurability;
-
-    public static int noHungerThreshold;
-    public static int noDamageThreshold;
-
-    public static boolean changeAxeRecipe;
 
     /**
      * Edit the values of {@link Item.ToolMaterial}.
@@ -98,8 +94,6 @@ public class HCTools extends Feature {
         diamondDurability = loadPropInt("Hardcore Hardness Diamond Durability", "Number of usages for diamond tools.", "", 1561, 1, 1562);
         goldDurability = loadPropInt("Hardcore Hardness Gold Durability", "Number of usages for golden tools.", "", 32, 1, 33);
 
-        changeAxeRecipe = loadRecipeCondition("changeAxeRecipe","Change Axe Recipe", "Change the axe recipes to only require 2 MATERIALS", true);
-
         noHungerThreshold = loadPropInt("No Exhaustion Harvest Level", "When destroying a 0 hardness block with a tool of this harvest level or higher, no exhaustion is applied", Item.ToolMaterial.IRON.getHarvestLevel());
         noDamageThreshold = loadPropInt("No Durability Damage Harvest Level", "When destroying a 0 hardness block with a tool of this harvest level or higher, no durability damage is applied", Item.ToolMaterial.DIAMOND.getHarvestLevel());
     }
@@ -113,12 +107,6 @@ public class HCTools extends Feature {
     public void preInit(FMLPreInitializationEvent event) {
         if (removeLowTools)
             removeLowTierToolRecipes();
-        if (changeAxeRecipe) {
-            BWMRecipes.removeRecipe(new ResourceLocation("minecraft:stone_axe"));
-            BWMRecipes.removeRecipe(new ResourceLocation("minecraft:iron_axe"));
-            BWMRecipes.removeRecipe(new ResourceLocation("minecraft:golden_axe"));
-            BWMRecipes.removeRecipe(new ResourceLocation("minecraft:diamond_axe"));
-        }
     }
 
     @Override
@@ -150,15 +138,15 @@ public class HCTools extends Feature {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void harvestGarbage(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
-        if(event.isCanceled() || player == null || player.isCreative())
+        if (event.isCanceled() || player == null || player.isCreative())
             return;
         World world = event.getWorld();
         BlockPos pos = event.getPos();
         IBlockState state = world.getBlockState(pos);
         ItemStack stack = player.getHeldItemMainhand();
         String tooltype = state.getBlock().getHarvestTool(state);
-        if(tooltype != null && state.getBlockHardness(world,pos) <= 0 && stack.getItem().getHarvestLevel(stack,tooltype,player,state) < noDamageThreshold)
-            stack.damageItem(1,player); //Make 0 hardness blocks damage tools that are not over some harvest level
+        if (tooltype != null && state.getBlockHardness(world, pos) <= 0 && stack.getItem().getHarvestLevel(stack, tooltype, player, state) < noDamageThreshold)
+            stack.damageItem(1, player); //Make 0 hardness blocks damage tools that are not over some harvest level
     }
 
     private void destroyItem(ItemStack stack, EntityLivingBase entity) {

@@ -2,7 +2,7 @@
   "conditions": [
     {
       "type": "config",
-      "enabled": "changeAxeRecipe"
+      "enabled": "cheaperaxes"
     },
     {
       "type": "forge:not",

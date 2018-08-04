@@ -8,7 +8,7 @@
       "type": "forge:not",
       "value": {
         "type": "config",
-        "enabled": "changeAxeRecipe"
+        "enabled": "cheaperaxes"
       }
     }
   ],
