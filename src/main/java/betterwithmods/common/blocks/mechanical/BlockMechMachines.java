@@ -107,7 +107,7 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
     public boolean isSideSolid(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         if(state.getBlock() == this) {
             BlockMechMachines.EnumType type = state.getValue(TYPE);
-            return type == EnumType.MILL || type == EnumType.PULLEY || type == EnumType.TURNTABLE;
+            return type == EnumType.MILL || type == EnumType.PULLEY || type == EnumType.TURNTABLE || (type ==EnumType.HOPPER && side == EnumFacing.UP);
         }
         return false;
     }
