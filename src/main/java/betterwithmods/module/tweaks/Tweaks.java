@@ -10,6 +10,9 @@ public class Tweaks extends Module {
     public void addFeatures() {
         registerFeature(new FastStick().recipes());
         registerFeature(new CheaperAxes().recipes());
+        registerFeature(new DetectorRail().recipes());
+        registerFeature(new SaddleRecipe().recipes());
+        registerFeature(new WoolArmor().recipes());
         registerFeature(new AxeLeaves());
         registerFeature(new CreeperShearing());
         registerFeature(new Dung());
@@ -37,15 +40,12 @@ public class Tweaks extends Module {
         registerFeature(new VisibleStorms());
         registerFeature(new LongBoi());
         registerFeature(new MobEating());
-        registerFeature(new DetectorRail().recipes());
-        registerFeature(new SaddleRecipe().recipes());
         registerFeature(new LlamaDrops());
         registerFeature(new BabyJumping());
         registerFeature(new EnchantmentTooltip());
         registerFeature(new NoSkeletonTrap());
         registerFeature(new SilverfishClay());
         registerFeature(new AnimalBirth());
-        registerFeature(new WoolArmor().recipes());
         registerFeature(new HopperMinecarts());
         //        registerFeature(new MushroomFarming());
     }
