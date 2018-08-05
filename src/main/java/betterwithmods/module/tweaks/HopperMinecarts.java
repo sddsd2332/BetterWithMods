@@ -8,6 +8,8 @@ import net.minecraft.entity.item.EntityMinecartHopper;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTBase;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityHopper;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
@@ -25,11 +27,13 @@ import net.minecraftforge.items.IItemHandler;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
+import java.util.function.Predicate;
 
 public class HopperMinecarts extends Feature {
 
-    public static final ResourceLocation COUNTER = new ResourceLocation(BWMod.MODID, "counter");
-    private static final int STACK_SIZE = 8;
+    private static final ResourceLocation COUNTER = new ResourceLocation(BWMod.MODID, "counter");
+    private static final int STACK_SIZE = 1;
+    private static final Predicate<TileEntity> IGNORE_INVENTORIES_THAT_PULL = tile -> !(tile instanceof TileEntityHopper);
     @CapabilityInject(Counter.class)
     private static Capability<Counter> CAPABILITY_COUNTER;
 
@@ -49,10 +53,9 @@ public class HopperMinecarts extends Feature {
     }
 
     @SubscribeEvent
-    public void onCapabilityAttach(AttachCapabilitiesEvent<EntityMinecartHopper> event) {
-        if (!event.getCapabilities().containsKey(COUNTER)) {
+    public void onCapabilityAttach(AttachCapabilitiesEvent<Entity> event) {
+        if (event.getObject() instanceof EntityMinecartHopper)
             event.addCapability(COUNTER, new Counter());
-        }
     }
 
     public Counter getCounter(EntityMinecartHopper entity) {
@@ -66,26 +69,28 @@ public class HopperMinecarts extends Feature {
             EntityMinecartHopper cart = (EntityMinecartHopper) event.getEntity();
             World world = cart.getWorld();
             IItemHandler cartInv = cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
-            Optional<IItemHandler> inv = InvUtils.getItemHandler(world, cart.getPosition().down(), EnumFacing.UP);
+            Optional<IItemHandler> inv = InvUtils.getItemHandler(world, cart.getPosition().down(), EnumFacing.UP, IGNORE_INVENTORIES_THAT_PULL);
+
             if (!world.isRemote && entity.isEntityAlive() && cartInv != null && inv != null) {
-
                 Counter c = getCounter(cart);
-                int ejectCounter = c.getCounter();
+                if (c != null) {
+                    int ejectCounter = c.getCounter();
 
-                if (ejectCounter > 2) {
-                    int slot = InvUtils.getFirstOccupiedStackInRange(cartInv, 0, 17);
-                    if (slot != -1) {
-                        ItemStack stack = cartInv.getStackInSlot(slot);
-                        if (inv.isPresent()) {
-                            if (InvUtils.canInsert(inv.get(), stack, STACK_SIZE)) {
-                                ItemStack insert = InvUtils.insert(inv.get(), stack, STACK_SIZE, false);
-                                InvUtils.consumeItemsInInventory(cartInv, stack, STACK_SIZE - insert.getCount(), false);
+                    if (ejectCounter > 2) {
+                        int slot = InvUtils.getFirstOccupiedStackInRange(cartInv, 0, 4);
+                        if (slot != -1) {
+                            ItemStack stack = cartInv.getStackInSlot(slot);
+                            if (inv.isPresent()) {
+                                if (InvUtils.canInsert(inv.get(), stack, STACK_SIZE)) {
+                                    ItemStack insert = InvUtils.insert(inv.get(), stack, STACK_SIZE, false);
+                                    InvUtils.consumeItemsInInventory(cartInv, stack, STACK_SIZE - insert.getCount(), false);
+                                }
                             }
                         }
+                        c.reset();
+                    } else {
+                        c.increase();
                     }
-                    c.reset();
-                } else {
-                    c.increase();
                 }
             }
         }

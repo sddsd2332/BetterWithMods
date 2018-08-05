@@ -30,6 +30,7 @@ import org.apache.commons.lang3.ArrayUtils;
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -99,9 +100,13 @@ public class InvUtils {
     }
 
     public static Optional<IItemHandler> getItemHandler(World world, BlockPos pos, EnumFacing facing) {
+        return getItemHandler(world,pos, facing, te -> true);
+    }
+
+    public static Optional<IItemHandler> getItemHandler(World world, BlockPos pos, EnumFacing facing, Predicate<TileEntity> tePredicate) {
         if (!world.isRemote) {
             TileEntity tile = world.getTileEntity(pos);
-            if (tile != null) {
+            if (tile != null && tePredicate.test(tile)) {
                 return Optional.ofNullable(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing));
             } else {
                 List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1), entity -> entity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing));
