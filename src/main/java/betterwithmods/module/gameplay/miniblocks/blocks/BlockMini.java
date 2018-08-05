@@ -13,6 +13,7 @@ import betterwithmods.module.gameplay.miniblocks.tiles.TileMini;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -160,4 +161,8 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
         return true;
     }
 
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return getTile(worldIn,pos).map(TileMini::getOrientation).map(o -> o.getFaceShape(face)).orElse(BlockFaceShape.UNDEFINED);
+    }
 }

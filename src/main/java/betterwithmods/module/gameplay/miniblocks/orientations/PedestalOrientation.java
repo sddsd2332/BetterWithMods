@@ -1,5 +1,6 @@
 package betterwithmods.module.gameplay.miniblocks.orientations;
 
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.client.renderer.block.model.ModelRotation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -68,6 +69,11 @@ public enum PedestalOrientation implements BaseOrientation {
     @Override
     public BaseOrientation next() {
         return VALUES[(this.ordinal() + 1) % (VALUES.length)];
+    }
+
+    @Override
+    public BlockFaceShape getFaceShape(EnumFacing facing) {
+        return BlockFaceShape.SOLID;
     }
 }
 

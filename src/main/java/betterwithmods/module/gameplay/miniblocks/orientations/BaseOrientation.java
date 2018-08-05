@@ -1,7 +1,9 @@
 package betterwithmods.module.gameplay.miniblocks.orientations;
 
 import net.minecraft.block.Block;
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.client.renderer.block.model.ModelRotation;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraftforge.common.model.TRSRTransformation;
@@ -41,6 +43,10 @@ public interface BaseOrientation extends IStringSerializable {
 
     default BaseOrientation next() {
         return DEFAULT;
+    }
+
+    default BlockFaceShape getFaceShape(EnumFacing facing) {
+        return BlockFaceShape.UNDEFINED;
     }
 
 }

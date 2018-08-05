@@ -1,5 +1,6 @@
 package betterwithmods.module.gameplay.miniblocks.orientations;
 
+import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.client.renderer.block.model.ModelRotation;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -76,6 +77,11 @@ public enum SidingOrientation implements BaseOrientation {
             default:
                 return fromFace(facing);
         }
+    }
+
+    @Override
+    public BlockFaceShape getFaceShape(EnumFacing facing) {
+        return facing == getFacing() ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
     }
 
     @Nonnull
