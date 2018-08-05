@@ -14,6 +14,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -100,8 +101,13 @@ public class SpawnBeaconEffect extends BeaconEffect {
     @Override
     public boolean onPlayerInteracted(World world, BlockPos pos, int level, EntityPlayer player, EnumHand hand, ItemStack stack) {
         BindingPoint point = new BindingPoint(player, level);
-        if (!containsEntry(pos, point))
+        //TODO improve this in 1.13
+        String message = "bwm.message.spawn_beacon.already_set";
+        if (!containsEntry(pos, point)) {
             addPoint(pos, point);
+            message = "bwm.message.spawn_beacon.set";
+        }
+        player.sendStatusMessage(new TextComponentTranslation(message), true);
         return true;
     }
 
