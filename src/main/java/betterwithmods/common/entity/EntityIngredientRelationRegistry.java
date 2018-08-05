@@ -28,7 +28,12 @@ public class EntityIngredientRelationRegistry {
     }
 
     public Ingredient findIngredient(Entity entity) {
-        return REGISTRY.stream().map(e -> e.getIngredient(entity)).findFirst().orElse(null);
+        for(EntityIngredientRelation e: REGISTRY) {
+            Ingredient i = e.getIngredient(entity);
+            if(i != null)
+                return i;
+        }
+        return null;
     }
 
 }

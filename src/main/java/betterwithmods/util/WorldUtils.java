@@ -5,6 +5,8 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.init.Blocks;
@@ -45,6 +47,10 @@ public final class WorldUtils {
     );
 
     private WorldUtils() {
+    }
+
+    public static void removeTask(EntityLiving entity, Class<? extends EntityAIBase> clazz) {
+        entity.tasks.taskEntries.removeIf(task -> clazz.isAssignableFrom(task.action.getClass()));
     }
 
     public static boolean isSolid(World world, BlockPos pos, EnumFacing facing, IBlockState state) {

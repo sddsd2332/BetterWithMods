@@ -5,9 +5,8 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityIngredientRelationRegistry;
 import betterwithmods.common.entity.ai.eat.EntityAITempt;
 import betterwithmods.module.Feature;
-import net.minecraft.entity.EntityLiving;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -22,10 +21,6 @@ import net.minecraftforge.oredict.OreIngredient;
 public class MoreTempting extends Feature {
 
     public static EntityIngredientRelationRegistry REGISTRY = new EntityIngredientRelationRegistry();
-
-    private static void removeTask(EntityLiving entity, Class<? extends EntityAIBase> clazz) {
-        entity.tasks.taskEntries.removeIf(task -> clazz.isAssignableFrom(task.action.getClass()));
-    }
 
     @Override
     public String getFeatureDescription() {
@@ -52,7 +47,7 @@ public class MoreTempting extends Feature {
                 EntityAnimal animal = ((EntityAnimal) entity);
                 Ingredient ingredient = REGISTRY.findIngredient(animal);
                 if (ingredient != null) {
-                    removeTask(animal, net.minecraft.entity.ai.EntityAITempt.class);
+                    WorldUtils.removeTask(animal, net.minecraft.entity.ai.EntityAITempt.class);
                     animal.tasks.addTask(3, new EntityAITempt(animal, 1.5, false, ingredient));
                 }
             }
