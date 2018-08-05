@@ -42,7 +42,7 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
 @GameRegistry.ObjectHolder("minecraft")
 public class HCBeacons extends Feature {
 
-    private static final List<BeaconEffect> BEACON_EFFECTS = Lists.newArrayList();
+    public static final List<BeaconEffect> BEACON_EFFECTS = Lists.newArrayList();
 
     private static final Block ENDERCHEST = new BlockEnderchest().setRegistryName("minecraft:ender_chest");
     private static final Block BEACON = new BlockBeacon().setRegistryName("minecraft:beacon");
