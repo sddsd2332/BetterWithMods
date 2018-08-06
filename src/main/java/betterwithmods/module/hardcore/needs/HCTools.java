@@ -18,6 +18,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
@@ -53,6 +54,13 @@ public class HCTools extends Feature {
     }
 
     @Override
+    public void preInit(FMLPreInitializationEvent event) {
+        if (removeLowTools) {
+            removeLowTierToolRecipes();
+        }
+    }
+
+    @Override
     public void init(FMLInitializationEvent event) {
 
         TOOLS = Sets.newHashSet(
@@ -72,10 +80,6 @@ public class HCTools extends Feature {
         OVERRIDES.put(BWMItems.SOULFORGED_STEEL, new ToolMaterialOverride(BWMItems.SOULFORGED_STEEL));
 
         TOOLS.forEach(this::loadToolMaterialOverride);
-
-        if (removeLowTools) {
-            removeLowTierToolRecipes();
-        }
     }
 
     private void loadToolMaterialOverride(ItemTool tool) {
@@ -85,7 +89,7 @@ public class HCTools extends Feature {
         ReflectionHelper.setPrivateValue(Item.ToolMaterial.class, material, override.getEfficiency(), ReflectionLib.TOOLMATERIAL_EFFICIENCY);
         ReflectionHelper.setPrivateValue(Item.ToolMaterial.class, material, override.getEnchantability(), ReflectionLib.TOOLMATERIAL_ENCHANTABILITIY);
         ReflectionHelper.setPrivateValue(ItemTool.class, tool, material.getEfficiency(), ReflectionLib.ITEMTOOL_EFFICIENCY);
-        tool.setMaxDamage(material.getMaxUses() - 1); //subtract one from the max durability because the tool doesn't break until -1
+        tool.setMaxDamage(Math.max(1, material.getMaxUses() - 1)); //subtract one from the max durability because the tool doesn't break until -1
     }
 
     @Override
