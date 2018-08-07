@@ -72,5 +72,4 @@ public abstract class BeaconEffect {
     public abstract void onBeaconBreak(World world, BlockPos pos, int level);
 
 
-
 }

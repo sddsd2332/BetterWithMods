@@ -63,6 +63,7 @@ public class HCBeacons extends Feature {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+
         BWMBlocks.registerBlock(new BlockBeacon().setRegistryName("minecraft:beacon"));
         if (enderchestBeacon) {
 
@@ -116,9 +117,7 @@ public class HCBeacons extends Feature {
                 .addPotionEffect(MobEffects.BLINDNESS, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLACK));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockConcentratedHellfire"), EntityPlayer.class)
-                .addPotionEffect(MobEffects.FIRE_RESISTANCE, 120, PotionBeaconEffect.Amplification.LEVEL)
-                .setBaseBeamColor(Color.ORANGE));
+        BEACON_EFFECTS.add(new HellfireBeaconEffect());
 
         BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockPrismarine"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.WATER_BREATHING, 120, PotionBeaconEffect.Amplification.LEVEL)
@@ -127,7 +126,6 @@ public class HCBeacons extends Feature {
         BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockPadding"), EntityPlayer.class)
                 .addPotionEffect(BWRegistry.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.PINK));
-
 
         BEACON_EFFECTS.add(new SpawnBeaconEffect());
 
