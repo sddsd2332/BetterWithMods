@@ -123,8 +123,9 @@ public class EntityMiningCharge extends Entity {
         BlockPos pos = getPosition();
         EnumFacing facing = getFacing().getOpposite();
 
-        AxisAlignedBB area = new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX(), pos.getY(), pos.getZ()).grow(1);
+        BlockPos center = pos.offset(facing);
 
+        AxisAlignedBB area = new AxisAlignedBB(center.getX(), center.getY(), center.getZ(), center.getX(), center.getY(), center.getZ()).grow(1);
         Iterable<BlockPos> positions = BlockPos.getAllInBox((int) area.minX, (int) area.minY, (int) area.minZ, (int) area.maxX, (int) area.maxY, (int) area.maxZ);
         for (BlockPos b : positions) {
             explodeBlock(world, b);
