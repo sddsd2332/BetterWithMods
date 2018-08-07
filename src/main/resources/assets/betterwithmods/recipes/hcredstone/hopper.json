@@ -10,17 +10,13 @@
   },
   "pattern": [
     "ICI",
-    "IRI",
+    "I I",
     " I "
   ],
   "type": "forge:ore_shaped",
   "key": {
     "I": {
       "ore": "ingotIron",
-      "type": "forge:ore_dict"
-    },
-    "R": {
-      "ore": "dustRedstone",
       "type": "forge:ore_dict"
     },
     "C": {

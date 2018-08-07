@@ -11,7 +11,6 @@ import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -28,7 +27,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.awt.*;
 import java.util.List;
@@ -39,29 +37,23 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
 /**
  * Created by primetoxinz on 7/17/17.
  */
-@GameRegistry.ObjectHolder("minecraft")
 public class HCBeacons extends Feature {
 
-    private static final List<BeaconEffect> BEACON_EFFECTS = Lists.newArrayList();
-
-    private static final Block ENDERCHEST = new BlockEnderchest().setRegistryName("minecraft:ender_chest");
-    private static final Block BEACON = new BlockBeacon().setRegistryName("minecraft:beacon");
+    public static final List<BeaconEffect> BEACON_EFFECTS = Lists.newArrayList();
 
     private static boolean enderchestBeacon;
-    private static boolean extendedConfig;
-
 
     @Override
     public void setupConfig() {
         enderchestBeacon = loadPropBool("Enderchest Beacon", "Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Book of Single.", true);
-
     }
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-        BWMBlocks.registerBlock(BEACON);
+        BWMBlocks.registerBlock(new BlockBeacon().setRegistryName("minecraft:beacon"));
         if (enderchestBeacon) {
-            BWMBlocks.registerBlock(ENDERCHEST);
+
+            BWMBlocks.registerBlock(new BlockEnderchest().setRegistryName("minecraft:ender_chest"));
             CapabilityManager.INSTANCE.register(EnderchestCap.class, new EnderchestCap.Storage(), EnderchestCap::new);
         }
         CapabilityManager.INSTANCE.register(CapabilityBeacon.class, new CapabilityBeacon.Storage(), CapabilityBeacon::new);
@@ -132,8 +124,8 @@ public class HCBeacons extends Feature {
 
 
     public static BeaconEffect getEffect(World world, BlockPos pos, IBlockState blockState) {
-        for(BeaconEffect beaconEffect : BEACON_EFFECTS) {
-            if(beaconEffect.isBlockStateValid(world, pos, blockState)) {
+        for (BeaconEffect beaconEffect : BEACON_EFFECTS) {
+            if (beaconEffect.isBlockStateValid(world, pos, blockState)) {
                 return beaconEffect;
             }
         }
