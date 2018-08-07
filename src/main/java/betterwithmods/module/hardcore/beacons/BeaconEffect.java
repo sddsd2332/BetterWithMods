@@ -49,7 +49,7 @@ public abstract class BeaconEffect {
         return validEntityType;
     }
 
-    public float[] getBaseBeaconBeamColor() {
+    public float[] getBaseBeaconBeamColor(BlockPos beaconPos) {
         return baseBeamColor;
     }
 
@@ -70,7 +70,6 @@ public abstract class BeaconEffect {
     public abstract boolean onPlayerInteracted(World world, BlockPos pos, int level, EntityPlayer player, EnumHand hand, ItemStack stack);
 
     public abstract void onBeaconBreak(World world, BlockPos pos, int level);
-
 
 
 }

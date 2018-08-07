@@ -11,11 +11,13 @@ import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
+import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -27,6 +29,8 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.oredict.OreDictionary;
 
 import java.awt.*;
 import java.util.List;
@@ -39,6 +43,15 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
  */
 public class HCBeacons extends Feature {
 
+    @GameRegistry.ObjectHolder("minecraft:wool")
+    public static final Block wool = null;
+
+    @GameRegistry.ObjectHolder("minecraft:stained_hardened_clayy")
+    public static final Block terracota = null;
+
+    @GameRegistry.ObjectHolder("minecraft:concrete")
+    public static final Block concrete = null;
+
     public static final List<BeaconEffect> BEACON_EFFECTS = Lists.newArrayList();
 
     private static boolean enderchestBeacon;
@@ -50,6 +63,7 @@ public class HCBeacons extends Feature {
 
     @Override
     public void preInit(FMLPreInitializationEvent event) {
+
         BWMBlocks.registerBlock(new BlockBeacon().setRegistryName("minecraft:beacon"));
         if (enderchestBeacon) {
 
@@ -63,8 +77,10 @@ public class HCBeacons extends Feature {
     public void init(FMLInitializationEvent event) {
 
 
-        //TODO - Make this instance not shared across multiple instances
-        BEACON_EFFECTS.add(new GlassBeaconEffect());
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient("blockGlass")));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(wool, 1, OreDictionary.WILDCARD_VALUE))));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(terracota, 1, OreDictionary.WILDCARD_VALUE))));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(concrete, 1, OreDictionary.WILDCARD_VALUE))));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockEmerald"), EntityLivingBase.class)
                 .addPotionEffect(BWRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL)
@@ -101,9 +117,7 @@ public class HCBeacons extends Feature {
                 .addPotionEffect(MobEffects.BLINDNESS, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLACK));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockConcentratedHellfire"), EntityPlayer.class)
-                .addPotionEffect(MobEffects.FIRE_RESISTANCE, 120, PotionBeaconEffect.Amplification.LEVEL)
-                .setBaseBeamColor(Color.ORANGE));
+        BEACON_EFFECTS.add(new HellfireBeaconEffect());
 
         BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockPrismarine"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.WATER_BREATHING, 120, PotionBeaconEffect.Amplification.LEVEL)
@@ -112,7 +126,6 @@ public class HCBeacons extends Feature {
         BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockPadding"), EntityPlayer.class)
                 .addPotionEffect(BWRegistry.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.PINK));
-
 
         BEACON_EFFECTS.add(new SpawnBeaconEffect());
 

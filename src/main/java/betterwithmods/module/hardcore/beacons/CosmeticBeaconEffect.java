@@ -15,12 +15,17 @@ import org.apache.commons.lang3.tuple.Pair;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
-public class GlassBeaconEffect extends BeaconEffect {
+public class CosmeticBeaconEffect extends BeaconEffect {
 
-    public GlassBeaconEffect() {
-        super(new BlockIngredient("blockGlass"), EntityLivingBase.class);
+    private Map<BlockPos, float[]> colorCache;
+
+    public CosmeticBeaconEffect(BlockIngredient structureBlock) {
+        super(structureBlock, EntityLivingBase.class);
+        this.colorCache = new HashMap<>();
         this.setBaseBeamColor(Color.white);
     }
 
@@ -33,7 +38,6 @@ public class GlassBeaconEffect extends BeaconEffect {
     public void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
         List<float[]> colors = Lists.newArrayList();
 
-        float[] color = new float[]{1, 1, 1};
         for (int r = 1; r <= beaconLevel; r++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
@@ -43,10 +47,12 @@ public class GlassBeaconEffect extends BeaconEffect {
             }
         }
 
-        color = ColorUtils.average(colors.toArray(new float[colors.size()][3]));
+        this.colorCache.put(pos, ColorUtils.average(colors.toArray(new float[colors.size()][3])));
+    }
 
-
-        this.setBaseBeamColor(color);
+    @Override
+    public float[] getBaseBeaconBeamColor(BlockPos beaconPos) {
+        return colorCache.containsKey(beaconPos) ? colorCache.get(beaconPos) : super.getBaseBeaconBeamColor(beaconPos);
     }
 
     @Override

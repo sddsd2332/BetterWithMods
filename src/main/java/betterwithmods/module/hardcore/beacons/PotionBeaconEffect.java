@@ -54,7 +54,7 @@ public class PotionBeaconEffect extends BeaconEffect {
 
         for(EntityLivingBase entity : entitiesInRange) {
             for(PotionEffect potionEffect : amplifiedPotionEffects) {
-                if(entity.isPotionApplicable(potionEffect)) {
+                if(entity.isPotionApplicable(potionEffect) && canApply.test(entity)) {
                      entity.addPotionEffect(potionEffect);
                 }
             }
@@ -70,6 +70,7 @@ public class PotionBeaconEffect extends BeaconEffect {
     public void onBeaconBreak(World world, BlockPos pos, int level) {
 
     }
+
 
     protected enum Amplification {
         NONE((beaconLevel) -> 1),

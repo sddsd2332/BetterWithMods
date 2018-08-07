@@ -154,7 +154,7 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
         float[] color = ColorUtils.getColorFromBlock(world, getPos().up(), getPos());
         float[] effectColor = new float[] {1, 1, 1};
         if(effect != null) {
-            effectColor = effect.getBaseBeaconBeamColor();
+            effectColor = effect.getBaseBeaconBeamColor(pos);
         }
 
         BeamSegment segment = new BeamSegment(ColorUtils.average(color, effectColor));
