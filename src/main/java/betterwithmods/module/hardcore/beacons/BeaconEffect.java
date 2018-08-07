@@ -49,7 +49,7 @@ public abstract class BeaconEffect {
         return validEntityType;
     }
 
-    public float[] getBaseBeaconBeamColor() {
+    public float[] getBaseBeaconBeamColor(BlockPos beaconPos) {
         return baseBeamColor;
     }
 
