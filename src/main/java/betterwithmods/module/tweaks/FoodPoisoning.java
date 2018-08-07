@@ -17,6 +17,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.Set;
 
 public class FoodPoisoning extends Feature {
+    public static double chanceForPoison;
+
+
     @Override
     public boolean hasSubscriptions() {
         return true;
@@ -28,11 +31,16 @@ public class FoodPoisoning extends Feature {
     }
 
     @Override
+    public void setupConfig() {
+        chanceForPoison = loadPropDouble("Chance for Food Poisoning", "", 0.3);
+    }
+
+    @Override
     public void init(FMLInitializationEvent event) {
         Set<Item> RAW_FOOD =
                 Sets.newHashSet(BWMItems.RAW_SCRAMBLED_EGG, BWMItems.RAW_EGG, BWMItems.RAW_OMELET,
                         BWMItems.RAW_KEBAB, Items.FISH, BWMItems.WOLF_CHOP, Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.CHICKEN, Items.MUTTON, BWMItems.MYSTERY_MEAT);
-        RAW_FOOD.stream().map(i -> (ItemFood) i).forEach(i -> i.setPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 1), 0.3F));
+        RAW_FOOD.stream().map(i -> (ItemFood) i).forEach(i -> i.setPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 1), (float) chanceForPoison));
     }
 
     //Stops Eating if Hunger Effect is active
