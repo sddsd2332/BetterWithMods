@@ -14,6 +14,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -75,12 +76,15 @@ public class HCBeacons extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-
-
         BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient("blockGlass")));
         BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(wool, 1, OreDictionary.WILDCARD_VALUE))));
         BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(terracota, 1, OreDictionary.WILDCARD_VALUE))));
         BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(concrete, 1, OreDictionary.WILDCARD_VALUE))));
+
+        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockIron"), EntityMob.class)
+                .addPotionEffect(MobEffects.GLOWING, 60000, PotionBeaconEffect.Amplification.ZERO)
+                .setBaseBeamColor(Color.WHITE)
+                .setTickRate(3600));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockEmerald"), EntityLivingBase.class)
                 .addPotionEffect(BWRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL)

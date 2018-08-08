@@ -71,6 +71,7 @@ public class PotionBeaconEffect extends BeaconEffect {
 
 
     protected enum Amplification {
+        ZERO(beaconLevel -> 0),
         NONE((beaconLevel) -> 1),
         LEVEL((beaconLevel) -> beaconLevel),
         LEVEL_REDUCED((beaconLevel) -> beaconLevel - 1);

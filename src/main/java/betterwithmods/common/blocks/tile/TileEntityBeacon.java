@@ -40,6 +40,8 @@ import java.util.List;
  */
 public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon implements ITickable {
 
+    private static final int DEFAULT_TICK_RATE = 120;
+
     private int currentLevel;
     private boolean active;
     private IBlockState type = Blocks.AIR.getDefaultState();
@@ -73,8 +75,11 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
                 } else if(active) {
                     deactivate();
                 }
+
+                tick = effect.getTickRate();
+            } else {
+                tick = DEFAULT_TICK_RATE;
             }
-            tick = 120;
         }
         tick--;
     }
