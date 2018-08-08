@@ -1,5 +1,6 @@
 package betterwithmods.util;
 
+import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -26,6 +27,7 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.RandomUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -37,8 +39,8 @@ import java.util.stream.IntStream;
 public class InvUtils {
 
     public static boolean containsIngredient(List<Ingredient> collection, List<Ingredient> ingredient) {
-        return matchesPredicate(collection, ingredient, (a,b) -> {
-            if(a.getMatchingStacks().length > 0)
+        return matchesPredicate(collection, ingredient, (a, b) -> {
+            if (a.getMatchingStacks().length > 0)
                 return Arrays.stream(a.getMatchingStacks()).allMatch(b::apply);
             return false;
         });
@@ -103,7 +105,7 @@ public class InvUtils {
     }
 
     public static Optional<IItemHandler> getItemHandler(World world, BlockPos pos, EnumFacing facing) {
-        return getItemHandler(world,pos, facing, te -> true);
+        return getItemHandler(world, pos, facing, te -> true);
     }
 
     public static Optional<IItemHandler> getItemHandler(World world, BlockPos pos, EnumFacing facing, Predicate<TileEntity> tePredicate) {
@@ -236,13 +238,27 @@ public class InvUtils {
     }
 
     public static ItemStack findItemInInventory(Ingredient ingredient, IItemHandler inventory) {
-        for(int slot = 0; slot < inventory.getSlots(); slot++) {
+        for (int slot = 0; slot < inventory.getSlots(); slot++) {
             ItemStack stack = inventory.getStackInSlot(slot);
-            if(ingredient.apply(stack)) {
+            if (ingredient.apply(stack)) {
                 return stack;
             }
         }
         return ItemStack.EMPTY;
+    }
+
+
+    public static int getRandomOccupiedStackInRange(IItemHandler inv, int minSlot, int maxSlot) {
+        List<Integer> list = Lists.newArrayList();
+        for (int slot = minSlot; slot <= maxSlot; ++slot) {
+            if (!inv.getStackInSlot(slot).isEmpty()) {
+                list.add(slot);
+            }
+        }
+
+        if (list.isEmpty())
+            return -1;
+        return list.get(RandomUtils.nextInt(0, list.size()));
     }
 
     public static int getFirstOccupiedStackInRange(IItemHandler inv, int minSlot, int maxSlot) {
@@ -528,7 +544,7 @@ public class InvUtils {
         if (stack.isEmpty())
             return;
         VectorBuilder builder = new VectorBuilder();
-        new StackEjector(world, stack,builder.set(pos).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f).build()).ejectStack();
+        new StackEjector(world, stack, builder.set(pos).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f).build()).ejectStack();
     }
 
 
@@ -537,7 +553,7 @@ public class InvUtils {
             return;
 
         VectorBuilder builder = new VectorBuilder();
-        StackEjector ejector = new StackEjector(world, stack,builder.set(x,y,z).build());
+        StackEjector ejector = new StackEjector(world, stack, builder.set(x, y, z).build());
         ejector.setPickupDelay(pickupDelay);
         ejector.ejectStack();
     }
@@ -598,7 +614,7 @@ public class InvUtils {
     }
 
     public static ItemStack setCount(ItemStack input, int count) {
-        if(input.isEmpty())
+        if (input.isEmpty())
             return input;
         ItemStack stack = input.copy();
         stack.setCount(count);
@@ -619,12 +635,12 @@ public class InvUtils {
     }
 
 
-    public static <T> boolean matchesPredicate(List<T> oneList, List<T> twoList, BiPredicate<T,T> matches) {
+    public static <T> boolean matchesPredicate(List<T> oneList, List<T> twoList, BiPredicate<T, T> matches) {
         if (oneList.size() != twoList.size())
             return false; //trivial case
         HashSet<T> alreadyMatched = new HashSet<>();
         for (T one : oneList) {
-            Optional<T> found = twoList.stream().filter(two -> !alreadyMatched.contains(two) && matches.test(one,two)).findFirst();
+            Optional<T> found = twoList.stream().filter(two -> !alreadyMatched.contains(two) && matches.test(one, two)).findFirst();
             if (found.isPresent())
                 alreadyMatched.add(found.get()); //Don't match twice
             else
@@ -639,7 +655,7 @@ public class InvUtils {
     }
 
     public static boolean matches(List<ItemStack> oneList, List<ItemStack> twoList) {
-        return matchesPredicate(oneList,twoList, InvUtils::matches);
+        return matchesPredicate(oneList, twoList, InvUtils::matches);
     }
 
     public static <T> List<List<T>> splitIntoBoxes(List<T> stacks, int boxes) {
@@ -653,8 +669,8 @@ public class InvUtils {
 
     public static boolean isEmpty(IItemHandler inventory) {
         int inventorySize = inventory.getSlots();
-        for (int i = 0; i < inventorySize; i++){
-            if (!inventory.getStackInSlot(i).isEmpty()){
+        for (int i = 0; i < inventorySize; i++) {
+            if (!inventory.getStackInSlot(i).isEmpty()) {
                 return false;
             }
         }
