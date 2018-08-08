@@ -4,8 +4,12 @@ import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
+import net.minecraft.block.Block;
+import net.minecraft.block.material.Material;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnumEnchantmentType;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemAxe;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.oredict.OreDictionary;
@@ -30,4 +34,20 @@ public class ItemSoulforgedBattleAxe extends ItemAxe {
         return false;
 
     }
+
+    @Override
+    public float getDestroySpeed(ItemStack stack, IBlockState state) {
+        Block block = state.getBlock();
+        Material material = state.getMaterial();
+
+        if (block == Blocks.WEB) {
+            return 15.0F;
+        } else if (material == Material.PLANTS || material == Material.VINE || material == Material.CORAL || material == Material.LEAVES || material == Material.GOURD) {
+            return 1.5F;
+        }
+
+        return super.getDestroySpeed(stack, state);
+    }
+
+
 }
