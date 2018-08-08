@@ -82,7 +82,7 @@ public class HCBeacons extends Feature {
         BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(concrete, 1, OreDictionary.WILDCARD_VALUE))));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockIron"), EntityMob.class)
-                .addPotionEffect(MobEffects.GLOWING, 60000, PotionBeaconEffect.Amplification.ZERO)
+                .addPotionEffect(MobEffects.GLOWING, 25000, PotionBeaconEffect.Amplification.ZERO)
                 .setBaseBeamColor(Color.WHITE)
                 .setTickRate(3600));
 
