@@ -1,8 +1,15 @@
 package betterwithmods.common.entity;
 
+import betterwithmods.BWMod;
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
+import betterwithmods.module.GlobalConfig;
+import betterwithmods.util.AABBArray;
+import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
-
+import io.netty.buffer.ByteBuf;
+import io.netty.buffer.Unpooled;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRedstoneWire;
@@ -25,24 +32,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.IEntityAdditionalSpawnData;
 
 import java.nio.charset.Charset;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.Map.Entry;
-import java.util.Set;
-
-import betterwithmods.BWMod;
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
-import betterwithmods.module.GlobalConfig;
-import betterwithmods.util.AABBArray;
-import betterwithmods.util.InvUtils;
-import io.netty.buffer.ByteBuf;
-import io.netty.buffer.Unpooled;
-
-import static java.lang.Math.max;
 
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
@@ -336,7 +327,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InvUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
         }
 
-        updatePassengers(posY, targetY + 1, true);
+        updatePassengers(posY, posY + (up ? 0 : 0.5), true);
     }
 
     private boolean done() {
