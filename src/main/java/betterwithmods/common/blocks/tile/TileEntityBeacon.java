@@ -93,7 +93,7 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
         SoundEvent activationSound = effect.getActivationSound();
 
         if (activationSound != null) {
-            this.world.playSound(pos.getX(), pos.getY(), pos.getZ(), activationSound, SoundCategory.BLOCKS, 1.0f, 1.0f, true);
+            this.world.getPlayers(EntityPlayer.class, (T) -> true).forEach(entityPlayer -> this.world.playSound(null, entityPlayer.getPosition(), activationSound, SoundCategory.BLOCKS, 1.0f, 1.0f));
         }
         this.world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, -4, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(player -> CriteriaTriggers.CONSTRUCT_BEACON.trigger(player, this));
         this.active = true;
