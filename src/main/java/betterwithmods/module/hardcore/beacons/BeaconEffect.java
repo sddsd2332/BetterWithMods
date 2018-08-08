@@ -1,15 +1,15 @@
 package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.common.registry.block.recipe.StateIngredient;
 import betterwithmods.util.InvUtils;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -23,12 +23,14 @@ public abstract class BeaconEffect {
     protected Class<? extends EntityLivingBase> validEntityType;
     protected float[] baseBeamColor;
     protected int[] effectRanges;
+    protected SoundEvent activationSound;
 
     public BeaconEffect(BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
         this.structureBlock = structureBlock;
         this.validEntityType = validEntityType;
         this.effectRanges = new int[]{20, 40, 60, 80};
         this.setBaseBeamColor(Color.white);
+        this.setActivationSound(SoundEvents.ENTITY_WITHER_SPAWN);
     }
 
     public BeaconEffect setBaseBeamColor(Color baseBeamColor) {
@@ -39,6 +41,15 @@ public abstract class BeaconEffect {
     public BeaconEffect setBaseBeamColor(float[] baseBeamColor) {
         this.baseBeamColor = baseBeamColor;
         return this;
+    }
+
+    public BeaconEffect setActivationSound(SoundEvent activationSound) {
+        this.activationSound = activationSound;
+        return this;
+    }
+
+    public SoundEvent getActivationSound() {
+        return activationSound;
     }
 
     public BlockIngredient getStructureBlock() {
