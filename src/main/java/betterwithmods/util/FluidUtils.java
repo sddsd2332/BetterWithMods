@@ -16,10 +16,13 @@ import net.minecraft.world.World;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fluids.capability.IFluidTankProperties;
 import net.minecraftforge.items.ItemHandlerHelper;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Arrays;
+import java.util.Objects;
 
 public class FluidUtils {
 
@@ -54,6 +57,13 @@ public class FluidUtils {
             return new BlockLiquidWrapper((BlockLiquid) block, world, blockPos);
         }
 
+        return null;
+    }
+
+    public static Fluid getFluidFromBlock(World world, BlockPos blockPos, EnumFacing side) {
+        IFluidHandler handler = getBlockFluidHandler(world, blockPos, side);
+        if (handler != null)
+            return Arrays.stream(handler.getTankProperties()).map(IFluidTankProperties::getContents).filter(Objects::nonNull).map(FluidStack::getFluid).findFirst().orElse(null);
         return null;
     }
 

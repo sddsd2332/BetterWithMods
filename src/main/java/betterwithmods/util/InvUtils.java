@@ -70,6 +70,9 @@ public class InvUtils {
         return nonNullList;
     }
 
+    public static IItemHandlerModifiable getPlayerInventory(EntityPlayer player, EnumFacing inv) {
+        return (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv);
+    }
 
     public static void givePlayer(EntityPlayer player, EnumFacing inv, NonNullList<ItemStack> stacks) {
         IItemHandlerModifiable inventory = (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv);
@@ -232,6 +235,15 @@ public class InvUtils {
         return full;
     }
 
+    public static ItemStack findItemInInventory(Ingredient ingredient, IItemHandler inventory) {
+        for(int slot = 0; slot < inventory.getSlots(); slot++) {
+            ItemStack stack = inventory.getStackInSlot(slot);
+            if(ingredient.apply(stack)) {
+                return stack;
+            }
+        }
+        return ItemStack.EMPTY;
+    }
 
     public static int getFirstOccupiedStackInRange(IItemHandler inv, int minSlot, int maxSlot) {
         for (int slot = minSlot; slot <= maxSlot; ++slot) {
