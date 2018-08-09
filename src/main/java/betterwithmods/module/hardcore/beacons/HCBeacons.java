@@ -7,19 +7,20 @@ import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.blocks.BlockEnderchest;
 import betterwithmods.common.blocks.tile.TileEnderchest;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
+import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.common.registry.block.recipe.IngredientSpecial;
 import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.MobEffects;
 import net.minecraft.inventory.EntityEquipmentSlot;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -31,8 +32,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.awt.*;
 import java.util.List;
@@ -45,19 +44,27 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
  */
 public class HCBeacons extends Feature {
 
-    @GameRegistry.ObjectHolder("minecraft:wool")
-    public static final Block wool = null;
-
-    @GameRegistry.ObjectHolder("minecraft:stained_hardened_clayy")
-    public static final Block terracota = null;
-
-    @GameRegistry.ObjectHolder("minecraft:concrete")
-    public static final Block concrete = null;
 
     public static final List<BeaconEffect> BEACON_EFFECTS = Lists.newArrayList();
-
+    public static ResourceLocation WORLD1 = new ResourceLocation(BWMod.MODID, "world_enderchest");
+    public static ResourceLocation WORLD2 = new ResourceLocation(BWMod.MODID, "world2_enderchest");
+    public static ResourceLocation GLOBAL = new ResourceLocation(BWMod.MODID, "global_enderchest");
     private static boolean enderchestBeacon;
     private static boolean enableBeaconCustomization;
+
+    public static BeaconEffect getEffect(World world, BlockPos pos, IBlockState blockState) {
+        for (BeaconEffect beaconEffect : BEACON_EFFECTS) {
+            if (beaconEffect.isBlockStateValid(world, pos, blockState)) {
+                return beaconEffect;
+            }
+        }
+
+        return null;
+    }
+
+    public static boolean isValidBeaconBase(IBlockState blockState) {
+        return getEffect(null, null, blockState) != null;
+    }
 
     @Override
     public void setupConfig() {
@@ -79,10 +86,10 @@ public class HCBeacons extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        BEACON_EFFECTS.add(new CosmeticBeaconEffect("glass", new BlockIngredient("blockGlass")));
-        BEACON_EFFECTS.add(new CosmeticBeaconEffect("wool", new BlockIngredient(new ItemStack(wool, 1, OreDictionary.WILDCARD_VALUE))));
-        BEACON_EFFECTS.add(new CosmeticBeaconEffect("terracota", new BlockIngredient(new ItemStack(terracota, 1, OreDictionary.WILDCARD_VALUE))));
-        BEACON_EFFECTS.add(new CosmeticBeaconEffect("concrete", new BlockIngredient(new ItemStack(concrete, 1, OreDictionary.WILDCARD_VALUE))));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("glass", new BlockDropIngredient("blockGlass")));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("wool", new BlockDropIngredient("wool")));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("terracotta", new BlockDropIngredient("terracotta")));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("concrete", new BlockDropIngredient("concrete")));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("iron", new BlockIngredient("blockIron"), EntityMob.class)
                 .addPotionEffect(MobEffects.GLOWING, 25000, PotionBeaconEffect.Amplification.ZERO)
@@ -140,32 +147,25 @@ public class HCBeacons extends Feature {
             BEACON_EFFECTS.add(new EnderBeaconEffect());
         }
 
-        if(enableBeaconCustomization) {
-            for(BeaconEffect beaconEffect : BEACON_EFFECTS) {
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("compatibility", new BlockIngredient(new IngredientSpecial(
+                stack -> {
+                    try {
+                        return stack.getItem() instanceof ItemBlock && ((ItemBlock) stack.getItem()).getBlock().isBeaconBase(null, null, null);
+                    } catch (NullPointerException e) {
+                        return false;
+                    }
+                }))));
+
+        if (enableBeaconCustomization) {
+            for (BeaconEffect beaconEffect : BEACON_EFFECTS) {
                 String categoryName = String.join(".", this.configCategory, beaconEffect.getResourceLocation().getResourcePath());
                 ConfigHelper.loadPropBool("enabled", categoryName, "", true);
-                if(beaconEffect.isConfigurable()) {
+                if (beaconEffect.isConfigurable()) {
                     ConfigHelper.loadPropIntList("effectRanges", categoryName, "Range, in blocks, that the beacon will have an effect", beaconEffect.effectRanges);
                 }
             }
         }
     }
-
-
-    public static BeaconEffect getEffect(World world, BlockPos pos, IBlockState blockState) {
-        for (BeaconEffect beaconEffect : BEACON_EFFECTS) {
-            if (beaconEffect.isBlockStateValid(world, pos, blockState)) {
-                return beaconEffect;
-            }
-        }
-
-        return null;
-    }
-
-    public static boolean isValidBeaconBase(IBlockState blockState) {
-        return getEffect(null, null, blockState) != null;
-    }
-
 
     @Override
     public String getFeatureDescription() {
@@ -176,11 +176,6 @@ public class HCBeacons extends Feature {
     public boolean hasSubscriptions() {
         return true;
     }
-
-    public static ResourceLocation WORLD1 = new ResourceLocation(BWMod.MODID, "world_enderchest");
-    public static ResourceLocation WORLD2 = new ResourceLocation(BWMod.MODID, "world2_enderchest");
-    public static ResourceLocation GLOBAL = new ResourceLocation(BWMod.MODID, "global_enderchest");
-
 
     @SubscribeEvent
     public void attachTileCapability(AttachCapabilitiesEvent<TileEntity> event) {

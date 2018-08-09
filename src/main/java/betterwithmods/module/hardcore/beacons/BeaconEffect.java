@@ -29,7 +29,7 @@ public abstract class BeaconEffect {
     protected Class<? extends EntityLivingBase> validEntityType;
     protected float[] baseBeamColor;
     protected int[] effectRanges;
-    protected SoundEvent activationSound;
+    protected SoundEvent activationSound, deactivationSound;
     protected int tickRate;
 
     public BeaconEffect(String name, BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
@@ -40,6 +40,7 @@ public abstract class BeaconEffect {
         this.effectRanges = new int[]{20, 40, 80, 160};
         this.setBaseBeamColor(Color.white);
         this.setActivationSound(SoundEvents.ENTITY_WITHER_SPAWN);
+        this.setDeactivationSound(SoundEvents.ENTITY_WITHER_DEATH);
         this.setTickRate(120);
     }
 
@@ -60,6 +61,14 @@ public abstract class BeaconEffect {
     public BeaconEffect setActivationSound(SoundEvent activationSound) {
         this.activationSound = activationSound;
         return this;
+    }
+
+    public SoundEvent getDeactivationSound() {
+        return deactivationSound;
+    }
+
+    public void setDeactivationSound(SoundEvent deactivationSound) {
+        this.deactivationSound = deactivationSound;
     }
 
     public BeaconEffect setTickRate(int tickRate) {

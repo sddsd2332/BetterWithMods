@@ -6,6 +6,7 @@ import betterwithmods.module.hardcore.beacons.CapabilityBeacon;
 import betterwithmods.module.hardcore.beacons.HCBeacons;
 import betterwithmods.module.hardcore.beacons.SpawnBeaconEffect;
 import betterwithmods.util.ColorUtils;
+import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.advancements.CriteriaTriggers;
@@ -22,8 +23,6 @@ import net.minecraft.nbt.NBTTagList;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -90,11 +89,7 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
             storage.addBeacon(pos, currentLevel);
         }
         effect.onBeaconCreate(world, pos, currentLevel);
-        SoundEvent activationSound = effect.getActivationSound();
-
-        if (activationSound != null) {
-            this.world.getPlayers(EntityPlayer.class, (T) -> true).forEach(entityPlayer -> this.world.playSound(null, entityPlayer.getPosition(), activationSound, SoundCategory.BLOCKS, 1.0f, 1.0f));
-        }
+        WorldUtils.playBroadcast(world, effect.getActivationSound());
         this.world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, -4, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(player -> CriteriaTriggers.CONSTRUCT_BEACON.trigger(player, this));
         this.active = true;
     }
@@ -103,8 +98,10 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
         this.segments.clear();
         if (effect != null) {
             effect.onBeaconBreak(world, pos, currentLevel);
+            WorldUtils.playBroadcast(world, effect.getDeactivationSound());
             this.effect = null;
         }
+
 
         CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
         if (storage != null) {
