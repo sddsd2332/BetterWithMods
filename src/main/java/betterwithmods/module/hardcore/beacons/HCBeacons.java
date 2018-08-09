@@ -8,7 +8,6 @@ import betterwithmods.common.blocks.BlockEnderchest;
 import betterwithmods.common.blocks.tile.TileEnderchest;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -143,10 +142,7 @@ public class HCBeacons extends Feature {
         if(enableBeaconCustomization) {
             for(BeaconEffect beaconEffect : BEACON_EFFECTS) {
                 String categoryName = String.join(".", this.configCategory, beaconEffect.getResourceLocation().getResourcePath());
-                ConfigHelper.loadPropBool("enabled", categoryName, "", true);
-                if(beaconEffect.isConfigurable()) {
-                    ConfigHelper.loadPropIntList("effectRanges", categoryName, "Range, in blocks, that the beacon will have an effect", beaconEffect.effectRanges);
-                }
+                beaconEffect.setupConfig(categoryName);
             }
         }
     }

@@ -42,10 +42,6 @@ public class SpawnBeaconEffect extends BeaconEffect {
         this.setBaseBeamColor(Color.GRAY);
     }
 
-    @Override
-    public boolean isConfigurable() {
-        return false;
-    }
 
     public static void removeAll(BlockPos pos) {
         SPAWN_LIST.remove(pos);

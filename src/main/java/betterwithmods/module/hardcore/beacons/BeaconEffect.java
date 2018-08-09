@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.module.ConfigHelper;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -22,7 +23,6 @@ import java.awt.*;
 public abstract class BeaconEffect {
 
     protected boolean enabled;
-    protected String configDesc;
 
     protected ResourceLocation resourceLocation;
     protected BlockIngredient structureBlock;
@@ -41,6 +41,15 @@ public abstract class BeaconEffect {
         this.setBaseBeamColor(Color.white);
         this.setActivationSound(SoundEvents.ENTITY_WITHER_SPAWN);
         this.setTickRate(120);
+    }
+
+    public void setupConfig(String categoryName) {
+        this.setEnabled(ConfigHelper.loadPropBool("enabled", categoryName, "", true));
+
+        if(effectRanges != null) {
+            this.setEffectRanges(ConfigHelper.loadPropIntList("effectRanges", categoryName, "Range, in blocks, that the beacon will have an effect", effectRanges));
+            this.setTickRate(ConfigHelper.loadPropInt("tickRate", categoryName, "The rate, in ticks, that the beacon will update and apply its effect.", tickRate));
+        }
     }
 
     public ResourceLocation getResourceLocation() {
@@ -74,10 +83,6 @@ public abstract class BeaconEffect {
 
     public boolean isEnabled() {
         return enabled;
-    }
-
-    public boolean isConfigurable() {
-        return true;
     }
 
     public BeaconEffect setEffectRanges(int[] effectRanges) {

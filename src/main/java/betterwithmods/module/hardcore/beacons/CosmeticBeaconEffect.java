@@ -26,11 +26,6 @@ public class CosmeticBeaconEffect extends BeaconEffect {
     }
 
     @Override
-    public boolean isConfigurable() {
-        return false;
-    }
-
-    @Override
     public NonNullList<EntityLivingBase> getEntitiesInRange(World world, BlockPos pos, int beaconLevel) {
         return NonNullList.create();
     }
