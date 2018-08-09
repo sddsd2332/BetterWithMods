@@ -164,8 +164,6 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
         BeamSegment segment = new BeamSegment(color);
         this.segments.add(segment);
 
-//
-//        //TODO - Config for coloring based on beacon type
         BlockPos.MutableBlockPos pos;
         for (pos = new BlockPos.MutableBlockPos(getPos().up()); pos.getY() < 256; pos.move(EnumFacing.UP)) {
             color = ColorUtils.getColorFromBlock(world, pos, getPos());
