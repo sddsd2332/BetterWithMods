@@ -76,8 +76,9 @@ public abstract class BeaconEffect {
         return deactivationSound;
     }
 
-    public void setDeactivationSound(SoundEvent deactivationSound) {
+    public BeaconEffect setDeactivationSound(SoundEvent deactivationSound) {
         this.deactivationSound = deactivationSound;
+        return this;
     }
 
     public BeaconEffect setTickRate(int tickRate) {
