@@ -8,6 +8,7 @@ import betterwithmods.common.blocks.BlockEnderchest;
 import betterwithmods.common.blocks.tile.TileEnderchest;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -56,9 +57,11 @@ public class HCBeacons extends Feature {
     public static final List<BeaconEffect> BEACON_EFFECTS = Lists.newArrayList();
 
     private static boolean enderchestBeacon;
+    private static boolean enableBeaconCustomization;
 
     @Override
     public void setupConfig() {
+        enableBeaconCustomization = loadPropBool("Enable Beacon Customization", "Allows you to customize parts of beacons, and disable specific ones. Requires restart to generate additional configs", false);
         enderchestBeacon = loadPropBool("Enderchest Beacon", "Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Book of Single.", true);
     }
 
@@ -76,58 +79,58 @@ public class HCBeacons extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient("blockGlass")));
-        BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(wool, 1, OreDictionary.WILDCARD_VALUE))));
-        BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(terracota, 1, OreDictionary.WILDCARD_VALUE))));
-        BEACON_EFFECTS.add(new CosmeticBeaconEffect(new BlockIngredient(new ItemStack(concrete, 1, OreDictionary.WILDCARD_VALUE))));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("glass", new BlockIngredient("blockGlass")));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("wool", new BlockIngredient(new ItemStack(wool, 1, OreDictionary.WILDCARD_VALUE))));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("terracota", new BlockIngredient(new ItemStack(terracota, 1, OreDictionary.WILDCARD_VALUE))));
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("concrete", new BlockIngredient(new ItemStack(concrete, 1, OreDictionary.WILDCARD_VALUE))));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockIron"), EntityMob.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("iron", new BlockIngredient("blockIron"), EntityMob.class)
                 .addPotionEffect(MobEffects.GLOWING, 25000, PotionBeaconEffect.Amplification.ZERO)
                 .setBaseBeamColor(Color.WHITE)
                 .setTickRate(3600));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockEmerald"), EntityLivingBase.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("emerald", new BlockIngredient("blockEmerald"), EntityLivingBase.class)
                 .addPotionEffect(BWRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.GREEN));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockLapis"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("lapis", new BlockIngredient("blockLapis"), EntityPlayer.class)
                 .addPotionEffect(BWRegistry.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE)
                 .setBaseBeamColor(Color.BLUE));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockDiamond"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("diamond", new BlockIngredient("blockDiamond"), EntityPlayer.class)
                 .addPotionEffect(BWRegistry.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
                 .setBaseBeamColor(Color.CYAN));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("glowstone"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("glowstone", new BlockIngredient("glowstone"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.NIGHT_VISION, 400, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
                 .setBaseBeamColor(Color.YELLOW));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockGold"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("gold", new BlockIngredient("blockGold"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.HASTE, 120, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
                 .setBaseBeamColor(Color.YELLOW));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockSlime"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("slime", new BlockIngredient("blockSlime"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.JUMP_BOOST, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.GREEN));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockDung"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("dung", new BlockIngredient("blockDung"), EntityPlayer.class)
                 .setCanApply((entityPlayer) -> !PlayerHelper.hasFullSet(((EntityPlayer) entityPlayer), ItemSoulforgeArmor.class))
                 .addPotionEffect(MobEffects.POISON, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .addPotionEffect(MobEffects.NAUSEA, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLACK)); //TODO - Color
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockCoal"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("coal", new BlockIngredient("blockCoal"), EntityPlayer.class)
                 .setCanApply((entityPlayer) -> !PlayerHelper.hasPart(entityPlayer, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class))
                 .addPotionEffect(MobEffects.BLINDNESS, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLACK));
 
         BEACON_EFFECTS.add(new HellfireBeaconEffect());
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockPrismarine"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("prismarine", new BlockIngredient("blockPrismarine"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.WATER_BREATHING, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLUE));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect(new BlockIngredient("blockPadding"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("padding", new BlockIngredient("blockPadding"), EntityPlayer.class)
                 .addPotionEffect(BWRegistry.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.PINK));
 
@@ -137,6 +140,15 @@ public class HCBeacons extends Feature {
             BEACON_EFFECTS.add(new EnderBeaconEffect());
         }
 
+        if(enableBeaconCustomization) {
+            for(BeaconEffect beaconEffect : BEACON_EFFECTS) {
+                String categoryName = String.join(".", this.configCategory, beaconEffect.getResourceLocation().getResourcePath());
+                ConfigHelper.loadPropBool("enabled", categoryName, "", true);
+                if(beaconEffect.isConfigurable()) {
+                    ConfigHelper.loadPropIntList("effectRanges", categoryName, "Range, in blocks, that the beacon will have an effect", beaconEffect.effectRanges);
+                }
+            }
+        }
     }
 
 

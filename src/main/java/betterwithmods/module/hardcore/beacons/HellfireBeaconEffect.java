@@ -22,7 +22,7 @@ public class HellfireBeaconEffect extends PotionBeaconEffect {
     public static final Block fire = null;
 
     public HellfireBeaconEffect() {
-        super(new BlockIngredient("blockConcentratedHellfire"), EntityPlayer.class);
+        super("hellfire", new BlockIngredient("blockConcentratedHellfire"), EntityPlayer.class);
         this.addPotionEffect(MobEffects.FIRE_RESISTANCE, 120, PotionBeaconEffect.Amplification.LEVEL);
         this.setBaseBeamColor(Color.ORANGE);
         this.setActivationSound(SoundEvents.ENTITY_BLAZE_SHOOT);

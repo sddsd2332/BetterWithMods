@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 public class EnderBeaconEffect extends BeaconEffect {
 
     public EnderBeaconEffect() {
-        super(new BlockIngredient("blockEnder"), EntityPlayer.class);
+        super("ender", new BlockIngredient("blockEnder"), EntityPlayer.class);
     }
 
     @Override

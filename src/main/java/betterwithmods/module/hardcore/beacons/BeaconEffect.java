@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.state.IBlockState;
@@ -9,6 +10,7 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
@@ -19,6 +21,10 @@ import java.awt.*;
 
 public abstract class BeaconEffect {
 
+    protected boolean enabled;
+    protected String configDesc;
+
+    protected ResourceLocation resourceLocation;
     protected BlockIngredient structureBlock;
     protected Class<? extends EntityLivingBase> validEntityType;
     protected float[] baseBeamColor;
@@ -26,13 +32,19 @@ public abstract class BeaconEffect {
     protected SoundEvent activationSound;
     protected int tickRate;
 
-    public BeaconEffect(BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
+    public BeaconEffect(String name, BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
+        this.resourceLocation = new ResourceLocation(BWMod.MODID, name + "_beacon");
         this.structureBlock = structureBlock;
         this.validEntityType = validEntityType;
-        this.effectRanges = new int[]{20, 40, 60, 80};
+        this.enabled = true;
+        this.effectRanges = new int[]{20, 40, 80, 160};
         this.setBaseBeamColor(Color.white);
         this.setActivationSound(SoundEvents.ENTITY_WITHER_SPAWN);
         this.setTickRate(120);
+    }
+
+    public ResourceLocation getResourceLocation() {
+        return resourceLocation;
     }
 
     public BeaconEffect setBaseBeamColor(Color baseBeamColor) {
@@ -53,6 +65,28 @@ public abstract class BeaconEffect {
     public BeaconEffect setTickRate(int tickRate) {
         this.tickRate = tickRate;
         return this;
+    }
+
+    public BeaconEffect setEnabled(boolean enabled) {
+        this.enabled = enabled;
+        return this;
+    }
+
+    public boolean isEnabled() {
+        return enabled;
+    }
+
+    public boolean isConfigurable() {
+        return true;
+    }
+
+    public BeaconEffect setEffectRanges(int[] effectRanges) {
+        this.effectRanges = effectRanges;
+        return this;
+    }
+
+    public int[] getEffectRanges() {
+        return effectRanges;
     }
 
     public int getTickRate() {

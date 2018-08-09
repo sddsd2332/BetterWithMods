@@ -38,8 +38,13 @@ public class SpawnBeaconEffect extends BeaconEffect {
     public static final HashMap<BlockPos, HashSet<BindingPoint>> SPAWN_LIST = Maps.newHashMap();
 
     public SpawnBeaconEffect() {
-        super(new BlockIngredient("blockSoulforgedSteel"), EntityPlayer.class);
+        super("spawn", new BlockIngredient("blockSoulforgedSteel"), EntityPlayer.class);
         this.setBaseBeamColor(Color.GRAY);
+    }
+
+    @Override
+    public boolean isConfigurable() {
+        return false;
     }
 
     public static void removeAll(BlockPos pos) {

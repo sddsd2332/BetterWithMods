@@ -24,8 +24,8 @@ public class PotionBeaconEffect extends BeaconEffect {
     private Map<PotionEffect, Amplification> potionEffects;
     private Predicate<EntityLivingBase> canApply;
 
-    public PotionBeaconEffect(BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
-        super(structureBlock, validEntityType);
+    public PotionBeaconEffect(String name, BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
+        super(name, structureBlock, validEntityType);
         this.potionEffects = new HashMap<>();
         this.canApply = (T) -> true;
     }

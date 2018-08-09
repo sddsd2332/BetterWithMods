@@ -21,10 +21,15 @@ public class CosmeticBeaconEffect extends BeaconEffect {
 
     private Map<BlockPos, float[]> colorCache;
 
-    public CosmeticBeaconEffect(BlockIngredient structureBlock) {
-        super(structureBlock, EntityLivingBase.class);
+    public CosmeticBeaconEffect(String name, BlockIngredient structureBlock) {
+        super(name, structureBlock, EntityLivingBase.class);
         this.colorCache = new HashMap<>();
         this.setBaseBeamColor(Color.white);
+    }
+
+    @Override
+    public boolean isConfigurable() {
+        return false;
     }
 
     @Override
