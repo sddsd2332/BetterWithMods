@@ -159,10 +159,7 @@ public class HCBeacons extends Feature {
         if (enableBeaconCustomization) {
             for (BeaconEffect beaconEffect : BEACON_EFFECTS) {
                 String categoryName = String.join(".", this.configCategory, beaconEffect.getResourceLocation().getResourcePath());
-                ConfigHelper.loadPropBool("enabled", categoryName, "", true);
-                if (beaconEffect.isConfigurable()) {
-                    ConfigHelper.loadPropIntList("effectRanges", categoryName, "Range, in blocks, that the beacon will have an effect", beaconEffect.effectRanges);
-                }
+                beaconEffect.setupConfig(categoryName);
             }
         }
     }
