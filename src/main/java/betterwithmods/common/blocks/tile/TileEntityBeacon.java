@@ -63,22 +63,22 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
             }
 
             effect = HCBeacons.getEffect(world, pos, world.getBlockState(pos.down()));
-            if(effect != null) {
+
+            tick = DEFAULT_TICK_RATE;
+
+            if (effect != null) {
                 BlockIngredient structureBlock = effect.getStructureBlock();
                 currentLevel = calcLevel(structureBlock);
-                if(currentLevel > 0) {
+                if (currentLevel > 0) {
                     if (!active) {
                         activate();
                     }
                     effect.apply(effect.getEntitiesInRange(world, pos, currentLevel), world, pos, currentLevel);
                     calcSegments();
-                } else if(active) {
+                    tick = effect.getTickRate();
+                } else if (active) {
                     deactivate();
                 }
-
-                tick = effect.getTickRate();
-            } else {
-                tick = DEFAULT_TICK_RATE;
             }
         }
         tick--;
@@ -101,7 +101,7 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
 
     private void deactivate() {
         this.segments.clear();
-        if(effect != null) {
+        if (effect != null) {
             effect.onBeaconBreak(world, pos, currentLevel);
             this.effect = null;
         }
@@ -157,18 +157,18 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
     private void calcSegments() {
         this.segments.clear();
         float[] color = ColorUtils.getColorFromBlock(world, getPos().up(), getPos());
-        float[] effectColor = new float[] {1, 1, 1};
-        if(effect != null) {
-            effectColor = effect.getBaseBeaconBeamColor(pos);
+        if (effect != null) {
+            color = effect.getBaseBeaconBeamColor(pos);
         }
 
-        BeamSegment segment = new BeamSegment(ColorUtils.average(color, effectColor));
+        BeamSegment segment = new BeamSegment(color);
         this.segments.add(segment);
-        //TODO - Config for coloring based on beacon type
+
+//
+//        //TODO - Config for coloring based on beacon type
         BlockPos.MutableBlockPos pos;
         for (pos = new BlockPos.MutableBlockPos(getPos().up()); pos.getY() < 256; pos.move(EnumFacing.UP)) {
-            color = ColorUtils.average(ColorUtils.getColorFromBlock(world, pos, getPos()),  effectColor);
-            //TODO - Glass Coloring Correctly
+            color = ColorUtils.getColorFromBlock(world, pos, getPos());
             if (!Arrays.equals(color, new float[]{1, 1, 1})) {
                 color = ColorUtils.average(color, segment.getColors());
                 if (Arrays.equals(color, segment.getColors())) {
@@ -188,7 +188,6 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
     }
 
 
-
     public int calcLevel(BlockIngredient structureBlock) {
         IBlockState stateAtPos;
         int r;
@@ -196,7 +195,7 @@ public class TileEntityBeacon extends net.minecraft.tileentity.TileEntityBeacon 
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
                     stateAtPos = world.getBlockState(pos.add(x, -r, z));
-                    if(!structureBlock.apply(world, pos, stateAtPos)) {
+                    if (!structureBlock.apply(world, pos, stateAtPos)) {
                         return r - 1;
                     }
                 }

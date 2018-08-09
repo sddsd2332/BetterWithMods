@@ -1,10 +1,14 @@
 package betterwithmods.util;
 
+import betterwithmods.api.util.impl.BlockColorProvider;
+import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.Maps;
-import net.minecraft.block.*;
+import net.minecraft.block.BlockColored;
+import net.minecraft.block.BlockDoublePlant;
+import net.minecraft.block.BlockFlower;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -35,14 +39,14 @@ public class ColorUtils {
         addFlower(BlockFlower.EnumFlowerType.WHITE_TULIP, new DyeAmount(EnumDyeColor.SILVER, 2));
         addFlower(BlockFlower.EnumFlowerType.PINK_TULIP, new DyeAmount(EnumDyeColor.PINK, 2));
         addFlower(BlockFlower.EnumFlowerType.OXEYE_DAISY, new DyeAmount(EnumDyeColor.SILVER, 2));
-        addFlower(BlockDoublePlant.EnumPlantType.PAEONIA, new DyeAmount(EnumDyeColor.PINK,4));
-        addFlower(BlockDoublePlant.EnumPlantType.ROSE, new DyeAmount(EnumDyeColor.RED,4));
-        addFlower(BlockDoublePlant.EnumPlantType.SYRINGA, new DyeAmount(EnumDyeColor.MAGENTA,4));
-        addFlower(BlockDoublePlant.EnumPlantType.SUNFLOWER, new DyeAmount(EnumDyeColor.YELLOW,4));
+        addFlower(BlockDoublePlant.EnumPlantType.PAEONIA, new DyeAmount(EnumDyeColor.PINK, 4));
+        addFlower(BlockDoublePlant.EnumPlantType.ROSE, new DyeAmount(EnumDyeColor.RED, 4));
+        addFlower(BlockDoublePlant.EnumPlantType.SYRINGA, new DyeAmount(EnumDyeColor.MAGENTA, 4));
+        addFlower(BlockDoublePlant.EnumPlantType.SUNFLOWER, new DyeAmount(EnumDyeColor.YELLOW, 4));
     }
 
     private static void addFlower(BlockIngredient ingredient, DyeAmount dyeAmount) {
-        FLOWER_TO_DYES.put(ingredient,dyeAmount);
+        FLOWER_TO_DYES.put(ingredient, dyeAmount);
     }
 
     private static void addFlower(BlockDoublePlant.EnumPlantType type, DyeAmount dyeAmount) {
@@ -78,9 +82,9 @@ public class ColorUtils {
     public static float[] average(float[]... arrays) {
         int divisor = arrays.length;
         float[] output = new float[arrays[0].length];
-        for (int i = 0; i < divisor; i++) {
-            for (int j = 0; j < arrays[i].length; j++) {
-                output[j] += arrays[i][j];
+        for (float[] array : arrays) {
+            for (int j = 0; j < array.length; j++) {
+                output[j] += array[j];
             }
         }
         for (int i = 0; i < output.length; i++) {
@@ -103,14 +107,13 @@ public class ColorUtils {
 
 
     public static float[] getColorFromBlock(World world, BlockPos pos, BlockPos beacon) {
-        if (world.isAirBlock(pos))
+        if (world.isAirBlock(pos)) {
             return new float[]{1, 1, 1};
+        }
         IBlockState state = world.getBlockState(pos);
         float[] color = state.getBlock().getBeaconColorMultiplier(state, world, pos, beacon);
-        if (state.getBlock() == Blocks.STAINED_GLASS) {
-            color = state.getValue(BlockStainedGlass.COLOR).getColorComponentValues();
-        } else if (state.getBlock() == Blocks.STAINED_GLASS_PANE) {
-            color = state.getValue(BlockStainedGlassPane.COLOR).getColorComponentValues();
+        if (color == null) {
+            color = BlockColorProvider.INSTANCE.getColorComponents(BWMRecipes.getStackFromState(state));
         }
         return color != null ? color : new float[]{1, 1, 1};
     }

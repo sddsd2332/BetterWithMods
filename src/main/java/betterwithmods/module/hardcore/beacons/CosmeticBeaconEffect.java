@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.util.ColorUtils;
-import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -14,7 +13,6 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import java.awt.*;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class CosmeticBeaconEffect extends BeaconEffect {
@@ -39,18 +37,20 @@ public class CosmeticBeaconEffect extends BeaconEffect {
 
     @Override
     public void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
-        List<float[]> colors = Lists.newArrayList();
 
+        float[] colors = null;
         for (int r = 1; r <= beaconLevel; r++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
                     BlockPos glassPos = new BlockPos(pos.getX() + x, pos.getY() - r, pos.getZ() + z);
-                    colors.add(ColorUtils.getColorFromBlock(world, glassPos, pos));
+                    if (colors == null)
+                        colors = ColorUtils.getColorFromBlock(world, glassPos, pos);
+                    else
+                        colors = ColorUtils.average(colors, ColorUtils.getColorFromBlock(world, glassPos, pos));
                 }
             }
         }
-
-        this.colorCache.put(pos, ColorUtils.average(colors.toArray(new float[colors.size()][3])));
+        this.colorCache.put(pos, colors);
     }
 
     @Override
