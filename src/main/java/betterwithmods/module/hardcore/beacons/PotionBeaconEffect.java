@@ -50,10 +50,10 @@ public class PotionBeaconEffect extends BeaconEffect {
         List<PotionEffect> amplifiedPotionEffects = new ArrayList<>();
         potionEffects.forEach(((potionEffect, amplification) -> amplifiedPotionEffects.add(new PotionEffect(potionEffect.getPotion(), potionEffect.getDuration(), amplification.getForLevel(beaconLevel)))));
 
-        for(EntityLivingBase entity : entitiesInRange) {
-            for(PotionEffect potionEffect : amplifiedPotionEffects) {
-                if(entity.isPotionApplicable(potionEffect) && canApply.test(entity)) {
-                     entity.addPotionEffect(potionEffect);
+        for (EntityLivingBase entity : entitiesInRange) {
+            for (PotionEffect potionEffect : amplifiedPotionEffects) {
+                if (entity.isPotionApplicable(potionEffect) && canApply.test(entity)) {
+                    entity.addPotionEffect(potionEffect);
                 }
             }
         }
@@ -77,6 +77,7 @@ public class PotionBeaconEffect extends BeaconEffect {
         LEVEL_REDUCED((beaconLevel) -> beaconLevel - 1);
 
         private Function<Integer, Integer> amplifier;
+
         Amplification(Function<Integer, Integer> amplifier) {
             this.amplifier = amplifier;
         }

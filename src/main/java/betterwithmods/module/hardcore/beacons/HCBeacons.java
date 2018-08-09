@@ -10,7 +10,6 @@ import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.IngredientSpecial;
-import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;

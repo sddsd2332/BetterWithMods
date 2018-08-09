@@ -30,6 +30,17 @@ public class CapabilityBeacon implements ICapabilitySerializable<NBTTagCompound>
     public CapabilityBeacon() {
     }
 
+    private static NBTTagCompound writeBeaconEntry(Long pos, int level) {
+        NBTTagCompound tag = new NBTTagCompound();
+        tag.setLong("pos", pos);
+        tag.setInteger("level", level);
+        return tag;
+    }
+
+    private static Pair<Long, Integer> readBeaconEntry(NBTTagCompound tag) {
+        return Pair.of(tag.getLong("pos"), tag.getInteger("level"));
+    }
+
     public void addBeacon(BlockPos pos, int level) {
         beacons.put(pos.toLong(), level);
     }
@@ -40,9 +51,7 @@ public class CapabilityBeacon implements ICapabilitySerializable<NBTTagCompound>
 
     @Override
     public boolean hasCapability(@Nonnull Capability<?> capability, @Nullable EnumFacing facing) {
-        if (capability == BEACON_CAPABILITY)
-            return true;
-        return false;
+        return capability == BEACON_CAPABILITY;
     }
 
     @Nullable
@@ -74,17 +83,6 @@ public class CapabilityBeacon implements ICapabilitySerializable<NBTTagCompound>
             Pair<Long, Integer> b = readBeaconEntry(tag);
             beacons.put(b.getKey(), b.getValue());
         }
-    }
-
-    private static NBTTagCompound writeBeaconEntry(Long pos, int level) {
-        NBTTagCompound tag = new NBTTagCompound();
-        tag.setLong("pos", pos);
-        tag.setInteger("level", level);
-        return tag;
-    }
-
-    private static Pair<Long, Integer> readBeaconEntry(NBTTagCompound tag) {
-        return Pair.of(tag.getLong("pos"), tag.getInteger("level"));
     }
 
     public BlockPos getClosest(World world, Entity player) {

@@ -47,7 +47,7 @@ public abstract class BeaconEffect {
     public void setupConfig(String categoryName) {
         this.setEnabled(ConfigHelper.loadPropBool("enabled", categoryName, "", true));
 
-        if(effectRanges != null) {
+        if (effectRanges != null) {
             this.setEffectRanges(ConfigHelper.loadPropIntList("effectRanges", categoryName, "Range, in blocks, that the beacon will have an effect", effectRanges));
             this.setTickRate(ConfigHelper.loadPropInt("tickRate", categoryName, "The rate, in ticks, that the beacon will update and apply its effect.", tickRate));
         }
@@ -58,17 +58,12 @@ public abstract class BeaconEffect {
     }
 
     public BeaconEffect setBaseBeamColor(Color baseBeamColor) {
-        this.baseBeamColor = new float[] {baseBeamColor.getRed() / 255, baseBeamColor.getGreen() / 255, baseBeamColor.getBlue() / 255};
+        this.baseBeamColor = new float[]{baseBeamColor.getRed() / 255, baseBeamColor.getGreen() / 255, baseBeamColor.getBlue() / 255};
         return this;
     }
 
     public BeaconEffect setBaseBeamColor(float[] baseBeamColor) {
         this.baseBeamColor = baseBeamColor;
-        return this;
-    }
-
-    public BeaconEffect setActivationSound(SoundEvent activationSound) {
-        this.activationSound = activationSound;
         return this;
     }
 
@@ -81,9 +76,8 @@ public abstract class BeaconEffect {
         return this;
     }
 
-    public BeaconEffect setTickRate(int tickRate) {
-        this.tickRate = tickRate;
-        return this;
+    public boolean isEnabled() {
+        return enabled;
     }
 
     public BeaconEffect setEnabled(boolean enabled) {
@@ -91,8 +85,8 @@ public abstract class BeaconEffect {
         return this;
     }
 
-    public boolean isEnabled() {
-        return enabled;
+    public int[] getEffectRanges() {
+        return effectRanges;
     }
 
     public BeaconEffect setEffectRanges(int[] effectRanges) {
@@ -100,16 +94,22 @@ public abstract class BeaconEffect {
         return this;
     }
 
-    public int[] getEffectRanges() {
-        return effectRanges;
-    }
-
     public int getTickRate() {
         return tickRate;
     }
 
+    public BeaconEffect setTickRate(int tickRate) {
+        this.tickRate = tickRate;
+        return this;
+    }
+
     public SoundEvent getActivationSound() {
         return activationSound;
+    }
+
+    public BeaconEffect setActivationSound(SoundEvent activationSound) {
+        this.activationSound = activationSound;
+        return this;
     }
 
     public BlockIngredient getStructureBlock() {
@@ -125,7 +125,7 @@ public abstract class BeaconEffect {
     }
 
     public boolean isBlockStateValid(World world, BlockPos pos, IBlockState blockState) {
-       return structureBlock.apply(world, pos, blockState);
+        return structureBlock.apply(world, pos, blockState);
     }
 
     public NonNullList<EntityLivingBase> getEntitiesInRange(World world, BlockPos pos, int beaconLevel) {
