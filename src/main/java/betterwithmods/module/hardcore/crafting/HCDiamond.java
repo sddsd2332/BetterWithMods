@@ -20,7 +20,7 @@ import net.minecraftforge.oredict.OreDictionary;
 public class HCDiamond extends Feature {
      @Override
     public String getFeatureDescription() {
-        return "Makes it so diamonds have to me made into an ingot alloy to be used in certain recipes";
+        return "Makes it so diamonds have to be made into an ingot alloy to be used in certain recipes";
     }
 
     @Override
