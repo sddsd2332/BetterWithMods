@@ -160,7 +160,7 @@ public class BlockLens extends BlockRotate implements IMultiVariants {
             }
 
         }
-        
+
         world.scheduleBlockUpdate(pos, this, 5, 5);
     }
 
