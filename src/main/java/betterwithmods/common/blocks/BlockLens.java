@@ -21,11 +21,12 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class BlockLens extends BlockRotate implements IMultiVariants{
+public class BlockLens extends BlockRotate implements IMultiVariants {
     public static final PropertyBool LIT = PropertyBool.create("lit");
     public static final int RANGE = 256;
 
@@ -36,7 +37,6 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         this.setDefaultState(this.getDefaultState().withProperty(DirUtils.FACING, EnumFacing.NORTH));
         this.setHarvestLevel("pickaxe", 0);
     }
-
 
 
     @Override
@@ -73,111 +73,94 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         world.scheduleBlockUpdate(pos, this, 3, 5);
     }
 
+    private boolean canPassLight(World world, BlockPos pos, IBlockState state) {
+        return !state.getMaterial().isOpaque() || state.getBlock().isAir(state, world, pos);
+    }
+
+    private void placeLightSource(World world, BlockPos pos, EnumFacing facing, BlockPos lensPos) {
+        if (world.getBlockState(pos).getBlock().isReplaceable(world, pos)) {
+            boolean sunlight = isLightFromSun(world, lensPos);
+            world.setBlockState(pos, BWMBlocks.LIGHT_SOURCE.getDefaultState().withProperty(BlockInvisibleLight.SUNLIGHT, sunlight).withProperty(DirUtils.FACING, facing));
+        }
+    }
+
+
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
         cleanupLight(world, pos);
-        EnumFacing dir = getFacing(world, pos);
+        EnumFacing dir = getFacing(world, pos), opposite = dir.getOpposite();
 
-        boolean isLightDetector = isFacingBlockDetector(world, pos);
+        boolean lightOn = isInputLit(world, pos);
+        if (isLit(world, pos) != lightOn) {
+            setLit(world, pos, lightOn);
+        }
 
-        if (!isLightDetector) {
-            boolean sunlight = isLightFromSun(world, pos);
-            boolean lightOn = isInputLit(world, pos);
-            if (isLit(world, pos) != lightOn) {
-                setLit(world, pos, lightOn);
-            }
-            EnumFacing expectedFacing = DirUtils.getOpposite(getFacing(world, pos));
+        if (isLit(world, pos)) {
+            int currentRange = RANGE;
+            for (int i = 1; i < RANGE; i++) {
+                BlockPos offset = pos.offset(dir, i);
+                IBlockState offsetState = world.getBlockState(offset);
 
-            BlockPos offset = pos.offset(dir);
-            if (isLit(world, pos) && (world.isAirBlock(offset) || world.getBlockState(offset).getBlock() == BWMBlocks.LIGHT_SOURCE)) {
-                int currentRange = RANGE;
-                for (int i = 1; i < RANGE; i++) {
-                    BlockPos bPos = pos.offset(dir, i);
-                    if (!world.isAirBlock(bPos)) {
-                        currentRange = i + 1;
-                        break;
-                    }
+                if (!canPassLight(world, offset, offsetState)) {
+                    currentRange = i + 1;
+                    break;
                 }
+            }
 
-                AxisAlignedBB bb = FULL_BLOCK_AABB.offset(pos);
-                int mod = dir.getAxisDirection().getOffset();
-                switch(dir.getAxis()) {
+            AxisAlignedBB bb = FULL_BLOCK_AABB.offset(pos);
+
+            int mod = dir.getAxisDirection().getOffset();
+            switch (dir.getAxis()) {
+                case X:
+                    bb = bb.expand(mod * currentRange, 0, 0);
+                    break;
+                case Y:
+                    bb = bb.expand(0, mod * currentRange, 0);
+                    break;
+                case Z:
+                    bb = bb.expand(0, 0, mod * currentRange);
+                    break;
+            }
+
+
+            List<Entity> box = world.getEntitiesWithinAABB(Entity.class, bb);
+            HashMap<Integer, Entity> map = Maps.newHashMap();
+            for (Entity e : box) {
+                int distance = 0;
+                switch (dir.getAxis()) {
                     case X:
-                        bb = bb.expand(mod * currentRange,0,0);
+                        distance = (int) (pos.getX() - e.posX);
                         break;
                     case Y:
-                        bb = bb.expand(0, mod * currentRange,0);
+                        distance = (int) (pos.getY() - e.posY);
                         break;
                     case Z:
-                        bb = bb.expand(0, 0, mod * currentRange);
+                        distance = (int) (pos.getZ() - e.posZ);
                         break;
                 }
-                List<Entity> box = world.getEntitiesWithinAABB(Entity.class, bb);
-                HashMap<Integer, Entity> map = Maps.newHashMap();
-                for (Entity e : box) {
-                    int distance = 0;
-                    switch (dir.getAxis()) {
-                        case X:
-                            distance = (int) (pos.getX() - e.posX);
-                            break;
-                        case Y:
-                            distance = (int) (pos.getY() - e.posY);
-                            break;
-                        case Z:
-                            distance = (int) (pos.getZ() - e.posZ);
-                            break;
+                map.put(Math.abs(distance), e);
+            }
+
+            for (int i = 1; i < currentRange; i++) {
+                BlockPos offset = pos.offset(dir, i);
+                IBlockState offsetState = world.getBlockState(offset);
+                boolean blocked = false;
+                if (canPassLight(world, pos, offsetState)) {
+                    if (map.containsKey(i)) {
+                        blocked = true;
                     }
-                    map.put(Math.abs(distance), e);
+                } else {
+                    blocked = true;
                 }
 
-
-                for (int i = 1; i < currentRange; i++) {
-                    BlockPos bPos = pos.offset(dir, i);
-                    IBlockState lightState = BWMBlocks.LIGHT_SOURCE.getDefaultState();
-                    if (world.isAirBlock(bPos)) {
-                        if (map.containsKey(i)) {
-                            world.setBlockState(bPos, lightState.withProperty(DirUtils.FACING, expectedFacing).withProperty(BlockInvisibleLight.SUNLIGHT, sunlight));
-                            break;
-                        } else if (world.getBlockState(bPos).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(bPos).getValue(DirUtils.FACING).ordinal() < expectedFacing.ordinal()) {
-                            if (world.getBlockState(bPos).getValue(BlockInvisibleLight.SUNLIGHT))
-                                lightState = lightState.withProperty(BlockInvisibleLight.SUNLIGHT, true);
-                            world.setBlockState(bPos, lightState.withProperty(DirUtils.FACING, expectedFacing));
-                        } else if (!world.isAirBlock(bPos)) {
-                            bPos = bPos.offset(dir.getOpposite());
-                            if (world.getBlockState(bPos).getBlock() != BWMBlocks.LIGHT_SOURCE || (world.getBlockState(bPos).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(bPos).getValue(DirUtils.FACING).ordinal() < expectedFacing.ordinal()))
-                                world.setBlockState(bPos, lightState.withProperty(DirUtils.FACING, expectedFacing).withProperty(BlockInvisibleLight.SUNLIGHT, sunlight));
-                            break;
-                        }
-
-                    } else if (!world.isAirBlock(bPos)) {
-                        BlockPos dPos = bPos.offset(dir.getOpposite());
-                        if (world.getBlockState(dPos).getBlock() != BWMBlocks.LIGHT_SOURCE || (world.getBlockState(dPos).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(dPos).getValue(DirUtils.FACING).ordinal() <= expectedFacing.ordinal())) {
-                            if (world.getBlockState(dPos).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(dPos).getValue(BlockInvisibleLight.SUNLIGHT))
-                                lightState = lightState.withProperty(BlockInvisibleLight.SUNLIGHT, sunlight);
-                            world.setBlockState(dPos, lightState.withProperty(DirUtils.FACING, expectedFacing));
-                        }
-                        break;
-                    }
-                }
-            } else if (!isLit(world, pos)) {
-                for (int i = 1; i < RANGE; i++) {
-                    BlockPos bPos = pos.offset(dir, i);
-
-                    if (world.getBlockState(bPos).getBlock() == BWMBlocks.LIGHT_SOURCE) {
-                        world.setBlockToAir(bPos);
-                    } else if (!world.isAirBlock(bPos)) {
-                        break;
-                    }
+                if (blocked) {
+                    placeLightSource(world, offset.offset(opposite), opposite, pos);
+                    break;
                 }
             }
-        } else {
-            int lightValue = world.getLight(pos.offset(dir.getOpposite()));
 
-            boolean shouldBeOn = lightValue > 7;
-
-            if (isLit(world, pos) != shouldBeOn)
-                setLit(world, pos, shouldBeOn);
         }
+        
         world.scheduleBlockUpdate(pos, this, 5, 5);
     }
 
@@ -219,34 +202,20 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
 
         if (world.isAirBlock(oppOff) && world.canBlockSeeSky(oppOff)) {
             return world.getLightFor(EnumSkyBlock.SKY, oppOff) > 12 && world.isDaytime() && (!world.isRaining() || !world.isThundering());
-        } else if (block.getLightValue(world.getBlockState(oppOff), world, oppOff) > 12) {
-            return true;
+        } else {
+            return block.getLightValue(world.getBlockState(oppOff), world, oppOff) > 12;
         }
-        return false;
     }
 
-    private boolean isFacingBlockDetector(World world, BlockPos pos) {
-        EnumFacing facing = getFacing(world, pos);
-        BlockPos offset = pos.offset(facing);
-        Block block = world.getBlockState(offset).getBlock();
-
-        if (block == BWMBlocks.DETECTOR) {
-            EnumFacing detFacing = ((BlockDetector) block).getFacing(world.getBlockState(offset));
-
-            if (detFacing == DirUtils.getOpposite(facing))
-                return true;
-        }
-        return false;
-    }
 
     private boolean isLightFromSun(World world, BlockPos pos) {
         EnumFacing facing = DirUtils.getOpposite(getFacing(world, pos));
         BlockPos offset = pos.offset(facing);
         if (world.isAirBlock(offset) && world.canBlockSeeSky(offset))
             return true;
-        else if (world.getBlockState(offset).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(offset).getValue(BlockInvisibleLight.SUNLIGHT))
-            return true;
-        return false;
+        else {
+            return world.getBlockState(offset).getBlock() == BWMBlocks.LIGHT_SOURCE && world.getBlockState(offset).getValue(BlockInvisibleLight.SUNLIGHT);
+        }
     }
 
     private void cleanupLightToFacing(World world, BlockPos pos, EnumFacing facing) {
@@ -302,6 +271,7 @@ public class BlockLens extends BlockRotate implements IMultiVariants{
         return meta + state.getValue(DirUtils.FACING).getIndex();
     }
 
+    @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, DirUtils.FACING, LIT);
