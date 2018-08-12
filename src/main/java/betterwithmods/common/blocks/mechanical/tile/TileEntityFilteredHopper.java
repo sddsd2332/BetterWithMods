@@ -128,8 +128,7 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
                         stack.shrink(STACK_SIZE - insert.getCount());
                     }
                 } else if (canDropIntoBlock(pos.down())) {
-                    stack.shrink(STACK_SIZE );
-                    InvUtils.spawnStack(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, STACK_SIZE, stack);
+                    InvUtils.spawnStack(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack.splitStack(STACK_SIZE), 10);
                 }
             }
             ejectCounter = 0;

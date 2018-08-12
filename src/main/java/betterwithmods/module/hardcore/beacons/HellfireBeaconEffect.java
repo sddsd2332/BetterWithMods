@@ -41,13 +41,13 @@ public class HellfireBeaconEffect extends PotionBeaconEffect {
     public void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
         BlockPos.MutableBlockPos firePos = new BlockPos.MutableBlockPos();
 
-        if(catchFire) {
+        if (catchFire) {
             for (int range = 1; range <= beaconLevel; range++) {
                 for (int x = -range; x <= range; x++) {
                     for (int z = -range; z <= range; z++) {
                         firePos.setPos(pos.getX() + x, pos.getY() - range + 1, pos.getZ() + z);
                         IBlockState state = world.getBlockState(firePos);
-                        if(state.getBlock().isReplaceable(world, firePos)) {
+                        if (state.getBlock().isReplaceable(world, firePos)) {
                             world.setBlockState(firePos, fire.getDefaultState());
                         }
                     }
