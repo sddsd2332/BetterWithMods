@@ -1,12 +1,18 @@
 package betterwithmods.module.gameplay;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.BlockBUD;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityWaterwheel;
+import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
+import betterwithmods.common.registry.block.recipe.StateIngredient;
 import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Module;
 import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
 import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
+import betterwithmods.util.SetBlockIngredient;
 import com.google.common.collect.Lists;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -97,6 +103,18 @@ public class Gameplay extends Module {
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
         Arrays.stream(waterwheelFluidConfig).map(FluidRegistry::getFluid).filter(Objects::nonNull).collect(Collectors.toList()).forEach(fluid -> TileEntityWaterwheel.registerWater(fluid.getBlock()));
+
+        //Set blacklist for Buddy Block detection
+        BlockBUD.BLACKLIST = new SetBlockIngredient(
+                new StateIngredient(Blocks.REDSTONE_WIRE, Items.REDSTONE),
+                new StateIngredient(Blocks.POWERED_REPEATER, Items.REPEATER),
+                new StateIngredient(Blocks.UNPOWERED_REPEATER, Items.REPEATER),
+                new StateIngredient(Blocks.UNLIT_REDSTONE_TORCH),
+                new StateIngredient(Blocks.REDSTONE_TORCH),
+                new BlockDropIngredient(new ItemStack(BWMBlocks.LIGHT)),
+                new BlockDropIngredient(new ItemStack(BWMBlocks.BUDDY_BLOCK))
+        );
+
     }
 }
 

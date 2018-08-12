@@ -1,9 +1,7 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.util.DirUtils;
-import com.google.common.collect.Sets;
+import betterwithmods.util.SetBlockIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -11,18 +9,16 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 import java.util.Random;
-import java.util.Set;
 
 import static net.minecraft.util.EnumFacing.UP;
 
@@ -31,15 +27,13 @@ import static net.minecraft.util.EnumFacing.UP;
  */
 public class BlockBUD extends BWMBlock {
     private static final PropertyBool REDSTONE = PropertyBool.create("redstone");
-    private static final Set<BlockIngredient> BLACKLIST = Sets.newHashSet(
-            new BlockIngredient(new ItemStack(BWMBlocks.BUDDY_BLOCK)),
-            new BlockIngredient(new ItemStack(Blocks.REDSTONE_WIRE)),
-            new BlockIngredient(new ItemStack(Blocks.POWERED_REPEATER)),
-            new BlockIngredient(new ItemStack(Blocks.UNPOWERED_REPEATER)),
-            new BlockIngredient(new ItemStack(Blocks.REDSTONE_TORCH)),
-            new BlockIngredient(new ItemStack(Blocks.UNLIT_REDSTONE_TORCH)),
-            new BlockIngredient(new ItemStack(BWMBlocks.LIGHT))
-    );
+
+
+    /**
+     * This list contains the blocks that should not cause the Buddy Block to update.
+     * It is initialized at {@link betterwithmods.module.gameplay.Gameplay#postInit(FMLPostInitializationEvent)} }
+     */
+    public static SetBlockIngredient BLACKLIST;
 
     public BlockBUD() {
         super(Material.ROCK);
@@ -95,11 +89,7 @@ public class BlockBUD extends BWMBlock {
     }
 
     private boolean isBlacklisted(World world, BlockPos pos) {
-        for (BlockIngredient ingredient : BLACKLIST) {
-            if (ingredient.apply(world, pos, world.getBlockState(pos)))
-                return true;
-        }
-        return false;
+        return BLACKLIST.apply(world, pos, world.getBlockState(pos));
     }
 
     @Override

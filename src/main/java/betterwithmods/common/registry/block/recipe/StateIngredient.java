@@ -19,6 +19,10 @@ public class StateIngredient extends BlockIngredient {
         this.states = states;
     }
 
+    public StateIngredient(Block block) {
+        this(block, Item.getItemFromBlock(block));
+    }
+
     public StateIngredient(Block block, Item item) {
         super(new ItemStack(item));
         this.states.addAll(block.getBlockState().getValidStates());
