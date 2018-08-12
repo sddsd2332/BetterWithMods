@@ -57,7 +57,7 @@ public abstract class AbandonedVillagePiece extends StructureVillagePieces.Villa
     }
 
     @Override
-    protected void placeTorch(World p_189926_1_, EnumFacing p_189926_2_, int p_189926_3_, int p_189926_4_, int p_189926_5_, StructureBoundingBox p_189926_6_) {
+    public void placeTorch(World p_189926_1_, EnumFacing p_189926_2_, int p_189926_3_, int p_189926_4_, int p_189926_5_, StructureBoundingBox p_189926_6_) {
         //NO-OP
     }
 
