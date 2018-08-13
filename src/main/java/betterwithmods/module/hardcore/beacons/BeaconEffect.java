@@ -44,12 +44,12 @@ public abstract class BeaconEffect {
         this.setTickRate(120);
     }
 
-    public void setupConfig(String categoryName) {
-        this.setEnabled(ConfigHelper.loadPropBool("enabled", categoryName, "", true));
+    public void setupConfig(String categoryName, ConfigHelper helper) {
+        this.setEnabled(helper.loadPropBool("enabled", categoryName, "", true));
 
         if (effectRanges != null) {
-            this.setEffectRanges(ConfigHelper.loadPropIntList("effectRanges", categoryName, "Range, in blocks, that the beacon will have an effect", effectRanges));
-            this.setTickRate(ConfigHelper.loadPropInt("tickRate", categoryName, "The rate, in ticks, that the beacon will update and apply its effect.", tickRate));
+            this.setEffectRanges(helper.loadPropIntList("effectRanges", categoryName, "Range, in blocks, that the beacon will have an effect", effectRanges));
+            this.setTickRate(helper.loadPropInt("tickRate", categoryName, "The rate, in ticks, that the beacon will update and apply its effect.", tickRate));
         }
     }
 

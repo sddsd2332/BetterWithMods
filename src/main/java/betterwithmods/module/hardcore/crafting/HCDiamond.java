@@ -45,10 +45,10 @@ public class HCDiamond extends Feature {
             } else {
                 BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_AXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 3));
             }
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_HOE, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_PICKAXE, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 3));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_SHOVEL, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 1));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_SWORD, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_HOE, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_PICKAXE, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 3));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_SHOVEL, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 1));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_SWORD, 1, OreDictionary.WILDCARD_VALUE),ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
 
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_HELMET, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 5));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 8));

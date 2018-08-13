@@ -1,5 +1,6 @@
-package betterwithmods.module.hardcore.world.strata;
+package betterwithmods.module.hardcore.world.strata.ctm;
 
+import betterwithmods.module.hardcore.world.strata.HCStrata;
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import team.chisel.ctm.api.texture.ITextureContext;

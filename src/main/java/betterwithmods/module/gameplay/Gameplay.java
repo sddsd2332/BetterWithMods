@@ -1,18 +1,15 @@
 package betterwithmods.module.gameplay;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.tile.TileWaterwheel;
 import betterwithmods.common.blocks.BlockBUD;
-import betterwithmods.common.blocks.mechanical.tile.TileEntityWaterwheel;
 import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.StateIngredient;
-import betterwithmods.module.ConfigHelper;
+import betterwithmods.common.tile.TileWaterwheel;
 import betterwithmods.module.Module;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.animal_restraint.AnimalRestraint;
 import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
 import betterwithmods.util.SetBlockIngredient;
-import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

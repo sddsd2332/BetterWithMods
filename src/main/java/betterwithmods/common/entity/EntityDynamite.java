@@ -32,8 +32,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-import javax.annotation.Nonnull;
-
 public class EntityDynamite extends Entity implements IProjectile {
     private static final float pi = 3.141593F;
 
@@ -177,7 +175,7 @@ public class EntityDynamite extends Entity implements IProjectile {
 
     @Override
     protected void writeEntityToNBT(@Nonnull NBTTagCompound tag) {
-        if (fuse > 0)
+        if (fuse > 0) {
             tag.setInteger("Fuse", fuse);
         }
     }

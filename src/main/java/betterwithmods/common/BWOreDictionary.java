@@ -12,7 +12,6 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -31,7 +30,7 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
-
+import static betterwithmods.api.util.IBlockVariants.EnumBlock.LOG;
 import static net.minecraft.init.Blocks.*;
 
 /**

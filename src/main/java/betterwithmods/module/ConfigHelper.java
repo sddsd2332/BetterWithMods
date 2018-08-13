@@ -48,10 +48,10 @@ public class ConfigHelper {
 
     public Set<ResourceLocation> loadPropRLSet(String propName, String category, String desc, String[] default_) {
         String[] l = loadPropStringList(propName, category, desc, default_);
-        return Arrays.stream(l).map(ConfigHelper::rlFromString).collect(Collectors.toSet());
+        return Arrays.stream(l).map(this::rlFromString).collect(Collectors.toSet());
     }
 
-    public ResourceLocation rlFromString(String loc) {
+    private ResourceLocation rlFromString(String loc) {
         String[] split = loc.split(":");
         if (split.length > 1) {
             return new ResourceLocation(split[0], split[1]);
@@ -59,7 +59,7 @@ public class ConfigHelper {
         return null;
     }
 
-    public ItemStack stackFromString(String name) {
+    private ItemStack stackFromString(String name) {
         String[] split = name.split(":");
         if (split.length > 1) {
             int meta = 0;
@@ -184,26 +184,26 @@ public class ConfigHelper {
 
     public List<ResourceLocation> loadPropRLList(String propName, String category, String desc, String[] default_) {
         String[] l = loadPropStringList(propName, category, desc, default_);
-        return Arrays.stream(l).map(ConfigHelper::rlFromString).collect(Collectors.toList());
+        return Arrays.stream(l).map(this::rlFromString).collect(Collectors.toList());
     }
 
     public List<ItemStack> loadItemStackList(String propName, String category, String desc, String[] default_) {
-        return Arrays.stream(loadPropStringList(propName, category, desc, default_)).map(ConfigHelper::stackFromString).collect(Collectors.toList());
+        return Arrays.stream(loadPropStringList(propName, category, desc, default_)).map(this::stackFromString).collect(Collectors.toList());
     }
 
     public List<ItemStack> loadItemStackList(String propName, String category, String desc, ItemStack[] default_) {
         String[] strings_ = new String[default_.length];
-        Arrays.stream(default_).map(ConfigHelper::fromStack).collect(Collectors.toList()).toArray(strings_);
+        Arrays.stream(default_).map(this::fromStack).collect(Collectors.toList()).toArray(strings_);
         return loadItemStackList(propName, category, desc, strings_);
     }
 
     public ItemStack[] loadItemStackArray(String propName, String category, String desc, String[] default_) {
-        return Arrays.stream(loadPropStringList(propName, category, desc, default_)).map(ConfigHelper::stackFromString).toArray(ItemStack[]::new);
+        return Arrays.stream(loadPropStringList(propName, category, desc, default_)).map(this::stackFromString).toArray(ItemStack[]::new);
     }
 
     public ItemStack[] loadItemStackArray(String propName, String category, String desc, ItemStack[] default_) {
         String[] strings_ = new String[default_.length];
-        Arrays.stream(default_).map(ConfigHelper::fromStack).collect(Collectors.toList()).toArray(strings_);
+        Arrays.stream(default_).map(this::fromStack).collect(Collectors.toList()).toArray(strings_);
         return loadItemStackArray(propName, category, desc, strings_);
     }
 
@@ -213,7 +213,7 @@ public class ConfigHelper {
         for (String s : l) {
             String[] a = s.split("=");
             if (a.length == 2) {
-                map.put(ConfigHelper.ingredientfromString(a[0]), Integer.parseInt(a[1]));
+                map.put(this.ingredientfromString(a[0]), Integer.parseInt(a[1]));
             }
         }
         return map;

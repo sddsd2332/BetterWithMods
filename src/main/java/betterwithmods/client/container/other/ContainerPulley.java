@@ -14,7 +14,7 @@ import javax.annotation.Nonnull;
 
 public class ContainerPulley extends ContainerProgress {
     private static final int ROPE_SLOTS_END = 4;
-   \    private final TilePulley tile;
+    private final TilePulley tile;
 
     public ContainerPulley(EntityPlayer player, TilePulley tile) {
         super(tile);

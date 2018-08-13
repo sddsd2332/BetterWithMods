@@ -5,11 +5,11 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.blocks.BlockEnderchest;
-import betterwithmods.common.blocks.tile.TileEnderchest;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.IngredientSpecial;
+import betterwithmods.common.tile.TileEnderchest;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -158,7 +158,7 @@ public class HCBeacons extends Feature {
         if (enableBeaconCustomization) {
             for (BeaconEffect beaconEffect : BEACON_EFFECTS) {
                 String categoryName = String.join(".", this.configCategory, beaconEffect.getResourceLocation().getResourcePath());
-                beaconEffect.setupConfig(categoryName);
+                beaconEffect.setupConfig(categoryName, configHelper);
             }
         }
     }

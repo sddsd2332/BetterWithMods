@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.util.ReflectionLib;
 import com.google.common.collect.Maps;
@@ -149,7 +148,7 @@ public class HCTools extends Feature {
         }
 
         ToolMaterialOverride(String name, int maxUses, float efficiencyOnProperMaterial, int enchantability) {
-            this.maxUses = ConfigHelper.loadPropInt("Max Durability", configCategory + "." + name, "", maxUses);
+            this.maxUses = configHelper.loadPropInt("Max Durability", configCategory + "." + name, "", maxUses);
             this.efficiencyOnProperMaterial = efficiencyOnProperMaterial;
             this.enchantability = enchantability;
         }

@@ -2,7 +2,6 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityShearedCreeper;
-import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.util.EntityUtils;
 import betterwithmods.util.InvUtils;
@@ -31,7 +30,7 @@ public class CreeperShearing extends Feature {
 
     @Override
     public void setupConfig() {
-        CREEPERS = ConfigHelper.loadPropRLSet("Creepers", "List of valid creepers","", new String[]{"minecraft:creeper"});
+        CREEPERS = configHelper.loadPropRLSet("Creepers", "List of valid creepers","", new String[]{"minecraft:creeper"});
     }
 
     private boolean isMatching(EntityLivingBase entity) {

@@ -122,7 +122,6 @@ public class HCStrata extends Feature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        ENABLED = BWMod.MODULE_LOADER.isFeatureEnabled(HCStrata.class);
         for (BWOreDictionary.Ore ore : BWOreDictionary.oreNames) {
             for (ItemStack stack : ore.getOres()) {
                 if (stack.getItem() instanceof ItemBlock) {
