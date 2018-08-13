@@ -31,6 +31,10 @@ public class TooltipLib {
     public static final String BED_TOO_RESTLESS = "bed_too_restless";
 
 
+    public static final String BEACON_SPAWN_SET = "beacon_spawn_set";
+    public static final String BEACON_SPAWN_ALREDY_SET = "beacon_spawn_already_set";
+
+
     public static TextComponentTranslation getInfoComponent(String prefix, String base, Object... format) {
         return new TextComponentTranslation(String.format("%s.%s:%s", prefix, BWMod.MODID, base), format);
     }

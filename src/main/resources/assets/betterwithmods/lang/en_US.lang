@@ -321,9 +321,6 @@ message.betterwithmods:async.enabled=Asynchronous timer enabled
 message.betterwithmods:async.disabled=Asynchronous timer disabled
 message.betterwithmods:async.unavailable=Unable to toggle asynchronous timer: World does not advance time.
 
-bwm.message.spawn_beacon.already_set=Spawn already set
-bwm.message.spawn_beacon.set=Spawn set at this location
-
 inv.cauldron.name=Cauldron
 inv.cauldron.stoked.name=Stoked Cauldron
 inv.crucible.name=Crucible
@@ -400,6 +397,8 @@ message.betterwithmods:handcrank_exhaustion=You are too exhausted to turn it.
 message.betterwithmods:millstone_blocked=Blocked
 message.betterwithmods:barrel_info=%s : %d/%d
 
+message.betterwithmods:spawn_beacon_set=Spawn set at this beacon
+message.betterwithmods:spawn_beacon_already_set=Spawn already set
 
 tooltip.betterwithmods:random_output=Count: %s-%s
 tooltip.betterwithmods:chance_output=Chance: %d%%

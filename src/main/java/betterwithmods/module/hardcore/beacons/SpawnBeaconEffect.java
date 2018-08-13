@@ -3,6 +3,7 @@ package betterwithmods.module.hardcore.beacons;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.tile.TileBeacon;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;
+import betterwithmods.util.TooltipLib;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.EntityLivingBase;
@@ -14,7 +15,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.text.TextComponentTranslation;
 import net.minecraft.world.World;
 import net.minecraftforge.common.util.INBTSerializable;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
@@ -103,13 +103,14 @@ public class SpawnBeaconEffect extends BeaconEffect {
     @Override
     public boolean onPlayerInteracted(World world, BlockPos pos, int level, EntityPlayer player, EnumHand hand, ItemStack stack) {
         BindingPoint point = new BindingPoint(player, level);
-        //TODO improve this in 1.13
-        String message = "bwm.message.spawn_beacon.already_set";
+
         if (!containsEntry(pos, point)) {
             addPoint(pos, point);
-            message = "bwm.message.spawn_beacon.set";
+            player.sendStatusMessage(TooltipLib.getMessageComponent(TooltipLib.BEACON_SPAWN_SET), true);
+        } else {
+            player.sendStatusMessage(TooltipLib.getMessageComponent(TooltipLib.BEACON_SPAWN_ALREDY_SET), true);
         }
-        player.sendStatusMessage(new TextComponentTranslation(message), true);
+
         return true;
     }
 
