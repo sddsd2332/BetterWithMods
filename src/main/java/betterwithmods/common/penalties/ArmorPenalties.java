@@ -9,9 +9,9 @@ public class ArmorPenalties extends PenaltyHandler<Integer, BasicPenalty<Integer
     private static final String category = "hardcore.hcarmor.penalties";
 
     public ArmorPenalties() {
-        addDefault(new BasicPenalty<>(true, true, true, true, true, false, 1f, 0f, "light", "bwm.armor_penalty.light", category, Range.between(0, 10)));
-        addDefault(new BasicPenalty<>(true, true, true, true, true, false, 0.9f, 0f, "medium", "bwm.armor_penalty.medium", category, Range.between(13, 23)));
-        addDefault(new BasicPenalty<>(true, false, true, true, true, false, 0.8f, 0f, "heavy", "bwm.armor_penalty.heavy", category, Range.between(24, 30)));
+        addDefault(new BasicPenalty<>(true, true, true, true, true, false, 1f, 0f, "light", "armor_penalty.light", category, Range.between(0, 10)));
+        addDefault(new BasicPenalty<>(true, true, true, true, true, false, 0.9f, 0f, "medium", "armor_penalty.medium", category, Range.between(13, 23)));
+        addDefault(new BasicPenalty<>(true, false, true, true, true, false, 0.8f, 0f, "heavy", "armor_penalty.heavy", category, Range.between(24, 30)));
     }
 
 

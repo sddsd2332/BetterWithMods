@@ -4,11 +4,11 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.penalties.Penalty;
 import betterwithmods.common.penalties.PenaltyHandler;
+import betterwithmods.util.TooltipLib;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
-import net.minecraft.client.resources.I18n;
 import net.minecraftforge.client.GuiIngameForge;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.relauncher.Side;
@@ -48,7 +48,7 @@ public class GuiStatus {
                     continue;
                 Penalty p = handler.getPenalty(mc.player);
                 if (p != null) {
-                    String status = I18n.format(p.getName());
+                    String status = TooltipLib.getTooltip(p.getName());
                     if (status.isEmpty())
                         continue;
                     int width = fontRenderer.getStringWidth(status);

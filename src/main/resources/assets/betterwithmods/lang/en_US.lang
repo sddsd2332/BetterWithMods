@@ -397,7 +397,7 @@ message.betterwithmods:handcrank_exhaustion=You are too exhausted to turn it.
 message.betterwithmods:millstone_blocked=Blocked
 message.betterwithmods:barrel_info=%s : %d/%d
 
-message.betterwithmods:spawn_beacon_set=Spawn set at this beacon
+message.betterwithmods:beacon_spawn_set=Spawn set at this beacon
 message.betterwithmods:spawn_beacon_already_set=Spawn already set
 
 tooltip.betterwithmods:random_output=Count: %s-%s
@@ -407,30 +407,30 @@ tooltip.betterwithmods:rotate_with_hand=Rotate by Shift Right-Clicking with both
 tooltip.betterwithmods:furnace_fuel=Cook Time: %s ticks
 tooltip.betterwithmods:millstone_blocked=The Millstone has too many solid blocks around it.
 
-betterwithmods.fat_penalty.none=
-betterwithmods.fat_penalty.plump=Plump
-betterwithmods.fat_penalty.chubby=Chubby
-betterwithmods.fat_penalty.fat=Fat
-betterwithmods.fat_penalty.obese=Obese
+tooltip.betterwithmods:fat_penalty.none=
+tooltip.betterwithmods:fat_penalty.plump=Plump
+tooltip.betterwithmods:fat_penalty.chubby=Chubby
+tooltip.betterwithmods:fat_penalty.fat=Fat
+tooltip.betterwithmods:fat_penalty.obese=Obese
 
-betterwithmods.gloom_penalty.none=
-betterwithmods.gloom_penalty.gloom=Gloom
-betterwithmods.gloom_penalty.dread=Dread
-betterwithmods.gloom_penalty.terror=Terror
+tooltip.betterwithmods:gloom_penalty.none=
+tooltip.betterwithmods:gloom_penalty.gloom=Gloom
+tooltip.betterwithmods:gloom_penalty.dread=Dread
+tooltip.betterwithmods:gloom_penalty.terror=Terror
 
-betterwithmods.hunger_penalty.none=
-betterwithmods.hunger_penalty.peckish=Peckish
-betterwithmods.hunger_penalty.hungry=Hungry
-betterwithmods.hunger_penalty.famished=Famished
-betterwithmods.hunger_penalty.starving=Starving
-betterwithmods.hunger_penalty.dying=Starving
+tooltip.betterwithmods:hunger_penalty.none=
+tooltip.betterwithmods:hunger_penalty.peckish=Peckish
+tooltip.betterwithmods:hunger_penalty.hungry=Hungry
+tooltip.betterwithmods:hunger_penalty.famished=Famished
+tooltip.betterwithmods:hunger_penalty.starving=Starving
+tooltip.betterwithmods:hunger_penalty.dying=Starving
 
-betterwithmods.health_penalty.none=
-betterwithmods.health_penalty.hurt=Hurt
-betterwithmods.health_penalty.injured=Injured
-betterwithmods.health_penalty.wounded=Wounded
-betterwithmods.health_penalty.crippled=Crippled
-betterwithmods.health_penalty.dying=Dying
+tooltip.betterwithmods:health_penalty.none=
+tooltip.betterwithmods:health_penalty.hurt=Hurt
+tooltip.betterwithmods:health_penalty.injured=Injured
+tooltip.betterwithmods:health_penalty.wounded=Wounded
+tooltip.betterwithmods:health_penalty.crippled=Crippled
+tooltip.betterwithmods:health_penalty.dying=Dying
 
 betterwithmods.effect.slow_fall=Slow Fall
 betterwithmods.effect.true_sight=True Sight

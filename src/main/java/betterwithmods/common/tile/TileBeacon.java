@@ -102,6 +102,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
             this.effect = null;
         }
 
+        SpawnBeaconEffect.removeAll(getPos());
 
         CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
         if (storage != null) {
@@ -276,15 +277,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
 
 
     public void onRemoved() {
-        if (effect != null) {
-            this.effect.onBeaconBreak(world, pos, currentLevel);
-        }
-
-        SpawnBeaconEffect.removeAll(getPos());
-        CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
-        if (storage != null) {
-            storage.removeBeacon(pos);
-        }
+        deactivate();
     }
 
 
