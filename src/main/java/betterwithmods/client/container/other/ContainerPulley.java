@@ -13,13 +13,14 @@ import net.minecraftforge.items.SlotItemHandler;
 import javax.annotation.Nonnull;
 
 public class ContainerPulley extends ContainerProgress {
-    private final TilePulley tile;
+    private static final int ROPE_SLOTS_END = 4;
+   \    private final TilePulley tile;
 
     public ContainerPulley(EntityPlayer player, TilePulley tile) {
         super(tile);
         this.tile = tile;
 
-        for (int i = 0; i < 4; i++) {
+        for (int i = 0; i < ROPE_SLOTS_END; i++) {
             addSlotToContainer(new SlotItemHandler(tile.inventory, i, 53 + i * 18, 52) {
                 @Override
                 public boolean isItemValid(@Nonnull ItemStack stack) {
@@ -28,17 +29,15 @@ public class ContainerPulley extends ContainerProgress {
             });
         }
 
+
         for (int i = 0; i < 3; i++) {
             for (int j = 0; j < 9; j++) {
-                addSlotToContainer(
-                        new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null),
-                                j + i * 9 + 9, 8 + j * 18, 93 + i * 18));
+                addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), j + i * 9 + 9, 8 + j * 18, 93 + i * 18));
             }
         }
 
         for (int i = 0; i < 9; i++) {
-            addSlotToContainer(new SlotItemHandler(
-                    player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, 8 + i * 18, 151));
+            addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, 8 + i * 18, 151));
         }
     }
 
@@ -57,10 +56,10 @@ public class ContainerPulley extends ContainerProgress {
             ItemStack processedStack = slot.getStack();
             clickedStack = processedStack.copy();
 
-            if (index < 4) {
-                if (!mergeItemStack(processedStack, 4, this.inventorySlots.size(), true))
+            if (index < ROPE_SLOTS_END) {
+                if (!mergeItemStack(processedStack, ROPE_SLOTS_END, this.inventorySlots.size(), true))
                     return ItemStack.EMPTY;
-            } else if (!mergeItemStack(processedStack, 0, 3, false)) {
+            } else if (!mergeItemStack(processedStack, 0, ROPE_SLOTS_END, false)) {
                 return ItemStack.EMPTY;
             }
 

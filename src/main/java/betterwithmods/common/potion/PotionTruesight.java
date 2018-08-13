@@ -42,8 +42,7 @@ public class PotionTruesight extends BWPotion {
         if (world.isRemote) {
             Minecraft mc = Minecraft.getMinecraft();
             int var3 = mc.gameSettings.particleSetting;
-            if (!mc.isGamePaused()
-                    && (world.provider.getDimension() == 0 || world.provider.getDimension() == 1)) {
+            if (!mc.isGamePaused()  && (world.provider.getDimension() == 0 || world.provider.getDimension() == 1)) {
 
                 int var4 = MathHelper.floor(entity.posX);
                 int var5 = MathHelper.floor(entity.posY);
@@ -58,7 +57,8 @@ public class PotionTruesight extends BWPotion {
                                 double i = (double) x + world.rand.nextDouble();
                                 double j = (double) y + world.rand.nextDouble() * 0.25D;
                                 double k = (double) z + world.rand.nextDouble();
-                                world.spawnParticle(EnumParticleTypes.SPELL_MOB, i, j, k, 0, 0, 0);
+
+                                mc.effectRenderer.spawnEffectParticle(EnumParticleTypes.SPELL_MOB.getParticleID(), i, j, k, 0,0,0);
                             }
                         }
                     }

@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.creatures.chicken;
 
 import betterwithmods.BWMod;
+import betterwithmods.common.entity.EntityIngredientRelation;
 import betterwithmods.module.Feature;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.Entity;
@@ -33,6 +34,11 @@ public class HCChickens extends Feature {
 
     public static final ResourceLocation EGG_LAYER = new ResourceLocation(BWMod.MODID, "egglayer");
     public static Ingredient SEEDS = new OreIngredient("seed");
+
+    @Nullable
+    public static EggLayer getLayer(@Nonnull Entity entity) {
+        return entity.getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
+    }
 
     @Override
     public void setupConfig() {
@@ -82,11 +88,6 @@ public class HCChickens extends Feature {
         }
     }
 
-    @Nullable
-    public static EggLayer getLayer(@Nonnull Entity entity) {
-        return entity.getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
-    }
-
     @SubscribeEvent
     public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         if (SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving) {
@@ -102,6 +103,22 @@ public class HCChickens extends Feature {
     @Override
     public boolean hasSubscriptions() {
         return true;
+    }
+
+    public static class LayerIngredientRelation implements EntityIngredientRelation {
+
+        @Override
+        public ResourceLocation getName() {
+            return EGG_LAYER;
+        }
+
+        @Override
+        public Ingredient getIngredient(Entity entity) {
+            EggLayer layer = HCChickens.getLayer(entity);
+            if (layer != null)
+                return layer.getFeedItems();
+            return null;
+        }
     }
 
 }

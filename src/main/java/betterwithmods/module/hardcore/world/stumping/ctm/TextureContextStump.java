@@ -1,25 +1,18 @@
-package betterwithmods.module.hardcore.world.stumping.ctm;
+package betterwithmods.module.hardcore.world.stumping;
 
-import betterwithmods.module.hardcore.world.stumping.HCStumping;
-import net.minecraft.client.Minecraft;
-import net.minecraft.client.multiplayer.WorldClient;
-import net.minecraft.util.math.BlockPos;
-import team.chisel.ctm.client.texture.ctx.TextureContextPosition;
+import team.chisel.ctm.api.texture.ITextureContext;
 
-import javax.annotation.Nonnull;
+public class TextureContextStump implements ITextureContext {
 
-public class TextureContextStump extends TextureContextPosition {
-    public TextureContextStump(@Nonnull BlockPos pos) {
-        super(pos);
-    }
 
-    public int isStump() {
-        WorldClient world = Minecraft.getMinecraft().world;
-        return HCStumping.isStump(world, position) ? 1 : 0;
+    private int stump;
+
+    public TextureContextStump(int stump) {
+        this.stump = stump;
     }
 
     @Override
     public long getCompressedData() {
-        return isStump();
+        return stump;
     }
 }

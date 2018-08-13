@@ -50,56 +50,24 @@ public class BlockLight extends BWMBlock {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        if (state.getValue(ACTIVE))
-            return 15;
-        return 0;
+        return state.getValue(ACTIVE) ? 15 : 0;
     }
 
     @Override
     public void onBlockAdded(World world, BlockPos pos, IBlockState state) {
-        if (!world.isRemote) {
-            if (state.getValue(ACTIVE) && !world.isBlockPowered(pos) && !isIndirectlyPowered(world, pos))
-                world.setBlockState(pos, state.withProperty(ACTIVE, false));
-            else if (!state.getValue(ACTIVE) && (world.isBlockPowered(pos) || isIndirectlyPowered(world, pos)))
-                world.setBlockState(pos, state.withProperty(ACTIVE, true));
-        }
+        onChanged(world, pos, state);
     }
 
     @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
-        if (!world.isRemote) {
-            if (state.getValue(ACTIVE) && !world.isBlockPowered(pos) && !isIndirectlyPowered(world, pos))
-                world.scheduleUpdate(pos, this, 4);
-            else if (!state.getValue(ACTIVE) && (world.isBlockPowered(pos) || isIndirectlyPowered(world, pos))) {
-                world.setBlockState(pos, state.withProperty(ACTIVE, true), 2);
-                for (EnumFacing facing : EnumFacing.VALUES) {
-                    if (world.getBlockState(pos.offset(facing)).getBlock() == this)
-                        world.neighborChanged(pos.offset(facing), this, pos);
-                }
-            }
-        }
-    }
-
-    private boolean isIndirectlyPowered(World world, BlockPos pos) {
-        for (EnumFacing facing : EnumFacing.VALUES) {
-            BlockPos check = pos.offset(facing);
-            if (!world.isAirBlock(check) && !(world.getBlockState(check).getBlock() instanceof BlockBUD) && world.isBlockPowered(check))
-                return true;
-        }
-        return false;
+        onChanged(world, pos, state);
     }
 
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
         if (!world.isRemote) {
-            if (state.getValue(ACTIVE) && !world.isBlockPowered(pos)) {
-                world.setBlockState(pos, state.withProperty(ACTIVE, false), 2);
-                for (EnumFacing facing : EnumFacing.VALUES) {
-                    if (world.getBlockState(pos.offset(facing)).getBlock() == this)
-                        world.neighborChanged(pos.offset(facing), this, pos);
-                }
-            }
+            world.setBlockState(pos, state.withProperty(ACTIVE, isPowered(world,pos)));
         }
     }
 
@@ -127,5 +95,24 @@ public class BlockLight extends BWMBlock {
     public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
         IBlockState neighbor = world.getBlockState(pos.offset(side));
         return state != neighbor;
+    }
+
+    private boolean isPowered(World world, BlockPos pos) {
+        return world.isBlockPowered(pos);
+    }
+    
+    @Override
+    public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
+        return true;
+    }
+
+    private void onChanged(World world, BlockPos pos, IBlockState state) {
+        if (!world.isRemote) {
+            boolean active = state.getValue(ACTIVE);
+            boolean powered = isPowered(world,pos);
+            if (active != powered) {
+                world.scheduleUpdate(pos, this, 4);
+            }
+        }
     }
 }

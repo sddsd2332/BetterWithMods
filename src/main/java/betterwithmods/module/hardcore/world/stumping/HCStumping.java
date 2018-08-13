@@ -26,7 +26,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -43,7 +42,7 @@ import static net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 public class HCStumping extends Feature {
     public static final Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
     private static final ResourceLocation PLACED_LOG = new ResourceLocation(BWMod.MODID, "placed_log");
-    public static boolean ENABLED;
+    public static boolean CTM;
     public static boolean SPEED_UP_WITH_TOOLS;
     public static float STUMP_BREAK_SPEED;
     public static float ROOT_BREAK_SPEED;
@@ -107,12 +106,8 @@ public class HCStumping extends Feature {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(PlacedCapability.class, new PlacedCapability.Storage(), PlacedCapability::new);
-        ENABLED = true;
     }
 
-    @Override
-    public void init(FMLInitializationEvent event) {
-    }
 
     @Override
     public boolean requiresMinecraftRestartToEnable() {
@@ -133,6 +128,7 @@ public class HCStumping extends Feature {
         SPEED_UP_WITH_TOOLS = loadPropBool("Speed up with tool", "Speed up Stump mining with tools", true);
         STUMP_BREAK_SPEED = (float) loadPropDouble("Stump Break speed", "Base break speed of stumps, scaled by tool speed option", 0.03f);
         ROOT_BREAK_SPEED = (float) loadPropDouble("Root Break speed", "Base break speed of roots, scaled by tool speed option", 0.01f);
+        CTM = loadPropBool("CTM Support", "Use ConnectedTextureMod to show the stumps", true);
     }
 
     @SubscribeEvent

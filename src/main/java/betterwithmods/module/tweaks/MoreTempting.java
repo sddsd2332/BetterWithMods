@@ -1,40 +1,26 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.BWMBlocks;
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
+import betterwithmods.common.entity.EntityIngredientRelationRegistry;
 import betterwithmods.common.entity.ai.eat.EntityAITempt;
 import betterwithmods.module.Feature;
-import net.minecraft.entity.EntityLiving;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreIngredient;
 
 public class MoreTempting extends Feature {
 
-    private static Ingredient CHICKEN;
-    private static Ingredient PIG;
-    private static Ingredient HERD_ANIMAL;
-
-    private static Ingredient temptingIngredients(EntityAnimal entity) {
-        if (entity instanceof EntityPig)
-            return PIG;
-        if (entity instanceof EntitySheep || entity instanceof EntityCow)
-            return HERD_ANIMAL;
-        if (entity instanceof EntityChicken)
-            return CHICKEN;
-        return null;
-    }
-
-    private static void removeTask(EntityLiving entity, Class<? extends EntityAIBase> clazz) {
-        entity.tasks.taskEntries.removeIf(task -> clazz.isAssignableFrom(task.action.getClass()));
-    }
+    public static EntityIngredientRelationRegistry REGISTRY = new EntityIngredientRelationRegistry();
 
     @Override
     public String getFeatureDescription() {
@@ -45,9 +31,12 @@ public class MoreTempting extends Feature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        CHICKEN = Ingredient.fromStacks(new ItemStack(Items.WHEAT_SEEDS), new ItemStack(Items.MELON_SEEDS), new ItemStack(Items.PUMPKIN_SEEDS), new ItemStack(Items.BEETROOT_SEEDS), new ItemStack(BWMBlocks.HEMP));
-        PIG = Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT);
-        HERD_ANIMAL = Ingredient.fromStacks(new ItemStack(Items.WHEAT), new ItemStack(Blocks.TALLGRASS));
+        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "chicken"), e -> e instanceof EntityChicken)
+                .addIngredient(new OreIngredient("seed"));
+        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "pig"), e -> e instanceof EntityPig)
+                .addIngredient(Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT));
+        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "herd"), e -> e instanceof EntitySheep || e instanceof EntityCow)
+                .addIngredient(Ingredient.fromStacks(new ItemStack(Items.WHEAT), new ItemStack(Blocks.TALLGRASS)));
     }
 
     @SubscribeEvent
@@ -56,9 +45,9 @@ public class MoreTempting extends Feature {
             EntityLivingBase entity = (EntityLivingBase) event.getEntity();
             if (entity instanceof EntityAnimal) {
                 EntityAnimal animal = ((EntityAnimal) entity);
-                Ingredient ingredient = temptingIngredients(animal);
+                Ingredient ingredient = REGISTRY.findIngredient(animal);
                 if (ingredient != null) {
-                    removeTask(animal, net.minecraft.entity.ai.EntityAITempt.class);
+                    WorldUtils.removeTask(animal, net.minecraft.entity.ai.EntityAITempt.class);
                     animal.tasks.addTask(3, new EntityAITempt(animal, 1.5, false, ingredient));
                 }
             }

@@ -2,6 +2,7 @@ package betterwithmods.common.entity.ai.eat;
 
 import betterwithmods.module.hardcore.creatures.chicken.EggLayer;
 import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
+import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
 import net.minecraft.item.ItemStack;
@@ -34,6 +35,11 @@ public class EntityAIAnimalEat extends EntityAIEatFood<EntityAnimal> {
         EggLayer layer = HCChickens.getLayer(entity);
         if (layer != null) {
             return !layer.isFeed();
+        }
+
+        //Handle tamed horses
+        if (entity instanceof AbstractHorse) {
+            return ((AbstractHorse) entity).isTame();
         }
 
         //Handle tamed animals

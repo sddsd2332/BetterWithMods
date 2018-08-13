@@ -1,8 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.common.registry.block.recipe.StateIngredient;
-import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -26,8 +24,8 @@ public class PotionBeaconEffect extends BeaconEffect {
     private Map<PotionEffect, Amplification> potionEffects;
     private Predicate<EntityLivingBase> canApply;
 
-    public PotionBeaconEffect(BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
-        super(structureBlock, validEntityType);
+    public PotionBeaconEffect(String name, BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
+        super(name, structureBlock, validEntityType);
         this.potionEffects = new HashMap<>();
         this.canApply = (T) -> true;
     }
@@ -52,10 +50,10 @@ public class PotionBeaconEffect extends BeaconEffect {
         List<PotionEffect> amplifiedPotionEffects = new ArrayList<>();
         potionEffects.forEach(((potionEffect, amplification) -> amplifiedPotionEffects.add(new PotionEffect(potionEffect.getPotion(), potionEffect.getDuration(), amplification.getForLevel(beaconLevel)))));
 
-        for(EntityLivingBase entity : entitiesInRange) {
-            for(PotionEffect potionEffect : amplifiedPotionEffects) {
-                if(entity.isPotionApplicable(potionEffect)) {
-                     entity.addPotionEffect(potionEffect);
+        for (EntityLivingBase entity : entitiesInRange) {
+            for (PotionEffect potionEffect : amplifiedPotionEffects) {
+                if (entity.isPotionApplicable(potionEffect) && canApply.test(entity)) {
+                    entity.addPotionEffect(potionEffect);
                 }
             }
         }
@@ -71,12 +69,15 @@ public class PotionBeaconEffect extends BeaconEffect {
 
     }
 
+
     protected enum Amplification {
+        ZERO(beaconLevel -> 0),
         NONE((beaconLevel) -> 1),
         LEVEL((beaconLevel) -> beaconLevel),
         LEVEL_REDUCED((beaconLevel) -> beaconLevel - 1);
 
         private Function<Integer, Integer> amplifier;
+
         Amplification(Function<Integer, Integer> amplifier) {
             this.amplifier = amplifier;
         }

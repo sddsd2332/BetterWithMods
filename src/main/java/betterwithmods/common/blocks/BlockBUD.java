@@ -1,8 +1,7 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.util.DirUtils;
-import com.google.common.collect.Sets;
+import betterwithmods.util.SetBlockIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -10,7 +9,6 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -18,10 +16,10 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
-import java.util.Set;
 
 import static net.minecraft.util.EnumFacing.UP;
 
@@ -30,7 +28,13 @@ import static net.minecraft.util.EnumFacing.UP;
  */
 public class BlockBUD extends BWMBlock {
     private static final PropertyBool REDSTONE = PropertyBool.create("redstone");
-    private static final Set<Block> BLACKLIST = Sets.newHashSet(BWMBlocks.BUDDY_BLOCK, Blocks.REDSTONE_WIRE, Blocks.POWERED_REPEATER, Blocks.UNPOWERED_REPEATER, Blocks.REDSTONE_TORCH, Blocks.UNLIT_REDSTONE_TORCH, BWMBlocks.LIGHT);
+
+
+    /**
+     * This list contains the blocks that should not cause the Buddy Block to update.
+     * It is initialized at {@link betterwithmods.module.gameplay.Gameplay#postInit(FMLPostInitializationEvent)} }
+     */
+    public static SetBlockIngredient BLACKLIST;
 
     public BlockBUD() {
         super(Material.ROCK);
@@ -38,10 +42,6 @@ public class BlockBUD extends BWMBlock {
         setSoundType(SoundType.STONE);
         setDefaultState(getDefaultState().withProperty(DirUtils.FACING, UP));
         this.setHarvestLevel("pickaxe", 0);
-    }
-
-    public static void addBlacklistBlock(Block block) {
-        BLACKLIST.add(block);
     }
 
     @Override
@@ -94,10 +94,15 @@ public class BlockBUD extends BWMBlock {
         return true;
     }
 
+
+    private boolean isBlacklisted(World world, BlockPos pos) {
+        return BLACKLIST.apply(world, pos, world.getBlockState(pos));
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block blockIn, BlockPos other) {
-        if (!isRedstoneOn(world, pos) && !BLACKLIST.contains(blockIn)) {
+        if (!isRedstoneOn(world, pos) && !isBlacklisted(world, other)) {
             world.scheduleUpdate(pos, state.getBlock(), tickRate(world));
         }
     }

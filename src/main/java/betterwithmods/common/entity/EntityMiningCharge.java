@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 import java.util.HashMap;
 import java.util.List;
 
-import static net.minecraft.util.EnumFacing.*;
+import static net.minecraft.util.EnumFacing.UP;
 
 /**
  * Created by primetoxinz on 9/5/16.
@@ -118,34 +118,24 @@ public class EntityMiningCharge extends Entity {
     }
 
     private void explode() {
-        this.getEntityWorld().playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (this.getEntityWorld().rand.nextFloat() - this.getEntityWorld().rand.nextFloat()) * 0.2F) * 0.7F);
-        this.getEntityWorld().spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY, this.posZ, 1.0D, 0.0D, 0.0D);
+        world.playSound(null, this.posX, this.posY, this.posZ, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 4.0F, (1.0F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.2F) * 0.7F);
+        world.spawnParticle(EnumParticleTypes.EXPLOSION_LARGE, this.posX, this.posY, this.posZ, 1.0D, 0.0D, 0.0D);
+
         BlockPos pos = getPosition();
-        EnumFacing facing = this.facing.getOpposite();
-        for (int k = 0; k <= 3; k++) {
-            int dir = facing.getAxisDirection() == AxisDirection.POSITIVE ? 1 : -1;
-            if (k < 3) {
-                for (int i = -1; i <= 1; i++) {
-                    for (int j = -1; j <= 1; j++) {
-                        if (facing == UP || facing == DOWN)
-                            explodeBlock(getEntityWorld(), pos.add(i, dir * k, j));
-                        else if (facing == NORTH || facing == SOUTH)
-                            explodeBlock(getEntityWorld(), pos.add(i, j, dir * k));
-                        else if (facing == EAST || facing == WEST)
-                            explodeBlock(getEntityWorld(), pos.add(dir * k, i, j));
-                    }
-                }
-            } else {
-                if (facing == UP || facing == DOWN)
-                    explodeBlock(getEntityWorld(), pos.add(0, dir * k, 0));
-                else if (facing == NORTH || facing == SOUTH)
-                    explodeBlock(getEntityWorld(), pos.add(0, 0, dir * k));
-                else if (facing == EAST || facing == WEST)
-                    explodeBlock(getEntityWorld(), pos.add(dir * k, 0, 0));
-            }
+        EnumFacing facing = getFacing().getOpposite();
+
+        BlockPos center = pos.offset(facing);
+
+        AxisAlignedBB area = new AxisAlignedBB(center.getX(), center.getY(), center.getZ(), center.getX(), center.getY(), center.getZ()).grow(1);
+        Iterable<BlockPos> positions = BlockPos.getAllInBox((int) area.minX, (int) area.minY, (int) area.minZ, (int) area.maxX, (int) area.maxY, (int) area.maxZ);
+        for (BlockPos b : positions) {
+            explodeBlock(world, b);
         }
-        List<EntityLivingBase> entities = getEntityWorld().getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos).expand(5, 5, 5));
+        explodeBlock(world, pos.offset(facing, 3));
+
+        List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, area);
         entities.forEach(entity -> entity.attackEntityFrom(DamageSource.causeExplosionDamage(igniter), 45f));
+
     }
 
 

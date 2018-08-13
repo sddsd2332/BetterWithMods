@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.util.ColorUtils;
-import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -10,17 +9,19 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
 import java.awt.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
-public class GlassBeaconEffect extends BeaconEffect {
+public class CosmeticBeaconEffect extends BeaconEffect {
 
-    public GlassBeaconEffect() {
-        super(new BlockIngredient("blockGlass"), EntityLivingBase.class);
+    private Map<BlockPos, float[]> colorCache;
+
+    public CosmeticBeaconEffect(String name, BlockIngredient structureBlock) {
+        super(name, structureBlock, EntityLivingBase.class);
+        this.colorCache = new HashMap<>();
         this.setBaseBeamColor(Color.white);
     }
 
@@ -31,22 +32,25 @@ public class GlassBeaconEffect extends BeaconEffect {
 
     @Override
     public void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel) {
-        List<float[]> colors = Lists.newArrayList();
 
-        float[] color = new float[]{1, 1, 1};
+        float[] colors = null;
         for (int r = 1; r <= beaconLevel; r++) {
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
                     BlockPos glassPos = new BlockPos(pos.getX() + x, pos.getY() - r, pos.getZ() + z);
-                    colors.add(ColorUtils.getColorFromBlock(world, glassPos, pos));
+                    if (colors == null)
+                        colors = ColorUtils.getColorFromBlock(world, glassPos, pos);
+                    else
+                        colors = ColorUtils.average(colors, ColorUtils.getColorFromBlock(world, glassPos, pos));
                 }
             }
         }
+        this.colorCache.put(pos, colors);
+    }
 
-        color = ColorUtils.average(colors.toArray(new float[colors.size()][3]));
-
-
-        this.setBaseBeamColor(color);
+    @Override
+    public float[] getBaseBeaconBeamColor(BlockPos beaconPos) {
+        return colorCache.containsKey(beaconPos) ? colorCache.get(beaconPos) : super.getBaseBeaconBeamColor(beaconPos);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package betterwithmods.util;
 
+import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.player.EntityPlayer;
@@ -25,10 +26,12 @@ import net.minecraftforge.items.IItemHandlerModifiable;
 import net.minecraftforge.items.ItemStackHandler;
 import net.minecraftforge.oredict.OreDictionary;
 import org.apache.commons.lang3.ArrayUtils;
+import org.apache.commons.lang3.RandomUtils;
 
 import javax.annotation.Nonnull;
 import java.util.*;
 import java.util.function.BiPredicate;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
@@ -69,6 +72,9 @@ public class InvUtils {
         return nonNullList;
     }
 
+    public static IItemHandlerModifiable getPlayerInventory(EntityPlayer player, EnumFacing inv) {
+        return (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv);
+    }
 
     public static void givePlayer(EntityPlayer player, EnumFacing inv, NonNullList<ItemStack> stacks) {
         IItemHandlerModifiable inventory = (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv);
@@ -99,9 +105,13 @@ public class InvUtils {
     }
 
     public static Optional<IItemHandler> getItemHandler(World world, BlockPos pos, EnumFacing facing) {
+        return getItemHandler(world, pos, facing, te -> true);
+    }
+
+    public static Optional<IItemHandler> getItemHandler(World world, BlockPos pos, EnumFacing facing, Predicate<TileEntity> tePredicate) {
         if (!world.isRemote) {
             TileEntity tile = world.getTileEntity(pos);
-            if (tile != null) {
+            if (tile != null && tePredicate.test(tile)) {
                 return Optional.ofNullable(tile.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing));
             } else {
                 List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1, pos.getY() + 1, pos.getZ() + 1), entity -> entity.hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing));
@@ -224,6 +234,29 @@ public class InvUtils {
         return full;
     }
 
+    public static ItemStack findItemInInventory(Ingredient ingredient, IItemHandler inventory) {
+        for (int slot = 0; slot < inventory.getSlots(); slot++) {
+            ItemStack stack = inventory.getStackInSlot(slot);
+            if (ingredient.apply(stack)) {
+                return stack;
+            }
+        }
+        return ItemStack.EMPTY;
+    }
+
+
+    public static int getRandomOccupiedStackInRange(IItemHandler inv, int minSlot, int maxSlot) {
+        List<Integer> list = Lists.newArrayList();
+        for (int slot = minSlot; slot <= maxSlot; ++slot) {
+            if (!inv.getStackInSlot(slot).isEmpty()) {
+                list.add(slot);
+            }
+        }
+
+        if (list.isEmpty())
+            return -1;
+        return list.get(RandomUtils.nextInt(0, list.size()));
+    }
 
     public static int getFirstOccupiedStackInRange(IItemHandler inv, int minSlot, int maxSlot) {
         for (int slot = minSlot; slot <= maxSlot; ++slot) {

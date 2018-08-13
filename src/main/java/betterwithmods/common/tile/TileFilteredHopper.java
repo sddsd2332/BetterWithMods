@@ -120,17 +120,16 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     private void extract() {
         Optional<IItemHandler> inv = InvUtils.getItemHandler(world, pos.down(), EnumFacing.UP);
         if (ejectCounter > 2) {
-            int slot = InvUtils.getFirstOccupiedStackInRange(inventory, 0, 17);
+            int slot = InvUtils.getRandomOccupiedStackInRange(inventory, 0, 17);
             if (slot != -1) {
                 ItemStack stack = inventory.getStackInSlot(slot);
                 if (inv.isPresent()) {
                     if (InvUtils.canInsert(inv.get(), stack, STACK_SIZE)) {
                         ItemStack insert = InvUtils.insert(inv.get(), stack, STACK_SIZE, false);
-                        InvUtils.consumeItemsInInventory(inventory, stack, STACK_SIZE - insert.getCount(), false);
+                        stack.shrink(STACK_SIZE - insert.getCount());
                     }
                 } else if (canDropIntoBlock(pos.down())) {
-                    InvUtils.consumeItemsInInventory(inventory, stack, STACK_SIZE, false);
-                    InvUtils.spawnStack(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, STACK_SIZE, stack);
+                    InvUtils.spawnStack(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack.splitStack(STACK_SIZE), 10);
                 }
             }
             ejectCounter = 0;

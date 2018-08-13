@@ -50,7 +50,6 @@ public class HCRedstone extends Feature {
         BWMRecipes.removeRecipe("minecraft:repeater");
         BWMRecipes.removeRecipe("minecraft:heavy_weighted_pressure_plate");
         BWMRecipes.removeRecipe("minecraft:light_weighted_pressure_plate");
-        BWMRecipes.removeRecipe("minecraft:hopper");
         BWMRecipes.removeRecipe("minecraft:comparator");
         BWMRecipes.removeRecipe("minecraft:observer");
     }

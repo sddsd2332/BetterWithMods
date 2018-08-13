@@ -5,7 +5,8 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
-import betterwithmods.module.hardcore.needs.HCTools;
+import betterwithmods.module.ModuleLoader;
+import betterwithmods.module.tweaks.CheaperAxes;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -56,7 +57,7 @@ public class MetalReclaming extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        int axe_amt = HCTools.changeAxeRecipe ? 2 : 3;
+        int axe_amt = BWMod.MODULE_LOADER.isFeatureEnabled(CheaperAxes.class) ? 2 : 3;
 
         if (reclaimCount > 0) {
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_HOE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2));

@@ -6,6 +6,12 @@ import betterwithmods.common.tile.TilePulley;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.AABBArray;
 import betterwithmods.util.InvUtils;
+import betterwithmods.BWMod;
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
+import betterwithmods.module.GlobalConfig;
+import betterwithmods.util.AABBArray;
+import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import io.netty.buffer.ByteBuf;
@@ -23,7 +29,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.GetCollisionBoxesEvent;
@@ -45,7 +50,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     private boolean up;
     private Map<Vec3i, IBlockState> blocks;
     private Map<Vec3i, NBTTagCompound> tiles;
-    private float speed = 0.1f;
+    private float speed = 0.12f;
 
     public EntityExtendingRope(World worldIn) {
         this(worldIn, null, null, 0);
@@ -73,10 +78,6 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         super.setPosition(x, y, z);
 
         if (blocks != null) updatePassengers(pY, posY, false);
-    }
-
-    private static AxisAlignedBB createAABB(Vec3d part1, Vec3d part2) {
-        return new AxisAlignedBB(part1.x, part1.y, part1.z, part2.x, part2.y, part2.z);
     }
 
     @Override
@@ -328,7 +329,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
             blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InvUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
         }
 
-        updatePassengers(posY, targetY + 1, true);
+        updatePassengers(posY, posY + (up ? 0 : 0.5), true);
     }
 
     private boolean done() {
@@ -455,7 +456,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
     @SubscribeEvent
     public static void getCollisionBoxes(GetCollisionBoxesEvent e) {
         if (e.getEntity() instanceof EntityPlayer && !e.getEntity().world.isRemote) {
-            e.getCollisionBoxesList().removeIf(it -> it instanceof AABBArray);
+//            e.getCollisionBoxesList().removeIf(it -> it instanceof AABBArray);
         }
     }
 

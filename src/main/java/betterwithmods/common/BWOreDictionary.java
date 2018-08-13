@@ -12,6 +12,7 @@ import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -30,6 +31,8 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
+
+import static net.minecraft.init.Blocks.*;
 
 /**
  * Created by primetoxinz on 5/10/17.
@@ -186,6 +189,11 @@ public class BWOreDictionary {
 
         registerOre("seed", new ItemStack(BWMBlocks.HEMP), new ItemStack(Items.WHEAT_SEEDS), new ItemStack(Items.MELON_SEEDS), new ItemStack(Items.PUMPKIN_SEEDS), new ItemStack(Items.BEETROOT_SEEDS));
 
+        registerOre("concrete", new ItemStack(Blocks.CONCRETE, 1, OreDictionary.WILDCARD_VALUE));
+        registerOre("wool", new ItemStack(Blocks.WOOL, 1, OreDictionary.WILDCARD_VALUE));
+        registerOre("terracotta", STAINED_HARDENED_CLAY, WHITE_GLAZED_TERRACOTTA, ORANGE_GLAZED_TERRACOTTA, MAGENTA_GLAZED_TERRACOTTA, LIGHT_BLUE_GLAZED_TERRACOTTA, YELLOW_GLAZED_TERRACOTTA, LIME_GLAZED_TERRACOTTA, PINK_GLAZED_TERRACOTTA, GRAY_GLAZED_TERRACOTTA, SILVER_GLAZED_TERRACOTTA, CYAN_GLAZED_TERRACOTTA, PURPLE_GLAZED_TERRACOTTA, BLUE_GLAZED_TERRACOTTA, BROWN_GLAZED_TERRACOTTA, GREEN_GLAZED_TERRACOTTA, RED_GLAZED_TERRACOTTA, BLACK_GLAZED_TERRACOTTA);
+
+
     }
 
 
@@ -217,6 +225,11 @@ public class BWOreDictionary {
     public static void registerOre(String ore, ItemStack... items) {
         for (ItemStack i : items)
             OreDictionary.registerOre(ore, i);
+    }
+
+    public static void registerOre(String ore, Block... blocks) {
+        for (Block block : blocks)
+            registerOre(ore, new ItemStack(block));
     }
 
     public static void registerOre(String ore, Item... items) {

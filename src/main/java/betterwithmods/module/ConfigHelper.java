@@ -29,6 +29,7 @@ import net.minecraftforge.oredict.OreIngredient;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
@@ -45,7 +46,12 @@ public class ConfigHelper {
         this.config = configuration;
     }
 
-    public static ResourceLocation rlFromString(String loc) {
+    public Set<ResourceLocation> loadPropRLSet(String propName, String category, String desc, String[] default_) {
+        String[] l = loadPropStringList(propName, category, desc, default_);
+        return Arrays.stream(l).map(ConfigHelper::rlFromString).collect(Collectors.toSet());
+    }
+
+    public ResourceLocation rlFromString(String loc) {
         String[] split = loc.split(":");
         if (split.length > 1) {
             return new ResourceLocation(split[0], split[1]);
@@ -53,7 +59,7 @@ public class ConfigHelper {
         return null;
     }
 
-    public static ItemStack stackFromString(String name) {
+    public ItemStack stackFromString(String name) {
         String[] split = name.split(":");
         if (split.length > 1) {
             int meta = 0;
@@ -71,7 +77,7 @@ public class ConfigHelper {
         return ItemStack.EMPTY;
     }
 
-    public static Ingredient ingredientfromString(String name) {
+    public Ingredient ingredientfromString(String name) {
         if (name.startsWith("ore:"))
             return new OreIngredient(name.substring(4));
         String[] split = name.split(":");
@@ -91,7 +97,7 @@ public class ConfigHelper {
         return Ingredient.EMPTY;
     }
 
-    public static String fromStack(ItemStack stack) {
+    public String fromStack(ItemStack stack) {
         if (stack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
             return String.format("%s:*", stack.getItem().getRegistryName());
         } else if (stack.getMetadata() == 0) {

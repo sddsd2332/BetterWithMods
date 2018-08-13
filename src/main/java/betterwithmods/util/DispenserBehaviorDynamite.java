@@ -1,6 +1,5 @@
 package betterwithmods.util;
 
-import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityDynamite;
 import net.minecraft.dispenser.BehaviorProjectileDispense;
 import net.minecraft.dispenser.IPosition;
@@ -15,7 +14,7 @@ public class DispenserBehaviorDynamite extends BehaviorProjectileDispense {
     @Nonnull
     @Override
     protected IProjectile getProjectileEntity(@Nonnull World world, @Nonnull IPosition pos, @Nonnull ItemStack stack) {
-        return new EntityDynamite(world, pos.getX(), pos.getY(), pos.getZ(), new ItemStack(BWMItems.DYNAMITE, 1));
+        return new EntityDynamite(world, pos.getX(), pos.getY(), pos.getZ());
     }
 
 }

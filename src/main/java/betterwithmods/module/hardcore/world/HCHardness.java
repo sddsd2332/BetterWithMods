@@ -3,7 +3,7 @@ package betterwithmods.module.hardcore.world;
 import betterwithmods.module.Feature;
 import betterwithmods.util.item.ToolsManager;
 import net.minecraft.init.Blocks;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
  * Created by primetoxinz on 4/20/17.
@@ -79,7 +79,7 @@ public class HCHardness extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void init(FMLInitializationEvent event) {
         applyHCHardness();
     }
 

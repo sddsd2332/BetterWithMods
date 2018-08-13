@@ -1,7 +1,6 @@
-package betterwithmods.module.hardcore.world.stumping.ctm;
+package betterwithmods.module.hardcore.world.stumping;
 
 
-import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import team.chisel.ctm.api.texture.ITextureContext;
@@ -9,7 +8,6 @@ import team.chisel.ctm.api.util.TextureInfo;
 import team.chisel.ctm.client.texture.render.AbstractTexture;
 import team.chisel.ctm.client.util.Quad;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
@@ -20,11 +18,11 @@ public class TextureStump extends AbstractTexture<TextureTypeStump> {
     }
 
     @Override
-    public List<BakedQuad> transformQuad(@Nonnull BakedQuad quad, @Nullable ITextureContext context, int quadGoal) {
-        if (HCStumping.ENABLED && context instanceof TextureContextStump) {
+    public List<BakedQuad> transformQuad(BakedQuad quad, @Nullable ITextureContext context, int quadGoal) {
+        if (HCStumping.CTM && context instanceof TextureContextStump) {
             TextureContextStump c = (TextureContextStump) context;
             Quad q = makeQuad(quad, context);
-            return Lists.newArrayList(q.transformUVs(sprites[c.isStump()]).rebake());
+            return Lists.newArrayList(q.transformUVs(sprites[(int) c.getCompressedData()]).rebake());
         }
         return Lists.newArrayList(quad);
     }

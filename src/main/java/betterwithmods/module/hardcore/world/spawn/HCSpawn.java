@@ -168,6 +168,8 @@ public class HCSpawn extends Feature {
     public void clone(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
             setSpawn(event.getEntityPlayer(), getSpawn(event.getOriginal()));
+        } else {
+            setSpawn(event.getEntityPlayer(), event.getEntityPlayer().getEntityWorld().getSpawnPoint());
         }
     }
 

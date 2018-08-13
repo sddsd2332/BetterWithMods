@@ -4,6 +4,7 @@ import betterwithmods.api.util.IColorProvider;
 import betterwithmods.common.BWMRecipes;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockColored;
+import net.minecraft.block.BlockStainedGlass;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.EnumDyeColor;
@@ -17,7 +18,7 @@ public class BlockColorProvider implements IColorProvider {
     public int getColor(ItemStack stack) {
         if (stack.getItem() instanceof ItemBlock) {
             Block block = ((ItemBlock) stack.getItem()).getBlock();
-            if (block instanceof BlockColored) {
+            if (block instanceof BlockColored || block instanceof BlockStainedGlass) {
                 return EnumDyeColor.byMetadata(stack.getMetadata()).getColorValue();
             }
             IBlockState state = BWMRecipes.getStateFromStack(stack);
@@ -31,5 +32,17 @@ public class BlockColorProvider implements IColorProvider {
             }
         }
         return 0;
+    }
+
+    @Override
+    public float[] getColorComponents(ItemStack stack) {
+        if (stack.getItem() instanceof ItemBlock) {
+            Block block = ((ItemBlock) stack.getItem()).getBlock();
+            if (block instanceof BlockColored || block instanceof BlockStainedGlass) {
+                return EnumDyeColor.byMetadata(stack.getMetadata()).getColorComponentValues();
+            }
+        }
+
+        return IColorProvider.super.getColorComponents(stack);
     }
 }

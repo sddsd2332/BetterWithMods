@@ -1,9 +1,10 @@
 package betterwithmods.module.tweaks;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
+import betterwithmods.common.entity.EntityIngredientRelationRegistry;
 import betterwithmods.common.entity.ai.eat.EntityAIAnimalEat;
 import betterwithmods.module.Feature;
-import betterwithmods.module.hardcore.creatures.chicken.EggLayer;
 import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.*;
@@ -13,9 +14,11 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
 
@@ -24,23 +27,7 @@ import net.minecraftforge.oredict.OreIngredient;
  */
 public class EasyBreeding extends Feature {
 
-    private static Ingredient CHICKEN;
-    private static Ingredient PIG;
-    private static Ingredient HERD_ANIMAL;
-
-    private static Ingredient breedingIngredients(EntityAnimal entity) {
-        EggLayer layer = HCChickens.getLayer(entity);
-        if (layer != null)
-            return layer.getFeedItems();
-        if (entity instanceof EntityPig)
-            return PIG;
-        if (entity instanceof EntitySheep || entity instanceof EntityCow)
-            return HERD_ANIMAL;
-        if (entity instanceof EntityChicken)
-            return CHICKEN;
-        return null;
-    }
-
+    public static EntityIngredientRelationRegistry REGISTRY = new EntityIngredientRelationRegistry();
 
     @Override
     public String getFeatureDescription() {
@@ -49,9 +36,12 @@ public class EasyBreeding extends Feature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        CHICKEN = new OreIngredient("seed");
-        PIG = Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT, BWMItems.KIBBLE);
-        HERD_ANIMAL = Ingredient.fromStacks(new ItemStack(Items.WHEAT));
+        REGISTRY.addBreedingEntry(new HCChickens.LayerIngredientRelation());
+        //only called if the layer entry fails
+        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "chicken"), e -> e instanceof EntityChicken).addIngredient(new OreIngredient("seed"));
+
+        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "pig"), e -> e instanceof EntityPig).addIngredient(Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT, BWMItems.KIBBLE));
+        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "herd"), e -> e instanceof EntitySheep || e instanceof EntityCow).addIngredient(Ingredient.fromStacks(new ItemStack(Items.WHEAT)));
     }
 
     @SubscribeEvent
@@ -60,7 +50,7 @@ public class EasyBreeding extends Feature {
             EntityLivingBase entity = (EntityLivingBase) event.getEntity();
             if (entity instanceof EntityAnimal) {
                 EntityAnimal animal = ((EntityAnimal) entity);
-                Ingredient ingredient = breedingIngredients(animal);
+                Ingredient ingredient = REGISTRY.findIngredient(animal);
                 if (ingredient != null) {
                     animal.tasks.addTask(3, new EntityAIAnimalEat(animal, ingredient, 5));
                 }
@@ -68,17 +58,17 @@ public class EasyBreeding extends Feature {
         }
     }
 
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onInteract(PlayerInteractEvent.EntityInteract event) {
+        if (event.isCanceled())
+            return;
+
         if (event.getTarget() instanceof EntityLivingBase) {
             EntityLivingBase entity = (EntityLivingBase) event.getTarget();
-            //Don't do this for EggLayers
-            if (HCChickens.getLayer(entity) != null)
-                return;
 
             if (entity instanceof EntityAnimal) {
                 EntityAnimal animal = ((EntityAnimal) entity);
-                Ingredient ingredient = breedingIngredients(animal);
+                Ingredient ingredient = REGISTRY.findIngredient(animal);
                 if (ingredient != null) {
                     if (animal.isChild()) {
                         event.setCanceled(true);

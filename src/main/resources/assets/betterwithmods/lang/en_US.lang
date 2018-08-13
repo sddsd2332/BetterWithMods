@@ -321,6 +321,9 @@ message.betterwithmods:async.enabled=Asynchronous timer enabled
 message.betterwithmods:async.disabled=Asynchronous timer disabled
 message.betterwithmods:async.unavailable=Unable to toggle asynchronous timer: World does not advance time.
 
+bwm.message.spawn_beacon.already_set=Spawn already set
+bwm.message.spawn_beacon.set=Spawn set at this location
+
 inv.cauldron.name=Cauldron
 inv.cauldron.stoked.name=Stoked Cauldron
 inv.crucible.name=Crucible
