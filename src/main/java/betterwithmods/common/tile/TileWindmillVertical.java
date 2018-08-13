@@ -18,7 +18,7 @@ import javax.annotation.Nonnull;
 public class TileWindmillVertical extends TileBaseWindmill {
 
     public TileWindmillVertical() {
-        this.bladeMeta = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+        this.colors = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
     }
 
     public boolean isSlaveValid(int offset) {

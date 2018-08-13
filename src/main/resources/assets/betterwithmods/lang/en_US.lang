@@ -387,10 +387,16 @@ message.betterwithmods:fishing_needs_bait=The fish probably won't nibble, needs 
 message.betterwithmods:fishing_needs_open_sky=Didn't catch anything, should try a topside water source.
 message.betterwithmods:fishing_needs_deep_water=Didn't catch anything, this water source is too shallow.
 
+
+message.betterwithmods:waterwheel.axle=The waterwheel must be placed on a Wooden Axle.
 message.betterwithmods:waterwheel.space=Not enough room to place the waterwheel. Need a 5x5 area to work.
+message.betterwithmods:horizontal_windmill.axle=The waterwheel must be placed on a Wooden Axle.
 message.betterwithmods:horizontal_windmill.space=Not enough room to place the windmill. Need a 13x13 area to work.
+
 message.betterwithmods:vertical_windmill.space=Not enough room to place the windmill. Need a 9x9 area with a HEIGHT of seven to work.
 message.betterwithmods:vertical_windmill.axle=Too few vertical axles in column to place here. (Need 7).
+
+message.betterwithmods:generator.conflict=There is another generator in the way of this one.
 
 message.betterwithmods:give_manual=You have been given a Better With Mods Manual. This mod might be different than what you are expecting. Please read the Crash Course section.
 message.betterwithmods:handcrank_exhaustion=You are too exhausted to turn it.

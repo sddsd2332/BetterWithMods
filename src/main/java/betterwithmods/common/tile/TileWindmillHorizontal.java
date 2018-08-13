@@ -19,7 +19,7 @@ public class TileWindmillHorizontal extends TileBaseWindmill {
 
     public TileWindmillHorizontal() {
         super();
-        this.bladeMeta = new int[]{0, 0, 0, 0};
+        this.colors = new int[]{0, 0, 0, 0};
     }
 
     @Override

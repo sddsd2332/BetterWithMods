@@ -1,12 +1,9 @@
 package betterwithmods.client.tesr;
 
 import betterwithmods.BWMod;
-import betterwithmods.client.model.ModelVerticalFrame;
-import betterwithmods.client.model.ModelVerticalSails;
-import betterwithmods.client.model.ModelVerticalShafts;
+import betterwithmods.client.model.generators.ModelVerticalWindmill;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.tile.TileWindmillVertical;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
@@ -17,22 +14,15 @@ public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileWindmill
     public static final ResourceLocation WINDMILL_SHAFTS = new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill_shaft.png");
     public static final ResourceLocation WINDMILL = new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill.png");
     public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill_sail.png");
-    private static final ModelVerticalShafts modelShafts = new ModelVerticalShafts();
-    private static final ModelVerticalSails modelSails = new ModelVerticalSails();
-    private static final ModelVerticalFrame modelFrame = new ModelVerticalFrame();
+
+    private static final ModelVerticalWindmill render = new ModelVerticalWindmill();
 
     public static void renderWindmill(float rotation, double x, double y, double z, int[] colors) {
+
         GlStateManager.pushMatrix();
         GlStateManager.translate(x + 0.5D, y + 0.5D, z + 0.5D);
-        modelShafts.setRotateAngle(modelShafts.axle, 0, (float) Math.toRadians(rotation), 0);
-        modelSails.setRotateAngleForSails(0, (float) Math.toRadians(rotation), 0);
-        modelFrame.setRotateAngle(modelFrame.axle, 0, (float) Math.toRadians(rotation), 0);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(WINDMILL_SHAFTS);
-        modelShafts.render(0.0625F);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(WINDMILL);
-        modelFrame.render(0.0625F);
-        Minecraft.getMinecraft().getTextureManager().bindTexture(WINDMILL_SAIL);
-        modelSails.render(0.0625F, colors);
+        render.setAngle(0, (float) Math.toRadians(rotation), 0);
+        render.render(0.062F);
         GlStateManager.popMatrix();
     }
 

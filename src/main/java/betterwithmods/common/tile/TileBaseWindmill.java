@@ -10,14 +10,14 @@ import net.minecraft.world.DimensionType;
 import javax.annotation.Nonnull;
 
 public abstract class TileBaseWindmill extends TileAxleGenerator implements IColor {
-    protected int[] bladeMeta;
+    protected int[] colors;
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        for (int i = 0; i < bladeMeta.length; i++) {
+        for (int i = 0; i < colors.length; i++) {
             if (tag.hasKey("Color_" + i))
-                bladeMeta[i] = tag.getInteger("Color_" + i);
+                colors[i] = tag.getInteger("Color_" + i);
         }
     }
 
@@ -25,8 +25,8 @@ public abstract class TileBaseWindmill extends TileAxleGenerator implements ICol
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         NBTTagCompound t = super.writeToNBT(tag);
-        for (int i = 0; i < bladeMeta.length; i++) {
-            t.setInteger("Color_" + i, bladeMeta[i]);
+        for (int i = 0; i < colors.length; i++) {
+            t.setInteger("Color_" + i, colors[i]);
         }
         t.setByte("DyeIndex", this.dyeIndex);
         return t;
@@ -35,30 +35,30 @@ public abstract class TileBaseWindmill extends TileAxleGenerator implements ICol
     @Override
     public boolean dye(EnumDyeColor color) {
         boolean dyed = false;
-        if (bladeMeta[dyeIndex] != color.getMetadata()) {
-            bladeMeta[dyeIndex] = color.getMetadata();
+        if (colors[dyeIndex] != color.getMetadata()) {
+            colors[dyeIndex] = color.getMetadata();
             dyed = true;
             IBlockState state = getBlockWorld().getBlockState(this.pos);
             this.getBlockWorld().notifyBlockUpdate(this.pos, state, state, 2);
             this.markDirty();
         }
         dyeIndex++;
-        if (dyeIndex > (bladeMeta.length - 1))
+        if (dyeIndex > (colors.length - 1))
             dyeIndex = 0;
         return dyed;
     }
 
     public int[] getColors() {
-        return bladeMeta;
+        return colors;
     }
 
     public int getBladeColor(int blade) {
-        return bladeMeta[blade];
+        return colors[blade];
     }
 
     @Override
     public int getColor(int index) {
-        return bladeMeta[index];
+        return colors[index];
     }
 
     @Override
