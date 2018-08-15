@@ -1,5 +1,6 @@
 package betterwithmods.util;
 
+import com.google.common.base.Preconditions;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.Vec3d;
@@ -9,29 +10,37 @@ import javax.annotation.Nonnull;
 
 public class StackEjector {
 
-    private final World world;
-    private final ItemStack stack;
-    private Vec3d position, motion;
+    private ItemStack stack;
+    private VectorBuilder positionBuilder, motionBuilder;
     private int pickupDelay;
 
-    public StackEjector(@Nonnull World world, @Nonnull ItemStack stack, Vec3d position, Vec3d motion) {
-        this.world = world;
-        this.stack = stack;
-        this.position = position;
-        this.motion = motion;
+
+    public StackEjector(VectorBuilder position, VectorBuilder motion) {
+        this.positionBuilder = position;
+        this.motionBuilder = motion;
     }
 
-    public StackEjector(@Nonnull World world, @Nonnull ItemStack stack, Vec3d position) {
-        this.world = world;
+    public StackEjector setStack(@Nonnull ItemStack stack) {
         this.stack = stack;
-        this.position = position;
+        return this;
     }
 
-    public void ejectStack() {
+    public VectorBuilder getPositionBuilder() {
+        return positionBuilder;
+    }
+
+    public VectorBuilder getMotionBuilder() {
+        return motionBuilder;
+    }
+
+
+    public void ejectStack(@Nonnull World world, @Nonnull Vec3d p, @Nonnull Vec3d m) {
+        Preconditions.checkNotNull(stack, "stack");
+
         if (world.isRemote)
             return;
-        if(stack == null)
-            return;
+        Vec3d position = getPositionBuilder().build(p);
+        Vec3d motion = getMotionBuilder().build(m);
         if (position == null)
             return;
         EntityItem item = new EntityItem(world, position.x, position.y, position.z, stack);
@@ -44,8 +53,9 @@ public class StackEjector {
         world.spawnEntity(item);
     }
 
-    public void setPickupDelay(int pickupDelay) {
+    public StackEjector setPickupDelay(int pickupDelay) {
         this.pickupDelay = pickupDelay;
+        return this;
     }
 
 

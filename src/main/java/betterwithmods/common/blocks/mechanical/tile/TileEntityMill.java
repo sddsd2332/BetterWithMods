@@ -21,6 +21,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 
@@ -136,15 +137,16 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
         return !world.isBlockFullCube(pos.offset(facing)) && !world.isSideSolid(pos.offset(facing), facing.getOpposite());
     }
 
+    public static final StackEjector EJECTOR = new StackEjector(new VectorBuilder().rand(0.5f).offset(0.25f), new VectorBuilder().setGaussian(0.05f, 0, 0.05f));
+
     private void ejectStack(ItemStack stack) {
         List<EnumFacing> validDirections = Lists.newArrayList(EnumFacing.HORIZONTALS).stream().filter(this::canEject).collect(Collectors.toList());
         if (validDirections.isEmpty()) {
             blocked = true;
             return;
         }
-        VectorBuilder builder = new VectorBuilder();
         BlockPos offset = pos.offset(DirUtils.getRandomFacing(validDirections, getBlockWorld().rand));
-        new StackEjector(world, stack, builder.set(offset).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f, 0, 0.05f).build()).ejectStack();
+        EJECTOR.setStack(stack).ejectStack(world, new Vec3d(offset), Vec3d.ZERO);
     }
 
     public void ejectRecipe(NonNullList<ItemStack> output) {
@@ -156,7 +158,6 @@ public class TileEntityMill extends TileBasicInventory implements ITickable, IMe
             }
         }
     }
-
 
     public boolean isGrinding() {
         return this.grindCounter > 0;
