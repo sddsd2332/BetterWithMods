@@ -32,7 +32,7 @@ public class ItemVerticalWindmill extends ItemAxleGenerator {
 
     @Override
     public void renderModel(World world, BlockPos pos, double x, double y, double z, double partial) {
-        TESRVerticalWindmill.renderWindmill(0, x, y, z, new int[]{0, 0, 0, 0, 0, 0, 0, 0});
+        TESRVerticalWindmill.renderWindmill(0, x, y, z, 0, null);
     }
 
 

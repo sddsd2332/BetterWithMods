@@ -21,6 +21,6 @@ public class ItemHorizontalWindmill extends ItemAxleGenerator {
     @Override
     public void renderModel(World world, BlockPos pos, double x, double y, double z, double partial) {
         EnumFacing.Axis axis = getAxleAxis(world, pos);
-        TESRWindmill.renderWindmill(axis == EnumFacing.Axis.Z ? 180 : 90, 0, x, y, z, new int[]{0, 0, 0, 0});
+        TESRWindmill.renderWindmill(axis == EnumFacing.Axis.Z ? 180 : 90, 0, x, y, z, 0, null);
     }
 }

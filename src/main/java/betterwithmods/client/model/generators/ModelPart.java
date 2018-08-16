@@ -1,14 +1,18 @@
 package betterwithmods.client.model.generators;
 
+import betterwithmods.BWMod;
+import betterwithmods.util.BannerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
-import net.minecraft.client.renderer.GlStateManager;
+import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.util.ResourceLocation;
 
 public class ModelPart extends net.minecraft.client.model.ModelRenderer {
     private ResourceLocation texture;
-    private float[] color = null;
-    private boolean shouldColor;
+    private BannerUtils.BannerData banner = null;
+    private BannerTextures.Cache cache;
+
+    private boolean hasBanner;
 
 
     public ModelPart(ModelBase model) {
@@ -25,19 +29,24 @@ public class ModelPart extends net.minecraft.client.model.ModelRenderer {
 
     @Override
     public void render(float scale) {
-        if (this.texture != null)
+        if (texture != null) {
             Minecraft.getMinecraft().getTextureManager().bindTexture(this.texture);
-        if (this.color != null) {
-            GlStateManager.color(color[0], color[1], color[2]);
         }
+        if (banner != null && cache != null) {
+            try {
+                ResourceLocation texture = banner.getTexture(cache);
+                if (texture != null)
+                    Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
+            } catch (Exception e) {
+                BWMod.logger.error(e);
+            }
+        }
+
         super.render(scale);
-        if (this.color != null) {
-            GlStateManager.color(1, 1, 1);
-        }
     }
 
-    public void setColor(float[] color) {
-        this.color = color;
+    public void setBanner(BannerUtils.BannerData banner) {
+        this.banner = banner;
     }
 
     public ModelPart setRotationCenter(float rotationPointXIn, float rotationPointYIn, float rotationPointZIn) {
@@ -48,6 +57,11 @@ public class ModelPart extends net.minecraft.client.model.ModelRenderer {
     @Override
     public ModelPart addBox(float offX, float offY, float offZ, int width, int height, int depth) {
         return (ModelPart) super.addBox(offX, offY, offZ, width, height, depth);
+    }
+
+    @Override
+    public ModelPart addBox(float offX, float offY, float offZ, int width, int height, int depth, boolean mirrored) {
+        return (ModelPart) super.addBox(offX, offY, offZ, width, height, depth, mirrored);
     }
 
     @Override
@@ -67,6 +81,11 @@ public class ModelPart extends net.minecraft.client.model.ModelRenderer {
         return this;
     }
 
+    @Override
+    public ModelPart setTextureOffset(int x, int y) {
+        return (ModelPart) super.setTextureOffset(x, y);
+    }
+
     public ModelPart setRotateAngle(double x, double y, double z) {
         this.rotateAngleX = (float) x;
         this.rotateAngleY = (float) y;
@@ -74,12 +93,13 @@ public class ModelPart extends net.minecraft.client.model.ModelRenderer {
         return this;
     }
 
-    public boolean shouldColor() {
-        return shouldColor;
+    public boolean hasBanner() {
+        return hasBanner;
     }
 
-    public ModelPart setColored() {
-        this.shouldColor = true;
+    public ModelPart addBanner(BannerTextures.Cache cache) {
+        this.hasBanner = true;
+        this.cache = cache;
         return this;
     }
 }

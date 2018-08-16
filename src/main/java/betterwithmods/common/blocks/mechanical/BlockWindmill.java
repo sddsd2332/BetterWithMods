@@ -1,9 +1,8 @@
 package betterwithmods.common.blocks.mechanical;
 
-import betterwithmods.api.IColor;
+import betterwithmods.api.tile.IBannerInfo;
 import betterwithmods.common.tile.TileWindmillHorizontal;
 import betterwithmods.common.tile.TileWindmillVertical;
-import betterwithmods.util.ColorUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -35,20 +34,10 @@ public class BlockWindmill extends BlockAxleGenerator {
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack stack = player.getHeldItem(hand);
         TileEntity tile = world.getTileEntity(pos);
-
-        EnumDyeColor color = ColorUtils.getColor(stack);
-        if (color != null) {
-            if (world.isRemote)
-                return true;
-            if (tile instanceof IColor) {
-                if (((IColor) tile).dye(color)) {
-                    if (!player.capabilities.isCreativeMode)
-                        stack.shrink(1);
-                    return true;
-                }
-            }
+        if (tile instanceof IBannerInfo) {
+            ((IBannerInfo) tile).apply(stack);
         }
-        return false;
+        return true;
     }
 
     @Override

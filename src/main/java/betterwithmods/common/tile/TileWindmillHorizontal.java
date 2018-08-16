@@ -1,25 +1,16 @@
 package betterwithmods.common.tile;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.BlockWindmill;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.WorldUtils;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-
-import javax.annotation.Nonnull;
 
 public class TileWindmillHorizontal extends TileBaseWindmill {
 
     public TileWindmillHorizontal() {
-        super();
-        this.colors = new int[]{0, 0, 0, 0};
+        super(4);
     }
 
     @Override
@@ -53,21 +44,6 @@ public class TileWindmillHorizontal extends TileBaseWindmill {
         return 7;
     }
 
-    //Extend the bounding box if the TESR is bigger than the occupying block.
-    @Nonnull
-    @Override
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox() {
-        IBlockState state = getBlockWorld().getBlockState(pos);
-        if (!(state.getBlock() instanceof BlockWindmill))
-            return Block.FULL_BLOCK_AABB;
 
-        EnumFacing.Axis axis = getBlockWorld().getBlockState(pos).getValue(DirUtils.AXIS);
-        EnumFacing facing = (axis == EnumFacing.Axis.Z) ? EnumFacing.SOUTH : EnumFacing.EAST;
-        Vec3i vec = facing.getDirectionVec();
-        int xP = axis == EnumFacing.Axis.Z ? getRadius() : 0;
-        int yP = getRadius();
-        int zP = axis == EnumFacing.Axis.X ? getRadius() : 0;
-        return new AxisAlignedBB(-xP, -yP, -zP, xP, yP, zP).offset(0.5, 0.5, 0).offset(pos).expand(vec.getX(), vec.getY(), vec.getZ());
-    }
+
 }

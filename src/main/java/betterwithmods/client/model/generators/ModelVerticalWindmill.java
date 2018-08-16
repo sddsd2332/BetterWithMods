@@ -1,6 +1,7 @@
 package betterwithmods.client.model.generators;
 
 import betterwithmods.client.tesr.TESRVerticalWindmill;
+import betterwithmods.util.BannerUtils;
 
 public class ModelVerticalWindmill extends ModelRadialBlades {
 
@@ -13,11 +14,12 @@ public class ModelVerticalWindmill extends ModelRadialBlades {
 
         ModelPart part = new ModelPart(this, 0, 0);
 
-        float angle = (float) ((Math.PI * 2 * index) / bladeCount);
+        float angle = (float) ((Math.PI * 2 * index) / bladeCount);x
         //Sails
         part.addChild(new ModelPart(this, 0, 0)
-                .setTextureSize(16, 16)
-                .addBox(70.4F, -50.0F, -20.0F, 1, 100, 20)
+                .addBanner(BannerUtils.VERTICAL_WINDMILL)
+                .setTextureSize(200, 200)
+                .addBox(70.4F, -50.0F, 0, 20, 100, 1)
                 .setRotationCenter(0.0F, 0.0F, 0.0F)
                 .setRotateAngle(0, angle, 0)
                 .setTexture(TESRVerticalWindmill.WINDMILL_SAIL)

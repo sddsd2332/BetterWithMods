@@ -1,12 +1,13 @@
 package betterwithmods.client.model.generators;
 
+import betterwithmods.util.BannerUtils;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 
 public abstract class ModelRadialBlades extends ModelBase {
 
     protected final int bladeCount;
-    private float[][] colors;
+    private BannerUtils.BannerData[] banners;
     private ModelPart base;
 
     public ModelRadialBlades(int bladeCount) {
@@ -15,7 +16,7 @@ public abstract class ModelRadialBlades extends ModelBase {
         for (int i = 0; i < bladeCount; i++) {
             base.addChild(createBlade(i));
         }
-        colors = new float[bladeCount][3];
+        banners = new BannerUtils.BannerData[this.bladeCount];
     }
 
     protected abstract ModelPart createBlade(int index);
@@ -31,8 +32,8 @@ public abstract class ModelRadialBlades extends ModelBase {
                 if (r1.childModels != null) {
                     for (ModelRenderer r2 : r1.childModels) {
                         ModelPart r = (ModelPart) r2;
-                        if (r.shouldColor()) {
-                            r.setColor(colors[i]);
+                        if (r.hasBanner()) {
+                            r.setBanner(banners[i]);
                             i++;
                         }
                     }
@@ -42,8 +43,8 @@ public abstract class ModelRadialBlades extends ModelBase {
         this.base.render(scale);
     }
 
-    public void setColor(int index, float[] color) {
-        this.colors[index % this.colors.length] = color;
+    public void setBanner(int index, BannerUtils.BannerData data) {
+        this.banners[index] = data;
     }
 
 }

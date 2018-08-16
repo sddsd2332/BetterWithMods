@@ -1,64 +1,38 @@
 package betterwithmods.common.tile;
 
-import betterwithmods.api.IColor;
-import net.minecraft.block.state.IBlockState;
-import net.minecraft.item.EnumDyeColor;
+import betterwithmods.api.tile.IBannerInfo;
+import betterwithmods.util.BannerUtils;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.DimensionType;
 
 import javax.annotation.Nonnull;
 
-public abstract class TileBaseWindmill extends TileAxleGenerator implements IColor {
-    protected int[] colors;
+public abstract class TileBaseWindmill extends TileAxleGenerator implements IBannerInfo {
+
+    protected int bannerIndex;
+    protected BannerUtils.BannerData[] banners;
+    private int blades;
+
+    public TileBaseWindmill(int blades) {
+        this.blades = blades;
+        this.banners = new BannerUtils.BannerData[this.blades];
+    }
 
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        for (int i = 0; i < colors.length; i++) {
-            if (tag.hasKey("Color_" + i))
-                colors[i] = tag.getInteger("Color_" + i);
-        }
+        bannerIndex = tag.getInteger("BannerIndex");
+        BannerUtils.readArray(banners, tag);
     }
 
     @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound tag) {
         NBTTagCompound t = super.writeToNBT(tag);
-        for (int i = 0; i < colors.length; i++) {
-            t.setInteger("Color_" + i, colors[i]);
-        }
-        t.setByte("DyeIndex", this.dyeIndex);
+        tag.setInteger("BannerIndex", bannerIndex);
+        BannerUtils.writeArray(banners, t);
         return t;
-    }
-
-    @Override
-    public boolean dye(EnumDyeColor color) {
-        boolean dyed = false;
-        if (colors[dyeIndex] != color.getMetadata()) {
-            colors[dyeIndex] = color.getMetadata();
-            dyed = true;
-            IBlockState state = getBlockWorld().getBlockState(this.pos);
-            this.getBlockWorld().notifyBlockUpdate(this.pos, state, state, 2);
-            this.markDirty();
-        }
-        dyeIndex++;
-        if (dyeIndex > (colors.length - 1))
-            dyeIndex = 0;
-        return dyed;
-    }
-
-    public int[] getColors() {
-        return colors;
-    }
-
-    public int getBladeColor(int blade) {
-        return colors[blade];
-    }
-
-    @Override
-    public int getColor(int index) {
-        return colors[index];
     }
 
     @Override
@@ -88,4 +62,28 @@ public abstract class TileBaseWindmill extends TileAxleGenerator implements ICol
         return 0;
     }
 
+    @Override
+    public int getSelected() {
+        return bannerIndex;
+    }
+
+    @Override
+    public void next() {
+        bannerIndex = (bannerIndex + 1) % blades;
+    }
+
+
+    @Override
+    public void setBannerData(int selected, BannerUtils.BannerData data) {
+        banners[selected] = data;
+    }
+
+    @Override
+    public BannerUtils.BannerData[] getData() {
+        return banners;
+    }
+
+
 }
+
+
