@@ -35,9 +35,8 @@ public class Gameplay extends Module {
     public static float cauldronNormalSpeedFactor, cauldronStokedSpeedFactor, cauldronMultipleFiresFactor;
 
     public static boolean dropHempSeeds;
-
-    private String[] waterwheelFluidConfig;
     public static List<String> blacklistDamageSources;
+    private String[] waterwheelFluidConfig;
 
     @Override
     public void addFeatures() {
@@ -76,7 +75,7 @@ public class Gameplay extends Module {
                 "swamp_water"
         });
 
-        blacklistDamageSources = Lists.newArrayList(ConfigHelper.loadPropStringList("Blasting oil damage source blacklist", name,"Disallow these damage sources from disturbing blasting oil", new String[]{
+        blacklistDamageSources = Lists.newArrayList(ConfigHelper.loadPropStringList("Blasting oil damage source blacklist", name, "Disallow these damage sources from disturbing blasting oil", new String[]{
                 "drown",
                 "cramming",
                 "generic",
@@ -91,7 +90,6 @@ public class Gameplay extends Module {
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
-
 
 
         if (dropHempSeeds) {
@@ -116,5 +114,12 @@ public class Gameplay extends Module {
         );
 
     }
+
+    @Override
+    public boolean canBeDisabled() {
+        return false;
+    }
+
+
 }
 

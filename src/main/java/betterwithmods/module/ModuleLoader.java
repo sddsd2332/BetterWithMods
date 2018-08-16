@@ -13,7 +13,6 @@ package betterwithmods.module;
 import betterwithmods.BWMod;
 import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.module.hardcore.Hardcore;
-import betterwithmods.module.industry.Industry;
 import betterwithmods.module.tweaks.Tweaks;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
@@ -51,7 +50,7 @@ public final class ModuleLoader {
         registerModule(Hardcore.class);
         registerModule(Tweaks.class);
         registerModule(CompatModule.class);
-        registerModule(Industry.class);
+//        registerModule(Industry.class);
     }
 
     public static void preInit(FMLPreInitializationEvent event) {

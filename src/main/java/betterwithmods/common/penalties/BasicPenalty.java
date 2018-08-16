@@ -17,7 +17,8 @@ public class BasicPenalty<T extends Number & Comparable> extends Penalty<T> {
                 BWMAttributes.PAIN.fromConfig(category, name, pain),
                 BWMAttributes.SPEED.fromConfig(category, name, speed)
         );
-        ConfigHelper.setDescription(category + "." + name, "Configure values for the " + name + " penalty");
+        if (BWMAttributes.isCustom(category))
+            ConfigHelper.setDescription(category + "." + name, "Configure values for the " + name + " penalty");
     }
 
 

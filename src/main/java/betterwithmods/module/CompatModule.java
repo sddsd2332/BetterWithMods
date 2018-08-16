@@ -71,8 +71,7 @@ public class CompatModule extends Module {
     }
 
     private boolean isLoaded(String modId) {
-        boolean loaded = loadPropBool(modId.toLowerCase() + "_compat", String.format("Requires %s to be installed" ,modId), true) && Loader.isModLoaded(modId);
-        return loaded;
+        return loadPropBool(modId.toLowerCase() + "_compat", String.format("Requires %s to be installed" ,modId), true) && Loader.isModLoaded(modId);
     }
 
     public ItemStack getItem(String location) {
@@ -97,5 +96,10 @@ public class CompatModule extends Module {
 
     public ItemStack getBlock(String location) {
         return getBlock(new ResourceLocation(location), 1, 0);
+    }
+
+    @Override
+    public String getModuleDescription() {
+        return "Add support for other mods";
     }
 }

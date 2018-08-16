@@ -31,7 +31,7 @@ public class CreeperShearing extends Feature {
 
     @Override
     public void setupConfig() {
-        CREEPERS = ConfigHelper.loadPropRLSet("Creepers", "List of valid creepers","", new String[]{"minecraft:creeper"});
+        CREEPERS = ConfigHelper.loadPropRLSet("Creepers", "List of valid creepers",configCategory, new String[]{"minecraft:creeper"});
     }
 
     private boolean isMatching(EntityLivingBase entity) {

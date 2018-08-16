@@ -35,9 +35,10 @@ public class HCTools extends Feature {
 
 
     public static final HashMap<Item.ToolMaterial, ToolMaterialOverride> OVERRIDES = Maps.newHashMap();
-    public static boolean removeLowTools;
+    public static boolean removeLowTools, perToolOverrides;
     public static int noHungerThreshold;
     public static int noDamageThreshold;
+
     private static Set<ItemTool> TOOLS;
 
     private static void removeLowTierToolRecipes() {
@@ -89,7 +90,13 @@ public class HCTools extends Feature {
         ReflectionHelper.setPrivateValue(Item.ToolMaterial.class, material, override.getEfficiency(), ReflectionLib.TOOLMATERIAL_EFFICIENCY);
         ReflectionHelper.setPrivateValue(Item.ToolMaterial.class, material, override.getEnchantability(), ReflectionLib.TOOLMATERIAL_ENCHANTABILITIY);
         ReflectionHelper.setPrivateValue(ItemTool.class, tool, material.getEfficiency(), ReflectionLib.ITEMTOOL_EFFICIENCY);
-        tool.setMaxDamage(Math.max(1, material.getMaxUses() - 1)); //subtract one from the max durability because the tool doesn't break until -1
+
+        ItemStack stack = new ItemStack(tool);
+
+        for(String toolClass: tool.getToolClasses(stack))
+            tool.setMaxDamage(override.getMaxUses(toolClass));
+
+
     }
 
     @Override
@@ -97,6 +104,7 @@ public class HCTools extends Feature {
         removeLowTools = loadPropBool("Remove cheapest tools", "The minimum level of the hoe and the sword is iron, and the axe needs at least stone.", true);
         noHungerThreshold = loadPropInt("No Exhaustion Harvest Level", "When destroying a 0 hardness block with a tool of this harvest level or higher, no exhaustion is applied", Item.ToolMaterial.IRON.getHarvestLevel());
         noDamageThreshold = loadPropInt("No Durability Damage Harvest Level", "When destroying a 0 hardness block with a tool of this harvest level or higher, no durability damage is applied", Item.ToolMaterial.DIAMOND.getHarvestLevel());
+        perToolOverrides = loadPropBool("Change Durability per Tool", "Allow configuring tool durability for each class", true);
     }
 
     @Override
@@ -139,6 +147,8 @@ public class HCTools extends Feature {
     }
 
     public class ToolMaterialOverride {
+        private final String name;
+
         private int maxUses;
         private float efficiencyOnProperMaterial;
         private int enchantability;
@@ -149,9 +159,17 @@ public class HCTools extends Feature {
         }
 
         ToolMaterialOverride(String name, int maxUses, float efficiencyOnProperMaterial, int enchantability) {
+            this.name = name;
             this.maxUses = ConfigHelper.loadPropInt("Max Durability", configCategory + "." + name, "", maxUses);
             this.efficiencyOnProperMaterial = efficiencyOnProperMaterial;
             this.enchantability = enchantability;
+        }
+
+        int getMaxUses(String toolClass) {
+            int use = getMaxUses();
+            if (perToolOverrides)
+                use = ConfigHelper.loadPropInt("Max Durability: " + toolClass, configCategory + "." + name, "", maxUses);
+            return Math.max(1, use - 1); //subtract one from the max durability because the tool doesn't break until -1
         }
 
         int getMaxUses() {
