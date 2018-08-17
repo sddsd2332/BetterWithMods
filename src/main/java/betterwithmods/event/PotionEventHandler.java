@@ -21,13 +21,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.client.event.RenderBlockOverlayEvent;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.entity.living.LootingLevelEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 @Mod.EventBusSubscriber
 public class PotionEventHandler {
@@ -109,26 +109,27 @@ public class PotionEventHandler {
 
     @SubscribeEvent
     public static void onLivingDeath(LootingLevelEvent event) {
-        if (event.getEntityLiving() != null && event.getEntityLiving().isPotionActive(BWRegistry.POTION_LOOTING)) {
+        if (event.getEntityLiving() != null) {
             PotionEffect effect = event.getEntityLiving().getActivePotionEffect(BWRegistry.POTION_LOOTING);
-            int level = effect.getAmplifier() + 1;
-            if (event.getLootingLevel() < level) {
-                event.setLootingLevel(level);
+            if(effect != null) {
+                int level = effect.getAmplifier() + 1;
+                if (event.getLootingLevel() < level) {
+                    event.setLootingLevel(level);
+                }
             }
         }
     }
 
     @SubscribeEvent
-    public static void onPotionUpdate(LivingEvent.LivingUpdateEvent e) {
-        if (e.getEntity() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) e.getEntity();
-            for (PotionEffect potion : player.getActivePotionEffects()) {
-                if (potion.getPotion() instanceof BWPotion) {
-                    ((BWPotion) potion.getPotion()).tick(player);
-                }
+    public static void onPlayerUpdate(TickEvent.PlayerTickEvent e) {
+        EntityPlayer player = e.player;
+        for (PotionEffect potion : player.getActivePotionEffects()) {
+            if (potion.getPotion() instanceof BWPotion) {
+                ((BWPotion) potion.getPotion()).tick(player);
             }
         }
     }
+
 
     @SubscribeEvent
     public static void saveSoup(LivingEntityUseItemEvent.Finish event) {
