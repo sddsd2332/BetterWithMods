@@ -104,7 +104,7 @@ public class MiniBlocks extends Feature {
         boolean noUpdate = getDeclaringClass(blkClass, pb.MethodName, World.class, BlockPos.class, IBlockState.class, Random.class) == Block.class;
 
         // ignore blocks with custom collision.
-        pb.onEntityCollidedWithBlock(null, null, null, null);
+        pb.onEntityCollision(null, null, null, null);
         boolean noCustomCollision = getDeclaringClass(blkClass, pb.MethodName, World.class, BlockPos.class, IBlockState.class, Entity.class) == Block.class;
         final boolean isFullBlock = state.isFullBlock() || blkClass == BlockStainedGlass.class || blkClass == BlockGlass.class || blk == Blocks.SLIME_BLOCK || blk == Blocks.ICE;
         final boolean hasItem = Item.getItemFromBlock(blk) != Items.AIR;
@@ -212,7 +212,7 @@ public class MiniBlocks extends Feature {
 
     public void addOldRecipeConversation(ItemStack old, Block mini, IBlockState base) {
         ItemStack output = fromParent(mini, base);
-        addHardcoreRecipe(new ShapelessRecipes("mini_conversion", output, InvUtils.asNonnullList(Ingredient.fromStacks(old))).setRegistryName(BWMod.MODID + ":" + old.getItem().getUnlocalizedName(old).replace("tile.", "")));
+        addHardcoreRecipe(new ShapelessRecipes("mini_conversion", output, InvUtils.asNonnullList(Ingredient.fromStacks(old))).setRegistryName(BWMod.MODID + ":" + old.getItem().getTranslationKey(old).replace("tile.", "")));
     }
 
     @Override

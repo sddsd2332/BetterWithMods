@@ -12,7 +12,7 @@ public class BlockFurnace extends net.minecraft.block.BlockFurnace {
         if(isBurning) {
             setLightLevel(0.875F);
         }
-        setUnlocalizedName("furnace");
+        setTranslationKey("furnace");
 
         setHardness(3.5F);
         setSoundType(SoundType.STONE);

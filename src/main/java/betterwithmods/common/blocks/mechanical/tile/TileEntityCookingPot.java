@@ -98,7 +98,7 @@ public abstract class TileEntityCookingPot extends TileEntityVisibleInventory im
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        this.facing = EnumFacing.getFront(value(tag, "facing", EnumFacing.UP.getIndex()));
+        this.facing = EnumFacing.byIndex(value(tag, "facing", EnumFacing.UP.getIndex()));
         this.cookProgress = value(tag, "progress", 0);
         this.cookTime = value(tag, "time", 4000);
         this.heat = value(tag, "heat", 0);

@@ -111,7 +111,7 @@ public class ReflectionHelperBlock extends Block {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(
+    public void onEntityCollision(
             final @Nullable World worldIn,
             final @Nullable BlockPos pos,
             final @Nullable IBlockState state,

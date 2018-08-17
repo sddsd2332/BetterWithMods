@@ -29,12 +29,12 @@ public class BWMAttributes {
 
     public static AttributeInstance<Boolean> getBooleanAttribute(IAttribute<Boolean> parent, String category, String penalty, String desc, Boolean defaultValue) {
 
-        boolean value = isCustom(category) ? ConfigHelper.loadPropBool(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
+        boolean value = isCustom(category) ? ConfigHelper.loadPropBool(parent.getRegistryName().getPath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
         return new AttributeInstance<>(parent, value);
     }
 
     public static AttributeInstance<Float> getFloatAttribute(IAttribute<Float> parent, String category, String penalty, String desc, Float defaultValue) {
-        float value = isCustom(category) ? (float) ConfigHelper.loadPropDouble(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
+        float value = isCustom(category) ? (float) ConfigHelper.loadPropDouble(parent.getRegistryName().getPath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
         return new AttributeInstance<>(parent, value);
     }
 

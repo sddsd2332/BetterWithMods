@@ -46,7 +46,7 @@ public class BlockWolf extends BWMBlock {
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
@@ -93,7 +93,7 @@ public class BlockWolf extends BWMBlock {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(DirUtils.FACING, EnumFacing.getFront(meta));
+        return this.getDefaultState().withProperty(DirUtils.FACING, EnumFacing.byIndex(meta));
     }
 
     @Override

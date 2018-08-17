@@ -44,8 +44,8 @@ public class ItemBOPPile extends Item implements IMultiLocations {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName() + "." + EnumMaterial.values()[stack.getMetadata()].getName();
+    public String getTranslationKey(ItemStack stack) {
+        return super.getTranslationKey() + "." + EnumMaterial.values()[stack.getMetadata()].getName();
     }
 
 

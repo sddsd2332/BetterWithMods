@@ -8,9 +8,9 @@ import net.minecraft.item.ItemStack;
 public abstract class ItemAltName extends Item implements IMultiLocations {
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getTranslationKey(ItemStack stack) {
         if (Gameplay.kidFriendly)
-            return super.getUnlocalizedName() + "_kf";
-        return super.getUnlocalizedName();
+            return super.getTranslationKey(stack) + "_kf";
+        return super.getTranslationKey(stack);
     }
 }

@@ -53,7 +53,7 @@ public class PollutionHandler {
 
         if (world.isBlockLoaded(pos)) {
             f = world.getCurrentMoonPhaseFactor();
-            i = (long) (world.getChunkFromBlockCoords(pos).getInhabitedTime() * pollution);
+            i = (long) (world.getChunk(pos).getInhabitedTime() * pollution);
         }
 
         return new DifficultyInstance(world.getDifficulty(), world.getWorldTime(), i, f);

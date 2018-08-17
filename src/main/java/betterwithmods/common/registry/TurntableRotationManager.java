@@ -95,7 +95,7 @@ public class TurntableRotationManager {
     }
 
     private static BlockPos rotateAround(BlockPos centerPos, EnumFacing facing, Rotation rotation) {
-        return centerPos.add(facing.getFrontOffsetX(), 0, facing.getFrontOffsetZ());
+        return centerPos.add(facing.getXOffset(), 0, facing.getZOffset());
     }
 
     public static void rotateAttachments(World world, BlockPos pos, Rotation rotation) {

@@ -91,8 +91,8 @@ public class ItemMaterial extends Item implements IMultiLocations {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName() + "." + EnumMaterial.VALUES[stack.getMetadata()].getName();
+    public String getTranslationKey(ItemStack stack) {
+        return super.getTranslationKey() + "." + EnumMaterial.VALUES[stack.getMetadata()].getName();
     }
 
 

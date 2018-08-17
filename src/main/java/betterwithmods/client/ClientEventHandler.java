@@ -109,7 +109,7 @@ public class ClientEventHandler {
     }
 
     public static void renderMiniBlock(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial) {
-        Vec3d vec = target.hitVec.addVector(-target.getBlockPos().getX(),-target.getBlockPos().getY(),-target.getBlockPos().getZ());
+        Vec3d vec = target.hitVec.add(-target.getBlockPos().getX(),-target.getBlockPos().getY(),-target.getBlockPos().getZ());
         float x = (float) vec.x , y = (float) vec.y, z = (float) vec.z;
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);

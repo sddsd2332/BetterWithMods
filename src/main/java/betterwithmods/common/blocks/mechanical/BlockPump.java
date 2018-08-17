@@ -19,7 +19,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -89,7 +88,7 @@ public class BlockPump extends BlockRotate implements IBlockActive, IMultiVarian
             meta -= 8;
         }
         return this.getDefaultState().withProperty(ACTIVE, isActive).withProperty(DirUtils.HORIZONTAL,
-                EnumFacing.getHorizontal(meta));
+                EnumFacing.byHorizontalIndex(meta));
     }
 
     @Override

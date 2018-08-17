@@ -80,7 +80,7 @@ public class BlockSiding extends BlockMini {
 
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-        EnumFacing facing = EnumFacing.getFront(state.getValue(getOrientationProperty()));
+        EnumFacing facing = EnumFacing.byIndex(state.getValue(getOrientationProperty()));
         return facing == face ? BlockFaceShape.SOLID : BlockFaceShape.UNDEFINED;
     }
 }

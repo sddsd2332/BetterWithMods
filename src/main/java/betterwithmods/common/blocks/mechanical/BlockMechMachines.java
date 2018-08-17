@@ -143,7 +143,7 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
 
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
@@ -209,7 +209,7 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         EnumType type = state.getValue(TYPE);
         if(type == EnumType.HOPPER) {
             if(!worldIn.isRemote) {
@@ -223,6 +223,7 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
                 entityIn.setPosition(entityIn.posX, entityIn.posY + 0.1, entityIn.posZ); //Fix to stop items being caught on this
             }
         }
+
     }
 
     @Override

@@ -23,9 +23,9 @@ public class ItemAltNameFood extends ItemFood implements IMultiLocations {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getTranslationKey(ItemStack stack) {
         if (Gameplay.kidFriendly)
-            return super.getUnlocalizedName() + "_kf";
-        return super.getUnlocalizedName();
+            return super.getTranslationKey() + "_kf";
+        return super.getTranslationKey();
     }
 }

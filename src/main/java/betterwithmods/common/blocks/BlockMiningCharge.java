@@ -103,7 +103,7 @@ public class BlockMiningCharge extends BlockTNT {
     public void onBlockAdded(World worldIn, BlockPos pos, IBlockState state) {
         super.onBlockAdded(worldIn, pos, state);
         if (worldIn.isBlockPowered(pos)) {
-            this.onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, true));
+            this.onPlayerDestroy(worldIn, pos, state.withProperty(EXPLODE, true));
             worldIn.setBlockToAir(pos);
         }
     }
@@ -111,19 +111,19 @@ public class BlockMiningCharge extends BlockTNT {
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos other) {
         if (worldIn.isBlockPowered(pos)) {
-            this.onBlockDestroyedByPlayer(worldIn, pos, state.withProperty(EXPLODE, true));
+            this.onPlayerDestroy(worldIn, pos, state.withProperty(EXPLODE, true));
             worldIn.setBlockToAir(pos);
         }
     }
 
     @Override
     public void onBlockExploded(World world, BlockPos pos, Explosion explosion) {
-        onBlockDestroyedByExplosion(world, pos, explosion);
+        onExplosionDestroy(world, pos, explosion);
         world.setBlockToAir(pos);
     }
 
     @Override
-    public void onBlockDestroyedByExplosion(World worldIn, BlockPos pos, Explosion explosionIn) {
+    public void onExplosionDestroy(World worldIn, BlockPos pos, Explosion explosionIn) {
         if (!worldIn.isRemote) {
             EntityMiningCharge miningCharge = new EntityMiningCharge(worldIn, (double) ((float) pos.getX() + 0.5F), (double) pos.getY(), (double) ((float) pos.getZ() + 0.5F), explosionIn.getExplosivePlacedBy(), getFacing(worldIn.getBlockState(pos)));
             miningCharge.setFuse((short) (worldIn.rand.nextInt(miningCharge.getFuse() / 4) + miningCharge.getFuse() / 8));
@@ -132,12 +132,12 @@ public class BlockMiningCharge extends BlockTNT {
     }
 
     @Override
-    public void onBlockDestroyedByPlayer(World worldIn, BlockPos pos, IBlockState state) {
+    public void onPlayerDestroy(World worldIn, BlockPos pos, IBlockState state) {
         this.explode(worldIn, pos, state, null);
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote && entityIn instanceof EntityArrow) {
             EntityArrow entityarrow = (EntityArrow) entityIn;
             if (entityarrow.isBurning()) {
@@ -156,7 +156,7 @@ public class BlockMiningCharge extends BlockTNT {
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean explode = (meta & 1) > 0;
-        EnumFacing facing = EnumFacing.getFront(meta >> 1);
+        EnumFacing facing = EnumFacing.byIndex(meta >> 1);
         return this.getDefaultState().withProperty(EXPLODE, explode).withProperty(DirUtils.FACING, facing);
     }
 

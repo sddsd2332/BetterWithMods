@@ -149,7 +149,7 @@ public class BlockSteel extends BWMBlock implements IMultiVariants{
 
     //Cannot be pushed by a piston
     @Override
-    public EnumPushReaction getMobilityFlag(IBlockState state) {
+    public EnumPushReaction getPushReaction(IBlockState state) {
         return EnumPushReaction.IGNORE;
     }
 

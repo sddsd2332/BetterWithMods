@@ -64,7 +64,7 @@ public class OutputHelper<V extends IOutput> implements IIngredientHelper<V> {
             throw new IllegalStateException("item.getRegistryName() returned null for: " + stackInfo);
         }
 
-        return itemName.getResourceDomain();
+        return itemName.getNamespace();
     }
 
     @Override
@@ -83,7 +83,7 @@ public class OutputHelper<V extends IOutput> implements IIngredientHelper<V> {
             throw new IllegalStateException("item.getRegistryName() returned null for: " + stackInfo);
         }
 
-        return itemName.getResourcePath();
+        return itemName.getPath();
 
     }
 

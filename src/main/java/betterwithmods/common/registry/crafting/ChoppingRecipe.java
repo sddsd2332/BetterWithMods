@@ -10,7 +10,6 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -62,7 +61,7 @@ public class ChoppingRecipe extends ToolDamageRecipe {
             Set<String> classes = item.getToolClasses(stack);
             if (classes.contains("axe") || classes.contains("mattock")) {
                 ResourceLocation loc = item.getRegistryName();
-                return loc == null || !loc.getResourceDomain().equals("tconstruct") || stack.getItemDamage() < stack.getMaxDamage();
+                return loc == null || !loc.getNamespace().equals("tconstruct") || stack.getItemDamage() < stack.getMaxDamage();
             }
         }
         return false;

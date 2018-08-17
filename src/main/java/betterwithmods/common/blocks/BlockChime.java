@@ -182,7 +182,7 @@ public class BlockChime extends BWMBlock implements IMultiVariants {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+    public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
         if (!state.getValue(ACTIVE)) {
             world.setBlockState(pos, state.withProperty(ACTIVE, true));
             world.notifyNeighborsOfStateChange(pos, this, false);

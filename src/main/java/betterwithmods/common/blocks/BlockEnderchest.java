@@ -18,7 +18,7 @@ import net.minecraft.world.World;
 public class BlockEnderchest extends BlockEnderChest {
 
     public BlockEnderchest() {
-        setUnlocalizedName("enderChest");
+        setTranslationKey("enderChest");
     }
 
     @Override

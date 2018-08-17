@@ -125,7 +125,7 @@ public class WorldPollutionCapability {
             if (!pollution.isEmpty()) {
                 List<ChunkPos> toUpdate = new ArrayList<>();
                 for (ChunkPos pos : pollution.keySet()) {
-                    Chunk chunk = world.getChunkFromChunkCoords(pos.x, pos.z);
+                    Chunk chunk = world.getChunk(pos.x, pos.z);
                     if (chunk.isLoaded()) {
                         Random rand = chunk.getRandomWithSeed(9850327L);
                         if (rand.nextInt(30) == 0) {

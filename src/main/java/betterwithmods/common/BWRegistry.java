@@ -280,7 +280,7 @@ public class BWRegistry {
     }
 
     private static Potion registerPotion(Potion potion) {
-        String potionName = potion.getRegistryName().getResourcePath();
+        String potionName = potion.getRegistryName().getPath();
         potion.setPotionName("bwm.effect." + potionName);
         return potion;
     }

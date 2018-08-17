@@ -18,7 +18,7 @@ public class BlockMushroom extends net.minecraft.block.BlockMushroom {
         this.maxLightLevel = maxLightLevel;
         setHardness(0.0F);
         setSoundType(SoundType.PLANT);
-        setUnlocalizedName("mushroom");
+        setTranslationKey("mushroom");
     }
 
     @Override

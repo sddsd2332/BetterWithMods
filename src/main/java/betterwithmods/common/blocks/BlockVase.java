@@ -116,13 +116,13 @@ public class BlockVase extends BWMBlock implements IMultiVariants {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+    public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
         if (!world.isRemote && entity != null && entity instanceof EntityArrow) {
             world.playEvent(2001, pos, Block.getStateId(state));
             world.updateComparatorOutputLevel(pos, this);
             world.setBlockToAir(pos);
         }
-        super.onEntityCollidedWithBlock(world, pos, state, entity);
+        super.onEntityCollision(world, pos, state, entity);
     }
 
     @Override

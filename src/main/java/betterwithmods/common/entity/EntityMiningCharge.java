@@ -188,7 +188,7 @@ public class EntityMiningCharge extends Entity {
             this.fuse = this.getFuseDM();
         }
         if (FACING.equals(key)) {
-            this.facing = EnumFacing.getFront(getFacingDM());
+            this.facing = EnumFacing.byIndex(getFacingDM());
         }
     }
 
@@ -210,7 +210,7 @@ public class EntityMiningCharge extends Entity {
     }
 
     public void setFacing(int facing) {
-        setFacing(EnumFacing.getFront(facing));
+        setFacing(EnumFacing.byIndex(facing));
     }
 
     public int getFuse() {

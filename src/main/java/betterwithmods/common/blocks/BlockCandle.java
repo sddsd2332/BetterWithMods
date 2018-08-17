@@ -51,7 +51,7 @@ public class BlockCandle extends BWMBlock implements IMultiVariants {
         double d0 = (double) pos.getX() + 0.5D;
         double d1 = (double) pos.getY() + 9/16d;
         double d2 = (double) pos.getZ() + 0.5D;
-        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + 0.27D * (double) UP.getFrontOffsetX(), d1 + 0.22D, d2 + 0.27D * (double) UP.getFrontOffsetZ(), 0.0D, 0.0D, 0.0D);
+        worldIn.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, d0 + 0.27D * (double) UP.getXOffset(), d1 + 0.22D, d2 + 0.27D * (double) UP.getZOffset(), 0.0D, 0.0D, 0.0D);
         worldIn.spawnParticle(EnumParticleTypes.FLAME, d0, d1, d2, 0.0D, 0.0D, 0.0D);
     }
 
@@ -104,7 +104,7 @@ public class BlockCandle extends BWMBlock implements IMultiVariants {
     }
 
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT;
     }
 

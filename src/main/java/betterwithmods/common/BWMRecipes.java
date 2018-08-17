@@ -187,9 +187,9 @@ public final class BWMRecipes {
         // janky I know but it works
         String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
 
-        String name = result.getItem().getRegistryName().getResourcePath() + suffix;
+        String name = result.getItem().getRegistryName().getPath() + suffix;
         if (name.contains("material") || name.contains("aesthetic"))
-            name = result.getUnlocalizedName().replace("item.bwm:", "").replace("tile.bwm:", "");
+            name = result.getTranslationKey().replace("item.bwm:", "").replace("tile.bwm:", "");
 
         File f = new File(RECIPE_DIR, name + ".json");
 
@@ -229,9 +229,9 @@ public final class BWMRecipes {
         // janky I know but it works
         String suffix = result.getItem().getHasSubtypes() ? "_" + result.getItemDamage() : "";
 
-        String name = result.getItem().getRegistryName().getResourcePath() + suffix;
+        String name = result.getItem().getRegistryName().getPath() + suffix;
         if (name.contains("material"))
-            name = result.getUnlocalizedName().replace("item.bwm:", "");
+            name = result.getTranslationKey().replace("item.bwm:", "");
 
 
         File f = new File(RECIPE_DIR, name + ".json");

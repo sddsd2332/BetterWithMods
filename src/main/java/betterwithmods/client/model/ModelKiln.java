@@ -44,7 +44,7 @@ public class ModelKiln implements IModel {
     public static class Loader implements ICustomModelLoader {
         @Override
         public boolean accepts(ResourceLocation modelLocation) {
-            return modelLocation.getResourceDomain().equals(BWMod.MODID) && modelLocation.getResourcePath().contains("kiln");
+            return modelLocation.getNamespace().equals(BWMod.MODID) && modelLocation.getPath().contains("kiln");
         }
 
         @Override

@@ -24,7 +24,7 @@ public final class TextureImageProvider implements ImageProvider {
         try {
             ResourceLocation loc = new ResourceLocation(data);
 
-            return new TextureImageRenderer(new ResourceLocation(loc.getResourceDomain(), images + loc.getResourcePath()));
+            return new TextureImageRenderer(new ResourceLocation(loc.getNamespace(), images + loc.getPath()));
         } catch (final Throwable t) {
             return new MissingItemRenderer(WARNING_IMAGE_MISSING);
         }

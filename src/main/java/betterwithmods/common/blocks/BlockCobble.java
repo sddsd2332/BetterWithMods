@@ -24,7 +24,7 @@ public class BlockCobble extends Block implements IMultiVariants {
         this.setHardness(2.0F);
         this.setResistance(5.0F);
         this.setCreativeTab(BWCreativeTabs.BWTAB);
-        this.setUnlocalizedName("bwm:cobble");
+        this.setTranslationKey("bwm:cobble");
     }
 
     @Override

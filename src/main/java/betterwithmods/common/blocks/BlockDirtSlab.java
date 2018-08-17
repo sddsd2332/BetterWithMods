@@ -167,7 +167,7 @@ public class BlockDirtSlab extends BlockSimpleSlab implements IMultiVariants {
 
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 

@@ -10,7 +10,6 @@ import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
-import net.minecraft.pathfinding.Path;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -28,7 +27,7 @@ public class ImprovedFlee extends Feature {
     private static boolean blockPlace, blockBreak, groupFlee;
 
     public static boolean canSeeBlock(BlockPos pos, EntityLiving entity) {
-        RayTraceResult result = entity.world.rayTraceBlocks(entity.getPositionVector(), new Vec3d(pos).addVector(0.5,0.5,0.5));
+        RayTraceResult result = entity.world.rayTraceBlocks(entity.getPositionVector(), new Vec3d(pos).add(0.5,0.5,0.5));
         return result != null && pos.equals(result.getBlockPos());
     }
 

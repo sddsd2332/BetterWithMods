@@ -273,7 +273,7 @@ public class BlockBellows extends BlockRotate implements IBlockActive, IOverpowe
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(EnumTier.TIER, EnumTier.VALUES[(meta >> 1 & 1)]).withProperty(DirUtils.HORIZONTAL, EnumFacing.getHorizontal(meta >> 2));
+        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(EnumTier.TIER, EnumTier.VALUES[(meta >> 1 & 1)]).withProperty(DirUtils.HORIZONTAL, EnumFacing.byHorizontalIndex(meta >> 2));
     }
 
     @Override

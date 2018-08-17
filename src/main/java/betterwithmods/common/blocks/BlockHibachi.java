@@ -40,7 +40,7 @@ public class BlockHibachi extends BWMBlock {
 
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-        boolean powered = world.isBlockIndirectlyGettingPowered(pos) > 0;
+        boolean powered = world.getRedstonePowerFromNeighbors(pos) > 0;
 
         if (powered) {
             if (!isLit(world, pos))
@@ -76,7 +76,7 @@ public class BlockHibachi extends BWMBlock {
     }
 
     public boolean isCurrentlyValid(World world, BlockPos pos) {
-        boolean powered = world.isBlockIndirectlyGettingPowered(pos) > 0;
+        boolean powered = world.getRedstonePowerFromNeighbors(pos) > 0;
         if (isLit(world, pos) != powered)
             return false;
         if (isLit(world, pos)) {

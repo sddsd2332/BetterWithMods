@@ -174,9 +174,9 @@ public final class BWMItems {
      * @return Registered item.
      */
     public static Item registerItem(Item item) {
-        if (Objects.equals(item.getUnlocalizedName(), "item.null")) {
+        if (Objects.equals(item.getTranslationKey(), "item.null")) {
             //betterwithmods:name => bwm:name
-            item.setUnlocalizedName("bwm" + item.getRegistryName().toString().substring(BWMod.MODID.length()));
+            item.setTranslationKey("bwm" + item.getRegistryName().toString().substring(BWMod.MODID.length()));
         }
         ITEMS.add(item);
         return item;

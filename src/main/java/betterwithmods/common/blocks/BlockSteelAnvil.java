@@ -81,7 +81,7 @@ public class BlockSteelAnvil extends BlockContainer {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(DirUtils.HORIZONTAL, EnumFacing.getHorizontal(meta));
+        return this.getDefaultState().withProperty(DirUtils.HORIZONTAL, EnumFacing.byHorizontalIndex(meta));
     }
 
     @Override

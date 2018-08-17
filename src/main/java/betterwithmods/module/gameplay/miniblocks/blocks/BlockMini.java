@@ -57,7 +57,7 @@ public abstract class BlockMini extends BlockRotate implements IRenderRotationPl
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        items.addAll(MiniBlocks.MATERIALS.get(blockMaterial).stream().sorted(this::compareBlockStates).map(state -> MiniBlocks.fromParent(this, state)).collect(Collectors.toList()));
+        items.addAll(MiniBlocks.MATERIALS.get(material).stream().sorted(this::compareBlockStates).map(state -> MiniBlocks.fromParent(this, state)).collect(Collectors.toList()));
     }
 
     private int compareBlockStates(IBlockState a, IBlockState b) {

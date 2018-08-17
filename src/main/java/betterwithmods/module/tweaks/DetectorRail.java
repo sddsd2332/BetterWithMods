@@ -42,7 +42,7 @@ public class DetectorRail extends Feature {
         registerBlock(DETECTOR_RAIL_STEEL);
         registerBlock(DETECTOR_RAIL_STONE);
 
-        Blocks.DETECTOR_RAIL.setUnlocalizedName("detector_rail_wood");
+        Blocks.DETECTOR_RAIL.setTranslationKey("detector_rail_wood");
 
         BWMRecipes.removeRecipe(Blocks.DETECTOR_RAIL.getRegistryName());
     }

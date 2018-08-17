@@ -16,7 +16,7 @@ import javax.annotation.Nullable;
 
 public class HCHopper extends Feature {
 
-    private static Block HOPPER = new BlockHopper().setRegistryName("minecraft:hopper").setUnlocalizedName("hopper");
+    private static Block HOPPER = new BlockHopper().setRegistryName("minecraft:hopper").setTranslationKey("hopper");
 
 
     public HCHopper() {

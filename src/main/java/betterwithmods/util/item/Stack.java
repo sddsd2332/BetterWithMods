@@ -80,6 +80,6 @@ public class Stack {
 
     @Override
     public String toString() {
-        return String.format("%s->%s:%s:%s", getType(), getItem().getUnlocalizedName(new ItemStack(item, 0, meta)), getMeta(), hashCode());
+        return String.format("%s->%s:%s:%s", getType(), getItem().getTranslationKey(new ItemStack(item, 0, meta)), getMeta(), hashCode());
     }
 }

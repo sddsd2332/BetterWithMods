@@ -20,7 +20,7 @@ public class BlockMyceliumCustom extends BlockMycelium {
         this.setHardness(0.6F);
         this.setSoundType(SoundType.PLANT);
         this.setRegistryName("minecraft:mycelium");
-        this.setUnlocalizedName("mycelium");
+        this.setTranslationKey("mycelium");
     }
     /**
      * Spread mycelium or turn mycelium back to dirt.

@@ -28,7 +28,7 @@ public class VectorBuilder {
     public VectorBuilder offset(double x, double y, double z) {
         return addOperation(vec -> {
             Preconditions.checkNotNull(vec, "vec");
-            return vec.addVector(x, y, z);
+            return vec.add(x, y, z);
         });
 
     }
@@ -40,7 +40,7 @@ public class VectorBuilder {
     public VectorBuilder rand(double multiplierX, double multiplierY, double multiplierZ) {
         return addOperation(vec -> {
             Preconditions.checkNotNull(vec, "vec");
-            return vec.addVector(random.nextDouble() * multiplierX, random.nextDouble() * multiplierY, random.nextDouble() * multiplierZ);
+            return vec.add(random.nextDouble() * multiplierX, random.nextDouble() * multiplierY, random.nextDouble() * multiplierZ);
         });
     }
 
@@ -48,7 +48,7 @@ public class VectorBuilder {
     public VectorBuilder setGaussian(double multiplierX, double multiplierY, double multiplierZ) {
         return addOperation(vec -> {
             Preconditions.checkNotNull(vec, "vec");
-            return vec.addVector(random.nextGaussian() * multiplierX, random.nextGaussian() * multiplierY, random.nextGaussian() * multiplierZ);
+            return vec.add(random.nextGaussian() * multiplierX, random.nextGaussian() * multiplierY, random.nextGaussian() * multiplierZ);
         });
     }
 

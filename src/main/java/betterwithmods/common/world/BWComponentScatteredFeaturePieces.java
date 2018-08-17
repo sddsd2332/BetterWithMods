@@ -103,8 +103,8 @@ public class BWComponentScatteredFeaturePieces {
 
                 //Remove chest loot
                 for (EnumFacing enumfacing : EnumFacing.Plane.HORIZONTAL) {
-                    int k1 = enumfacing.getFrontOffsetX() * 2;
-                    int l1 = enumfacing.getFrontOffsetZ() * 2;
+                    int k1 = enumfacing.getXOffset() * 2;
+                    int l1 = enumfacing.getZOffset() * 2;
                     TileEntity tileentity = worldIn.getTileEntity(new BlockPos(this.getXWithOffset(10 + k1, 10 + l1), this.getYWithOffset(-11), this.getZWithOffset(10 + k1, 10 + l1)));
                     if (tileentity instanceof TileEntityChest)
                         ((TileEntityChest) tileentity).setLootTable(null, randomIn.nextLong());

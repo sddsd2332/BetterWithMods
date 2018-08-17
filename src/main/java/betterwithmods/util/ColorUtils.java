@@ -68,7 +68,7 @@ public class ColorUtils {
     private static EnumDyeColor getDye(String dyeOredict) {
         if (!DYE_CACHE.containsKey(dyeOredict)) {
             for (EnumDyeColor dye : DYES) {
-                String oredict = String.format("dye%s", CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, dye.getUnlocalizedName()));
+                String oredict = String.format("dye%s", CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, dye.getTranslationKey()));
                 if (oredict.matches(dyeOredict)) {
                     DYE_CACHE.put(dyeOredict, dye);
                     break;

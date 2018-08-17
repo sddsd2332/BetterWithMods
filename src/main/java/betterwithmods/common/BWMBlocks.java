@@ -184,9 +184,9 @@ public final class BWMBlocks {
 
         registerBlock(STEEL_BLOCK, new ItemBlockMeta(STEEL_BLOCK) {
             @Override
-            public String getUnlocalizedName(ItemStack stack) {
+            public String getTranslationKey(ItemStack stack) {
                 if (stack.getMetadata() == 0)
-                    return getUnlocalizedName();
+                    return getTranslationKey();
                 return "tile.cut_steel_block.name";
             }
         });
@@ -254,9 +254,9 @@ public final class BWMBlocks {
     public static Block registerBlock(Block block,
                                       @Nullable
                                               Item item) {
-        if (Objects.equals(block.getUnlocalizedName(), "tile.null")) {
+        if (Objects.equals(block.getTranslationKey(), "tile.null")) {
             //betterwithmods:name => bwm:name
-            block.setUnlocalizedName("bwm" + block.getRegistryName().toString().substring(BWMod.MODID.length()));
+            block.setTranslationKey("bwm" + block.getRegistryName().toString().substring(BWMod.MODID.length()));
         }
         Block registeredBlock = block;
         BLOCKS.add(registeredBlock);

@@ -114,7 +114,7 @@ public final class WorldUtils {
                     pos = new BlockPos(pos.getX(), 255, pos.getZ());
                 }
 
-                Chunk chunk = worldIn.getChunkFromBlockCoords(pos);
+                Chunk chunk = worldIn.getChunk(pos);
                 return getNaturalLightSubtracted(chunk, pos, amount);
             }
         } else {

@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 public class MechanicalUtil implements IMechanicalUtil {
 
     public boolean isRedstonePowered(World world, BlockPos pos) {
-        return world.isBlockIndirectlyGettingPowered(pos) > 0;
+        return world.getRedstonePowerFromNeighbors(pos) > 0;
     }
 
     public IMechanicalPower getMechanicalPower(World world, BlockPos pos, EnumFacing facing) {

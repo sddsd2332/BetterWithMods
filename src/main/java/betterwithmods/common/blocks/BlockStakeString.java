@@ -86,7 +86,7 @@ public class BlockStakeString extends BWMBlock {
         IBlockState newState = state;
 
         for (int i = 0; i < EnumFacing.VALUES.length; i++) {
-            newState = newState.withProperty(DirUtils.DIR_PROP[i], getDirection(worldIn, pos, EnumFacing.getFront(i)));
+            newState = newState.withProperty(DirUtils.DIR_PROP[i], getDirection(worldIn, pos, EnumFacing.byIndex(i)));
         }
         return newState;
     }
@@ -97,7 +97,7 @@ public class BlockStakeString extends BWMBlock {
     }
 
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 
@@ -113,7 +113,7 @@ public class BlockStakeString extends BWMBlock {
         state = state.getActualState(worldIn,pos);
         for (int i = 0; i < DirUtils.DIR_PROP.length; i++) {
             if (state.getValue(DirUtils.DIR_PROP[i])) {
-                drop(worldIn, pos.offset(EnumFacing.getFront(i)));
+                drop(worldIn, pos.offset(EnumFacing.byIndex(i)));
             }
         }
         super.breakBlock(worldIn, pos, state);

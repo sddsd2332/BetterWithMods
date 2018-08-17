@@ -53,7 +53,7 @@ public class BlockInvisibleLight extends BWMBlock {
     }
 
     @Override
-    public EnumPushReaction getMobilityFlag(IBlockState state) {
+    public EnumPushReaction getPushReaction(IBlockState state) {
         return EnumPushReaction.DESTROY;
     }
 
@@ -95,7 +95,7 @@ public class BlockInvisibleLight extends BWMBlock {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+    public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
         if (!world.isRemote) {
             if (world.getBlockState(pos).getValue(SUNLIGHT)) {
                 if (entity instanceof EntityLiving) {
@@ -160,7 +160,7 @@ public class BlockInvisibleLight extends BWMBlock {
             sun = true;
             meta -= 8;
         }
-        return this.getDefaultState().withProperty(SUNLIGHT, sun).withProperty(DirUtils.FACING, EnumFacing.getFront(meta));
+        return this.getDefaultState().withProperty(SUNLIGHT, sun).withProperty(DirUtils.FACING, EnumFacing.byIndex(meta));
     }
 
     @Override

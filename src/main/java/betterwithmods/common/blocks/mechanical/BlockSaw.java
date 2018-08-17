@@ -154,7 +154,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+    public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
         if (isActive(state) && entity instanceof EntityLivingBase) {
             EnumFacing dir = getFacing(world, pos);
 
@@ -281,7 +281,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     public IBlockState getStateFromMeta(int meta) {
         int active = meta & 1;
         int facing = meta >> 1;
-        return this.getDefaultState().withProperty(ACTIVE, active == 1).withProperty(DirUtils.FACING, EnumFacing.getFront(facing));
+        return this.getDefaultState().withProperty(ACTIVE, active == 1).withProperty(DirUtils.FACING, EnumFacing.byIndex(facing));
     }
 
     @Override

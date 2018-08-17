@@ -51,9 +51,9 @@ public class ItemBark extends Item implements IMultiLocations {
 
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
+    public String getTranslationKey(ItemStack stack) {
         if (stack.getMetadata() > barks.size())
-            return super.getUnlocalizedName();
-        return super.getUnlocalizedName() + "." + barks.get(stack.getItemDamage());
+            return super.getTranslationKey();
+        return super.getTranslationKey() + "." + barks.get(stack.getItemDamage());
     }
 }

@@ -48,8 +48,9 @@ public class BlockRawPastry extends Block implements IMultiLocations {
         }
     }
 
+
     @Override
-    public EnumPushReaction getMobilityFlag(IBlockState state) {
+    public EnumPushReaction getPushReaction(IBlockState state) {
         return EnumPushReaction.NORMAL;
     }
 

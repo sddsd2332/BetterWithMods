@@ -136,7 +136,7 @@ public class BlockGearbox extends BlockRotate implements IBlockActive, IOverpowe
     public IBlockState getActualState(IBlockState state, IBlockAccess world, BlockPos pos) {
         boolean[] dirs = new boolean[6];
         for (int i = 0; i < 6; i++) {
-            EnumFacing facing = EnumFacing.getFront(i);
+            EnumFacing facing = EnumFacing.byIndex(i);
             dirs[i] = BWMAPI.IMPLEMENTATION.isAxle(world, pos.offset(facing), facing.getOpposite()) && this.getFacing(world, pos) != facing;
         }
         return state.withProperty(DirUtils.DOWN, dirs[0]).withProperty(DirUtils.UP, dirs[1]).withProperty(DirUtils.NORTH, dirs[2]).withProperty(DirUtils.SOUTH, dirs[3]).withProperty(DirUtils.WEST, dirs[4]).withProperty(DirUtils.EAST, dirs[5]);
@@ -151,7 +151,7 @@ public class BlockGearbox extends BlockRotate implements IBlockActive, IOverpowe
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.FACING, EnumFacing.getFront(meta >> 1));
+        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.FACING, EnumFacing.byIndex(meta >> 1));
     }
 
     @Override

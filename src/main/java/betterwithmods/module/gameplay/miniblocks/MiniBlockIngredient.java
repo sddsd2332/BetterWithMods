@@ -54,7 +54,7 @@ public class MiniBlockIngredient extends BlockIngredient {
     @Override
     public boolean apply(World world, BlockPos pos, @Nullable IBlockState state) {
         if(state != null) {
-            RayTraceResult rayTraceResult = new RayTraceResult(new Vec3d(pos).addVector(0.5,0.5,0.5), EnumFacing.UP, pos);
+            RayTraceResult rayTraceResult = new RayTraceResult(new Vec3d(pos).add(0.5,0.5,0.5), EnumFacing.UP, pos);
             try {
                 ItemStack stack = state.getBlock().getPickBlock(state, rayTraceResult, world, pos, null);
                 return apply(stack);

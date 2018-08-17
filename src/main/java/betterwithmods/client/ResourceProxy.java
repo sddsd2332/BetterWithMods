@@ -7,6 +7,7 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraftforge.fml.common.Loader;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.Map;
@@ -41,9 +42,9 @@ public class ResourceProxy extends AbstractResourcePack {
         BWMod.logger.info("Override texture: {} to {}", bare, override);
     }
 
-    @Override
-    public Set<String> getResourceDomains() {
-        return RESOURCE_DOMAINS;
+
+    public ResourceProxy(File resourcePackFileIn) {
+        super(resourcePackFileIn);
     }
 
     @Override
@@ -58,6 +59,11 @@ public class ResourceProxy extends AbstractResourcePack {
         return overrides.containsKey(name);
     }
 
+
+    @Override
+    public Set<String> getResourceDomains() {
+        return RESOURCE_DOMAINS;
+    }
 
     @Override
     public String getPackName() {

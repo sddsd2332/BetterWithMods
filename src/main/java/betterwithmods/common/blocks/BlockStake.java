@@ -21,9 +21,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
-import static net.minecraft.util.EnumFacing.Axis.X;
-import static net.minecraft.util.EnumFacing.Axis.Y;
-import static net.minecraft.util.EnumFacing.Axis.Z;
+import static net.minecraft.util.EnumFacing.Axis.*;
 
 
 /**
@@ -54,7 +52,7 @@ public class BlockStake extends BWMBlock {
 
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(DirUtils.FACING, EnumFacing.getFront(meta));
+        return getDefaultState().withProperty(DirUtils.FACING, EnumFacing.byIndex(meta));
     }
 
 
@@ -139,7 +137,7 @@ public class BlockStake extends BWMBlock {
             transform = X_ROTATE;
 
         for (int i = 0; i < EnumFacing.VALUES.length; i++) {
-            EnumFacing front = EnumFacing.getFront(i);
+            EnumFacing front = EnumFacing.byIndex(i);
             if(inverted && ((axis != Y && front.getAxis() != Y) || (axis == Y && front.getAxis() != X))) //Dude idk why but it needs this.
                 front = front.getOpposite();
             newState = newState.withProperty(transform[i], getDirection(worldIn, pos, front));
@@ -153,7 +151,7 @@ public class BlockStake extends BWMBlock {
     }
 
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 

@@ -283,8 +283,8 @@ public class ItemAxleGenerator extends Item implements IMultiLocations {
     }
 
     @Override
-    public String getUnlocalizedName(ItemStack stack) {
-        return super.getUnlocalizedName() + "." + names[stack.getItemDamage()];
+    public String getTranslationKey(ItemStack stack) {
+        return super.getTranslationKey() + "." + names[stack.getItemDamage()];
     }
 
     @Override
