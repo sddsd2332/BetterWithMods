@@ -189,7 +189,7 @@ public class BlockNetherGrowth extends BWMBlock {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (entityIn instanceof EntityItem) {
             ItemStack stack = ((EntityItem) entityIn).getItem();
             if (stack.getItem() instanceof ItemFood) {
@@ -252,7 +252,7 @@ public class BlockNetherGrowth extends BWMBlock {
     @Nonnull
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 

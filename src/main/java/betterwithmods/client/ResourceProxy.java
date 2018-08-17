@@ -7,6 +7,8 @@ import com.google.common.collect.Maps;
 import net.minecraft.client.resources.AbstractResourcePack;
 import net.minecraftforge.fml.common.Loader;
 
+import java.io.File;
+import java.io.IOException;
 import javax.annotation.Nonnull;
 import java.io.InputStream;
 import java.util.Map;
@@ -45,6 +47,9 @@ public class ResourceProxy extends AbstractResourcePack {
     @Override
     public Set<String> getResourceDomains() {
         return RESOURCE_DOMAINS;
+
+    public ResourceProxy(File resourcePackFileIn) {
+        super(resourcePackFileIn);
     }
 
     @Nonnull

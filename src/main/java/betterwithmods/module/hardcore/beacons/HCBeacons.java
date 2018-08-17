@@ -157,8 +157,8 @@ public class HCBeacons extends Feature {
 
         if (enableBeaconCustomization) {
             for (BeaconEffect beaconEffect : BEACON_EFFECTS) {
-                String categoryName = String.join(".", this.configCategory, beaconEffect.getResourceLocation().getResourcePath());
-                beaconEffect.setupConfig(categoryName, configHelper);
+                String categoryName = String.join(".", this.configCategory, beaconEffect.getResourceLocation().getPath());
+                beaconEffect.setupConfig(categoryName,configHelper);
             }
         }
     }

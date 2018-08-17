@@ -17,6 +17,7 @@ public class BlockNetherClay extends BlockClay {
 
         this.setHardness(0.6F);
         this.setSoundType(SoundType.GROUND);
+        this.setTranslationKey("bwm:nether_clay");
     }
 
     @Nonnull

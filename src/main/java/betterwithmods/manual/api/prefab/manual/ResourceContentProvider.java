@@ -27,7 +27,7 @@ public class ResourceContentProvider implements ContentProvider {
     private final String basePath;
 
     public ResourceContentProvider(ResourceLocation location) {
-        this(location.getResourceDomain(), location.getResourcePath());
+        this(location.getNamespace(), location.getPath());
     }
 
     public ResourceContentProvider(final String resourceDomain, final String basePath) {

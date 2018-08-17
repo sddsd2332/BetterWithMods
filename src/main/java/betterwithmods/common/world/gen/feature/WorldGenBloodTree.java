@@ -82,7 +82,7 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
                                 this.setBlockAndNotifyAdequately(world, up, log.withProperty(BlockBloodLog.EXPANDABLE, world.provider.isNether()));
                                 int face = rand.nextInt(6);
                                 if (face > 1) {
-                                    EnumFacing facing = EnumFacing.getFront(face);
+                                    EnumFacing facing = EnumFacing.byIndex(face);
                                     for (int i = 0; i < 1 + rand.nextInt(2); i++) {
                                         generateBranch(world, up.offset(facing, i), facing);
                                     }

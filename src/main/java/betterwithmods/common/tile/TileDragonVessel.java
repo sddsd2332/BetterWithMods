@@ -207,7 +207,7 @@ public class TileDragonVessel extends TileBasic implements ITickable, IMechanica
     @Override
     public void readFromNBT(NBTTagCompound tag) {
         super.readFromNBT(tag);
-        this.facing = tag.hasKey("facing") ? EnumFacing.getFront(tag.getInteger("facing")) : EnumFacing.UP;
+        this.facing = tag.hasKey("facing") ? EnumFacing.byIndex(tag.getInteger("facing")) : EnumFacing.UP;
         this.experience = tag.hasKey("Experience") ? tag.getInteger("Experience") : 0;
     }
 

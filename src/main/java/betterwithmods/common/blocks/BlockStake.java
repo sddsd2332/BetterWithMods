@@ -65,7 +65,7 @@ public class BlockStake extends BWMBlock {
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return getDefaultState().withProperty(DirUtils.FACING, EnumFacing.getFront(meta));
+        return getDefaultState().withProperty(DirUtils.FACING, EnumFacing.byIndex(meta));
     }
 
     public boolean isFullCube(IBlockState state) {
@@ -146,8 +146,8 @@ public class BlockStake extends BWMBlock {
             transform = X_ROTATE;
 
         for (int i = 0; i < EnumFacing.VALUES.length; i++) {
-            EnumFacing front = EnumFacing.getFront(i);
-            if (inverted && ((axis != Y && front.getAxis() != Y) || (axis == Y && front.getAxis() != X))) //Dude idk why but it needs this.
+            EnumFacing front = EnumFacing.byIndex(i);
+            if(inverted && ((axis != Y && front.getAxis() != Y) || (axis == Y && front.getAxis() != X))) //Dude idk why but it needs this.
                 front = front.getOpposite();
             newState = newState.withProperty(transform[i], getDirection(worldIn, pos, front));
         }
@@ -156,7 +156,7 @@ public class BlockStake extends BWMBlock {
 
     @Nonnull
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 

@@ -46,7 +46,7 @@ public class BlockSteel extends BWMBlock {
     //Cannot be pushed by a piston
     @Nonnull
     @Override
-    public EnumPushReaction getMobilityFlag(IBlockState state) {
+    public EnumPushReaction getPushReaction(IBlockState state) {
         return EnumPushReaction.IGNORE;
     }
 }

@@ -349,7 +349,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     @Override
     public void onLoad() {
         super.onLoad();
-        if (rope == null && !getWorld().isRemote && ropeTag != null && !ropeTag.hasNoTags()) {
+        if (rope == null && !getWorld().isRemote && ropeTag != null && !ropeTag.isEmpty()) {
             NBTTagList pos = (NBTTagList) ropeTag.getTag("Pos");
             if (pos != null) {
                 rope = (EntityExtendingRope) AnvilChunkLoader.readWorldEntityPos(ropeTag, getBlockWorld(), pos.getDoubleAt(0),

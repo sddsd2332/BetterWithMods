@@ -168,7 +168,7 @@ public class BlockLens extends BWMBlock {
     @SuppressWarnings("deprecation")
     @Nonnull
     @Override
-    public EnumPushReaction getMobilityFlag(IBlockState state) {
+    public EnumPushReaction getPushReaction(IBlockState state) {
         return EnumPushReaction.BLOCK;
     }
 
@@ -267,7 +267,7 @@ public class BlockLens extends BWMBlock {
             lit = true;
             meta -= 8;
         }
-        return this.getDefaultState().withProperty(LIT, lit).withProperty(DirUtils.FACING, EnumFacing.getFront(meta));
+        return this.getDefaultState().withProperty(LIT, lit).withProperty(DirUtils.FACING, EnumFacing.byIndex(meta));
     }
 
     @Override

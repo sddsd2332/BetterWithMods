@@ -63,7 +63,7 @@ public class EnderchestCap implements ICapabilitySerializable<NBTTagCompound> {
             inventory = new InventoryEnderChest();
             inventory.loadInventoryFromNBT(list);
         }
-        facing = EnumFacing.getFront(nbt.getInteger("facing"));
+        facing = EnumFacing.byIndex(nbt.getInteger("facing"));
     }
 
     public InventoryEnderChest getInventory() {

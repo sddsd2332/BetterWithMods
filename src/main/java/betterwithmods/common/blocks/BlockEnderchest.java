@@ -21,7 +21,7 @@ import javax.annotation.Nonnull;
 public class BlockEnderchest extends BlockEnderChest {
 
     public BlockEnderchest() {
-        setUnlocalizedName("enderChest");
+        setTranslationKey("enderChest");
     }
 
     @Override

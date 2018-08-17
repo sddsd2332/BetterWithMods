@@ -510,7 +510,7 @@ public class InvUtils {
         }
         NBTTagCompound tag = ItemStackHelper.saveAllItems(new NBTTagCompound(), list);
 
-        if (!tag.hasNoTags())
+        if (!tag.isEmpty())
             stack.setTagCompound(tag);
     }
 

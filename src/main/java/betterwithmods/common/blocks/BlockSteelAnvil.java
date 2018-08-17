@@ -88,7 +88,7 @@ public class BlockSteelAnvil extends BWMBlock {
     @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(DirUtils.HORIZONTAL, EnumFacing.getHorizontal(meta));
+        return this.getDefaultState().withProperty(DirUtils.HORIZONTAL, EnumFacing.byHorizontalIndex(meta));
     }
 
     @Nonnull

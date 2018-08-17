@@ -15,7 +15,7 @@ public class HCDeadweight extends Feature {
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         BWMRecipes.removeRecipe(new ItemStack(Blocks.ANVIL));
-        Blocks.ANVIL.setUnlocalizedName("betterwithmods:deadweight");
+        Blocks.ANVIL.setTranslationKey("bwm:deadweight");
     }
 
     @SubscribeEvent

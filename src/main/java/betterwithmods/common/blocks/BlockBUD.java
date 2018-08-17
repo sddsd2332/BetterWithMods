@@ -61,7 +61,7 @@ public class BlockBUD extends BWMBlock {
     public IBlockState getStateFromMeta(int meta) {
         int facing = (meta >> 1);
         boolean redstone = (meta & 1) == 1;
-        return getDefaultState().withProperty(REDSTONE, redstone).withProperty(DirUtils.FACING, EnumFacing.getFront(facing));
+        return getDefaultState().withProperty(REDSTONE, redstone).withProperty(DirUtils.FACING, EnumFacing.byIndex(facing));
     }
 
     @Override

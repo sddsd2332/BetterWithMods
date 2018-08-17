@@ -45,8 +45,8 @@ public final class RayTraceUtils {
         double reachDistance = attributeInstance != null ? attributeInstance.getAttributeValue() : 5.0D;
         Vec3d lookVec = player.getLookVec();
 
-        return getStart(player).addVector(lookVec.x * reachDistance, lookVec.y * reachDistance, lookVec.z * reachDistance);
-    }
+		return getStart(player).add(lookVec.x * reachDistance, lookVec.y * reachDistance, lookVec.z * reachDistance);
+	}
 
     public static Result getCollision(World world, BlockPos pos, EntityLivingBase player, List<AxisAlignedBB> list) {
         Vec3d origin = getStart(player);
@@ -84,9 +84,9 @@ public final class RayTraceUtils {
         return new Result(hit, hit != null ? list.get(hit.subHit) : null);
     }
 
-    public static RayTraceResult getCollision(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB aabb, int subHit) {
-        start = start.addVector((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
-        end = end.addVector((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
+	public static RayTraceResult getCollision(BlockPos pos, Vec3d start, Vec3d end, AxisAlignedBB aabb, int subHit) {
+		start = start.add((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
+		end = end.add((double) (-pos.getX()), (double) (-pos.getY()), (double) (-pos.getZ()));
 
         Vec3d vecWest = start.getIntermediateWithXValue(end, aabb.minX);
         Vec3d vecEast = start.getIntermediateWithXValue(end, aabb.maxX);
@@ -174,7 +174,7 @@ public final class RayTraceUtils {
                 sideHit = EnumFacing.SOUTH;
             }
 
-            RayTraceResult mop = new RayTraceResult(vecHit.addVector((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), sideHit, pos);
+            RayTraceResult mop = new RayTraceResult(vecHit.add((double) pos.getX(), (double) pos.getY(), (double) pos.getZ()), sideHit, pos);
             mop.subHit = subHit;
             return mop;
         }

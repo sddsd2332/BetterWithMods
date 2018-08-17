@@ -90,9 +90,9 @@ public class Dung extends Feature {
                         if (poopDir != null) {
                             BlockPos poopSpot = animal.getPosition().offset(poopDir);
                             EntityItem item = new EntityItem(animal.world, poopSpot.getX() + 0.5, poopSpot.getY() + 0.5, poopSpot.getZ() + 0.5, ItemMaterial.getStack(ItemMaterial.EnumMaterial.DUNG));
-                            item.motionX = poopDir.getFrontOffsetX() == 0 ? rand.nextDouble() * 0.25 - 0.125 : 0.7;
+                            item.motionX = poopDir.getXOffset() == 0 ? rand.nextDouble() * 0.25 - 0.125 : 0.7;
                             item.motionY = 0;
-                            item.motionZ = poopDir.getFrontOffsetZ() == 0 ? rand.nextDouble() * 0.25 - 0.125 : 0.7;
+                            item.motionZ = poopDir.getZOffset() == 0 ? rand.nextDouble() * 0.25 - 0.125 : 0.7;
                             item.setDefaultPickupDelay();
                             animal.world.spawnEntity(item);
                         }
@@ -106,7 +106,7 @@ public class Dung extends Feature {
     private EnumFacing findSpaceForPoop(World world, BlockPos pos, Random random) {
         int dir = random.nextInt(4);
         for (int i = 0; i < 4; i++) {
-            EnumFacing checkFacing = EnumFacing.getHorizontal((dir + i) % 4);
+            EnumFacing checkFacing = EnumFacing.byHorizontalIndex((dir + i) % 4);
             BlockPos checkPos = pos.offset(checkFacing);
             if (world.isAirBlock(checkPos) || world.getBlockState(checkPos).getBlock().isReplaceable(world, checkPos))
                 return checkFacing;

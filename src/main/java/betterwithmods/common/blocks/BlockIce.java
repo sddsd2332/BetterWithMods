@@ -24,7 +24,7 @@ public class BlockIce extends net.minecraft.block.BlockIce {
         setHardness(0.5F);
         setLightOpacity(3);
         setSoundType(SoundType.GLASS);
-        setUnlocalizedName("ice");
+        setTranslationKey("ice");
         ToolsManager.setPickaxesAsEffectiveAgainst(this);
     }
 

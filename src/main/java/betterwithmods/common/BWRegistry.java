@@ -278,7 +278,7 @@ public class BWRegistry {
 
     private static Potion registerPotion(Potion potion) {
         if (potion.getRegistryName() != null) {
-            String potionName = potion.getRegistryName().getResourcePath();
+            String potionName = potion.getRegistryName().getPath();
             potion.setPotionName("betterwithmods.effect." + potionName);
         }
         return potion;

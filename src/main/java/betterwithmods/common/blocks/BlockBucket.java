@@ -96,7 +96,7 @@ public class BlockBucket extends BWMBlock implements IRopeConnector {
     @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 

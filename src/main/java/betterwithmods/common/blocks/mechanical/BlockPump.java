@@ -85,7 +85,7 @@ public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
             meta -= 8;
         }
         return this.getDefaultState().withProperty(ACTIVE, isActive).withProperty(DirUtils.HORIZONTAL,
-                EnumFacing.getHorizontal(meta));
+                EnumFacing.byHorizontalIndex(meta));
     }
 
     @Override

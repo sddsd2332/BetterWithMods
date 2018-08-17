@@ -222,7 +222,7 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.HORIZONTAL, EnumFacing.getHorizontal(meta >> 1));
+        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(EnumTier.TIER, EnumTier.VALUES[(meta >> 1 & 1)]).withProperty(DirUtils.HORIZONTAL, EnumFacing.byHorizontalIndex(meta >> 2));
     }
 
     @Nonnull
