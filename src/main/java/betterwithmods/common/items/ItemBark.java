@@ -66,7 +66,7 @@ public class ItemBark extends Item {
         NBTTagCompound tag = stack.getSubCompound("texture");
         ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_bark.name");
         //TODO .name is not longer in 1.13
-        ITextComponent bark = new TextComponentTranslation(this.getUnlocalizedName(stack) + ".name");
+        ITextComponent bark = new TextComponentTranslation(this.getTranslationKey(stack) + ".name");
         if (tag != null) {
             try {
                 IBlockState state = NBTUtil.readBlockState(tag);

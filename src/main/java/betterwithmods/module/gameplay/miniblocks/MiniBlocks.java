@@ -351,8 +351,8 @@ public class MiniBlocks extends Feature {
 
     private ResourceLocation getRecipeRegistry(ItemStack output, ItemStack parent) {
         if (parent.getMetadata() > 0)
-            return new ResourceLocation(BWMod.MODID, output.getItem().getRegistryName().getResourcePath() + "_" + parent.getItem().getRegistryName().getResourcePath() + "_" + parent.getMetadata());
-        return new ResourceLocation(BWMod.MODID, output.getItem().getRegistryName().getResourcePath() + "_" + parent.getItem().getRegistryName().getResourcePath());
+            return new ResourceLocation(BWMod.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath() + "_" + parent.getMetadata());
+        return new ResourceLocation(BWMod.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath());
     }
 
     @Override

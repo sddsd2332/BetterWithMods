@@ -10,7 +10,7 @@ public class ModelGrate extends ModelWithResource {
     public ModelGrate(ItemStack grate) {
         ResourceLocation item = grate.getItem().getRegistryName();
         if (item != null) {
-            this.location = new ResourceLocation(item.getResourceDomain(), "textures/blocks/" + item.getResourcePath() + ".png");
+            this.location = new ResourceLocation(item.getNamespace(), "textures/blocks/" + item.getPath() + ".png");
         }
         model = new ModelRenderer(this, 0, 0);
         model.setTextureSize(16, 16);

@@ -142,7 +142,7 @@ public final class BWMItems {
     public static Item registerItem(Item item, String unlocalizedName) {
         if (item.getTranslationKey().equals("item.null")) {
             //TODO remove this in 1.13, it is done automatically
-            item.setTranlsationKey(unlocalizedName);
+            item.setTranslationKey(unlocalizedName);
         }
 
         if (item instanceof ItemFood || item instanceof ItemBlockEdible) {

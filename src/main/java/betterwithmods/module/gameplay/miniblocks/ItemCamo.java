@@ -98,7 +98,7 @@ public class ItemCamo extends ItemBlock {
 
         //TODO .name
         ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_mini.name");
-        ITextComponent base = new TextComponentTranslation(this.getUnlocalizedName(stack) + ".name");
+        ITextComponent base = new TextComponentTranslation(this.getTranslationKey(stack) + ".name");
 
         if (tag != null) {
             IBlockState state = NBTUtil.readBlockState(tag);

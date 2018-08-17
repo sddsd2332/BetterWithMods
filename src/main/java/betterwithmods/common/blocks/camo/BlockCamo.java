@@ -76,7 +76,7 @@ public abstract class BlockCamo extends BWMBlock {
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for (IBlockState state : subtypes.apply(blockMaterial)) {
+        for (IBlockState state : subtypes.apply(material)) {
             items.add(MiniBlocks.fromParent(this, state));
         }
     }

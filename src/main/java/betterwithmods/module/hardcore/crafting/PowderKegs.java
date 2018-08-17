@@ -25,8 +25,8 @@ public class PowderKegs extends Feature {
     @Override
     public void preInit(FMLPreInitializationEvent event) {
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:tnt"));
-        Blocks.TNT.setUnlocalizedName("betterwithmods:powder_keg");
-        Items.TNT_MINECART.setUnlocalizedName("betterwithmods:powder_keg_minecart");
+        Blocks.TNT.setTranslationKey("betterwithmods:powder_keg");
+        Items.TNT_MINECART.setTranslationKey("betterwithmods:powder_keg_minecart");
     }
 
     @Override
