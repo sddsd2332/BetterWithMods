@@ -1,37 +1,36 @@
 package betterwithmods.util;
 
+import com.google.common.base.Preconditions;
+import com.google.common.collect.Lists;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 
+import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
 public class VectorBuilder {
 
     private final Random random = new Random();
 
-    private double x, y, z;
+    private Vec3d vec;
 
-    public VectorBuilder set(Vec3i pos) {
-        return set(pos.getX(), pos.getY(), pos.getZ());
-    }
+    private List<Function<Vec3d, Vec3d>> operations = Lists.newArrayList();
 
-    public VectorBuilder set(double x, double y, double z) {
-        this.x = x;
-        this.y = y;
-        this.z = z;
+    public VectorBuilder addOperation(Function<Vec3d, Vec3d> operation) {
+        this.operations.add(operation);
         return this;
     }
-
 
     public VectorBuilder offset(double offset) {
         return this.offset(offset, offset, offset);
     }
 
     public VectorBuilder offset(double x, double y, double z) {
-        this.x += x;
-        this.y += y;
-        this.z += z;
-        return this;
+        return addOperation(vec -> {
+            Preconditions.checkNotNull(vec, "vec");
+            return vec.addVector(x, y, z);
+        });
+
     }
 
     public VectorBuilder rand(double multiplier) {
@@ -39,35 +38,28 @@ public class VectorBuilder {
     }
 
     public VectorBuilder rand(double multiplierX, double multiplierY, double multiplierZ) {
-        this.x += random.nextDouble() * multiplierX;
-        this.y += random.nextDouble() * multiplierY;
-        this.z += random.nextDouble() * multiplierZ;
-        return this;
+        return addOperation(vec -> {
+            Preconditions.checkNotNull(vec, "vec");
+            return vec.addVector(random.nextDouble() * multiplierX, random.nextDouble() * multiplierY, random.nextDouble() * multiplierZ);
+        });
     }
 
 
     public VectorBuilder setGaussian(double multiplierX, double multiplierY, double multiplierZ) {
-        this.x = random.nextGaussian() * multiplierX;
-        this.y = random.nextGaussian() * multiplierY;
-        this.z = random.nextGaussian() * multiplierZ;
-        return this;
+        return addOperation(vec -> {
+            Preconditions.checkNotNull(vec, "vec");
+            return vec.addVector(random.nextGaussian() * multiplierX, random.nextGaussian() * multiplierY, random.nextGaussian() * multiplierZ);
+        });
     }
 
     public VectorBuilder setGaussian(double multiplier) {
         return setGaussian(multiplier, multiplier, multiplier);
     }
 
-    public VectorBuilder reset() {
-        x = 0;
-        y = 0;
-        z = 0;
-        return this;
-    }
-
-    public Vec3d build() {
-        Vec3d vec = new Vec3d(x, y, z);
-        reset();
-        return vec;
+    public Vec3d build(Vec3d initial) {
+        this.vec = initial;
+        operations.forEach(c -> this.vec = c.apply(this.vec));
+        return this.vec;
     }
 
 

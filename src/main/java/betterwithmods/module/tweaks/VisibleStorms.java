@@ -206,4 +206,10 @@ public class VisibleStorms extends Feature {
 
         return BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY);
     }
+
+
+    @Override
+    public String getFeatureDescription() {
+        return "Add Sandstorms visual effects when it is raining in desert biomes. This helps the player know why a windmill will still break when there is no actual rain.";
+    }
 }

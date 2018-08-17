@@ -17,4 +17,9 @@ public class SaddleRecipe extends Feature {
     public void init(FMLInitializationEvent event) {
         BWRegistry.CAULDRON.addStokedRecipe(Ingredient.fromStacks(new ItemStack(Items.SADDLE)), ItemMaterial.getStack(ItemMaterial.EnumMaterial.GLUE, 2));
     }
+
+    @Override
+    public String getFeatureDescription() {
+        return "Add recipe for creating saddles from tanned leather and a stoked cauldron recipe to turn it into glue";
+    }
 }

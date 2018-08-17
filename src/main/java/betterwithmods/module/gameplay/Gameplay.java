@@ -78,12 +78,23 @@ public class Gameplay extends Module {
                 "swamp_water"
         });
 
+        blacklistDamageSources = Lists.newArrayList(ConfigHelper.loadPropStringList("Blasting oil damage source blacklist", name, "Disallow these damage sources from disturbing blasting oil", new String[]{
+                "drown",
+                "cramming",
+                "generic",
+                "wither",
+                "starve",
+                "outOfWorld"
+        }));
+
         super.setupConfig();
     }
 
     @Override
     public void init(FMLInitializationEvent event) {
         super.init(event);
+
+
         if (dropHempSeeds) {
             MinecraftForge.addGrassSeed(new ItemStack(BWMBlocks.HEMP, 1), 5);
         }

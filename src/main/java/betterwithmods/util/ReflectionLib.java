@@ -27,6 +27,9 @@ public class ReflectionLib {
 
     public static final String[] ITEMTOOL_TOOLMATERIAL = new String[]{"field_77862_b", "toolMaterial"};
     public static final String[] ITEMTOOL_EFFICIENCY = new String[]{"field_77864_a", "efficiency"};
+    public static final String[] ITEMTOOL_TOOLCLASS = new String[]{"toolClass"};
+    public static final String[] ITEMHOE_TOOLMATERIAL = new String[]{"field_77843_a", "toolMaterial"};
+    public static final String[] ITEMSWORD_TOOLMATERIAL = new String[]{"field_150933_b", "material"};
 
     public static final String[] POTIONHELPER_TYPE_CONVERSIONS = new String[]{"field_185213_a", "POTION_TYPE_CONVERSIONS"};
     public static final String[] POTIONHELPER_ITEM_CONVERSIONS = new String[]{"field_185214_b", "POTION_ITEM_CONVERSIONS"};

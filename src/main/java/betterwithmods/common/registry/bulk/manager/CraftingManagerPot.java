@@ -105,7 +105,7 @@ public class CraftingManagerPot extends CraftingManagerBulk<CookingPotRecipe> {
 
             if (canCraft(r, tile)) {
                 if (pot.cookProgress >= pot.getMax()) {
-                    InvUtils.insert(tile.getInventory(), craftItem(r, world, tile), false);
+                    InvUtils.insert(world, pot.getBlockPos().up(), tile.getInventory(), craftItem(r, world, tile), false);
                     pot.cookProgress = 0;
                     return true;
                 }
