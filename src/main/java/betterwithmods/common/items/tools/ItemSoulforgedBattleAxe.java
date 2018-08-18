@@ -1,7 +1,7 @@
 package betterwithmods.common.items.tools;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -23,7 +23,7 @@ public class ItemSoulforgedBattleAxe extends ItemAxe {
 
     @Override
     public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
-        return BWOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
+        return BWMOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
     }
 
     @Override

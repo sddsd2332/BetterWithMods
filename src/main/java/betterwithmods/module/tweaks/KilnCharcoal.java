@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.module.Feature;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
@@ -42,7 +42,7 @@ public class KilnCharcoal extends Feature {
                     continue;
                 if (disableFurnaceCharcoal)
                     BWMRecipes.removeFurnaceRecipe(stack);
-                BWRegistry.KILN.addStokedRecipe(stack, charcoalOutput);
+                BWMRegistry.KILN.addStokedRecipe(stack, charcoalOutput);
             }
         }
     }

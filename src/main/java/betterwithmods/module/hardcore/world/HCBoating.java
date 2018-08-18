@@ -53,7 +53,7 @@ public class HCBoating extends Feature {
     }
 
     @SubscribeEvent
-    public void onTick(TickEvent.PlayerTickEvent event) {
+    public static void onTick(TickEvent.PlayerTickEvent event) {
         if (!event.player.world.isRemote)
             return;
         EntityPlayer player = event.player;
@@ -80,7 +80,7 @@ public class HCBoating extends Feature {
         }
     }
 
-    private int quarkCompatSpeed(EntityBoat boat) {
+    private static int quarkCompatSpeed(EntityBoat boat) {
         NBTTagCompound tag = boat.getEntityData();
         if (tag.hasKey(TAG_BANNER)) {
             NBTTagCompound cmp = boat.getEntityData().getCompoundTag(TAG_BANNER);

@@ -23,13 +23,13 @@ public class MysteryMeat extends Feature {
     }
 
     @SubscribeEvent
-    public void dropMysteryMeat(LivingDropsEvent event) {
+    public static void dropMysteryMeat(LivingDropsEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer || event.getEntityLiving() instanceof EntityVillager || event.getEntityLiving() instanceof AbstractIllager) {
             addDrop(event, new ItemStack(BWMItems.MYSTERY_MEAT, 1 + event.getEntityLiving().world.rand.nextInt(2) + event.getLootingLevel()));
         }
     }
 
-    public void addDrop(LivingDropsEvent evt, ItemStack drop) {
+    public static void addDrop(LivingDropsEvent evt, ItemStack drop) {
         EntityItem item = new EntityItem(evt.getEntityLiving().getEntityWorld(), evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, drop);
         item.setDefaultPickupDelay();
         evt.getDrops().add(item);

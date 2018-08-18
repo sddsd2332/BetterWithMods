@@ -23,7 +23,7 @@ public class BatWings extends Feature {
     }
 
     @SubscribeEvent
-    public void onDeath(LivingDropsEvent event) {
+    public static void onDeath(LivingDropsEvent event) {
         World world = event.getEntityLiving().getEntityWorld();
         if (event.getEntityLiving() instanceof EntityBat) {
             int count = event.getLootingLevel() > 0 ? Math.min(2, event.getLootingLevel()) : world.rand.nextInt(2);

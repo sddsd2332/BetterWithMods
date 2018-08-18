@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.api.util.IBlockVariants;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
@@ -48,18 +48,10 @@ public class HCLumber extends Feature {
         axeSawDustAmount = loadProperty("Axe Sawdust Amount", 2).setComment("Amount of Sawdust dropped when crafted with an axe").get();
     }
 
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-
-
-        BrokenToolRegistry.init();
-        BWOreDictionary.logRecipes.forEach(r -> BWMRecipes.removeRecipe(r.getRegistryName()));
-    }
-
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void harvestLog(BlockEvent.HarvestDropsEvent event) {
+    public static void harvestLog(BlockEvent.HarvestDropsEvent event) {
         if (!event.getWorld().isRemote) {
-            IBlockVariants wood = BWOreDictionary.getVariantFromState(LOG, event.getState());
+            IBlockVariants wood = BWMOreDictionary.getVariantFromState(LOG, event.getState());
             if (wood != null) {
                 if (event.isSilkTouching() || hasAxe(event.getHarvester(), event.getPos(), event.getState()))
                     return;
@@ -68,6 +60,14 @@ public class HCLumber extends Feature {
                 event.getDrops().addAll(Lists.newArrayList(wood.getVariant(BLOCK, plankAmount), wood.getVariant(SAWDUST, sawDustAmount), wood.getVariant(BARK, barkAmount)));
             }
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+
+
+        BrokenToolRegistry.init();
+        BWMOreDictionary.logRecipes.forEach(r -> BWMRecipes.removeRecipe(r.getRegistryName()));
     }
 
 }

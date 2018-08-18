@@ -29,10 +29,7 @@ public class MobSpawning extends Feature {
     public static final EntitySpawnWhitelist NETHER = new EntitySpawnWhitelist();
     public static final EntitySpawnWhitelist SLIME = new EntitySpawnWhitelist();
 
-    private boolean slime;
-    private boolean nether;
-    private boolean witches;
-    private boolean jungleSpiders;
+    private static boolean slime, nether, witches, jungleSpiders;
 
     @Override
     public void onInit(FMLInitializationEvent event) {
@@ -71,7 +68,7 @@ public class MobSpawning extends Feature {
 
 
     @SubscribeEvent
-    public void denySlimeSpawns(LivingSpawnEvent.CheckSpawn event) {
+    public static void denySlimeSpawns(LivingSpawnEvent.CheckSpawn event) {
         if (event.getResult() == Event.Result.ALLOW)
             return;
         if (!slime)
@@ -87,7 +84,7 @@ public class MobSpawning extends Feature {
     }
 
     @SubscribeEvent
-    public void denyNetherSpawns(LivingSpawnEvent.CheckSpawn event) {
+    public static void denyNetherSpawns(LivingSpawnEvent.CheckSpawn event) {
         if (event.getResult() == Event.Result.ALLOW)
             return;
         if (!nether)

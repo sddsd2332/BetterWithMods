@@ -134,7 +134,7 @@ public class HCTools extends Feature {
     }
 
     @SubscribeEvent
-    public void onHitEntity(LivingAttackEvent event) {
+    public static void onHitEntity(LivingAttackEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             ItemStack stack = player.getHeldItemMainhand();
@@ -143,18 +143,18 @@ public class HCTools extends Feature {
     }
 
     @SubscribeEvent
-    public void onUseHoe(UseHoeEvent event) {
+    public static void onUseHoe(UseHoeEvent event) {
         breakTool(event.getCurrent(), event.getEntityPlayer());
     }
 
     @SubscribeEvent
-    public void onBreaking(BlockEvent.BreakEvent event) {
+    public static void onBreaking(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
         ItemStack stack = player.getHeldItemMainhand();
         breakTool(stack, player);
     }
 
-    private void breakTool(ItemStack stack, EntityPlayer player) {
+    private static void breakTool(ItemStack stack, EntityPlayer player) {
         if (stack.isEmpty()) return;
         if (stack.getMaxDamage() == 1) {
             destroyItem(stack, player);
@@ -162,7 +162,7 @@ public class HCTools extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void harvestGarbage(BlockEvent.BreakEvent event) {
+    public static void harvestGarbage(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
         if (event.isCanceled() || player == null || player.isCreative())
             return;
@@ -175,7 +175,7 @@ public class HCTools extends Feature {
             stack.damageItem(1, player); //Make 0 hardness blocks damage tools that are not over some harvest level
     }
 
-    private void destroyItem(ItemStack stack, EntityLivingBase entity) {
+    private static void destroyItem(ItemStack stack, EntityLivingBase entity) {
         int damage = stack.getMaxDamage();
         stack.damageItem(damage, entity);
     }

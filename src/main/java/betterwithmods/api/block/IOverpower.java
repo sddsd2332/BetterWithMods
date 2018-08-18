@@ -1,7 +1,9 @@
 package betterwithmods.api.block;
 
-import betterwithmods.common.BWSounds;
+import betterwithmods.common.BWMSounds;
+import betterwithmods.module.general.MechanicalPower;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -14,7 +16,7 @@ public interface IOverpower {
 
     default void overpowerSound(World world, BlockPos pos) {
         for (int i = 0; i < 10; i++) {
-            world.playSound(null, pos, BWSounds.MECHANICAL_OVERPOWER, SoundCategory.BLOCKS, 0.5f, world.rand.nextFloat() * 0.1F + 0.45F);
+            world.playSound(null, pos, BWMSounds.MECHANICAL_OVERPOWER, SoundCategory.BLOCKS, 0.5f, world.rand.nextFloat() * 0.1F + 0.45F);
         }
         for (int i = 0; i < 5; i++) {
             float flX = pos.getX() + world.rand.nextFloat();
@@ -23,5 +25,11 @@ public interface IOverpower {
 
             world.spawnParticle(EnumParticleTypes.SMOKE_LARGE, flX, flY, flZ, 0.0D, 0.0D, 0.0D);
         }
+    }
+
+    ResourceLocation getRegistryName();
+
+    default boolean doesOverpower() {
+        return MechanicalPower.doesMachineOverpower(getRegistryName());
     }
 }

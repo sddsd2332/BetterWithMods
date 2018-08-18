@@ -1,7 +1,7 @@
 package betterwithmods.common.items.tools;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.util.item.ToolsManager;
 import betterwithmods.util.player.PlayerHelper;
@@ -33,7 +33,7 @@ public class ItemSoulforgedMattock extends ItemTool {
 
     @Override
     public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
-        return BWOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
+        return BWMOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
     }
 
     @Override

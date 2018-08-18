@@ -74,7 +74,7 @@ public class HCPiles extends Feature {
 
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
         IBlockState state = event.getState();
         if (event.isSilkTouching() || event.getResult().equals(Event.Result.DENY) || !blockStateToPile.containsKey(state))
             return;
@@ -96,7 +96,7 @@ public class HCPiles extends Feature {
         }
     }
 
-    private boolean isBlockDrop(ItemStack stack) {
+    private static boolean isBlockDrop(ItemStack stack) {
         return !stack.isEmpty() && stack.getItem() instanceof ItemBlock;
     }
 

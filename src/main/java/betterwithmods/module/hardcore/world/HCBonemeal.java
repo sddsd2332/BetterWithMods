@@ -49,7 +49,7 @@ public class HCBonemeal extends Feature {
     }
 
     @SubscribeEvent
-    public void onBonemeal(BonemealEvent e) {
+    public static void onBonemeal(BonemealEvent e) {
         if (!PlayerHelper.isSurvival(e.getEntityPlayer()))
             return;
         if (!(e.getBlock().getBlock() instanceof BlockGrass) && !(e.getBlock().getBlock() instanceof BlockPlanter) && e.getBlock().getBlock() instanceof IGrowable) {
@@ -60,7 +60,7 @@ public class HCBonemeal extends Feature {
     }
 
     @SubscribeEvent
-    public void onItemUse(PlayerInteractEvent.RightClickBlock e) {
+    public static void onItemUse(PlayerInteractEvent.RightClickBlock e) {
         ItemStack stack = e.getItemStack();
 
         if (!FERTILIZERS.apply(stack))

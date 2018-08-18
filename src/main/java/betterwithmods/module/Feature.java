@@ -12,6 +12,7 @@ package betterwithmods.module;
 
 import betterwithmods.api.modules.IStateHandler;
 import betterwithmods.api.modules.config.ConfigProperty;
+import net.minecraftforge.fml.common.Loader;
 
 public abstract class Feature implements IStateHandler {
 
@@ -27,8 +28,7 @@ public abstract class Feature implements IStateHandler {
 
     public void setup() {
         this.name = getClass().getSimpleName().toLowerCase();
-        this.category = String.join(".", parent.getName(), getName());
-        this.config().setCategoryComment(this.category, getDescription());
+        this.category = ConfigHelper.joinCategory(parent.getName(), getName());
         this.enabled = canEnable();
     }
 
@@ -66,8 +66,22 @@ public abstract class Feature implements IStateHandler {
         return true;
     }
 
+    /**
+     * @return boolean that dictates whether a feature will be enabled on load. Default implementation is based on a config entry
+     */
     protected boolean canEnable() {
-        return config().load(this.category, "Enabled", isEnabledByDefault()).get();
+        for (String modid : getIncompatibleMods()) {
+            if (Loader.isModLoaded(modid)) {
+                parent.getLogger().info("Feature: {} was not loaded due to an incompatible mod being installed - {}", getName(), modid);
+                return false;
+            }
+        }
+        return config().load(this.category, "Enabled", isEnabledByDefault()).setCategoryComment(getDescription()).get();
     }
 
+
+    @Override
+    public String getType() {
+        return "Feature";
+    }
 }

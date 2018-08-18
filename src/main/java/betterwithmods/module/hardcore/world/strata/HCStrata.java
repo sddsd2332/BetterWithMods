@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.world.strata;
 
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.Feature;
 import com.google.common.collect.Maps;
@@ -90,7 +90,7 @@ public class HCStrata extends Feature {
     }
 
     @SubscribeEvent
-    public void onJoinWorld(PlayerLoggedInEvent event) {
+    public static void onJoinWorld(PlayerLoggedInEvent event) {
         getNoise(event.player.world, 50);
         getNoise(event.player.world, 0);
     }
@@ -101,29 +101,8 @@ public class HCStrata extends Feature {
         return "Divides the underground into three strata. Each strata requires the next tool tier to properly mine";
     }
 
-    @Override
-    public void onPostInit(FMLPostInitializationEvent event) {
-        INCORRECT_STRATA_SCALE = loadProperty("Incorrect Strata", 0.1f).setComment("Speed scale for when the Strata is higher than the tool").get();
-
-        CTM = loadProperty("CTM Support", true).setComment("Use the ConnectedTextureMod to visualize the stratas").get();
-
-        Arrays.stream(loadProperty("Strata Configs", new String[]{
-                "0=42,21"
-        }).setComment("Set the strata levels for a given dimension, <dim>=< medium start y>,<hard start y>").get()).map(s -> s.replaceAll(" ", "")).forEach(HCStrata::loadStrataConfig);
-
-        for (BWOreDictionary.Ore ore : BWOreDictionary.oreNames) {
-            for (ItemStack stack : ore.getOres()) {
-                if (stack.getItem() instanceof ItemBlock) {
-                    addOre(((ItemBlock) stack.getItem()).getBlock());
-                }
-            }
-        }
-        List<ItemStack> stones = config().loadItemStackList("Strata Stones", getCategory(), "Blocks that are considered as stone to HCStrata", new ItemStack[]{new ItemStack(Blocks.STONE, 1, OreDictionary.WILDCARD_VALUE)});
-        stones.stream().map(BWMRecipes::getStatesFromStack).flatMap(Set::stream).forEach(HCStrata::addStone);
-    }
-
     @SubscribeEvent
-    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
         World world = event.getWorld();
         BlockPos pos = event.getPos();
         if (event.getHarvester() == null)
@@ -143,7 +122,7 @@ public class HCStrata extends Feature {
     }
 
     @SubscribeEvent
-    public void getBreakSpeed(PlayerEvent.BreakSpeed event) {
+    public static void getBreakSpeed(PlayerEvent.BreakSpeed event) {
         World world = event.getEntityPlayer().getEntityWorld();
         BlockPos pos = event.getPos();
         if (shouldStratify(world, pos)) {
@@ -160,6 +139,27 @@ public class HCStrata extends Feature {
             float speed = scale * event.getOriginalSpeed();
             event.setNewSpeed(speed);
         }
+    }
+
+    @Override
+    public void onPostInit(FMLPostInitializationEvent event) {
+        INCORRECT_STRATA_SCALE = loadProperty("Incorrect Strata", 0.1f).setComment("Speed scale for when the Strata is higher than the tool").get();
+
+        CTM = loadProperty("CTM Support", true).setComment("Use the ConnectedTextureMod to visualize the stratas").get();
+
+        Arrays.stream(loadProperty("Strata Configs", new String[]{
+                "0=42,21"
+        }).setComment("Set the strata levels for a given dimension, <dim>=< medium start y>,<hard start y>").get()).map(s -> s.replaceAll(" ", "")).forEach(HCStrata::loadStrataConfig);
+
+        for (BWMOreDictionary.Ore ore : BWMOreDictionary.oreNames) {
+            for (ItemStack stack : ore.getOres()) {
+                if (stack.getItem() instanceof ItemBlock) {
+                    addOre(((ItemBlock) stack.getItem()).getBlock());
+                }
+            }
+        }
+        List<ItemStack> stones = config().loadItemStackList("Strata Stones", getCategory(), "Blocks that are considered as stone to HCStrata", new ItemStack[]{new ItemStack(Blocks.STONE, 1, OreDictionary.WILDCARD_VALUE)});
+        stones.stream().map(BWMRecipes::getStatesFromStack).flatMap(Set::stream).forEach(HCStrata::addStone);
     }
 
     private enum BlockType {

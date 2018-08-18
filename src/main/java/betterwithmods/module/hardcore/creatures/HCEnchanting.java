@@ -155,7 +155,7 @@ public class HCEnchanting extends Feature {
 
 
     @SubscribeEvent
-    public void onDeath(LivingDropsEvent event) {
+    public static void onDeath(LivingDropsEvent event) {
         for (Class<? extends EntityLivingBase> entity : SCROLL_DROPS.keySet()) {
             if (entity.isAssignableFrom(event.getEntityLiving().getClass())) {
                 ScrollDrop drop = SCROLL_DROPS.get(entity);
@@ -170,7 +170,7 @@ public class HCEnchanting extends Feature {
     }
 
     @SubscribeEvent
-    public void onTick(TickEvent.PlayerTickEvent event) {
+    public static void onTick(TickEvent.PlayerTickEvent event) {
         if (!event.player.getEntityWorld().isRemote) {
             int mod = EnchantmentHelper.getRespirationModifier(event.player);
             if (mod >= 5) {

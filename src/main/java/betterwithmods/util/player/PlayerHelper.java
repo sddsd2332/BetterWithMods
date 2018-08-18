@@ -1,8 +1,8 @@
 package betterwithmods.util.player;
 
 import betterwithmods.BWMod;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.hardcore.needs.HCArmor;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
@@ -173,7 +173,7 @@ public final class PlayerHelper {
             if (Objects.equals(type, "bwmmattock")) {
                 return state.getBlock().isToolEffective("shovel", state) || state.getBlock().isToolEffective("pickaxe", state);
             }
-            if (state.getBlock().isToolEffective(type, state) || BWOreDictionary.isToolForOre(type, block))
+            if (state.getBlock().isToolEffective(type, state) || BWMOreDictionary.isToolForOre(type, block))
                 return true;
         }
         return false;

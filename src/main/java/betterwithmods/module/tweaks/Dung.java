@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
 import betterwithmods.util.StackIngredient;
@@ -39,35 +39,15 @@ public class Dung extends Feature {
     public static final ResourceLocation DUNG_PRODUCER = new ResourceLocation(BWMod.MODID, "dung_producer");
     @CapabilityInject(DungProducer.class)
     public static Capability<DungProducer> DUNG_PRODUCER_CAP;
-    private boolean wolvesOnly;
+    private static boolean wolvesOnly;
 
     @Override
     public String getDescription() {
         return "Animals will launch dung depending on their conditions, a useful material";
     }
 
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-
-        wolvesOnly = loadProperty("Only Wolves produce dung", true).get();
-        CapabilityManager.INSTANCE.register(DungProducer.class, new Capability.IStorage<DungProducer>() {
-            @Nullable
-            @Override
-            public NBTBase writeNBT(Capability<DungProducer> capability, DungProducer instance, EnumFacing side) {
-                return instance.serializeNBT();
-            }
-
-            @Override
-            public void readNBT(Capability<DungProducer> capability, DungProducer instance, EnumFacing side, NBTBase nbt) {
-                instance.deserializeNBT((NBTTagCompound) nbt);
-            }
-        }, DungProducer::new);
-        BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER)));
-        BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT, 2)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2)));
-    }
-
     @SubscribeEvent
-    public void mobDungProduction(LivingEvent.LivingUpdateEvent evt) {
+    public static void mobDungProduction(LivingEvent.LivingUpdateEvent evt) {
         if (evt.getEntityLiving().getEntityWorld().isRemote)
             return;
         if (evt.getEntityLiving() instanceof EntityAnimal) {
@@ -102,7 +82,7 @@ public class Dung extends Feature {
         }
     }
 
-    private EnumFacing findSpaceForPoop(World world, BlockPos pos, Random random) {
+    private static EnumFacing findSpaceForPoop(World world, BlockPos pos, Random random) {
         int dir = random.nextInt(4);
         for (int i = 0; i < 4; i++) {
             EnumFacing checkFacing = EnumFacing.byHorizontalIndex((dir + i) % 4);
@@ -114,13 +94,33 @@ public class Dung extends Feature {
     }
 
     @SubscribeEvent
-    public void dungCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
+    public static void dungCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (entity instanceof EntityAnimal) {
             if (wolvesOnly && !(entity instanceof EntityWolf))
                 return;
             event.addCapability(DUNG_PRODUCER, new DungProducer());
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+
+        wolvesOnly = loadProperty("Only Wolves produce dung", true).get();
+        CapabilityManager.INSTANCE.register(DungProducer.class, new Capability.IStorage<DungProducer>() {
+            @Nullable
+            @Override
+            public NBTBase writeNBT(Capability<DungProducer> capability, DungProducer instance, EnumFacing side) {
+                return instance.serializeNBT();
+            }
+
+            @Override
+            public void readNBT(Capability<DungProducer> capability, DungProducer instance, EnumFacing side, NBTBase nbt) {
+                instance.deserializeNBT((NBTTagCompound) nbt);
+            }
+        }, DungProducer::new);
+        BWMRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER)));
+        BWMRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT, 2)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2)));
     }
 
 

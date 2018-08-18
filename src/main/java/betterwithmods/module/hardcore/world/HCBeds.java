@@ -35,7 +35,7 @@ public class HCBeds extends Feature {
      * Disable Beds
      */
     @SubscribeEvent
-    public void onSleepInBed(PlayerSleepInBedEvent event) {
+    public static void onSleepInBed(PlayerSleepInBedEvent event) {
         if (PlayerHelper.isSurvival(event.getEntityPlayer())) {
             event.getEntityPlayer().sendStatusMessage(TooltipLib.getMessageComponent(BED_TOO_RESTLESS), true);
             event.setResult(TOO_RESTLESS);

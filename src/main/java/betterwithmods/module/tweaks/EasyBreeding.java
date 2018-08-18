@@ -48,7 +48,7 @@ public class EasyBreeding extends Feature {
     }
 
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent event) {
+    public static void addEntityAI(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntityLivingBase) {
             EntityLivingBase entity = (EntityLivingBase) event.getEntity();
             if (entity instanceof EntityAnimal) {
@@ -62,7 +62,7 @@ public class EasyBreeding extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onInteract(PlayerInteractEvent.EntityInteract event) {
+    public static void onInteract(PlayerInteractEvent.EntityInteract event) {
         if (event.isCanceled())
             return;
 

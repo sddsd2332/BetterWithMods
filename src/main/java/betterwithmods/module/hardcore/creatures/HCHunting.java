@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.entity.ai.ShooterSpiderWeb;
 import betterwithmods.module.Feature;
 import net.minecraft.entity.EntityCreature;
@@ -24,7 +24,7 @@ import java.util.stream.Collectors;
 @Mod.EventBusSubscriber
 public class HCHunting extends Feature {
 
-    private static final Predicate<ItemStack> isMeat = stack -> BWOreDictionary.isOre(stack, "listAllmeat");
+    private static final Predicate<ItemStack> isMeat = stack -> BWMOreDictionary.isOre(stack, "listAllmeat");
     public static boolean spidersShootWebs;
 
     public static List<Class> zombiesAttack, spiderAttack;
@@ -55,7 +55,7 @@ public class HCHunting extends Feature {
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent evt) {
+    public static void addEntityAI(EntityJoinWorldEvent evt) {
         if (evt.getEntity() instanceof EntityCreature) {
             EntityCreature entity = (EntityCreature) evt.getEntity();
             if (entity instanceof EntityZombie) {

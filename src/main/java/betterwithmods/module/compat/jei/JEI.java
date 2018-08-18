@@ -12,7 +12,7 @@ import betterwithmods.client.gui.bulk.GuiFilteredHopper;
 import betterwithmods.client.gui.bulk.GuiMill;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
 import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
@@ -29,7 +29,7 @@ import betterwithmods.module.compat.jei.category.*;
 import betterwithmods.module.compat.jei.ingredient.OutputHelper;
 import betterwithmods.module.compat.jei.ingredient.OutputRenderer;
 import betterwithmods.module.compat.jei.wrapper.*;
-import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
+import betterwithmods.module.recipes.miniblocks.MiniBlocks;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import mezz.jei.Internal;
@@ -155,11 +155,11 @@ public class JEI implements IModPlugin {
         reg.handleRecipes(ToolDamageRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), SteelAnvilRecipeCategory.UID);
         reg.handleRecipes(ToolDamageRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), "minecraft.crafting");
 
-        reg.addRecipes(BWRegistry.MILLSTONE.getRecipes(), MillRecipeCategory.UID);
-        reg.addRecipes(BWRegistry.WOOD_SAW.getDisplayRecipes(), SawRecipeCategory.UID);
-        reg.addRecipes(BWRegistry.TURNTABLE.getDisplayRecipes(), TurntableRecipeCategory.UID);
-        reg.addRecipes(BWRegistry.FILTERD_HOPPER.getDisplayRecipes(), HopperRecipeCategory.UID);
-        reg.addRecipes(BWRegistry.ANVIL.getDisplayRecipes(), SteelAnvilRecipeCategory.UID);
+        reg.addRecipes(BWMRegistry.MILLSTONE.getRecipes(), MillRecipeCategory.UID);
+        reg.addRecipes(BWMRegistry.WOOD_SAW.getDisplayRecipes(), SawRecipeCategory.UID);
+        reg.addRecipes(BWMRegistry.TURNTABLE.getDisplayRecipes(), TurntableRecipeCategory.UID);
+        reg.addRecipes(BWMRegistry.FILTERED_HOPPER.getDisplayRecipes(), HopperRecipeCategory.UID);
+        reg.addRecipes(BWMRegistry.ANVIL.getDisplayRecipes(), SteelAnvilRecipeCategory.UID);
 
         reg.addRecipeCatalyst(new ItemStack(BWMBlocks.MILLSTONE), MillRecipeCategory.UID);
         reg.addRecipeCatalyst(new ItemStack(BWMBlocks.FILTERED_HOPPER), HopperRecipeCategory.UID);
@@ -212,9 +212,9 @@ public class JEI implements IModPlugin {
             reg.handleRecipes(CookingPotRecipe.class, recipe -> new BulkRecipeWrapper<>(HELPER, recipe, 9), crucibleUID);
             reg.handleRecipes(KilnRecipe.class, recipe -> new KilnRecipeWrapper(HELPER, recipe), kilnUID);
 
-            reg.addRecipes(BWRegistry.CAULDRON.getRecipesForHeat(heat), cauldronUID);
-            reg.addRecipes(BWRegistry.CRUCIBLE.getRecipesForHeat(heat), crucibleUID);
-            reg.addRecipes(BWRegistry.KILN.getRecipesForHeat(heat), kilnUID);
+            reg.addRecipes(BWMRegistry.CAULDRON.getRecipesForHeat(heat), cauldronUID);
+            reg.addRecipes(BWMRegistry.CRUCIBLE.getRecipesForHeat(heat), crucibleUID);
+            reg.addRecipes(BWMRegistry.KILN.getRecipesForHeat(heat), kilnUID);
 
         }
 

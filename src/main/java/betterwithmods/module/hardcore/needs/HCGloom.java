@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWDamageSource;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMDamageSource;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
@@ -87,11 +87,13 @@ public class HCGloom extends Feature {
         return null;
     }
 
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        BWRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties(this));
-        CapabilityManager.INSTANCE.register(Gloom.class, new CapabilityGloom(), Gloom::new);
-
+    @SubscribeEvent
+    public static void clone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+        Gloom o = getGloom(event.getOriginal());
+        Gloom n = getGloom(event.getEntityPlayer());
+        if (o != null && n != null) {
+            n.deserializeNBT(o.serializeNBT());
+        }
     }
 
     @Override
@@ -101,30 +103,20 @@ public class HCGloom extends Feature {
     }
 
     @SubscribeEvent
-    public void clone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
-        Gloom o = getGloom(event.getOriginal());
-        Gloom n = getGloom(event.getEntityPlayer());
-        if (o != null && n != null) {
-            n.deserializeNBT(o.serializeNBT());
-        }
-    }
-
-    @SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer && !event.getCapabilities().containsKey(PLAYER_GLOOM)) {
             event.addCapability(PLAYER_GLOOM, new Gloom());
         }
     }
 
-
     @SubscribeEvent
-    public void onRespawn(PlayerEvent.PlayerRespawnEvent e) {
+    public static void onRespawn(PlayerEvent.PlayerRespawnEvent e) {
         if (e.player instanceof EntityPlayerMP)
             setGloomTick((EntityPlayerMP) e.player, 0);
     }
 
     @SubscribeEvent
-    public void inDarkness(TickEvent.PlayerTickEvent e) {
+    public static void inDarkness(TickEvent.PlayerTickEvent e) {
         EntityPlayer player = e.player;
         World world = player.getEntityWorld();
 
@@ -152,8 +144,8 @@ public class HCGloom extends Feature {
 
             if (world.getTotalWorldTime() % 40 == 0) {
                 if (world.rand.nextInt(2) == 0) {
-                    if (BWRegistry.PENALTY_HANDLERS.attackedByGrue(player)) {
-                        player.attackEntityFrom(BWDamageSource.gloom, 2);
+                    if (BWMRegistry.PENALTY_HANDLERS.attackedByGrue(player)) {
+                        player.attackEntityFrom(BWMDamageSource.gloom, 2);
                     }
                 }
             }
@@ -162,7 +154,7 @@ public class HCGloom extends Feature {
         //Client Side
         //Random sounds
         if (world.isRemote) {
-            float spooked = BWRegistry.PENALTY_HANDLERS.getSpooked(player);
+            float spooked = BWMRegistry.PENALTY_HANDLERS.getSpooked(player);
             GloomPenalty most = PENALTIES.getMostSevere();
 
             if (world.rand.nextDouble() <= spooked) {
@@ -177,15 +169,21 @@ public class HCGloom extends Feature {
         }
     }
 
-
     @SubscribeEvent
-    public void onFOVUpdate(FOVUpdateEvent event) {
-        float spooked = BWRegistry.PENALTY_HANDLERS.getSpooked(event.getEntity());
+    public static void onFOVUpdate(FOVUpdateEvent event) {
+        float spooked = BWMRegistry.PENALTY_HANDLERS.getSpooked(event.getEntity());
         GloomPenalty most = PENALTIES.getMostSevere();
         if (most != null && (spooked >= (most.getFloat(BWMAttributes.SPOOKED).getValue()))) {
             float change = -(getGloomTime(event.getEntity()) / 100000f);
             event.setNewfov(event.getFov() + change);
         }
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        BWMRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties(this));
+        CapabilityManager.INSTANCE.register(Gloom.class, new CapabilityGloom(), Gloom::new);
+
     }
 
     @Override

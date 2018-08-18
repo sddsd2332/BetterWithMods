@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.api.tile.IHeated;
-import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.registry.bulk.recipes.BulkCraftEvent;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.module.Feature;
@@ -20,7 +20,7 @@ public class ExplosiveRecipes extends Feature {
     }
 
     @SubscribeEvent
-    public void onBulkCraft(BulkCraftEvent event) {
+    public static void onBulkCraft(BulkCraftEvent event) {
         if (event.getTile() instanceof IHeated && event.getRecipe() instanceof CookingPotRecipe) {
             CookingPotRecipe recipe = (CookingPotRecipe) event.getRecipe();
             if (((IHeated) event.getTile()).getHeat(event.getWorld(), event.getTile().getPos()) > recipe.getHeat()) {
@@ -29,7 +29,7 @@ public class ExplosiveRecipes extends Feature {
         }
     }
 
-    private void explodeCauldron(World world, BlockPos pos, ItemStackHandler inv) {
+    private static void explodeCauldron(World world, BlockPos pos, ItemStackHandler inv) {
         float expSize = 0.0f;
         int blockAmt = 0;
 
@@ -37,7 +37,7 @@ public class ExplosiveRecipes extends Feature {
             ItemStack stack = inv.getStackInSlot(i);
             if (stack.isEmpty())
                 continue;
-            else if (BWOreDictionary.isOre(stack, "listAllExplosives")) {
+            else if (BWMOreDictionary.isOre(stack, "listAllExplosives")) {
                 if (stack.getItem() instanceof ItemBlock)
                     blockAmt += stack.getCount();
                 else

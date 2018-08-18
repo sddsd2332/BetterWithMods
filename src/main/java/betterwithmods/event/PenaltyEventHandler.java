@@ -1,7 +1,7 @@
 package betterwithmods.event;
 
-import betterwithmods.common.BWRegistry;
-import betterwithmods.common.BWSounds;
+import betterwithmods.common.BWMRegistry;
+import betterwithmods.common.BWMSounds;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -22,7 +22,7 @@ public class PenaltyEventHandler {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             //Whether the player can jump.
-            if (!BWRegistry.PENALTY_HANDLERS.canJump(player)) {
+            if (!BWMRegistry.PENALTY_HANDLERS.canJump(player)) {
                 event.getEntityLiving().motionX = 0;
                 event.getEntityLiving().motionY = 0;
                 event.getEntityLiving().motionZ = 0;
@@ -41,12 +41,12 @@ public class PenaltyEventHandler {
             return;
 
         //Handle whether the player can sprint
-        if (!BWRegistry.PENALTY_HANDLERS.canSprint(player)) {
+        if (!BWMRegistry.PENALTY_HANDLERS.canSprint(player)) {
             player.setSprinting(false);
         }
 
         //Swimming
-        if (player.isInWater() && !BWRegistry.PENALTY_HANDLERS.canSwim(player)) {
+        if (player.isInWater() && !BWMRegistry.PENALTY_HANDLERS.canSwim(player)) {
             if (!PlayerHelper.isNearBottom(player)) {
                 player.motionY -= 0.04;
             }
@@ -66,15 +66,15 @@ public class PenaltyEventHandler {
                 return;
             }
             //Speed
-            double speed = BWRegistry.PENALTY_HANDLERS.getSpeedModifier(player);
+            double speed = BWMRegistry.PENALTY_HANDLERS.getSpeedModifier(player);
             if (speed != 0) {
                 PlayerHelper.changeSpeed(player, "Penalty Speed Modifier", speed, PlayerHelper.PENALTY_SPEED_UUID);
             }
 
             //Pain
-            if (BWRegistry.PENALTY_HANDLERS.inPain(player)) {
+            if (BWMRegistry.PENALTY_HANDLERS.inPain(player)) {
                 if (PlayerHelper.isMoving(player) && player.world.getWorldTime() % 60 == 0) {
-                    player.playSound(BWSounds.OOF, 0.75f, 1f);
+                    player.playSound(BWMSounds.OOF, 0.75f, 1f);
                 }
             }
 
@@ -82,12 +82,12 @@ public class PenaltyEventHandler {
     }
 
     @SubscribeEvent
-    public void onPlayerAttack(LivingAttackEvent event) {
+    public static void onPlayerAttack(LivingAttackEvent event) {
         if (event.getSource().getTrueSource() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
             if (PlayerHelper.isSurvival(player)) {
-                if (!BWRegistry.PENALTY_HANDLERS.canAttack(player)) {
-                    player.playSound(BWSounds.OOF, 0.75f, 1f);
+                if (!BWMRegistry.PENALTY_HANDLERS.canAttack(player)) {
+                    player.playSound(BWMSounds.OOF, 0.75f, 1f);
                     event.setCanceled(true);
                     event.setResult(Event.Result.DENY);
                 }

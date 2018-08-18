@@ -47,7 +47,7 @@ public class MineshaftGeneration extends Feature {
     }
 
     @SubscribeEvent
-    public void onGenerate(InitMapGenEvent event) {
+    public static void onGenerate(InitMapGenEvent event) {
         if (event.getType() == InitMapGenEvent.EventType.MINESHAFT) {
             event.setNewGen(new BWMapGenMineshaft());
         }

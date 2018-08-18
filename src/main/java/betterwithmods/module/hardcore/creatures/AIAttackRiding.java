@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.common.BWDamageSource;
+import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.EntityLivingBase;
@@ -38,11 +38,11 @@ public class AIAttackRiding extends EntityAIBase {
             if (!PlayerHelper.hasPart(mount, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class)) {
                 if (mount.world.rand.nextInt(5) == 0)
                     mount.world.playSound(null, mount.getPosition(), SoundEvents.ENTITY_SQUID_HURT, SoundCategory.HOSTILE, 0.5f, 1);
-                mount.attackEntityFrom(BWDamageSource.squid, 0);
+                mount.attackEntityFrom(BWMDamageSource.squid, 0);
 //                ((EntityPlayer) mount).addExhaustion(1f);
             }
         } else {
-            mount.attackEntityFrom(BWDamageSource.squid, 0);
+            mount.attackEntityFrom(BWMDamageSource.squid, 0);
         }
 
     }

@@ -1,6 +1,7 @@
 package betterwithmods.module.general;
 
 import betterwithmods.module.Module;
+import betterwithmods.module.general.player.PlayerDataHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class General extends Module {
@@ -13,7 +14,15 @@ public class General extends Module {
 
     @Override
     public void addFeatures() {
-        addFeature(new Client());
+        addFeatures(
+                new Client(),
+                new Waterwheel(),
+                new PlayerDataHandler(),
+                new Documentation(),
+                new MechanicalPower(),
+                new Hemp(),
+                new UnitTesting()
+        );
     }
 
     @Override
@@ -24,5 +33,6 @@ public class General extends Module {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         debug = config().load(getName(), "Debug Mode", false).setComment("Log extra debug information, warning can spam logs").get();
+        super.onPreInit(event);
     }
 }

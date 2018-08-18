@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 @Mod.EventBusSubscriber
 public class Sinkholes extends Feature {
     @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent event) {
+    public static void playerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
         if (player.onGround) {
             int j6 = MathHelper.floor(player.posX);

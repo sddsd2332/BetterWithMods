@@ -32,34 +32,23 @@ import static betterwithmods.module.hardcore.creatures.chicken.EggLayer.EGG_LAYE
  */
 public class HCChickens extends Feature {
 
-    public static final ResourceLocation EGG_LAYER = new ResourceLocation(BWMod.MODID, "egglayer");
-    public static Ingredient SEEDS = new OreIngredient("seed");
+    private static final ResourceLocation EGG_LAYER = new ResourceLocation(BWMod.MODID, "egglayer");
+    private static Ingredient SEEDS = new OreIngredient("seed");
 
     @Nullable
     public static EggLayer getLayer(@Nonnull Entity entity) {
         return entity.getCapability(EGG_LAYER_CAP, EnumFacing.DOWN);
     }
 
-    @Override
-    public String getDescription() {
-        return "Rework chicken breeding. Chickens don't breed in pairs. You feed a single chicken 1 seed, and it craps out an egg that can be thrown. The egg either makes a chicken, or drops raw egg.";
-    }
-
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(EggLayer.class, new EggLayer.CapabilityEggLayer(), EggLayer::new);
-    }
-
-
     @SubscribeEvent
-    public void onAttachCap(AttachCapabilitiesEvent<Entity> event) {
+    public static void onAttachCap(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityChicken) {
             event.addCapability(EGG_LAYER, new EggLayer(new ItemStack(Items.EGG), SEEDS));
         }
     }
 
     @SubscribeEvent
-    public void onEntityTick(LivingEvent.LivingUpdateEvent event) {
+    public static void onEntityTick(LivingEvent.LivingUpdateEvent event) {
         EntityLivingBase entityLiving = event.getEntityLiving();
         if (entityLiving.world.isRemote)
             return;
@@ -85,7 +74,7 @@ public class HCChickens extends Feature {
     }
 
     @SubscribeEvent
-    public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         if (SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving) {
             EggLayer layer = getLayer(event.getTarget());
             if (layer != null) {
@@ -94,6 +83,16 @@ public class HCChickens extends Feature {
                 layer.feed((EntityLiving) event.getTarget(), event.getItemStack());
             }
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Rework chicken breeding. Chickens don't breed in pairs. You feed a single chicken 1 seed, and it craps out an egg that can be thrown. The egg either makes a chicken, or drops raw egg.";
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        CapabilityManager.INSTANCE.register(EggLayer.class, new EggLayer.CapabilityEggLayer(), EggLayer::new);
     }
 
     public static class LayerIngredientRelation implements EntityIngredientRelation {

@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.crafting;
 
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWOreDictionary;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.module.Feature;
@@ -71,15 +71,15 @@ public class HCOres extends Feature {
         addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
         addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
         addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
-        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_NUGGET, 4));
-        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_NUGGET, 4));
-        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_NUGGET));
+        BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_NUGGET, 4));
+        BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_NUGGET, 4));
+        BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_NUGGET));
 
-        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_NUGGET, 4));
+        BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_NUGGET, 4));
     }
 
     private void addMeltingRecipeWithoutReturn(ItemStack input, ItemStack output) {
-        BWRegistry.CRUCIBLE.addRecipe(new CookingPotRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {
+        BWMRegistry.CRUCIBLE.addRecipe(new CookingPotRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {
             //TODO
 //            @Override
 //            protected boolean consumeIngredients(ItemStackHandler inventory, NonNullList<ItemStack> containItems) {
@@ -107,21 +107,21 @@ public class HCOres extends Feature {
     public void onPostInit(FMLPostInitializationEvent event) {
         Set<String> oreExcludes = Sets.union(oreExclude, Sets.newHashSet("oreDiamond"));
         if (oreNuggetSmelting) {
-            for (BWOreDictionary.Ore ore : BWOreDictionary.oreNames) {
+            for (BWMOreDictionary.Ore ore : BWMOreDictionary.oreNames) {
                 replaceRecipe(oreExcludes, ore, oreProductionCount);
             }
         }
         Set<String> dustExcludes = Sets.union(dustExclude, Sets.newHashSet("dustDiamond"));
         if (dustNuggetSmelting) {
-            for (BWOreDictionary.Ore dust : BWOreDictionary.dustNames) {
+            for (BWMOreDictionary.Ore dust : BWMOreDictionary.dustNames) {
                 replaceRecipe(dustExcludes, dust, dustProductionCount);
             }
         }
     }
 
-    private void replaceRecipe(Set<String> oreExcludes, BWOreDictionary.Ore ore, int oreProductionCount) {
+    private void replaceRecipe(Set<String> oreExcludes, BWMOreDictionary.Ore ore, int oreProductionCount) {
         if (!oreExcludes.contains(ore.getOre())) {
-            Optional<ItemStack> optionalNugget = BWOreDictionary.nuggetNames.stream().filter(o -> o.getSuffix().equals(ore.getSuffix())).flatMap(o -> o.getOres().stream()).findFirst();
+            Optional<ItemStack> optionalNugget = BWMOreDictionary.nuggetNames.stream().filter(o -> o.getSuffix().equals(ore.getSuffix())).flatMap(o -> o.getOres().stream()).findFirst();
             if (optionalNugget.isPresent()) {
                 for (ItemStack oreStack : ore.getOres()) {
                     if (BWMRecipes.removeFurnaceRecipe(oreStack)) {

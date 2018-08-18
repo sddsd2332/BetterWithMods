@@ -57,7 +57,7 @@ public class HCStructures extends Feature {
     }
 
     @SubscribeEvent
-    public void overrideScatteredFeature(InitMapGenEvent event) {
+    public static void overrideScatteredFeature(InitMapGenEvent event) {
         if (event.getType().equals(InitMapGenEvent.EventType.SCATTERED_FEATURE))
             event.setNewGen(new BWMapGenScatteredFeature());
     }

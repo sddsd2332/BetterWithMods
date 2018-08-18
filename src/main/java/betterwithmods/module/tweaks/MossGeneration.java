@@ -66,7 +66,7 @@ public class MossGeneration extends Feature {
     }
 
     @SubscribeEvent
-    public void generateMossNearSpawner(TickEvent.WorldTickEvent event) {
+    public static void generateMossNearSpawner(TickEvent.WorldTickEvent event) {
         World world = event.world;
         List<BlockPos> positions;
         if (world.isRemote || event.phase != TickEvent.Phase.END || event.side != Side.SERVER)

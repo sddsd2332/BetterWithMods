@@ -21,7 +21,7 @@ public class HCDeadweight extends Feature {
     }
 
     @SubscribeEvent
-    public void onInteract(PlayerInteractEvent.RightClickBlock event) {
+    public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
         if (!PlayerHelper.isSurvival(event.getEntityPlayer()))
             return;
 

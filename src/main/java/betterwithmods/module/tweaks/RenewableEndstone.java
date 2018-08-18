@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class RenewableEndstone extends Feature {
 
-    private int chance;
+    private static int chance;
 
     @Override
     public void onInit(FMLInitializationEvent event) {
@@ -22,7 +22,7 @@ public class RenewableEndstone extends Feature {
     }
 
     @SubscribeEvent
-    public void giveEndermenEndStone(LivingSpawnEvent evt) {
+    public static void giveEndermenEndStone(LivingSpawnEvent evt) {
         EntityLivingBase entity = evt.getEntityLiving();
         if (evt.getWorld().provider.getDimensionType() == DimensionType.THE_END) {
             if (entity instanceof EntityEnderman) {

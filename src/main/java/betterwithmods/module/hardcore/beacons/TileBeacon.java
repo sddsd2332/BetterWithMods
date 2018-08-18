@@ -202,7 +202,6 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
 
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
         //TODO - This should all be in a class related to SpawnBeaconEffect not here
         NBTTagCompound tag = new NBTTagCompound();
         NBTUtil.writeBlockState(tag, type);

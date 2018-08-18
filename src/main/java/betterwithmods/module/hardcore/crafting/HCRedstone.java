@@ -1,10 +1,10 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
-import betterwithmods.module.gameplay.AnvilRecipes;
+import betterwithmods.module.recipes.AnvilRecipes;
 import betterwithmods.util.StackIngredient;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -49,7 +49,7 @@ public class HCRedstone extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        BWRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 4));
+        BWMRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 4));
         //New observer recipe :)
         AnvilRecipes.addSteelShapedRecipe(new ResourceLocation("betterwithmods", "observer"), new ItemStack(Blocks.OBSERVER), "LSSL", "SRRS", "STTS", 'S', "stone", 'R', "dustRedstone", 'T', Blocks.REDSTONE_TORCH, 'L', ItemMaterial.getStack(ItemMaterial.EnumMaterial.POLISHED_LAPIS));
     }

@@ -28,14 +28,14 @@ import java.util.Random;
 
 @Mod.EventBusSubscriber
 public class VisibleStorms extends Feature {
-    public static boolean DUST_STORMS;
-    public static boolean SAND_STORMS;
-    public static int DUST_PARTICLES;
-    public static int AIR_PARTICLES;
-    float currentRed, currentGreen, currentBlue;
-    float currentDistance, currentDistanceScale;
-    float desiredRed, desiredGreen, desiredBlue;
-    float desiredDistance, desiredDistanceScale;
+    private static boolean DUST_STORMS;
+    private static boolean SAND_STORMS;
+    private static int DUST_PARTICLES;
+    private static int AIR_PARTICLES;
+    private static float currentRed, currentGreen, currentBlue;
+    private static float currentDistance, currentDistanceScale;
+    private static float desiredRed, desiredGreen, desiredBlue;
+    private static float desiredDistance, desiredDistanceScale;
 
     @SideOnly(Side.CLIENT)
     private static void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale) {
@@ -48,17 +48,9 @@ public class VisibleStorms extends Feature {
         }
     }
 
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        DUST_STORMS = loadProperty("Dust Storms", true).setComment("Storms are clearly visible in dry biomes.").get();
-        SAND_STORMS = loadProperty("Sand Storms", true).setComment("Adds a fog change during storms in deserts.").get();
-        DUST_PARTICLES = loadProperty("Dust Particle Count", 2).setComment("How many dust particles should be created, too many may contribute to lag.").get();
-        AIR_PARTICLES = loadProperty("Air Particle Count", 3).setComment("How many air particles should be created, too many may contribute to lag.").get();
-    }
-
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent tickEvent) {
+    public static void playerTick(TickEvent.PlayerTickEvent tickEvent) {
         EntityPlayer entity = tickEvent.player;
         if (entity == null)
             return;
@@ -108,7 +100,7 @@ public class VisibleStorms extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void fogDistance(EntityViewRenderEvent.RenderFogEvent fogEvent) {
+    public static void fogDistance(EntityViewRenderEvent.RenderFogEvent fogEvent) {
         if (!SAND_STORMS)
             return;
         Entity entity = fogEvent.getEntity();
@@ -147,7 +139,7 @@ public class VisibleStorms extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void fogColor(EntityViewRenderEvent.FogColors fogEvent) {
+    public static void fogColor(EntityViewRenderEvent.FogColors fogEvent) {
         if (!SAND_STORMS)
             return;
         Entity entity = fogEvent.getEntity();
@@ -193,16 +185,24 @@ public class VisibleStorms extends Feature {
         desiredBlue = desiredcolor.getBlue();
     }
 
-    private boolean shouldStorm(World world, BlockPos pos) {
+    private static boolean shouldStorm(World world, BlockPos pos) {
         Biome biome = world.getBiome(pos);
 
         return world.isRaining() && !biome.canRain() && !biome.isSnowyBiome();
     }
 
-    private boolean isDesert(World world, BlockPos pos) {
+    private static boolean isDesert(World world, BlockPos pos) {
         Biome biome = world.getBiome(pos);
 
         return BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY);
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        DUST_STORMS = loadProperty("Dust Storms", true).setComment("Storms are clearly visible in dry biomes.").get();
+        SAND_STORMS = loadProperty("Sand Storms", true).setComment("Adds a fog change during storms in deserts.").get();
+        DUST_PARTICLES = loadProperty("Dust Particle Count", 2).setComment("How many dust particles should be created, too many may contribute to lag.").get();
+        AIR_PARTICLES = loadProperty("Air Particle Count", 3).setComment("How many air particles should be created, too many may contribute to lag.").get();
     }
 
 

@@ -35,7 +35,7 @@ public class EnchantmentTooltip extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onTooltip(ItemTooltipEvent event) {
+    public static void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         if (stack.getItem() instanceof ItemEnchantedBook) {
             NBTTagList nbttaglist = ItemEnchantedBook.getEnchantments(stack);

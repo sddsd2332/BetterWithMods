@@ -1,8 +1,8 @@
 package betterwithmods.common.registry.bulk.manager;
 
 import betterwithmods.api.tile.IBulkTile;
-import betterwithmods.common.BWRegistry;
-import betterwithmods.common.BWSounds;
+import betterwithmods.common.BWMRegistry;
+import betterwithmods.common.BWMSounds;
 import betterwithmods.common.registry.bulk.recipes.MillRecipe;
 import betterwithmods.common.tile.TileMill;
 import betterwithmods.util.StackIngredient;
@@ -72,7 +72,7 @@ public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
             MillRecipe recipe = findRecipe(recipes, tile).orElse(null);
 
             if (mill.getBlockWorld().rand.nextInt(20) == 0)
-                mill.getBlockWorld().playSound(null, mill.getBlockPos(), BWSounds.STONEGRIND, SoundCategory.BLOCKS, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F);
+                mill.getBlockWorld().playSound(null, mill.getBlockPos(), BWMSounds.STONEGRIND, SoundCategory.BLOCKS, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F);
 
             if (recipe != null) {
                 if (mill.grindMax != recipe.getTicks())
@@ -81,7 +81,7 @@ public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
                 if (mill.getBlockWorld().rand.nextInt(40) < 2)
                     mill.getBlockWorld().playSound(null, mill.getBlockPos(), recipe.getSound(), SoundCategory.BLOCKS,  0.75F, mill.getWorld().rand.nextFloat() * 0.4F + 0.8F);
                 if (canCraft(recipe, tile)) {
-                    mill.ejectRecipe(BWRegistry.MILLSTONE.craftItem(recipe, world, tile));
+                    mill.ejectRecipe(BWMRegistry.MILLSTONE.craftItem(recipe, world, tile));
                     mill.grindCounter = 0;
                     return true;
                 } else {

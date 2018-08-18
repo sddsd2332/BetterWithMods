@@ -19,14 +19,8 @@ public class HCBabyZombies extends Feature {
     private static final AttributeModifier BABY_SLOWNESS = new AttributeModifier(BABY_SLOWNESS_ID, "Baby slowness", -0.25, 1);
     private static final AttributeModifier BABY_DAMAGE = new AttributeModifier(BABY_DAMAGE_ID, "Baby damage", -0.25, 1);
 
-
-    @Override
-    public String getDescription() {
-        return "Change baby zombies to be a more reasonable addition; Slightly slower and do less damage than adults";
-    }
-
     @SubscribeEvent
-    public void onJoinWorld(EntityJoinWorldEvent event) {
+    public static void onJoinWorld(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntityZombie) {
             EntityZombie entity = (EntityZombie) event.getEntity();
             if (entity.isChild()) {
@@ -40,6 +34,11 @@ public class HCBabyZombies extends Feature {
                     damage.applyModifier(BABY_DAMAGE);
             }
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Change baby zombies to be a more reasonable addition; Slightly slower and do less damage than adults";
     }
 
 }

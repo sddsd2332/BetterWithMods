@@ -20,7 +20,7 @@ public class MobEating extends Feature {
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent event) {
+    public static void addEntityAI(EntityJoinWorldEvent event) {
 
         Entity entity = event.getEntity();
         if (entity instanceof EntitySpider) {

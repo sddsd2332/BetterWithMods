@@ -100,7 +100,7 @@ public class HCSheep extends Feature {
     }
 
     @SubscribeEvent
-    public void sheepCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
+    public static void sheepCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (entity instanceof EntitySheep) {
             event.addCapability(NATURAL_COLOR, new NaturalColor());
@@ -108,7 +108,7 @@ public class HCSheep extends Feature {
     }
 
     @SubscribeEvent
-    public void sheepSpawnEvent(LivingSpawnEvent event) {
+    public static void sheepSpawnEvent(LivingSpawnEvent event) {
         if (event instanceof LivingSpawnEvent.AllowDespawn)
             return;
 
@@ -124,13 +124,13 @@ public class HCSheep extends Feature {
         }
     }
 
-    private void mutateSheep(EntitySheep sheep, Random random) {
+    private static void mutateSheep(EntitySheep sheep, Random random) {
         if (random.nextInt(mutationChance) < 1 && !MUTATION_COLORS.isEmpty()) {
             sheep.setFleeceColor(MUTATION_COLORS.get(random.nextInt(MUTATION_COLORS.size())));
         }
     }
 
-    private EnumDyeColor getNaturalColor(Entity sheep) {
+    private static EnumDyeColor getNaturalColor(Entity sheep) {
         if (sheep.hasCapability(NATURAL_COLOR_CAP, null)) {
             NaturalColor color = sheep.getCapability(NATURAL_COLOR_CAP, null);
             return color.color;
@@ -139,14 +139,14 @@ public class HCSheep extends Feature {
         return EnumDyeColor.WHITE;
     }
 
-    private void setNaturalColor(Entity sheep, EnumDyeColor newcolor) {
+    private static void setNaturalColor(Entity sheep, EnumDyeColor newcolor) {
         if (sheep.hasCapability(NATURAL_COLOR_CAP, null)) {
             NaturalColor color = sheep.getCapability(NATURAL_COLOR_CAP, null);
             color.color = newcolor;
         }
     }
 
-    private EnumDyeColor mixNaturalColors(EnumDyeColor colorA, EnumDyeColor colorB, Random random) {
+    private static EnumDyeColor mixNaturalColors(EnumDyeColor colorA, EnumDyeColor colorB, Random random) {
         NaturalColorMix mix = new NaturalColorMix(colorA, colorB);
 
         if (COLOR_MIX_TABLE.containsKey(mix))
@@ -156,7 +156,7 @@ public class HCSheep extends Feature {
     }
 
     @SubscribeEvent
-    public void sheepBreedEvent(BabyEntitySpawnEvent event) {
+    public static void sheepBreedEvent(BabyEntitySpawnEvent event) {
         World world = event.getParentA().world;
 
         if (world.isRemote)
@@ -175,7 +175,7 @@ public class HCSheep extends Feature {
     }
 
     @SubscribeEvent
-    public void sheepUpdateEvent(LivingEvent.LivingUpdateEvent event) {
+    public static void sheepUpdateEvent(LivingEvent.LivingUpdateEvent event) {
         //Hacky reset for when a sheep is sheared.
         Entity entity = event.getEntity();
 

@@ -30,6 +30,7 @@ import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -48,28 +49,19 @@ public class HCBrewing extends Feature {
     private static boolean modPotionCompat;
     private static int potionStackSize;
     private boolean tryChangePotions;
-//TODO
-//    @Override
-//    public void setupConfig() {
-//        removeMovementPotions = loadPropBool("Remove Movement Potions", "Removes recipes for Speed and Leaping potions.", true);
-//        waterBreathingAnyFish = loadPropBool("Water Breathing Any Fish", "Any fish works for brewing Water Breathing potions.", true);
-//        removeWitchPotionDrops = loadPropBool("Remove Witch Ingredient Drops", "Removes redstone and glowstone from witch drops", true);
-//        modPotionCompat = loadPropBool("Modded Potion Compatibility", "Similarly modifies non-vanilla potions.", true);
-//        potionStackSize = loadPropInt("Potion Stacksize", "Maximum stacksize of potion items.", 8);
-//    }
+
+    private static boolean isWitchDropBlacklisted(ItemStack stack) {
+        Item item = stack.getItem();
+        return item == Items.GLOWSTONE_DUST || item == Items.SUGAR || item == Items.SPIDER_EYE || item == Items.GUNPOWDER;
+    }
 
     @Override
     public String getDescription() {
         return "Modifies and rebalances vanilla brewing recipes and makes potions stack up to 8.";
     }
 
-    private boolean isWitchDropBlacklisted(ItemStack stack) {
-        Item item = stack.getItem();
-        return item == Items.GLOWSTONE_DUST || item == Items.SUGAR || item == Items.SPIDER_EYE || item == Items.GUNPOWDER;
-    }
-
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public void mobDrops(LivingDropsEvent evt) {
+    public static void mobDrops(LivingDropsEvent evt) {
         Entity entity = evt.getEntityLiving();
         List<EntityItem> drops = evt.getDrops();
 
@@ -90,6 +82,15 @@ public class HCBrewing extends Feature {
                 entity.entityDropItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.MYSTERY_GLAND), 0);
             }
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        removeMovementPotions = loadProperty("Remove Movement Potions", true).setComment("Removes recipes for Speed and Leaping potions.").get();
+        waterBreathingAnyFish = loadProperty("Water Breathing Any Fish", true).setComment("Any fish works for brewing Water Breathing potions.").get();
+        removeWitchPotionDrops = loadProperty("Remove Witch Ingredient Drops", true).setComment("Removes redstone and glowstone from witch drops").get();
+        modPotionCompat = loadProperty("Modded Potion Compatibility", true).setComment("Similarly modifies non-vanilla potions.").get();
+        potionStackSize = loadProperty("Potion Stacksize", 8).setComment("Maximum stacksize of potion items.").get();
     }
 
     @Override

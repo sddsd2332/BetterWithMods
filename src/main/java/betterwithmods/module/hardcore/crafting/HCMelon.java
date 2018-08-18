@@ -40,7 +40,7 @@ public class HCMelon extends Feature {
     }
 
     @SubscribeEvent
-    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
         Block block = event.getState().getBlock();
 
         //Require an axe for melons and pumpkins
@@ -70,13 +70,13 @@ public class HCMelon extends Feature {
     }
 
     @SubscribeEvent
-    public void onNeighborNotify(BlockEvent.NeighborNotifyEvent event) {
+    public static void onNeighborNotify(BlockEvent.NeighborNotifyEvent event) {
         World world = event.getWorld();
         makeGourdFall(world, event.getPos());
         makeGourdFall(world, event.getPos().up());
     }
 
-    private void makeGourdFall(World world, BlockPos pos) {
+    private static void makeGourdFall(World world, BlockPos pos) {
         IBlockState blockstate = world.getBlockState(pos);
         Block block = blockstate.getBlock();
         if (block instanceof BlockMelon || block instanceof BlockPumpkin) {

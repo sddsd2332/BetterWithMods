@@ -36,7 +36,7 @@ public class FoodPoisoning extends Feature {
 
     //Stops Eating if Hunger Effect is active
     @SubscribeEvent
-    public void onFood(LivingEntityUseItemEvent.Start event) {
+    public static void onFood(LivingEntityUseItemEvent.Start event) {
         if (event.getItem().getItem() instanceof ItemFood && event.getEntityLiving() instanceof EntityPlayer && PlayerHelper.isSurvival((EntityPlayer) event.getEntityLiving())) {
             if (event.getEntityLiving().isPotionActive(MobEffects.HUNGER)) {
                 event.setCanceled(true);

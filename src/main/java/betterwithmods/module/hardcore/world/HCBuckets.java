@@ -119,7 +119,7 @@ public class HCBuckets extends Feature {
 
 
     @SubscribeEvent
-    public void onInteractFluidHandlerItem(PlayerInteractEvent.RightClickItem event) {
+    public static void onInteractFluidHandlerItem(PlayerInteractEvent.RightClickItem event) {
         ItemStack stack = event.getItemStack();
         IFluidHandlerItem handlerItem = FluidUtil.getFluidHandler(stack);
         if (handlerItem != null) {
@@ -146,7 +146,7 @@ public class HCBuckets extends Feature {
 
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onUseFluidContainer(FillBucketEvent event) {
+    public static void onUseFluidContainer(FillBucketEvent event) {
         if (event.isCanceled()) return;
         if (event.getTarget() != null) {
             ItemStack container = event.getEmptyBucket();

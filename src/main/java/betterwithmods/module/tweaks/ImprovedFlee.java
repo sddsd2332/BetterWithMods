@@ -40,7 +40,7 @@ public class ImprovedFlee extends Feature {
 //    }
 
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent evt) {
+    public static void addEntityAI(EntityJoinWorldEvent evt) {
         if (evt.getEntity() instanceof EntityLiving) {
             EntityLiving entity = (EntityLiving) evt.getEntity();
             if (entity instanceof EntityAnimal && EntityUtils.hasAI(entity, EntityAIPanic.class)) {
@@ -53,7 +53,7 @@ public class ImprovedFlee extends Feature {
 
 
     @SubscribeEvent
-    public void onPlaceBlock(BlockEvent.PlaceEvent event) {
+    public static void onPlaceBlock(BlockEvent.PlaceEvent event) {
         if (!blockPlace)
             return;
         if (event.getPlayer() != null) {
@@ -67,7 +67,7 @@ public class ImprovedFlee extends Feature {
     }
 
     @SubscribeEvent
-    public void onBreakBlock(BlockEvent.BreakEvent event) {
+    public static void onBreakBlock(BlockEvent.BreakEvent event) {
         if (!blockBreak)
             return;
         if (event.getPlayer() != null && !event.getState().getMaterial().isReplaceable()) {
@@ -81,7 +81,7 @@ public class ImprovedFlee extends Feature {
     }
 
     @SubscribeEvent
-    public void onGroupFlee(LivingSetAttackTargetEvent event) {
+    public static void onGroupFlee(LivingSetAttackTargetEvent event) {
         if (!groupFlee)
             return;
         if (event.getTarget() != null && event.getEntityLiving() instanceof EntityAnimal) {
@@ -96,7 +96,7 @@ public class ImprovedFlee extends Feature {
         }
     }
 
-    private boolean cantBeScared(EntityAnimal animal) {
+    private static boolean cantBeScared(EntityAnimal animal) {
         if (animal instanceof EntityTameable && ((EntityTameable) animal).isTamed())
             return true;
         if (animal instanceof AbstractHorse && ((AbstractHorse) animal).isTame())

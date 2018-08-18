@@ -40,7 +40,7 @@ public class MoreTempting extends Feature {
     }
 
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent event) {
+    public static void addEntityAI(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntityLivingBase) {
             EntityLivingBase entity = (EntityLivingBase) event.getEntity();
             if (entity instanceof EntityAnimal) {

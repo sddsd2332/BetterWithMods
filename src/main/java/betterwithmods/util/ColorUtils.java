@@ -1,8 +1,8 @@
 package betterwithmods.util;
 
 import betterwithmods.api.util.impl.BlockColorProvider;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.Maps;
@@ -96,8 +96,8 @@ public class ColorUtils {
 
     @Nullable
     public static EnumDyeColor getColor(ItemStack stack) {
-        if (stack != ItemStack.EMPTY && BWOreDictionary.hasPrefix(stack, "dye")) {
-            for (String ore : BWOreDictionary.getOres(stack)) {
+        if (stack != ItemStack.EMPTY && BWMOreDictionary.hasPrefix(stack, "dye")) {
+            for (String ore : BWMOreDictionary.getOres(stack)) {
                 EnumDyeColor dye = getDye(ore);
                 if (dye != null)
                     return dye;

@@ -3,7 +3,7 @@ package betterwithmods.module.hardcore.needs.hunger;
 import betterwithmods.BWMod;
 import betterwithmods.client.gui.GuiHunger;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
@@ -91,14 +91,13 @@ public class HCHunger extends Feature {
         }
     }
 
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-
-        BWRegistry.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties(this));
-        BWRegistry.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties(this));
-
-
-        registerFoods();
+    //Adds Exhaustion when Jumping and cancels Jump if too exhausted
+    @SubscribeEvent
+    public static void onJump(LivingEvent.LivingJumpEvent event) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            player.addExhaustion(0.5f);
+        }
     }
 
 
@@ -107,33 +106,23 @@ public class HCHunger extends Feature {
         MinecraftForge.EVENT_BUS.register(ClientSide.class);
     }
 
-
-    //Adds Exhaustion when Jumping and cancels Jump if too exhausted
     @SubscribeEvent
-    public void onJump(LivingEvent.LivingJumpEvent event) {
-        if (event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            player.addExhaustion(0.5f);
-        }
-    }
-
-    @SubscribeEvent
-    public void entityConstruct(EntityEvent.EntityConstructing e) {
+    public static void entityConstruct(EntityEvent.EntityConstructing e) {
         if (e.getEntity() instanceof EntityPlayer) {
             e.getEntity().getDataManager().register(EXHAUSTION_TICK, 0);
         }
     }
 
-    private int getExhaustionTick(EntityPlayer player) {
+    private static int getExhaustionTick(EntityPlayer player) {
         return player.getDataManager().get(EXHAUSTION_TICK);
     }
 
-    private void setExhaustionTick(EntityPlayer player, int tick) {
+    private static void setExhaustionTick(EntityPlayer player, int tick) {
         player.getDataManager().set(EXHAUSTION_TICK, tick);
     }
 
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (!event.player.world.isRemote && event.phase == TickEvent.Phase.START) {
             EntityPlayer player = event.player;
 
@@ -154,9 +143,8 @@ public class HCHunger extends Feature {
         }
     }
 
-
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onHarvest(BlockEvent.BreakEvent event) {
+    public static void onHarvest(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
         if (event.isCanceled() || !PlayerHelper.isSurvival(player))
             return;
@@ -170,14 +158,19 @@ public class HCHunger extends Feature {
         player.addExhaustion(blockBreakExhaustion - 0.005f);
     }
 
-    public String getDescription() {
-        return "This Feature REQUIRES AppleCore!!!.\n" +
-                "Completely revamps the hunger system of Minecraft. \n" +
-                "The Saturation value is replaced with Fat. \n" +
-                "Fat will accumulate if too much food is consumed then need to fill the bar.\n" +
-                "Fat will only be burned once the entire hunger bar is emptied \n" +
-                "The more fat the slower you will walk.\n" +
-                "Food Items values are also changed, while a ton of new foods are add.";
+    @SubscribeEvent
+    public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
+        if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
+            return;
+        //Whether the player can heal
+        Event.Result result = BWMRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
+        event.setResult(result);
+    }
+
+    //Changes food to correct value.
+    @SubscribeEvent
+    public static void modifyFoodValues(FoodEvent.GetFoodValues event) {
+        event.foodValues = FoodHelper.getFoodValue(event.food).orElseGet(() -> new FoodValues(Math.min(event.foodValues.hunger * 3, 60), 0));
     }
 
 
@@ -271,26 +264,8 @@ public class HCHunger extends Feature {
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
     }
 
-
-
     @SubscribeEvent
-    public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
-        if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
-            return;
-        //Whether the player can heal
-        Event.Result result = BWRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
-        event.setResult(result);
-    }
-
-
-    //Changes food to correct value.
-    @SubscribeEvent
-    public void modifyFoodValues(FoodEvent.GetFoodValues event) {
-        event.foodValues = FoodHelper.getFoodValue(event.food).orElseGet(() -> new FoodValues(Math.min(event.foodValues.hunger * 3, 60), 0));
-    }
-
-    @SubscribeEvent
-    public void onFoodStatsAdd(FoodEvent.FoodStatsAddition event) {
+    public static void onFoodStatsAdd(FoodEvent.FoodStatsAddition event) {
         event.setCanceled(true);
 
         int maxHunger = AppleCoreAPI.accessor.getMaxHunger(event.player);
@@ -303,7 +278,7 @@ public class HCHunger extends Feature {
     }
 
     @SubscribeEvent
-    public void getPlayerFoodValue(FoodEvent.GetPlayerFoodValues event) {
+    public static void getPlayerFoodValue(FoodEvent.GetPlayerFoodValues event) {
         if (event.player == null)
             return;
         FoodStats stats = event.player.getFoodStats();
@@ -321,7 +296,7 @@ public class HCHunger extends Feature {
 
     //Changes exhaustion to reduce food first, then fat.
     @SubscribeEvent
-    public void exhaust(ExhaustionEvent.Exhausted event) {
+    public static void exhaust(ExhaustionEvent.Exhausted event) {
         FoodStats stats = event.player.getFoodStats();
         int saturation = (int) ((stats.getSaturationLevel() - 1) / 6);
         int hunger = stats.getFoodLevel() / 6;
@@ -335,25 +310,25 @@ public class HCHunger extends Feature {
     }
 
     @SubscribeEvent
-    public void setMaxFood(HungerEvent.GetMaxHunger event) {
+    public static void setMaxFood(HungerEvent.GetMaxHunger event) {
         event.maxHunger = 60;
     }
 
     //Change Health Regen speed to take 30 seconds
     @SubscribeEvent
-    public void healthRegenSpeed(HealthRegenEvent.GetRegenTickPeriod event) {
+    public static void healthRegenSpeed(HealthRegenEvent.GetRegenTickPeriod event) {
         event.regenTickPeriod = 600;
     }
 
     //Stop regen from Fat value.
     @SubscribeEvent
-    public void denyFatRegen(HealthRegenEvent.AllowSaturatedRegen event) {
+    public static void denyFatRegen(HealthRegenEvent.AllowSaturatedRegen event) {
         event.setResult(Event.Result.DENY);
     }
 
     //Shake Hunger bar whenever any exhaustion is given?
     @SubscribeEvent
-    public void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
+    public static void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
         if (event.deltaExhaustion >= HCHunger.blockBreakExhaustion) {
             if (event.player instanceof EntityPlayerMP)
                 BWNetwork.INSTANCE.sendTo(new MessageHungerShake(), (EntityPlayerMP) event.player);
@@ -363,15 +338,29 @@ public class HCHunger extends Feature {
     }
 
     @SubscribeEvent
-    public void onStarve(StarvationEvent.AllowStarvation event) {
+    public static void onStarve(StarvationEvent.AllowStarvation event) {
         if (event.player.getFoodStats().getFoodLevel() <= 0 && event.player.getFoodStats().getSaturationLevel() <= 0)
             event.setResult(Event.Result.ALLOW);
     }
 
     @SubscribeEvent
-    public void onStarve(StarvationEvent.Starve event) {
+    public static void onStarve(StarvationEvent.Starve event) {
         event.setCanceled(true);
         event.player.attackEntityFrom(DamageSource.STARVE, 1);
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+
+        BWMRegistry.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties(this));
+        BWMRegistry.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties(this));
+
+
+        registerFoods();
+    }
+
+    public String getDescription() {
+        return "Revamps the hunger system.";
     }
 
 

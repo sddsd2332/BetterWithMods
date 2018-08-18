@@ -4,7 +4,7 @@ import betterwithmods.api.BWMAPI;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileCrank;
-import betterwithmods.module.gameplay.Gameplay;
+import betterwithmods.module.general.MechanicalPower;
 import betterwithmods.util.TooltipLib;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.Block;
@@ -67,28 +67,30 @@ public class BlockCrank extends BWMBlock implements IOverpower {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        int meta = state.getValue(STAGE);
-        if (meta == 0) {
-            if (Gameplay.crankExhaustion > 0.0) {
-
-                if (player.getFoodStats().getFoodLevel() > PlayerHelper.getMinimumHunger()) {
-                    player.addExhaustion((float) Gameplay.crankExhaustion);
-                    if (!world.isRemote) {
-                        toggleSwitch(world, pos, state);
-                    }
-                } else if (world.isRemote) {
-                    if (hand == EnumHand.MAIN_HAND)
-                        player.sendStatusMessage(TooltipLib.getMessageComponent(TooltipLib.HANDCRANK_EXHAUSTION), true);
-                    return false;
-                }
-            } else
-                toggleSwitch(world, pos, state);
-            return true;
+        int stage = state.getValue(STAGE);
+        if (stage == 0) {
+            return (MechanicalPower.HAND_CRANK_EXHAUSTION > 0.0)
+                    ? toggleWithExhaustion(world, pos, state, player, hand)
+                    : toggleSwitch(world, pos, state);
         }
         return false;
     }
 
-    private void toggleSwitch(World world, BlockPos pos, IBlockState state) {
+    private boolean toggleWithExhaustion(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand) {
+        if (player.getFoodStats().getFoodLevel() > PlayerHelper.getMinimumHunger()) {
+            player.addExhaustion(MechanicalPower.HAND_CRANK_EXHAUSTION);
+            if (!world.isRemote) {
+                toggleSwitch(world, pos, state);
+            }
+        } else if (world.isRemote) {
+            if (hand == EnumHand.MAIN_HAND)
+                player.sendStatusMessage(TooltipLib.getMessageComponent(TooltipLib.HANDCRANK_EXHAUSTION), true);
+            return false;
+        }
+        return true;
+    }
+
+    private boolean toggleSwitch(World world, BlockPos pos, IBlockState state) {
         if (!world.isRemote) {
             if (!checkForOverpower(world, pos)) {
                 world.setBlockState(pos, state.withProperty(STAGE, 1));
@@ -98,6 +100,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
                 overpower(world, pos);
             }
         }
+        return true;
     }
 
     @Override
@@ -186,8 +189,10 @@ public class BlockCrank extends BWMBlock implements IOverpower {
 
     @Override
     public void overpower(World world, BlockPos pos) {
-        //TODO add loot table
-        world.setBlockToAir(pos);
+        if (doesOverpower()) {
+            //TODO add loot table
+            world.setBlockToAir(pos);
+        }
     }
 
     @Nonnull

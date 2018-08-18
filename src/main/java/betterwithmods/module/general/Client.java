@@ -10,13 +10,15 @@ public class Client extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        TileAxleGenerator.generatorRenderDistance = loadProperty("Generator Render Distance", 256).setComment("Distance away that a Windmill or Waterwheel will render").get();
+
+        TileAxleGenerator.generatorRenderDistance = loadProperty("Generator Render Distance", 256)
+                .setComment("Distance away that a Windmill or Waterwheel will render")
+                .setCategoryComment(getDescription()).get();
 
         GuiStatus.offsetY = loadProperty("Y offset", 0).subCategory("status gui").get();
         GuiStatus.offsetX = loadProperty("X offset", 0).subCategory("status gui").setCategoryComment("Set offset for Status HUD for effects such as hunger and gloom").get();
 
         ClientEventHandler.blockPlacementHighlight = loadProperty("Show Block Placement", true).setComment("Render Block Placement Helper for MiniBlocks, Gearboxes and more").get();
-
     }
 
 

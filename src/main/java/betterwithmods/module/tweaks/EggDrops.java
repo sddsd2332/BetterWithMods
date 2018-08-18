@@ -25,7 +25,7 @@ import java.util.Random;
 public class EggDrops extends Feature {
 
     @SubscribeEvent
-    public void getRawEgg(ProjectileImpactEvent.Throwable event) {
+    public static void getRawEgg(ProjectileImpactEvent.Throwable event) {
         if (event.getThrowable().getClass().equals(EntityEgg.class)) {
             event.setCanceled(true);
             RayTraceResult result = event.getRayTraceResult();

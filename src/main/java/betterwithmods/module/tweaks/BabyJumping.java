@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class BabyJumping extends Feature {
 
     @SubscribeEvent
-    public void onJump(LivingEvent.LivingJumpEvent event) {
+    public static void onJump(LivingEvent.LivingJumpEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
         if (entity instanceof EntityLiving) {
             if (!entity.isChild())

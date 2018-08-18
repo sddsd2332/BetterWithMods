@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class NoSkeletonTrap extends Feature {
 
     @SubscribeEvent
-    public void onEntitySpawn(EntityJoinWorldEvent event) {
+    public static void onEntitySpawn(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntitySkeletonHorse && ((EntitySkeletonHorse) event.getEntity()).isTrap()) {
             event.setCanceled(true);
         }

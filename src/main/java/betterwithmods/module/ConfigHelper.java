@@ -10,6 +10,7 @@
  */
 package betterwithmods.module;
 
+import betterwithmods.BWMod;
 import betterwithmods.api.modules.config.*;
 import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Maps;
@@ -33,12 +34,14 @@ public class ConfigHelper {
 
     public final Configuration config;
     public final String path;
-    private String baseCategory;
 
-    public ConfigHelper(String path, Configuration configuration, String baseCategory) {
+    public ConfigHelper(String path, Configuration configuration) {
         this.path = path;
         this.config = configuration;
-        this.baseCategory = baseCategory;
+    }
+
+    public static String joinCategory(String... cat) {
+        return String.join(".", cat);
     }
 
     private ResourceLocation rlFromString(String loc) {
@@ -126,16 +129,6 @@ public class ConfigHelper {
         return value;
     }
 
-    public void setBaseCategory(String baseCategory) {
-        this.baseCategory = baseCategory;
-    }
-
-    public String getCategory(String category) {
-        if (this.baseCategory.isEmpty())
-            return category;
-        return this.baseCategory + "." + category;
-    }
-
     public List<ResourceLocation> loadResouceLocations(String property, String category, String comment, String[] default_) {
         return Arrays.stream(load(category, property, default_).setComment(comment).get()).map(this::rlFromString).collect(Collectors.toList());
     }
@@ -164,16 +157,16 @@ public class ConfigHelper {
         return parseIngredientValueMap(load(category, property, default_).setComment(comment).get());
     }
 
+    public void overrideBlock(String str) {
+        BWMod.proxy.addResourceOverride("textures", "blocks", str, "png");
+    }
 
-    //TODO
-//    public void overrideBlock(String str) {
-//        BWMod.proxy.addResourceOverride("textures", "blocks", str, "png");
-//    }
-//
-//    public void overrideItem(String str) {
-//        BWMod.proxy.addResourceOverride("textures", "items", str, "png");
-//    }
-//
+    public void overrideItem(String str) {
+        BWMod.proxy.addResourceOverride("textures", "items", str, "png");
+    }
+
+
+    //
     public void save() {
         if (config.hasChanged())
             config.save();

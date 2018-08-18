@@ -1,12 +1,15 @@
 package betterwithmods.api.modules.impl;
 
 import betterwithmods.api.modules.IStateHandler;
+import net.minecraft.item.crafting.IRecipe;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.*;
+import org.apache.logging.log4j.Logger;
 
-import java.util.HashSet;
+import java.util.ArrayList;
 import java.util.function.Consumer;
 
-public class ListStateHandler<T extends IStateHandler> extends HashSet<T> implements IStateHandler {
+public abstract class ListStateHandler<T extends IStateHandler> extends ArrayList<T> implements IStateHandler {
 
     private boolean enabled;
 
@@ -18,12 +21,18 @@ public class ListStateHandler<T extends IStateHandler> extends HashSet<T> implem
 
     @Override
     public void onConstructed(FMLConstructionEvent event) {
-        forEachEnabled(i -> i.onConstructed(event));
+        forEachEnabled(i -> {
+            getLogger().info("[Construction] {}: {}", i.getType(), i.getName());
+            i.onConstructed(event);
+        });
     }
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        forEachEnabled(i -> i.onPreInit(event));
+        forEachEnabled(i -> {
+            getLogger().info(" {}: {} is enabled", i.getType(), i.getName());
+            i.onPreInit(event);
+        });
     }
 
     @Override
@@ -47,6 +56,11 @@ public class ListStateHandler<T extends IStateHandler> extends HashSet<T> implem
     }
 
     @Override
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        forEachEnabled(i -> i.registerRecipes(event));
+    }
+
+    @Override
     public boolean isEnabled() {
         return enabled;
     }
@@ -55,5 +69,5 @@ public class ListStateHandler<T extends IStateHandler> extends HashSet<T> implem
         this.enabled = enabled;
     }
 
-
+    public abstract Logger getLogger();
 }

@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.Feature;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Sets;
@@ -9,6 +9,7 @@ import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -18,6 +19,7 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -47,20 +49,14 @@ public class HCSeeds extends Feature {
         return "Requires Tilling the ground with a hoe to get seeds.";
     }
 
-    //TODO HCSeeds
-//    @Override
-//    public void setupConfig() {
-//        stopZombieCropLoot = loadPropBool("Stop Zombie Crop Loot", "Stops Zombies from dropping potatoes or carrots", true);
-//        SEED_BLACKLIST = Sets.newHashSet(loadItemStackList("Seed Blacklist", "Blacklist seeds from being dropped when tilling grass. Defaulted to Wheat seeds for HCVillages.", new ItemStack[]{new ItemStack(Items.WHEAT_SEEDS)}));
-//    }
 
     @SubscribeEvent
-    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
         if (STOP_SEEDS.test(event.getState()))
             event.getDrops().clear();
     }
 
-    public NonNullList<ItemStack> getDrops(boolean isGrass, int fortune) {
+    public static NonNullList<ItemStack> getDrops(boolean isGrass, int fortune) {
         if (RANDOM.nextInt(8) != 0) return NonNullList.create();
         ItemStack seed = net.minecraftforge.common.ForgeHooks.getGrassSeed(RANDOM, 0);
         if (SEED_BLACKLIST.stream().anyMatch(s -> InvUtils.matches(s, seed)) || seed.isEmpty() || (!isGrass && seed.getItem().equals(Item.getItemFromBlock(BWMBlocks.HEMP))))
@@ -70,7 +66,7 @@ public class HCSeeds extends Feature {
     }
 
     @SubscribeEvent
-    public void onHoe(UseHoeEvent e) {
+    public static void onHoe(UseHoeEvent e) {
         if (e.getResult() == Event.Result.DENY)
             return;
         World world = e.getWorld();
@@ -86,7 +82,7 @@ public class HCSeeds extends Feature {
     }
 
     @SubscribeEvent
-    public void mobDrop(LivingDropsEvent e) {
+    public static void mobDrop(LivingDropsEvent e) {
         if (!stopZombieCropLoot || !(e.getEntityLiving() instanceof EntityZombie))
             return;
         Iterator<EntityItem> iter = e.getDrops().iterator();
@@ -94,10 +90,16 @@ public class HCSeeds extends Feature {
         while (iter.hasNext()) {
             item = iter.next();
             ItemStack stack = item.getItem();
-            if (BWOreDictionary.hasPrefix(stack, "crop"))
+            if (BWMOreDictionary.hasPrefix(stack, "crop"))
                 iter.remove();
         }
 
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        stopZombieCropLoot = loadProperty("Stop Zombie Crop Loot", true).setComment("Stops Zombies from dropping potatoes or carrots").get();
+        SEED_BLACKLIST = Sets.newHashSet(config().loadItemStackList("Seed Blacklist", getCategory(), "Blacklist seeds from being dropped when tilling grass. Defaulted to Wheat seeds for HCVillages.", new ItemStack[]{new ItemStack(Items.WHEAT_SEEDS)}));
     }
 
 }

@@ -30,21 +30,20 @@ public class Module extends ListStateHandler<Feature> {
 
     public Module() {
         this.name = getClass().getSimpleName().toLowerCase();
-        this.addFeatures();
     }
 
     public void addFeatures() {
     }
 
     /**
-     * @param file   Directory from {@link FMLPreInitializationEvent#getModConfigurationDirectory()},
+     * @param helper supplies a {@link ConfigHelper} for creating configurable code ,
      * @param logger Mod log instance
      * @return list of {@link Feature}s that are enabled, used for {@link ModuleLoader#isFeatureEnabled(Class)}
      */
     public List<Feature> setup(ConfigHelper helper, Logger logger) {
         this.setLogger(logger);
         this.setConfig(helper);
-
+        this.addFeatures();
         this.enabled = canEnable();
         if (isEnabled()) {
             forEach(Feature::setup);
@@ -71,12 +70,18 @@ public class Module extends ListStateHandler<Feature> {
         config.save();
     }
 
+    protected void addFeatures(Feature... features) {
+        for (Feature feature : features)
+            addFeature(feature);
+    }
+
     protected void addFeature(Feature feature) {
         feature.parent = this;
         this.add(feature);
     }
 
     protected void addFeature(Class<? extends Feature> clazz, String... dependencies) {
+        config().setCategoryComment(ConfigHelper.joinCategory(getName(), clazz.getSimpleName()), "Requires:" + String.join(",", dependencies));
         if (Arrays.stream(dependencies).allMatch(Loader::isModLoaded)) {
             try {
                 this.addFeature(clazz.newInstance());
@@ -86,7 +91,7 @@ public class Module extends ListStateHandler<Feature> {
         }
     }
 
-    protected String getName() {
+    public String getName() {
         return this.name;
     }
 
@@ -118,5 +123,11 @@ public class Module extends ListStateHandler<Feature> {
     protected boolean isEnabledByDefault() {
         return true;
     }
+
+    @Override
+    public String getType() {
+        return "Module";
+    }
+
 }
 

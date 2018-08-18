@@ -46,7 +46,7 @@ public class HCGunpowder extends Feature {
     }
 
     @SubscribeEvent
-    public void mobDrops(LivingDropsEvent evt) {
+    public static void mobDrops(LivingDropsEvent evt) {
         boolean contained = false;
         for (Class clazz : disableGunpowder) {
             if (evt.getEntity().getClass().isAssignableFrom(clazz)) {

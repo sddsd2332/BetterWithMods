@@ -63,10 +63,12 @@ public class ModuleLoader extends ListStateHandler<Module> {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
+        File file = event.getSuggestedConfigurationFile();
+        ConfigHelper helper = new ConfigHelper(file.getParent(), new Configuration(file));
         forEach(module -> {
             //FIXME Currently have a config for each module, not entirely sure about this
-            File file = new File(event.getModConfigurationDirectory(), relativeConfigDir.getPath());
-            ConfigHelper helper = new ConfigHelper(file.getPath(), new Configuration(new File(file, module.getName() + ".cfg")), module.getName());
+//            File file = new File(event.getModConfigurationDirectory(), relativeConfigDir.getPath());
+//            ConfigHelper helper = new ConfigHelper(file.getPath(), new Configuration(new File(file, module.getName() + ".cfg")));
 
             List<Feature> feature = module.setup(helper, getLogger());
             //Add all feature classes to the set;
@@ -88,6 +90,13 @@ public class ModuleLoader extends ListStateHandler<Module> {
         }
     }
 
+    @Override
+    public String getType() {
+        return "ModuleLoader";
+    }
 
-
+    @Override
+    public String getName() {
+        return "ModuleLoader";
+    }
 }

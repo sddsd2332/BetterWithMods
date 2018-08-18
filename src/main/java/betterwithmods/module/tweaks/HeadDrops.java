@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.BWDamageSource;
+import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.BWMItems;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Created by primetoxinz on 5/13/17.
  */
 public class HeadDrops extends Feature {
-    private int sawHeadDropChance, battleAxeHeadDropChance;
+    private static int sawHeadDropChance, battleAxeHeadDropChance;
 
     @Override
     public void onInit(FMLInitializationEvent event) {
@@ -37,18 +37,18 @@ public class HeadDrops extends Feature {
     }
 
     @SubscribeEvent
-    public void onLivingDrop(LivingDropsEvent event) {
+    public static void onLivingDrop(LivingDropsEvent event) {
         if (isChoppingBlock(event.getSource()))
             addHead(event, sawHeadDropChance);
         if (isBattleAxe(event.getEntityLiving()))
             addHead(event, battleAxeHeadDropChance);
     }
 
-    private boolean isChoppingBlock(DamageSource source) {
-        return source.equals(BWDamageSource.getChoppingBlockDamage());
+    private static boolean isChoppingBlock(DamageSource source) {
+        return source.equals(BWMDamageSource.getChoppingBlockDamage());
     }
 
-    private boolean isBattleAxe(EntityLivingBase entity) {
+    private static boolean isBattleAxe(EntityLivingBase entity) {
         DamageSource source = entity.getLastDamageSource();
         if (source != null && source.getImmediateSource() != null) {
             Entity e = source.getImmediateSource();
@@ -60,13 +60,13 @@ public class HeadDrops extends Feature {
         return false;
     }
 
-    public void addDrop(LivingDropsEvent evt, ItemStack drop) {
+    public static void addDrop(LivingDropsEvent evt, ItemStack drop) {
         EntityItem item = new EntityItem(evt.getEntityLiving().getEntityWorld(), evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, drop);
         item.setDefaultPickupDelay();
         evt.getDrops().add(item);
     }
 
-    public void addHead(LivingDropsEvent evt, int chance) {
+    public static void addHead(LivingDropsEvent evt, int chance) {
         if (chance > 0 && evt.getEntity().getEntityWorld().rand.nextInt(chance) != 0)
             return;
         if (evt.getEntityLiving() instanceof EntitySkeleton)

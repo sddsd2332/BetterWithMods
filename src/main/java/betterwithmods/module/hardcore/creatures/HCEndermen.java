@@ -22,12 +22,12 @@ public class HCEndermen extends Feature {
     }
 
     @SubscribeEvent
-    public void onTeleport(EnderTeleportEvent evt) {
+    public static void onTeleport(EnderTeleportEvent evt) {
         evt.getEntityLiving().getEntityWorld().playSound(null, evt.getEntityLiving().getPosition(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.HOSTILE, 1, 1);
     }
 
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent evt) {
+    public static void addEntityAI(EntityJoinWorldEvent evt) {
         if (evt.getEntity() instanceof EntityEnderman) {
             if (!evt.getWorld().isRemote) {
                 EntityEnderman entity = (EntityEnderman) evt.getEntity();

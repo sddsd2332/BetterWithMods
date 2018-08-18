@@ -16,7 +16,7 @@ public class LlamaDrops extends Feature {
 
     //Override loottables
     @SubscribeEvent
-    public void onLootTableLoad(LootTableLoadEvent event) {
+    public static void onLootTableLoad(LootTableLoadEvent event) {
         if (event.getName().equals(LootTableList.ENTITIES_LLAMA)) {
             LootTable table = event.getLootTableManager().getLootTableFromLocation(LLAMA_LOOT);
             event.setTable(table);

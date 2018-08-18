@@ -22,7 +22,7 @@ public class Notes extends Feature {
     }
 
     @SubscribeEvent
-    public void onNotePlay(NoteBlockEvent.Play event) {
+    public static void onNotePlay(NoteBlockEvent.Play event) {
         BlockPos pos = event.getPos();
         if (event.getWorld().getBlockState(pos).getBlock() != Blocks.NOTEBLOCK)
             return;
@@ -45,7 +45,7 @@ public class Notes extends Feature {
         }
     }
 
-    private int getType(World world, BlockPos pos) {
+    private static int getType(World world, BlockPos pos) {
         IBlockState down = world.getBlockState(pos.down());
         if (down.getBlock() == BWMBlocks.WOLF)
             return 1;

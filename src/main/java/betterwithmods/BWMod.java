@@ -1,11 +1,13 @@
 package betterwithmods;
 
 import betterwithmods.client.BWGuiHandler;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.event.FakePlayerHandler;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.general.General;
+import betterwithmods.module.hardcore.Hardcore;
+import betterwithmods.module.recipes.Recipes;
 import betterwithmods.module.tweaks.Tweaks;
 import betterwithmods.proxy.IProxy;
 import net.minecraftforge.common.ForgeModContainer;
@@ -26,7 +28,12 @@ public class BWMod {
     public static final String VERSION = "${version}";
     public static final String NAME = "Better With Mods";
     public static final String DEPENDENCIES = "before:survivalist;after:traverse;after:thaumcraft;after:natura;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
-    public static final ModuleLoader MODULE_LOADER = new ModuleLoader(new File(BWMod.MODID)).addModules(new General(), new Tweaks());
+    public static final ModuleLoader MODULE_LOADER = new ModuleLoader(new File(BWMod.MODID)).addModules(
+            new General(),
+            new Recipes(),
+            new Tweaks(),
+            new Hardcore()
+    );
 
     public static Logger logger;
     @SuppressWarnings({"CanBeFinal", "unused"})
@@ -51,13 +58,13 @@ public class BWMod {
         BWMAttributes.registerAttributes();
         MODULE_LOADER.setLogger(logger);
         MODULE_LOADER.onPreInit(event);
-        BWRegistry.onPreInit();
+        BWMRegistry.onPreInit();
         proxy.onPreInit(event);
     }
 
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
-        BWRegistry.init();
+        BWMRegistry.init();
         MODULE_LOADER.onInit(event);
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new BWGuiHandler());
         proxy.onInit(event);
@@ -65,7 +72,7 @@ public class BWMod {
 
     @Mod.EventHandler
     public void postInit(FMLPostInitializationEvent event) {
-        BWRegistry.postInit();
+        BWMRegistry.postInit();
         MODULE_LOADER.onPostInit(event);
         proxy.postInit(event);
     }
@@ -78,15 +85,12 @@ public class BWMod {
     @Mod.EventHandler
     public void serverStarted(FMLServerStartedEvent event) {
         MODULE_LOADER.onServerStarted(event);
-        //TODO tests
-//        if (isDev()) {
-//            BWMTests.runTests();
-//        }
     }
 
     @Mod.EventHandler
     public void serverStopping(FMLServerStoppingEvent event) {
         FakePlayerHandler.reset();
     }
+
 
 }

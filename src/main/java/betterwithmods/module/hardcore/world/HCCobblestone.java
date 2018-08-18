@@ -8,16 +8,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 @Mod.EventBusSubscriber
 public class HCCobblestone extends Feature {
-    @Override
-    public String getDescription() {
-        return "Makes stone variants drop into cobblestone.";
-    }
-
     @SubscribeEvent
-    public void dropCobble(BlockEvent.HarvestDropsEvent evt) {
-        if (!this.enabled)
-            return;
-
+    public static void dropCobble(BlockEvent.HarvestDropsEvent evt) {
         if (!evt.isSilkTouching() && !evt.getWorld().isRemote) {
             if (evt.getState().getBlock() == Blocks.STONE) {
                 int meta = evt.getState().getBlock().getMetaFromState(evt.getState());
@@ -26,5 +18,10 @@ public class HCCobblestone extends Feature {
                 }
             }
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Makes stone variants drop into cobblestone.";
     }
 }

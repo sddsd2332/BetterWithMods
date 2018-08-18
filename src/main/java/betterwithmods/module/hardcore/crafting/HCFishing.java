@@ -168,7 +168,6 @@ public class HCFishing extends Feature {
         BWMRecipes.removeRecipe(new ResourceLocation("fishing_rod"));
     }
 
-    @SubscribeEvent
     public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         BAIT = StackIngredient.fromStacks(config().loadItemStackArray("Bait", getCategory(),"Add items as valid fishing bait", new ItemStack[]{
                 new ItemStack(Items.SPIDER_EYE),
@@ -183,7 +182,7 @@ public class HCFishing extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onLootTableLoad(LootTableLoadEvent event) {
+    public static void onLootTableLoad(LootTableLoadEvent event) {
         if (event.getName().equals(LootTableList.GAMEPLAY_FISHING)) {
             LootTable table = event.getLootTableManager().getLootTableFromLocation(HCFISHING_LOOT);
             //FIXME this is a shitty hack to stop the overriding loottable from being frozen immediately and stopping other modded events from being able to apply their additions to to the fishing loottable
@@ -198,14 +197,14 @@ public class HCFishing extends Feature {
     }
 
     @SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
+    public static void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
         if (event.getObject().getItem() instanceof ItemFishingRod) {
             event.addCapability(BAITED_FISHING_ROD, new FishingBait());
         }
     }
 
     @SubscribeEvent
-    public void onFished(ItemFishedEvent event) {
+    public static void onFished(ItemFishedEvent event) {
         BlockPos hookPos = getHookSurfacePos(event.getHookEntity());
         if (restrictToOpenWater) {
             if (event.getHookEntity().getEntityWorld().getHeight(hookPos.getX(), hookPos.getZ()) > hookPos.getY() || !isAirBlock(event.getHookEntity().getEntityWorld(), hookPos)) {
@@ -240,7 +239,7 @@ public class HCFishing extends Feature {
     }
 
     @SubscribeEvent
-    public void useFishingRod(PlayerInteractEvent.RightClickItem event) {
+    public static void useFishingRod(PlayerInteractEvent.RightClickItem event) {
         if (requireBait) {
             if (isFishingRod(event.getItemStack())) {
                 FishingBait cap = event.getItemStack().getCapability(FISHING_ROD_CAP, EnumFacing.UP);
@@ -259,7 +258,7 @@ public class HCFishing extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onTooltip(ItemTooltipEvent event) {
+    public static void onTooltip(ItemTooltipEvent event) {
         if (requireBait) {
             ItemStack stack = event.getItemStack();
             if (isFishingRod(stack)) {

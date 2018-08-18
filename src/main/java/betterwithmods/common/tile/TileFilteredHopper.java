@@ -7,7 +7,7 @@ import betterwithmods.api.tile.IHopperFilter;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.util.IProgressSource;
 import betterwithmods.client.model.filters.ModelWithResource;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
@@ -104,7 +104,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
             EntityItem item = (EntityItem) entity;
             if (item.isDead)
                 return;
-            HopperRecipe recipe = BWRegistry.FILTERD_HOPPER.findRecipe(this, item.getItem()).orElse(null);
+            HopperRecipe recipe = BWMRegistry.FILTERED_HOPPER.findRecipe(this, item.getItem()).orElse(null);
             if (recipe != null) {
                 if (recipe.craftRecipe(item, world, pos, this)) {
                     this.getBlockWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((getBlockWorld().rand.nextFloat() - getBlockWorld().rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
@@ -191,7 +191,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     private void validateInventory() {
         boolean stateChanged = false;
         ItemStack filter = getFilterStack();
-        IHopperFilter newFilter = BWRegistry.HOPPER_FILTERS.getFilter(filter);
+        IHopperFilter newFilter = BWMRegistry.HOPPER_FILTERS.getFilter(filter);
         if (this.hopperFilter != newFilter) {
             this.hopperFilter = newFilter;
             stateChanged = true;
@@ -395,7 +395,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
         @Nonnull
         @Override
         public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-            if (!BWRegistry.HOPPER_FILTERS.isFilter(stack))
+            if (!BWMRegistry.HOPPER_FILTERS.isFilter(stack))
                 return stack;
             return super.insertItem(slot, stack, simulate);
         }

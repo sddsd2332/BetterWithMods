@@ -75,7 +75,7 @@ public class HCVillages extends Feature {
     }
 
     @SubscribeEvent
-    public void biomeSpecificVillage(BiomeEvent.GetVillageBlockID event) {
+    public static void biomeSpecificVillage(BiomeEvent.GetVillageBlockID event) {
         //TODO tables in houses
 //		if (event.getOriginal() == BWMBlocks.WOOD_TABLE.getDefaultState()) {
 //			event.setReplacement(event.getOriginal().withProperty(BlockPlanks.VARIANT, plankFromBiome(event.getBiome())));
@@ -112,7 +112,7 @@ public class HCVillages extends Feature {
     }
 
     @SubscribeEvent
-    public void onGenerate(InitMapGenEvent event) {
+    public static void onGenerate(InitMapGenEvent event) {
         if (event.getType() == InitMapGenEvent.EventType.VILLAGE) {
             event.setNewGen(new BWMapGenVillage());
         }
@@ -120,7 +120,7 @@ public class HCVillages extends Feature {
 
     //hack to stop iron golem spawning in villages, also will stop any other spawning
     @SubscribeEvent
-    public void onEntityJoin(EntityJoinWorldEvent event) {
+    public static void onEntityJoin(EntityJoinWorldEvent event) {
         if (!disableIronGolems)
             return;
         if (event.getEntity() instanceof EntityIronGolem) {

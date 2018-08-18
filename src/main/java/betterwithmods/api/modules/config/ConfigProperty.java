@@ -27,6 +27,16 @@ public abstract class ConfigProperty<T> {
         return this;
     }
 
+    public ConfigProperty<T> setMax(double max) {
+        this.property.setMaxValue(max);
+        return this;
+    }
+
+    public ConfigProperty<T> setMin(double min) {
+        this.property.setMinValue(min);
+        return this;
+    }
+
 
     public ConfigProperty<T> setComment(String comment) {
         this.property.setComment(comment);

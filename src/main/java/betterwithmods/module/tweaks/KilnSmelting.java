@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.BWOreDictionary;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMOreDictionary;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.module.Feature;
 import betterwithmods.util.InvUtils;
 import net.minecraft.item.ItemBlock;
@@ -24,9 +24,9 @@ public class KilnSmelting extends Feature {
     public void onPostInit(FMLPostInitializationEvent event) {
         oreProductionCount = loadProperty("Ore Production Count", 1).setComment("Number of Materials returned from Smelting an Ore in the Kiln").get();
 
-        BWOreDictionary.oreNames.stream().flatMap(ore -> Arrays.stream(ore.getMatchingStacks())).filter(s -> s.getItem() instanceof ItemBlock).forEach(input -> {
+        BWMOreDictionary.oreNames.stream().flatMap(ore -> Arrays.stream(ore.getMatchingStacks())).filter(s -> s.getItem() instanceof ItemBlock).forEach(input -> {
             ItemStack output = FurnaceRecipes.instance().getSmeltingResult(input).copy();
-            BWRegistry.KILN.addStokedRecipe(input, InvUtils.setCount(output, oreProductionCount));
+            BWMRegistry.KILN.addStokedRecipe(input, InvUtils.setCount(output, oreProductionCount));
         });
     }
 

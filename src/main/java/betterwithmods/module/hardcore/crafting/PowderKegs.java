@@ -14,15 +14,13 @@ public class PowderKegs extends Feature {
         return "";
     }
 
-    //TODO
-//
-//    @Override
-//    public void preInitClient(FMLPreInitializationEvent event) {
-//        overrideBlock("tnt_bottom");
-//        overrideBlock("tnt_top");
-//        overrideBlock("tnt_side");
-//        overrideItem("minecart_tnt");
-//    }
+    @Override
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        config().overrideBlock("tnt_bottom");
+        config().overrideBlock("tnt_top");
+        config().overrideBlock("tnt_side");
+        config().overrideItem("minecart_tnt");
+    }
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {

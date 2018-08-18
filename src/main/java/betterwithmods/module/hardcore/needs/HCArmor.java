@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.ArmorPenalties;
 import betterwithmods.module.Feature;
 import betterwithmods.util.IngredientMap;
@@ -51,7 +51,7 @@ public class HCArmor extends Feature {
     @Override
     public void onInit(FMLInitializationEvent event) {
         shieldRebalance = loadProperty("Shield Rebalance", false).setComment("Experimental recipes for rebalacing shields").get();
-        BWRegistry.PENALTY_HANDLERS.add(penalties = new ArmorPenalties(this));
+        BWMRegistry.PENALTY_HANDLERS.add(penalties = new ArmorPenalties(this));
         initWeights();
     }
 

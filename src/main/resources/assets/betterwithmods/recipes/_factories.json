@@ -7,6 +7,6 @@
     "config": "betterwithmods.module.ModuleLoader$ConditionConfig"
   },
   "ingredients": {
-    "minitype": "betterwithmods.module.gameplay.miniblocks.MiniBlockIngredient$Factory"
+    "minitype": "betterwithmods.module.recipes.miniblocks.MiniBlockIngredient$Factory"
   }
 }

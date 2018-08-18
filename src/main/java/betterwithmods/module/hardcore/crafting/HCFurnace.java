@@ -36,19 +36,38 @@ public class HCFurnace extends Feature {
     public static HashMap<Ingredient, Integer> FURNACE_TIMINGS = Maps.newHashMap();
     public static HashMap<Ingredient, Integer> FUEL_TIMINGS = Maps.newHashMap();
 
-    public HCFurnace() {}
+    public HCFurnace() {
+    }
 
     public static OptionalInt getCookingTime(ItemStack stack) {
         return FURNACE_TIMINGS.entrySet().stream().filter(e -> e.getKey().apply(stack)).mapToInt(Map.Entry::getValue).findAny();
     }
 
-    //TODO
-//    @Override
-//    public void setupConfig() {
-//        CONSUME_FUEL_WHEN_IDLE = loadPropBool("Consume Fuel When Idle", "Furnaces will consume fuel even if no smeltable items are present.", true);
-//        DEFAULT_FURNACE_TIMING = loadPropInt("Default Furnace Timing", "Default number of ticks for an item to smelt in the furnace (vanilla is 200)", "", 200, 1, Integer.MAX_VALUE);
-//        TOOLTIP = loadPropBool("Tooltip for modified cooking time", "Shows a tooltip for items with modified cooking time", true);
-//    }
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public static void onTextureStitch(TextureStitchEvent event) {
+        event.getMap().registerSprite(new ResourceLocation("betterwithmods:blocks/furnace_full"));
+    }
+
+    @SubscribeEvent
+    public static void getFurnaceFuel(FurnaceFuelBurnTimeEvent event) {
+        int speed = FUEL_TIMINGS.entrySet().stream().filter(e -> e.getKey().apply(event.getItemStack())).mapToInt(Map.Entry::getValue).findAny().orElse(-1);
+        if (speed >= 0) {
+            event.setBurnTime(speed);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void onTooltip(ItemTooltipEvent event) {
+        if (!TOOLTIP)
+            return;
+        if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {
+            double ticks = HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING);
+            double seconds = ticks / 20.0;
+            event.getToolTip().add(TooltipLib.getTooltip(FURNACE_TIME, String.format("%.2f", seconds)));
+        }
+    }
 
     @Override
     public String getDescription() {
@@ -57,10 +76,14 @@ public class HCFurnace extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
+        CONSUME_FUEL_WHEN_IDLE = loadProperty("Consume Fuel When Idle", true).setComment("Furnaces will consume fuel even if no smeltable items are present.").get();
+        DEFAULT_FURNACE_TIMING = loadProperty("Default Furnace Timing", 200).setMin(1).setComment("Default number of ticks for an item to smelt in the furnace (vanilla is 200)").get();
+        TOOLTIP = loadProperty("Tooltip for modified cooking time", true).setComment("Shows a tooltip for items with modified cooking time").get();
+
+
         BWMBlocks.registerBlock(FURNACE);
         BWMBlocks.registerBlock(LIT_FURNACE, null);
     }
-
 
     @Override
     public void onInit(FMLInitializationEvent event) {
@@ -100,57 +123,29 @@ public class HCFurnace extends Feature {
         BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_BOOTS);
         BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_HORSE_ARMOR);
 
-        //TODO
-//        FURNACE_TIMINGS = loadItemStackIntMap("Furnace Timing Recipes", "example recipes  minecraft:iron_ore=1000  or ore:oreIron=1000", new String[]{
-//                "ore:oreIron=1600",
-//                "ore:oreGold=1600",
-//                "ore:cobblestone=1600",
-//                "ore:sand=1600"
-//        });
-//
-//        FUEL_TIMINGS = loadItemStackIntMap("Furnace Fuel Timing Overrides", "Overrides the fuel time for inputted items or oredict, see Furnace Timing for entry format", new String[]{
-//                "minecraft:boat=750",
-//                "minecraft:log:0=1600",
-//                "minecraft:log:1=1200",
-//                "minecraft:log:2=2000",
-//                "minecraft:log:3=1200",
-//                "minecraft:log2:0=1600",
-//                "minecraft:log2:1=1600",
-//                "minecraft:coal:0=1600",
-//                "minecraft:planks:0=400",
-//                "minecraft:planks:1=300",
-//                "minecraft:planks:2=500",
-//                "minecraft:planks:3=300",
-//                "minecraft:planks:4=400",
-//                "minecraft:planks:5=300",
-//                "minecart:sapling=25"
-//        });
-    }
-
-    @SubscribeEvent
-    @SideOnly(Side.CLIENT)
-    public void onTextureStitch(TextureStitchEvent event) {
-        event.getMap().registerSprite(new ResourceLocation("betterwithmods:blocks/furnace_full"));
-    }
-
-    @SubscribeEvent
-    public void getFurnaceFuel(FurnaceFuelBurnTimeEvent event) {
-        int speed = FUEL_TIMINGS.entrySet().stream().filter(e -> e.getKey().apply(event.getItemStack())).mapToInt(Map.Entry::getValue).findAny().orElse(-1);
-        if (speed >= 0) {
-            event.setBurnTime(speed);
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public void onTooltip(ItemTooltipEvent event) {
-        if (!TOOLTIP)
-            return;
-        if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {
-            double ticks = HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING);
-            double seconds = ticks / 20.0;
-            event.getToolTip().add(TooltipLib.getTooltip(FURNACE_TIME, String.format("%.2f", seconds)));
-        }
+        FURNACE_TIMINGS = config().loadItemStackIntMap("Furnace Timing Recipes", getCategory(), "example recipes  minecraft:iron_ore=1000  or ore:oreIron=1000", new String[]{
+                "ore:oreIron=1600",
+                "ore:oreGold=1600",
+                "ore:cobblestone=1600",
+                "ore:sand=1600"
+        });
+        FUEL_TIMINGS = config().loadItemStackIntMap("Furnace Fuel Timing Overrides", getCategory(), "Overrides the fuel time for inputted items or oredict, see Furnace Timing for entry format", new String[]{
+                "minecraft:boat=750",
+                "minecraft:log:0=1600",
+                "minecraft:log:1=1200",
+                "minecraft:log:2=2000",
+                "minecraft:log:3=1200",
+                "minecraft:log2:0=1600",
+                "minecraft:log2:1=1600",
+                "minecraft:coal:0=1600",
+                "minecraft:planks:0=400",
+                "minecraft:planks:1=300",
+                "minecraft:planks:2=500",
+                "minecraft:planks:3=300",
+                "minecraft:planks:4=400",
+                "minecraft:planks:5=300",
+                "minecart:sapling=25"
+        });
     }
 
 }

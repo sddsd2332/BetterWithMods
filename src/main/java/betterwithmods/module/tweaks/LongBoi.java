@@ -3,7 +3,7 @@ package betterwithmods.module.tweaks;
 import betterwithmods.BWMod;
 import betterwithmods.client.render.RenderLongboi;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockWolf;
 import betterwithmods.common.entity.EntityLongboi;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
@@ -53,8 +53,8 @@ public class LongBoi extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         BWMBlocks.registerBlock(LONG_FRIEND);
-        BWRegistry.registerEntity(EntityLongboi.class, "longboi", 64, 1, true, 0xe4d3d0, 0xfd742b);
-        BWRegistry.TURNTABLE.addRecipe(new LongRecipe());
+        BWMRegistry.registerEntity(EntityLongboi.class, "longboi", 64, 1, true, 0xe4d3d0, 0xfd742b);
+        BWMRegistry.TURNTABLE.addRecipe(new LongRecipe());
     }
 
     private static class EntityIngredient extends BlockIngredient {
