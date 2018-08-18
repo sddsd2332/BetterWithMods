@@ -6,6 +6,7 @@ import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.event.FakePlayerHandler;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.general.General;
+import betterwithmods.module.tweaks.Tweaks;
 import betterwithmods.proxy.IProxy;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidRegistry;
@@ -25,7 +26,7 @@ public class BWMod {
     public static final String VERSION = "${version}";
     public static final String NAME = "Better With Mods";
     public static final String DEPENDENCIES = "before:survivalist;after:traverse;after:thaumcraft;after:natura;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
-    public static final ModuleLoader MODULE_LOADER = new ModuleLoader(new File(BWMod.MODID)).addModule(new General());
+    public static final ModuleLoader MODULE_LOADER = new ModuleLoader(new File(BWMod.MODID)).addModules(new General(), new Tweaks());
 
     public static Logger logger;
     @SuppressWarnings({"CanBeFinal", "unused"})

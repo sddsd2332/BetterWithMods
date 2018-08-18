@@ -11,14 +11,12 @@
 package betterwithmods.module;
 
 import betterwithmods.api.modules.impl.ListStateHandler;
-import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
-import java.io.File;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -43,9 +41,9 @@ public class Module extends ListStateHandler<Feature> {
      * @param logger Mod log instance
      * @return list of {@link Feature}s that are enabled, used for {@link ModuleLoader#isFeatureEnabled(Class)}
      */
-    public List<Feature> setup(File file, Logger logger) {
+    public List<Feature> setup(ConfigHelper helper, Logger logger) {
         this.setLogger(logger);
-        this.setConfig(new ConfigHelper(file.getPath(), new Configuration(new File(file, getName() + ".cfg")), getName()));
+        this.setConfig(helper);
 
         this.enabled = canEnable();
         if (isEnabled()) {

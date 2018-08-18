@@ -15,6 +15,7 @@ import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
 import net.minecraft.util.JsonUtils;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.crafting.IConditionFactory;
 import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -41,6 +42,12 @@ public class ModuleLoader extends ListStateHandler<Module> {
         this.relativeConfigDir = relativeConfigDir;
     }
 
+    public ModuleLoader addModules(Module... modules) {
+        for(Module module: modules)
+            addModule(module);
+        return this;
+    }
+
     public ModuleLoader addModule(Module module) {
         this.add(module);
         return this;
@@ -57,7 +64,11 @@ public class ModuleLoader extends ListStateHandler<Module> {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         forEach(module -> {
-            List<Feature> feature = module.setup(new File(event.getModConfigurationDirectory(), relativeConfigDir.getPath()), getLogger());
+            //FIXME Currently have a config for each module, not entirely sure about this
+            File file = new File(event.getModConfigurationDirectory(), relativeConfigDir.getPath());
+            ConfigHelper helper = new ConfigHelper(file.getPath(), new Configuration(new File(file, module.getName() + ".cfg")), module.getName());
+
+            List<Feature> feature = module.setup(helper, getLogger());
             //Add all feature classes to the set;
             enabledFeatures.addAll(feature.stream().map(Feature::getClass).collect(Collectors.toSet()));
         });

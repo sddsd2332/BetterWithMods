@@ -117,11 +117,11 @@ public class ConfigHelper {
     }
 
     public Set<ResourceLocation> loadResourceLocations(String property, String category, String comment, String[] default_) {
-        return Arrays.stream(load(property, category, default_).setComment(comment).get()).map(this::rlFromString).collect(Collectors.toSet());
+        return Arrays.stream(load(category, property, default_).setComment(comment).get()).map(this::rlFromString).collect(Collectors.toSet());
     }
 
     public boolean loadRecipeCondition(String jsonString, String property, String category, String comment, boolean default_) {
-        boolean value = load(property, category, default_).setComment(comment).get();
+        boolean value = load(category, property, default_).setComment(comment).get();
         ModuleLoader.JSON_CONDITIONS.put(jsonString, value);
         return value;
     }
@@ -141,7 +141,7 @@ public class ConfigHelper {
     }
 
     public List<ItemStack> loadItemStackList(String property, String category, String comment, String[] default_) {
-        return Arrays.stream(load(property, category, default_).setComment(comment).get()).map(this::stackFromString).collect(Collectors.toList());
+        return Arrays.stream(load(category, property, default_).setComment(comment).get()).map(this::stackFromString).collect(Collectors.toList());
     }
 
     public List<ItemStack> loadItemStackList(String property, String category, String comment, ItemStack[] default_) {
@@ -151,7 +151,7 @@ public class ConfigHelper {
     }
 
     public ItemStack[] loadItemStackArray(String property, String category, String comment, String[] default_) {
-        return Arrays.stream(load(property, category, default_).setComment(comment).get()).map(this::stackFromString).toArray(ItemStack[]::new);
+        return Arrays.stream(load(category, property, default_).setComment(comment).get()).map(this::stackFromString).toArray(ItemStack[]::new);
     }
 
     public ItemStack[] loadItemStackArray(String property, String category, String comment, ItemStack[] default_) {
@@ -161,7 +161,7 @@ public class ConfigHelper {
     }
 
     public HashMap<Ingredient, Integer> loadItemStackIntMap(String property, String category, String comment, String[] default_) {
-        return parseIngredientValueMap(load(property, category, default_).setComment(comment).get());
+        return parseIngredientValueMap(load(category, property, default_).setComment(comment).get());
     }
 
 

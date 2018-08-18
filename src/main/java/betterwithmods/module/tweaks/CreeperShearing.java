@@ -1,5 +1,6 @@
 package betterwithmods.module.tweaks;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityShearedCreeper;
 import betterwithmods.module.Feature;
@@ -26,22 +27,22 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class CreeperShearing extends Feature {
 
     public static Set<ResourceLocation> CREEPERS;
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        CREEPERS = config().loadResourceLocations("Creepers", "List of valid creepers", getCategory(), new String[]{"minecraft:creeper"});
+        CREEPERS = config().loadResourceLocations("Creepers", getCategory(), "List of valid creepers", new String[]{"minecraft:creeper"});
     }
 
-    private boolean isMatching(EntityLivingBase entity) {
+    private static boolean isMatching(EntityLivingBase entity) {
         return CREEPERS.stream().anyMatch(r -> EntityList.isMatchingName(entity, r));
     }
 
     @SubscribeEvent
-    public void mobDrops(LivingDropsEvent event) {
+    public static void mobDrops(LivingDropsEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
         if (isMatching(entity)) {
             double chance = entity.getRNG().nextDouble() + (0.1 * event.getLootingLevel());
@@ -52,7 +53,7 @@ public class CreeperShearing extends Feature {
     }
 
     @SubscribeEvent
-    public void shearCreeper(PlayerInteractEvent.EntityInteractSpecific e) {
+    public static void shearCreeper(PlayerInteractEvent.EntityInteractSpecific e) {
         if (e.getTarget() instanceof EntityLivingBase) {
             EntityLivingBase creeper = (EntityLivingBase) e.getTarget();
             if (isMatching(creeper)) {

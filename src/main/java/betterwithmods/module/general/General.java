@@ -1,11 +1,7 @@
 package betterwithmods.module.general;
 
-import betterwithmods.module.Feature;
 import betterwithmods.module.Module;
-import org.apache.logging.log4j.Logger;
-
-import java.io.File;
-import java.util.List;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class General extends Module {
 
@@ -26,9 +22,7 @@ public class General extends Module {
     }
 
     @Override
-    public List<Feature> setup(File file, Logger logger) {
-        List<Feature> features = super.setup(file, logger);
+    public void onPreInit(FMLPreInitializationEvent event) {
         debug = config().load(getName(), "Debug Mode", false).setComment("Log extra debug information, warning can spam logs").get();
-        return features;
     }
 }
