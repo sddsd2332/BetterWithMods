@@ -19,7 +19,7 @@ public class HCBabyZombies extends Feature {
 
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change baby zombies to be a more reasonable addition; Slightly slower and do less damage than adults";
     }
 

@@ -15,7 +15,7 @@ import net.minecraftforge.items.ItemStackHandler;
 public class ExplosiveRecipes extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Some recipes can't get too hot or they might explode.";
     }
 

@@ -104,7 +104,7 @@ public class BWRegistry {
         BWMAPI.IMPLEMENTATION = new MechanicalUtil();
     }
 
-    public static void preInit() {
+    public static void onPreInit() {
         API.manualAPI = ManualDefinitionImpl.INSTANCE;
         BWFluidRegistry.registerFluids();
         BWAdvancements.registerAdvancements();

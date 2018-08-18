@@ -28,7 +28,7 @@ public class BlastingOil extends Feature {
     public List<String> blacklistDamageSources;
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Make blasting oil very dangerous";
     }
 

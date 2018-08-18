@@ -1,13 +1,16 @@
 package betterwithmods.module.tweaks;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.entity.ai.EntityAIMate;
 import betterwithmods.module.Feature;
 import betterwithmods.util.EntityUtils;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class AnimalBirth extends Feature {
 
     @SubscribeEvent
@@ -22,12 +25,8 @@ public class AnimalBirth extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Make born animals spawn between their parents for easier automation.";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

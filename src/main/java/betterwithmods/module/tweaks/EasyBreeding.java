@@ -17,6 +17,7 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,17 +26,19 @@ import net.minecraftforge.oredict.OreIngredient;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class EasyBreeding extends Feature {
 
     public static EntityIngredientRelationRegistry REGISTRY = new EntityIngredientRelationRegistry();
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Animals will pick up breeding items off of the ground as necessary, some animals will also breed with more items.";
     }
 
+
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    public void onPostInit(FMLPostInitializationEvent event) {
         REGISTRY.addBreedingEntry(new HCChickens.LayerIngredientRelation());
         //only called if the layer entry fails
         REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "chicken"), e -> e instanceof EntityChicken).addIngredient(new OreIngredient("seed"));
@@ -91,11 +94,6 @@ public class EasyBreeding extends Feature {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override

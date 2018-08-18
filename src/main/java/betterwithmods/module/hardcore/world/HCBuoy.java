@@ -74,12 +74,12 @@ public class HCBuoy extends CompatFeature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add values for BWM items to the Hardcore Buoy mod.";
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         initBuoyancy();
 
         for (Ingredient ingredient : buoyancy.keySet()) {

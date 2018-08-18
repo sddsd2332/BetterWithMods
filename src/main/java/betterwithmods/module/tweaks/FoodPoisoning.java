@@ -11,7 +11,6 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Set;
@@ -26,7 +25,7 @@ public class FoodPoisoning extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "No one wants to eat when they have food poisoning. When you have the Hunger effect you can't eat. Additionally raw meats can cause food poisoning";
     }
 
@@ -36,7 +35,7 @@ public class FoodPoisoning extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMlInitializationEvent event) {
         Set<Item> RAW_FOOD =
                 Sets.newHashSet(BWMItems.RAW_SCRAMBLED_EGG, BWMItems.RAW_EGG, BWMItems.RAW_OMELET,
                         BWMItems.RAW_KEBAB, Items.FISH, BWMItems.WOLF_CHOP, Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.CHICKEN, Items.MUTTON, BWMItems.MYSTERY_MEAT);

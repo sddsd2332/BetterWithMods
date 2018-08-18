@@ -1,4 +1,4 @@
-package betterwithmods.module.compat;
+package betterwithmods.module.compat.other;
 
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.api.util.IVariantProvider;

@@ -38,8 +38,8 @@ public class MillRecipes extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        super.preInit(event);
+    public void onPreInit(FMLPreInitializationEvent event) {
+        super.onPreInit(event);
         if (grindingOnly) {
             BWMRecipes.removeRecipe(new ItemStack(Items.SUGAR));
             BWMRecipes.removeRecipe(new ItemStack(Items.BLAZE_POWDER));
@@ -51,7 +51,7 @@ public class MillRecipes extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         BWRegistry.MILLSTONE.addMillRecipe(new OreIngredient("netherrack"), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.GROUND_NETHERRACK)), BWSounds.MILLSTONE_NETHERRACK);
         BWRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.BLAZE_ROD), Lists.newArrayList(new ItemStack(Items.BLAZE_POWDER, 3)), SoundEvents.ENTITY_BLAZE_DEATH);
 

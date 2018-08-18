@@ -24,7 +24,7 @@ public class HCBeds extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Disables the ability to sleep in a bed and can no longer set spawn";
     }
 

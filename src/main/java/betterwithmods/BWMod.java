@@ -1,25 +1,17 @@
 package betterwithmods;
 
 import betterwithmods.client.BWGuiHandler;
-import betterwithmods.common.BWIMCHandler;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.event.FakePlayerHandler;
-import betterwithmods.module.CompatModule;
-import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.ModuleLoader;
-import betterwithmods.module.gameplay.Gameplay;
-import betterwithmods.module.hardcore.Hardcore;
-import betterwithmods.module.tweaks.Tweaks;
+import betterwithmods.module.general.General;
 import betterwithmods.proxy.IProxy;
-import betterwithmods.testing.BWMTests;
-import betterwithmods.util.commands.HealthCommand;
 import net.minecraftforge.common.ForgeModContainer;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.common.event.FMLInterModComms.IMCEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.Logger;
 
@@ -31,15 +23,8 @@ public class BWMod {
     public static final String VERSION = "${version}";
     public static final String NAME = "Better With Mods";
     public static final String DEPENDENCIES = "before:survivalist;after:traverse;after:thaumcraft;after:natura;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
-    public static final ModuleLoader MODULE_LOADER = new ModuleLoader() {
-        @Override
-        public void registerModules() {
-            registerModule(Gameplay.class);
-            registerModule(Hardcore.class);
-            registerModule(Tweaks.class);
-            registerModule(CompatModule.class);
-        }
-    };
+    public static final ModuleLoader MODULE_LOADER = new ModuleLoader().addModule(new General());
+
     public static Logger logger;
     @SuppressWarnings({"CanBeFinal", "unused"})
     @SidedProxy(serverSide = "betterwithmods.proxy.ServerProxy", clientSide = "betterwithmods.proxy.ClientProxy")
@@ -57,58 +42,47 @@ public class BWMod {
         return logger;
     }
 
-    public static boolean isDev() {
-        //noinspection ConstantConditions
-        return BWMod.VERSION.equalsIgnoreCase("${version}");
-    }
-
     @Mod.EventHandler
-    public void preInit(FMLPreInitializationEvent evt) {
-        logger = evt.getModLog();
+    public void onPreInit(FMLPreInitializationEvent event) {
+        logger = event.getModLog();
         BWMAttributes.registerAttributes();
         MODULE_LOADER.setLogger(logger);
-        MODULE_LOADER.preInit(evt);
-        BWRegistry.preInit();
-        proxy.preInit(evt);
+        MODULE_LOADER.onPreInit(event);
+        BWRegistry.onPreInit();
+        proxy.onPreInit(event);
     }
 
     @Mod.EventHandler
-    public void init(FMLInitializationEvent evt) {
+    public void onInit(FMlInitializationEvent event) {
         BWRegistry.init();
-        MODULE_LOADER.init(evt);
+        MODULE_LOADER.onInit(event);
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new BWGuiHandler());
-        proxy.init(evt);
+        proxy.init(event);
     }
 
     @Mod.EventHandler
-    public void postInit(FMLPostInitializationEvent evt) {
+    public void postInit(FMLPostInitializationEvent event) {
         BWRegistry.postInit();
-        MODULE_LOADER.postInit(evt);
-        proxy.postInit(evt);
+        MODULE_LOADER.onPostInit(event);
+        proxy.postInit(event);
     }
 
     @Mod.EventHandler
-    public void processIMCMessages(IMCEvent evt) {
-        BWIMCHandler.processIMC(evt.getMessages());
+    public void serverStarting(FMLServerStartingEvent event) {
+        MODULE_LOADER.onServerStarting(event);
     }
 
     @Mod.EventHandler
-    public void serverStarting(FMLServerStartingEvent evt) {
-        MODULE_LOADER.serverStarting(evt);
-        if (GlobalConfig.debug) {
-            evt.registerServerCommand(new HealthCommand());
-        }
+    public void serverStarted(FMLServerStartedEvent event) {
+        MODULE_LOADER.onServerStarted(event);
+        //TODO tests
+//        if (isDev()) {
+//            BWMTests.runTests();
+//        }
     }
 
     @Mod.EventHandler
-    public void serverStarted(FMLServerStartedEvent evt) {
-        if (isDev()) {
-            BWMTests.runTests();
-        }
-    }
-
-    @Mod.EventHandler
-    public void serverStopping(FMLServerStoppingEvent evt) {
+    public void serverStopping(FMLServerStoppingEvent event) {
         FakePlayerHandler.reset();
     }
 

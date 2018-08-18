@@ -27,7 +27,7 @@ public class SilverfishClay extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Silverfish that die in the End will drop clay balls. This combined with HCBeacons allows easy farming of clay.";
     }
 }

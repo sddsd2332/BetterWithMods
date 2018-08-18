@@ -205,7 +205,7 @@ public class MiniBlocks extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         names.put(Material.WOOD, "wood");
         names.put(Material.ROCK, "rock");
         names.put(Material.IRON, "iron");
@@ -362,7 +362,7 @@ public class MiniBlocks extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Dynamically generate Siding, Mouldings and Corners for many of the blocks in the game.";
     }
 

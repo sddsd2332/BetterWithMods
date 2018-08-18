@@ -44,17 +44,17 @@ public class HCLumber extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes Punching Wood return a single plank and secondary drops instead of a log, to get a log an axe must be used.";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
 
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         BrokenToolRegistry.init();
         BWOreDictionary.logRecipes.forEach(r -> BWMRecipes.removeRecipe(r.getRegistryName()));
     }

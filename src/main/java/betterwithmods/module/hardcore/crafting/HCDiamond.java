@@ -19,12 +19,12 @@ import net.minecraftforge.oredict.OreDictionary;
  */
 public class HCDiamond extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes it so diamonds have to be made into an ingot alloy to be used in certain recipes";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:diamond_axe"));
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:diamond_hoe"));
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:diamond_pickaxe"));
@@ -37,7 +37,7 @@ public class HCDiamond extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         if (BWMod.MODULE_LOADER.isFeatureEnabled(MetalReclaming.class) && MetalReclaming.reclaimCount > 0) {
             if (BWMod.MODULE_LOADER.isFeatureEnabled(CheaperAxes.class)) {
                 BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_AXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));

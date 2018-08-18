@@ -13,7 +13,7 @@ public class HCInfo extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Enables reducedDebugInfo by default for a more authentic BWM experience";
     }
 }

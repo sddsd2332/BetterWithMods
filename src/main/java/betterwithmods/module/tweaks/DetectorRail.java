@@ -27,7 +27,7 @@ public class DetectorRail extends Feature {
     public static final Block DETECTOR_RAIL_STEEL = new BlockRailDetectorBase(cart -> BlockRailDetectorBase.isRider(cart, rider -> rider instanceof EntityPlayer)).setRegistryName("detector_rail_steel");
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change what detector rails detect; Wooden:all minecarts; Stone: carts containing something, SFS: carts with players.";
     }
 
@@ -38,7 +38,7 @@ public class DetectorRail extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         registerBlock(DETECTOR_RAIL_STEEL);
         registerBlock(DETECTOR_RAIL_STONE);
 
@@ -48,7 +48,7 @@ public class DetectorRail extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         if (BWMod.MODULE_LOADER.isFeatureEnabled(MetalReclaming.class)) {
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STONE, 6), new ItemStack(Items.IRON_INGOT, 6));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2)));

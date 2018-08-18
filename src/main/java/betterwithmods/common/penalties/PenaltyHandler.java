@@ -10,9 +10,6 @@ public abstract class PenaltyHandler<T extends Number & Comparable, P extends Pe
     protected final List<P> penalties = Lists.newArrayList();
     private P defaultPenalty;
 
-    public PenaltyHandler() {
-    }
-
     public void addDefault(P defaultPenalty) {
         this.defaultPenalty = defaultPenalty;
         this.addPenalty(defaultPenalty);

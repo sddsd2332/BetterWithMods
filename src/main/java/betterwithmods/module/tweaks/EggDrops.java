@@ -13,6 +13,7 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Random;
@@ -20,6 +21,7 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 5/3/17.
  */
+@Mod.EventBusSubscriber
 public class EggDrops extends Feature {
 
     @SubscribeEvent
@@ -63,17 +65,7 @@ public class EggDrops extends Feature {
     }
 
     @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "When an Egg does not spawn a Baby Chicken it drops a Raw Egg, which can be used for multiple different foods.";
     }
 }

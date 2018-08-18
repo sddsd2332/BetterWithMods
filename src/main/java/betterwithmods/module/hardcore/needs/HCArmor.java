@@ -49,7 +49,7 @@ public class HCArmor extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         initWeights();
     }
 
@@ -64,12 +64,12 @@ public class HCArmor extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWRegistry.PENALTY_HANDLERS.add(penalties = new ArmorPenalties());
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Gives Armor weight values that effect movement. Changes Entity armor spawning: Zombies only spawn with Iron armor, Skeletons never wear armor.";
     }
 }

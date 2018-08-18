@@ -1,13 +1,12 @@
 package betterwithmods.common.blocks.mechanical;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileCrank;
 import betterwithmods.module.gameplay.Gameplay;
-import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import betterwithmods.util.TooltipLib;
+import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -71,8 +70,8 @@ public class BlockCrank extends BWMBlock implements IOverpower {
         int meta = state.getValue(STAGE);
         if (meta == 0) {
             if (Gameplay.crankExhaustion > 0.0) {
-                int minHunger = BWMod.MODULE_LOADER.isFeatureEnabled(HCHunger.class) ? 20 : 6;
-                if (player.getFoodStats().getFoodLevel() > minHunger) {
+
+                if (player.getFoodStats().getFoodLevel() > PlayerHelper.getMinimumHunger()) {
                     player.addExhaustion((float) Gameplay.crankExhaustion);
                     if (!world.isRemote) {
                         toggleSwitch(world, pos, state);
@@ -187,10 +186,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
 
     @Override
     public void overpower(World world, BlockPos pos) {
-        //TODO replace with loot table
-//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.STICK));
-//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Blocks.COBBLESTONE, 2, 0));
-//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 1, 0));
+        //TODO add loot table
         world.setBlockToAir(pos);
     }
 

@@ -10,12 +10,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  */
 public class HCTorches extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change Torch Recipe to only provide 1 from each coal. Makes Nethercoal more useful, as it converts 1 coal into 4 Nethercoal.";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.removeRecipe(Blocks.TORCH.getRegistryName());
     }
 }

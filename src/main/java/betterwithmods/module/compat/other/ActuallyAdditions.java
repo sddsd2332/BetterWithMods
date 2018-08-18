@@ -1,4 +1,4 @@
-package betterwithmods.module.compat;
+package betterwithmods.module.compat.other;
 
 import betterwithmods.module.CompatFeature;
 import betterwithmods.module.hardcore.needs.hunger.FoodHelper;

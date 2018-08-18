@@ -4,7 +4,7 @@
     "shaped_color": "betterwithmods.common.registry.crafting.RecipeShapedColor$Factory"
   },
   "conditions": {
-    "config": "betterwithmods.module.ConfigHelper$ConditionConfig"
+    "config": "betterwithmods.module.ModuleLoader$ConditionConfig"
   },
   "ingredients": {
     "minitype": "betterwithmods.module.gameplay.miniblocks.MiniBlockIngredient$Factory"

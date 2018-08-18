@@ -59,7 +59,7 @@ public class HCSheep extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         CapabilityManager.INSTANCE.register(NaturalColor.class, new Capability.IStorage<NaturalColor>() {
             @Nullable
             @Override
@@ -108,7 +108,7 @@ public class HCSheep extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Sheep can mutate, shearing them resets their wool color to their natural color, breeding them can produce all colors";
     }
 

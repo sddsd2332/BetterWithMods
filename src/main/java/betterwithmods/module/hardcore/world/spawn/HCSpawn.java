@@ -69,7 +69,7 @@ public class HCSpawn extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(SpawnSaving.class, new SpawnSaving.Storage(), SpawnSaving::new);
     }
 
@@ -82,7 +82,7 @@ public class HCSpawn extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes it so death is an actual issue as you will spawn randomly within a 2000 block radius of your original spawn. Compasses still point to original spawn.";
     }
 

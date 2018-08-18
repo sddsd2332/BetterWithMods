@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.module.ConfigHelper;
+import betterwithmods.module.Feature;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -44,12 +44,12 @@ public abstract class BeaconEffect {
         this.setTickRate(120);
     }
 
-    public void setupConfig(String categoryName, ConfigHelper helper) {
-        this.setEnabled(helper.loadPropBool("enabled", categoryName, "", true));
+    public void setupConfig(Feature feature) {
+        this.setEnabled(feature.loadProperty("Enabled", true).subCategory(this.resourceLocation.getPath()).get());
 
         if (effectRanges != null) {
-            this.setEffectRanges(helper.loadPropIntList("effectRanges", categoryName, "Range, in blocks, that the beacon will have an effect", effectRanges));
-            this.setTickRate(helper.loadPropInt("tickRate", categoryName, "The rate, in ticks, that the beacon will update and apply its effect.", tickRate));
+            this.setEffectRanges(feature.loadProperty("Effect Ranges", this.effectRanges).setComment("Range, in blocks, that the beacon will have an effect").get());
+            this.setTickRate(feature.loadProperty("Tick Rate", tickRate).setComment("The rate, in ticks, that the beacon will update and apply its effect.").get());
         }
     }
 

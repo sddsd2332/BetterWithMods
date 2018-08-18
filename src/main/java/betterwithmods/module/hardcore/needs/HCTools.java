@@ -50,19 +50,19 @@ public class HCTools extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Overhaul the durability of tools to be more rewarding when reaching the next level. Completely disables wooden tools (other than pick) by default.";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         if (removeLowTools) {
             removeLowTierToolRecipes();
         }
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
 
         TOOLS = new HashSet<>(Sets.newHashSet(
                 BWMItems.STEEL_AXE, BWMItems.STEEL_BATTLEAXE, BWMItems.STEEL_HOE, BWMItems.STEEL_SWORD, BWMItems.STEEL_PICKAXE, BWMItems.STEEL_SWORD, BWMItems.STEEL_MATTOCK,

@@ -28,7 +28,7 @@ public class KilnCharcoal extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add Charcoal smelting to the Kiln";
     }
 
@@ -37,7 +37,7 @@ public class KilnCharcoal extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMlInitializationEvent event) {
         List<ItemStack> logs = Lists.newArrayList();
         logs.addAll(OreDictionary.getOres("logWood"));
 

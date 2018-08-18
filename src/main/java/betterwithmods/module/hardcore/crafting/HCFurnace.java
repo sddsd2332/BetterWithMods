@@ -52,12 +52,12 @@ public class HCFurnace extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Overrides the vanilla furnace to allow for some changes: Allows varying item cook times, changes fuel values and a tweak to make the furnace visually show whether it has content";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMBlocks.registerBlock(FURNACE);
         BWMBlocks.registerBlock(LIT_FURNACE, null);
     }
@@ -68,7 +68,7 @@ public class HCFurnace extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
 
 
         BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.DIAMOND_ORE));

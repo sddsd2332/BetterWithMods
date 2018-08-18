@@ -1,5 +1,6 @@
 package betterwithmods.common.penalties.attribute;
 
+import betterwithmods.module.Feature;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class Attribute<V> implements IAttribute<V> {
@@ -27,7 +28,9 @@ public abstract class Attribute<V> implements IAttribute<V> {
         return this;
     }
 
-    public abstract AttributeInstance<V> fromConfig(String category, String name, V defaultValue);
+    public AttributeInstance<V> fromConfig(Feature feature, String name, V defaultValue) {
+        return BWMAttributes.getConfigAttribute(feature, this, name, getDescription(), defaultValue);
+    }
 
     public String getDescription() {
         return description;

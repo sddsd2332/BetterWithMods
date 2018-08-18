@@ -10,12 +10,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  */
 public class HCInjury extends Feature {
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWRegistry.PENALTY_HANDLERS.add(new HealthPenalities());
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add Penalties to lower health levels.";
     }
 

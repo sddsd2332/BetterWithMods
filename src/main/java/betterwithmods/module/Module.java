@@ -10,261 +10,82 @@
  */
 package betterwithmods.module;
 
-import betterwithmods.api.FeatureEnabledEvent;
-import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
-import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import betterwithmods.api.modules.impl.ListStateHandler;
+import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import org.apache.commons.lang3.StringUtils;
+import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.util.stream.Collectors;
 
-public abstract class Module {
+public class Module extends ListStateHandler<Feature> {
 
-    public final String name = makeName();
-    public final Map<String, Feature> features = Maps.newHashMap();
-    public final List<Feature> enabledFeatures = Lists.newArrayList(), disabledFeatures = Lists.newArrayList();
-    protected final ModuleLoader loader;
-    public boolean enabled;
-    protected int priority = 0;
+    private final String name;
+    private boolean enabled;
+    private ConfigHelper config;
+    private Logger logger;
 
-    public Module(ModuleLoader loader) {
-        this.loader = loader;
+    public Module() {
+        this.name = getClass().getSimpleName().toLowerCase();
+        this.addFeatures();
     }
 
-    public abstract void addFeatures();
-
-    public void registerFeature(Feature feature) {
-        registerFeature(feature, convertName(feature.getClass().getSimpleName()));
+    public void addFeatures() {
     }
 
-    public void registerFeature(Feature feature, boolean enabledByDefault) {
-        registerFeature(feature, convertName(feature.getClass().getSimpleName()), enabledByDefault);
-    }
-
-    public String convertName(String origName) {
-        return origName;
-    }
-
-    public void registerFeature(Feature feature, String name) {
-        registerFeature(feature, name, true);
-    }
-
-    public void registerFeature(Feature feature, String name, boolean enabledByDefault) {
-        features.put(name, feature);
-
-        feature.enabledByDefault = enabledByDefault;
-        feature.prevEnabled = false;
-
-        feature.module = this;
-        feature.configName = name;
-        feature.configCategory = this.name + "." + name;
-
-        feature.configHelper = loader.configHelper;
-    }
-
-    public void setupConfig() {
-        if (features.isEmpty())
-            addFeatures();
-
-        forEachFeature(feature -> {
-            loader.configHelper.setRestartNeed(feature.requiresMinecraftRestartToEnable());
-            if (feature.canDisable) {
-                loader.configHelper.setCategoryComment(feature.configCategory, feature.getFeatureDescription());
-
-                feature.enabled = loader.configHelper.loadPropBool("enabled", feature.configCategory, "Enable this feature", feature.enabledByDefault);
-                feature.setupConstantConfig();
-            } else {
-                feature.enabled = true;
-                feature.forceLoad = true;
-            }
-
-            if (!feature.forceLoad) {
-                String[] incompatibilities = feature.getIncompatibleMods();
-                if (incompatibilities != null) {
-                    List<String> failiures = Lists.newArrayList();
-
-                    for (String s : incompatibilities)
-                        if (Loader.isModLoaded(s)) {
-                            feature.enabled = false;
-                            failiures.add(s);
-                        }
-
-                    if (!failiures.isEmpty())
-                        loader.getLogger().info(feature.configName + "' is forcefully disabled as it's incompatible with the following loaded mods: " + failiures);
-                }
-            }
-
-            if (!feature.loadtimeDone) {
-                feature.enabledAtLoadtime = feature.enabled;
-                feature.loadtimeDone = true;
-            }
-
-            if (feature.enabled && !enabledFeatures.contains(feature))
-                enabledFeatures.add(feature);
-            else if (!feature.enabled)
-                enabledFeatures.remove(feature);
-
-            if (!feature.enabled)
-                disabledFeatures.add(feature);
-
-            feature.setupConfig();
-
-            if (feature.enabled && feature.recipeCondition)
-                feature.loadRecipeCondition(feature.configName.toLowerCase(), "Custom Recipes", "Enables custom recipes provided by this feature", true);
-
-            if (!feature.enabled && feature.prevEnabled) {
-                if (feature.hasSubscriptions())
-                    MinecraftForge.EVENT_BUS.unregister(feature);
-                if (feature.hasTerrainSubscriptions())
-                    MinecraftForge.TERRAIN_GEN_BUS.unregister(feature);
-                if (feature.hasOreGenSubscriptions())
-                    MinecraftForge.ORE_GEN_BUS.unregister(feature);
-            } else if (feature.enabled && (feature.enabledAtLoadtime || !feature.requiresMinecraftRestartToEnable()) && !feature.prevEnabled) {
-                if (feature.hasSubscriptions())
-                    MinecraftForge.EVENT_BUS.register(feature);
-                if (feature.hasTerrainSubscriptions())
-                    MinecraftForge.TERRAIN_GEN_BUS.register(feature);
-                if (feature.hasOreGenSubscriptions())
-                    MinecraftForge.ORE_GEN_BUS.register(feature);
-            }
-
-            feature.prevEnabled = feature.enabled;
-        });
-    }
-
-    public void preInit(FMLPreInitializationEvent event) {
-        forEachEnabled(feature -> {
-            loader.getLogger().info("Feature PreInit : " + feature.configName);
-            feature.preInit(event);
-        });
-        forEachDisabled(feature -> feature.disabledPreInit(event));
-    }
-
-    public void init(FMLInitializationEvent event) {
-        forEachEnabled(feature -> feature.init(event));
-        forEachDisabled(feature -> feature.disabledInit(event));
-    }
-
-    public void postInit(FMLPostInitializationEvent event) {
-        forEachEnabled(feature -> {
-            feature.postInit(event);
-            MinecraftForge.EVENT_BUS.post(new FeatureEnabledEvent(name.toLowerCase(), feature.configName.toLowerCase(), feature.enabled));
-        });
-        forEachDisabled(feature -> feature.disabledPostInit(event));
+    /**
+     * @param file   Directory from {@link FMLPreInitializationEvent#getModConfigurationDirectory()},
+     * @param logger Mod log instance
+     * @return list of {@link Feature}s that are enabled, used for {@link ModuleLoader#isFeatureEnabled(Class)}
+     */
+    public List<Feature> setup(File file, Logger logger) {
+        this.setLogger(logger);
+        this.setConfig(new ConfigHelper(file.getPath(), new Configuration(new File(file, getName())), getName()));
+        this.enabled = canEnable();
+        if (isEnabled()) {
+            forEachEnabled(Feature::setup);
+        }
+        return stream().filter(Feature::isEnabled).collect(Collectors.toList());
     }
 
 
-    public void finalInit(FMLPostInitializationEvent event) {
-        forEachEnabled(feature -> feature.finalInit(event));
+    protected void addFeature(Feature feature) {
+        feature.parent = this;
+        this.add(feature);
     }
 
-    @SideOnly(Side.CLIENT)
-    public void preInitClient(FMLPreInitializationEvent event) {
-        forEachEnabled(feature -> feature.preInitClient(event));
+    protected String getName() {
+        return this.name;
     }
 
-    @SideOnly(Side.CLIENT)
-    public void initClient(FMLInitializationEvent event) {
-        forEachEnabled(feature -> feature.initClient(event));
+    public void setConfig(ConfigHelper config) {
+        this.config = config;
     }
 
-    @SideOnly(Side.CLIENT)
-    public void postInitClient(FMLPostInitializationEvent event) {
-        forEachEnabled(feature -> feature.postInitClient(event));
+    public ConfigHelper config() {
+        return config;
     }
 
-    @SideOnly(Side.CLIENT)
-    public void registerModels(ModelRegistryEvent event) {
-        forEachEnabled(feature -> feature.registerModels(event));
+    public Logger getLogger() {
+        return logger;
     }
 
-    public void serverStarting(FMLServerStartingEvent event) {
-        forEachEnabled(feature -> feature.serverStarting(event));
+    public void setLogger(Logger logger) {
+        this.logger = logger;
     }
 
-    public boolean canBeDisabled() {
-        return true;
-    }
-
-    public boolean isEnabledByDefault() {
-        return true;
-    }
-
-    String makeName() {
-        return getClass().getSimpleName().toLowerCase();
-    }
-
-    public String getModuleDescription() {
-        return "";
-    }
-
-    public final void forEachFeature(Consumer<Feature> consumer) {
-        features.values().forEach(consumer);
-    }
-
-    public final void forEachEnabled(Consumer<Feature> consumer) {
-        enabledFeatures.forEach(consumer);
-    }
-
-    public final void forEachDisabled(Consumer<Feature> consumer) {
-        disabledFeatures.forEach(consumer);
-    }
-
-    public final int loadPropInt(String propName, String desc, int default_) {
-        return loader.configHelper.loadPropInt(propName, name, desc, default_);
-    }
-
-    public final double loadPropDouble(String propName, String desc, double default_, double min, double max) {
-        return loader.configHelper.loadPropDouble(propName, name, desc, default_, min, max);
-    }
-
-    public final double loadPropDouble(String propName, String desc, double default_) {
-        return loader.configHelper.loadPropDouble(propName, name, desc, default_);
-    }
-
-    public final boolean loadPropBool(String propName, String desc, boolean default_) {
-        return loader.configHelper.loadPropBool(propName, name, desc, default_);
-    }
-
-    public final String loadPropString(String propName, String desc, String default_) {
-        return loader.configHelper.loadPropString(propName, name, desc, default_);
-    }
-
-    public final void loadRecipeCondition(String jsonName, String propName, String comment, boolean _default) {
-        loader.configHelper.loadRecipeCondition(jsonName, propName, name, comment, _default);
-    }
-
-
-    public List<ResourceLocation> loadPropRLList(String propName, String desc, String[] default_) {
-        return loader.configHelper.loadPropRLList(propName, name, desc, default_);
-    }
-
-
-    public int getPriority() {
-        return priority;
-    }
-
+    @Override
     public boolean isEnabled() {
-        return this.enabled;
+        return enabled;
     }
 
-    public boolean isFeatureEnabled(Class<? extends Feature> clazz) {
-        return enabledFeatures.stream().anyMatch(feature -> clazz.isAssignableFrom(feature.getClass()));
+    protected boolean canEnable() {
+        return config().load(getName(), "Enabled", isEnabledByDefault()).get();
     }
 
-    public String getName() {
-        return StringUtils.capitalize(name);
+    protected boolean isEnabledByDefault() {
+        return true;
     }
 }
 

@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class PowderKegs extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "";
     }
 
@@ -23,7 +23,7 @@ public class PowderKegs extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:tnt"));
         Blocks.TNT.setTranslationKey("betterwithmods:powder_keg");
         Items.TNT_MINECART.setTranslationKey("betterwithmods:powder_keg_minecart");

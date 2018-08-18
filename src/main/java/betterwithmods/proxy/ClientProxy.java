@@ -61,7 +61,6 @@ import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -101,7 +100,7 @@ public class ClientProxy implements IProxy {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMod.MODULE_LOADER.preInitClient(event);
         registerRenderInformation();
         initRenderers();
@@ -109,7 +108,7 @@ public class ClientProxy implements IProxy {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMlInitializationEvent event) {
         List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), ReflectionLib.DEFAULT_RESOURCE_PACKS);
         BWMod.MODULE_LOADER.initClient(event);
         ManualAPI.addProvider(new DirectoryDefaultProvider(new ResourceLocation(BWMod.MODID, "documentation/docs/")));

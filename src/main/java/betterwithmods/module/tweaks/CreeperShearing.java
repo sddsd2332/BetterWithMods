@@ -17,6 +17,8 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Set;
@@ -24,17 +26,18 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class CreeperShearing extends Feature {
 
     public static Set<ResourceLocation> CREEPERS;
 
     @Override
-    public void setupConfig() {
-        CREEPERS = configHelper.loadPropRLSet("Creepers", "List of valid creepers",configCategory, new String[]{"minecraft:creeper"});
+    public void onInit(FMLInitializationEvent event) {
+        CREEPERS = config().loadResourceLocations("Creepers", "List of valid creepers", getName(), new String[]{"minecraft:creeper"});
     }
 
     private boolean isMatching(EntityLivingBase entity) {
-        return CREEPERS.stream().anyMatch(r -> EntityList.isMatchingName(entity,r));
+        return CREEPERS.stream().anyMatch(r -> EntityList.isMatchingName(entity, r));
     }
 
     @SubscribeEvent
@@ -75,12 +78,7 @@ public class CreeperShearing extends Feature {
     }
 
     @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Shearing a Creeper will removes its ability to explode, making him very sad";
     }
 }

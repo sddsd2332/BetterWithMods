@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class Notes extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add some notes to the Note Block. Try a companion cube under one";
     }
 

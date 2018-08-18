@@ -12,7 +12,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -56,7 +55,7 @@ public class MushroomFarming extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         if (ALIAS_MUSHROOMS) {
             RED_MUSHROOM = new BlockMushroom(MAX_LIGHT_LEVEL_RED).setRegistryName("minecraft:red_mushroom");
             BROWN_MUSHROOM = new BlockMushroom(MAX_LIGHT_LEVEL_BROWN).setRegistryName("minecraft:brown_mushroom");
@@ -66,7 +65,7 @@ public class MushroomFarming extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMlInitializationEvent event) {
         Blocks.BROWN_MUSHROOM.setLightLevel(0);
     }
 
@@ -76,7 +75,7 @@ public class MushroomFarming extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Brown mushrooms can only be farmed in complete darkness.";
     }
 

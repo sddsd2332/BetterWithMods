@@ -41,16 +41,12 @@ public class HCChickens extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Rework chicken breeding. Chickens don't breed in pairs. You feed a single chicken 1 seed, and it craps out an egg that can be thrown. The egg either makes a chicken, or drops raw egg.";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(EggLayer.class, new EggLayer.CapabilityEggLayer(), EggLayer::new);
     }
 
@@ -98,11 +94,6 @@ public class HCChickens extends Feature {
                 layer.feed((EntityLiving) event.getTarget(), event.getItemStack());
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     public static class LayerIngredientRelation implements EntityIngredientRelation {

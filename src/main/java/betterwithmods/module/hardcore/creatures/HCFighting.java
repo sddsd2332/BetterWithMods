@@ -38,7 +38,7 @@ public class HCFighting extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Disable knockback when no weapon is used";
     }
 

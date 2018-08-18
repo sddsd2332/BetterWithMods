@@ -31,7 +31,7 @@ public class KilnSmelting extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Allows Kiln to Smelt Ores";
     }
 }

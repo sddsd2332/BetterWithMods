@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 public class NuggetCompression extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Adds recipes to the Crucible to compact 9 Nuggets into it's corresponding Ingot.";
     }
 

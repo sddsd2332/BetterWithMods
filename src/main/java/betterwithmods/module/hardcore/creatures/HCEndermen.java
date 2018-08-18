@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class HCEndermen extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes Endermen agro in groups and make a thunder noise when they teleport";
     }
 

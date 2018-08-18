@@ -15,7 +15,6 @@ import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraft.world.gen.structure.StructureMineshaftPieces;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MineshaftGeneration extends Feature {
@@ -25,7 +24,7 @@ public class MineshaftGeneration extends Feature {
     public static IMineshaftBlockState supports;
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Mineshafts now generate with logs instead of fences";
     }
 
@@ -45,7 +44,7 @@ public class MineshaftGeneration extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMlInitializationEvent event) {
         MapGenStructureIO.registerStructure(BWMapGenMineshaft.BWStructureMineshaftStart.class, new ResourceLocation(BWMod.MODID, "BWMineshaftStart").toString());
         MapGenStructureIO.registerStructureComponent(BWStructureMineshaftPieces.Corridor.class, new ResourceLocation(BWMod.MODID, "BWMSCorridor").toString());
         MapGenStructureIO.registerStructureComponent(BWStructureMineshaftPieces.Cross.class, new ResourceLocation(BWMod.MODID, "BWMSCrossing").toString());

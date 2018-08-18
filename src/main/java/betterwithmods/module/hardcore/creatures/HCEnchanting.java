@@ -65,12 +65,12 @@ public class HCEnchanting extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Adds Arcane Scroll drops to specific mobs, used for enchanting with the Infernal Enchanter";
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
 
         addScrollDrop(EntitySlime.class, Enchantments.PROTECTION);
         addScrollDrop(EntityPigZombie.class, Enchantments.FIRE_PROTECTION);

@@ -30,12 +30,12 @@ public class HCRedstone extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Changes the recipes for Redstone devices to be more complex";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.removeRecipe("minecraft:dispenser");
         BWMRecipes.removeRecipe("minecraft:dropper");
         BWMRecipes.removeRecipe("minecraft:iron_door");
@@ -65,7 +65,7 @@ public class HCRedstone extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
 
         BWRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 4));
 

@@ -17,7 +17,7 @@ import net.minecraftforge.oredict.OreIngredient;
 public class NetherGrowth extends Feature {
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
                 StackIngredient.fromStacks(new ItemStack(Blocks.BROWN_MUSHROOM)),
                 StackIngredient.fromStacks(new ItemStack(Blocks.RED_MUSHROOM)),
@@ -30,7 +30,7 @@ public class NetherGrowth extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Adds Nether Growth, a fungus that will *infest* the Nether and stop all mobs from spawning. Be sure before placing it!";
     }
 }

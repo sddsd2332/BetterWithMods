@@ -43,12 +43,12 @@ public class HCBonemeal extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Removes the ability to instant-grow crops and trees with bonemeal";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         if (removeBonemealRecipe)
             BWMRecipes.removeRecipe(new ItemStack(Items.DYE, 3, EnumDyeColor.WHITE.getDyeDamage()));
     }

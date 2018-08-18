@@ -24,12 +24,12 @@ public class HCHopper extends Feature {
 
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Completely disable the abilities of the vanilla Hopper to transfer items, as to make BWM tech the primary form of item transport";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMBlocks.registerBlock(HOPPER);
     }
 

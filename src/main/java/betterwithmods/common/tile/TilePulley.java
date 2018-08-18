@@ -11,7 +11,7 @@ import betterwithmods.common.blocks.BlockRope;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.entity.EntityExtendingRope;
 import betterwithmods.common.registry.PulleyStructureManager;
-import betterwithmods.module.GlobalConfig;
+import betterwithmods.module.general.Pulley;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
@@ -260,7 +260,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     }
 
     private boolean addToList(HashSet<BlockPos> set, BlockPos p, boolean up) {
-        if (set.size() > GlobalConfig.maxPlatformBlocks)
+        if (set.size() > Pulley.MAX_BLOCKS)
             return false;
         if (!isPlatform(p)) {
             return true;

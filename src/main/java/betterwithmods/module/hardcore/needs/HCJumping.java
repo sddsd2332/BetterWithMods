@@ -26,7 +26,7 @@ public class HCJumping extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Stops the ability to place blocks while in the air. This stops the use of 'Derp Pillars' to escape attacks";
     }
 

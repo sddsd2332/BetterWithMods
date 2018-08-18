@@ -11,7 +11,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -92,7 +91,7 @@ public class MossGeneration extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         if (DISABLE_VINE_RECIPES) {
             BWMRecipes.removeRecipe("minecraft:mossy_cobblestone");
             BWMRecipes.removeRecipe("minecraft:mossy_stonebrick");
@@ -100,7 +99,7 @@ public class MossGeneration extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMlInitializationEvent event) {
         addBlockConversion(new BlockIngredient(new ItemStack(Blocks.COBBLESTONE)), Blocks.MOSSY_COBBLESTONE.getDefaultState());
         addBlockConversion(new BlockIngredient(new ItemStack(Blocks.STONEBRICK)), Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY));
     }
@@ -111,7 +110,7 @@ public class MossGeneration extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Cobblestone or Stonebrick within the spawning radius of a Mob Spawner will randomly grow into the Mossy version.";
     }
 

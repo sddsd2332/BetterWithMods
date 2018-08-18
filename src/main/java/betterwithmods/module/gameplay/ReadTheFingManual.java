@@ -34,7 +34,7 @@ public class ReadTheFingManual extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Gives the Player a BWM Manual the first time they craft an item from BWM";
     }
 }

@@ -7,7 +7,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class HCCobblestone extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes stone variants drop into cobblestone.";
     }
 

@@ -57,7 +57,7 @@ public class HCBrewing extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Modifies and rebalances vanilla brewing recipes and makes potions stack up to 8.";
     }
 

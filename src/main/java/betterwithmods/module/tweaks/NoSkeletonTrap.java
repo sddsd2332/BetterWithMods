@@ -20,7 +20,7 @@ public class NoSkeletonTrap extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Remove the vanilla feature of Skeleton Traps, they are quite dumb";
     }
 }

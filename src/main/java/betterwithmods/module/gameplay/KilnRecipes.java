@@ -22,6 +22,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -33,13 +34,21 @@ import java.util.stream.IntStream;
 /**
  * Created by primetoxinz on 5/16/17.
  */
+@Mod.EventBusSubscriber
 public class KilnRecipes extends Feature {
-    public KilnRecipes() {
-        canDisable = false;
+
+    @Override
+    public String getDescription() {
+        return "";
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    protected boolean canEnable() {
+        return true;
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
         BWRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), new ItemStack(BWMBlocks.CRUCIBLE));
         BWRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER), BlockPlanter.getStack(BlockPlanter.EnumType.EMPTY));
         BWRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), new ItemStack(BWMBlocks.URN));
@@ -81,11 +90,6 @@ public class KilnRecipes extends Feature {
     public void onPostBake(ModelBakeEvent event) {
         CamoModel.KILN = new CamoModel(RenderUtils.getModel(new ResourceLocation("minecraft", "block/cube")));
         event.getModelRegistry().putObject(new ModelResourceLocation(BWMod.MODID + ":kiln", "normal"), CamoModel.KILN);
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 }
 

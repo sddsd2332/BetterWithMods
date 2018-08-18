@@ -17,7 +17,6 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.terraingen.BiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
@@ -35,7 +34,7 @@ public class HCVillages extends Feature {
     public static boolean disableIronGolems;
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes it so villages with in the reaches of the spawn zone are abandoned and gradually gain more resources the further out. What this means to be gained by the player.";
     }
 
@@ -54,7 +53,7 @@ public class HCVillages extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMlInitializationEvent event) {
 
         VillagerRegistry.instance().registerVillageCreationHandler(new BWField1());
         VillagerRegistry.instance().registerVillageCreationHandler(new BWField2());

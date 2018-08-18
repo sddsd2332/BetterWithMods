@@ -13,13 +13,8 @@ import static betterwithmods.util.WorldUtils.addDrop;
 public class BatWings extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add a Bat Wing drop to bats";
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override

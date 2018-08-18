@@ -1,4 +1,4 @@
-package betterwithmods.module.compat;
+package betterwithmods.module.compat.other;
 
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.BWRegistry;

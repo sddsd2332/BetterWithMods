@@ -30,7 +30,7 @@ public class HCDeadweight extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Disables the vanilla Anvil";
     }
 

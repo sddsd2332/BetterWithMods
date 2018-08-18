@@ -18,7 +18,7 @@ public class HCSquid extends Feature {
 
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Fear the squid...";
     }
 

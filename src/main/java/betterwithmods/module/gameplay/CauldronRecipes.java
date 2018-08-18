@@ -34,7 +34,7 @@ public class CauldronRecipes extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         unstoked();
         stoked();
     }

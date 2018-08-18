@@ -27,7 +27,7 @@ public class LlamaDrops extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add mutton to Llama drops";
     }
 }

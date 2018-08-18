@@ -209,7 +209,7 @@ public class VisibleStorms extends Feature {
 
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add Sandstorms visual effects when it is raining in desert biomes. This helps the player know why a windmill will still break when there is no actual rain.";
     }
 }

@@ -116,7 +116,7 @@ public class HCStrata extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Divides the underground into three strata. Each strata requires the next tool tier to properly mine";
     }
 

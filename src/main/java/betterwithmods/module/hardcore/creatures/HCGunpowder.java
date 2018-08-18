@@ -38,7 +38,7 @@ public class HCGunpowder extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes a raw resource drop that must be crafted to make useful gunpowder";
     }
 

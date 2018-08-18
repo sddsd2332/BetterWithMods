@@ -6,7 +6,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class DarkQuartz extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes Nether Quartz a dark material to give it a more hellish feel, as well as make it more unique from Whitestone";
     }
 

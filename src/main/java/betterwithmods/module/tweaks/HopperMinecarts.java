@@ -43,12 +43,12 @@ public class HopperMinecarts extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(Counter.class, new Counter.Storage(), Counter::new);
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Allow Hopper Minecarts to output to inventories below them";
     }
 

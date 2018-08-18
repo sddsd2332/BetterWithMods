@@ -99,12 +99,12 @@ public class AnimalRestraint extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add the Animal Restraint, which can be put on most domesticated animals and making their legs immobile, they are still able to eat food and breed while restrained.";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMItems.registerItem(ANIMAL_RESTRAINT);
         CapabilityManager.INSTANCE.register(Harness.class, new Harness.Storage(), Harness::new);
     }

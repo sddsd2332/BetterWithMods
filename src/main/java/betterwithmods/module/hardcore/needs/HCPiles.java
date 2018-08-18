@@ -61,7 +61,7 @@ public class HCPiles extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         BrokenToolRegistry.init();
         registerPile(Blocks.DIRT, new ItemStack(BWMItems.DIRT_PILE, 3));
         registerPile(Blocks.DIRT, 1, new ItemStack(BWMItems.DIRT_PILE, 3));
@@ -107,7 +107,7 @@ public class HCPiles extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes soils drop 75% of their content if not broken with a shovel to incentivize the use of shovels";
     }
 

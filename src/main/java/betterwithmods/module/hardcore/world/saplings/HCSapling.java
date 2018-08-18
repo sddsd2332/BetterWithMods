@@ -27,12 +27,12 @@ public class HCSapling extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change saplings to grow in stages before becoming a tree";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         for (BlockPlanks.EnumType type : BlockPlanks.EnumType.values()) {
             IBlockState sapling = getSapling(type);
             Block crop = new BlockSaplingCrop(sapling).setRegistryName(BWMod.MODID, String.format("sapling_crop_%s", type.getName()));

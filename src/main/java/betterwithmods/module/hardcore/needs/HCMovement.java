@@ -41,12 +41,12 @@ public class HCMovement extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change walking speed depending on the block";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         MATERIAL_MOVEMENT.put(Material.ROCK, FAST);
         MATERIAL_MOVEMENT.put(Material.WOOD, FAST);
         MATERIAL_MOVEMENT.put(Material.IRON, FAST);

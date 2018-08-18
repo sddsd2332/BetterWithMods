@@ -43,7 +43,7 @@ public class GrassPath extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Allows turning more than just grass into path. Turns off when dirt2path is installed";
     }
 

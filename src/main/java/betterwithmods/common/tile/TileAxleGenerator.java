@@ -5,7 +5,6 @@ import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.BWSounds;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
 import betterwithmods.common.blocks.mechanical.IBlockActive;
-import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -22,6 +21,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 
 public abstract class TileAxleGenerator extends TileBasic implements ITickable, IMechanicalPower {
+
+    public static int generatorRenderDistance;
+
     protected final float runningSpeed = 0.4F;
     public byte dyeIndex = 0;
     public float currentRotation = 0.0F;
@@ -112,7 +114,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
     @Override
     @SideOnly(Side.CLIENT)
     public double getMaxRenderDistanceSquared() {
-        return Gameplay.generatorRenderDistance * Gameplay.generatorRenderDistance;
+        return generatorRenderDistance * generatorRenderDistance;
     }
 
     @Override

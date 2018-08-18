@@ -23,7 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class HCMelon extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes Melons have gravity, makes for cool automation abilities";
     }
 
@@ -33,7 +33,7 @@ public class HCMelon extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         Blocks.MELON_STEM.setHardness(0.2F);
         Blocks.PUMPKIN_STEM.setHardness(0.2F);
 

@@ -104,7 +104,7 @@ public class ImprovedFlee extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Improve fleeing AI for attacked animals";
     }
 

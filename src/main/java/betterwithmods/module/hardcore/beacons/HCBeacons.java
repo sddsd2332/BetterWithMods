@@ -28,6 +28,7 @@ import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -41,6 +42,7 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
 /**
  * Created by primetoxinz on 7/17/17.
  */
+@Mod.EventBusSubscriber
 public class HCBeacons extends Feature {
 
 
@@ -66,17 +68,14 @@ public class HCBeacons extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-        enableBeaconCustomization = loadPropBool("Enable Beacon Customization", "Allows you to customize parts of beacons, and disable specific ones. Requires restart to generate additional configs", false);
-        enderchestBeacon = loadPropBool("Enderchest Beacon", "Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Book of Single.", true);
-    }
-
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
+        enableBeaconCustomization = loadProperty("Enable Beacon Customization", true)
+                .setComment("Allows you to customize parts of beacons, and disable specific ones. Requires restart to generate additional configs").get();
+        enderchestBeacon = loadProperty("Enderchest Beacon", true)
+                .setComment("Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Manual.").get();
 
         BWMBlocks.registerBlock(new BlockBeacon().setRegistryName("minecraft:beacon"));
         if (enderchestBeacon) {
-
             BWMBlocks.registerBlock(new BlockEnderchest().setRegistryName("minecraft:ender_chest"));
             CapabilityManager.INSTANCE.register(EnderchestCap.class, new EnderchestCap.Storage(), EnderchestCap::new);
         }
@@ -84,7 +83,7 @@ public class HCBeacons extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         BEACON_EFFECTS.add(new CosmeticBeaconEffect("glass", new BlockDropIngredient("blockGlass")));
         BEACON_EFFECTS.add(new CosmeticBeaconEffect("wool", new BlockDropIngredient("wool")));
         BEACON_EFFECTS.add(new CosmeticBeaconEffect("terracotta", new BlockDropIngredient("terracotta")));
@@ -123,7 +122,7 @@ public class HCBeacons extends Feature {
                 .setCanApply((entityPlayer) -> !PlayerHelper.hasFullSet(((EntityPlayer) entityPlayer), ItemSoulforgeArmor.class))
                 .addPotionEffect(MobEffects.POISON, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .addPotionEffect(MobEffects.NAUSEA, 120, PotionBeaconEffect.Amplification.LEVEL)
-                .setBaseBeamColor(Color.BLACK)); //TODO - Color
+                .setBaseBeamColor(Color.BLACK));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("coal", new BlockIngredient("blockCoal"), EntityPlayer.class)
                 .setCanApply((entityPlayer) -> !PlayerHelper.hasPart(entityPlayer, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class))
@@ -157,20 +156,14 @@ public class HCBeacons extends Feature {
 
         if (enableBeaconCustomization) {
             for (BeaconEffect beaconEffect : BEACON_EFFECTS) {
-                String categoryName = String.join(".", this.configCategory, beaconEffect.getResourceLocation().getPath());
-                beaconEffect.setupConfig(categoryName,configHelper);
+                beaconEffect.setupConfig(this);
             }
         }
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Overhauls the function of Beacons. Beacons have extended range, no longer have a GUI, and require the same material throughout the pyramid. The pyramid material determines the beacon effect, and additional tiers increase the range and strength of the effects. Some beacon types may also cause side effects to occur while a beacon is active.";
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @SubscribeEvent

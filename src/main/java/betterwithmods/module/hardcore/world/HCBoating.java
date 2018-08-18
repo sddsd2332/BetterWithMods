@@ -30,7 +30,7 @@ public class HCBoating extends Feature {
     public static int defaultSpeed;
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Boats are much slower as simple oars are not very good for speed. To go faster you must hold a Wind Sail.";
     }
 

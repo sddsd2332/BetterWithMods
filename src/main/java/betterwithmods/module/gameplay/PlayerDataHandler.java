@@ -47,7 +47,7 @@ public class PlayerDataHandler extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(PlayerDataHandler.PlayerInfo.class, new PlayerDataHandler.CapabilityPlayerInfo(), PlayerDataHandler.PlayerInfo::new);
     }
 

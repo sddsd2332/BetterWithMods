@@ -51,7 +51,7 @@ public class HopperRecipes extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
 
         BWRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(new ResourceLocation(BWMod.MODID, "ladder"), StackIngredient.fromStacks(new ItemStack(Blocks.LADDER)), Lists.newArrayList(
                 new IngredientSpecial(stack -> !(stack.getItem() instanceof ItemBlock)),

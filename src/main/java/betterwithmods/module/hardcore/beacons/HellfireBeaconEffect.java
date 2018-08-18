@@ -34,7 +34,7 @@ public class HellfireBeaconEffect extends PotionBeaconEffect {
     @Override
     public void setupConfig(String categoryName, ConfigHelper helper) {
         super.setupConfig(categoryName, helper);
-        catchFire = helper.loadPropBool("catchFire", categoryName, "The beacon will catch fire when it applies it effect", true);
+        catchFire = helper.loadBoolean("catchFire", categoryName, "The beacon will catch fire when it applies it effect", true);
     }
 
     @Override

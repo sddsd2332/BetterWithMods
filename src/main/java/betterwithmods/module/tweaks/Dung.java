@@ -22,7 +22,6 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
 
@@ -40,7 +39,7 @@ public class Dung extends Feature {
     private boolean wolvesOnly;
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Animals will launch dung depending on their conditions, a useful material";
     }
 
@@ -50,7 +49,7 @@ public class Dung extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMlInitializationEvent event) {
         CapabilityManager.INSTANCE.register(DungProducer.class, new Capability.IStorage<DungProducer>() {
             @Nullable
             @Override

@@ -31,7 +31,7 @@ public class HeadDrops extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Heads and Skulls can drop from death by Saw or BattleAxe";
     }
 

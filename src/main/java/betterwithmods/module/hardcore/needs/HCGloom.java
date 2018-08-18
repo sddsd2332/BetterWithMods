@@ -92,7 +92,7 @@ public class HCGloom extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties());
         CapabilityManager.INSTANCE.register(Gloom.class, new CapabilityGloom(), Gloom::new);
     }
@@ -191,7 +191,7 @@ public class HCGloom extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Be afraid of the dark...";
     }
 

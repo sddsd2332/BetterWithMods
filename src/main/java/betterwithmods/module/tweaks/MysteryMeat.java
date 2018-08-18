@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class MysteryMeat extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "You don't want to know where it comes from...";
     }
 

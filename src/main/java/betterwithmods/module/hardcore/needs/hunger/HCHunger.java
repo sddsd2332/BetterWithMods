@@ -84,19 +84,17 @@ public class HCHunger extends CompatFeature {
     }
 
     @Override
-    public void setupConfig() {
-        blockBreakExhaustion = (float) loadPropDouble("Block Breaking Exhaustion", "Set Exhaustion from breaking a block", 0.1);
-        passiveExhaustion = (float) loadPropDouble("Passive Exhaustion", "Passive Exhaustion value", 3f);
-        passiveExhaustionTick = loadPropInt("Passive Exhaustion Tick", "Passive exhaustion tick time", 900);
+    public void onPreInit(FMLPreInitializationEvent event) {
+        BWRegistry.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties(this));
+        BWRegistry.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties(this));
 
-        overrideMushrooms = loadPropBool("Edible Mushrooms", "Override Mushrooms to be edible, be careful with the red one ;)", true);
-        overridePumpkinSeeds = loadPropBool("Edible Pumpkin Seeds", "Override Pumpkin Seeds to be edible", true);
-    }
 
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        BWRegistry.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties());
-        BWRegistry.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties());
+        blockBreakExhaustion = loadProperty("Block Breaking Exhaustion", 0.1f).setComment("Set Exhaustion from breaking a block").get();
+        passiveExhaustion = loadProperty("Passive Exhaustion", 3f).setComment("Passive Exhaustion value").get();
+        passiveExhaustionTick = loadProperty("Passive Exhaustion Tick", 900).setComment("Passive exhaustion tick time").get();
+
+        overrideMushrooms = loadProperty("Edible Mushrooms", true).setComment("Override Mushrooms to be edible, be careful with the red one ;)").get();
+        overridePumpkinSeeds = loadProperty("Edible Pumpkin Seeds", true).setComment("Override Pumpkin Seeds to be edible").get();
 
         if (overridePumpkinSeeds)
             BWMItems.registerItem(PUMPKIN_SEEDS);
@@ -107,7 +105,7 @@ public class HCHunger extends CompatFeature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         FoodHelper.registerFood(new ItemStack(Items.BEEF), 12);
         FoodHelper.registerFood(new ItemStack(Items.PORKCHOP), 12);
         FoodHelper.registerFood(new ItemStack(Items.RABBIT), 12);
@@ -175,10 +173,10 @@ public class HCHunger extends CompatFeature {
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
     }
 
+
     @Override
-    public void preInitClient(FMLPreInitializationEvent event) {
+    public void onPreInitClient(FMLPreInitializationEvent event) {
         MinecraftForge.EVENT_BUS.register(ClientSide.class);
-        super.preInitClient(event);
     }
 
     //Changes food to correct value.
@@ -333,7 +331,7 @@ public class HCHunger extends CompatFeature {
         player.addExhaustion(blockBreakExhaustion - 0.005f);
     }
 
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "This Feature REQUIRES AppleCore!!!.\n" +
                 "Completely revamps the hunger system of Minecraft. \n" +
                 "The Saturation value is replaced with Fat. \n" +
@@ -343,15 +341,6 @@ public class HCHunger extends CompatFeature {
                 "Food Items values are also changed, while a ton of new foods are add.";
     }
 
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 
     @SideOnly(Side.CLIENT)
     public static class ClientSide {

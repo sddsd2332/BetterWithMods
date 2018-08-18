@@ -26,12 +26,12 @@ public class CraftingRecipes extends Feature {
 
     //TODO json registration
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.addRecipe(new RecipeArmorDye(Ingredient.fromItems(BWMItems.LEATHER_TANNED_HELMET, BWMItems.LEATHER_TANNED_CHEST, BWMItems.LEATHER_TANNED_PANTS, BWMItems.LEATHER_TANNED_BOOTS)));
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         //TODO 1.13 will allow these to go away :)
         GameRegistry.addSmelting(Items.EGG, new ItemStack(BWMItems.BOILED_EGG), 0.1F);
         GameRegistry.addSmelting(BWMItems.RAW_EGG, new ItemStack(BWMItems.COOKED_EGG), 0.1F);
@@ -58,7 +58,7 @@ public class CraftingRecipes extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Adds basic crafting recipes";
     }
 }

@@ -43,7 +43,7 @@ public class LongBoi extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Long Bois!";
     }
 
@@ -54,7 +54,7 @@ public class LongBoi extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMBlocks.registerBlock(LONG_FRIEND);
         BWRegistry.registerEntity(EntityLongboi.class, "longboi", 64, 1, true, 0xe4d3d0, 0xfd742b);
         BWRegistry.TURNTABLE.addRecipe(new LongRecipe());

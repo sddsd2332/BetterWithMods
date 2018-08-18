@@ -74,7 +74,7 @@ public class HCMobEquipment extends CompatFeature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         addEquipmentOverride(new ResourceLocation("minecraft:zombie"), HCMobEquipment::zombie);
         addEquipmentOverride(new ResourceLocation("minecraft:zombie_villager"), HCMobEquipment::zombie);
         addEquipmentOverride(new ResourceLocation("minecraft:husk"), HCMobEquipment::zombie);
@@ -102,7 +102,7 @@ public class HCMobEquipment extends CompatFeature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change the equipment that mobs spawn with";
     }
 

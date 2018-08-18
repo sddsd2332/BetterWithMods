@@ -47,7 +47,7 @@ public class HCOres extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes Ores only smelt into a single nugget, making it much harder to create large amounts of metal";
     }
 
@@ -57,7 +57,7 @@ public class HCOres extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         if (fixVanillaRecipes) {
 
             BWMRecipes.removeRecipe(Items.COMPASS.getRegistryName());

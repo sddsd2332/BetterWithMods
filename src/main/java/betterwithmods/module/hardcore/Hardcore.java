@@ -97,8 +97,8 @@ public class Hardcore extends CompatModule {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
-        super.init(event);
+    public void onInit(FMLInitializationEvent event) {
+        super.onInit(event);
 
     }
 

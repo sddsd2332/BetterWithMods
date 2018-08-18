@@ -25,17 +25,21 @@ public class HarderSteelRecipe extends Feature {
 
     @Override
     public void setupConfig() {
-        urnReturnChance = loadPropDouble("Urn Return Chance", "Percent chance (0.0-1.0) that the urn is returned when creating the steel.", 0.75);
+
     }
 
+
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Whether Steel requires End Slag, a material only available after the End.";
     }
 
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
+
+        urnReturnChance = loadPropDouble("Urn Return Chance", "Percent chance (0.0-1.0) that the urn is returned when creating the steel.", 0.75);
+
 
         BWRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.ENDER_SLAG)), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.BRIMSTONE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SOUL_FLUX)));
         BWRegistry.CRUCIBLE.addStokedRecipe(Lists.newArrayList(new OreIngredient("blockSoulUrn"), new OreIngredient("ingotIron"), new OreIngredient("dustCarbon"), Ingredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SOUL_FLUX))), getOutputs());

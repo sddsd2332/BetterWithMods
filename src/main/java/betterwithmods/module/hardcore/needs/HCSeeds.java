@@ -41,7 +41,7 @@ public class HCSeeds extends Feature {
     };
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Requires Tilling the ground with a hoe to get seeds.";
     }
 

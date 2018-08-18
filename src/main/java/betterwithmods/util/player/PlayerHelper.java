@@ -1,9 +1,11 @@
 package betterwithmods.util.player;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.hardcore.needs.HCArmor;
+import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -128,6 +130,10 @@ public final class PlayerHelper {
 
     public static void removeModifier(EntityLivingBase entityLivingBase, IAttribute attribute, UUID uuid) {
         entityLivingBase.getEntityAttribute(attribute).removeModifier(uuid);
+    }
+
+    public static int getMinimumHunger() {
+        return BWMod.MODULE_LOADER.isFeatureEnabled(HCHunger.class) ? 20 : 6;
     }
 
     public static int getWornArmorWeight(EntityPlayer player) {

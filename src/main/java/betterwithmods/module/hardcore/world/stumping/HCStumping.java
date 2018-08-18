@@ -99,12 +99,12 @@ public class HCStumping extends Feature {
 
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes the bottom block of trees into stumps which cannot be removed by hand, making your mark on the world more obvious";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(PlacedCapability.class, new PlacedCapability.Storage(), PlacedCapability::new);
     }
 

@@ -164,7 +164,7 @@ public class HCFishing extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(FishingBait.class, new CapabilityFishingRod(), FishingBait::new);
         BWMRecipes.removeRecipe(new ResourceLocation("fishing_rod"));
     }
@@ -194,7 +194,7 @@ public class HCFishing extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change Fishing Rods to require bait and a large enough water source exposed to the sky.";
     }
 

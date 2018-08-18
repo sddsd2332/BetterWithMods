@@ -28,7 +28,7 @@ public class HCStructures extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes it so structures are looted within a radius of spawn and unlooted outside of that radius. \nEncourages exploration.\nHC" +
                 "Also makes unlooted structures the only source of Enchanting Tables and Brewing Stands.";
     }
@@ -45,7 +45,7 @@ public class HCStructures extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         if (disableRecipes) {
             BWMRecipes.removeRecipe(new ItemStack(Blocks.ENCHANTING_TABLE));
             BWMRecipes.removeRecipe(new ItemStack(Items.BREWING_STAND));
@@ -53,7 +53,7 @@ public class HCStructures extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         MapGenStructureIO.registerStructure(BWMapGenScatteredFeature.Start.class, "BWTemple");
         MapGenStructureIO.registerStructureComponent(BWComponentScatteredFeaturePieces.DesertPyramid.class, "BWTeDP");
         MapGenStructureIO.registerStructureComponent(BWComponentScatteredFeaturePieces.JunglePyramid.class, "BWTeJP");

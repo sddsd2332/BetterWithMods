@@ -46,7 +46,7 @@ public class MetalReclaming extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Adds recipes to the Crucible to melt metal items back into their component metals";
     }
 
@@ -56,7 +56,7 @@ public class MetalReclaming extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         int axe_amt = BWMod.MODULE_LOADER.isFeatureEnabled(CheaperAxes.class) ? 2 : 3;
 
         if (reclaimCount > 0) {

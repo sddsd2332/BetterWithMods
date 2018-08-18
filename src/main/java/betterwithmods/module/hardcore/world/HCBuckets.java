@@ -52,7 +52,7 @@ public class HCBuckets extends Feature {
     private static Block ICE = new BlockIce().setRegistryName("minecraft:ice").setTranslationKey("ice");
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes it so water buckets cannot move an entire source block, making water a more valuable resource";
     }
 
@@ -94,14 +94,14 @@ public class HCBuckets extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         if (fixIce) {
             BWMBlocks.registerBlock(ICE);
         }
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         //TODO dispenser behavior; for water and lava bucket
 
         fluidcontainerBacklist = configHelper.loadPropRLList("Fluid container blacklist", configCategory, "Blacklist itemstacks from being effected by HCBuckets", new String[]{

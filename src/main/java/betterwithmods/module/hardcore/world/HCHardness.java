@@ -69,7 +69,7 @@ public class HCHardness extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes certain block hardness more \"realistic\"";
     }
 
@@ -79,7 +79,7 @@ public class HCHardness extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         applyHCHardness();
     }
 
