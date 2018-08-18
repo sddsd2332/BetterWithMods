@@ -15,8 +15,10 @@ import net.minecraftforge.oredict.OreIngredient;
  * Created by primetoxinz on 5/16/17.
  */
 public class CrucibleRecipes extends Feature {
-    public CrucibleRecipes() {
-        canDisable = false;
+
+    @Override
+    protected boolean canEnable() {
+        return true;
     }
 
     @Override
@@ -35,4 +37,8 @@ public class CrucibleRecipes extends Feature {
         }
     }
 
+    @Override
+    public String getDescription() {
+        return null;
+    }
 }

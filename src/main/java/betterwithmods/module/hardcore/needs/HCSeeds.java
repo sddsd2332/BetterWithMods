@@ -9,7 +9,6 @@ import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
-import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -18,6 +17,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -29,6 +29,8 @@ import java.util.function.Predicate;
 /**
  * Created by primetoxinz on 5/21/17.
  */
+
+@Mod.EventBusSubscriber
 public class HCSeeds extends Feature {
     private static final Random RANDOM = new Random();
     public static Set<ItemStack> SEED_BLACKLIST;
@@ -45,11 +47,12 @@ public class HCSeeds extends Feature {
         return "Requires Tilling the ground with a hoe to get seeds.";
     }
 
-    @Override
-    public void setupConfig() {
-        stopZombieCropLoot = loadPropBool("Stop Zombie Crop Loot", "Stops Zombies from dropping potatoes or carrots", true);
-        SEED_BLACKLIST = Sets.newHashSet(loadItemStackList("Seed Blacklist", "Blacklist seeds from being dropped when tilling grass. Defaulted to Wheat seeds for HCVillages.", new ItemStack[]{new ItemStack(Items.WHEAT_SEEDS)}));
-    }
+    //TODO HCSeeds
+//    @Override
+//    public void setupConfig() {
+//        stopZombieCropLoot = loadPropBool("Stop Zombie Crop Loot", "Stops Zombies from dropping potatoes or carrots", true);
+//        SEED_BLACKLIST = Sets.newHashSet(loadItemStackList("Seed Blacklist", "Blacklist seeds from being dropped when tilling grass. Defaulted to Wheat seeds for HCVillages.", new ItemStack[]{new ItemStack(Items.WHEAT_SEEDS)}));
+//    }
 
     @SubscribeEvent
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
@@ -97,8 +100,4 @@ public class HCSeeds extends Feature {
 
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

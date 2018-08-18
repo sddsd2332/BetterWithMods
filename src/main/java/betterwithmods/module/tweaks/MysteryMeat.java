@@ -8,11 +8,14 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 6/25/17.
  */
+
+@Mod.EventBusSubscriber
 public class MysteryMeat extends Feature {
     @Override
     public String getDescription() {
@@ -32,8 +35,4 @@ public class MysteryMeat extends Feature {
         evt.getDrops().add(item);
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

@@ -6,8 +6,10 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.event.LootTableLoadEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 public class LlamaDrops extends Feature {
 
     public static final ResourceLocation LLAMA_LOOT = new ResourceLocation(BWMod.MODID, "entity/llama");
@@ -19,11 +21,6 @@ public class LlamaDrops extends Feature {
             LootTable table = event.getLootTableManager().getLootTableFromLocation(LLAMA_LOOT);
             event.setTable(table);
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override

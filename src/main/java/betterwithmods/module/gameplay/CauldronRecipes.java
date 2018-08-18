@@ -29,8 +29,10 @@ import java.util.Map;
  * Created by primetoxinz on 5/16/17.
  */
 public class CauldronRecipes extends Feature {
-    public CauldronRecipes() {
-        canDisable = false;
+
+    @Override
+    protected boolean canEnable() {
+        return true;
     }
 
     @Override
@@ -214,7 +216,7 @@ public class CauldronRecipes extends Feature {
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    public void onPostInit(FMLPostInitializationEvent event) {
         //Add all food recipes
         Map<ItemStack, ItemStack> furnace = FurnaceRecipes.instance().getSmeltingList();
         for (ItemStack input : furnace.keySet()) {
@@ -230,5 +232,9 @@ public class CauldronRecipes extends Feature {
     }
 
 
+    @Override
+    public String getDescription() {
+        return null;
+    }
 }
 

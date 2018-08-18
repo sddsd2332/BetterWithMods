@@ -1,6 +1,5 @@
 package betterwithmods.module.hardcore.world.strata;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
@@ -16,6 +15,7 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -25,6 +25,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+@Mod.EventBusSubscriber
 public class HCStrata extends Feature {
     private static final Pattern PATTERN = Pattern.compile("^([\\-]?\\d+)=(\\d{1,255}),(\\d{1,255}).*");
     public static boolean CTM;
@@ -35,11 +36,7 @@ public class HCStrata extends Feature {
     public static StrataConfig DEFAULT = new StrataConfig(-1, -1);
     public static NoiseGeneratorPerlin STRATA_NOISE1, STRATA_NOISE2;
     private static Random random;
-    private boolean debugging;
 
-    public HCStrata() {
-        enabledByDefault = false;
-    }
 
     public static void addStone(IBlockState state) {
         STATES.put(state, BlockType.STONE);
@@ -98,22 +95,6 @@ public class HCStrata extends Feature {
         getNoise(event.player.world, 0);
     }
 
-    @Override
-    public void setupConfig() {
-        debugging = false;
-
-        STRATA_SPEEDS = new float[]{(float) loadPropDouble("Light Strata", "Speed for Light Strata", 1.0),
-                (float) loadPropDouble("Medium Strata", "Speed for Medium Strata", 1.0),
-                (float) loadPropDouble("Dark Strata", "Speed for Dark Strata", 1.0)
-        };
-        INCORRECT_STRATA_SCALE = (float) loadPropDouble("Incorrect Strata", "Speed scale for when the Strata is higher than the tool", 0.10);
-
-        CTM = loadPropBool("CTM Support", "Use the ConnectedTextureMod to visualize the stratas", true);
-
-        Arrays.stream(loadPropStringList("Strata Configs", "Set the strata levels for a given dimension, <dim>=< medium start y>,<hard start y>", new String[]{
-                "0=42,21"
-        })).map(s -> s.replaceAll(" ", "")).forEach(HCStrata::loadStrataConfig);
-    }
 
     @Override
     public String getDescription() {
@@ -121,7 +102,15 @@ public class HCStrata extends Feature {
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    public void onPostInit(FMLPostInitializationEvent event) {
+        INCORRECT_STRATA_SCALE = loadProperty("Incorrect Strata", 0.1f).setComment("Speed scale for when the Strata is higher than the tool").get();
+
+        CTM = loadProperty("CTM Support", true).setComment("Use the ConnectedTextureMod to visualize the stratas").get();
+
+        Arrays.stream(loadProperty("Strata Configs", new String[]{
+                "0=42,21"
+        }).setComment("Set the strata levels for a given dimension, <dim>=< medium start y>,<hard start y>").get()).map(s -> s.replaceAll(" ", "")).forEach(HCStrata::loadStrataConfig);
+
         for (BWOreDictionary.Ore ore : BWOreDictionary.oreNames) {
             for (ItemStack stack : ore.getOres()) {
                 if (stack.getItem() instanceof ItemBlock) {
@@ -129,7 +118,7 @@ public class HCStrata extends Feature {
                 }
             }
         }
-        List<ItemStack> stones = loadItemStackList("Strata Stones", "Blocks that are considered as stone to HCStrata", new ItemStack[]{new ItemStack(Blocks.STONE, 1, OreDictionary.WILDCARD_VALUE)});
+        List<ItemStack> stones = config().loadItemStackList("Strata Stones", getName(), "Blocks that are considered as stone to HCStrata", new ItemStack[]{new ItemStack(Blocks.STONE, 1, OreDictionary.WILDCARD_VALUE)});
         stones.stream().map(BWMRecipes::getStatesFromStack).flatMap(Set::stream).forEach(HCStrata::addStone);
     }
 
@@ -149,8 +138,6 @@ public class HCStrata extends Feature {
                     event.getDrops().clear();
                 }
             }
-            if(debugging)
-                BWMod.logger.info("HarvestDropsEvent pos: {}, state: {}, held: {}, strata: {}", event.getPos(), event.getState(), stack, strata);
         }
 
     }
@@ -170,16 +157,9 @@ public class HCStrata extends Feature {
                     scale = INCORRECT_STRATA_SCALE;
                 }
             }
-            float speed = scale * STRATA_SPEEDS[strata] * event.getOriginalSpeed();
+            float speed = scale * event.getOriginalSpeed();
             event.setNewSpeed(speed);
-            if(debugging)
-                BWMod.logger.info("BreakSpeedEvent pos: {}, state: {}, held: {}, strata: {}, speed: {}", event.getPos(), event.getState(), stack, strata, speed);
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     private enum BlockType {

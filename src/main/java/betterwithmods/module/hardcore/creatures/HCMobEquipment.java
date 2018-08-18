@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.bwl.event.EntitySetEquipmentEvent;
-import betterwithmods.module.CompatFeature;
+import betterwithmods.module.Feature;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,23 +9,20 @@ import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Map;
 
-public class HCMobEquipment extends CompatFeature {
+@Mod.EventBusSubscriber
+public class HCMobEquipment extends Feature {
     public static final EntityEquipmentSlot[] ARMOR_SLOTS = new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
     public static final ItemStack[] IRON_ARMOR = new ItemStack[]{new ItemStack(Items.IRON_HELMET), new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_BOOTS)};
     public static final ItemStack[] GOLD_ARMOR = new ItemStack[]{new ItemStack(Items.GOLDEN_HELMET), new ItemStack(Items.GOLDEN_CHESTPLATE), new ItemStack(Items.GOLDEN_LEGGINGS), new ItemStack(Items.GOLDEN_BOOTS)};
 
 
     private static final Map<ResourceLocation, Equipment> entityMap = Maps.newHashMap();
-
-    public HCMobEquipment() {
-        super("betterwithlib");
-        enabledByDefault = false;
-    }
 
     private static void pigman(EntityLivingBase entity) {
         if (entity.getRNG().nextFloat() < 0.05F) {
@@ -84,7 +81,7 @@ public class HCMobEquipment extends CompatFeature {
     }
 
     public void addEquipmentOverride(ResourceLocation mob, Equipment equipment) {
-        if (loadPropBool("Override Equipment for " + mob.toString(), "", true)) {
+        if (loadProperty(String.format("Override Equipment for %s", mob.toString()), true).get()) {
             entityMap.put(mob, equipment);
         }
     }
@@ -106,10 +103,6 @@ public class HCMobEquipment extends CompatFeature {
         return "Change the equipment that mobs spawn with";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 
     @FunctionalInterface
     private interface Equipment {

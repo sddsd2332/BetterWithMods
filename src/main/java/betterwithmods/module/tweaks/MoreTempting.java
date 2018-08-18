@@ -30,7 +30,7 @@ public class MoreTempting extends Feature {
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    public void onPostInit(FMLPostInitializationEvent event) {
         REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "chicken"), e -> e instanceof EntityChicken)
                 .addIngredient(new OreIngredient("seed"));
         REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "pig"), e -> e instanceof EntityPig)
@@ -52,11 +52,6 @@ public class MoreTempting extends Feature {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override

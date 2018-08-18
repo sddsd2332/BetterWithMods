@@ -31,12 +31,13 @@ public class ImprovedFlee extends Feature {
         return result != null && pos.equals(result.getBlockPos());
     }
 
-    @Override
-    public void setupConfig() {
-        blockPlace = loadPropBool("Animals Flee from Block Place", "When a block is placed in the vicinity of an animal it will get scared and run.", true);
-        blockBreak = loadPropBool("Animals Flee from Block Break", "When a non-replaceable block is broken in the vicinity of an animal it will get scared and run.", true);
-        groupFlee = loadPropBool("Animals Group Flee", "When an animal is attacked in the vicinity of another animal it will get scared and run.", true);
-    }
+    //TODO
+//    @Override
+//    public void setupConfig() {
+//        blockPlace = loadPropBool("Animals Flee from Block Place", "When a block is placed in the vicinity of an animal it will get scared and run.", true);
+//        blockBreak = loadPropBool("Animals Flee from Block Break", "When a non-replaceable block is broken in the vicinity of an animal it will get scared and run.", true);
+//        groupFlee = loadPropBool("Animals Group Flee", "When an animal is attacked in the vicinity of another animal it will get scared and run.", true);
+//    }
 
     @SubscribeEvent
     public void addEntityAI(EntityJoinWorldEvent evt) {
@@ -108,8 +109,4 @@ public class ImprovedFlee extends Feature {
         return "Improve fleeing AI for attacked animals";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

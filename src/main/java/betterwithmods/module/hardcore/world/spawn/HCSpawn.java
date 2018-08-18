@@ -2,8 +2,8 @@ package betterwithmods.module.hardcore.world.spawn;
 
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
-import betterwithmods.module.GlobalConfig;
 import betterwithmods.module.gameplay.PlayerDataHandler;
+import betterwithmods.module.general.General;
 import betterwithmods.util.WorldUtils;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.material.Material;
@@ -23,6 +23,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -36,7 +37,7 @@ import static net.minecraft.world.WorldType.FLAT;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@SuppressWarnings("unused")
+@Mod.EventBusSubscriber
 public class HCSpawn extends Feature {
 
     public static final Random RANDOM = new Random();
@@ -71,25 +72,18 @@ public class HCSpawn extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(SpawnSaving.class, new SpawnSaving.Storage(), SpawnSaving::new);
+        HARDCORE_SPAWN_RADIUS = loadProperty("Hardcore Spawn Radius", 2000).setComment("Radius from original spawn which you will be randomly spawned").get();
+        HARDCORE_SPAWN_COOLDOWN_RADIUS = loadProperty("Hardcore Spawn Cooldown Radius", 100).setComment("Radius from your previous spawn you will spawn if you die during a cooldown period").get();
+        HARDCORE_SPAWN_COOLDOWN = loadProperty("Hardcore Spawn Cooldown Ticks", 12000).setComment("Amount of time after a HCSpawn which you will continue to spawn in the same area").get();
+        HARDCORE_SPAWN_INTERNAL_RADIUS = loadProperty("Hardcore Spawn Internal Radius", 125).setComment("This internal radius will stop the player from spawning too close to the original spawn").get();
     }
 
-    @Override
-    public void setupConfig() {
-        HARDCORE_SPAWN_RADIUS = loadPropInt("Hardcore Spawn Radius", "Radius from original spawn which you will be randomly spawned", 2000);
-        HARDCORE_SPAWN_COOLDOWN_RADIUS = loadPropInt("Hardcore Spawn Cooldown Radius", "Radius from your previous spawn you will spawn if you die during a cooldown period", 100);
-        HARDCORE_SPAWN_COOLDOWN = loadPropInt("Hardcore Spawn Cooldown Ticks", "Amount of time after a HCSpawn which you will continue to spawn in the same area", 12000);
-        HARDCORE_SPAWN_INTERNAL_RADIUS = loadPropInt("Hardcore Spawn Internal Radius", "This internal radius will stop the player from spawning too close to the original spawn", 125);
-    }
 
     @Override
     public String getDescription() {
         return "Makes it so death is an actual issue as you will spawn randomly within a 2000 block radius of your original spawn. Compasses still point to original spawn.";
     }
 
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
 
     /**
      * Random Respawn. Less intense when there is a short time since death.
@@ -115,7 +109,7 @@ public class HCSpawn extends Feature {
 
             int internalRadius = isNew ? HARDCORE_SPAWN_INTERNAL_RADIUS : 0;
 
-            if (GlobalConfig.debug)
+            if (General.isDebug())
                 player.sendMessage(new TextComponentString(String.format("Spawn: %s, %s, %s, %s", isNew, currentSpawn, radius, timeSinceDeath)));
             BlockPos newPos = getRespawnPoint(player, currentSpawn, internalRadius, radius);
             setSpawn(player, newPos);
@@ -150,11 +144,6 @@ public class HCSpawn extends Feature {
         }
 
         return ret;
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @SubscribeEvent

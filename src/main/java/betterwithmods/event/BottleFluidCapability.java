@@ -5,7 +5,6 @@ Borrowed from Enderio https://github.com/SleepyTrousers/EnderCore/blob/1.12/src/
  */
 
 import betterwithmods.BWMod;
-import betterwithmods.module.GlobalConfig;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
@@ -29,6 +28,8 @@ import javax.annotation.Nullable;
 @Mod.EventBusSubscriber
 public class BottleFluidCapability implements IFluidHandlerItem, ICapabilityProvider {
 
+    private static int waterBottleAmount = 300;
+    
     private static final ResourceLocation KEY = new ResourceLocation(BWMod.MODID, "bottle");
 
     private @Nonnull
@@ -76,12 +77,12 @@ public class BottleFluidCapability implements IFluidHandlerItem, ICapabilityProv
             @Override
             @Nullable
             public FluidStack getContents() {
-                return isFull() ? new FluidStack(FluidRegistry.WATER, GlobalConfig.waterBottleAmount) : null;
+                return isFull() ? new FluidStack(FluidRegistry.WATER, waterBottleAmount) : null;
             }
 
             @Override
             public int getCapacity() {
-                return GlobalConfig.waterBottleAmount;
+                return waterBottleAmount;
             }
 
             @Override
@@ -108,39 +109,39 @@ public class BottleFluidCapability implements IFluidHandlerItem, ICapabilityProv
 
     @Override
     public int fill(FluidStack resource, boolean doFill) {
-        if (container.getCount() != 1 || !isEmpty() || resource == null || resource.getFluid() != FluidRegistry.WATER || resource.amount < GlobalConfig.waterBottleAmount) {
+        if (container.getCount() != 1 || !isEmpty() || resource == null || resource.getFluid() != FluidRegistry.WATER || resource.amount < waterBottleAmount) {
             return 0;
         } else {
             if (doFill) {
                 fill();
             }
-            return GlobalConfig.waterBottleAmount;
+            return waterBottleAmount;
         }
     }
 
     @Override
     @Nullable
     public FluidStack drain(FluidStack resource, boolean doDrain) {
-        if (container.getCount() != 1 || !isFull() || resource == null || resource.getFluid() != FluidRegistry.WATER || resource.amount < GlobalConfig.waterBottleAmount) {
+        if (container.getCount() != 1 || !isFull() || resource == null || resource.getFluid() != FluidRegistry.WATER || resource.amount < waterBottleAmount) {
             return null;
         } else {
             if (doDrain) {
                 empty();
             }
-            return new FluidStack(FluidRegistry.WATER, GlobalConfig.waterBottleAmount);
+            return new FluidStack(FluidRegistry.WATER, waterBottleAmount);
         }
     }
 
     @Override
     @Nullable
     public FluidStack drain(int maxDrain, boolean doDrain) {
-        if (container.getCount() != 1 || !isFull() || maxDrain < GlobalConfig.waterBottleAmount) {
+        if (container.getCount() != 1 || !isFull() || maxDrain < waterBottleAmount) {
             return null;
         } else {
             if (doDrain) {
                 empty();
             }
-            return new FluidStack(FluidRegistry.WATER, GlobalConfig.waterBottleAmount);
+            return new FluidStack(FluidRegistry.WATER, waterBottleAmount);
         }
     }
 

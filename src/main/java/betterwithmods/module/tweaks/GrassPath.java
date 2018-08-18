@@ -15,6 +15,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -23,6 +25,7 @@ import java.util.List;
 
 import static betterwithmods.module.hardcore.needs.HCMovement.dirtpathQuality;
 
+@Mod.EventBusSubscriber
 public class GrassPath extends Feature {
     public static List<ItemStack> SHOVEL_BLACKLIST = Lists.newArrayList();
 
@@ -36,12 +39,7 @@ public class GrassPath extends Feature {
             return item.getHarvestLevel(stack, "shovel", null, null);
         }
     }
-
-    @Override
-    public void setupConfig() {
-        SHOVEL_BLACKLIST = loadItemStackList("Shovel Blacklist", "Blacklist an item for being able to make grass paths", new String[]{"psi:cad"});
-    }
-
+    
     @Override
     public String getDescription() {
         return "Allows turning more than just grass into path. Turns off when dirt2path is installed";
@@ -50,11 +48,6 @@ public class GrassPath extends Feature {
     @Override
     public String[] getIncompatibleMods() {
         return new String[]{"dirt2path"};
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     protected boolean isBlockDirt(IBlockState state) {
@@ -70,6 +63,10 @@ public class GrassPath extends Feature {
         }
     }
 
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        SHOVEL_BLACKLIST = config().loadItemStackList("Shovel Blacklist", getName(), "Blacklist an item for being able to make grass paths", new String[]{"psi:cad"});
+    }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onBlockRightclick(PlayerInteractEvent.RightClickBlock event) {

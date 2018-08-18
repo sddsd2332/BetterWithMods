@@ -36,20 +36,19 @@ public class HCFurnace extends Feature {
     public static HashMap<Ingredient, Integer> FURNACE_TIMINGS = Maps.newHashMap();
     public static HashMap<Ingredient, Integer> FUEL_TIMINGS = Maps.newHashMap();
 
-    public HCFurnace() {
-        enabledByDefault = false;
-    }
+    public HCFurnace() {}
 
     public static OptionalInt getCookingTime(ItemStack stack) {
         return FURNACE_TIMINGS.entrySet().stream().filter(e -> e.getKey().apply(stack)).mapToInt(Map.Entry::getValue).findAny();
     }
 
-    @Override
-    public void setupConfig() {
-        CONSUME_FUEL_WHEN_IDLE = loadPropBool("Consume Fuel When Idle", "Furnaces will consume fuel even if no smeltable items are present.", true);
-        DEFAULT_FURNACE_TIMING = loadPropInt("Default Furnace Timing", "Default number of ticks for an item to smelt in the furnace (vanilla is 200)", "", 200, 1, Integer.MAX_VALUE);
-        TOOLTIP = loadPropBool("Tooltip for modified cooking time", "Shows a tooltip for items with modified cooking time", true);
-    }
+    //TODO
+//    @Override
+//    public void setupConfig() {
+//        CONSUME_FUEL_WHEN_IDLE = loadPropBool("Consume Fuel When Idle", "Furnaces will consume fuel even if no smeltable items are present.", true);
+//        DEFAULT_FURNACE_TIMING = loadPropInt("Default Furnace Timing", "Default number of ticks for an item to smelt in the furnace (vanilla is 200)", "", 200, 1, Integer.MAX_VALUE);
+//        TOOLTIP = loadPropBool("Tooltip for modified cooking time", "Shows a tooltip for items with modified cooking time", true);
+//    }
 
     @Override
     public String getDescription() {
@@ -62,10 +61,6 @@ public class HCFurnace extends Feature {
         BWMBlocks.registerBlock(LIT_FURNACE, null);
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 
     @Override
     public void onInit(FMLInitializationEvent event) {
@@ -105,30 +100,31 @@ public class HCFurnace extends Feature {
         BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_BOOTS);
         BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_HORSE_ARMOR);
 
-        FURNACE_TIMINGS = loadItemStackIntMap("Furnace Timing Recipes", "example recipes  minecraft:iron_ore=1000  or ore:oreIron=1000", new String[]{
-                "ore:oreIron=1600",
-                "ore:oreGold=1600",
-                "ore:cobblestone=1600",
-                "ore:sand=1600"
-        });
-
-        FUEL_TIMINGS = loadItemStackIntMap("Furnace Fuel Timing Overrides", "Overrides the fuel time for inputted items or oredict, see Furnace Timing for entry format", new String[]{
-                "minecraft:boat=750",
-                "minecraft:log:0=1600",
-                "minecraft:log:1=1200",
-                "minecraft:log:2=2000",
-                "minecraft:log:3=1200",
-                "minecraft:log2:0=1600",
-                "minecraft:log2:1=1600",
-                "minecraft:coal:0=1600",
-                "minecraft:planks:0=400",
-                "minecraft:planks:1=300",
-                "minecraft:planks:2=500",
-                "minecraft:planks:3=300",
-                "minecraft:planks:4=400",
-                "minecraft:planks:5=300",
-                "minecart:sapling=25"
-        });
+        //TODO
+//        FURNACE_TIMINGS = loadItemStackIntMap("Furnace Timing Recipes", "example recipes  minecraft:iron_ore=1000  or ore:oreIron=1000", new String[]{
+//                "ore:oreIron=1600",
+//                "ore:oreGold=1600",
+//                "ore:cobblestone=1600",
+//                "ore:sand=1600"
+//        });
+//
+//        FUEL_TIMINGS = loadItemStackIntMap("Furnace Fuel Timing Overrides", "Overrides the fuel time for inputted items or oredict, see Furnace Timing for entry format", new String[]{
+//                "minecraft:boat=750",
+//                "minecraft:log:0=1600",
+//                "minecraft:log:1=1200",
+//                "minecraft:log:2=2000",
+//                "minecraft:log:3=1200",
+//                "minecraft:log2:0=1600",
+//                "minecraft:log2:1=1600",
+//                "minecraft:coal:0=1600",
+//                "minecraft:planks:0=400",
+//                "minecraft:planks:1=300",
+//                "minecraft:planks:2=500",
+//                "minecraft:planks:3=300",
+//                "minecraft:planks:4=400",
+//                "minecraft:planks:5=300",
+//                "minecart:sapling=25"
+//        });
     }
 
     @SubscribeEvent

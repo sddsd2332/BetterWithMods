@@ -55,12 +55,12 @@ import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
-import net.minecraftforge.client.model.obj.OBJLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -96,35 +96,32 @@ public class ClientProxy implements IProxy {
     public static void registerModels(ModelRegistryEvent event) {
         BWMItems.getItems().forEach(BWMItems::setInventoryModel);
         ModelLoader.setCustomStateMapper(BWMBlocks.STOKED_FLAME, new BWStateMapper(BWMBlocks.STOKED_FLAME.getRegistryName()));
-        BWMod.MODULE_LOADER.registerModels(event);
     }
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMod.MODULE_LOADER.preInitClient(event);
+        BWMod.MODULE_LOADER.onPreInitClient(event);
         registerRenderInformation();
         initRenderers();
         MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
     }
 
     @Override
-    public void onInit(FMlInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), ReflectionLib.DEFAULT_RESOURCE_PACKS);
-        BWMod.MODULE_LOADER.initClient(event);
         ManualAPI.addProvider(new DirectoryDefaultProvider(new ResourceLocation(BWMod.MODID, "documentation/docs/")));
         ManualDefinitionImpl.INSTANCE.addDefaultProviders();
         ManualAPI.addTab(new TextureTabIconRenderer(new ResourceLocation(BWMod.MODID, "textures/gui/manual_home.png")), "bwm.manual.home", "%LANGUAGE%/index.md");
         registerColors();
+        BWMod.MODULE_LOADER.onInitClient(event);
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        BWMod.MODULE_LOADER.postInitClient(event);
+        BWMod.MODULE_LOADER.onPostInitClient(event);
     }
 
     private void registerRenderInformation() {
-
-        OBJLoader.INSTANCE.addDomain(BWMod.MODID);
         ClientRegistry.bindTileEntitySpecialRenderer(TileWindmillHorizontal.class, new TESRWindmill());
         ClientRegistry.bindTileEntitySpecialRenderer(TileWindmillVertical.class, new TESRVerticalWindmill());
         ClientRegistry.bindTileEntitySpecialRenderer(TileWaterwheel.class, new TESRWaterwheel());
@@ -172,11 +169,6 @@ public class ClientProxy implements IProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntityMiningCharge.class, RenderMiningCharge::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityExtendingRope.class, RenderExtendingRope::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityShearedCreeper.class, RenderShearedCreeper::new);
-
-
-//        RenderingRegistry.registerEntityRenderingHandler(EntityCow.class, RenderCowHarness::new);
-//        RenderingRegistry.registerEntityRenderingHandler(EntityPig.class, RenderPigHarness::new);
-//        RenderingRegistry.registerEntityRenderingHandler(EntitySheep.class, RenderSheepHarness::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityBroadheadArrow.class, RenderBroadheadArrow::new);
         RenderingRegistry.registerEntityRenderingHandler(EntitySpiderWeb.class, manager -> new RenderSnowball<>(manager, Item.getItemFromBlock(Blocks.WEB), Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityJungleSpider.class, RenderJungleSpider::new);

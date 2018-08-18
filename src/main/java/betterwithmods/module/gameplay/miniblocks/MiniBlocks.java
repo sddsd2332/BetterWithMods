@@ -48,6 +48,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -61,7 +62,7 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
-
+@Mod.EventBusSubscriber
 public class MiniBlocks extends Feature {
     public static final HashMap<MiniType, HashMap<Material, BlockCamo>> MINI_MATERIAL_BLOCKS = Maps.newHashMap();
     public static final Multimap<Material, IBlockState> MATERIALS = HashMultimap.create();
@@ -75,10 +76,6 @@ public class MiniBlocks extends Feature {
         for (MiniType type : MiniType.VALUES) {
             MINI_MATERIAL_BLOCKS.put(type, Maps.newHashMap());
         }
-    }
-
-    public MiniBlocks() {
-        enabledByDefault = false;
     }
 
     public static List<ItemStack> getStacks(MiniType type, Material material) {
@@ -177,7 +174,7 @@ public class MiniBlocks extends Feature {
     }
 
     public Set<Ingredient> loadMiniblockWhitelist() {
-        File file = new File(configHelper.path, "betterwithmods/miniblocks.json");
+        File file = new File(config().path, "betterwithmods/miniblocks.json");
 
         //noinspection ResultOfMethodCallIgnored
         file.getParentFile().mkdirs();
@@ -206,6 +203,9 @@ public class MiniBlocks extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
+        autoGeneration = loadProperty("Auto Generate Miniblocks", false).setComment("Automatically add miniblocks for many blocks, based on heuristics and probably planetary alignments. WARNING: Exposure to this config option can kill pack developers.").get();
+        requiresAnvil = loadProperty("Stone Miniblocks require Anvil recipe", true).setComment("When enabled stone and metal miniblocks will require an anvil recipe, when disabled they will all be made with the saw").get();
+
         names.put(Material.WOOD, "wood");
         names.put(Material.ROCK, "rock");
         names.put(Material.IRON, "iron");
@@ -356,21 +356,10 @@ public class MiniBlocks extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-        autoGeneration = loadPropBool("Auto Generate Miniblocks", "Automatically add miniblocks for many blocks, based on heuristics and probably planetary alignments. WARNING: Exposure to this config option can kill pack developers.", false);
-        requiresAnvil = loadPropBool("Stone Miniblocks require Anvil recipe", "When enabled stone and metal miniblocks will require an anvil recipe, when disabled they will all be made with the saw", true);
-    }
-
-    @Override
     public String getDescription() {
         return "Dynamically generate Siding, Mouldings and Corners for many of the blocks in the game.";
     }
 
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)

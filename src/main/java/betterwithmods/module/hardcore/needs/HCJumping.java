@@ -4,12 +4,14 @@ import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 5/3/17.
  */
+@Mod.EventBusSubscriber
 public class HCJumping extends Feature {
     public HCJumping() {
         this.enabled = false;
@@ -30,8 +32,5 @@ public class HCJumping extends Feature {
         return "Stops the ability to place blocks while in the air. This stops the use of 'Derp Pillars' to escape attacks";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
+
 }

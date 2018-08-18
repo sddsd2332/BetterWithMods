@@ -11,21 +11,24 @@ public class General extends Module {
 
     private static boolean debug;
 
-    @Override
-    public void addFeatures() {
-        addFeature(new Client());
-    }
-
     public static boolean isDebug() {
         return debug;
     }
 
     @Override
+    public void addFeatures() {
+        addFeature(new Client());
+    }
+
+    @Override
+    protected boolean canEnable() {
+        return true;
+    }
+
+    @Override
     public List<Feature> setup(File file, Logger logger) {
         List<Feature> features = super.setup(file, logger);
-
         debug = config().load(getName(), "Debug Mode", false).setComment("Log extra debug information, warning can spam logs").get();
-
         return features;
     }
 }

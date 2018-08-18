@@ -11,18 +11,15 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Set;
 
+@Mod.EventBusSubscriber
 public class FoodPoisoning extends Feature {
     public static double chanceForPoison;
-
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 
     @Override
     public String getDescription() {
@@ -30,12 +27,7 @@ public class FoodPoisoning extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-        chanceForPoison = loadPropDouble("Chance for Food Poisoning", "", 0.3);
-    }
-
-    @Override
-    public void onInit(FMlInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         Set<Item> RAW_FOOD =
                 Sets.newHashSet(BWMItems.RAW_SCRAMBLED_EGG, BWMItems.RAW_EGG, BWMItems.RAW_OMELET,
                         BWMItems.RAW_KEBAB, Items.FISH, BWMItems.WOLF_CHOP, Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.CHICKEN, Items.MUTTON, BWMItems.MYSTERY_MEAT);

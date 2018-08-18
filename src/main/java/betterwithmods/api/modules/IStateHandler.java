@@ -21,5 +21,11 @@ public interface IStateHandler {
 
     default void onPreInitClient(FMLPreInitializationEvent event) {}
 
+    default void onInitClient(FMLInitializationEvent event) {}
+
+    default void onPostInitClient(FMLPostInitializationEvent event) {
+    }
+
+
     boolean isEnabled();
 }

@@ -18,6 +18,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -25,6 +26,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
+@Mod.EventBusSubscriber
 public class PlayerDataHandler extends Feature {
     //TODO better way to handle the team.
     public static final String TEAM = "BWMTeam";
@@ -33,17 +35,8 @@ public class PlayerDataHandler extends Feature {
     @CapabilityInject(PlayerInfo.class)
     public static Capability<PlayerInfo> CAP_PLAYER_INFO = null;
 
-    public PlayerDataHandler() {
-        canDisable = false;
-    }
-
     public static PlayerInfo getPlayerInfo(EntityPlayer player) {
         return CapabilityUtils.getCapability(player, CAP_PLAYER_INFO, null).orElse(null);
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override
@@ -68,11 +61,21 @@ public class PlayerDataHandler extends Feature {
     }
 
     @Override
-    public void serverStarting(FMLServerStartingEvent event) {
+    public void onServerStarting(FMLServerStartingEvent event) {
         Scoreboard scoreboard = event.getServer().getEntityWorld().getScoreboard();
         if (scoreboard.getTeam(TEAM) == null)
             scoreboard.createTeam(TEAM);
         scoreboard.getTeam(TEAM).setNameTagVisibility(BWMod.MODULE_LOADER.isFeatureEnabled(HCNames.class) ? Team.EnumVisible.NEVER : Team.EnumVisible.ALWAYS);
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
+    protected boolean canEnable() {
+        return true;
     }
 
     public static class CapabilityPlayerInfo implements Capability.IStorage<PlayerInfo> {

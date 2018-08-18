@@ -29,11 +29,6 @@ public class MobEating extends Feature {
             ((EntityZombie) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("listAllmeat"), radius));
         }
     }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }
 
 

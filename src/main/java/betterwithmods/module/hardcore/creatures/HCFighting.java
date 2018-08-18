@@ -11,8 +11,10 @@ import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraftforge.event.entity.living.LivingKnockBackEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 public class HCFighting extends Feature {
 
 
@@ -42,8 +44,4 @@ public class HCFighting extends Feature {
         return "Disable knockback when no weapon is used";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

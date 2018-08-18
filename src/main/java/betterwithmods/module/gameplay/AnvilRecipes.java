@@ -22,8 +22,15 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Created by primetoxinz on 5/16/17.
  */
 public class AnvilRecipes extends Feature {
-    public AnvilRecipes() {
-        canDisable = false;
+
+    @Override
+    public String getDescription() {
+        return null;
+    }
+
+    @Override
+    protected boolean canEnable() {
+        return true;
     }
 
     public static ShapedAnvilRecipe addSteelShapedRecipe(String recipeName, ItemStack output, Object... input) {
@@ -94,9 +101,5 @@ public class AnvilRecipes extends Feature {
         addSteelShapedRecipe("lightning_rod", new ItemStack(BWMBlocks.CANDLE_HOLDER, 2), "N", "N", "N", "I", 'I', "ingotSoulforgedSteel", 'N', "nuggetSoulforgedSteel");
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }
 

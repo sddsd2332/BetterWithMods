@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -21,15 +22,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+
+@Mod.EventBusSubscriber
 public class HCMelon extends Feature {
     @Override
     public String getDescription() {
         return "Makes Melons have gravity, makes for cool automation abilities";
-    }
-
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
     }
 
     @Override
@@ -95,8 +93,4 @@ public class HCMelon extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

@@ -51,13 +51,9 @@ public class MetalReclaming extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-        reclaimCount = loadPropInt("Reclaming Count", "Amount (in nuggets per ingot) tools and armor in the crucible reclaim. Does not affect diamond or soulforged steel ingot reclamation. (Set to 0 to disable reclamation entirely.)", "", 6, 0, 9);
-    }
-
-    @Override
     public void onInit(FMLInitializationEvent event) {
         int axe_amt = BWMod.MODULE_LOADER.isFeatureEnabled(CheaperAxes.class) ? 2 : 3;
+        reclaimCount = loadProperty("Reclaming Count", 6).setMin(0).setMax(9).setComment("Amount (in nuggets per ingot) tools and armor in the crucible reclaim. Does not affect diamond or soulforged steel ingot reclamation. (Set to 0 to disable reclamation entirely.)").get();
 
         if (reclaimCount > 0) {
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_HOE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2));

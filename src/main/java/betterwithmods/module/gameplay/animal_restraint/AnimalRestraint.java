@@ -35,6 +35,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -44,6 +45,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.Set;
 
+@Mod.EventBusSubscriber
 public class AnimalRestraint extends Feature {
 
     public static final Item ANIMAL_RESTRAINT = new ItemAnimalHarness().setRegistryName("animal_restraint");
@@ -117,10 +119,9 @@ public class AnimalRestraint extends Feature {
         render.addLayer(layer);
     }
 
-
     @SideOnly(Side.CLIENT)
     @Override
-    public void postInitClient(FMLPostInitializationEvent event) {
+    public void onPostInitClient(FMLPostInitializationEvent event) {
         addLayer(EntityCow.class, new ModelCowHarness(0.5f), new ResourceLocation(BWMod.MODID, "textures/entity/cow_harness.png"));
         addLayer(EntityPig.class, new ModelPig(0.5f), new ResourceLocation(BWMod.MODID, "textures/entity/pig_harness.png"));
         addLayer(EntitySheep.class, new ModelSheepHarness(0.5f), new ResourceLocation(BWMod.MODID, "textures/entity/sheep_harness.png"));
@@ -195,8 +196,4 @@ public class AnimalRestraint extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

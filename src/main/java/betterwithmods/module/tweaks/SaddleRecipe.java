@@ -6,6 +6,7 @@ import betterwithmods.module.Feature;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 public class SaddleRecipe extends Feature {
     public SaddleRecipe() {
@@ -13,7 +14,7 @@ public class SaddleRecipe extends Feature {
     }
 
     @Override
-    public void onInit(FMlInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         BWRegistry.CAULDRON.addStokedRecipe(Ingredient.fromStacks(new ItemStack(Items.SADDLE)), ItemMaterial.getStack(ItemMaterial.EnumMaterial.GLUE, 2));
     }
 

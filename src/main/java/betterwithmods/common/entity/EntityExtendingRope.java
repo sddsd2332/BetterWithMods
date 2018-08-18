@@ -3,7 +3,7 @@ package betterwithmods.common.entity;
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.tile.TilePulley;
-import betterwithmods.module.GlobalConfig;
+import betterwithmods.module.general.General;
 import betterwithmods.util.AABBArray;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
@@ -117,7 +117,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         NBTTagCompound t = new NBTTagCompound();
         serializeTiles(t, tiles);
         compound.setTag("Tiles", t);
-        if (GlobalConfig.debug) {
+        if (General.isDebug()) {
             for (int i = 0; i < bytes.length; i++) {
                 if (i % 16 == 0) {
                     StringBuilder text = new StringBuilder(Integer.toHexString(i));

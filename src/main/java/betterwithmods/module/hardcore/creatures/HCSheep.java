@@ -49,17 +49,9 @@ public class HCSheep extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-        mutationChance = loadPropInt("Mutation Chance", "How likely a sheep is to mutate into a weird natural color. Chance is 1 in n. Default mirrors vanilla chance to obtain pink sheep.", 500);
-    }
-
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-    @Override
     public void onInit(FMLInitializationEvent event) {
+        mutationChance = loadProperty("Mutation Chance", 500).setComment("How likely a sheep is to mutate into a weird natural color. Chance is 1 in n. Default mirrors vanilla chance to obtain pink sheep.").get();
+
         CapabilityManager.INSTANCE.register(NaturalColor.class, new Capability.IStorage<NaturalColor>() {
             @Nullable
             @Override
@@ -100,11 +92,6 @@ public class HCSheep extends Feature {
         addShapelessColorMixing(EnumDyeColor.PURPLE, EnumDyeColor.WHITE, EnumDyeColor.MAGENTA);
         addShapelessColorMixing(EnumDyeColor.RED, EnumDyeColor.LIGHT_BLUE, EnumDyeColor.MAGENTA);
         addShapelessColorMixing(EnumDyeColor.CYAN, EnumDyeColor.RED, EnumDyeColor.BROWN);
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override

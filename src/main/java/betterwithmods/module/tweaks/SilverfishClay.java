@@ -8,8 +8,10 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 public class SilverfishClay extends Feature {
 
     @SubscribeEvent
@@ -19,11 +21,6 @@ public class SilverfishClay extends Feature {
             if (entity.world.provider.getDimensionType() == DimensionType.THE_END)
                 WorldUtils.addDrop(event, new ItemStack(Items.CLAY_BALL, entity.getRNG().nextInt(3)));
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override

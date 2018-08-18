@@ -14,23 +14,20 @@ public class PowderKegs extends Feature {
         return "";
     }
 
-    @Override
-    public void preInitClient(FMLPreInitializationEvent event) {
-        overrideBlock("tnt_bottom");
-        overrideBlock("tnt_top");
-        overrideBlock("tnt_side");
-        overrideItem("minecart_tnt");
-    }
+    //TODO
+//
+//    @Override
+//    public void preInitClient(FMLPreInitializationEvent event) {
+//        overrideBlock("tnt_bottom");
+//        overrideBlock("tnt_top");
+//        overrideBlock("tnt_side");
+//        overrideItem("minecart_tnt");
+//    }
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:tnt"));
         Blocks.TNT.setTranslationKey("betterwithmods:powder_keg");
         Items.TNT_MINECART.setTranslationKey("betterwithmods:powder_keg_minecart");
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 }

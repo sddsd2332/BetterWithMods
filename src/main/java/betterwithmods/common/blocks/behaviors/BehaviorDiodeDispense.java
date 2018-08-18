@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.behaviors;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.blocks.BlockBDispenser;
-import betterwithmods.module.GlobalConfig;
+import betterwithmods.module.general.General;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.player.Profiles;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
@@ -32,7 +32,7 @@ public class BehaviorDiodeDispense extends BehaviorDefaultDispenseItem {
             FakePlayer fake = FakePlayerFactory.get((WorldServer) source.getWorld(), Profiles.BWMDISP);
             fake.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
             DirUtils.setEntityOrientationFacing(fake, facing);
-            if (GlobalConfig.debug)
+            if (General.isDebug())
                 BWMod.logger.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
             if (stack.getItem().onItemUse(fake, source.getWorld(), check, EnumHand.MAIN_HAND, facing, 0.1F, 0.0F, 0.1F) == EnumActionResult.SUCCESS) {
                 stack.shrink(1);

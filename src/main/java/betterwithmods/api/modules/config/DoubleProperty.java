@@ -1,6 +1,7 @@
 package betterwithmods.api.modules.config;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class DoubleProperty extends ConfigProperty<Double> {
 
@@ -9,8 +10,19 @@ public class DoubleProperty extends ConfigProperty<Double> {
     }
 
     @Override
+    public ConfigProperty<Double> setDefault(Double defaultValue) {
+        property.setDefaultValue(defaultValue);
+        return this;
+    }
+
+    @Override
+    public Property createProperty(String category, String property) {
+        return config.get(category,property,defaultValue);
+    }
+
+    @Override
     public Double get() {
-        return property.getDouble(defaultValue);
+        return property.getDouble();
     }
 
 }

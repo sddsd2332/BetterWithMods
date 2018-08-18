@@ -19,11 +19,6 @@ public class ExplosiveRecipes extends Feature {
         return "Some recipes can't get too hot or they might explode.";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
     @SubscribeEvent
     public void onBulkCraft(BulkCraftEvent event) {
         if (event.getTile() instanceof IHeated && event.getRecipe() instanceof CookingPotRecipe) {

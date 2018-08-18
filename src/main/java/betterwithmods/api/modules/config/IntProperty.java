@@ -1,6 +1,7 @@
 package betterwithmods.api.modules.config;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class IntProperty extends ConfigProperty<Integer> {
 
@@ -9,7 +10,18 @@ public class IntProperty extends ConfigProperty<Integer> {
     }
 
     @Override
+    public ConfigProperty<Integer> setDefault(Integer defaultValue) {
+        property.setDefaultValue(defaultValue);
+        return this;
+    }
+
+    @Override
+    public Property createProperty(String category, String property) {
+        return config.get(category,property,defaultValue);
+    }
+
+    @Override
     public Integer get() {
-        return property.getInt(defaultValue);
+        return property.getInt();
     }
 }

@@ -5,21 +5,28 @@ import net.minecraftforge.common.config.Property;
 
 public abstract class ConfigProperty<T> {
     protected T defaultValue;
-    protected boolean isArray;
     protected Property property;
-    private Class<T> classType;
 
-    private Configuration config;
+    protected Configuration config;
     private String category;
 
     public ConfigProperty(Configuration config, String property, String category, T defaultValue) {
         this.config = config;
-        this.classType = (Class<T>) defaultValue.getClass();
-        this.isArray = classType.isArray();
-        this.property = createProperty(property, category, fromClass(), classType.isArray());
         this.defaultValue = defaultValue;
         this.category = category;
+        this.property = createProperty(category, property);
     }
+
+    public ConfigProperty<T> setMax(int max) {
+        this.property.setMaxValue(max);
+        return this;
+    }
+
+    public ConfigProperty<T> setMin(int min) {
+        this.property.setMinValue(min);
+        return this;
+    }
+
 
     public ConfigProperty<T> setComment(String comment) {
         this.property.setComment(comment);
@@ -44,32 +51,13 @@ public abstract class ConfigProperty<T> {
         return this;
     }
 
-    private Property createProperty(String category, String property, Property.Type type, boolean isList) {
-        Property prop = config.getCategory(category).get(property);
-        if (prop == null) {
-            if (isList)
-                prop = new Property(property, new String[0], type);
-            else
-                prop = new Property(property, (String) null, type);
-            config.getCategory(category).put(property, prop);
-        }
-        return prop;
-    }
+    public abstract ConfigProperty<T> setDefault(T defaultValue);
+
+
+    public abstract Property createProperty(String category, String property);
 
     public abstract T get();
 
-    private Property.Type fromClass() {
-        if (classType.isAssignableFrom(boolean.class) || classType.isAssignableFrom(Boolean.class)) {
-            return Property.Type.BOOLEAN;
-        } else if (classType.isAssignableFrom(int.class) || classType.isAssignableFrom(Integer.class)) {
-            return Property.Type.INTEGER;
-        } else if (classType.isAssignableFrom(double.class) || classType.isAssignableFrom(Double.class)) {
-            return Property.Type.DOUBLE;
-        } else if (classType.isAssignableFrom(String.class)) {
-            return Property.Type.STRING;
-        }
-        return null;
-    }
 
 
 }

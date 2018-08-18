@@ -29,6 +29,7 @@ import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -39,6 +40,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
+@Mod.EventBusSubscriber
 public class HCBrewing extends Feature {
     private static boolean removeMovementPotions;
     private static boolean waterBreathingAnyFish;
@@ -46,15 +48,15 @@ public class HCBrewing extends Feature {
     private static boolean modPotionCompat;
     private static int potionStackSize;
     private boolean tryChangePotions;
-
-    @Override
-    public void setupConfig() {
-        removeMovementPotions = loadPropBool("Remove Movement Potions", "Removes recipes for Speed and Leaping potions.", true);
-        waterBreathingAnyFish = loadPropBool("Water Breathing Any Fish", "Any fish works for brewing Water Breathing potions.", true);
-        removeWitchPotionDrops = loadPropBool("Remove Witch Ingredient Drops", "Removes redstone and glowstone from witch drops", true);
-        modPotionCompat = loadPropBool("Modded Potion Compatibility", "Similarly modifies non-vanilla potions.", true);
-        potionStackSize = loadPropInt("Potion Stacksize", "Maximum stacksize of potion items.", 8);
-    }
+//TODO
+//    @Override
+//    public void setupConfig() {
+//        removeMovementPotions = loadPropBool("Remove Movement Potions", "Removes recipes for Speed and Leaping potions.", true);
+//        waterBreathingAnyFish = loadPropBool("Water Breathing Any Fish", "Any fish works for brewing Water Breathing potions.", true);
+//        removeWitchPotionDrops = loadPropBool("Remove Witch Ingredient Drops", "Removes redstone and glowstone from witch drops", true);
+//        modPotionCompat = loadPropBool("Modded Potion Compatibility", "Similarly modifies non-vanilla potions.", true);
+//        potionStackSize = loadPropInt("Potion Stacksize", "Maximum stacksize of potion items.", 8);
+//    }
 
     @Override
     public String getDescription() {
@@ -91,7 +93,7 @@ public class HCBrewing extends Feature {
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    public void onPostInit(FMLPostInitializationEvent event) {
         tryChangePotions = true;
 
         List<MixPredicate<PotionType>> moddedPotions;
@@ -340,8 +342,4 @@ public class HCBrewing extends Feature {
         return Ingredient.fromItem(Item.getItemFromBlock(block));
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,6 +26,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.awt.*;
 import java.util.Random;
 
+@Mod.EventBusSubscriber
 public class VisibleStorms extends Feature {
     public static boolean DUST_STORMS;
     public static boolean SAND_STORMS;
@@ -46,16 +49,11 @@ public class VisibleStorms extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-        DUST_STORMS = loadPropBool("Dust Storms", "Storms are clearly visible in dry biomes.", true);
-        SAND_STORMS = loadPropBool("Sand Storms", "Adds a fog change during storms in deserts.", true);
-        DUST_PARTICLES = loadPropInt("Dust Particle Count", "How many dust particles should be created, too many may contribute to lag.", 2);
-        AIR_PARTICLES = loadPropInt("Air Particle Count", "How many air particles should be created, too many may contribute to lag.", 3);
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
+    public void onInit(FMLInitializationEvent event) {
+        DUST_STORMS = loadProperty("Dust Storms", true).setComment("Storms are clearly visible in dry biomes.").get();
+        SAND_STORMS = loadProperty("Sand Storms", true).setComment("Adds a fog change during storms in deserts.").get();
+        DUST_PARTICLES = loadProperty("Dust Particle Count", 2).setComment("How many dust particles should be created, too many may contribute to lag.").get();
+        AIR_PARTICLES = loadProperty("Air Particle Count", 3).setComment("How many air particles should be created, too many may contribute to lag.").get();
     }
 
     @SideOnly(Side.CLIENT)

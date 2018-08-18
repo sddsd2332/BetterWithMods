@@ -7,11 +7,13 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.Team;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 5/21/17.
  */
+@Mod.EventBusSubscriber
 public class HCNames extends Feature {
 
     @SubscribeEvent
@@ -25,12 +27,6 @@ public class HCNames extends Feature {
             }
         }
     }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
     @Override
     public String getDescription() {
         return "Disables Player Name Tags";

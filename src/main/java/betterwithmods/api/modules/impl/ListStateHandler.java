@@ -3,10 +3,10 @@ package betterwithmods.api.modules.impl;
 import betterwithmods.api.modules.IStateHandler;
 import net.minecraftforge.fml.common.event.*;
 
-import java.util.TreeSet;
+import java.util.HashSet;
 import java.util.function.Consumer;
 
-public class ListStateHandler<T extends IStateHandler> extends TreeSet<T> implements IStateHandler {
+public class ListStateHandler<T extends IStateHandler> extends HashSet<T> implements IStateHandler {
 
     private boolean enabled;
 

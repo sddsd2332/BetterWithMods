@@ -15,6 +15,8 @@ import net.minecraftforge.fml.common.event.*;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
+
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber
 @Mod(modid = BWMod.MODID, name = BWMod.NAME, version = BWMod.VERSION, dependencies = BWMod.DEPENDENCIES, guiFactory = "betterwithmods.client.gui.BWGuiFactory", acceptedMinecraftVersions = "[1.12, 1.13)")
@@ -23,7 +25,7 @@ public class BWMod {
     public static final String VERSION = "${version}";
     public static final String NAME = "Better With Mods";
     public static final String DEPENDENCIES = "before:survivalist;after:traverse;after:thaumcraft;after:natura;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
-    public static final ModuleLoader MODULE_LOADER = new ModuleLoader().addModule(new General());
+    public static final ModuleLoader MODULE_LOADER = new ModuleLoader(new File(BWMod.MODID)).addModule(new General());
 
     public static Logger logger;
     @SuppressWarnings({"CanBeFinal", "unused"})
@@ -53,11 +55,11 @@ public class BWMod {
     }
 
     @Mod.EventHandler
-    public void onInit(FMlInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         BWRegistry.init();
         MODULE_LOADER.onInit(event);
         NetworkRegistry.INSTANCE.registerGuiHandler(instance, new BWGuiHandler());
-        proxy.init(event);
+        proxy.onInit(event);
     }
 
     @Mod.EventHandler

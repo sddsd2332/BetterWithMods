@@ -6,6 +6,7 @@ import net.minecraft.entity.monster.EntityEnderman;
 import net.minecraft.init.Blocks;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -16,8 +17,8 @@ public class RenewableEndstone extends Feature {
     private int chance;
 
     @Override
-    public void setupConfig() {
-        chance = loadPropInt("Chance of Endstone spawning", "1/x chance of spawning with Endstone.", 300);
+    public void onInit(FMLInitializationEvent event) {
+        chance = loadProperty("Chance of Endstone spawning", 300).setComment("1/x chance of spawning with Endstone.").get();
     }
 
     @SubscribeEvent
@@ -36,8 +37,4 @@ public class RenewableEndstone extends Feature {
         return "Endermen spawn with endstone in the End";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

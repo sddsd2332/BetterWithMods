@@ -3,7 +3,6 @@ package betterwithmods.module.gameplay;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
 import betterwithmods.util.CapabilityUtils;
-import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -32,18 +31,19 @@ public class BlastingOil extends Feature {
         return "Make blasting oil very dangerous";
     }
 
-    @Override
-    public void setupConfig() {
-        disableBlastingOilEvents = loadPropBool("Disable Blasting Oil", "Don't process blasting oil explosions, as they are have major performance impact", false);
-        blacklistDamageSources = Lists.newArrayList(loadPropStringList("Blasting oil damage source blacklist", "Disallow these damage sources from disturbing blasting oil", new String[]{
-                "drown",
-                "cramming",
-                "generic",
-                "wither",
-                "starve",
-                "outOfWorld"
-        }));
-    }
+    //TODO
+//    @Override
+//    public void setupConfig() {
+//        disableBlastingOilEvents = loadPropBool("Disable Blasting Oil", "Don't process blasting oil explosions, as they are have major performance impact", false);
+//        blacklistDamageSources = Lists.newArrayList(loadPropStringList("Blasting oil damage source blacklist", "Disallow these damage sources from disturbing blasting oil", new String[]{
+//                "drown",
+//                "cramming",
+//                "generic",
+//                "wither",
+//                "starve",
+//                "outOfWorld"
+//        }));
+//    }
 
     @SubscribeEvent
     public void onPlayerTakeDamage(LivingHurtEvent e) {

@@ -17,6 +17,7 @@ import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.terraingen.BiomeEvent;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
@@ -38,22 +39,16 @@ public class HCVillages extends Feature {
         return "Makes it so villages with in the reaches of the spawn zone are abandoned and gradually gain more resources the further out. What this means to be gained by the player.";
     }
 
-    @Override
-    public void setupConfig() {
-        semiabandonedRadius.set(loadPropInt("Semi-Abandoned Village Radius", "Block radius from 0,0 at which villages are now semi-abandoned, all villages inside this radius are abandoned", 2000));
-        normalRadius.set(loadPropInt("Normal Village Radius", "Block radius from 0,0 at which villages are now normal, all villages in between this and semi-abandoned are semi-abandoned", 3000));
-        disableAllComplexBlocks = loadPropBool("Disable All Complex Blocks", "Removes any and all useful blocks from villages, including ladders, stairs, tables and more", false);
-        disableVillagerSpawning = loadPropBool("Replace Villager Spawning with Nitwits", "Replaces all villager spawns with Nitwits, which have no trades", true);
-        disableIronGolems = loadPropBool("Disable Village Iron Golem Spawns", "WARNING: Stops all non-player created Iron Golem Spawns", true);
-    }
 
     @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
+    public void onInit(FMLInitializationEvent event) {
 
-    @Override
-    public void onInit(FMlInitializationEvent event) {
+        semiabandonedRadius.set(loadProperty("Semi-Abandoned Village Radius", 200).setComment("Block radius from 0,0 at which villages are now semi-abandoned, all villages inside this radius are abandoned").get());
+        normalRadius.set(loadProperty("Normal Village Radius", 3000).setComment("Block radius from 0,0 at which villages are now normal, all villages in between this and semi-abandoned are semi-abandoned").get());
+        disableAllComplexBlocks = loadProperty("Disable All Complex Blocks", false).setComment("Removes any and all useful blocks from villages, including ladders, stairs, tables and more").get();
+        disableVillagerSpawning = loadProperty("Replace Villager Spawning with Nitwits", true).setComment("Replaces all villager spawns with Nitwits, which have no trades").get();
+        disableIronGolems = loadProperty("Disable Village Iron Golem Spawns", true).setComment("WARNING: Stops all non-player created Iron Golem Spawns").get();
+
 
         VillagerRegistry.instance().registerVillageCreationHandler(new BWField1());
         VillagerRegistry.instance().registerVillageCreationHandler(new BWField2());
@@ -136,15 +131,6 @@ public class HCVillages extends Feature {
         }
     }
 
-    @Override
-    public boolean hasTerrainSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }
 
 

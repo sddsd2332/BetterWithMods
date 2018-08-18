@@ -5,7 +5,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockIce;
 import betterwithmods.common.blocks.behaviors.BehaviorFluidContainer;
 import betterwithmods.module.Feature;
-import betterwithmods.module.GlobalConfig;
+import betterwithmods.module.general.General;
 import betterwithmods.util.FluidUtils;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -32,6 +32,7 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -43,12 +44,12 @@ import java.util.List;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class HCBuckets extends Feature {
     public static boolean modifyDispenserBehavior, stopDispenserFillBehavior;
     private static List<String> fluidWhitelist;
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
-    private static boolean fixIce;
     private static Block ICE = new BlockIce().setRegistryName("minecraft:ice").setTranslationKey("ice");
 
     @Override
@@ -57,9 +58,12 @@ public class HCBuckets extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-        dimensionBlacklist = Ints.asList(loadPropIntList("Dimension Black List", "A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to create.", new int[]{DimensionType.THE_END.getId()}));
-        fluidWhitelist = Lists.newArrayList(loadPropStringList("Fluid Whitelist", "List of fluids that will be handled by HCBuckets.", new String[]{
+    public void onPreInit(FMLPreInitializationEvent event) {
+
+
+        dimensionBlacklist = Ints.asList(loadProperty("Dimension Black List", new int[]{DimensionType.THE_END.getId()}).setComment("A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to create.").get());
+
+        fluidWhitelist = Lists.newArrayList(loadProperty("Fluid Whitelist", new String[]{
                 FluidRegistry.WATER.getName(),
                 FluidRegistry.LAVA.getName(),
                 "swamp_water",
@@ -82,19 +86,11 @@ public class HCBuckets extends Feature {
                 "wine",
                 "blood",
                 "purpleslime",
-        }));
-        fixIce = loadPropBool("Fix ice", "Replace ice block so that it does not place water sources when it melts or is broken.", true);
-        modifyDispenserBehavior = loadPropBool("Modify dispenser behavior", "Change how the Dispenser handles buckets when activated.", true);
-        stopDispenserFillBehavior = loadPropBool("Stop Dispenser Fill Behavior", "Disallow the dispenser from using an empty bucket for anything.", false);
-    }
+        }).setComment("List of fluids that will be handled by HCBuckets.").get());
+        boolean fixIce = loadProperty("Fix ice", true).setComment("Replace ice block so that it does not place water sources when it melts or is broken.").get();
+        modifyDispenserBehavior = loadProperty("Modify dispenser behavior", true).setComment("Change how the Dispenser handles buckets when activated.").get();
+        stopDispenserFillBehavior = loadProperty("Stop Dispenser Fill Behavior", false).setComment("Disallow the dispenser from using an empty bucket for anything.").get();
 
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
         if (fixIce) {
             BWMBlocks.registerBlock(ICE);
         }
@@ -104,7 +100,7 @@ public class HCBuckets extends Feature {
     public void onInit(FMLInitializationEvent event) {
         //TODO dispenser behavior; for water and lava bucket
 
-        fluidcontainerBacklist = configHelper.loadPropRLList("Fluid container blacklist", configCategory, "Blacklist itemstacks from being effected by HCBuckets", new String[]{
+        fluidcontainerBacklist = config().loadResouceLocations("Fluid container blacklist", getName(), "Blacklist itemstacks from being effected by HCBuckets", new String[]{
                 "thermalcultivation:watering_can"
         });
 
@@ -119,11 +115,6 @@ public class HCBuckets extends Feature {
                 BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(item, BehaviorFluidContainer.getInstance());
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
 
@@ -226,7 +217,7 @@ public class HCBuckets extends Feature {
                 }
             }
 
-            if (GlobalConfig.debug) {
+            if (General.isDebug()) {
                 event.getEntityPlayer().sendMessage(new TextComponentTranslation("FillBucketEvent: %s,%s,%s,%s", event.getTarget().getBlockPos(), event.getTarget().typeOfHit, event.getEmptyBucket() != null ? event.getEmptyBucket().getDisplayName() : null, event.getFilledBucket() != null ? event.getFilledBucket().getDisplayName() : null));
                 BWMod.getLog().info("FillBucketEvent: {}, {}, {}", event.getTarget(), event.getEmptyBucket(), event.getFilledBucket());
             }

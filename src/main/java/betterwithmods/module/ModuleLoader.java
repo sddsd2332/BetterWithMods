@@ -20,6 +20,7 @@ import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import org.apache.logging.log4j.Logger;
 
+import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
@@ -34,6 +35,11 @@ public class ModuleLoader extends ListStateHandler<Module> {
     private Set<Class<? extends Feature>> enabledFeatures = Sets.newHashSet();
 
     private Logger logger;
+    private File relativeConfigDir;
+
+    public ModuleLoader(File relativeConfigDir) {
+        this.relativeConfigDir = relativeConfigDir;
+    }
 
     public ModuleLoader addModule(Module module) {
         this.add(module);
@@ -51,7 +57,7 @@ public class ModuleLoader extends ListStateHandler<Module> {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         forEach(module -> {
-            List<Feature> feature = module.setup(event.getModConfigurationDirectory(), getLogger());
+            List<Feature> feature = module.setup(new File(event.getModConfigurationDirectory(), relativeConfigDir.getPath()), getLogger());
             //Add all feature classes to the set;
             enabledFeatures.addAll(feature.stream().map(Feature::getClass).collect(Collectors.toSet()));
         });
@@ -70,5 +76,7 @@ public class ModuleLoader extends ListStateHandler<Module> {
             return () -> JSON_CONDITIONS.getOrDefault(enabled, false);
         }
     }
+
+
 
 }

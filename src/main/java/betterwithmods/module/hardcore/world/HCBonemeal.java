@@ -29,17 +29,11 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class HCBonemeal extends Feature {
     public static StackIngredient FERTILIZERS = StackIngredient.fromStacks(new ItemStack(BWMItems.FERTILIZER), new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()));
-    private static boolean removeBonemealRecipe;
 
     //TODO find a better solution to adding valid stacks to an ingredient.
     @Deprecated
     public static void registerFertilizer(ItemStack stack) {
         FERTILIZERS = StackIngredient.mergeStacked(Lists.newArrayList(FERTILIZERS, StackIngredient.fromStacks(stack)));
-    }
-
-    @Override
-    public void setupConfig() {
-        removeBonemealRecipe = loadPropBool("Remove Bonemeal Crafting Recipe", "Removes Bonemeal from Crafting Table", true);
     }
 
     @Override
@@ -49,6 +43,7 @@ public class HCBonemeal extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
+        boolean removeBonemealRecipe = loadProperty("Remove Bonemeal Crafting Recipe", true).get();
         if (removeBonemealRecipe)
             BWMRecipes.removeRecipe(new ItemStack(Items.DYE, 3, EnumDyeColor.WHITE.getDyeDamage()));
     }
@@ -88,8 +83,4 @@ public class HCBonemeal extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

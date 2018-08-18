@@ -15,6 +15,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -28,6 +29,7 @@ import java.util.stream.Collectors;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class HCPiles extends Feature {
     public static final Map<IBlockState, ItemStack> blockStateToPile = new HashMap<>();
     public static boolean keepSoilDrops;
@@ -51,17 +53,9 @@ public class HCPiles extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-        keepSoilDrops = loadPropBool("Soil Blocks Keep Their Drops", "Blocks affected by HC Piles that drop things other than themselves will keep those drops.", false);
-    }
-
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-    @Override
     public void onInit(FMLInitializationEvent event) {
+        keepSoilDrops = loadProperty("Soil Blocks Keep Their Drops", true).setComment("Blocks affected by HC Piles that drop things other than themselves will keep those drops.").get();
+
         BrokenToolRegistry.init();
         registerPile(Blocks.DIRT, new ItemStack(BWMItems.DIRT_PILE, 3));
         registerPile(Blocks.DIRT, 1, new ItemStack(BWMItems.DIRT_PILE, 3));
@@ -111,8 +105,4 @@ public class HCPiles extends Feature {
         return "Makes soils drop 75% of their content if not broken with a shovel to incentivize the use of shovels";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

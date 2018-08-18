@@ -109,27 +109,18 @@ public class HCStumping extends Feature {
     }
 
 
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public void setupConfig() {
-        BLACKLIST_CONFIG = loadPropStringList("Stump Blacklist", "Logs which do not create stumps", new String[0]);
-        for (String block : BLACKLIST_CONFIG) {
-            STUMP_BLACKLIST.add(Block.REGISTRY.getObject(new ResourceLocation(block)));
-        }
-        SPEED_UP_WITH_TOOLS = loadPropBool("Speed up with tool", "Speed up Stump mining with tools", true);
-        STUMP_BREAK_SPEED = (float) loadPropDouble("Stump Break speed", "Base break speed of stumps, scaled by tool speed option", 0.03f);
-        ROOT_BREAK_SPEED = (float) loadPropDouble("Root Break speed", "Base break speed of roots, scaled by tool speed option", 0.01f);
-        CTM = loadPropBool("CTM Support", "Use ConnectedTextureMod to show the stumps", true);
-    }
+    //TODO HCStumping subscribe
+//    @Override
+//    public void setupConfig() {
+//        BLACKLIST_CONFIG = loadPropStringList("Stump Blacklist", "Logs which do not create stumps", new String[0]);
+//        for (String block : BLACKLIST_CONFIG) {
+//            STUMP_BLACKLIST.add(Block.REGISTRY.getObject(new ResourceLocation(block)));
+//        }
+//        SPEED_UP_WITH_TOOLS = loadPropBool("Speed up with tool", "Speed up Stump mining with tools", true);
+//        STUMP_BREAK_SPEED = (float) loadPropDouble("Stump Break speed", "Base break speed of stumps, scaled by tool speed option", 0.03f);
+//        ROOT_BREAK_SPEED = (float) loadPropDouble("Root Break speed", "Base break speed of roots, scaled by tool speed option", 0.01f);
+//        CTM = loadPropBool("CTM Support", "Use ConnectedTextureMod to show the stumps", true);
+//    }
 
     @SubscribeEvent
     public void onBlockPlaced(BlockEvent.PlaceEvent event) {

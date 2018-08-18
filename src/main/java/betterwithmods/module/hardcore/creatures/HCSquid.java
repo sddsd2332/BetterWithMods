@@ -22,11 +22,6 @@ public class HCSquid extends Feature {
         return "Fear the squid...";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
     @SuppressWarnings("unchecked")
     @SubscribeEvent
     public void addEntityAI(EntityJoinWorldEvent event) {

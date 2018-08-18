@@ -12,17 +12,20 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
  * Created by primetoxinz on 5/16/17.
  */
 public class TurntableRecipes extends Feature {
-    public TurntableRecipes() {
-        canDisable = false;
+
+    @Override
+    protected boolean canEnable() {
+        return true;
     }
 
     @Override
-    public void onInit(FMlInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
 
         BWRegistry.TURNTABLE.addDefaultRecipe(new ItemStack(Blocks.CLAY), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
         BWRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER));
@@ -80,5 +83,10 @@ public class TurntableRecipes extends Feature {
             }
         });
         TurntableRotationManager.addRotationHandler(block -> block instanceof BlockPistonBase, (world, pos) -> !world.getBlockState(pos).getValue(BlockPistonBase.EXTENDED));
+    }
+
+    @Override
+    public String getDescription() {
+        return null;
     }
 }

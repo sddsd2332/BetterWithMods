@@ -9,6 +9,8 @@ import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Arrays;
@@ -19,6 +21,7 @@ import java.util.stream.Collectors;
 /**
  * Created by primetoxinz on 4/22/17.
  */
+@Mod.EventBusSubscriber
 public class HCHunting extends Feature {
 
     private static final Predicate<ItemStack> isMeat = stack -> BWOreDictionary.isOre(stack, "listAllmeat");
@@ -27,10 +30,12 @@ public class HCHunting extends Feature {
     public static List<Class> zombiesAttack, spiderAttack;
 
     @Override
-    public void setupConfig() {
-        spidersShootWebs = loadPropBool("Spiders Shoot Web", "Spiders shoot webs at targets", true);
-        String[] zombieStrings = loadPropStringList("Mobs Zombies Attack", "List of entity classes which zombies will attack", new String[]{"net.minecraft.entity.passive.EntityCow", "net.minecraft.entity.passive.EntitySheep", "net.minecraft.entity.passive.EntityPig", "net.minecraft.entity.passive.EntityLlama"});
-        String[] spiderStrings = loadPropStringList("Mobs Spider Attack", "List of entity classes which spiders will attack", new String[]{"net.minecraft.entity.passive.EntityChicken", "net.minecraft.entity.passive.EntityRabbit",});
+    public void onInit(FMLInitializationEvent event) {
+        spidersShootWebs = loadProperty("Spiders Shoot Web", true).get();
+
+
+        String[] zombieStrings = loadProperty("Mobs Zombies Attack", new String[]{"net.minecraft.entity.passive.EntityCow", "net.minecraft.entity.passive.EntitySheep", "net.minecraft.entity.passive.EntityPig", "net.minecraft.entity.passive.EntityLlama"}).setComment("List of entity classes which zombies will attack").get();
+        String[] spiderStrings = loadProperty("Mobs Spider Attack", new String[]{"net.minecraft.entity.passive.EntityChicken", "net.minecraft.entity.passive.EntityRabbit",}).setComment("List of entity classes which spiders will attack").get();
         zombiesAttack = Arrays.stream(zombieStrings).map(clazz -> {
             try {
                 return Class.forName(clazz);
@@ -46,6 +51,7 @@ public class HCHunting extends Feature {
             return null;
         }).collect(Collectors.toList());
     }
+
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
@@ -74,8 +80,4 @@ public class HCHunting extends Feature {
         return "Makes it so Mobs hunt other animals too. Zombies attack herd animals, Spiders eat Chickens, Wolves will eat anything";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

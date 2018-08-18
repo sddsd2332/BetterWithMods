@@ -182,17 +182,17 @@ public class ConfigHelper {
     @SuppressWarnings("unchecked")
     public <T> ConfigProperty<T> load(String category, String property, T value) {
         ConfigProperty<T> prop = null;
-        if (value instanceof Boolean) {
+        if (Boolean.class.isInstance(value)) {
             prop = (ConfigProperty<T>) new BooleanProperty(config, property, category, (Boolean) value);
-        } else if (value instanceof Integer) {
+        } else if (Integer.class.isInstance(value)) {
             prop = (ConfigProperty<T>) new IntProperty(config, property, category, (Integer) value);
         } else if (value instanceof String) {
             prop = (ConfigProperty<T>) new StringProperty(config, property, category, (String) value);
-        } else if (value instanceof Double) {
+        } else if (Double.class.isInstance(value)) {
             prop = (ConfigProperty<T>) new DoubleProperty(config, property, category, (Double) value);
-        } else if(value instanceof Float){
+        } else if (Float.class.isInstance(value)) {
             prop = (ConfigProperty<T>) new FloatProperty(config, property, category, (Float) value);
-        } if (value instanceof String[]) {
+        } else if (value instanceof String[]) {
             prop = (ConfigProperty<T>) new StringArrayProperty(config, property, category, (String[]) value);
         } else if (value instanceof int[]) {
             prop = (ConfigProperty<T>) new IntArrayProperty(config, property, category, (int[]) value);

@@ -2,13 +2,15 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.module.Feature;
 import net.minecraft.init.Blocks;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
  * Created by primetoxinz on 5/14/17.
  */
+
 public class RSBlockGlow extends Feature {
     @Override
-    public void onInit(FMlInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         Blocks.REDSTONE_BLOCK.setLightLevel(0.7F);
     }
 

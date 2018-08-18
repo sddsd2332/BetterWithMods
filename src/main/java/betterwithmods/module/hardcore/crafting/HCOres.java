@@ -25,39 +25,35 @@ import java.util.stream.Collectors;
  */
 public class HCOres extends Feature {
 
-    private static boolean oreNuggetSmelting, dustNuggetSmelting, fixVanillaRecipes;
+    private static boolean oreNuggetSmelting;
+    private static boolean dustNuggetSmelting;
     private static Set<String> oreExclude, dustExclude;
     private static int oreProductionCount, dustProductionCount;
 
     public HCOres() {
     }
 
-    @Override
-    public void setupConfig() {
-        oreNuggetSmelting = loadPropBool("Ore to Nugget Smelting", "Make Ores (oredict ore.* )smelt into nuggets instead of ingots", true);
 
-        oreExclude = Arrays.stream(loadPropStringList("Ore Exclude", "Oredictionary entries to exclude from ore to nugget smelting. Remove the prefix of the oredictionary. example 'oreIron' would be just 'iron' ", new String[0])).collect(Collectors.toSet());
-        dustExclude = Arrays.stream(loadPropStringList("Dust Exclude", "Oredictionary entries to exclude from dust to nugget smelting  Remove the prefix of the oredictionary. example 'dustIron' would be just 'iron'", new String[0])).collect(Collectors.toSet());
-
-        dustNuggetSmelting = loadPropBool("Dust to Nugget Smelting", "Make Dusts ( oredict dust.* ) smelt into nuggets instead of ingots", true);
-        fixVanillaRecipes = loadPropBool("Fix Vanilla Recipes", "Make certain recipes cheaper to be more reasonable with nugget smelting, including Compass, Clock, and Bucket", true);
-
-        oreProductionCount = loadPropInt("Ore Production Count", "Number of Materials returned from Smelting an Ore", 1);
-        dustProductionCount = loadPropInt("Dust Production Count", "Number of Materials returned from Smelting a Dust", 1);
-    }
 
     @Override
     public String getDescription() {
         return "Makes Ores only smelt into a single nugget, making it much harder to create large amounts of metal";
     }
-
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
     @Override
     public void onInit(FMLInitializationEvent event) {
+
+        oreNuggetSmelting = loadProperty("Ore to Nugget Smelting", true).setComment("Make Ores (oredict ore.* )smelt into nuggets instead of ingots").get();
+
+        oreExclude = Arrays.stream(loadProperty("Ore Exclude", new String[0]).setComment(  "Oredictionary entries to exclude from ore to nugget smelting. Remove the prefix of the oredictionary. example 'oreIron' would be just 'iron' ").get()).collect(Collectors.toSet());
+        dustExclude = Arrays.stream(loadProperty("Dust Exclude",new String[0]).setComment("Oredictionary entries to exclude from dust to nugget smelting  Remove the prefix of the oredictionary. example 'dustIron' would be just 'iron'").get()).collect(Collectors.toSet());
+
+        dustNuggetSmelting = loadProperty("Dust to Nugget Smelting", true).setComment( "Make Dusts ( oredict dust.* ) smelt into nuggets instead of ingots").get();
+        boolean fixVanillaRecipes = loadProperty("Fix Vanilla Recipes", true).setComment("Make certain recipes cheaper to be more reasonable with nugget smelting, including Compass, Clock, and Bucket").get();
+
+        oreProductionCount = loadProperty("Ore Production Count", 1).setComment("Number of Materials returned from Smelting an Ore").get();
+        dustProductionCount = loadProperty("Dust Production Count", 1).setComment("Number of Materials returned from Smelting a Dust").get();
+
+
         if (fixVanillaRecipes) {
 
             BWMRecipes.removeRecipe(Items.COMPASS.getRegistryName());
@@ -93,21 +89,22 @@ public class HCOres extends Feature {
 //            }
         });
     }
+//TODO
+//    @Override
+//    public void disabledInit(FMLInitializationEvent event) {
+//        addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_INGOT, 3));
+//        addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
+//        addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
+//        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_INGOT, 4));
+//        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_INGOT, 4));
+//        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_INGOT));
+//        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_INGOT, 4));
+//    }
+//
+
 
     @Override
-    public void disabledInit(FMLInitializationEvent event) {
-        addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_INGOT, 3));
-        addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
-        addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
-        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_INGOT, 4));
-        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_INGOT, 4));
-        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_INGOT));
-        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_INGOT, 4));
-    }
-
-
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    public void onPostInit(FMLPostInitializationEvent event) {
         Set<String> oreExcludes = Sets.union(oreExclude, Sets.newHashSet("oreDiamond"));
         if (oreNuggetSmelting) {
             for (BWOreDictionary.Ore ore : BWOreDictionary.oreNames) {

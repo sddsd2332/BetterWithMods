@@ -28,21 +28,21 @@ import net.minecraftforge.oredict.OreDictionary;
  * Created by primetoxinz on 5/16/17.
  */
 public class SawRecipes extends Feature {
-    private static int plankCount, barkCount, sawDustCount;
 
-    public SawRecipes() {
-        canDisable = false;
+    @Override
+    public String getDescription() {
+        return null;
     }
 
     @Override
-    public void setupConfig() {
-        plankCount = loadPropInt("Saw Plank Output", "Plank count that is output when a log is chopped by a Saw.", 4);
-        barkCount = loadPropInt("Saw Bark Output", "Bark count that is output when a log is chopped by a Saw.", 1);
-        sawDustCount = loadPropInt("Saw sawdust Output", "Sawdust count that is output when a log is chopped by a Saw.", 2);
+    protected boolean canEnable() {
+        return true;
     }
 
     @Override
     public void onInit(FMLInitializationEvent event) {
+
+
         BWRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.PUMPKIN, 0, OreDictionary.WILDCARD_VALUE));
         BWRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.VINE));
         BWRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.YELLOW_FLOWER));
@@ -70,15 +70,13 @@ public class SawRecipes extends Feature {
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
-        int count = BWMod.MODULE_LOADER.isFeatureEnabled(HCLumber.class) ? 4 : 6;
+    public void onPostInit(FMLPostInitializationEvent event) {
+        int plankCount = loadProperty("Saw Plank Output", 4).setComment("Plank count that is output when a log is chopped by a Saw.").get();
+        int barkCount = loadProperty("Saw Bark Output", 1).setComment("Bark count that is output when a log is chopped by a Saw.").get();
+        int sawDustCount = loadProperty("Saw sawdust Output", 2).setComment("Sawdust count that is output when a log is chopped by a Saw.").get();
         for (IBlockVariants wood : BWOreDictionary.blockVariants) {
-            BWRegistry.WOOD_SAW.addRecipe(new BlockDropIngredient(wood.getVariant(IBlockVariants.EnumBlock.LOG, 1)), Lists.newArrayList(wood.getVariant(IBlockVariants.EnumBlock.BLOCK, count), wood.getVariant(IBlockVariants.EnumBlock.BARK, 1), wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, 2)));
+            BWRegistry.WOOD_SAW.addRecipe(new BlockDropIngredient(wood.getVariant(IBlockVariants.EnumBlock.LOG, 1)), Lists.newArrayList(wood.getVariant(IBlockVariants.EnumBlock.BLOCK, plankCount), wood.getVariant(IBlockVariants.EnumBlock.BARK, barkCount), wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, sawDustCount)));
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

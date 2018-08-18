@@ -27,8 +27,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -46,10 +44,9 @@ public class LongBoi extends Feature {
     public String getDescription() {
         return "Long Bois!";
     }
-
-    @SideOnly(Side.CLIENT)
+    
     @Override
-    public void preInitClient(FMLPreInitializationEvent event) {
+    public void onPreInitClient(FMLPreInitializationEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(EntityLongboi.class, RenderLongboi::new);
     }
 

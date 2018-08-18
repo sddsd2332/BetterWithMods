@@ -18,10 +18,10 @@ public class HCHopper extends Feature {
 
     private static Block HOPPER = new BlockHopper().setRegistryName("minecraft:hopper").setTranslationKey("hopper");
 
-
-    public HCHopper() {
+    @Override
+    protected boolean isEnabledByDefault() {
+        return false;
     }
-
 
     @Override
     public String getDescription() {

@@ -59,8 +59,4 @@ public class HCDiamond extends Feature {
     }
 
 
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
 }

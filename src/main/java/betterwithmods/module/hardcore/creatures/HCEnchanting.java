@@ -17,6 +17,7 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -24,6 +25,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+@Mod.EventBusSubscriber
 public class HCEnchanting extends Feature {
     private static final HashMap<Class<? extends EntityLivingBase>, ScrollDrop> SCROLL_DROPS = Maps.newHashMap();
 
@@ -56,13 +58,6 @@ public class HCEnchanting extends Feature {
         SCROLL_DROPS.put(clazz, scroll);
     }
 
-    @Override
-    public void setupConfig() {
-        steelRequiresInfernal = loadPropBool("Steel Requires Infernal Enchanter", "Soulforged Steel tools can only be enchanted with the Infernal Enchanter", true);
-        dropChance = loadPropDouble("Arcane Scroll Drop Chance", "Percentage chance that an arcane scroll will drop, does not effect some scrolls.", 0.001);
-        lootingDropBonus = loadPropDouble("Arcane Scroll Looting Bonus Multiplier", "Increase the chance of getting a scroll with looting enchants baseChance * ( lootingDropBonus * lootingLevel)", 0.1);
-        fuckMending = loadPropBool("Disable Mending", "Mending is a bad unbalanced pile of poo", true);
-    }
 
     @Override
     public String getDescription() {
@@ -71,6 +66,11 @@ public class HCEnchanting extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
+
+        steelRequiresInfernal = loadProperty("Steel Requires Infernal Enchanter", true).setComment("Soulforged Steel tools can only be enchanted with the Infernal Enchanter").get();
+        dropChance = loadProperty("Arcane Scroll Drop Chance", 0.001).setComment("Percentage chance that an arcane scroll will drop, does not effect some scrolls.").get();
+        lootingDropBonus = loadProperty("Arcane Scroll Looting Bonus Multiplier", 0.1).setComment("Increase the chance of getting a scroll with looting enchants baseChance * ( lootingDropBonus * lootingLevel)").get();
+        fuckMending = loadProperty("Disable Mending", true).setComment("Mending is a bad unbalanced pile of poo").get();
 
         addScrollDrop(EntitySlime.class, Enchantments.PROTECTION);
         addScrollDrop(EntityPigZombie.class, Enchantments.FIRE_PROTECTION);
@@ -153,10 +153,6 @@ public class HCEnchanting extends Feature {
          */
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 
     @SubscribeEvent
     public void onDeath(LivingDropsEvent event) {
@@ -173,23 +169,23 @@ public class HCEnchanting extends Feature {
         }
     }
 
+    @SubscribeEvent
+    public void onTick(TickEvent.PlayerTickEvent event) {
+        if (!event.player.getEntityWorld().isRemote) {
+            int mod = EnchantmentHelper.getRespirationModifier(event.player);
+            if (mod >= 5) {
+                event.player.setAir(300);
+            }
+        }
+    }
+
+
     @FunctionalInterface
     public interface ScrollDrop {
         ItemStack getScroll(EntityLivingBase entity);
 
         default double getChance() {
             return dropChance;
-        }
-    }
-
-
-    @SubscribeEvent
-    public void onTick(TickEvent.PlayerTickEvent event) {
-        if(!event.player.getEntityWorld().isRemote) {
-            int mod = EnchantmentHelper.getRespirationModifier(event.player);
-            if(mod >= 5) {
-                event.player.setAir(300);
-            }
         }
     }
 }

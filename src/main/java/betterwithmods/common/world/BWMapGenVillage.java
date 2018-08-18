@@ -3,7 +3,7 @@ package betterwithmods.common.world;
 import betterwithmods.common.world.gen.village.AbandonedVillagePiece;
 import betterwithmods.common.world.gen.village.Well;
 import betterwithmods.common.world.gen.village.field.BWFieldBase;
-import betterwithmods.module.GlobalConfig;
+import betterwithmods.module.general.General;
 import betterwithmods.module.hardcore.world.HCVillages;
 import betterwithmods.util.ReflectionLib;
 import com.google.common.collect.Lists;
@@ -77,7 +77,7 @@ public class BWMapGenVillage extends MapGenVillage {
     @Override
     protected StructureStart getStructureStart(int x, int z) {
         VillageStatus status = VillageStatus.getStatus(x, z);
-        if (GlobalConfig.debug)
+        if (General.isDebug())
             System.out.printf("%s <%s,%s> /tp %s ~ %s\n", status.name().toLowerCase(), x, z, x * 16, z * 16);
         return new AbandonedStart(this.world, this.rand, x, z, getSize(), status);
     }
@@ -102,7 +102,7 @@ public class BWMapGenVillage extends MapGenVillage {
         }
 
         public boolean inRadius(int x, int z) {
-            if (GlobalConfig.debug)
+            if (General.isDebug())
                 System.out.printf("Checking %s @a <%s,%s> r:%s\n", this.name(), x, z, radius);
             return Math.abs(x) >= radius || Math.abs(z) >= radius;
         }

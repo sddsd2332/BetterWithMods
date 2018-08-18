@@ -16,6 +16,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -25,9 +26,9 @@ public class HeadDrops extends Feature {
     private int sawHeadDropChance, battleAxeHeadDropChance;
 
     @Override
-    public void setupConfig() {
-        sawHeadDropChance = loadPropInt("Saw Drop Chance", "Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely", 3);
-        battleAxeHeadDropChance = loadPropInt("BattleAxe Drop Chance", "Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely", 3);
+    public void onInit(FMLInitializationEvent event) {
+        sawHeadDropChance = loadProperty("Saw Drop Chance",3).setComment("Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely").get();
+        battleAxeHeadDropChance = loadProperty("BattleAxe Drop Chance", 3).setComment("Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely").get();
     }
 
     @Override
@@ -81,8 +82,4 @@ public class HeadDrops extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

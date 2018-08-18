@@ -6,10 +6,12 @@ import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.UUID;
 
+@Mod.EventBusSubscriber
 public class HCBabyZombies extends Feature {
     private static final UUID BABY_SLOWNESS_ID = UUID.fromString("1bb3fa0f-1ae3-4293-bda9-2c56adb0b49d");
     private static final UUID BABY_DAMAGE_ID = UUID.fromString("bdaf090f-6d0c-4c4f-bc18-0c117c5f312f");
@@ -40,8 +42,4 @@ public class HCBabyZombies extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

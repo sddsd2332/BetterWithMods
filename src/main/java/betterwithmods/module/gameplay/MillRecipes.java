@@ -27,19 +27,21 @@ public class MillRecipes extends Feature {
     private boolean grindingOnly;
 
 
-    public MillRecipes() {
-        canDisable = false;
+    @Override
+    public String getDescription() {
+        return null;
     }
 
-
     @Override
-    public void setupConfig() {
-        grindingOnly = loadPropBool("Grinding Only", "Remove normal recipes for certain grindable items", true);
+    protected boolean canEnable() {
+        return true;
     }
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        super.onPreInit(event);
+
+        grindingOnly = loadProperty("Grinding Only", true).setComment("Remove normal recipes for certain grindable items").get();
+
         if (grindingOnly) {
             BWMRecipes.removeRecipe(new ItemStack(Items.SUGAR));
             BWMRecipes.removeRecipe(new ItemStack(Items.BLAZE_POWDER));
@@ -80,6 +82,7 @@ public class MillRecipes extends Feature {
         BWRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropRye"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
         BWRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropRice"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
     }
+
 }
 
 

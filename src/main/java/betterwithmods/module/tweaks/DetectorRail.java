@@ -31,11 +31,12 @@ public class DetectorRail extends Feature {
         return "Change what detector rails detect; Wooden:all minecarts; Stone: carts containing something, SFS: carts with players.";
     }
 
-    @Override
-    public void preInitClient(FMLPreInitializationEvent event) {
-        overrideBlock("rail_detector");
-        overrideBlock("rail_detector_powered");
-    }
+    //TODO
+//    @Override
+//    public void preInitClient(FMLPreInitializationEvent event) {
+//        overrideBlock("rail_detector");
+//        overrideBlock("rail_detector_powered");
+//    }
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {

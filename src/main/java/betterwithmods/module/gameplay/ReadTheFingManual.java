@@ -7,11 +7,13 @@ import betterwithmods.util.InvUtils;
 import betterwithmods.util.TooltipLib;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import java.util.Locale;
 
+@Mod.EventBusSubscriber
 public class ReadTheFingManual extends Feature {
     @SubscribeEvent
     public void onCraftedEvent(PlayerEvent.ItemCraftedEvent event) {
@@ -26,11 +28,6 @@ public class ReadTheFingManual extends Feature {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override

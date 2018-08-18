@@ -1,6 +1,7 @@
 package betterwithmods.api.modules.config;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class StringArrayProperty extends ConfigProperty<String[]> {
 
@@ -9,8 +10,18 @@ public class StringArrayProperty extends ConfigProperty<String[]> {
     }
 
     @Override
-    public String[] get() {
+    public ConfigProperty<String[]> setDefault(String[] defaultValue) {
         property.setDefaultValues(this.defaultValue);
+        return this;
+    }
+
+    @Override
+    public Property createProperty(String category, String property) {
+        return config.get(category,property,defaultValue);
+    }
+
+    @Override
+    public String[] get() {
         return property.getStringList();
     }
 }

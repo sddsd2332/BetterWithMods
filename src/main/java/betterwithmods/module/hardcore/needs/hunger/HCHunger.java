@@ -8,7 +8,7 @@ import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
-import betterwithmods.module.CompatFeature;
+import betterwithmods.module.Feature;
 import betterwithmods.module.hardcore.needs.HCTools;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessageHungerShake;
@@ -35,6 +35,7 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -55,7 +56,9 @@ import squeek.applecore.api.hunger.StarvationEvent;
 /**
  * Created by primetoxinz on 6/20/17.
  */
-public class HCHunger extends CompatFeature {
+
+@Mod.EventBusSubscriber
+public class HCHunger extends Feature {
     public static final Item PUMPKIN_SEEDS = new ItemEdibleSeeds(Blocks.PUMPKIN_STEM, Blocks.FARMLAND, 1, 0).setRegistryName("minecraft:pumpkin_seeds").setTranslationKey("seeds_pumpkin");
     public static final Item BROWN_MUSHROOM = new ItemBlockEdible(Blocks.BROWN_MUSHROOM, 1, 0, false).setRegistryName("minecraft:brown_mushroom").setTranslationKey("brown_mushroom");
     public static final Item RED_MUSHROOM = new ItemBlockEdible(Blocks.RED_MUSHROOM, 1, 0, false).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1).setRegistryName("minecraft:red_mushroom").setTranslationKey("red_mushroom");
@@ -70,24 +73,8 @@ public class HCHunger extends CompatFeature {
     public static HungerPenalties hungerPenalties;
     public static FatPenalties fatPenalties;
 
-    public HCHunger() {
-        super("applecore");
-    }
-
-    @SubscribeEvent
-    public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
-        if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
-            return;
-        //Whether the player can heal
-        Event.Result result = BWRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
-        event.setResult(result);
-    }
-
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWRegistry.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties(this));
-        BWRegistry.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties(this));
-
 
         blockBreakExhaustion = loadProperty("Block Breaking Exhaustion", 0.1f).setComment("Set Exhaustion from breaking a block").get();
         passiveExhaustion = loadProperty("Passive Exhaustion", 3f).setComment("Passive Exhaustion value").get();
@@ -106,6 +93,117 @@ public class HCHunger extends CompatFeature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
+
+        BWRegistry.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties(this));
+        BWRegistry.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties(this));
+
+
+        registerFoods();
+    }
+
+
+    @Override
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(ClientSide.class);
+    }
+
+
+    //Adds Exhaustion when Jumping and cancels Jump if too exhausted
+    @SubscribeEvent
+    public void onJump(LivingEvent.LivingJumpEvent event) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            player.addExhaustion(0.5f);
+        }
+    }
+
+    @SubscribeEvent
+    public void entityConstruct(EntityEvent.EntityConstructing e) {
+        if (e.getEntity() instanceof EntityPlayer) {
+            e.getEntity().getDataManager().register(EXHAUSTION_TICK, 0);
+        }
+    }
+
+    private int getExhaustionTick(EntityPlayer player) {
+        return player.getDataManager().get(EXHAUSTION_TICK);
+    }
+
+    private void setExhaustionTick(EntityPlayer player, int tick) {
+        player.getDataManager().set(EXHAUSTION_TICK, tick);
+    }
+
+    @SubscribeEvent
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (!event.player.world.isRemote && event.phase == TickEvent.Phase.START) {
+            EntityPlayer player = event.player;
+
+            if (!PlayerHelper.isSurvival(player) || player.world.getDifficulty() == EnumDifficulty.PEACEFUL)
+                return;
+            int tick = getExhaustionTick(player);
+
+            int totalTicks = passiveExhaustionTick * (PlayerHelper.isSitting(player) ? 2 : 1);
+
+            if (tick > totalTicks) {
+                BWMod.getLog().debug("Adding Exhaustion ({}) after {} ticks", passiveExhaustion, totalTicks);
+                player.addExhaustion(passiveExhaustion);
+                setExhaustionTick(player, 0);
+            } else {
+                BWMod.getLog().debug(" {} exhaustion ticks", getExhaustionTick(player));
+                setExhaustionTick(player, getExhaustionTick(player) + 1);
+            }
+        }
+    }
+
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onHarvest(BlockEvent.BreakEvent event) {
+        EntityPlayer player = event.getPlayer();
+        if (event.isCanceled() || !PlayerHelper.isSurvival(player))
+            return;
+        World world = event.getWorld();
+        BlockPos pos = event.getPos();
+        IBlockState state = world.getBlockState(pos);
+        ItemStack stack = player.getHeldItemMainhand();
+        String tooltype = state.getBlock().getHarvestTool(state);
+        if (tooltype != null && state.getBlockHardness(world, pos) <= 0 && stack.getItem().getHarvestLevel(stack, tooltype, player, state) < HCTools.noHungerThreshold)
+            return; //doesn't consume hunger if using iron tier axes
+        player.addExhaustion(blockBreakExhaustion - 0.005f);
+    }
+
+    public String getDescription() {
+        return "This Feature REQUIRES AppleCore!!!.\n" +
+                "Completely revamps the hunger system of Minecraft. \n" +
+                "The Saturation value is replaced with Fat. \n" +
+                "Fat will accumulate if too much food is consumed then need to fill the bar.\n" +
+                "Fat will only be burned once the entire hunger bar is emptied \n" +
+                "The more fat the slower you will walk.\n" +
+                "Food Items values are also changed, while a ton of new foods are add.";
+    }
+
+
+    @SideOnly(Side.CLIENT)
+    public static class ClientSide {
+
+        //Replaces Hunger Gui with HCHunger
+        @SubscribeEvent
+        public static void replaceHungerGui(RenderGameOverlayEvent.Pre event) {
+            if (event.getType() == RenderGameOverlayEvent.ElementType.FOOD) {
+                event.setCanceled(true);
+                GuiHunger.INSTANCE.draw();
+            }
+        }
+
+    }
+
+
+
+    /*--------------------------------------------------*/
+    /* Apple core code                                  /*
+    /*--------------------------------------------------*/
+
+
+
+    public void registerFoods() {
         FoodHelper.registerFood(new ItemStack(Items.BEEF), 12);
         FoodHelper.registerFood(new ItemStack(Items.PORKCHOP), 12);
         FoodHelper.registerFood(new ItemStack(Items.RABBIT), 12);
@@ -168,16 +266,22 @@ public class HCHunger extends CompatFeature {
         FoodHelper.registerFood(new ItemStack(Items.COOKIE), 3, 3, true);
         FoodHelper.registerFood(new ItemStack(Items.PUMPKIN_PIE), 9, 12, true);
         FoodHelper.registerFood(new ItemStack(Items.CAKE), 4, 12, true);
-        FoodHelper.registerFood(new ItemStack(PUMPKIN_SEEDS), 1);
+        FoodHelper.registerFood(new ItemStack(HCHunger.PUMPKIN_SEEDS), 1);
 
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
     }
 
 
-    @Override
-    public void onPreInitClient(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(ClientSide.class);
+
+    @SubscribeEvent
+    public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
+        if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
+            return;
+        //Whether the player can heal
+        Event.Result result = BWRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
+        event.setResult(result);
     }
+
 
     //Changes food to correct value.
     @SubscribeEvent
@@ -230,15 +334,6 @@ public class HCHunger extends CompatFeature {
         }
     }
 
-    //Adds Exhaustion when Jumping and cancels Jump if too exhausted
-    @SubscribeEvent
-    public void onJump(LivingEvent.LivingJumpEvent event) {
-        if (event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            player.addExhaustion(0.5f);
-        }
-    }
-
     @SubscribeEvent
     public void setMaxFood(HungerEvent.GetMaxHunger event) {
         event.maxHunger = 60;
@@ -256,47 +351,10 @@ public class HCHunger extends CompatFeature {
         event.setResult(Event.Result.DENY);
     }
 
-    @SubscribeEvent
-    public void entityConstruct(EntityEvent.EntityConstructing e) {
-        if (e.getEntity() instanceof EntityPlayer) {
-            e.getEntity().getDataManager().register(EXHAUSTION_TICK, 0);
-        }
-    }
-
-    private int getExhaustionTick(EntityPlayer player) {
-        return player.getDataManager().get(EXHAUSTION_TICK);
-    }
-
-    private void setExhaustionTick(EntityPlayer player, int tick) {
-        player.getDataManager().set(EXHAUSTION_TICK, tick);
-    }
-
-    @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
-        if (!event.player.world.isRemote && event.phase == TickEvent.Phase.START) {
-            EntityPlayer player = event.player;
-
-            if (!PlayerHelper.isSurvival(player) || player.world.getDifficulty() == EnumDifficulty.PEACEFUL)
-                return;
-            int tick = getExhaustionTick(player);
-
-            int totalTicks = passiveExhaustionTick * (PlayerHelper.isSitting(player) ? 2 : 1);
-
-            if (tick > totalTicks) {
-                BWMod.getLog().debug("Adding Exhaustion ({}) after {} ticks", passiveExhaustion, totalTicks);
-                player.addExhaustion(passiveExhaustion);
-                setExhaustionTick(player, 0);
-            } else {
-                BWMod.getLog().debug(" {} exhaustion ticks", getExhaustionTick(player));
-                setExhaustionTick(player, getExhaustionTick(player) + 1);
-            }
-        }
-    }
-
     //Shake Hunger bar whenever any exhaustion is given?
     @SubscribeEvent
     public void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
-        if (event.deltaExhaustion >= blockBreakExhaustion) {
+        if (event.deltaExhaustion >= HCHunger.blockBreakExhaustion) {
             if (event.player instanceof EntityPlayerMP)
                 BWNetwork.INSTANCE.sendTo(new MessageHungerShake(), (EntityPlayerMP) event.player);
             else
@@ -316,45 +374,7 @@ public class HCHunger extends CompatFeature {
         event.player.attackEntityFrom(DamageSource.STARVE, 1);
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onHarvest(BlockEvent.BreakEvent event) {
-        EntityPlayer player = event.getPlayer();
-        if (event.isCanceled() || !PlayerHelper.isSurvival(player))
-            return;
-        World world = event.getWorld();
-        BlockPos pos = event.getPos();
-        IBlockState state = world.getBlockState(pos);
-        ItemStack stack = player.getHeldItemMainhand();
-        String tooltype = state.getBlock().getHarvestTool(state);
-        if (tooltype != null && state.getBlockHardness(world, pos) <= 0 && stack.getItem().getHarvestLevel(stack, tooltype, player, state) < HCTools.noHungerThreshold)
-            return; //doesn't consume hunger if using iron tier axes
-        player.addExhaustion(blockBreakExhaustion - 0.005f);
-    }
 
-    public String getDescription() {
-        return "This Feature REQUIRES AppleCore!!!.\n" +
-                "Completely revamps the hunger system of Minecraft. \n" +
-                "The Saturation value is replaced with Fat. \n" +
-                "Fat will accumulate if too much food is consumed then need to fill the bar.\n" +
-                "Fat will only be burned once the entire hunger bar is emptied \n" +
-                "The more fat the slower you will walk.\n" +
-                "Food Items values are also changed, while a ton of new foods are add.";
-    }
-
-
-    @SideOnly(Side.CLIENT)
-    public static class ClientSide {
-
-        //Replaces Hunger Gui with HCHunger
-        @SubscribeEvent
-        public static void replaceHungerGui(RenderGameOverlayEvent.Pre event) {
-            if (event.getType() == RenderGameOverlayEvent.ElementType.FOOD) {
-                event.setCanceled(true);
-                GuiHunger.INSTANCE.draw();
-            }
-        }
-
-    }
 
 
 }

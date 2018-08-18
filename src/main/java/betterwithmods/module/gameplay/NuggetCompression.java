@@ -17,7 +17,7 @@ public class NuggetCompression extends Feature {
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    public void onPostInit(FMLPostInitializationEvent event) {
         for (BWOreDictionary.Ore ingot : BWOreDictionary.ingotNames) {
             String suffix = ingot.getSuffix();
             if (!ingot.getOres().isEmpty() && suffix != null) {

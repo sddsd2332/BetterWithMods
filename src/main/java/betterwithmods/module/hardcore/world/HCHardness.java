@@ -74,11 +74,6 @@ public class HCHardness extends Feature {
     }
 
     @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-    @Override
     public void onInit(FMLInitializationEvent event) {
         applyHCHardness();
     }

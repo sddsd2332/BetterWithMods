@@ -13,11 +13,13 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
+@Mod.EventBusSubscriber
 public class HCSapling extends Feature {
 
     public static List<SaplingConversion> SAPLING_CONVERSIONS = Lists.newArrayList();
@@ -54,11 +56,6 @@ public class HCSapling extends Feature {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     public class SaplingConversion {

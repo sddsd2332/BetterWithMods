@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.MapGenStructureIO;
 import net.minecraftforge.event.terraingen.InitMapGenEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -18,9 +19,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class HCStructures extends Feature {
     public static int HARDCORE_STRUCTURE_RADIUS;
-    private boolean disableRecipes;
 
     public static boolean isInRadius(World world, int x, int z) {
         BlockPos center = world.getSpawnPoint();
@@ -33,19 +34,13 @@ public class HCStructures extends Feature {
                 "Also makes unlooted structures the only source of Enchanting Tables and Brewing Stands.";
     }
 
-    @Override
-    public void setupConfig() {
-        HARDCORE_STRUCTURE_RADIUS = loadPropInt("Hardcore Structure Radius", "Radius from original spawn which structures will be abandoned in", 2000);
-        disableRecipes = loadPropBool("Disable Recipes", "Disable Recipes for blocks that generate only in structures, including Enchanting Tables and Brewing Stands", true);
-    }
-
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
+
+        HARDCORE_STRUCTURE_RADIUS = loadProperty("Hardcore Structure Radius", 2000).setComment("Radius from original spawn which structures will be abandoned in").get();
+        boolean disableRecipes = loadProperty("Disable Recipes", true).setComment("Disable Recipes for blocks that generate only in structures, including Enchanting Tables and Brewing Stands").get();
+
         if (disableRecipes) {
             BWMRecipes.removeRecipe(new ItemStack(Blocks.ENCHANTING_TABLE));
             BWMRecipes.removeRecipe(new ItemStack(Items.BREWING_STAND));
@@ -67,13 +62,4 @@ public class HCStructures extends Feature {
             event.setNewGen(new BWMapGenScatteredFeature());
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public boolean hasTerrainSubscriptions() {
-        return true;
-    }
 }

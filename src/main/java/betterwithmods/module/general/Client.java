@@ -24,4 +24,9 @@ public class Client extends Feature {
     public String getDescription() {
         return "Change settings for the Client";
     }
+
+    @Override
+    protected boolean canEnable() {
+        return true;
+    }
 }

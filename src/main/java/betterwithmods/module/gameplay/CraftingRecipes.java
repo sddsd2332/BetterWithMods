@@ -11,7 +11,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
@@ -19,10 +18,10 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
  * Created by primetoxinz on 5/16/17.
  */
 public class CraftingRecipes extends Feature {
-    public CraftingRecipes() {
-        canDisable = false;
+    @Override
+    protected boolean canEnable() {
+        return true;
     }
-
 
     //TODO json registration
     @Override
@@ -51,11 +50,6 @@ public class CraftingRecipes extends Feature {
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.COOKIE), new ItemStack(Items.COOKIE, 16), 0.1F);
     }
 
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
-
-
-    }
 
     @Override
     public String getDescription() {

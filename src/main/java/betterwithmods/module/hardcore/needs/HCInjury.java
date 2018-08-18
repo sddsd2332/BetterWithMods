@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class HCInjury extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWRegistry.PENALTY_HANDLERS.add(new HealthPenalities());
+        BWRegistry.PENALTY_HANDLERS.add(new HealthPenalities(this));
     }
 
     @Override
@@ -19,8 +19,4 @@ public class HCInjury extends Feature {
         return "Add Penalties to lower health levels.";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

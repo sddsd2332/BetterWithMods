@@ -1,62 +1,54 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.module.Module;
-import betterwithmods.module.ModuleLoader;
 
 /**
  * Created by primetoxinz on 4/20/17.
  */
 public class Tweaks extends Module {
-    public Tweaks(ModuleLoader loader) {
-        super(loader);
-    }
 
     @Override
     public void addFeatures() {
-        registerFeature(new FastStick().recipes());
-        registerFeature(new CheaperAxes().recipes());
-        registerFeature(new DetectorRail().recipes());
-        registerFeature(new SaddleRecipe().recipes());
-        registerFeature(new WoolArmor().recipes());
-        registerFeature(new AxeLeaves());
-        registerFeature(new CreeperShearing());
-        registerFeature(new Dung());
-        registerFeature(new EasyBreeding());
-        registerFeature(new MoreTempting());
-        registerFeature(new EggDrops());
-        registerFeature(new EquipmentDrop());
-        registerFeature(new ImprovedFlee());
-        registerFeature(new HeadDrops());
-        registerFeature(new KilnCharcoal());
-        registerFeature(new KilnSmelting());
-        registerFeature(new MobSpawning());
-        registerFeature(new MossGeneration());
-        registerFeature(new RenewableEndstone());
-        registerFeature(new RSBlockGlow());
-        registerFeature(new Sinkholes());
-        registerFeature(new MysteryMeat());
-        registerFeature(new GrassPath());
-        registerFeature(new DarkQuartz());
-        registerFeature(new CactusSkeleton());
-        registerFeature(new BatWings());
-        registerFeature(new FoodPoisoning());
-        registerFeature(new Notes());
-        registerFeature(new MineshaftGeneration());
-        registerFeature(new VisibleStorms());
-        registerFeature(new LongBoi());
-        registerFeature(new MobEating());
-        registerFeature(new LlamaDrops());
-        registerFeature(new BabyJumping());
-        registerFeature(new EnchantmentTooltip());
-        registerFeature(new NoSkeletonTrap());
-        registerFeature(new SilverfishClay());
-        registerFeature(new AnimalBirth());
-        registerFeature(new HopperMinecarts());
-        //        registerFeature(new MushroomFarming());
+        addFeature(new FastStick().recipes());
+        addFeature(new CheaperAxes().recipes());
+        addFeature(new DetectorRail().recipes());
+        addFeature(new SaddleRecipe().recipes());
+        addFeature(new WoolArmor().recipes());
+        addFeature(new AxeLeaves());
+        addFeature(new CreeperShearing());
+        addFeature(new Dung());
+        addFeature(new EasyBreeding());
+        addFeature(new MoreTempting());
+        addFeature(new EggDrops());
+        addFeature(new EquipmentDrop());
+        addFeature(new ImprovedFlee());
+        addFeature(new HeadDrops());
+        addFeature(new KilnCharcoal());
+        addFeature(new KilnSmelting());
+        addFeature(new MobSpawning());
+        addFeature(new MossGeneration());
+        addFeature(new RenewableEndstone());
+        addFeature(new RSBlockGlow());
+        addFeature(new Sinkholes());
+        addFeature(new MysteryMeat());
+        addFeature(new GrassPath());
+        addFeature(new DarkQuartz());
+        addFeature(new CactusSkeleton());
+        addFeature(new BatWings());
+        addFeature(new FoodPoisoning());
+        addFeature(new Notes());
+        addFeature(new MineshaftGeneration());
+        addFeature(new VisibleStorms());
+        addFeature(new LongBoi());
+        addFeature(new MobEating());
+        addFeature(new LlamaDrops());
+        addFeature(new BabyJumping());
+        addFeature(new EnchantmentTooltip());
+        addFeature(new NoSkeletonTrap());
+        addFeature(new SilverfishClay());
+        addFeature(new AnimalBirth());
+        addFeature(new HopperMinecarts());
+
     }
 
-    @Override
-    public String getModuleDescription() {
-        return "General Tweaks to the game, Vanilla or BWM itself";
-    }
 }

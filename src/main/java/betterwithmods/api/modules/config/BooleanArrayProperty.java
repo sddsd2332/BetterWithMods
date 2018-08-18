@@ -1,6 +1,7 @@
 package betterwithmods.api.modules.config;
 
 import net.minecraftforge.common.config.Configuration;
+import net.minecraftforge.common.config.Property;
 
 public class BooleanArrayProperty extends ConfigProperty<boolean[]> {
 
@@ -9,8 +10,18 @@ public class BooleanArrayProperty extends ConfigProperty<boolean[]> {
     }
 
     @Override
-    public boolean[] get() {
+    public ConfigProperty<boolean[]> setDefault(boolean[] defaultValue) {
         property.setDefaultValues(defaultValue);
+        return this;
+    }
+
+    @Override
+    public Property createProperty(String category, String property) {
+        return config.get(category,property,defaultValue);
+    }
+
+    @Override
+    public boolean[] get() {
         return property.getBooleanList();
     }
 }

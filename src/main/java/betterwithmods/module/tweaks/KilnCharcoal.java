@@ -23,21 +23,15 @@ public class KilnCharcoal extends Feature {
     private boolean disableFurnaceCharcoal;
 
     @Override
-    public void setupConfig() {
-        disableFurnaceCharcoal = loadPropBool("Disable Furnace Charcoal", "Remove recipes to make Charcoal in a Furnace", true);
-    }
-
-    @Override
     public String getDescription() {
         return "Add Charcoal smelting to the Kiln";
     }
 
     @Override
-    public void disabledInit(FMLInitializationEvent event) {
-    }
+    public void onInit(FMLInitializationEvent event) {
 
-    @Override
-    public void onInit(FMlInitializationEvent event) {
+        disableFurnaceCharcoal = loadProperty("Disable Furnace Charcoal", true).setComment("Remove recipes to make Charcoal in a Furnace").get();
+
         List<ItemStack> logs = Lists.newArrayList();
         logs.addAll(OreDictionary.getOres("logWood"));
 
