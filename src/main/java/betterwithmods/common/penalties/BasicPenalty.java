@@ -19,7 +19,7 @@ public class BasicPenalty<T extends Number & Comparable> extends Penalty<T> {
         );
 
         if (BWMAttributes.isCustom(feature)) {
-            feature.config().setDescription(feature.getName() + "." + name, "Configure values for the " + name + " penalty");
+            feature.config().setDescription(feature.getCategory() + "." + name, "Configure values for the " + name + " penalty");
         }
     }
 

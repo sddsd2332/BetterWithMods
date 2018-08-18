@@ -39,11 +39,12 @@ public abstract class ConfigProperty<T> {
 
     public ConfigProperty<T> setCategory(String category) {
         config.getCategory(category).put(property.getName(), property);
+        this.category = category;
         return this;
     }
 
     public ConfigProperty<T> subCategory(String child) {
-        return setCategory(String.format("%s.%s", getCategory(), child));
+        return this.setCategory(String.format("%s.%s", getCategory(), child));
     }
 
     public ConfigProperty<T> setCategoryComment(String comment) {

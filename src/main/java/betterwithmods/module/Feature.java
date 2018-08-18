@@ -17,7 +17,7 @@ public abstract class Feature implements IStateHandler {
 
     public boolean enabled, recipeCondition;
     protected Module parent;
-    private String name;
+    private String name, category;
 
     public Feature recipes() {
         recipeCondition = true;
@@ -27,8 +27,8 @@ public abstract class Feature implements IStateHandler {
 
     public void setup() {
         this.name = getClass().getSimpleName().toLowerCase();
-        ;
-        this.config().setCategoryComment(getName(), getDescription());
+        this.category = String.join(".", parent.getName(), getName());
+        this.config().setCategoryComment(this.category, getDescription());
         this.enabled = canEnable();
     }
 
@@ -42,12 +42,17 @@ public abstract class Feature implements IStateHandler {
         return parent.config();
     }
 
+
+    public String getCategory() {
+        return this.category;
+    }
+
     public String getName() {
-        return this.name;
+        return name;
     }
 
     public <T> ConfigProperty<T> loadProperty(String property, T defaultValue) {
-        return config().load(getName(), property, defaultValue);
+        return config().load(this.category, property, defaultValue);
     }
 
     public abstract String getDescription();
@@ -62,7 +67,7 @@ public abstract class Feature implements IStateHandler {
     }
 
     protected boolean canEnable() {
-        return config().load(getName(), "Enabled", isEnabledByDefault()).get();
+        return config().load(this.category, "Enabled", isEnabledByDefault()).get();
     }
 
 }

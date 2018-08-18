@@ -65,7 +65,7 @@ public class GrassPath extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        SHOVEL_BLACKLIST = config().loadItemStackList("Shovel Blacklist", getName(), "Blacklist an item for being able to make grass paths", new String[]{"psi:cad"});
+        SHOVEL_BLACKLIST = config().loadItemStackList("Shovel Blacklist", getCategory(), "Blacklist an item for being able to make grass paths", new String[]{"psi:cad"});
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)

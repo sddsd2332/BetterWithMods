@@ -97,7 +97,7 @@ public class HCGloom extends Feature {
     @Override
     public void onPostInit(FMLPostInitializationEvent event) {
         dimensionWhitelist = Sets.newHashSet(ArrayUtils.toObject(loadProperty("Gloom Dimension Whitelist", new int[]{0}).setComment("Gloom is only available in these dimensions").get()));
-        gloomOverrideItems = StackIngredient.fromStacks(config().loadItemStackArray("Gloom Override Items", getName(), "Items in this list will override the gloom effect while held in your hand, this allows support for Dynamic Lightning and similar. Add one item per line  (ex minecraft:torch:0)", new ItemStack[0]));
+        gloomOverrideItems = StackIngredient.fromStacks(config().loadItemStackArray("Gloom Override Items", getCategory(), "Items in this list will override the gloom effect while held in your hand, this allows support for Dynamic Lightning and similar. Add one item per line  (ex minecraft:torch:0)", new ItemStack[0]));
     }
 
     @SubscribeEvent

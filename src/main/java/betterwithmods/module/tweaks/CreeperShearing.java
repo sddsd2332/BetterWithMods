@@ -33,7 +33,7 @@ public class CreeperShearing extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        CREEPERS = config().loadResourceLocations("Creepers", "List of valid creepers", getName(), new String[]{"minecraft:creeper"});
+        CREEPERS = config().loadResourceLocations("Creepers", "List of valid creepers", getCategory(), new String[]{"minecraft:creeper"});
     }
 
     private boolean isMatching(EntityLivingBase entity) {

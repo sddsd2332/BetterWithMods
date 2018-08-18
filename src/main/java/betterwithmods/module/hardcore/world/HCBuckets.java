@@ -100,7 +100,7 @@ public class HCBuckets extends Feature {
     public void onInit(FMLInitializationEvent event) {
         //TODO dispenser behavior; for water and lava bucket
 
-        fluidcontainerBacklist = config().loadResouceLocations("Fluid container blacklist", getName(), "Blacklist itemstacks from being effected by HCBuckets", new String[]{
+        fluidcontainerBacklist = config().loadResouceLocations("Fluid container blacklist", getCategory(), "Blacklist itemstacks from being effected by HCBuckets", new String[]{
                 "thermalcultivation:watering_can"
         });
 

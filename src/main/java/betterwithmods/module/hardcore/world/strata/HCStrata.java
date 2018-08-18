@@ -118,7 +118,7 @@ public class HCStrata extends Feature {
                 }
             }
         }
-        List<ItemStack> stones = config().loadItemStackList("Strata Stones", getName(), "Blocks that are considered as stone to HCStrata", new ItemStack[]{new ItemStack(Blocks.STONE, 1, OreDictionary.WILDCARD_VALUE)});
+        List<ItemStack> stones = config().loadItemStackList("Strata Stones", getCategory(), "Blocks that are considered as stone to HCStrata", new ItemStack[]{new ItemStack(Blocks.STONE, 1, OreDictionary.WILDCARD_VALUE)});
         stones.stream().map(BWMRecipes::getStatesFromStack).flatMap(Set::stream).forEach(HCStrata::addStone);
     }
 

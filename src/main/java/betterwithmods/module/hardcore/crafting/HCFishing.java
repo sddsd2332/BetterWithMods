@@ -170,7 +170,7 @@ public class HCFishing extends Feature {
 
     @SubscribeEvent
     public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        BAIT = StackIngredient.fromStacks(config().loadItemStackArray("Bait", getName(),"Add items as valid fishing bait", new ItemStack[]{
+        BAIT = StackIngredient.fromStacks(config().loadItemStackArray("Bait", getCategory(),"Add items as valid fishing bait", new ItemStack[]{
                 new ItemStack(Items.SPIDER_EYE),
                 new ItemStack(BWMItems.CREEPER_OYSTER),
                 new ItemStack(Items.FISH, 1, 2),

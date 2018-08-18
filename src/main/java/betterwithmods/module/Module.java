@@ -49,7 +49,7 @@ public class Module extends ListStateHandler<Feature> {
 
         this.enabled = canEnable();
         if (isEnabled()) {
-            forEachEnabled(Feature::setup);
+            forEach(Feature::setup);
         }
         config.save();
         return stream().filter(Feature::isEnabled).collect(Collectors.toList());

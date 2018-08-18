@@ -39,17 +39,17 @@ public class HCBoating extends Feature {
 
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
-        config().loadRecipeCondition("boatshovel", getName(), "Boat Requires Oar", "Make boat recipe require a wooden shovel for the oars", true);
+        config().loadRecipeCondition("boatshovel", getCategory(), "Boat Requires Oar", "Make boat recipe require a wooden shovel for the oars", true);
     }
 
     @Override
     public void onPostInit(FMLPostInitializationEvent event) {
-        SPEED_ITEMS = config().loadItemStackIntMap("Speed Items", getName(), "Items which speed up a boat when held, value is a percentage of the vanilla speed", new String[]{
+        SPEED_ITEMS = config().loadItemStackIntMap("Speed Items", getCategory(), "Items which speed up a boat when held, value is a percentage of the vanilla speed", new String[]{
                 "betterwithmods:wind_sail=100",
                 "minecraft:banner:*=100"
         });
         defaultSpeed = loadProperty("Default Speed modifier", 50).setComment("Speed modifier when not holding any sail type item").get();
-        BOAT_ENTRIES = config().loadResouceLocations("Boat List", getName(), "Registry name for entities which are considered boats", new String[]{"minecraft:boat"});
+        BOAT_ENTRIES = config().loadResouceLocations("Boat List", getCategory(), "Registry name for entities which are considered boats", new String[]{"minecraft:boat"});
     }
 
     @SubscribeEvent
