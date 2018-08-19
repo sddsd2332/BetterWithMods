@@ -4,7 +4,6 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
-import betterwithmods.common.blocks.mechanical.BlockWindmill;
 import betterwithmods.common.blocks.mechanical.IBlockActive;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
@@ -15,7 +14,6 @@ import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
 import net.minecraftforge.fml.relauncher.Side;
@@ -110,7 +108,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
         return oldState.getBlock() != newState.getBlock();
     }
 
-    //Unless you increase this, expect to see the TESR to pop in as you approach.
+
     @Override
     @SideOnly(Side.CLIENT)
     public double getMaxRenderDistanceSquared() {
@@ -156,8 +154,8 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
                 default:
                     return EnumFacing.UP;
             }
-        } else
-            return EnumFacing.UP;
+        }
+        return EnumFacing.UP;
     }
 
     @Override
@@ -182,15 +180,18 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
     @SideOnly(Side.CLIENT)
     public AxisAlignedBB getRenderBoundingBox() {
         IBlockState state = getBlockWorld().getBlockState(pos);
-        if (!(state.getBlock() instanceof BlockWindmill))
-            return Block.FULL_BLOCK_AABB;
+        AxisAlignedBB box = Block.FULL_BLOCK_AABB.offset(pos);
+        if (!(state.getBlock() instanceof BlockAxleGenerator))
+            return box;
 
-        EnumFacing.Axis axis = getBlockWorld().getBlockState(pos).getValue(DirUtils.AXIS);
-        EnumFacing facing = (axis == EnumFacing.Axis.Z) ? EnumFacing.SOUTH : EnumFacing.EAST;
-        Vec3i vec = facing.getDirectionVec();
-        int xP = axis == EnumFacing.Axis.Z ? getRadius() : 0;
-        int yP = getRadius();
-        int zP = axis == EnumFacing.Axis.X ? getRadius() : 0;
-        return new AxisAlignedBB(-xP, -yP, -zP, xP, yP, zP).offset(0.5, 0.5, 0).offset(pos).expand(vec.getX(), vec.getY(), vec.getZ());
+        EnumFacing facing = getOrientation();
+        EnumFacing.Axis axis = facing.getAxis();
+        if (axis == EnumFacing.Axis.Z) {
+            return box.grow(getRadius(), getRadius(), 0);
+        } else if (axis == EnumFacing.Axis.X) {
+            return box.grow(0, getRadius(), getRadius());
+        } else {
+            return box.grow(getRadius());
+        }
     }
 }

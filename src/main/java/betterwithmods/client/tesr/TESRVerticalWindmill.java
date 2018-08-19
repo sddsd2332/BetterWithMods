@@ -14,9 +14,9 @@ import net.minecraft.util.math.BlockPos;
 import javax.annotation.Nullable;
 
 public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileWindmillVertical> {
-    public static final ResourceLocation WINDMILL_SHAFTS = new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill_shaft.png");
-    public static final ResourceLocation WINDMILL = new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill.png");
-    public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill_sail.png");
+    public static final ResourceLocation WINDMILL_SHAFTS = new ResourceLocation(BWMod.MODID, "textures/blocks/windmills/vertical_shaft.png");
+    public static final ResourceLocation WINDMILL_FRAME = new ResourceLocation(BWMod.MODID, "textures/blocks/windmills/vertical_frame.png");
+    public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(BWMod.MODID, "textures/blocks/windmills/sail.png");
 
     private static ModelVerticalWindmill render = new ModelVerticalWindmill();
 

@@ -17,8 +17,7 @@ import java.util.stream.Collectors;
 
 public class BannerUtils {
 
-    public static final BannerTextures.Cache HORIZONTAL_WINDMILL = new BannerTextures.Cache("betterwithmods:H", new ResourceLocation(BWMod.MODID, "textures/blocks/horizontal_windmill_banner.png"), "betterwithmods:textures/blocks/horizontal_windmill/");
-    public static final BannerTextures.Cache VERTICAL_WINDMILL = new BannerTextures.Cache("betterwithmods:V", new ResourceLocation(BWMod.MODID, "textures/blocks/vertical_windmill_banner.png"), "betterwithmods:textures/blocks/vertical_windmill/");
+    public static final BannerTextures.Cache WINDMILLS = new BannerTextures.Cache("betterwithmods:W", new ResourceLocation(BWMod.MODID, "textures/blocks/windmills/banner.png"), "betterwithmods:textures/blocks/windmills/");
 
     public static void readArray(BannerData[] array, NBTTagCompound tag) {
         NBTTagList list = tag.getTagList("Banners", 10);

@@ -18,8 +18,8 @@ public class TileWindmillHorizontal extends TileBaseWindmill {
         boolean valid = true;
         if (getBlockWorld().getBlockState(pos).getBlock() == BWMBlocks.HORIZONTAL_WINDMILL) {
             EnumFacing.Axis axis = getBlockWorld().getBlockState(pos).getValue(DirUtils.AXIS);
-            for (int vert = -6; vert <= 6; vert++) {
-                for (int i = -6; i <= 6; i++) {
+            for (int vert = -getRadius(); vert <= getRadius(); vert++) {
+                for (int i = -getRadius(); i <= getRadius(); i++) {
                     int xP = (axis == EnumFacing.Axis.Z ? i : 0);
                     int zP = (axis == EnumFacing.Axis.X ? i : 0);
                     BlockPos offset = pos.add(xP, vert, zP);

@@ -1,5 +1,6 @@
 package betterwithmods.client.model.generators;
 
+import betterwithmods.client.tesr.TESRVerticalWindmill;
 import betterwithmods.client.tesr.TESRWindmill;
 import betterwithmods.util.BannerUtils;
 
@@ -19,21 +20,20 @@ public class ModelHorizontalWindmill extends ModelRadialBlades {
         //SHAFT
         combo.addChild(new ModelPart(this, 0, 0)
                 .setTextureSize(16, 16)
-                .addBox(2, -2.0F, -2.0F, 99, 4, 4)
+                .addBox(2, -2.0F, -2.0F, 110, 4, 4)
                 .setRotationCenter(0F, 0F, 0F)
                 .setRotateAngle(0, 0, rotation)
-                .setTexture(TESRWindmill.WINDMILL)
+                .setTexture(TESRWindmill.WINDMILL_FRAME)
         );
-
 
 
         //SAIL
         combo.addChild(new ModelPart(this, 0, 0)
-                .addBanner(BannerUtils.HORIZONTAL_WINDMILL)
-                .setTextureSize(168, 168)
-                .addBox(15.0F, 1.75F, 1.0F, 84, 16, 1)
-                .setRotateAngle(-0.26F, 0, rotation)
-                .setTexture(TESRWindmill.WINDMILL_SAIL));
+                .addBanner(BannerUtils.WINDMILLS)
+                .setTextureSize(128, 128)
+                .addBox(0, 10, 0, 20, 100, 1, true)
+                .setRotateAngle(0, 0, -rotation)
+                .setTexture(TESRVerticalWindmill.WINDMILL_SAIL));
 
 
         return combo;

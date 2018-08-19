@@ -14,8 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import javax.annotation.Nullable;
 
 public class TESRWindmill extends TileEntitySpecialRenderer<TileWindmillHorizontal> {
-    public static final ResourceLocation WINDMILL = new ResourceLocation(BWMod.MODID, "textures/blocks/horizontal_windmill.png");
-    public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(BWMod.MODID, "textures/blocks/horizontal_windmill_sail.png");
+    public static final ResourceLocation WINDMILL_FRAME = new ResourceLocation(BWMod.MODID, "textures/blocks/windmills/horizontal_frame.png");
+    public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(BWMod.MODID, "textures/blocks/windmills/sail.png");
     private static ModelHorizontalWindmill render = new ModelHorizontalWindmill();
 
     public static void renderWindmill(float direction, float rotation, double x, double y, double z, float alpha, @Nullable BannerUtils.BannerData[] data) {
@@ -23,6 +23,7 @@ public class TESRWindmill extends TileEntitySpecialRenderer<TileWindmillHorizont
         GlStateManager.enableRescaleNormal();
         GlStateManager.translate(x + 0.5D, y + 0.5D, z + 0.5D);
         GlStateManager.rotate(direction, 0.0F, 1.0F, 0.0F);
+        render = new ModelHorizontalWindmill();
         if(data != null) {
             for (int i = 0; i < data.length; i++) {
                 render.setBanner(i, data[i]);
@@ -30,6 +31,7 @@ public class TESRWindmill extends TileEntitySpecialRenderer<TileWindmillHorizont
         }
         render.setAngle(0, 0, -(float) Math.toRadians(rotation));
         render.render(0.0625F);
+
         GlStateManager.popMatrix();
         GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
     }

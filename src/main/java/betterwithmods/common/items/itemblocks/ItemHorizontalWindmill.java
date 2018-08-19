@@ -10,7 +10,7 @@ public class ItemHorizontalWindmill extends ItemAxleGenerator {
 
     public ItemHorizontalWindmill(Block block) {
         super(block);
-        this.radius = 6;
+        this.radius = 7;
     }
 
     @Override

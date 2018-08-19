@@ -1,6 +1,7 @@
 package betterwithmods.client.model.generators;
 
 import betterwithmods.client.tesr.TESRVerticalWindmill;
+import betterwithmods.client.tesr.TESRWindmill;
 import betterwithmods.util.BannerUtils;
 import net.minecraft.util.math.MathHelper;
 
@@ -23,12 +24,12 @@ public class ModelVerticalWindmill extends ModelRadialBlades {
         
         //Sails
         part.addChild(new ModelPart(this, 0, 0)
-                .addBanner(BannerUtils.VERTICAL_WINDMILL)
+                .addBanner(BannerUtils.WINDMILLS)
                 .setTextureSize(128, 128)
                 .addBox(0, 0, 0, 20, 100, 1, true)
                 .setRotationCenter(x, -50, z)
                 .setRotateAngle(0, angle + sailAngle, 0)
-                .setTexture(TESRVerticalWindmill.WINDMILL_SAIL)
+                .setTexture(TESRWindmill.WINDMILL_SAIL)
         );
 
         //Shafts
@@ -47,7 +48,7 @@ public class ModelVerticalWindmill extends ModelRadialBlades {
                 .addBox(2.0F, 50.9F, -1.0F, 67, 2, 2)
                 .setRotationCenter(0.0F, 0.0F, 0.0F)
                 .setRotateAngle(0, angle, 0)
-                .setTexture(TESRVerticalWindmill.WINDMILL)
+                .setTexture(TESRVerticalWindmill.WINDMILL_FRAME)
         );
 
         //Frame Border
@@ -57,7 +58,7 @@ public class ModelVerticalWindmill extends ModelRadialBlades {
                 .addBox(64.900002F, 50.900002F, -26.0F, 2, 2, 52)
                 .setRotationCenter(0.0F, 0.0F, 0.0F)
                 .setRotateAngle(0, angle + 0.39F, 0)
-                .setTexture(TESRVerticalWindmill.WINDMILL)
+                .setTexture(TESRVerticalWindmill.WINDMILL_FRAME)
         );
 
         return part;
