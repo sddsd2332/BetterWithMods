@@ -21,6 +21,7 @@ public class General extends Module {
                 new Documentation(),
                 new MechanicalPower(),
                 new Hemp(),
+                new MoreCobble(),
                 new UnitTesting()
         );
     }

@@ -32,7 +32,7 @@ public class CrucibleRecipes extends Feature {
 
         BWMRegistry.CRUCIBLE.addStokedRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE));
 
-        for (BlockCobble block : BlockCobble.BLOCKS) {
+        for (BlockCobble block : BlockCobble.BLOCKS.values()) {
             BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(block), block.type.getStone());
         }
     }

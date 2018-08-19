@@ -3,6 +3,7 @@ package betterwithmods.module.hardcore;
 import betterwithmods.BWMod;
 import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.module.Module;
+import betterwithmods.module.general.MoreCobble;
 import betterwithmods.module.hardcore.beacons.HCBeacons;
 import betterwithmods.module.hardcore.crafting.*;
 import betterwithmods.module.hardcore.creatures.*;
@@ -74,7 +75,7 @@ public class Hardcore extends Module {
 
         addFeature(new HCVillages());
         addFeature(new HCMovement());
-        addFeature(new HCCobblestone());
+        addFeature(new MoreCobble());
         addFeature(new HCDeadweight());
         addFeature(new HCEnchanting());
         addFeature(new HCStrata());

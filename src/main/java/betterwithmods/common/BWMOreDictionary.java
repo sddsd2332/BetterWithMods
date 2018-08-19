@@ -151,7 +151,7 @@ public class BWMOreDictionary {
         registerOre("blockPlanter", BlockPlanter.BLOCKS.values());
         registerOre("blockVase", BlockVase.BLOCKS.values());
         registerOre("blockCandle", BlockCandle.BLOCKS.values());
-        registerOre("cobblestone", BlockCobble.BLOCKS);
+        registerOre("cobblestone", BlockCobble.BLOCKS.values());
 
         registerOre("stickWood", new ItemStack(BWMBlocks.SHAFT));
         registerOre("blockWindChime", BlockChime.BLOCKS);

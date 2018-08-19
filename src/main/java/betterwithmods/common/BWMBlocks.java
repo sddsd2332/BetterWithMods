@@ -126,7 +126,7 @@ public final class BWMBlocks {
         registerBlocks(BlockVase.BLOCKS.values());
         registerBlocks(BlockAesthetic.BLOCKS.values());
         registerBlocks(BlockChime.BLOCKS);
-        registerBlocks(BlockCobble.BLOCKS);
+        registerBlocks(BlockCobble.BLOCKS.values());
         registerBlocks(BlockUnfiredPottery.BLOCKS.values());
         registerBlocks(BlockRawPastry.BLOCKS.values());
         registerBlock(ANCHOR);
