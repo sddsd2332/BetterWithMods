@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.blocks.tile.TileEntityBeacon;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;
@@ -32,7 +33,7 @@ import java.util.UUID;
 /**
  * Created by primetoxinz on 7/17/17.
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class SpawnBeaconEffect extends BeaconEffect {
 
     public static final HashMap<BlockPos, HashSet<BindingPoint>> SPAWN_LIST = Maps.newHashMap();

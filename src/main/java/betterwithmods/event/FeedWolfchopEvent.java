@@ -1,5 +1,6 @@
 package betterwithmods.event;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.SoundEvents;
@@ -17,7 +18,7 @@ import static betterwithmods.util.WorldUtils.addDrop;
 /**
  * Created by primetoxinz on 4/21/17.
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class FeedWolfchopEvent {
     @SubscribeEvent
     public static void feedDog(PlayerInteractEvent.EntityInteractSpecific event) {

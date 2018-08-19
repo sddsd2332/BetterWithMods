@@ -1,5 +1,6 @@
 package betterwithmods.common.items.tools;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.entity.EntityBroadheadArrow;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.client.util.ITooltipFlag;
@@ -27,7 +28,7 @@ import java.util.List;
  * @author primetoxinz
  * @version 11/18/16
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class ItemBroadheadArrow extends ItemArrow {
 
     @SideOnly(Side.CLIENT)

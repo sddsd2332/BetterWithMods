@@ -1,5 +1,6 @@
 package betterwithmods.event;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.gameplay.Gameplay;
 import com.google.common.collect.Maps;
@@ -26,7 +27,7 @@ import java.util.stream.Collectors;
  * @author primetoxinz
  * @version 11/26/16
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class BlastingOilEvent {
     // TODO: Instead of disabling this module consider on performance tweaks for massive-multiplayer servers with A LOT of entities
     //TODO Make this a Feature in 1.13

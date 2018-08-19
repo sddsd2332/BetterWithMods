@@ -1,5 +1,6 @@
 package betterwithmods.event;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.BWSounds;
 import betterwithmods.util.player.PlayerHelper;
@@ -12,7 +13,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class PenaltyEventHandler {
 
     @SubscribeEvent
