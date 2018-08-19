@@ -80,10 +80,14 @@ public abstract class BlockMechMachine extends BWMBlock implements IBlockActive,
 
     @Override
     public void overpower(World world, BlockPos pos) {
-        overpowerSound(world, pos);
-        InvUtils.ejectBrokenItems(world, pos.offset(EnumFacing.random(world.rand)), overpowerDrops);
-        world.setBlockToAir(pos);
+        if (doesOverpower()) {
+            overpowerSound(world, pos);
+            InvUtils.ejectBrokenItems(world, pos.offset(EnumFacing.random(world.rand)), overpowerDrops);
+            world.setBlockToAir(pos);
+        }
     }
+
+
 
     public enum EnumType implements IStringSerializable {
         MILL(0, "mill", true),

@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class CheaperAxes extends Feature {
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:stone_axe"));
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:iron_axe"));
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:golden_axe"));
@@ -16,7 +16,7 @@ public class CheaperAxes extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change vanilla axe recipes to only require 2 material rather than 3.";
     }
 }

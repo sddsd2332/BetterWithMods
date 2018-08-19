@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.hopper.filters;
 
 import betterwithmods.api.tile.IHopperFilter;
-import betterwithmods.module.gameplay.HopperRecipes;
+import betterwithmods.module.recipes.HopperRecipes;
 import com.google.common.collect.Maps;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;

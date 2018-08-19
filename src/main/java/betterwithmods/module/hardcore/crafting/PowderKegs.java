@@ -10,27 +10,22 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class PowderKegs extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "";
     }
 
     @Override
-    public void preInitClient(FMLPreInitializationEvent event) {
-        overrideBlock("tnt_bottom");
-        overrideBlock("tnt_top");
-        overrideBlock("tnt_side");
-        overrideItem("minecart_tnt");
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        config().overrideBlock("tnt_bottom");
+        config().overrideBlock("tnt_top");
+        config().overrideBlock("tnt_side");
+        config().overrideItem("minecart_tnt");
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.removeRecipe(new ResourceLocation("minecraft:tnt"));
         Blocks.TNT.setTranslationKey("betterwithmods:powder_keg");
         Items.TNT_MINECART.setTranslationKey("betterwithmods:powder_keg_minecart");
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 }

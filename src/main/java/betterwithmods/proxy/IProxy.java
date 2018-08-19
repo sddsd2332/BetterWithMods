@@ -13,11 +13,11 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import java.util.Random;
 
 public interface IProxy {
-    default void preInit(FMLPreInitializationEvent event) {
+    default void onPreInit(FMLPreInitializationEvent event) {
 
     }
 
-    default void init(FMLInitializationEvent event) {
+    default void onInit(FMLInitializationEvent event) {
     }
 
     default void postInit(FMLPostInitializationEvent event) {

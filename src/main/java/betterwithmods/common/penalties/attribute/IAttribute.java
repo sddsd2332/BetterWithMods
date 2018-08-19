@@ -1,5 +1,6 @@
 package betterwithmods.common.penalties.attribute;
 
+import betterwithmods.module.Feature;
 import net.minecraft.util.ResourceLocation;
 
 public interface IAttribute<V> {
@@ -7,5 +8,5 @@ public interface IAttribute<V> {
 
     ResourceLocation getRegistryName();
 
-    IAttributeInstance<V> fromConfig(String category, String name, V defaultValue);
+    IAttributeInstance<V> fromConfig(Feature feature, String name, V defaultValue) ;
 }

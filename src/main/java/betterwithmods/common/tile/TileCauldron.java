@@ -1,10 +1,10 @@
 package betterwithmods.common.tile;
 
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 
 public class TileCauldron extends TileCookingPot {
     public TileCauldron() {
-        super(BWRegistry.CAULDRON);
+        super(BWMRegistry.CAULDRON);
     }
 
     @Override

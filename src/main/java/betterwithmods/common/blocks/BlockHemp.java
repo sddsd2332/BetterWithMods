@@ -25,6 +25,10 @@ import java.util.Random;
 
 
 public class BlockHemp extends BlockCrops implements IPlantable {
+    //TODO
+
+//        waterBottleAmount = loader.configHelper.loadPropInt("Water Bottle Fluid amount", category, "The amount of fluid contained in a glass bottle", "", Fluid.BUCKET_VOLUME / 3, 0, Fluid.BUCKET_VOLUME);
+
     public static final PropertyBool TOP = PropertyBool.create("top");
     private static final AxisAlignedBB[] CROPS_AABB = new AxisAlignedBB[]{
             new AxisAlignedBB(3 / 16d, 0.0D, 3 / 16d, 13 / 16d, 0.125D, 13 / 16d),

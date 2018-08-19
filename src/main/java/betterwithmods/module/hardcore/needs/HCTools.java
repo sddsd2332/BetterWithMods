@@ -39,8 +39,6 @@ public class HCTools extends Feature {
     public static int noHungerThreshold;
     public static int noDamageThreshold;
 
-    private static Set<Item> TOOLS;
-
     private static void removeLowTierToolRecipes() {
         BWMRecipes.removeRecipe(new ItemStack(Items.WOODEN_AXE, OreDictionary.WILDCARD_VALUE));
         BWMRecipes.removeRecipe(new ItemStack(Items.WOODEN_HOE, OreDictionary.WILDCARD_VALUE));
@@ -50,21 +48,26 @@ public class HCTools extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Overhaul the durability of tools to be more rewarding when reaching the next level. Completely disables wooden tools (other than pick) by default.";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         if (removeLowTools) {
             removeLowTierToolRecipes();
         }
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
 
-        TOOLS = new HashSet<>(Sets.newHashSet(
+        removeLowTools = loadProperty("Remove cheapest tools", true).setComment("The minimum level of the hoe and the sword is iron, and the axe needs at least stone.").get();
+        noHungerThreshold = loadProperty("No Exhaustion Harvest Level", Item.ToolMaterial.IRON.getHarvestLevel()).setComment("When destroying a 0 hardness block with a tool of this harvest level or higher, no exhaustion is applied").get();
+        noDamageThreshold = loadProperty("No Durability Damage Harvest Level", Item.ToolMaterial.DIAMOND.getHarvestLevel()).setComment("When destroying a 0 hardness block with a tool of this harvest level or higher, no durability damage is applied").get();
+        perToolOverrides = loadProperty("Change Durability per Tool", true).setComment("Allow configuring tool durability for each class").get();
+
+        Set<Item> TOOLS = new HashSet<>(Sets.newHashSet(
                 BWMItems.STEEL_AXE, BWMItems.STEEL_BATTLEAXE, BWMItems.STEEL_HOE, BWMItems.STEEL_SWORD, BWMItems.STEEL_PICKAXE, BWMItems.STEEL_SWORD, BWMItems.STEEL_MATTOCK,
                 Items.DIAMOND_PICKAXE, Items.DIAMOND_AXE, Items.DIAMOND_SWORD, Items.DIAMOND_SHOVEL, Items.DIAMOND_HOE,
                 Items.IRON_PICKAXE, Items.IRON_AXE, Items.IRON_SWORD, Items.IRON_SHOVEL, Items.IRON_HOE,
@@ -73,12 +76,12 @@ public class HCTools extends Feature {
                 Items.WOODEN_PICKAXE, Items.WOODEN_AXE, Items.WOODEN_SWORD, Items.WOODEN_SHOVEL, Items.WOODEN_HOE
         ));
 
-        OVERRIDES.put(Item.ToolMaterial.WOOD, new ToolMaterialOverride("wood", 1, 1.01F, 0).addClassOverride("shovel", 10));
-        OVERRIDES.put(Item.ToolMaterial.STONE, new ToolMaterialOverride("stone", 6, 1.01F, 5).addClassOverride("shovel", 50).addClassOverride("axe", 50));
-        OVERRIDES.put(Item.ToolMaterial.IRON, new ToolMaterialOverride("iron", 500, 6.0F, 14));
-        OVERRIDES.put(Item.ToolMaterial.DIAMOND, new ToolMaterialOverride("diamond", 1561, 8.0F, 14));
-        OVERRIDES.put(Item.ToolMaterial.GOLD, new ToolMaterialOverride("gold", 32, 12.0F, 22));
-        OVERRIDES.put(BWMItems.SOULFORGED_STEEL, new ToolMaterialOverride(BWMItems.SOULFORGED_STEEL));
+        OVERRIDES.put(Item.ToolMaterial.WOOD, new ToolMaterialOverride(this, "wood", 1, 1.01F, 0).addClassOverride("shovel", 10));
+        OVERRIDES.put(Item.ToolMaterial.STONE, new ToolMaterialOverride(this, "stone", 6, 1.01F, 5).addClassOverride("shovel", 50).addClassOverride("axe", 50));
+        OVERRIDES.put(Item.ToolMaterial.IRON, new ToolMaterialOverride(this, "iron", 500, 6.0F, 14));
+        OVERRIDES.put(Item.ToolMaterial.DIAMOND, new ToolMaterialOverride(this, "diamond", 1561, 8.0F, 14));
+        OVERRIDES.put(Item.ToolMaterial.GOLD, new ToolMaterialOverride(this, "gold", 32, 12.0F, 22));
+        OVERRIDES.put(BWMItems.SOULFORGED_STEEL, new ToolMaterialOverride(this, BWMItems.SOULFORGED_STEEL));
 
         TOOLS.forEach(this::loadToolMaterialOverride);
     }
@@ -130,21 +133,8 @@ public class HCTools extends Feature {
 
     }
 
-    @Override
-    public void setupConfig() {
-        removeLowTools = loadPropBool("Remove cheapest tools", "The minimum level of the hoe and the sword is iron, and the axe needs at least stone.", true);
-        noHungerThreshold = loadPropInt("No Exhaustion Harvest Level", "When destroying a 0 hardness block with a tool of this harvest level or higher, no exhaustion is applied", Item.ToolMaterial.IRON.getHarvestLevel());
-        noDamageThreshold = loadPropInt("No Durability Damage Harvest Level", "When destroying a 0 hardness block with a tool of this harvest level or higher, no durability damage is applied", Item.ToolMaterial.DIAMOND.getHarvestLevel());
-        perToolOverrides = loadPropBool("Change Durability per Tool", "Allow configuring tool durability for each class", true);
-    }
-
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
     @SubscribeEvent
-    public void onHitEntity(LivingAttackEvent event) {
+    public static void onHitEntity(LivingAttackEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             ItemStack stack = player.getHeldItemMainhand();
@@ -153,18 +143,18 @@ public class HCTools extends Feature {
     }
 
     @SubscribeEvent
-    public void onUseHoe(UseHoeEvent event) {
+    public static void onUseHoe(UseHoeEvent event) {
         breakTool(event.getCurrent(), event.getEntityPlayer());
     }
 
     @SubscribeEvent
-    public void onBreaking(BlockEvent.BreakEvent event) {
+    public static void onBreaking(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
         ItemStack stack = player.getHeldItemMainhand();
         breakTool(stack, player);
     }
 
-    private void breakTool(ItemStack stack, EntityPlayer player) {
+    private static void breakTool(ItemStack stack, EntityPlayer player) {
         if (stack.isEmpty()) return;
         if (stack.getMaxDamage() == 1) {
             destroyItem(stack, player);
@@ -172,7 +162,7 @@ public class HCTools extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void harvestGarbage(BlockEvent.BreakEvent event) {
+    public static void harvestGarbage(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
         if (event.isCanceled() || player == null || player.isCreative())
             return;
@@ -185,15 +175,11 @@ public class HCTools extends Feature {
             stack.damageItem(1, player); //Make 0 hardness blocks damage tools that are not over some harvest level
     }
 
-    private void destroyItem(ItemStack stack, EntityLivingBase entity) {
+    private static void destroyItem(ItemStack stack, EntityLivingBase entity) {
         int damage = stack.getMaxDamage();
         stack.damageItem(damage, entity);
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 
     public class ToolMaterialOverride {
         private final String name;
@@ -202,13 +188,16 @@ public class HCTools extends Feature {
         private float efficiencyOnProperMaterial;
         private int enchantability;
 
-        public ToolMaterialOverride(Item.ToolMaterial material) {
-            this(material.name().toLowerCase(), material.getMaxUses(), material.getEfficiency(), material.getEnchantability());
+        private Feature feature;
+
+        public ToolMaterialOverride(Feature feature, Item.ToolMaterial material) {
+            this(feature, material.name().toLowerCase(), material.getMaxUses(), material.getEfficiency(), material.getEnchantability());
         }
 
-        ToolMaterialOverride(String name, int maxUses, float efficiencyOnProperMaterial, int enchantability) {
+        ToolMaterialOverride(Feature feature, String name, int maxUses, float efficiencyOnProperMaterial, int enchantability) {
+            this.feature = feature;
             this.name = name;
-            this.maxUses = configHelper.loadPropInt("Max Durability", configCategory + "." + name, "", maxUses);
+            this.maxUses = feature.loadProperty("Max Durability", maxUses).subCategory(this.name).get();
             this.efficiencyOnProperMaterial = efficiencyOnProperMaterial;
             this.enchantability = enchantability;
         }
@@ -216,7 +205,7 @@ public class HCTools extends Feature {
         int getMaxUses(String toolClass) {
             int use = getMaxUses();
             if (perToolOverrides) {
-                use = configHelper.loadPropInt("Max Durability: " + toolClass, configCategory + "." + name, "", toolClassOverrides.getOrDefault(toolClass, use));
+                use = feature.loadProperty("Max Durability:" + toolClass, toolClassOverrides.getOrDefault(toolClass, use)).subCategory(this.name).get();
             }
             return Math.max(1, use - 1); //subtract one from the max durability because the tool doesn't break until -1
         }

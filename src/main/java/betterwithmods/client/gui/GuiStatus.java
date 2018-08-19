@@ -1,7 +1,7 @@
 package betterwithmods.client.gui;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.Penalty;
 import betterwithmods.common.penalties.PenaltyHandler;
 import betterwithmods.util.TooltipLib;
@@ -43,7 +43,7 @@ public class GuiStatus {
         if (this.mc.player.isEntityAlive()) {
             int y = top;
             FontRenderer fontRenderer = this.mc.fontRenderer;
-            for (PenaltyHandler handler : BWRegistry.PENALTY_HANDLERS) {
+            for (PenaltyHandler handler : BWMRegistry.PENALTY_HANDLERS) {
                 if (!handler.isDisplayed())
                     continue;
                 Penalty p = handler.getPenalty(mc.player);

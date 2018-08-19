@@ -16,6 +16,8 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.BiomeDictionary;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -24,15 +26,16 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.awt.*;
 import java.util.Random;
 
+@Mod.EventBusSubscriber
 public class VisibleStorms extends Feature {
-    public static boolean DUST_STORMS;
-    public static boolean SAND_STORMS;
-    public static int DUST_PARTICLES;
-    public static int AIR_PARTICLES;
-    float currentRed, currentGreen, currentBlue;
-    float currentDistance, currentDistanceScale;
-    float desiredRed, desiredGreen, desiredBlue;
-    float desiredDistance, desiredDistanceScale;
+    private static boolean DUST_STORMS;
+    private static boolean SAND_STORMS;
+    private static int DUST_PARTICLES;
+    private static int AIR_PARTICLES;
+    private static float currentRed, currentGreen, currentBlue;
+    private static float currentDistance, currentDistanceScale;
+    private static float desiredRed, desiredGreen, desiredBlue;
+    private static float desiredDistance, desiredDistanceScale;
 
     @SideOnly(Side.CLIENT)
     private static void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale) {
@@ -45,22 +48,9 @@ public class VisibleStorms extends Feature {
         }
     }
 
-    @Override
-    public void setupConfig() {
-        DUST_STORMS = loadPropBool("Dust Storms", "Storms are clearly visible in dry biomes.", true);
-        SAND_STORMS = loadPropBool("Sand Storms", "Adds a fog change during storms in deserts.", true);
-        DUST_PARTICLES = loadPropInt("Dust Particle Count", "How many dust particles should be created, too many may contribute to lag.", 2);
-        AIR_PARTICLES = loadPropInt("Air Particle Count", "How many air particles should be created, too many may contribute to lag.", 3);
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent tickEvent) {
+    public static void playerTick(TickEvent.PlayerTickEvent tickEvent) {
         EntityPlayer entity = tickEvent.player;
         if (entity == null)
             return;
@@ -110,7 +100,7 @@ public class VisibleStorms extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void fogDistance(EntityViewRenderEvent.RenderFogEvent fogEvent) {
+    public static void fogDistance(EntityViewRenderEvent.RenderFogEvent fogEvent) {
         if (!SAND_STORMS)
             return;
         Entity entity = fogEvent.getEntity();
@@ -149,7 +139,7 @@ public class VisibleStorms extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void fogColor(EntityViewRenderEvent.FogColors fogEvent) {
+    public static void fogColor(EntityViewRenderEvent.FogColors fogEvent) {
         if (!SAND_STORMS)
             return;
         Entity entity = fogEvent.getEntity();
@@ -195,21 +185,29 @@ public class VisibleStorms extends Feature {
         desiredBlue = desiredcolor.getBlue();
     }
 
-    private boolean shouldStorm(World world, BlockPos pos) {
+    private static boolean shouldStorm(World world, BlockPos pos) {
         Biome biome = world.getBiome(pos);
 
         return world.isRaining() && !biome.canRain() && !biome.isSnowyBiome();
     }
 
-    private boolean isDesert(World world, BlockPos pos) {
+    private static boolean isDesert(World world, BlockPos pos) {
         Biome biome = world.getBiome(pos);
 
         return BiomeDictionary.hasType(biome, BiomeDictionary.Type.SANDY);
     }
 
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        DUST_STORMS = loadProperty("Dust Storms", true).setComment("Storms are clearly visible in dry biomes.").get();
+        SAND_STORMS = loadProperty("Sand Storms", true).setComment("Adds a fog change during storms in deserts.").get();
+        DUST_PARTICLES = loadProperty("Dust Particle Count", 2).setComment("How many dust particles should be created, too many may contribute to lag.").get();
+        AIR_PARTICLES = loadProperty("Air Particle Count", 3).setComment("How many air particles should be created, too many may contribute to lag.").get();
+    }
+
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add Sandstorms visual effects when it is raining in desert biomes. This helps the player know why a windmill will still break when there is no actual rain.";
     }
 }

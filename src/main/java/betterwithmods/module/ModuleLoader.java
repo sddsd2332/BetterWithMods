@@ -10,171 +10,47 @@
  */
 package betterwithmods.module;
 
-import betterwithmods.BWMod;
-import com.google.common.collect.Lists;
+import betterwithmods.api.modules.impl.ListStateHandler;
 import com.google.common.collect.Maps;
-import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.common.MinecraftForge;
+import com.google.common.collect.Sets;
+import com.google.gson.JsonObject;
+import net.minecraft.util.JsonUtils;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.fml.client.event.ConfigChangedEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.common.crafting.IConditionFactory;
+import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
-import java.util.Comparator;
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.function.Consumer;
+import java.util.Set;
+import java.util.function.BooleanSupplier;
+import java.util.stream.Collectors;
 
-public abstract class ModuleLoader {
+public class ModuleLoader extends ListStateHandler<Module> {
 
-    private final List<Class<? extends Module>> moduleClasses;
-    private final Map<Class<? extends Module>, Module> moduleInstances;
-    private final List<Module> enabledModules;
-    public ConfigHelper configHelper;
-    public Logger logger;
+    static final HashMap<String, Boolean> JSON_CONDITIONS = Maps.newHashMap();
 
-    public ModuleLoader() {
-        enabledModules = Lists.newArrayList();
-        moduleClasses = Lists.newArrayList();
-        moduleInstances = Maps.newHashMap();
-        registerModules();
+
+    private Set<Class<? extends Feature>> enabledFeatures = Sets.newHashSet();
+
+    private Logger logger;
+    private File relativeConfigDir;
+
+    public ModuleLoader(File relativeConfigDir) {
+        this.relativeConfigDir = relativeConfigDir;
     }
 
-    public abstract void registerModules();
-
-    public void preInit(FMLPreInitializationEvent event) {
-
-        if (logger == null) {
-            throw new RuntimeException("Logger for ModuleLoader was not set");
-        }
-
-        moduleClasses.forEach(clazz -> {
-            try {
-                moduleInstances.put(clazz, clazz.getConstructor(ModuleLoader.class).newInstance(this));
-            } catch (Exception e) {
-                throw new RuntimeException("Can't initialize module " + clazz, e);
-            }
-        });
-
-        setupConfig(event);
-
-        forEachModule(module -> logger.info("[BWM] Module " + module.getName() + " is " + (module.enabled ? "enabled" : "disabled")));
-        enabledModules.sort(Comparator.comparingInt(Module::getPriority));
-        forEachEnabled(module -> {
-            logger.info("[BWM] Module PreInit : " + module.getName());
-            module.preInit(event);
-        });
-
-        configHelper.save();
+    public ModuleLoader addModules(Module... modules) {
+        for(Module module: modules)
+            addModule(module);
+        return this;
     }
 
-    public void init(FMLInitializationEvent event) {
-        forEachEnabled(module -> module.init(event));
-        configHelper.save();
-    }
-
-    public void postInit(FMLPostInitializationEvent event) {
-        forEachEnabled(module -> module.postInit(event));
-        forEachEnabled(module -> module.finalInit(event));
-        configHelper.save();
-    }
-
-    public void finalInit(FMLPostInitializationEvent event) {
-        forEachEnabled(module -> module.finalInit(event));
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void preInitClient(FMLPreInitializationEvent event) {
-        GlobalConfig.initGlobalClient(this);
-        forEachEnabled(module -> module.preInitClient(event));
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void initClient(FMLInitializationEvent event) {
-
-        forEachEnabled(module -> module.initClient(event));
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void postInitClient(FMLPostInitializationEvent event) {
-        forEachEnabled(module -> module.postInitClient(event));
-    }
-
-    @SideOnly(Side.CLIENT)
-    public void registerModels(ModelRegistryEvent event) {
-        forEachEnabled(module -> module.registerModels(event));
-    }
-
-    public void serverStarting(FMLServerStartingEvent event) {
-        forEachEnabled(module -> module.serverStarting(event));
-    }
-
-    public void setupConfig(FMLPreInitializationEvent event) {
-        File file = event.getSuggestedConfigurationFile();
-        configHelper = new ConfigHelper(file.getParent(), new Configuration(file));
-
-        GlobalConfig.initGlobalConfig(this);
-
-        forEachModule(module -> {
-            module.enabled = true;
-            if (module.canBeDisabled()) {
-                configHelper.setRestartNeed(true);
-                configHelper.setCategoryComment(module.name, module.getModuleDescription());
-                module.enabled = configHelper.loadPropBool("enabled", module.name, "Enable this module", module.isEnabledByDefault());
-            }
-        });
-
-        for (Module module : moduleInstances.values()) {
-            if (module.isEnabled()) {
-                enabledModules.add(module);
-            }
-        }
-
-        loadModuleConfigs();
-
-        MinecraftForge.EVENT_BUS.register(this);
-    }
-
-    private void loadModuleConfigs() {
-        forEachModule(Module::setupConfig);
-        configHelper.save();
-    }
-
-    public void forEachModule(Consumer<Module> consumer) {
-        moduleInstances.values().forEach(consumer);
-    }
-
-    public void forEachEnabled(Consumer<Module> consumer) {
-        enabledModules.forEach(consumer);
-    }
-
-    protected void registerModule(Class<? extends Module> clazz) {
-        if (!moduleClasses.contains(clazz))
-            moduleClasses.add(clazz);
-    }
-
-    @SubscribeEvent
-    public void onConfigChanged(ConfigChangedEvent.OnConfigChangedEvent eventArgs) {
-        if (eventArgs.getModID().equals(BWMod.MODID))
-            loadModuleConfigs();
-    }
-
-    public boolean isFeatureEnabled(Class<? extends Feature> clazz) {
-        for (Module module : this.moduleInstances.values()) {
-            if (module.isEnabled()) {
-                if (module.isFeatureEnabled(clazz)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+    public ModuleLoader addModule(Module module) {
+        this.add(module);
+        return this;
     }
 
     public Logger getLogger() {
@@ -183,5 +59,44 @@ public abstract class ModuleLoader {
 
     public void setLogger(Logger logger) {
         this.logger = logger;
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        File file = event.getSuggestedConfigurationFile();
+        ConfigHelper helper = new ConfigHelper(file.getParent(), new Configuration(file));
+        forEach(module -> {
+            //FIXME Currently have a config for each module, not entirely sure about this
+//            File file = new File(event.getModConfigurationDirectory(), relativeConfigDir.getPath());
+//            ConfigHelper helper = new ConfigHelper(file.getPath(), new Configuration(new File(file, module.getName() + ".cfg")));
+
+            List<Feature> feature = module.setup(helper, getLogger());
+            //Add all feature classes to the set;
+            enabledFeatures.addAll(feature.stream().map(Feature::getClass).collect(Collectors.toSet()));
+        });
+        super.onPreInit(event);
+    }
+
+    public boolean isFeatureEnabled(Class<? extends Feature> clazz) {
+        return enabledFeatures.contains(clazz);
+    }
+
+    @SuppressWarnings("unused")
+    public static class ConditionConfig implements IConditionFactory {
+        @Override
+        public BooleanSupplier parse(JsonContext context, JsonObject json) {
+            String enabled = JsonUtils.getString(json, "enabled");
+            return () -> JSON_CONDITIONS.getOrDefault(enabled, false);
+        }
+    }
+
+    @Override
+    public String getType() {
+        return "ModuleLoader";
+    }
+
+    @Override
+    public String getName() {
+        return "ModuleLoader";
     }
 }

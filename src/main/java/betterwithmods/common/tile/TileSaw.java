@@ -3,8 +3,8 @@ package betterwithmods.common.tile;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.common.BWRegistry;
-import betterwithmods.common.BWSounds;
+import betterwithmods.common.BWMRegistry;
+import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.mechanical.BlockSaw;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.util.WorldUtils;
@@ -35,11 +35,11 @@ public class TileSaw extends TileBasic implements IMechanicalPower {
         final IBlockState state = world.getBlockState(blockPos);
         if (world.isAirBlock(blockPos))
             return;
-        SawRecipe recipe = BWRegistry.WOOD_SAW.findRecipe(world, blockPos, state).orElse(null);
+        SawRecipe recipe = BWMRegistry.WOOD_SAW.findRecipe(world, blockPos, state).orElse(null);
         if (recipe != null) {
             if (!recipe.craftRecipe(world, blockPos, rand, state)) {
                 if (!getBlock().isChoppingBlock(state, false) && WorldUtils.isSolid(world, blockPos, facing, state)) {
-                    world.playSound(null, blockPos, BWSounds.METAL_HACKSAW, SoundCategory.BLOCKS, 1.0f, 0.80f);
+                    world.playSound(null, blockPos, BWMSounds.METAL_HACKSAW, SoundCategory.BLOCKS, 1.0f, 0.80f);
                 }
             }
         }

@@ -23,14 +23,14 @@ public class MoreTempting extends Feature {
     public static EntityIngredientRelationRegistry REGISTRY = new EntityIngredientRelationRegistry();
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add more valid items for tempting animals to follow. Sheep and cows follow Tall Grass or Wheat." +
                 " Chickens follow most seeds." +
                 " Pigs will follow Wheat, Potatoes, Beets, Chocolate";
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    public void onPostInit(FMLPostInitializationEvent event) {
         REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "chicken"), e -> e instanceof EntityChicken)
                 .addIngredient(new OreIngredient("seed"));
         REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "pig"), e -> e instanceof EntityPig)
@@ -40,7 +40,7 @@ public class MoreTempting extends Feature {
     }
 
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent event) {
+    public static void addEntityAI(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntityLivingBase) {
             EntityLivingBase entity = (EntityLivingBase) event.getEntity();
             if (entity instanceof EntityAnimal) {
@@ -52,11 +52,6 @@ public class MoreTempting extends Feature {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override

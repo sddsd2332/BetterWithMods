@@ -143,7 +143,7 @@ public class ClientEventHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onBlockHighlight(DrawBlockHighlightEvent event) {
+    public static void onBlockHighlight(DrawBlockHighlightEvent event) {
         if (!blockPlacementHighlight)
             return;
         EntityPlayer player = event.getPlayer();
@@ -170,7 +170,7 @@ public class ClientEventHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void renderStatus(RenderGameOverlayEvent.Post event) {
+    public static void renderStatus(RenderGameOverlayEvent.Post event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
             GuiStatus.INSTANCE.draw();
         }

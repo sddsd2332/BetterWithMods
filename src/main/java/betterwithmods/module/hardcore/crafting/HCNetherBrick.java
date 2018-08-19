@@ -9,12 +9,12 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class HCNetherBrick extends Feature {
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.NETHERRACK));
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Remove the recipe for smelting netherrack into netherbrick";
     }
 }

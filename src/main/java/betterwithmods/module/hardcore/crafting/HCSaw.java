@@ -15,12 +15,12 @@ import java.util.Set;
  */
 public class HCSaw extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes the Saw required to get complex wooden blocks, including Fences, Doors, Etc.";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         Set<ResourceLocation> blocks = Sets.newHashSet(
                 Blocks.OAK_FENCE.getRegistryName(),
                 Blocks.ACACIA_FENCE.getRegistryName(),

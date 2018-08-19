@@ -13,13 +13,8 @@ import static betterwithmods.util.WorldUtils.addDrop;
 public class BatWings extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add a Bat Wing drop to bats";
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @Override
@@ -28,7 +23,7 @@ public class BatWings extends Feature {
     }
 
     @SubscribeEvent
-    public void onDeath(LivingDropsEvent event) {
+    public static void onDeath(LivingDropsEvent event) {
         World world = event.getEntityLiving().getEntityWorld();
         if (event.getEntityLiving() instanceof EntityBat) {
             int count = event.getLootingLevel() > 0 ? Math.min(2, event.getLootingLevel()) : world.rand.nextInt(2);

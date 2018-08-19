@@ -14,6 +14,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -21,19 +22,16 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+
+@Mod.EventBusSubscriber
 public class HCMelon extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes Melons have gravity, makes for cool automation abilities";
     }
 
     @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-    @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         Blocks.MELON_STEM.setHardness(0.2F);
         Blocks.PUMPKIN_STEM.setHardness(0.2F);
 
@@ -42,7 +40,7 @@ public class HCMelon extends Feature {
     }
 
     @SubscribeEvent
-    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
         Block block = event.getState().getBlock();
 
         //Require an axe for melons and pumpkins
@@ -72,13 +70,13 @@ public class HCMelon extends Feature {
     }
 
     @SubscribeEvent
-    public void onNeighborNotify(BlockEvent.NeighborNotifyEvent event) {
+    public static void onNeighborNotify(BlockEvent.NeighborNotifyEvent event) {
         World world = event.getWorld();
         makeGourdFall(world, event.getPos());
         makeGourdFall(world, event.getPos().up());
     }
 
-    private void makeGourdFall(World world, BlockPos pos) {
+    private static void makeGourdFall(World world, BlockPos pos) {
         IBlockState blockstate = world.getBlockState(pos);
         Block block = blockstate.getBlock();
         if (block instanceof BlockMelon || block instanceof BlockPumpkin) {
@@ -95,8 +93,4 @@ public class HCMelon extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.BWDamageSource;
+import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -91,7 +91,7 @@ public class BlockNetherGrowth extends BWMBlock {
         AxisAlignedBB bb = this.getBoundingBox(state, world, pos).offset(pos).grow(3);
         List<Entity> entities = world.getEntitiesWithinAABB(Entity.class, bb);
         for (Entity e : entities) {
-            e.attackEntityFrom(BWDamageSource.growth, 2);
+            e.attackEntityFrom(BWMDamageSource.growth, 2);
         }
         world.playSound(null, pos, SoundEvents.ENTITY_SLIME_JUMP, SoundCategory.BLOCKS, 0.4f, 0.5f);
 
@@ -200,7 +200,7 @@ public class BlockNetherGrowth extends BWMBlock {
         } else if (entityIn instanceof EntityLivingBase) {
             if (PlayerHelper.hasPart((EntityLivingBase) entityIn, EntityEquipmentSlot.FEET, ItemSoulforgeArmor.class))
                 return;
-            entityIn.attackEntityFrom(BWDamageSource.growth, 5);
+            entityIn.attackEntityFrom(BWMDamageSource.growth, 5);
             entityIn.fallDistance = 0;
             entityIn.motionY = 1;
         }

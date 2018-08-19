@@ -18,18 +18,13 @@ public class HCSquid extends Feature {
 
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Fear the squid...";
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent event) {
+    public static void addEntityAI(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntitySquid) {
             EntitySquid squid = (EntitySquid) event.getEntity();
 //            squid.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64d);
@@ -47,7 +42,7 @@ public class HCSquid extends Feature {
     }
 
     @SubscribeEvent
-    public void onEntityTick(LivingEvent.LivingUpdateEvent event) {
+    public static void onEntityTick(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntitySquid) {
             EntitySquid squid = (EntitySquid) event.getEntityLiving();
             squid.setAir(300);
@@ -60,12 +55,12 @@ public class HCSquid extends Feature {
     }
 
     @SubscribeEvent
-    public void onClicked(PlayerInteractEvent.EntityInteractSpecific event) {
+    public static void onClicked(PlayerInteractEvent.EntityInteractSpecific event) {
 
     }
 
     @SubscribeEvent
-    public void onDismount(EntityMountEvent event) {
+    public static void onDismount(EntityMountEvent event) {
         if (event.getEntityMounting() instanceof EntitySquid && event.isDismounting() && event.getEntityMounting().isEntityAlive()) {
             event.setResult(Event.Result.DENY);
             event.setCanceled(true);

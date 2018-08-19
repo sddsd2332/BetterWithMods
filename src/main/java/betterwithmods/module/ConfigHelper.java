@@ -10,18 +10,15 @@
  */
 package betterwithmods.module;
 
+import betterwithmods.BWMod;
+import betterwithmods.api.modules.config.*;
 import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Maps;
-import com.google.gson.JsonObject;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.JsonUtils;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.config.Configuration;
-import net.minecraftforge.common.config.Property;
-import net.minecraftforge.common.crafting.IConditionFactory;
-import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
@@ -30,25 +27,21 @@ import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Set;
-import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
 public class ConfigHelper {
 
-    public static final HashMap<String, Boolean> CONDITIONS = Maps.newHashMap();
-    public final boolean allNeedRestart = false;
+
     public final Configuration config;
     public final String path;
-    public boolean needsRestart;
 
     public ConfigHelper(String path, Configuration configuration) {
         this.path = path;
         this.config = configuration;
     }
 
-    public Set<ResourceLocation> loadPropRLSet(String propName, String category, String desc, String[] default_) {
-        String[] l = loadPropStringList(propName, category, desc, default_);
-        return Arrays.stream(l).map(this::rlFromString).collect(Collectors.toSet());
+    public static String joinCategory(String... cat) {
+        return String.join(".", cat);
     }
 
     private ResourceLocation rlFromString(String loc) {
@@ -77,7 +70,7 @@ public class ConfigHelper {
         return ItemStack.EMPTY;
     }
 
-    public Ingredient ingredientfromString(String name) {
+    private Ingredient ingredientfromString(String name) {
         if (name.startsWith("ore:"))
             return new OreIngredient(name.substring(4));
         String[] split = name.split(":");
@@ -97,7 +90,7 @@ public class ConfigHelper {
         return Ingredient.EMPTY;
     }
 
-    public String fromStack(ItemStack stack) {
+    private String fromStack(ItemStack stack) {
         if (stack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
             return String.format("%s:*", stack.getItem().getRegistryName());
         } else if (stack.getMetadata() == 0) {
@@ -105,6 +98,17 @@ public class ConfigHelper {
         } else {
             return String.format("%s:%s", stack.getItem().getRegistryName(), stack.getMetadata());
         }
+    }
+
+    private HashMap<Ingredient, Integer> parseIngredientValueMap(String[] entries) {
+        HashMap<Ingredient, Integer> map = Maps.newHashMap();
+        for (String entry : entries) {
+            String[] keyValue = entry.split("=");
+            if (keyValue.length == 2) {
+                map.put(this.ingredientfromString(keyValue[0]), Integer.parseInt(keyValue[1]));
+            }
+        }
+        return map;
     }
 
     public void setDescription(String category, String comment) {
@@ -115,130 +119,83 @@ public class ConfigHelper {
         config.setCategoryComment(category, comment);
     }
 
-    public boolean loadRecipeCondition(String jsonString, String propName, String category, String desc, boolean default_) {
-        boolean value = loadPropBool(propName, category, desc, default_);
-        CONDITIONS.put(jsonString, value);
+    public Set<ResourceLocation> loadResourceLocations(String property, String category, String comment, String[] default_) {
+        return Arrays.stream(load(category, property, default_).setComment(comment).get()).map(this::rlFromString).collect(Collectors.toSet());
+    }
+
+    public boolean loadRecipeCondition(String jsonString, String property, String category, String comment, boolean default_) {
+        boolean value = load(category, property, default_).setComment(comment).get();
+        ModuleLoader.JSON_CONDITIONS.put(jsonString, value);
         return value;
     }
 
-    public int[] loadPropIntList(String propName, String category, String comment, int[] default_) {
-        Property prop = config.get(category, propName, default_, comment);
-        setNeedsRestart(prop);
-        return prop.getIntList();
+    public List<ResourceLocation> loadResouceLocations(String property, String category, String comment, String[] default_) {
+        return Arrays.stream(load(category, property, default_).setComment(comment).get()).map(this::rlFromString).collect(Collectors.toList());
     }
 
-    public int loadPropInt(String propName, String category, String desc, String comment, int default_, int min, int max) {
-        Property prop = config.get(category, propName, default_, comment, min, max);
-        prop.setComment(desc);
-        setNeedsRestart(prop);
-
-        return prop.getInt(default_);
+    public List<ItemStack> loadItemStackList(String property, String category, String comment, String[] default_) {
+        return Arrays.stream(load(category, property, default_).setComment(comment).get()).map(this::stackFromString).collect(Collectors.toList());
     }
 
-    public int loadPropInt(String propName, String category, String desc, int default_) {
-        Property prop = config.get(category, propName, default_);
-        prop.setComment(desc);
-        setNeedsRestart(prop);
-
-        return prop.getInt(default_);
-    }
-
-    public double loadPropDouble(String propName, String category, String desc, double default_) {
-        Property prop = config.get(category, propName, default_);
-        prop.setComment(desc);
-        setNeedsRestart(prop);
-
-        return prop.getDouble(default_);
-    }
-
-    public double loadPropDouble(String propName, String category, String desc, double default_, double min, double max) {
-        Property prop = config.get(category, propName, default_, desc, min, max);
-        prop.setComment(desc);
-        setNeedsRestart(prop);
-
-        return prop.getDouble(default_);
-    }
-
-    public boolean loadPropBool(String propName, String category, String desc, boolean default_) {
-        Property prop = config.get(category, propName, default_);
-        prop.setComment(desc);
-        setNeedsRestart(prop);
-
-        return prop.getBoolean(default_);
-    }
-
-    public String loadPropString(String propName, String category, String desc, String default_) {
-        Property prop = config.get(category, propName, default_);
-        prop.setComment(desc);
-        setNeedsRestart(prop);
-
-        return prop.getString();
-    }
-
-    public String[] loadPropStringList(String propName, String category, String desc, String[] default_) {
-        Property prop = config.get(category, propName, default_);
-        prop.setComment(desc);
-        setNeedsRestart(prop);
-        return prop.getStringList();
-    }
-
-    public List<ResourceLocation> loadPropRLList(String propName, String category, String desc, String[] default_) {
-        String[] l = loadPropStringList(propName, category, desc, default_);
-        return Arrays.stream(l).map(this::rlFromString).collect(Collectors.toList());
-    }
-
-    public List<ItemStack> loadItemStackList(String propName, String category, String desc, String[] default_) {
-        return Arrays.stream(loadPropStringList(propName, category, desc, default_)).map(this::stackFromString).collect(Collectors.toList());
-    }
-
-    public List<ItemStack> loadItemStackList(String propName, String category, String desc, ItemStack[] default_) {
+    public List<ItemStack> loadItemStackList(String property, String category, String comment, ItemStack[] default_) {
         String[] strings_ = new String[default_.length];
         Arrays.stream(default_).map(this::fromStack).collect(Collectors.toList()).toArray(strings_);
-        return loadItemStackList(propName, category, desc, strings_);
+        return loadItemStackList(property, category, comment, strings_);
     }
 
-    public ItemStack[] loadItemStackArray(String propName, String category, String desc, String[] default_) {
-        return Arrays.stream(loadPropStringList(propName, category, desc, default_)).map(this::stackFromString).toArray(ItemStack[]::new);
+    public ItemStack[] loadItemStackArray(String property, String category, String comment, String[] default_) {
+        return Arrays.stream(load(category, property, default_).setComment(comment).get()).map(this::stackFromString).toArray(ItemStack[]::new);
     }
 
-    public ItemStack[] loadItemStackArray(String propName, String category, String desc, ItemStack[] default_) {
+    public ItemStack[] loadItemStackArray(String property, String category, String comment, ItemStack[] default_) {
         String[] strings_ = new String[default_.length];
         Arrays.stream(default_).map(this::fromStack).collect(Collectors.toList()).toArray(strings_);
-        return loadItemStackArray(propName, category, desc, strings_);
+        return loadItemStackArray(property, category, comment, strings_);
     }
 
-    public HashMap<Ingredient, Integer> loadItemStackIntMap(String propName, String category, String desc, String[] _default) {
-        HashMap<Ingredient, Integer> map = Maps.newHashMap();
-        String[] l = loadPropStringList(propName, category, desc, _default);
-        for (String s : l) {
-            String[] a = s.split("=");
-            if (a.length == 2) {
-                map.put(this.ingredientfromString(a[0]), Integer.parseInt(a[1]));
-            }
-        }
-        return map;
+    public HashMap<Ingredient, Integer> loadItemStackIntMap(String property, String category, String comment, String[] default_) {
+        return parseIngredientValueMap(load(category, property, default_).setComment(comment).get());
     }
 
-    public void setRestartNeed(boolean restart) {
-        this.needsRestart = restart;
+    public void overrideBlock(String str) {
+        BWMod.proxy.addResourceOverride("textures", "blocks", str, "png");
     }
 
-    private void setNeedsRestart(Property prop) {
-        if (needsRestart)
-            prop.setRequiresMcRestart(needsRestart);
-        needsRestart = allNeedRestart;
+    public void overrideItem(String str) {
+        BWMod.proxy.addResourceOverride("textures", "items", str, "png");
     }
 
+
+    //
     public void save() {
         if (config.hasChanged())
             config.save();
     }
 
-    public static class ConditionConfig implements IConditionFactory {
-        @Override
-        public BooleanSupplier parse(JsonContext context, JsonObject json) {
-            String enabled = JsonUtils.getString(json, "enabled");
-            return () -> CONDITIONS.getOrDefault(enabled, false);
+    @SuppressWarnings("unchecked")
+    public <T> ConfigProperty<T> load(String category, String property, T value) {
+        ConfigProperty<T> prop = null;
+        if (Boolean.class.isInstance(value)) {
+            prop = (ConfigProperty<T>) new BooleanProperty(config, property, category, (Boolean) value);
+        } else if (Integer.class.isInstance(value)) {
+            prop = (ConfigProperty<T>) new IntProperty(config, property, category, (Integer) value);
+        } else if (value instanceof String) {
+            prop = (ConfigProperty<T>) new StringProperty(config, property, category, (String) value);
+        } else if (Double.class.isInstance(value)) {
+            prop = (ConfigProperty<T>) new DoubleProperty(config, property, category, (Double) value);
+        } else if (Float.class.isInstance(value)) {
+            prop = (ConfigProperty<T>) new FloatProperty(config, property, category, (Float) value);
+        } else if (value instanceof String[]) {
+            prop = (ConfigProperty<T>) new StringArrayProperty(config, property, category, (String[]) value);
+        } else if (value instanceof int[]) {
+            prop = (ConfigProperty<T>) new IntArrayProperty(config, property, category, (int[]) value);
+        } else if (value instanceof double[]) {
+            prop = (ConfigProperty<T>) new DoubleArrayProperty(config, property, category, (double[]) value);
+        } else if (value instanceof boolean[]) {
+            prop = (ConfigProperty<T>) new BooleanArrayProperty(config, property, category, (boolean[]) value);
         }
+        return prop;
     }
+
+
 }

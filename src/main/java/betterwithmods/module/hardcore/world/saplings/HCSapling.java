@@ -13,11 +13,13 @@ import net.minecraft.block.BlockSapling;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
 
+@Mod.EventBusSubscriber
 public class HCSapling extends Feature {
 
     public static List<SaplingConversion> SAPLING_CONVERSIONS = Lists.newArrayList();
@@ -27,12 +29,12 @@ public class HCSapling extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change saplings to grow in stages before becoming a tree";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         for (BlockPlanks.EnumType type : BlockPlanks.EnumType.values()) {
             IBlockState sapling = getSapling(type);
             Block crop = new BlockSaplingCrop(sapling).setRegistryName(BWMod.MODID, String.format("sapling_crop_%s", type.getName()));
@@ -42,7 +44,7 @@ public class HCSapling extends Feature {
     }
 
     @SubscribeEvent
-    public void onBlockPlaced(BlockEvent.PlaceEvent event) {
+    public static void onBlockPlaced(BlockEvent.PlaceEvent event) {
         if (event.getPlayer() != null && event.getPlacedBlock().getBlock() instanceof BlockSapling) {
             IBlockState state = event.getPlacedBlock();
             IBlockState replaced = event.getBlockSnapshot().getReplacedBlock();
@@ -54,11 +56,6 @@ public class HCSapling extends Feature {
                 }
             }
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 
     public class SaplingConversion {

@@ -1,6 +1,6 @@
 package betterwithmods.module.compat.jei.wrapper;
 
-import betterwithmods.module.gameplay.miniblocks.MiniRecipe;
+import betterwithmods.module.recipes.miniblocks.MiniRecipe;
 import com.google.common.collect.Lists;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;

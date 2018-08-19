@@ -1,21 +1,23 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.module.Feature;
-import betterwithmods.module.gameplay.PlayerDataHandler;
+import betterwithmods.module.general.player.PlayerDataHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.Team;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 5/21/17.
  */
+@Mod.EventBusSubscriber
 public class HCNames extends Feature {
 
     @SubscribeEvent
-    public void onPlayerJoin(EntityJoinWorldEvent e) {
+    public static void onPlayerJoin(EntityJoinWorldEvent e) {
         if (e.getEntity() instanceof EntityPlayerMP) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
             Team team = player.getTeam();
@@ -25,14 +27,8 @@ public class HCNames extends Feature {
             }
         }
     }
-
     @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Disables Player Name Tags";
     }
 }

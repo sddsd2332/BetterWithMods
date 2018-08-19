@@ -2,8 +2,8 @@ package betterwithmods.module.hardcore.world.spawn;
 
 import betterwithmods.BWMod;
 import betterwithmods.module.Feature;
-import betterwithmods.module.GlobalConfig;
-import betterwithmods.module.gameplay.PlayerDataHandler;
+import betterwithmods.module.general.General;
+import betterwithmods.module.general.player.PlayerInfo;
 import betterwithmods.util.WorldUtils;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.material.Material;
@@ -23,6 +23,7 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.WorldEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -36,7 +37,7 @@ import static net.minecraft.world.WorldType.FLAT;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@SuppressWarnings("unused")
+@Mod.EventBusSubscriber
 public class HCSpawn extends Feature {
 
     public static final Random RANDOM = new Random();
@@ -69,39 +70,32 @@ public class HCSpawn extends Feature {
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(SpawnSaving.class, new SpawnSaving.Storage(), SpawnSaving::new);
+        HARDCORE_SPAWN_RADIUS = loadProperty("Hardcore Spawn Radius", 2000).setComment("Radius from original spawn which you will be randomly spawned").get();
+        HARDCORE_SPAWN_COOLDOWN_RADIUS = loadProperty("Hardcore Spawn Cooldown Radius", 100).setComment("Radius from your previous spawn you will spawn if you die during a cooldown period").get();
+        HARDCORE_SPAWN_COOLDOWN = loadProperty("Hardcore Spawn Cooldown Ticks", 12000).setComment("Amount of time after a HCSpawn which you will continue to spawn in the same area").get();
+        HARDCORE_SPAWN_INTERNAL_RADIUS = loadProperty("Hardcore Spawn Internal Radius", 125).setComment("This internal radius will stop the player from spawning too close to the original spawn").get();
     }
 
-    @Override
-    public void setupConfig() {
-        HARDCORE_SPAWN_RADIUS = loadPropInt("Hardcore Spawn Radius", "Radius from original spawn which you will be randomly spawned", 2000);
-        HARDCORE_SPAWN_COOLDOWN_RADIUS = loadPropInt("Hardcore Spawn Cooldown Radius", "Radius from your previous spawn you will spawn if you die during a cooldown period", 100);
-        HARDCORE_SPAWN_COOLDOWN = loadPropInt("Hardcore Spawn Cooldown Ticks", "Amount of time after a HCSpawn which you will continue to spawn in the same area", 12000);
-        HARDCORE_SPAWN_INTERNAL_RADIUS = loadPropInt("Hardcore Spawn Internal Radius", "This internal radius will stop the player from spawning too close to the original spawn", 125);
-    }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes it so death is an actual issue as you will spawn randomly within a 2000 block radius of your original spawn. Compasses still point to original spawn.";
     }
 
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
 
     /**
      * Random Respawn. Less intense when there is a short time since death.
      */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void randomRespawn(LivingDeathEvent event) {
+    public static void randomRespawn(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof EntityPlayerMP)) return;
         if (event.getEntity().getEntityWorld().getWorldType() == FLAT)
             return;
         EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
 
-        PlayerDataHandler.PlayerInfo info = PlayerDataHandler.getPlayerInfo(player);
+        PlayerInfo info = PlayerInfo.getPlayerInfo(player);
 
         if (PlayerHelper.isSurvival(player)) {
             int timeSinceDeath = info.getTicksSinceDeath();
@@ -115,7 +109,7 @@ public class HCSpawn extends Feature {
 
             int internalRadius = isNew ? HARDCORE_SPAWN_INTERNAL_RADIUS : 0;
 
-            if (GlobalConfig.debug)
+            if (General.isDebug())
                 player.sendMessage(new TextComponentString(String.format("Spawn: %s, %s, %s, %s", isNew, currentSpawn, radius, timeSinceDeath)));
             BlockPos newPos = getRespawnPoint(player, currentSpawn, internalRadius, radius);
             setSpawn(player, newPos);
@@ -128,7 +122,7 @@ public class HCSpawn extends Feature {
      *
      * @return The new BlockPos
      */
-    private BlockPos getRespawnPoint(EntityPlayer player, BlockPos spawnPoint, int min, int max) {
+    private static BlockPos getRespawnPoint(EntityPlayer player, BlockPos spawnPoint, int min, int max) {
         World world = player.getEntityWorld();
         BlockPos ret = spawnPoint;
         if (!world.provider.isNether()) {
@@ -152,20 +146,15 @@ public class HCSpawn extends Feature {
         return ret;
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
     @SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer) {
             event.addCapability(PLAYER_SPAWN_POSITION, new SpawnSaving((EntityPlayer) event.getObject()));
         }
     }
 
     @SubscribeEvent
-    public void clone(PlayerEvent.Clone event) {
+    public static void clone(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
             setSpawn(event.getEntityPlayer(), getSpawn(event.getOriginal()));
         } else {
@@ -174,12 +163,12 @@ public class HCSpawn extends Feature {
     }
 
     @SubscribeEvent
-    public void onWorldLoad(WorldEvent.Load event) {
+    public static void onWorldLoad(WorldEvent.Load event) {
         event.getWorld().getGameRules().addGameRule(GAMERULE_CHANGETIME, "false", GameRules.ValueType.BOOLEAN_VALUE);
     }
 
     @SubscribeEvent
-    public void onPlayerRespawn(PlayerRespawnEvent event) {
+    public static void onPlayerRespawn(PlayerRespawnEvent event) {
         EntityPlayer player = event.player;
         World world = player.getEntityWorld();
         if (!world.getGameRules().getBoolean(GAMERULE_CHANGETIME))
@@ -189,7 +178,7 @@ public class HCSpawn extends Feature {
 
         MinecraftServer server = player.getServer();
         if (server != null && server.getPlayerList().getPlayers().size() == 1) {
-            PlayerDataHandler.PlayerInfo info = PlayerDataHandler.getPlayerInfo(player);
+            PlayerInfo info = PlayerInfo.getPlayerInfo(player);
 
             int timeSinceDeath = info.getTicksSinceDeath();
             boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
@@ -202,9 +191,9 @@ public class HCSpawn extends Feature {
     }
 
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.player instanceof EntityPlayerMP) {
-            PlayerDataHandler.PlayerInfo info = PlayerDataHandler.getPlayerInfo(event.player);
+            PlayerInfo info = PlayerInfo.getPlayerInfo(event.player);
             info.incrementTicksSinceDeath(1);
         }
     }

@@ -1,14 +1,13 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.ArmorPenalties;
 import betterwithmods.module.Feature;
 import betterwithmods.util.IngredientMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * Created by primetoxinz on 5/10/17.
@@ -48,28 +47,16 @@ public class HCArmor extends Feature {
         weights.put(Items.GOLDEN_BOOTS, 4);
     }
 
+
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
+        shieldRebalance = loadProperty("Shield Rebalance", false).setComment("Experimental recipes for rebalacing shields").get();
+        BWMRegistry.PENALTY_HANDLERS.add(penalties = new ArmorPenalties(this));
         initWeights();
     }
 
     @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public void setupConfig() {
-        shieldRebalance = loadPropBool("Shield Rebalance", "Experimental recipes for rebalacing shields", false);
-    }
-
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        BWRegistry.PENALTY_HANDLERS.add(penalties = new ArmorPenalties());
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Gives Armor weight values that effect movement. Changes Entity armor spawning: Zombies only spawn with Iron armor, Skeletons never wear armor.";
     }
 }

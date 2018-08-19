@@ -35,26 +35,20 @@ public class HCVillages extends Feature {
     public static boolean disableIronGolems;
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes it so villages with in the reaches of the spawn zone are abandoned and gradually gain more resources the further out. What this means to be gained by the player.";
     }
 
-    @Override
-    public void setupConfig() {
-        semiabandonedRadius.set(loadPropInt("Semi-Abandoned Village Radius", "Block radius from 0,0 at which villages are now semi-abandoned, all villages inside this radius are abandoned", 2000));
-        normalRadius.set(loadPropInt("Normal Village Radius", "Block radius from 0,0 at which villages are now normal, all villages in between this and semi-abandoned are semi-abandoned", 3000));
-        disableAllComplexBlocks = loadPropBool("Disable All Complex Blocks", "Removes any and all useful blocks from villages, including ladders, stairs, tables and more", false);
-        disableVillagerSpawning = loadPropBool("Replace Villager Spawning with Nitwits", "Replaces all villager spawns with Nitwits, which have no trades", true);
-        disableIronGolems = loadPropBool("Disable Village Iron Golem Spawns", "WARNING: Stops all non-player created Iron Golem Spawns", true);
-    }
 
     @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
+    public void onInit(FMLInitializationEvent event) {
 
-    @Override
-    public void init(FMLInitializationEvent event) {
+        semiabandonedRadius.set(loadProperty("Semi-Abandoned Village Radius", 200).setComment("Block radius from 0,0 at which villages are now semi-abandoned, all villages inside this radius are abandoned").get());
+        normalRadius.set(loadProperty("Normal Village Radius", 3000).setComment("Block radius from 0,0 at which villages are now normal, all villages in between this and semi-abandoned are semi-abandoned").get());
+        disableAllComplexBlocks = loadProperty("Disable All Complex Blocks", false).setComment("Removes any and all useful blocks from villages, including ladders, stairs, tables and more").get();
+        disableVillagerSpawning = loadProperty("Replace Villager Spawning with Nitwits", true).setComment("Replaces all villager spawns with Nitwits, which have no trades").get();
+        disableIronGolems = loadProperty("Disable Village Iron Golem Spawns", true).setComment("WARNING: Stops all non-player created Iron Golem Spawns").get();
+
 
         VillagerRegistry.instance().registerVillageCreationHandler(new BWField1());
         VillagerRegistry.instance().registerVillageCreationHandler(new BWField2());
@@ -81,7 +75,7 @@ public class HCVillages extends Feature {
     }
 
     @SubscribeEvent
-    public void biomeSpecificVillage(BiomeEvent.GetVillageBlockID event) {
+    public static void biomeSpecificVillage(BiomeEvent.GetVillageBlockID event) {
         //TODO tables in houses
 //		if (event.getOriginal() == BWMBlocks.WOOD_TABLE.getDefaultState()) {
 //			event.setReplacement(event.getOriginal().withProperty(BlockPlanks.VARIANT, plankFromBiome(event.getBiome())));
@@ -118,7 +112,7 @@ public class HCVillages extends Feature {
     }
 
     @SubscribeEvent
-    public void onGenerate(InitMapGenEvent event) {
+    public static void onGenerate(InitMapGenEvent event) {
         if (event.getType() == InitMapGenEvent.EventType.VILLAGE) {
             event.setNewGen(new BWMapGenVillage());
         }
@@ -126,7 +120,7 @@ public class HCVillages extends Feature {
 
     //hack to stop iron golem spawning in villages, also will stop any other spawning
     @SubscribeEvent
-    public void onEntityJoin(EntityJoinWorldEvent event) {
+    public static void onEntityJoin(EntityJoinWorldEvent event) {
         if (!disableIronGolems)
             return;
         if (event.getEntity() instanceof EntityIronGolem) {
@@ -137,15 +131,6 @@ public class HCVillages extends Feature {
         }
     }
 
-    @Override
-    public boolean hasTerrainSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }
 
 

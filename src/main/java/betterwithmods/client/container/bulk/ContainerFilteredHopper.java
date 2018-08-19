@@ -1,7 +1,7 @@
 package betterwithmods.client.container.bulk;
 
 import betterwithmods.client.container.ContainerProgress;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.tile.TileFilteredHopper;
 import betterwithmods.util.CapabilityUtils;
@@ -54,7 +54,7 @@ public class ContainerFilteredHopper extends ContainerProgress {
             if (index < 19) {
                 if (!mergeItemStack(processedStack, 19, this.inventorySlots.size(), true))
                     return ItemStack.EMPTY;
-            } else if (BWRegistry.HOPPER_FILTERS.isFilter(processedStack)) {
+            } else if (BWMRegistry.HOPPER_FILTERS.isFilter(processedStack)) {
                 if (!mergeItemStack(processedStack, 18, 19, false))
                     return ItemStack.EMPTY;
             } else if (!mergeItemStack(processedStack, 0, 18, false)) {
@@ -70,7 +70,7 @@ public class ContainerFilteredHopper extends ContainerProgress {
     }
 
     private boolean isItemFilter(ItemStack stack) {
-        return BWRegistry.HOPPER_FILTERS.getFilter(stack) != HopperFilter.NONE;
+        return BWMRegistry.HOPPER_FILTERS.getFilter(stack) != HopperFilter.NONE;
     }
 
     @Override

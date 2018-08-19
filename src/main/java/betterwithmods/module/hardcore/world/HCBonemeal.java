@@ -29,7 +29,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  */
 public class HCBonemeal extends Feature {
     public static StackIngredient FERTILIZERS = StackIngredient.fromStacks(new ItemStack(BWMItems.FERTILIZER), new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()));
-    private static boolean removeBonemealRecipe;
 
     //TODO find a better solution to adding valid stacks to an ingredient.
     @Deprecated
@@ -38,23 +37,19 @@ public class HCBonemeal extends Feature {
     }
 
     @Override
-    public void setupConfig() {
-        removeBonemealRecipe = loadPropBool("Remove Bonemeal Crafting Recipe", "Removes Bonemeal from Crafting Table", true);
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Removes the ability to instant-grow crops and trees with bonemeal";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
+        boolean removeBonemealRecipe = loadProperty("Remove Bonemeal Crafting Recipe", true).get();
         if (removeBonemealRecipe)
             BWMRecipes.removeRecipe(new ItemStack(Items.DYE, 3, EnumDyeColor.WHITE.getDyeDamage()));
     }
 
     @SubscribeEvent
-    public void onBonemeal(BonemealEvent e) {
+    public static void onBonemeal(BonemealEvent e) {
         if (!PlayerHelper.isSurvival(e.getEntityPlayer()))
             return;
         if (!(e.getBlock().getBlock() instanceof BlockGrass) && !(e.getBlock().getBlock() instanceof BlockPlanter) && e.getBlock().getBlock() instanceof IGrowable) {
@@ -65,7 +60,7 @@ public class HCBonemeal extends Feature {
     }
 
     @SubscribeEvent
-    public void onItemUse(PlayerInteractEvent.RightClickBlock e) {
+    public static void onItemUse(PlayerInteractEvent.RightClickBlock e) {
         ItemStack stack = e.getItemStack();
 
         if (!FERTILIZERS.apply(stack))
@@ -88,8 +83,4 @@ public class HCBonemeal extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

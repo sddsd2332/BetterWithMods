@@ -2,11 +2,11 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockRailDetectorBase;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
-import betterwithmods.module.gameplay.MetalReclaming;
+import betterwithmods.module.recipes.MetalReclaming;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.entity.item.EntityMinecartEmpty;
@@ -27,18 +27,18 @@ public class DetectorRail extends Feature {
     public static final Block DETECTOR_RAIL_STEEL = new BlockRailDetectorBase(cart -> BlockRailDetectorBase.isRider(cart, rider -> rider instanceof EntityPlayer)).setRegistryName("detector_rail_steel");
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change what detector rails detect; Wooden:all minecarts; Stone: carts containing something, SFS: carts with players.";
     }
 
     @Override
-    public void preInitClient(FMLPreInitializationEvent event) {
-        overrideBlock("rail_detector");
-        overrideBlock("rail_detector_powered");
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        config().overrideBlock("rail_detector");
+        config().overrideBlock("rail_detector_powered");
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         registerBlock(DETECTOR_RAIL_STEEL);
         registerBlock(DETECTOR_RAIL_STONE);
 
@@ -48,10 +48,10 @@ public class DetectorRail extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         if (BWMod.MODULE_LOADER.isFeatureEnabled(MetalReclaming.class)) {
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STONE, 6), new ItemStack(Items.IRON_INGOT, 6));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2)));
+            BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STONE, 6), new ItemStack(Items.IRON_INGOT, 6));
+            BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2)));
         }
     }
 }

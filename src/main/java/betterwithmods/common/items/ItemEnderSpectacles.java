@@ -1,7 +1,7 @@
 package betterwithmods.common.items;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -19,8 +19,8 @@ public class ItemEnderSpectacles extends ItemArmor {
 
     @Override
     public void onArmorTick(World world, EntityPlayer player, ItemStack itemStack) {
-        if (!player.isPotionActive(BWRegistry.POTION_SLOWFALL))
-            player.addPotionEffect(new PotionEffect(BWRegistry.POTION_TRUESIGHT, 0));
+        if (!player.isPotionActive(BWMRegistry.POTION_SLOWFALL))
+            player.addPotionEffect(new PotionEffect(BWMRegistry.POTION_TRUESIGHT, 0));
     }
 
     @Override

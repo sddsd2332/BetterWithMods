@@ -7,8 +7,4 @@ public class FloatAttribute extends Attribute<Float> {
         super(registryName, value);
     }
 
-    @Override
-    public AttributeInstance<Float> fromConfig(String category, String name, Float defaultValue) {
-        return BWMAttributes.getFloatAttribute(this, category, name, getDescription(), defaultValue);
-    }
 }
