@@ -142,7 +142,7 @@ public class ClientEventHandler {
         GlStateManager.disableBlend();
     }
 
-    public IRenderRotationPlacement findRenderer(Item item, Block block) {
+    public static IRenderRotationPlacement findRenderer(Item item, Block block) {
         if (item instanceof IRenderRotationPlacement) {
             return (IRenderRotationPlacement) item;
         } else if (block instanceof IRenderRotationPlacement) {

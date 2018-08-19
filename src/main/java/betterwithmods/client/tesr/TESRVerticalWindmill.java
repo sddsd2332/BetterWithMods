@@ -22,12 +22,12 @@ public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileWindmill
 
     public static void renderWindmill(float rotation, double x, double y, double z, float alpha, @Nullable BannerUtils.BannerData[] data) {
         GlStateManager.pushMatrix();
-        GlStateManager.translate(x + 0.5D, y + 0.5D, z + 0.5D);
         GlStateManager.enableRescaleNormal();
+        GlStateManager.translate(x + 0.5D, y + 0.5D, z + 0.5D);
 
         render = new ModelVerticalWindmill();
         if (data != null) {
-            for (int i = 0; i < data.length; i++) {
+            for (int i = 0; i < render.bladeCount; i++) {
                 render.setBanner(i, data[i]);
             }
         }

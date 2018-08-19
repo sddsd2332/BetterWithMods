@@ -6,7 +6,7 @@ import net.minecraft.client.model.ModelRenderer;
 
 public abstract class ModelRadialBlades extends ModelBase {
 
-    protected final int bladeCount;
+    public final int bladeCount;
     private BannerUtils.BannerData[] banners;
     private ModelPart base;
 
