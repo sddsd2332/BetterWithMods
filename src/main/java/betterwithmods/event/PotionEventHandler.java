@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class PotionEventHandler {
 
 
@@ -97,8 +97,8 @@ public class PotionEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
-        if (event.getHarvester() != null && !event.isSilkTouching() && event.getHarvester().isPotionActive(BWMRegistry.POTION_FORTUNE)) {
-            PotionEffect effect = event.getHarvester().getActivePotionEffect(BWMRegistry.POTION_FORTUNE);
+        if (event.getHarvester() != null && !event.isSilkTouching() && event.getHarvester().isPotionActive(BWRegistry.POTION_FORTUNE)) {
+            PotionEffect effect = event.getHarvester().getActivePotionEffect(BWRegistry.POTION_FORTUNE);
             int level = effect.getAmplifier() + 1;
             if (event.getFortuneLevel() < level) {
                 event.getDrops().clear();
@@ -122,6 +122,9 @@ public class PotionEventHandler {
 
     @SubscribeEvent
     public static void onPlayerUpdate(TickEvent.PlayerTickEvent e) {
+        if (e.phase == TickEvent.Phase.START)
+            return;
+
         EntityPlayer player = e.player;
         for (PotionEffect potion : player.getActivePotionEffects()) {
             if (potion.getPotion() instanceof BWPotion) {
@@ -135,16 +138,14 @@ public class PotionEventHandler {
     public static void saveSoup(LivingEntityUseItemEvent.Finish event) {
         ItemStack item = event.getItem();
         if (item.getItem() instanceof ItemSoup) {
-            if (item.getCount() > 0) {
-                ItemStack result = event.getResultStack();
-                ItemStack copy = item.copy();
-                copy.shrink(1);
-                event.setResultStack(copy);
-                if (event.getEntityLiving() instanceof EntityPlayer) {
-                    EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-                    if (!player.inventory.addItemStackToInventory(result)) {
-                        player.dropItem(result, false);
-                    }
+            ItemStack result = event.getResultStack();
+            ItemStack copy = item.copy();
+            copy.shrink(1);
+            event.setResultStack(copy);
+            if (event.getEntityLiving() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+                if (!player.inventory.addItemStackToInventory(result)) {
+                    player.dropItem(result, false);
                 }
             }
         }

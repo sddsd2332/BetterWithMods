@@ -170,8 +170,10 @@ public class HCEnchanting extends Feature {
     }
 
     @SubscribeEvent
-    public static void onTick(TickEvent.PlayerTickEvent event) {
-        if (!event.player.getEntityWorld().isRemote) {
+    public void onTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.START)
+            return;
+        if(!event.player.getEntityWorld().isRemote) {
             int mod = EnchantmentHelper.getRespirationModifier(event.player);
             if (mod >= 5) {
                 event.player.setAir(300);

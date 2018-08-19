@@ -116,7 +116,11 @@ public class HCGloom extends Feature {
     }
 
     @SubscribeEvent
-    public static void inDarkness(TickEvent.PlayerTickEvent e) {
+    public void inDarkness(TickEvent.PlayerTickEvent e) {
+        if (e.phase == TickEvent.Phase.START)
+            return;
+
+
         EntityPlayer player = e.player;
         World world = player.getEntityWorld();
 

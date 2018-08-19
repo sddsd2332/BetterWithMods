@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class BottleFluidCapability implements IFluidHandlerItem, ICapabilityProvider {
 
     private static int waterBottleAmount = 300;

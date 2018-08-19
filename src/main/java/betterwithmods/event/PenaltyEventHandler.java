@@ -2,6 +2,9 @@ package betterwithmods.event;
 
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.BWMSounds;
+import betterwithmods.BWMod;
+import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWSounds;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -12,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class PenaltyEventHandler {
 
     @SubscribeEvent
@@ -32,6 +35,9 @@ public class PenaltyEventHandler {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.START)
+            return;
+
         EntityPlayer player = event.player;
         //Don't run on client side
         if (player.world.isRemote)

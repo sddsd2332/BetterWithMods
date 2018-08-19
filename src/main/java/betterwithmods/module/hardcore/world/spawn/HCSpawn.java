@@ -191,10 +191,13 @@ public class HCSpawn extends Feature {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.START)
+            return;
         if (event.player instanceof EntityPlayerMP) {
             PlayerInfo info = PlayerInfo.getPlayerInfo(event.player);
             info.incrementTicksSinceDeath(1);
         }
     }
 }
+

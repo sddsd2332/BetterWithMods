@@ -1,5 +1,6 @@
 package betterwithmods.common.items.tools;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.entity.EntityBroadheadArrow;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityArrow;
@@ -22,7 +23,7 @@ import javax.annotation.Nonnull;
  * @author primetoxinz
  * @version 11/18/16
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class ItemBroadheadArrow extends ItemArrow {
 
     @Override

@@ -32,7 +32,7 @@ import java.util.UUID;
 /**
  * Created by primetoxinz on 7/17/17.
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class SpawnBeaconEffect extends BeaconEffect {
 
     public static final HashMap<BlockPos, HashSet<BindingPoint>> SPAWN_LIST = Maps.newHashMap();
