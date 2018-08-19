@@ -1,9 +1,11 @@
 package betterwithmods.util.player;
 
+import betterwithmods.BWMod;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.hardcore.needs.HCArmor;
+import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -130,6 +132,10 @@ public final class PlayerHelper {
         entityLivingBase.getEntityAttribute(attribute).removeModifier(uuid);
     }
 
+    public static int getMinimumHunger() {
+        return BWMod.MODULE_LOADER.isFeatureEnabled(HCHunger.class) ? 20 : 6;
+    }
+
     public static int getWornArmorWeight(EntityPlayer player) {
         int weight = 0;
         for (ItemStack stack : player.inventory.armorInventory) {
@@ -167,7 +173,7 @@ public final class PlayerHelper {
             if (Objects.equals(type, "bwmmattock")) {
                 return state.getBlock().isToolEffective("shovel", state) || state.getBlock().isToolEffective("pickaxe", state);
             }
-            if (state.getBlock().isToolEffective(type, state) || BWOreDictionary.isToolForOre(type, block))
+            if (state.getBlock().isToolEffective(type, state) || BWMOreDictionary.isToolForOre(type, block))
                 return true;
         }
         return false;

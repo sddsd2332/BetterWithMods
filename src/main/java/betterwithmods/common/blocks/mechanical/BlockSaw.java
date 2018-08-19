@@ -2,12 +2,11 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.BWMod;
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.common.BWDamageSource;
-import betterwithmods.common.BWSounds;
+import betterwithmods.common.BWMDamageSource;
+import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.tile.TileSaw;
-import betterwithmods.module.gameplay.MechanicalBreakage;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
@@ -149,18 +148,18 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
         emitSawParticles(world, pos, rand, EnumParticleTypes.SMOKE_NORMAL, 5);
         if (newValue) {
             world.scheduleBlockUpdate(pos, this, tickRate(world) + rand.nextInt(6), 5);
-            world.playSound(null, pos, BWSounds.SAW_CUT, SoundCategory.BLOCKS, 1.0F + rand.nextFloat() * 0.1F, 1.5F + rand.nextFloat() * 0.1F);
+            world.playSound(null, pos, BWMSounds.SAW_CUT, SoundCategory.BLOCKS, 1.0F + rand.nextFloat() * 0.1F, 1.5F + rand.nextFloat() * 0.1F);
         } else {
-            world.playSound(null, pos, BWSounds.SAW_CUT, SoundCategory.BLOCKS, 1.0F + rand.nextFloat() * 0.1F, 0.75F + rand.nextFloat() * 0.1F);
+            world.playSound(null, pos, BWMSounds.SAW_CUT, SoundCategory.BLOCKS, 1.0F + rand.nextFloat() * 0.1F, 0.75F + rand.nextFloat() * 0.1F);
         }
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World world, BlockPos pos, IBlockState state, Entity entity) {
+    public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
         if (isActive(state) && entity instanceof EntityLivingBase) {
             EnumFacing dir = getFacing(world, pos);
 
-            DamageSource source = BWDamageSource.getSawDamage();
+            DamageSource source = BWMDamageSource.getSawDamage();
 
             int damage = 4;
             boolean unobstructed = true;
@@ -169,7 +168,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
                 Block block = world.getBlockState(pos2).getBlock();
                 IBlockState blockState = world.getBlockState(pos2);
                 if (isChoppingBlock(blockState, true)) {
-                    source = BWDamageSource.getChoppingBlockDamage();
+                    source = BWMDamageSource.getChoppingBlockDamage();
                     damage *= 3;
                     if (isChoppingBlock(blockState, false) && unobstructed)
                         world.setBlockState(pos2, BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD));
@@ -181,7 +180,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
             }
             if (source != null && entity.attackEntityFrom(source, damage)) {
                 ((EntityLivingBase) entity).recentlyHit = 60;
-                world.playSound(null, pos, BWSounds.SAW_CUT, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat() * 0.1F, 1.5F + world.rand.nextFloat() * 0.1F);
+                world.playSound(null, pos, BWMSounds.SAW_CUT, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat() * 0.1F, 1.5F + world.rand.nextFloat() * 0.1F);
             }
         }
     }
@@ -210,10 +209,11 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
 
     @Override
     public void overpower(World world, BlockPos pos) {
-        if (MechanicalBreakage.saw)
+        if (doesOverpower()) {
             InvUtils.ejectBrokenItems(world, pos, new ResourceLocation(BWMod.MODID, "block/saw"));
-        world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.3F, world.rand.nextFloat() * 0.1F + 0.45F);
-        world.setBlockToAir(pos);
+            world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.3F, world.rand.nextFloat() * 0.1F + 0.45F);
+            world.setBlockToAir(pos);
+        }
     }
 
 
@@ -284,7 +284,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     public IBlockState getStateFromMeta(int meta) {
         int active = meta & 1;
         int facing = meta >> 1;
-        return this.getDefaultState().withProperty(ACTIVE, active == 1).withProperty(DirUtils.FACING, EnumFacing.getFront(facing));
+        return this.getDefaultState().withProperty(ACTIVE, active == 1).withProperty(DirUtils.FACING, EnumFacing.byIndex(facing));
     }
 
     @Override

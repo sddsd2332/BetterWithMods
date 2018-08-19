@@ -1,7 +1,7 @@
 package betterwithmods.common.registry;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.util.IngredientMap;
 import net.minecraft.init.Items;
@@ -46,7 +46,7 @@ public class BellowsManager {
         bellowing.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.FILAMENT), 2f);
         bellowing.put(ItemMaterial.getStack(ItemMaterial.EnumMaterial.LEATHER_STRAP), 2f);
 
-        BWOreDictionary.dustNames.forEach(ore -> bellowing.put(ore, 3f));
+        BWMOreDictionary.dustNames.forEach(ore -> bellowing.put(ore, 3f));
     }
 
 

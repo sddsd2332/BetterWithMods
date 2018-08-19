@@ -15,6 +15,8 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -23,6 +25,7 @@ import java.util.List;
 
 import static betterwithmods.module.hardcore.needs.HCMovement.dirtpathQuality;
 
+@Mod.EventBusSubscriber
 public class GrassPath extends Feature {
     public static List<ItemStack> SHOVEL_BLACKLIST = Lists.newArrayList();
 
@@ -36,14 +39,9 @@ public class GrassPath extends Feature {
             return item.getHarvestLevel(stack, "shovel", null, null);
         }
     }
-
+    
     @Override
-    public void setupConfig() {
-        SHOVEL_BLACKLIST = loadItemStackList("Shovel Blacklist", "Blacklist an item for being able to make grass paths", new String[]{"psi:cad"});
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Allows turning more than just grass into path. Turns off when dirt2path is installed";
     }
 
@@ -52,16 +50,11 @@ public class GrassPath extends Feature {
         return new String[]{"dirt2path"};
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    protected boolean isBlockDirt(IBlockState state) {
+    protected static boolean isBlockDirt(IBlockState state) {
         return state.getBlock() == Blocks.DIRT || state.getBlock() == Blocks.GRASS;
     }
 
-    protected void setPathOrDirt(World world, IBlockState blockState, BlockPos blockPos, SoundEvent soundEvent, EntityPlayer player, ItemStack itemStack, EnumHand hand) {
+    protected static void setPathOrDirt(World world, IBlockState blockState, BlockPos blockPos, SoundEvent soundEvent, EntityPlayer player, ItemStack itemStack, EnumHand hand) {
         world.playSound(player, blockPos, soundEvent, SoundCategory.BLOCKS, 1.0F, 1.0F);
         player.swingArm(hand);
         if (!world.isRemote) {
@@ -70,9 +63,13 @@ public class GrassPath extends Feature {
         }
     }
 
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        SHOVEL_BLACKLIST = config().loadItemStackList("Shovel Blacklist", getCategory(), "Blacklist an item for being able to make grass paths", new String[]{"psi:cad"});
+    }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void onBlockRightclick(PlayerInteractEvent.RightClickBlock event) {
+    public static void onBlockRightclick(PlayerInteractEvent.RightClickBlock event) {
         if (event.getResult() != Event.Result.DEFAULT || event.isCanceled())
             return;
 

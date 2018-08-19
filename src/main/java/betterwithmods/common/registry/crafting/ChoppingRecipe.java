@@ -37,7 +37,7 @@ public class ChoppingRecipe extends ToolDamageRecipe {
             Set<String> classes = item.getToolClasses(stack);
             if (classes.contains("axe") || classes.contains("mattock")) {
                 ResourceLocation loc = item.getRegistryName();
-                return loc == null || !loc.getResourceDomain().equals("tconstruct") || stack.getItemDamage() < stack.getMaxDamage();
+                return loc == null || !loc.getNamespace().equals("tconstruct") || stack.getItemDamage() < stack.getMaxDamage();
             }
         }
         return false;

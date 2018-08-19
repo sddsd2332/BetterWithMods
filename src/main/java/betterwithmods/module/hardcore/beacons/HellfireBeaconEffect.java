@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.module.ConfigHelper;
+import betterwithmods.module.Feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,10 +31,9 @@ public class HellfireBeaconEffect extends PotionBeaconEffect {
         this.setActivationSound(SoundEvents.ENTITY_BLAZE_SHOOT);
     }
 
-    @Override
-    public void setupConfig(String categoryName, ConfigHelper helper) {
-        super.setupConfig(categoryName, helper);
-        catchFire = helper.loadPropBool("catchFire", categoryName, "The beacon will catch fire when it applies it effect", true);
+    public void setupConfig(Feature feature) {
+        super.setupConfig(feature);
+        catchFire = feature.loadProperty("Catch Fire", true).setComment("The beacon will catch fire when it applies it effect").get();
     }
 
     @Override

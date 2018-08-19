@@ -27,19 +27,20 @@ public class ImprovedFlee extends Feature {
     private static boolean blockPlace, blockBreak, groupFlee;
 
     public static boolean canSeeBlock(BlockPos pos, EntityLiving entity) {
-        RayTraceResult result = entity.world.rayTraceBlocks(entity.getPositionVector(), new Vec3d(pos).addVector(0.5, 0.5, 0.5));
+        RayTraceResult result = entity.world.rayTraceBlocks(entity.getPositionVector(), new Vec3d(pos).add(0.5,0.5,0.5));
         return result != null && pos.equals(result.getBlockPos());
     }
 
-    @Override
-    public void setupConfig() {
-        blockPlace = loadPropBool("Animals Flee from Block Place", "When a block is placed in the vicinity of an animal it will get scared and run.", true);
-        blockBreak = loadPropBool("Animals Flee from Block Break", "When a non-replaceable block is broken in the vicinity of an animal it will get scared and run.", true);
-        groupFlee = loadPropBool("Animals Group Flee", "When an animal is attacked in the vicinity of another animal it will get scared and run.", true);
-    }
+    //TODO
+//    @Override
+//    public void setupConfig() {
+//        blockPlace = loadPropBool("Animals Flee from Block Place", "When a block is placed in the vicinity of an animal it will get scared and run.", true);
+//        blockBreak = loadPropBool("Animals Flee from Block Break", "When a non-replaceable block is broken in the vicinity of an animal it will get scared and run.", true);
+//        groupFlee = loadPropBool("Animals Group Flee", "When an animal is attacked in the vicinity of another animal it will get scared and run.", true);
+//    }
 
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent evt) {
+    public static void addEntityAI(EntityJoinWorldEvent evt) {
         if (evt.getEntity() instanceof EntityLiving) {
             EntityLiving entity = (EntityLiving) evt.getEntity();
             if (entity instanceof EntityAnimal && EntityUtils.hasAI(entity, EntityAIPanic.class)) {
@@ -52,7 +53,7 @@ public class ImprovedFlee extends Feature {
 
 
     @SubscribeEvent
-    public void onPlaceBlock(BlockEvent.PlaceEvent event) {
+    public static void onPlaceBlock(BlockEvent.PlaceEvent event) {
         if (!blockPlace)
             return;
         if (event.getPlayer() != null) {
@@ -66,7 +67,7 @@ public class ImprovedFlee extends Feature {
     }
 
     @SubscribeEvent
-    public void onBreakBlock(BlockEvent.BreakEvent event) {
+    public static void onBreakBlock(BlockEvent.BreakEvent event) {
         if (!blockBreak)
             return;
         if (event.getPlayer() != null && !event.getState().getMaterial().isReplaceable()) {
@@ -80,7 +81,7 @@ public class ImprovedFlee extends Feature {
     }
 
     @SubscribeEvent
-    public void onGroupFlee(LivingSetAttackTargetEvent event) {
+    public static void onGroupFlee(LivingSetAttackTargetEvent event) {
         if (!groupFlee)
             return;
         if (event.getTarget() != null && event.getEntityLiving() instanceof EntityAnimal) {
@@ -95,7 +96,7 @@ public class ImprovedFlee extends Feature {
         }
     }
 
-    private boolean cantBeScared(EntityAnimal animal) {
+    private static boolean cantBeScared(EntityAnimal animal) {
         if (animal instanceof EntityTameable && ((EntityTameable) animal).isTamed())
             return true;
         if (animal instanceof AbstractHorse && ((AbstractHorse) animal).isTame())
@@ -104,12 +105,8 @@ public class ImprovedFlee extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Improve fleeing AI for attacked animals";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

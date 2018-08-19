@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.module.Feature;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
@@ -23,21 +23,15 @@ public class KilnCharcoal extends Feature {
     private boolean disableFurnaceCharcoal;
 
     @Override
-    public void setupConfig() {
-        disableFurnaceCharcoal = loadPropBool("Disable Furnace Charcoal", "Remove recipes to make Charcoal in a Furnace", true);
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add Charcoal smelting to the Kiln";
     }
 
     @Override
-    public void disabledInit(FMLInitializationEvent event) {
-    }
+    public void onInit(FMLInitializationEvent event) {
 
-    @Override
-    public void init(FMLInitializationEvent event) {
+        disableFurnaceCharcoal = loadProperty("Disable Furnace Charcoal", true).setComment("Remove recipes to make Charcoal in a Furnace").get();
+
         List<ItemStack> logs = Lists.newArrayList();
         logs.addAll(OreDictionary.getOres("logWood"));
 
@@ -48,7 +42,7 @@ public class KilnCharcoal extends Feature {
                     continue;
                 if (disableFurnaceCharcoal)
                     BWMRecipes.removeFurnaceRecipe(stack);
-                BWRegistry.KILN.addStokedRecipe(stack, charcoalOutput);
+                BWMRegistry.KILN.addStokedRecipe(stack, charcoalOutput);
             }
         }
     }

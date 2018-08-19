@@ -1,10 +1,10 @@
 package betterwithmods.common.tile;
 
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 
 public class TileCrucible extends TileCookingPot {
     public TileCrucible() {
-        super(BWRegistry.CRUCIBLE);
+        super(BWMRegistry.CRUCIBLE);
     }
 
     @Override

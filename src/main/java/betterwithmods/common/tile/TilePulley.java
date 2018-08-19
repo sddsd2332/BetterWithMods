@@ -11,7 +11,7 @@ import betterwithmods.common.blocks.BlockRope;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.entity.EntityExtendingRope;
 import betterwithmods.common.registry.PulleyStructureManager;
-import betterwithmods.module.GlobalConfig;
+import betterwithmods.module.general.Pulley;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
@@ -260,7 +260,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     }
 
     private boolean addToList(HashSet<BlockPos> set, BlockPos p, boolean up) {
-        if (set.size() > GlobalConfig.maxPlatformBlocks)
+        if (set.size() > Pulley.MAX_BLOCKS)
             return false;
         if (!isPlatform(p)) {
             return true;
@@ -349,7 +349,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     @Override
     public void onLoad() {
         super.onLoad();
-        if (rope == null && !getWorld().isRemote && ropeTag != null && !ropeTag.hasNoTags()) {
+        if (rope == null && !getWorld().isRemote && ropeTag != null && !ropeTag.isEmpty()) {
             NBTTagList pos = (NBTTagList) ropeTag.getTag("Pos");
             if (pos != null) {
                 rope = (EntityExtendingRope) AnvilChunkLoader.readWorldEntityPos(ropeTag, getBlockWorld(), pos.getDoubleAt(0),

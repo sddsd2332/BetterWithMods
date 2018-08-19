@@ -6,6 +6,8 @@ import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import static betterwithmods.util.TooltipLib.BED_TOO_RESTLESS;
@@ -13,18 +15,19 @@ import static betterwithmods.util.TooltipLib.BED_TOO_RESTLESS;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class HCBeds extends Feature {
     public static final EntityPlayer.SleepResult TOO_RESTLESS = EnumHelper.addEnum(EntityPlayer.SleepResult.class, "TOO_RESTLESS", new Class[0]);
 
     public static boolean stillSetSpawn;
 
     @Override
-    public void setupConfig() {
-        stillSetSpawn = loadPropBool("Still Set Spawn", ":( I guess I'll be nice and give this config", false);
+    public void onInit(FMLInitializationEvent event) {
+        stillSetSpawn = loadProperty("Still Set Spawn", false).get();
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Disables the ability to sleep in a bed and can no longer set spawn";
     }
 
@@ -32,7 +35,7 @@ public class HCBeds extends Feature {
      * Disable Beds
      */
     @SubscribeEvent
-    public void onSleepInBed(PlayerSleepInBedEvent event) {
+    public static void onSleepInBed(PlayerSleepInBedEvent event) {
         if (PlayerHelper.isSurvival(event.getEntityPlayer())) {
             event.getEntityPlayer().sendStatusMessage(TooltipLib.getMessageComponent(BED_TOO_RESTLESS), true);
             event.setResult(TOO_RESTLESS);
@@ -42,13 +45,4 @@ public class HCBeds extends Feature {
         }
     }
 
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

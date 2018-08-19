@@ -1,7 +1,5 @@
 package betterwithmods.common.items.itemblocks;
 
-import betterwithmods.BWMod;
-import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -24,8 +22,9 @@ public class ItemHempSeed extends ItemBlock implements IPlantable {
 
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
-        if (BWMod.MODULE_LOADER.isFeatureEnabled(HCChickens.class))
-            return true;
+        //Confirm this is no longer necessary since the event in HCChickens cancels this method
+//        if (BWMod.MODULE_LOADER.isFeatureEnabled(HCChickens.class))
+//            return true;
         if (target instanceof EntityChicken) {
             EntityChicken chicken = (EntityChicken) target;
             if (chicken.getGrowingAge() == 0 && !chicken.isInLove()) {

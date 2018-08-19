@@ -2,11 +2,10 @@ package betterwithmods.common.tile;
 
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.common.BWSounds;
+import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
 import betterwithmods.common.blocks.mechanical.BlockWindmill;
 import betterwithmods.common.blocks.mechanical.IBlockActive;
-import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -25,6 +24,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 
 public abstract class TileAxleGenerator extends TileBasic implements ITickable, IMechanicalPower {
+
+    public static int generatorRenderDistance;
+
     protected final float runningSpeed = 0.4F;
     public float currentRotation = 0.0F;
     public float previousRotation = 0.0F;
@@ -85,7 +87,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
                 this.currentRotation += (this.power * this.power) * runningSpeed * waterMod;
                 this.currentRotation %= 360;
                 if (this.getBlockWorld().rand.nextInt(100) == 0)
-                    this.getBlockWorld().playSound(null, pos, BWSounds.WOODCREAK, SoundCategory.BLOCKS, 0.5F, getBlockWorld().rand.nextFloat() * 0.25F + 0.25F);
+                    this.getBlockWorld().playSound(null, pos, BWMSounds.WOODCREAK, SoundCategory.BLOCKS, 0.5F, getBlockWorld().rand.nextFloat() * 0.25F + 0.25F);
             } else {
                 previousRotation = 0;
                 currentRotation = 0;
@@ -112,7 +114,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
     @Override
     @SideOnly(Side.CLIENT)
     public double getMaxRenderDistanceSquared() {
-        return Gameplay.generatorRenderDistance * Gameplay.generatorRenderDistance;
+        return generatorRenderDistance * generatorRenderDistance;
     }
 
     @Override

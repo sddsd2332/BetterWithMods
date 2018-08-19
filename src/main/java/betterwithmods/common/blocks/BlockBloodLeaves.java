@@ -80,8 +80,8 @@ public class BlockBloodLeaves extends BlockLeaves {
     @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
-        return Blocks.LEAVES.getBlockLayer();
+    public BlockRenderLayer getRenderLayer() {
+        return Blocks.LEAVES.getRenderLayer();
     }
 
     @Override

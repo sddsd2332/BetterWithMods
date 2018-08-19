@@ -1,8 +1,8 @@
 package betterwithmods.util;
 
 import betterwithmods.api.util.impl.BlockColorProvider;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.Maps;
@@ -69,7 +69,7 @@ public class ColorUtils {
     private static EnumDyeColor getDye(String dyeOredict) {
         if (!DYE_CACHE.containsKey(dyeOredict)) {
             for (EnumDyeColor dye : DYES) {
-                String oredict = String.format("dye%s", CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, dye.getUnlocalizedName()));
+                String oredict = String.format("dye%s", CaseFormat.LOWER_CAMEL.to(CaseFormat.UPPER_CAMEL, dye.getTranslationKey()));
                 if (oredict.matches(dyeOredict)) {
                     DYE_CACHE.put(dyeOredict, dye);
                     break;
@@ -96,8 +96,8 @@ public class ColorUtils {
 
     @Nullable
     public static EnumDyeColor getColor(ItemStack stack) {
-        if (stack != ItemStack.EMPTY && BWOreDictionary.hasPrefix(stack, "dye")) {
-            for (String ore : BWOreDictionary.getOres(stack)) {
+        if (stack != ItemStack.EMPTY && BWMOreDictionary.hasPrefix(stack, "dye")) {
+            for (String ore : BWMOreDictionary.getOres(stack)) {
                 EnumDyeColor dye = getDye(ore);
                 if (dye != null)
                     return dye;

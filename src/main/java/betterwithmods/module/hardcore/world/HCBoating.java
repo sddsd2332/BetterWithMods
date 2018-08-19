@@ -12,7 +12,9 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
@@ -21,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+@Mod.EventBusSubscriber
 public class HCBoating extends Feature {
 
     //Quark Boat Sail Compat
@@ -30,32 +33,27 @@ public class HCBoating extends Feature {
     public static int defaultSpeed;
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Boats are much slower as simple oars are not very good for speed. To go faster you must hold a Wind Sail.";
     }
 
     @Override
-    public void setupConfig() {
-        loadRecipeCondition("boatshovel", "Boat Requires Oar", "Make boat recipe require a wooden shovel for the oars", true);
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        config().loadRecipeCondition("boatshovel", getCategory(), "Boat Requires Oar", "Make boat recipe require a wooden shovel for the oars", true);
     }
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
-        SPEED_ITEMS = loadItemStackIntMap("Speed Items", "Items which speed up a boat when held, value is a percentage of the vanilla speed", new String[]{
+    public void onPostInit(FMLPostInitializationEvent event) {
+        SPEED_ITEMS = config().loadItemStackIntMap("Speed Items", getCategory(), "Items which speed up a boat when held, value is a percentage of the vanilla speed", new String[]{
                 "betterwithmods:wind_sail=100",
                 "minecraft:banner:*=100"
         });
-        defaultSpeed = loadPropInt("Default Speed modifier", "Speed modifier when not holding any sail type item", 50);
-        BOAT_ENTRIES = loadRLList("Boat List", "Registry name for entities which are considered boats", new String[]{"minecraft:boat"});
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
+        defaultSpeed = loadProperty("Default Speed modifier", 50).setComment("Speed modifier when not holding any sail type item").get();
+        BOAT_ENTRIES = config().loadResouceLocations("Boat List", getCategory(), "Registry name for entities which are considered boats", new String[]{"minecraft:boat"});
     }
 
     @SubscribeEvent
-    public void onTick(TickEvent.PlayerTickEvent event) {
+    public static void onTick(TickEvent.PlayerTickEvent event) {
         if (!event.player.world.isRemote)
             return;
         EntityPlayer player = event.player;
@@ -82,7 +80,7 @@ public class HCBoating extends Feature {
         }
     }
 
-    private int quarkCompatSpeed(EntityBoat boat) {
+    private static int quarkCompatSpeed(EntityBoat boat) {
         NBTTagCompound tag = boat.getEntityData();
         if (tag.hasKey(TAG_BANNER)) {
             NBTTagCompound cmp = boat.getEntityData().getCompoundTag(TAG_BANNER);

@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
 import betterwithmods.util.StackIngredient;
@@ -22,6 +22,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
@@ -33,42 +34,20 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class Dung extends Feature {
     public static final ResourceLocation DUNG_PRODUCER = new ResourceLocation(BWMod.MODID, "dung_producer");
     @CapabilityInject(DungProducer.class)
     public static Capability<DungProducer> DUNG_PRODUCER_CAP;
-    private boolean wolvesOnly;
+    private static boolean wolvesOnly;
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Animals will launch dung depending on their conditions, a useful material";
     }
 
-    @Override
-    public void setupConfig() {
-        wolvesOnly = loadPropBool("Only Wolves", "Only Wolves will produce dung", true);
-    }
-
-    @Override
-    public void init(FMLInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(DungProducer.class, new Capability.IStorage<DungProducer>() {
-            @Nullable
-            @Override
-            public NBTBase writeNBT(Capability<DungProducer> capability, DungProducer instance, EnumFacing side) {
-                return instance.serializeNBT();
-            }
-
-            @Override
-            public void readNBT(Capability<DungProducer> capability, DungProducer instance, EnumFacing side, NBTBase nbt) {
-                instance.deserializeNBT((NBTTagCompound) nbt);
-            }
-        }, DungProducer::new);
-        BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER)));
-        BWRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT, 2)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2)));
-    }
-
     @SubscribeEvent
-    public void mobDungProduction(LivingEvent.LivingUpdateEvent evt) {
+    public static void mobDungProduction(LivingEvent.LivingUpdateEvent evt) {
         if (evt.getEntityLiving().getEntityWorld().isRemote)
             return;
         if (evt.getEntityLiving() instanceof EntityAnimal) {
@@ -90,9 +69,9 @@ public class Dung extends Feature {
                         if (poopDir != null) {
                             BlockPos poopSpot = animal.getPosition().offset(poopDir);
                             EntityItem item = new EntityItem(animal.world, poopSpot.getX() + 0.5, poopSpot.getY() + 0.5, poopSpot.getZ() + 0.5, ItemMaterial.getStack(ItemMaterial.EnumMaterial.DUNG));
-                            item.motionX = poopDir.getFrontOffsetX() == 0 ? rand.nextDouble() * 0.25 - 0.125 : 0.7;
+                            item.motionX = poopDir.getXOffset() == 0 ? rand.nextDouble() * 0.25 - 0.125 : 0.7;
                             item.motionY = 0;
-                            item.motionZ = poopDir.getFrontOffsetZ() == 0 ? rand.nextDouble() * 0.25 - 0.125 : 0.7;
+                            item.motionZ = poopDir.getZOffset() == 0 ? rand.nextDouble() * 0.25 - 0.125 : 0.7;
                             item.setDefaultPickupDelay();
                             animal.world.spawnEntity(item);
                         }
@@ -103,10 +82,10 @@ public class Dung extends Feature {
         }
     }
 
-    private EnumFacing findSpaceForPoop(World world, BlockPos pos, Random random) {
+    private static EnumFacing findSpaceForPoop(World world, BlockPos pos, Random random) {
         int dir = random.nextInt(4);
         for (int i = 0; i < 4; i++) {
-            EnumFacing checkFacing = EnumFacing.getHorizontal((dir + i) % 4);
+            EnumFacing checkFacing = EnumFacing.byHorizontalIndex((dir + i) % 4);
             BlockPos checkPos = pos.offset(checkFacing);
             if (world.isAirBlock(checkPos) || world.getBlockState(checkPos).getBlock().isReplaceable(world, checkPos))
                 return checkFacing;
@@ -115,7 +94,7 @@ public class Dung extends Feature {
     }
 
     @SubscribeEvent
-    public void dungCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
+    public static void dungCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (entity instanceof EntityAnimal) {
             if (wolvesOnly && !(entity instanceof EntityWolf))
@@ -125,9 +104,25 @@ public class Dung extends Feature {
     }
 
     @Override
-    public boolean hasSubscriptions() {
-        return true;
+    public void onInit(FMLInitializationEvent event) {
+
+        wolvesOnly = loadProperty("Only Wolves produce dung", true).get();
+        CapabilityManager.INSTANCE.register(DungProducer.class, new Capability.IStorage<DungProducer>() {
+            @Nullable
+            @Override
+            public NBTBase writeNBT(Capability<DungProducer> capability, DungProducer instance, EnumFacing side) {
+                return instance.serializeNBT();
+            }
+
+            @Override
+            public void readNBT(Capability<DungProducer> capability, DungProducer instance, EnumFacing side, NBTBase nbt) {
+                instance.deserializeNBT((NBTTagCompound) nbt);
+            }
+        }, DungProducer::new);
+        BWMRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER)));
+        BWMRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT, 2)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2)));
     }
+
 
     public static class DungProducer implements ICapabilitySerializable<NBTTagCompound> {
         public int nextPoop = -1;

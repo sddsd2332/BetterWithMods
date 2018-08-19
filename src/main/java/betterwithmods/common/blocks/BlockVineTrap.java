@@ -62,8 +62,8 @@ public class BlockVineTrap extends BWMBlock {
     @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
-        return Blocks.VINE.getBlockLayer();
+    public BlockRenderLayer getRenderLayer() {
+        return Blocks.VINE.getRenderLayer();
     }
 
     @SuppressWarnings("deprecation")

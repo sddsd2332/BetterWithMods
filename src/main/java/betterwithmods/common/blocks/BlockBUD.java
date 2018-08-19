@@ -1,5 +1,6 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.module.recipes.Recipes;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.SetBlockIngredient;
 import net.minecraft.block.Block;
@@ -32,7 +33,7 @@ public class BlockBUD extends BWMBlock {
 
     /**
      * This list contains the blocks that should not cause the Buddy Block to update.
-     * It is initialized at {@link betterwithmods.module.gameplay.Gameplay#postInit(FMLPostInitializationEvent)} }
+     * It is initialized at {@link Recipes#postInit(FMLPostInitializationEvent)} }
      */
     public static SetBlockIngredient BLACKLIST;
 
@@ -61,7 +62,7 @@ public class BlockBUD extends BWMBlock {
     public IBlockState getStateFromMeta(int meta) {
         int facing = (meta >> 1);
         boolean redstone = (meta & 1) == 1;
-        return getDefaultState().withProperty(REDSTONE, redstone).withProperty(DirUtils.FACING, EnumFacing.getFront(facing));
+        return getDefaultState().withProperty(REDSTONE, redstone).withProperty(DirUtils.FACING, EnumFacing.byIndex(facing));
     }
 
     @Override

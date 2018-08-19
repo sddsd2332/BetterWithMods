@@ -7,14 +7,15 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 /**
  * Created by primetoxinz on 5/14/17.
  */
+
 public class RSBlockGlow extends Feature {
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         Blocks.REDSTONE_BLOCK.setLightLevel(0.7F);
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Make Redstone blocks emit a little light";
     }
 }

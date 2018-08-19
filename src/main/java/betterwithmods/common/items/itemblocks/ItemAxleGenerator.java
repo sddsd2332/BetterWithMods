@@ -43,7 +43,7 @@ public abstract class ItemAxleGenerator extends ItemBlock implements IRenderRota
     public abstract boolean isAxis(EnumFacing.Axis axis);
 
     private void showErrorMessage(EntityPlayer player, Error error) {
-        String block = Objects.requireNonNull(getRegistryName()).getResourcePath();
+        String block = Objects.requireNonNull(getRegistryName()).getNamespace();
         player.sendMessage(TooltipLib.getMessageComponent(error.format(block)));
     }
 

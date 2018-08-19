@@ -3,7 +3,7 @@ package betterwithmods.module.tweaks;
 import betterwithmods.BWMod;
 import betterwithmods.client.render.RenderLongboi;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockWolf;
 import betterwithmods.common.entity.EntityLongboi;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
@@ -27,8 +27,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -43,21 +41,20 @@ public class LongBoi extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Long Bois!";
     }
-
-    @SideOnly(Side.CLIENT)
+    
     @Override
-    public void preInitClient(FMLPreInitializationEvent event) {
+    public void onPreInitClient(FMLPreInitializationEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(EntityLongboi.class, RenderLongboi::new);
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMBlocks.registerBlock(LONG_FRIEND);
-        BWRegistry.registerEntity(EntityLongboi.class, "longboi", 64, 1, true, 0xe4d3d0, 0xfd742b);
-        BWRegistry.TURNTABLE.addRecipe(new LongRecipe());
+        BWMRegistry.registerEntity(EntityLongboi.class, "longboi", 64, 1, true, 0xe4d3d0, 0xfd742b);
+        BWMRegistry.TURNTABLE.addRecipe(new LongRecipe());
     }
 
     private static class EntityIngredient extends BlockIngredient {

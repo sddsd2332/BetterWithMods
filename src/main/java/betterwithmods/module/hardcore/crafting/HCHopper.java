@@ -16,20 +16,20 @@ import javax.annotation.Nullable;
 
 public class HCHopper extends Feature {
 
-    private static Block HOPPER = new BlockHopper().setRegistryName("minecraft:hopper").setUnlocalizedName("hopper");
-
-
-    public HCHopper() {
-    }
-
+    private static Block HOPPER = new BlockHopper().setRegistryName("minecraft:hopper").setTranslationKey("hopper");
 
     @Override
-    public String getFeatureDescription() {
+    protected boolean isEnabledByDefault() {
+        return false;
+    }
+
+    @Override
+    public String getDescription() {
         return "Completely disable the abilities of the vanilla Hopper to transfer items, as to make BWM tech the primary form of item transport";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMBlocks.registerBlock(HOPPER);
     }
 

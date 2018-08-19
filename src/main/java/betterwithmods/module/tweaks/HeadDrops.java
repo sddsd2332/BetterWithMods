@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.BWDamageSource;
+import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.BWMItems;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
@@ -16,38 +16,39 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 5/13/17.
  */
 public class HeadDrops extends Feature {
-    private int sawHeadDropChance, battleAxeHeadDropChance;
+    private static int sawHeadDropChance, battleAxeHeadDropChance;
 
     @Override
-    public void setupConfig() {
-        sawHeadDropChance = loadPropInt("Saw Drop Chance", "Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely", 3);
-        battleAxeHeadDropChance = loadPropInt("BattleAxe Drop Chance", "Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely", 3);
+    public void onInit(FMLInitializationEvent event) {
+        sawHeadDropChance = loadProperty("Saw Drop Chance",3).setComment("Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely").get();
+        battleAxeHeadDropChance = loadProperty("BattleAxe Drop Chance", 3).setComment("Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely").get();
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Heads and Skulls can drop from death by Saw or BattleAxe";
     }
 
     @SubscribeEvent
-    public void onLivingDrop(LivingDropsEvent event) {
+    public static void onLivingDrop(LivingDropsEvent event) {
         if (isChoppingBlock(event.getSource()))
             addHead(event, sawHeadDropChance);
         if (isBattleAxe(event.getEntityLiving()))
             addHead(event, battleAxeHeadDropChance);
     }
 
-    private boolean isChoppingBlock(DamageSource source) {
-        return source.equals(BWDamageSource.getChoppingBlockDamage());
+    private static boolean isChoppingBlock(DamageSource source) {
+        return source.equals(BWMDamageSource.getChoppingBlockDamage());
     }
 
-    private boolean isBattleAxe(EntityLivingBase entity) {
+    private static boolean isBattleAxe(EntityLivingBase entity) {
         DamageSource source = entity.getLastDamageSource();
         if (source != null && source.getImmediateSource() != null) {
             Entity e = source.getImmediateSource();
@@ -59,13 +60,13 @@ public class HeadDrops extends Feature {
         return false;
     }
 
-    public void addDrop(LivingDropsEvent evt, ItemStack drop) {
+    public static void addDrop(LivingDropsEvent evt, ItemStack drop) {
         EntityItem item = new EntityItem(evt.getEntityLiving().getEntityWorld(), evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, drop);
         item.setDefaultPickupDelay();
         evt.getDrops().add(item);
     }
 
-    public void addHead(LivingDropsEvent evt, int chance) {
+    public static void addHead(LivingDropsEvent evt, int chance) {
         if (chance > 0 && evt.getEntity().getEntityWorld().rand.nextInt(chance) != 0)
             return;
         if (evt.getEntityLiving() instanceof EntitySkeleton)
@@ -81,8 +82,4 @@ public class HeadDrops extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

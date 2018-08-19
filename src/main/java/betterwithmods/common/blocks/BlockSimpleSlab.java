@@ -23,8 +23,8 @@ import javax.annotation.Nonnull;
 public class BlockSimpleSlab extends Block {
     protected static final AxisAlignedBB AABB_BOTTOM_HALF = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
 
-    public BlockSimpleSlab(Material blockMaterialIn, MapColor blockMapColorIn) {
-        super(blockMaterialIn, blockMapColorIn);
+    public BlockSimpleSlab(Material materialIn, MapColor blockMapColorIn) {
+        super(materialIn, blockMapColorIn);
     }
 
     public BlockSimpleSlab(Material materialIn) {

@@ -1,6 +1,7 @@
 package betterwithmods.common.penalties.attribute;
 
 import betterwithmods.BWMod;
+import betterwithmods.module.Feature;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.Range;
 
@@ -22,32 +23,25 @@ public class BWMAttributes {
         SPOOKED = new FloatAttribute(new ResourceLocation(BWMod.MODID, "spooked"), 0f).setDescription("Does the player start to go insane when this is active?");
     }
 
-    public static boolean isCustom(String category) {
-        return BWMod.MODULE_LOADER.configHelper.loadPropBool("Customized", category, "Set this to true to allow more granular configs to generate and make the penalties work as you please. Requires the game to be started to generate more configs.", false);
+    public static boolean isCustom(Feature feature) {
+        return feature.loadProperty("Customized", false).subCategory("penalties").setComment("Set this to true to allow more granular configs to generate and make the penalties work as you please. Requires the game to be started to generate more configs.").get();
     }
 
-    public static AttributeInstance<Boolean> getBooleanAttribute(IAttribute<Boolean> parent, String category, String penalty, String desc, Boolean defaultValue) {
-        boolean value = isCustom(category) ? BWMod.MODULE_LOADER.configHelper.loadPropBool(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
-        return new AttributeInstance<>(parent, value);
+    public static <T> AttributeInstance<T> getConfigAttribute(Feature feature, IAttribute<T> parent, String penalty, String desc, T defaultValue) {
+        return new AttributeInstance<>(parent, isCustom(feature) ? feature.loadProperty(parent.getRegistryName().getPath(), defaultValue).subCategory(penalty).get() : defaultValue);
     }
-
-    public static AttributeInstance<Float> getFloatAttribute(IAttribute<Float> parent, String category, String penalty, String desc, Float defaultValue) {
-        float value = isCustom(category) ? (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble(parent.getRegistryName().getResourcePath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
-        return new AttributeInstance<>(parent, value);
-    }
-
 
     @SuppressWarnings("unchecked")
-    public static <T extends Number & Comparable> Range<T> getRange(String category, String penalty, String desc, Range<T> defaultValue) {
-        if (isCustom(category)) {
+    public static <T extends Number & Comparable> Range<T> getRange(Feature feature, String penalty, String comment, Range<T> defaultValue) {
+        if (isCustom(feature)) {
             Number max = defaultValue.getMaximum(), min = defaultValue.getMinimum();
             if (max instanceof Float) {
-                Float upper = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble("Upper Range", String.join(".", category, penalty), desc, max.doubleValue());
-                Float lower = (float) BWMod.MODULE_LOADER.configHelper.loadPropDouble("Lower Range", String.join(".", category, penalty), desc, min.doubleValue());
+                float upper = feature.loadProperty("Upper Range", max.floatValue()).subCategory(penalty).setComment(comment).get();
+                float lower = feature.loadProperty("Lower Range", min.floatValue()).subCategory(penalty).setComment(comment).get();
                 return (Range<T>) Range.between(upper, lower);
             } else if (max instanceof Integer) {
-                Integer upper = BWMod.MODULE_LOADER.configHelper.loadPropInt("Upper Range", String.join(".", category, penalty), desc, max.intValue());
-                Integer lower = BWMod.MODULE_LOADER.configHelper.loadPropInt("Lower Range", String.join(".", category, penalty), desc, min.intValue());
+                int upper = feature.loadProperty("Upper Range", max.intValue()).subCategory(penalty).get();
+                int lower = feature.loadProperty("Lower Range", min.intValue()).subCategory(penalty).get();
                 return (Range<T>) Range.between(upper, lower);
             }
         } else {

@@ -10,22 +10,19 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.NoteBlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 public class Notes extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add some notes to the Note Block. Try a companion cube under one";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
     @SubscribeEvent
-    public void onNotePlay(NoteBlockEvent.Play event) {
+    public static void onNotePlay(NoteBlockEvent.Play event) {
         BlockPos pos = event.getPos();
         if (event.getWorld().getBlockState(pos).getBlock() != Blocks.NOTEBLOCK)
             return;
@@ -48,7 +45,7 @@ public class Notes extends Feature {
         }
     }
 
-    private int getType(World world, BlockPos pos) {
+    private static int getType(World world, BlockPos pos) {
         IBlockState down = world.getBlockState(pos.down());
         if (down.getBlock() == BWMBlocks.WOLF)
             return 1;

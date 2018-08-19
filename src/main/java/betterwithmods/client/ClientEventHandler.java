@@ -117,8 +117,8 @@ public class ClientEventHandler {
     }
 
     public static void renderMiniBlock(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial) {
-        Vec3d vec = target.hitVec.addVector(-target.getBlockPos().getX(), -target.getBlockPos().getY(), -target.getBlockPos().getZ());
-        float x = (float) vec.x, y = (float) vec.y, z = (float) vec.z;
+        Vec3d vec = target.hitVec.add(-target.getBlockPos().getX(),-target.getBlockPos().getY(),-target.getBlockPos().getZ());
+        float x = (float) vec.x , y = (float) vec.y, z = (float) vec.z;
         GlStateManager.enableBlend();
         GlStateManager.tryBlendFuncSeparate(GlStateManager.SourceFactor.SRC_ALPHA, GlStateManager.DestFactor.ONE_MINUS_SRC_ALPHA, GlStateManager.SourceFactor.ONE, GlStateManager.DestFactor.ZERO);
         GlStateManager.glLineWidth(4.0F);
@@ -153,7 +153,7 @@ public class ClientEventHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onBlockHighlight(DrawBlockHighlightEvent event) {
+    public static void onBlockHighlight(DrawBlockHighlightEvent event) {
         if (!blockPlacementHighlight)
             return;
         EntityPlayer player = event.getPlayer();
@@ -176,7 +176,7 @@ public class ClientEventHandler {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void renderStatus(RenderGameOverlayEvent.Post event) {
+    public static void renderStatus(RenderGameOverlayEvent.Post event) {
         if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
             GuiStatus.INSTANCE.draw();
         }

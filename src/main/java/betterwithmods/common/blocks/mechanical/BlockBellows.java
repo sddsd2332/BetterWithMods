@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWSounds;
+import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.registry.BellowsManager;
 import betterwithmods.common.tile.TileBellows;
@@ -91,10 +91,10 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
     public void onChangeActive(World world, BlockPos pos, boolean active) {
         world.scheduleBlockUpdate(pos, this, tickRate(world), 5);
         if (active) {
-            world.playSound(null, pos, BWSounds.BELLOW, SoundCategory.BLOCKS, 0.7F, world.rand.nextFloat() * 0.25F + 2.5F);
+            world.playSound(null, pos, BWMSounds.BELLOW, SoundCategory.BLOCKS, 0.7F, world.rand.nextFloat() * 0.25F + 2.5F);
             blow(world, pos);
         } else {
-            world.playSound(null, pos, BWSounds.BELLOW, SoundCategory.BLOCKS, 0.2F, world.rand.nextFloat() * 0.25F + 2.5F);
+            world.playSound(null, pos, BWMSounds.BELLOW, SoundCategory.BLOCKS, 0.2F, world.rand.nextFloat() * 0.25F + 2.5F);
         }
         liftCollidingEntities(world, pos);
     }
@@ -111,7 +111,15 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
 
     @Override
     public void overpower(World world, BlockPos pos) {
-        breakBellows(world, pos);
+        if (doesOverpower()) {
+            //TODO replace with loot table
+//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Blocks.WOODEN_SLAB, 2, 0));
+//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 1, 0));
+//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 2, 6));
+            world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.3F,
+                    world.rand.nextFloat() * 0.1F + 0.45F);
+            world.setBlockToAir(pos);
+        }
     }
 
     public void blow(World world, BlockPos pos) {
@@ -202,16 +210,6 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
         }
     }
 
-    public void breakBellows(World world, BlockPos pos) {
-        //TODO replace with loot table
-//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Blocks.WOODEN_SLAB, 2, 0));
-//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 1, 0));
-//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 2, 6));
-        world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.3F,
-                world.rand.nextFloat() * 0.1F + 0.45F);
-        world.setBlockToAir(pos);
-    }
-
     @Override
     public int getMetaFromState(IBlockState state) {
         int facing = state.getValue(DirUtils.HORIZONTAL).getHorizontalIndex();
@@ -222,7 +220,7 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
     @Nonnull
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.HORIZONTAL, EnumFacing.getHorizontal(meta >> 1));
+        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.HORIZONTAL, EnumFacing.byHorizontalIndex(meta >> 1));
     }
 
     @Nonnull

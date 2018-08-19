@@ -14,13 +14,13 @@ public class MobEating extends Feature {
     private static final int radius = 4;
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Mobs are hungry too, if they see some food on the ground that they like they might just eat!";
     }
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent event) {
+    public static void addEntityAI(EntityJoinWorldEvent event) {
 
         Entity entity = event.getEntity();
         if (entity instanceof EntitySpider) {
@@ -28,11 +28,6 @@ public class MobEating extends Feature {
         } else if (entity instanceof EntityZombie) {
             ((EntityZombie) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("listAllmeat"), radius));
         }
-    }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
     }
 }
 

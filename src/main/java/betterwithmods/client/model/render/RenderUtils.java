@@ -223,7 +223,7 @@ public class RenderUtils {
 
     public static BufferedImage getTextureImage(ResourceLocation location) {
         try {
-            ResourceLocation pngLocation = new ResourceLocation(location.getResourceDomain(), String.format("%s/%s%s", "textures", location.getResourcePath(), ".png"));
+            ResourceLocation pngLocation = new ResourceLocation(location.getNamespace(), String.format("%s/%s%s", "textures", location.getPath(), ".png"));
             IResource resource = Minecraft.getMinecraft().getResourceManager().getResource(pngLocation);
             return TextureUtil.readBufferedImage(resource.getInputStream());
         } catch (IOException e) {

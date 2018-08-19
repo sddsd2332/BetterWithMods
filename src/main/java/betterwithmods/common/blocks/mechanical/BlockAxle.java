@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.common.BWSounds;
+import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileAxle;
 import betterwithmods.util.DirUtils;
@@ -186,8 +186,10 @@ public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
 
     @Override
     public void overpower(World world, BlockPos pos) {
-        world.setBlockToAir(pos);
-        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(this, 1, damageDropped(world.getBlockState(pos))));
+        if (doesOverpower()) {
+            world.setBlockToAir(pos);
+            InvUtils.ejectStackWithOffset(world, pos, new ItemStack(this, 1, damageDropped(world.getBlockState(pos))));
+        }
     }
 
 
@@ -197,7 +199,7 @@ public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
         if (isActive(state)) {
             emitAxleParticles(world, pos, rand);
             if (rand.nextInt(200) == 0)
-                world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, BWSounds.WOODCREAK, SoundCategory.BLOCKS, 0.15F, rand.nextFloat() * 0.1F + 0.5F, false);
+                world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, BWMSounds.WOODCREAK, SoundCategory.BLOCKS, 0.15F, rand.nextFloat() * 0.1F + 0.5F, false);
         }
     }
 

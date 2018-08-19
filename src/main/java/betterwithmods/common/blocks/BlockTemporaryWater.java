@@ -68,7 +68,7 @@ public class BlockTemporaryWater extends BlockLiquid {
 
     private boolean canFlowInto(World worldIn, BlockPos pos, IBlockState state) {
         Material material = state.getMaterial();
-        return material != this.blockMaterial && material != Material.LAVA && !this.isBlocked(worldIn, pos, state);
+        return material != this.material && material != Material.LAVA && !this.isBlocked(worldIn, pos, state);
     }
 
     private void tryFlowInto(World worldIn, BlockPos pos, IBlockState state, int level) {
@@ -97,7 +97,7 @@ public class BlockTemporaryWater extends BlockLiquid {
             BlockPos blockpos = pos.offset(enumfacing);
             IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-            if (!this.isBlocked(worldIn, blockpos, iblockstate) && (iblockstate.getMaterial() != this.blockMaterial
+            if (!this.isBlocked(worldIn, blockpos, iblockstate) && (iblockstate.getMaterial() != this.material
                     || iblockstate.getValue(LEVEL) > 0)) {
                 int j;
 
@@ -129,7 +129,7 @@ public class BlockTemporaryWater extends BlockLiquid {
                 BlockPos blockpos = pos.offset(enumfacing);
                 IBlockState iblockstate = worldIn.getBlockState(blockpos);
 
-                if (!this.isBlocked(worldIn, blockpos, iblockstate) && (iblockstate.getMaterial() != this.blockMaterial
+                if (!this.isBlocked(worldIn, blockpos, iblockstate) && (iblockstate.getMaterial() != this.material
                         || iblockstate.getValue(LEVEL) > 0)) {
                     if (!this.isBlocked(worldIn, blockpos.down(), iblockstate)) {
                         return distance;

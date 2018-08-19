@@ -2,7 +2,7 @@ package betterwithmods.common.registry.hopper.recipes;
 
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.tile.SimpleStackHandler;
 import betterwithmods.common.tile.TileFilteredHopper;
 import betterwithmods.util.InvUtils;
@@ -72,7 +72,7 @@ public class HopperRecipe {
     }
 
     public List<ItemStack> getFilters() {
-        return Lists.newArrayList(BWRegistry.HOPPER_FILTERS.getFilter(getFilterType()).getFilter().getMatchingStacks());
+        return Lists.newArrayList(BWMRegistry.HOPPER_FILTERS.getFilter(getFilterType()).getFilter().getMatchingStacks());
     }
 
     public List<ItemStack> getInputContainer() {

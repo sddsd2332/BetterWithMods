@@ -1,7 +1,7 @@
 package betterwithmods.common.items.tools;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
@@ -35,7 +35,7 @@ public class ItemSoulforgeArmor extends ItemArmor {
 
     @Override
     public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
-        return BWOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
+        return BWMOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
     }
 
     @Override

@@ -25,7 +25,7 @@ public class BlockFireStoked extends BlockFire {
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         entityIn.setFire(40);
     }
 
@@ -84,7 +84,7 @@ public class BlockFireStoked extends BlockFire {
                         BlockPos blockpos = pos.add(i1, k1, j1);
                         int i2 = this.getNeighborEncouragement(world, blockpos);
                         if (i2 > 0) {
-                            int j2 = (i2 + 40 + world.getDifficulty().getDifficultyId() * 7) / (meta + 30);
+                            int j2 = (i2 + 40 + world.getDifficulty().getId() * 7) / (meta + 30);
                             if (flag1) {
                                 j2 /= 2;
                             }
@@ -143,7 +143,7 @@ public class BlockFireStoked extends BlockFire {
             }
 
             if (iblockstate.getBlock() == Blocks.TNT) {
-                Blocks.TNT.onBlockDestroyedByPlayer(worldIn, pos, iblockstate.withProperty(BlockTNT.EXPLODE, true));
+                Blocks.TNT.onPlayerDestroy(worldIn, pos, iblockstate.withProperty(BlockTNT.EXPLODE, true));
             }
         }
     }

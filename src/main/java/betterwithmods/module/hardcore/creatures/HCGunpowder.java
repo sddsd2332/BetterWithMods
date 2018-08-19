@@ -7,6 +7,8 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Arrays;
@@ -16,18 +18,19 @@ import java.util.stream.Collectors;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class HCGunpowder extends Feature {
     public static List<Class> disableGunpowder = Lists.newArrayList();
 
     @Override
-    public void setupConfig() {
+    public void onInit(FMLInitializationEvent event) {
 
-        String[] array = loadPropStringList("Disable Gunpowder Drop", "List of entity classes which gunpowder will be replaced with niter", new String[]{
+        String[] array = loadProperty("Disable Gunpowder Drop",  new String[]{
                 "net.minecraft.entity.monster.EntityCreeper",
                 "net.minecraft.entity.monster.EntityGhast",
                 "net.minecraft.entity.monster.EntityWitch",
                 "betterwithmods.common.entity.EntityShearedCreeper"
-        });
+        }).setComment("List of entity classes which gunpowder will be replaced with niter").get();
         disableGunpowder = Arrays.stream(array).map(clazz -> {
             try {
                 return Class.forName(clazz);
@@ -38,12 +41,12 @@ public class HCGunpowder extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes a raw resource drop that must be crafted to make useful gunpowder";
     }
 
     @SubscribeEvent
-    public void mobDrops(LivingDropsEvent evt) {
+    public static void mobDrops(LivingDropsEvent evt) {
         boolean contained = false;
         for (Class clazz : disableGunpowder) {
             if (evt.getEntity().getClass().isAssignableFrom(clazz)) {
@@ -61,8 +64,4 @@ public class HCGunpowder extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

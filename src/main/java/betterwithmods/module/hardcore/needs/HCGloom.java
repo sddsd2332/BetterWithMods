@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWDamageSource;
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMDamageSource;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
@@ -34,6 +34,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -49,6 +50,7 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 5/13/17.
  */
+@Mod.EventBusSubscriber
 public class HCGloom extends Feature {
     private static final List<SoundEvent> sounds = Lists.newArrayList(SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundEvents.ENTITY_ENDERMEN_SCREAM, SoundEvents.ENTITY_SILVERFISH_AMBIENT, SoundEvents.ENTITY_WOLF_GROWL);
     private static final ResourceLocation PLAYER_GLOOM = new ResourceLocation(BWMod.MODID, "gloom");
@@ -85,25 +87,8 @@ public class HCGloom extends Feature {
         return null;
     }
 
-    @Override
-    public void setupConfig() {
-        dimensionWhitelist = Sets.newHashSet(ArrayUtils.toObject(loadPropIntList("Gloom Dimension Whitelist", "Gloom is only available in these dimensions", new int[]{0})));
-
-    }
-
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
-        BWRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties());
-        CapabilityManager.INSTANCE.register(Gloom.class, new CapabilityGloom(), Gloom::new);
-    }
-
-    @Override
-    public void postInit(FMLPostInitializationEvent event) {
-        gloomOverrideItems = StackIngredient.fromStacks(loadItemStackArray("Gloom Override Items", "Items in this list will override the gloom effect while held in your hand, this allows support for Dynamic Lightning and similar. Add one item per line  (ex minecraft:torch:0)", new ItemStack[0]));
-    }
-
     @SubscribeEvent
-    public void clone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+    public static void clone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
         Gloom o = getGloom(event.getOriginal());
         Gloom n = getGloom(event.getEntityPlayer());
         if (o != null && n != null) {
@@ -111,22 +96,27 @@ public class HCGloom extends Feature {
         }
     }
 
+    @Override
+    public void onPostInit(FMLPostInitializationEvent event) {
+        dimensionWhitelist = Sets.newHashSet(ArrayUtils.toObject(loadProperty("Gloom Dimension Whitelist", new int[]{0}).setComment("Gloom is only available in these dimensions").get()));
+        gloomOverrideItems = StackIngredient.fromStacks(config().loadItemStackArray("Gloom Override Items", getCategory(), "Items in this list will override the gloom effect while held in your hand, this allows support for Dynamic Lightning and similar. Add one item per line  (ex minecraft:torch:0)", new ItemStack[0]));
+    }
+
     @SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer && !event.getCapabilities().containsKey(PLAYER_GLOOM)) {
             event.addCapability(PLAYER_GLOOM, new Gloom());
         }
     }
 
-
     @SubscribeEvent
-    public void onRespawn(PlayerEvent.PlayerRespawnEvent e) {
+    public static void onRespawn(PlayerEvent.PlayerRespawnEvent e) {
         if (e.player instanceof EntityPlayerMP)
             setGloomTick((EntityPlayerMP) e.player, 0);
     }
 
     @SubscribeEvent
-    public void inDarkness(TickEvent.PlayerTickEvent e) {
+    public static void inDarkness(TickEvent.PlayerTickEvent e) {
         EntityPlayer player = e.player;
         World world = player.getEntityWorld();
 
@@ -154,8 +144,8 @@ public class HCGloom extends Feature {
 
             if (world.getTotalWorldTime() % 40 == 0) {
                 if (world.rand.nextInt(2) == 0) {
-                    if (BWRegistry.PENALTY_HANDLERS.attackedByGrue(player)) {
-                        player.attackEntityFrom(BWDamageSource.gloom, 2);
+                    if (BWMRegistry.PENALTY_HANDLERS.attackedByGrue(player)) {
+                        player.attackEntityFrom(BWMDamageSource.gloom, 2);
                     }
                 }
             }
@@ -164,7 +154,7 @@ public class HCGloom extends Feature {
         //Client Side
         //Random sounds
         if (world.isRemote) {
-            float spooked = BWRegistry.PENALTY_HANDLERS.getSpooked(player);
+            float spooked = BWMRegistry.PENALTY_HANDLERS.getSpooked(player);
             GloomPenalty most = PENALTIES.getMostSevere();
 
             if (world.rand.nextDouble() <= spooked) {
@@ -179,10 +169,9 @@ public class HCGloom extends Feature {
         }
     }
 
-
     @SubscribeEvent
-    public void onFOVUpdate(FOVUpdateEvent event) {
-        float spooked = BWRegistry.PENALTY_HANDLERS.getSpooked(event.getEntity());
+    public static void onFOVUpdate(FOVUpdateEvent event) {
+        float spooked = BWMRegistry.PENALTY_HANDLERS.getSpooked(event.getEntity());
         GloomPenalty most = PENALTIES.getMostSevere();
         if (most != null && (spooked >= (most.getFloat(BWMAttributes.SPOOKED).getValue()))) {
             float change = -(getGloomTime(event.getEntity()) / 100000f);
@@ -191,19 +180,17 @@ public class HCGloom extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public void onPreInit(FMLPreInitializationEvent event) {
+        BWMRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties(this));
+        CapabilityManager.INSTANCE.register(Gloom.class, new CapabilityGloom(), Gloom::new);
+
+    }
+
+    @Override
+    public String getDescription() {
         return "Be afraid of the dark...";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
 
     public static class CapabilityGloom implements Capability.IStorage<Gloom> {
 

@@ -126,7 +126,7 @@ public final class BWMBlocks {
         registerBlocks(BlockVase.BLOCKS.values());
         registerBlocks(BlockAesthetic.BLOCKS.values());
         registerBlocks(BlockChime.BLOCKS);
-        registerBlocks(BlockCobble.BLOCKS);
+        registerBlocks(BlockCobble.BLOCKS.values());
         registerBlocks(BlockUnfiredPottery.BLOCKS.values());
         registerBlocks(BlockRawPastry.BLOCKS.values());
         registerBlock(ANCHOR);
@@ -251,8 +251,8 @@ public final class BWMBlocks {
                 block.setCreativeTab(BWCreativeTabs.BLOCKS);
             }
             //TODO remove this in 1.13, it is done automatically
-            if (block.getUnlocalizedName().equals("tile.null"))
-                block.setUnlocalizedName(block.getRegistryName().toString());
+            if (block.getTranslationKey().equals("tile.null"))
+                block.setTranslationKey(block.getRegistryName().toString());
             BLOCKS.add(block);
             if (item != null) {
                 BWMItems.registerItem(item.setRegistryName(block.getRegistryName()));

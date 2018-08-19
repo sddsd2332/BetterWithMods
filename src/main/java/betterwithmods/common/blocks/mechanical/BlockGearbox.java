@@ -5,7 +5,7 @@ import betterwithmods.api.block.IAdvancedRotationPlacement;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.api.block.IRenderRotationPlacement;
 import betterwithmods.client.ClientEventHandler;
-import betterwithmods.common.BWSounds;
+import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileGearbox;
 import betterwithmods.util.DirUtils;
@@ -106,7 +106,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
                     world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, SoundCategory.BLOCKS, 0.25F, world.rand.nextFloat() * 0.25F + 0.25F, true);
             }
             if (rand.nextInt(50) == 0) {
-                world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, BWSounds.WOODCREAK, SoundCategory.BLOCKS, 0.25F, world.rand.nextFloat() * 0.25F + 0.25F, false);
+                world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, BWMSounds.WOODCREAK, SoundCategory.BLOCKS, 0.25F, world.rand.nextFloat() * 0.25F + 0.25F, false);
             }
 
         }
@@ -119,7 +119,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
     public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         boolean[] dirs = new boolean[6];
         for (int i = 0; i < 6; i++) {
-            EnumFacing facing = EnumFacing.getFront(i);
+            EnumFacing facing = EnumFacing.byIndex(i);
             dirs[i] = BWMAPI.IMPLEMENTATION.isAxle(world, pos.offset(facing), facing.getOpposite()) && this.getFacing(world, pos) != facing;
         }
         return state.withProperty(DirUtils.DOWN, dirs[0]).withProperty(DirUtils.UP, dirs[1]).withProperty(DirUtils.NORTH, dirs[2]).withProperty(DirUtils.SOUTH, dirs[3]).withProperty(DirUtils.WEST, dirs[4]).withProperty(DirUtils.EAST, dirs[5]);
@@ -136,7 +136,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
     @SuppressWarnings("deprecation")
     @Override
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.FACING, EnumFacing.getFront(meta >> 1));
+        return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.FACING, EnumFacing.byIndex(meta >> 1));
     }
 
     @Nonnull
@@ -179,7 +179,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
     @Override
     public void onChangeActive(World world, BlockPos pos, boolean newValue) {
         if (newValue) {
-            world.playSound(null, pos, BWSounds.WOODCREAK, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.25F + 0.25F);
+            world.playSound(null, pos, BWMSounds.WOODCREAK, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.25F + 0.25F);
         }
     }
 

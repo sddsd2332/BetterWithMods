@@ -24,7 +24,7 @@ public class BlockGrassCustom extends BlockGrass {
         this.setHardness(0.6F);
         this.setSoundType(SoundType.PLANT);
         this.setRegistryName("minecraft:grass");
-        this.setUnlocalizedName("grass");
+        this.setTranslationKey("grass");
     }
 
 

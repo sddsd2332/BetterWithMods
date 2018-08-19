@@ -11,6 +11,7 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -26,6 +27,7 @@ import java.util.stream.Collectors;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class MossGeneration extends Feature {
     private static final HashMap<BlockIngredient, IBlockState> CONVERTED_BLOCKS = new HashMap<>();
     public static int RADIUS;
@@ -64,7 +66,7 @@ public class MossGeneration extends Feature {
     }
 
     @SubscribeEvent
-    public void generateMossNearSpawner(TickEvent.WorldTickEvent event) {
+    public static void generateMossNearSpawner(TickEvent.WorldTickEvent event) {
         World world = event.world;
         List<BlockPos> positions;
         if (world.isRemote || event.phase != TickEvent.Phase.END || event.side != Side.SERVER)
@@ -84,15 +86,14 @@ public class MossGeneration extends Feature {
         });
     }
 
-    @Override
-    public void setupConfig() {
-        RADIUS = loadPropInt("Moss radius from the mob spawner", "", 5);
-        RATE = loadPropInt("Moss grow rate", "1 out of this rate will cause a moss to try to generate", 100);
-        DISABLE_VINE_RECIPES = loadPropBool("Disable Vine Recipes", "Disables the mossy cobblestone and mossy brick recipes involving vines.", true);
-    }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
+
+        RADIUS = loadProperty("Moss radius from the mob spawner",5).get();
+        RATE = loadProperty("Moss grow rate",100).setComment("1 out of this rate will cause a moss to try to generate").get();
+        DISABLE_VINE_RECIPES = loadProperty("Disable Vine Recipes", true).setComment("Disables the mossy cobblestone and mossy brick recipes involving vines.").get();
+
         if (DISABLE_VINE_RECIPES) {
             BWMRecipes.removeRecipe("minecraft:mossy_cobblestone");
             BWMRecipes.removeRecipe("minecraft:mossy_stonebrick");
@@ -100,18 +101,15 @@ public class MossGeneration extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         addBlockConversion(new BlockIngredient(new ItemStack(Blocks.COBBLESTONE)), Blocks.MOSSY_COBBLESTONE.getDefaultState());
         addBlockConversion(new BlockIngredient(new ItemStack(Blocks.STONEBRICK)), Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY));
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
+
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Cobblestone or Stonebrick within the spawning radius of a Mob Spawner will randomly grow into the Mossy version.";
     }
 

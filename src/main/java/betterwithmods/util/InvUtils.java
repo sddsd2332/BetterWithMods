@@ -15,6 +15,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldServer;
 import net.minecraft.world.storage.loot.LootContext;
@@ -78,8 +79,9 @@ public class InvUtils {
 
     public static void givePlayer(EntityPlayer player, EnumFacing inv, NonNullList<ItemStack> stacks) {
         IItemHandlerModifiable inventory = (IItemHandlerModifiable) player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, inv);
-        if (inventory != null)
-            insert(inventory, stacks, false);
+        if (inventory != null) {
+            insert(player.world, player.getPosition(), inventory, stacks, false);
+        }
     }
 
     public static boolean usePlayerItemStrict(EntityPlayer player, EnumFacing inv, Ingredient ingredient, int amount) {
@@ -187,8 +189,15 @@ public class InvUtils {
     }
 
 
-    public static void insert(IItemHandler inv, NonNullList<ItemStack> stacks, boolean simulate) {
-        stacks.forEach(stack -> insert(inv, stack, 0, inv.getSlots(), simulate));
+    public static void insert(World world, BlockPos pos, IItemHandler inv, NonNullList<ItemStack> stacks, boolean simulate) {
+        stacks.forEach(stack -> {
+
+
+            ItemStack returned = insert(inv, stack, 0, inv.getSlots(), simulate);
+            if (!returned.isEmpty()) {
+                EJECT_OFFSET.setStack(returned).ejectStack(world, new Vec3d(pos), Vec3d.ZERO);
+            }
+        });
     }
 
     public static ItemStack insert(IItemHandler inv, ItemStack stack, boolean simulate) {
@@ -196,12 +205,14 @@ public class InvUtils {
     }
 
     public static ItemStack insert(IItemHandler inv, ItemStack stack, int minSlot, int maxSlot, boolean simulate) {
+
         return attemptInsert(inv, stack, minSlot, maxSlot, simulate);
     }
 
     public static ItemStack attemptInsert(IItemHandler inv, ItemStack stack, int minSlot, int maxSlot, boolean simulate) {
-        if (isFull(inv))
+        if (isFull(inv)) {
             return stack;
+        }
         for (int slot = minSlot; slot < maxSlot; slot++) {
             stack = inv.insertItem(slot, stack, simulate);
             if (stack.isEmpty())
@@ -458,22 +469,21 @@ public class InvUtils {
         }
     }
 
+
+    public static StackEjector EJECT_OFFSET = new StackEjector(new VectorBuilder().rand(0.5f).offset(0.25f), new VectorBuilder().setGaussian(0.05f)),
+            EJECT_EXACT = new StackEjector(new VectorBuilder(), new VectorBuilder());
+
     public static void ejectStackWithOffset(World world, BlockPos pos, ItemStack stack) {
         if (stack.isEmpty())
             return;
-        VectorBuilder builder = new VectorBuilder();
-        new StackEjector(world, stack, builder.set(pos).rand(0.5f).offset(0.25f).build(), builder.setGaussian(0.05f).build()).ejectStack();
+        EJECT_OFFSET.setStack(stack).ejectStack(world, new Vec3d(pos), Vec3d.ZERO);
     }
 
 
     public static void ejectStack(@Nonnull World world, double x, double y, double z, ItemStack stack, int pickupDelay) {
         if (world.isRemote)
             return;
-
-        VectorBuilder builder = new VectorBuilder();
-        StackEjector ejector = new StackEjector(world, stack, builder.set(x, y, z).build());
-        ejector.setPickupDelay(pickupDelay);
-        ejector.ejectStack();
+        EJECT_EXACT.setStack(stack).setPickupDelay(pickupDelay).ejectStack(world, new Vec3d(x, y, z), Vec3d.ZERO);
     }
 
     public static void ejectStack(@Nonnull World world, double x, double y, double z, ItemStack stack) {
@@ -500,7 +510,7 @@ public class InvUtils {
         }
         NBTTagCompound tag = ItemStackHelper.saveAllItems(new NBTTagCompound(), list);
 
-        if (!tag.hasNoTags())
+        if (!tag.isEmpty())
             stack.setTagCompound(tag);
     }
 

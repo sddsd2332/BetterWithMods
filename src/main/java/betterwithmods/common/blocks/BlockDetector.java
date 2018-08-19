@@ -128,7 +128,7 @@ public class BlockDetector extends BWMBlock {
             world.setBlockState(pos, state);
 
             for (int i = 0; i < 6; i++) {
-                world.neighborChanged(pos.offset(EnumFacing.getFront(i)), this, pos);
+                world.neighborChanged(pos.offset(EnumFacing.byIndex(i)), this, pos);
             }
         }
         world.scheduleBlockUpdate(pos, this, tickRate(world), 5);
@@ -186,7 +186,7 @@ public class BlockDetector extends BWMBlock {
             isActive = true;
             meta -= 8;
         }
-        return this.getDefaultState().withProperty(ACTIVE, isActive).withProperty(DirUtils.FACING, EnumFacing.getFront(meta));
+        return this.getDefaultState().withProperty(ACTIVE, isActive).withProperty(DirUtils.FACING, EnumFacing.byIndex(meta));
     }
 
     @Override

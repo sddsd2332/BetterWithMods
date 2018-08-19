@@ -1,7 +1,8 @@
 package betterwithmods.common.blocks;
 
-import com.google.common.collect.Sets;
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockStone;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,25 +13,30 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 
 import javax.annotation.Nonnull;
-import java.util.Set;
+import java.util.HashMap;
 
 public class BlockCobble extends Block {
-    public static final Set<BlockCobble> BLOCKS = Sets.newHashSet();
+    public static final HashMap<EnumType, BlockCobble> BLOCKS = Maps.newHashMap();
     public final BlockCobble.EnumType type;
 
     public BlockCobble(BlockCobble.EnumType type) {
         super(Material.ROCK);
         this.setHardness(2.0F);
         this.setResistance(5.0F);
-
+        this.setTranslationKey("bwm:cobble");
         this.setRegistryName("cobblestone_" + type.getName());
         this.type = type;
     }
 
     public static void init() {
         for (BlockCobble.EnumType type : EnumType.VALUES)
-            BLOCKS.add(new BlockCobble(type));
+            BLOCKS.put(type, new BlockCobble(type));
     }
+
+    public static ItemStack getStack(BlockCobble.EnumType type) {
+        return new ItemStack(BLOCKS.get(type));
+    }
+
 
     @Nonnull
     @SuppressWarnings("deprecation")
@@ -67,6 +73,18 @@ public class BlockCobble extends Block {
 
         public MapColor getColor() {
             return color;
+        }
+
+        public static EnumType convert(BlockStone.EnumType type) {
+            switch (type) {
+                case GRANITE:
+                    return GRANITE;
+                case DIORITE:
+                    return DIORITE;
+                case ANDESITE:
+                    return ANDESITE;
+            }
+            return null;
         }
     }
 }

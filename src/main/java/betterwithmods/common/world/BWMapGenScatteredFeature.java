@@ -1,6 +1,6 @@
 package betterwithmods.common.world;
 
-import betterwithmods.module.GlobalConfig;
+import betterwithmods.module.general.General;
 import com.google.common.collect.Sets;
 import net.minecraft.init.Biomes;
 import net.minecraft.util.math.BlockPos;
@@ -30,7 +30,7 @@ public class BWMapGenScatteredFeature extends MapGenScatteredFeature {
     }
 
     public static StructureComponent getComponent(World world, Random random, int chunkX, int chunkZ, Biome biome) {
-        if (GlobalConfig.debug)
+        if (General.isDebug())
             System.out.printf("/tp %s ~ %s\n", chunkX * 16, chunkZ * 16);
         for (String structure : STRUCTURE_BIOMES.keySet()) {
             if (STRUCTURE_BIOMES.get(structure).contains(biome)) {

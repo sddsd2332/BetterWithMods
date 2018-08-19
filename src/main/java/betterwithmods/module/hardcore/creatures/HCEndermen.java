@@ -8,29 +8,26 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class HCEndermen extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes Endermen agro in groups and make a thunder noise when they teleport";
     }
 
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
     @SubscribeEvent
-    public void onTeleport(EnderTeleportEvent evt) {
+    public static void onTeleport(EnderTeleportEvent evt) {
         evt.getEntityLiving().getEntityWorld().playSound(null, evt.getEntityLiving().getPosition(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.HOSTILE, 1, 1);
     }
 
     @SubscribeEvent
-    public void addEntityAI(EntityJoinWorldEvent evt) {
+    public static void addEntityAI(EntityJoinWorldEvent evt) {
         if (evt.getEntity() instanceof EntityEnderman) {
             if (!evt.getWorld().isRemote) {
                 EntityEnderman entity = (EntityEnderman) evt.getEntity();
@@ -40,8 +37,4 @@ public class HCEndermen extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

@@ -11,32 +11,23 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Set;
 
+@Mod.EventBusSubscriber
 public class FoodPoisoning extends Feature {
     public static double chanceForPoison;
 
-
     @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "No one wants to eat when they have food poisoning. When you have the Hunger effect you can't eat. Additionally raw meats can cause food poisoning";
     }
 
     @Override
-    public void setupConfig() {
-        chanceForPoison = loadPropDouble("Chance for Food Poisoning", "", 0.3);
-    }
-
-    @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         Set<Item> RAW_FOOD =
                 Sets.newHashSet(BWMItems.RAW_SCRAMBLED_EGG, BWMItems.RAW_EGG, BWMItems.RAW_OMELET,
                         BWMItems.RAW_KEBAB, Items.FISH, BWMItems.WOLF_CHOP, Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.CHICKEN, Items.MUTTON, BWMItems.MYSTERY_MEAT);
@@ -45,7 +36,7 @@ public class FoodPoisoning extends Feature {
 
     //Stops Eating if Hunger Effect is active
     @SubscribeEvent
-    public void onFood(LivingEntityUseItemEvent.Start event) {
+    public static void onFood(LivingEntityUseItemEvent.Start event) {
         if (event.getItem().getItem() instanceof ItemFood && event.getEntityLiving() instanceof EntityPlayer && PlayerHelper.isSurvival((EntityPlayer) event.getEntityLiving())) {
             if (event.getEntityLiving().isPotionActive(MobEffects.HUNGER)) {
                 event.setCanceled(true);

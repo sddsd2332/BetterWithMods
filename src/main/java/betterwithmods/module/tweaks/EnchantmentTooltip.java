@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -16,10 +17,11 @@ import org.apache.commons.lang3.StringUtils;
 
 import javax.annotation.Nullable;
 
+@Mod.EventBusSubscriber(Side.CLIENT)
 public class EnchantmentTooltip extends Feature {
 
     @SideOnly(Side.CLIENT)
-    public static String getTranslatedEnchantment(@Nullable Enchantment enchantment) {
+    private static String getTranslatedEnchantment(@Nullable Enchantment enchantment) {
         if (enchantment != null && enchantment.type != null) {
             String name = enchantment.type.name().toLowerCase();
             String key = String.format("bwm.enchantment.type.%s", name);
@@ -31,14 +33,9 @@ public class EnchantmentTooltip extends Feature {
         return null;
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return isClient();
-    }
-
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onTooltip(ItemTooltipEvent event) {
+    public static void onTooltip(ItemTooltipEvent event) {
         ItemStack stack = event.getItemStack();
         if (stack.getItem() instanceof ItemEnchantedBook) {
             NBTTagList nbttaglist = ItemEnchantedBook.getEnchantments(stack);
@@ -61,7 +58,7 @@ public class EnchantmentTooltip extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add a tooltip to Enchantment source items (Scrolls, Books) to show what type of tool the enchantment can be used on.";
     }
 }

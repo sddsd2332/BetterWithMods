@@ -11,12 +11,12 @@ public class WoolArmor extends Feature {
 
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.addRecipe(new RecipeArmorDye(Ingredient.fromItems(BWMItems.WOOL_HELMET, BWMItems.WOOL_CHEST, BWMItems.WOOL_PANTS, BWMItems.WOOL_BOOTS)));
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Add Wool Armor";
     }
 }

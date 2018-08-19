@@ -4,7 +4,7 @@ import betterwithmods.module.Feature;
 
 public class FastStick extends Feature {
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Allows crafting two stick from a single plank";
     }
 }

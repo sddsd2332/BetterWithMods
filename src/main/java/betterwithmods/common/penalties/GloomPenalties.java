@@ -1,19 +1,18 @@
 package betterwithmods.common.penalties;
 
+import betterwithmods.module.Feature;
 import betterwithmods.module.hardcore.needs.HCGloom;
 import net.minecraft.entity.player.EntityPlayer;
 import org.apache.commons.lang3.Range;
 
 public class GloomPenalties extends PenaltyHandler<Integer, GloomPenalty> {
 
-    private static final String category = "hardcore.hcgloom.penalties";
-
-    public GloomPenalties() {
+    public GloomPenalties(Feature feature) {
         super();
-        addDefault(new GloomPenalty(false, true, 0, "none", "gloom_penalty.none", category, 0, Range.is(0)));
-        addPenalty(new GloomPenalty(false, true, 0.01f, "gloom", "gloom_penalty.gloom", category, 1, Range.between(1, 1200)));
-        addPenalty(new GloomPenalty(false, true, 0.05f, "dread", "gloom_penalty.dread", category, 2, Range.between(1201, 2400)));
-        addPenalty(new GloomPenalty(true, false, 0.10f, "terror", "gloom_penalty.terror", category, 2, Range.between(2401, 100000)));
+        addDefault(new GloomPenalty(false, true, 0, "none", "gloom_penalty.none", feature, 0, Range.is(0)));
+        addPenalty(new GloomPenalty(false, true, 0.01f, "gloom", "gloom_penalty.gloom", feature, 1, Range.between(1, 1200)));
+        addPenalty(new GloomPenalty(false, true, 0.05f, "dread", "gloom_penalty.dread", feature, 2, Range.between(1201, 2400)));
+        addPenalty(new GloomPenalty(true, false, 0.10f, "terror", "gloom_penalty.terror", feature, 2, Range.between(2401, 100000)));
     }
 
     @Override

@@ -1,6 +1,6 @@
 package betterwithmods.client.container.anvil;
 
-import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWMRegistry;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.IInventory;
 import net.minecraft.inventory.InventoryCrafting;
@@ -31,7 +31,7 @@ public class SlotSteelAnvilCrafting extends SlotCrafting {
         net.minecraftforge.fml.common.FMLCommonHandler.instance().firePlayerCraftingEvent(playerIn, stack, craftMatrix);
         this.onCrafting(stack);
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(playerIn);
-        NonNullList<ItemStack> aitemstack = BWRegistry.ANVIL.getRemainingItems(this.craftMatrix, playerIn.getEntityWorld());
+        NonNullList<ItemStack> aitemstack = BWMRegistry.ANVIL.getRemainingItems(this.craftMatrix, playerIn.getEntityWorld());
         net.minecraftforge.common.ForgeHooks.setCraftingPlayer(null);
 
         for (int i = 0; i < aitemstack.size(); ++i) {

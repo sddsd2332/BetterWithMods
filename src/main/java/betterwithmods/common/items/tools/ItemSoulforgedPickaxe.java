@@ -1,7 +1,7 @@
 package betterwithmods.common.items.tools;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.state.IBlockState;
@@ -32,7 +32,7 @@ public class ItemSoulforgedPickaxe extends ItemPickaxe {
 
     @Override
     public boolean getIsRepairable(ItemStack toRepair, @Nonnull ItemStack repair) {
-        return BWOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
+        return BWMOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
     }
 
     @Nonnull

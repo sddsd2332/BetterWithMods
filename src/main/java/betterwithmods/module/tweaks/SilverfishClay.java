@@ -8,12 +8,14 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 public class SilverfishClay extends Feature {
 
     @SubscribeEvent
-    public void onDeath(LivingDropsEvent event) {
+    public static void onDeath(LivingDropsEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
         if (entity instanceof EntitySilverfish) {
             if (entity.world.provider.getDimensionType() == DimensionType.THE_END)
@@ -22,12 +24,7 @@ public class SilverfishClay extends Feature {
     }
 
     @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Silverfish that die in the End will drop clay balls. This combined with HCBeacons allows easy farming of clay.";
     }
 }

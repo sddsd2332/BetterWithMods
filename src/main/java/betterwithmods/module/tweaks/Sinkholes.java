@@ -7,15 +7,17 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 /**
  * Created by primetoxinz on 5/6/17.
  */
+@Mod.EventBusSubscriber
 public class Sinkholes extends Feature {
     @SubscribeEvent
-    public void playerTick(TickEvent.PlayerTickEvent event) {
+    public static void playerTick(TickEvent.PlayerTickEvent event) {
         EntityPlayer player = event.player;
         if (player.onGround) {
             int j6 = MathHelper.floor(player.posX);
@@ -32,12 +34,8 @@ public class Sinkholes extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Falling blocks update when players stand on them, causing them to fall if the blocks are not supported by non-falling blocks. ";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

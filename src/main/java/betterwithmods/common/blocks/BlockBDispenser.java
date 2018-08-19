@@ -100,7 +100,7 @@ public class BlockBDispenser extends BlockDispenser {
             IBehaviorCollect behavior = BLOCK_COLLECT_REGISTRY.getObject(block);
             if (!world.isAirBlock(check) || !block.isReplaceable(world, check)) {
                 NonNullList<ItemStack> stacks = behavior.collect(new BlockSourceImpl(world, check));
-                InvUtils.insert(tile.inventory, stacks, false);
+                InvUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
             }
 
             Optional<Entity> entity = getEntity(world, check);
@@ -109,7 +109,7 @@ public class BlockBDispenser extends BlockDispenser {
                 ResourceLocation name = EntityList.getKey(e);
                 IBehaviorEntity behaviorEntity = ENTITY_COLLECT_REGISTRY.getObject(name);
                 NonNullList<ItemStack> stacks = behaviorEntity.collect(world, check, e, tile.getCurrentSlot());
-                InvUtils.insert(tile.inventory, stacks, false);
+                InvUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
             }
         } else {
             int index = tile.nextIndex;

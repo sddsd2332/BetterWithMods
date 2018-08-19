@@ -1,8 +1,8 @@
 package betterwithmods.common.items;
 
 import betterwithmods.api.util.IBlockVariants;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWOreDictionary;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -38,7 +38,7 @@ public class ItemBark extends Item {
     }
 
     public static List<ItemStack> getBarks(int count) {
-        return BWOreDictionary.blockVariants.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.BARK, count)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        return BWMOreDictionary.blockVariants.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.BARK, count)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ItemBark extends Item {
     }
 
     public List<ItemStack> getLogs() {
-        return BWOreDictionary.blockVariants.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.LOG, 1)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        return BWMOreDictionary.blockVariants.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.LOG, 1)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 
     @Override
@@ -66,7 +66,7 @@ public class ItemBark extends Item {
         NBTTagCompound tag = stack.getSubCompound("texture");
         ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_bark.name");
         //TODO .name is not longer in 1.13
-        ITextComponent bark = new TextComponentTranslation(this.getUnlocalizedName(stack) + ".name");
+        ITextComponent bark = new TextComponentTranslation(this.getTranslationKey(stack) + ".name");
         if (tag != null) {
             try {
                 IBlockState state = NBTUtil.readBlockState(tag);

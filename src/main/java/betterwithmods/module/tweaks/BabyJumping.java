@@ -5,12 +5,14 @@ import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraftforge.event.entity.living.LivingEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 public class BabyJumping extends Feature {
 
     @SubscribeEvent
-    public void onJump(LivingEvent.LivingJumpEvent event) {
+    public static void onJump(LivingEvent.LivingJumpEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
         if (entity instanceof EntityLiving) {
             if (!entity.isChild())
@@ -26,12 +28,8 @@ public class BabyJumping extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
-        return "Make it so babies can no longer jump. Adds some possiblities for automation";
+    public String getDescription() {
+        return "Make it so babies can no longer jump. Adds some possibilities for automation";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }

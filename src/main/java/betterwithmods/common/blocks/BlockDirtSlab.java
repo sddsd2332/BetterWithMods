@@ -176,7 +176,7 @@ public class BlockDirtSlab extends BlockSimpleSlab {
     @Nonnull
     @SideOnly(Side.CLIENT)
     @Override
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 

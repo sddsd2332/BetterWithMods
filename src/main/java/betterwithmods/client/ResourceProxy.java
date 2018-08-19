@@ -43,12 +43,6 @@ public class ResourceProxy extends AbstractResourcePack {
 
     @Nonnull
     @Override
-    public Set<String> getResourceDomains() {
-        return RESOURCE_DOMAINS;
-    }
-
-    @Nonnull
-    @Override
     protected InputStream getInputStreamByName(@Nonnull String name) {
         return BWMod.class.getResourceAsStream(overrides.get(name));
     }
@@ -58,6 +52,11 @@ public class ResourceProxy extends AbstractResourcePack {
         return overrides.containsKey(name);
     }
 
+
+    @Override
+    public Set<String> getResourceDomains() {
+        return RESOURCE_DOMAINS;
+    }
 
     @Nonnull
     @Override

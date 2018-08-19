@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.api.util.IBlockVariants;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
@@ -22,52 +22,36 @@ import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
  * Created by primetoxinz on 4/20/17.
  */
 public class HCLumber extends Feature {
-    public static int plankAmount, barkAmount, sawDustAmount;
+    private static int plankAmount, barkAmount, sawDustAmount;
 
     public static int axePlankAmount, axeBarkAmount, axeSawDustAmount;
 
-    public static boolean hasAxe(EntityPlayer harvester, BlockPos pos, IBlockState state) {
+    private static boolean hasAxe(EntityPlayer harvester, BlockPos pos, IBlockState state) {
         if (harvester == null)
             return false;
         return PlayerHelper.isCurrentToolEffectiveOnBlock(harvester, pos, state);
     }
 
     @Override
-    public void setupConfig() {
-        plankAmount = loadPropInt("Plank Amount", "Amount of Planks dropped when Punching Wood", 2);
-        barkAmount = loadPropInt("Bark Amount", "Amount of Bark dropped when Punching Wood", 1);
-        sawDustAmount = loadPropInt("Sawdust Amount", "Amount of Sawdust dropped when Punching Wood", 2);
-
-        axePlankAmount = loadPropInt("Axe Plank Amount", "Amount of Planks dropped when crafted with an axe", 3);
-        axeBarkAmount = loadPropInt("Axe Bark Amount", "Amount of Bark dropped when crafted with an axe", 1);
-        axeSawDustAmount = loadPropInt("Axe Sawdust Amount", "Amount of Sawdust dropped when crafted with an axe", 2);
-    }
-
-    @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes Punching Wood return a single plank and secondary drops instead of a log, to get a log an axe must be used.";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
+        plankAmount = loadProperty("Plank Amount", 2).setComment("Amount of Planks dropped when Punching Wood").get();
+        barkAmount = loadProperty("Bark Amount", 1).setComment("Amount of Bark dropped when Punching Wood").get();
+        sawDustAmount = loadProperty("Sawdust Amount", 2).setComment("Amount of Sawdust dropped when Punching Wood").get();
 
-    }
-
-    @Override
-    public void init(FMLInitializationEvent event) {
-        BrokenToolRegistry.init();
-        BWOreDictionary.logRecipes.forEach(r -> BWMRecipes.removeRecipe(r.getRegistryName()));
-    }
-
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
+        axePlankAmount = loadProperty("Axe Plank Amount", 3).setComment("Amount of Planks dropped when crafted with an axe").get();
+        axeBarkAmount = loadProperty("Axe Bark Amount", 1).setComment("Amount of Bark dropped when crafted with an axe").get();
+        axeSawDustAmount = loadProperty("Axe Sawdust Amount", 2).setComment("Amount of Sawdust dropped when crafted with an axe").get();
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void harvestLog(BlockEvent.HarvestDropsEvent event) {
+    public static void harvestLog(BlockEvent.HarvestDropsEvent event) {
         if (!event.getWorld().isRemote) {
-            IBlockVariants wood = BWOreDictionary.getVariantFromState(LOG, event.getState());
+            IBlockVariants wood = BWMOreDictionary.getVariantFromState(LOG, event.getState());
             if (wood != null) {
                 if (event.isSilkTouching() || hasAxe(event.getHarvester(), event.getPos(), event.getState()))
                     return;
@@ -79,7 +63,11 @@ public class HCLumber extends Feature {
     }
 
     @Override
-    public boolean hasSubscriptions() {
-        return true;
+    public void onInit(FMLInitializationEvent event) {
+
+
+        BrokenToolRegistry.init();
+        BWMOreDictionary.logRecipes.forEach(r -> BWMRecipes.removeRecipe(r.getRegistryName()));
     }
+
 }

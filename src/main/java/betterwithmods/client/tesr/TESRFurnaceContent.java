@@ -24,9 +24,9 @@ public class TESRFurnaceContent extends TileEntitySpecialRenderer<TileEntityFurn
 
             double x1 = x, z1 = z;
             if (facing.getAxis() == EnumFacing.Axis.X) {
-                x1 += facing.getFrontOffsetX() * 0.00025;
+                x1 += facing.getXOffset() * 0.00025;
             } else {
-                z1 += facing.getFrontOffsetZ() * 0.00025;
+                z1 += facing.getZOffset() * 0.00025;
             }
             RenderUtils.renderFill(FULL, te.getPos(), x1, y, z1, 0, 0, 0, 1, 1, 1, new EnumFacing[]{facing});
         }

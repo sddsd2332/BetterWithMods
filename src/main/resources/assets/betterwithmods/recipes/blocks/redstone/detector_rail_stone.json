@@ -1,4 +1,10 @@
 {
+  "conditions": [
+    {
+      "type": "config",
+      "enabled": "detectorrail"
+    }
+  ],
   "result": {
     "item": "betterwithmods:detector_rail_stone",
     "count": 6

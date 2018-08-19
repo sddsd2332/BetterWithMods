@@ -32,7 +32,7 @@ public class BlockFilteredHopper extends BlockMechMachine implements IUrnConnect
     }
 
     @Override
-    public void onEntityCollidedWithBlock(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
+    public void onEntityCollision(World worldIn, BlockPos pos, IBlockState state, Entity entityIn) {
         if (!worldIn.isRemote) {
             TileEntity tile = worldIn.getTileEntity(pos);
             if (tile instanceof TileFilteredHopper) {
@@ -96,7 +96,7 @@ public class BlockFilteredHopper extends BlockMechMachine implements IUrnConnect
     @Nonnull
     @Override
     @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getBlockLayer() {
+    public BlockRenderLayer getRenderLayer() {
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 }

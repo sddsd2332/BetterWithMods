@@ -8,12 +8,12 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class HCCooking extends Feature {
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Changes the recipes for baked goods to require the Kiln and changes soups to require the Cauldron.";
     }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         BWMRecipes.removeRecipe(Items.MUSHROOM_STEW.getRegistryName());
         BWMRecipes.removeRecipe(Items.CAKE.getRegistryName());
         BWMRecipes.removeRecipe(Items.COOKIE.getRegistryName());

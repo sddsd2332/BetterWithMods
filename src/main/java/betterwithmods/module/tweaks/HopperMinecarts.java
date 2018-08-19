@@ -19,6 +19,7 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -29,6 +30,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Predicate;
 
+@Mod.EventBusSubscriber
 public class HopperMinecarts extends Feature {
 
     private static final ResourceLocation COUNTER = new ResourceLocation(BWMod.MODID, "counter");
@@ -38,32 +40,27 @@ public class HopperMinecarts extends Feature {
     private static Capability<Counter> CAPABILITY_COUNTER;
 
     @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(Counter.class, new Counter.Storage(), Counter::new);
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Allow Hopper Minecarts to output to inventories below them";
     }
 
     @SubscribeEvent
-    public void onCapabilityAttach(AttachCapabilitiesEvent<Entity> event) {
+    public static void onCapabilityAttach(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityMinecartHopper)
             event.addCapability(COUNTER, new Counter());
     }
 
-    public Counter getCounter(EntityMinecartHopper entity) {
+    public static Counter getCounter(EntityMinecartHopper entity) {
         return entity.getCapability(CAPABILITY_COUNTER, null);
     }
 
     @SubscribeEvent
-    public void onTick(MinecartUpdateEvent event) {
+    public static void onTick(MinecartUpdateEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof EntityMinecartHopper) {
             EntityMinecartHopper cart = (EntityMinecartHopper) event.getEntity();

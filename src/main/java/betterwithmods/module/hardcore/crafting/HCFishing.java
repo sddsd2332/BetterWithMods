@@ -37,6 +37,7 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -52,6 +53,7 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 7/23/17.
  */
+@Mod.EventBusSubscriber
 public class HCFishing extends Feature {
     public static final ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "gameplay/fishing"));
     private static final ResourceLocation BAITED_FISHING_ROD = new ResourceLocation(BWMod.MODID, "baited_fishing_rod");
@@ -155,23 +157,19 @@ public class HCFishing extends Feature {
         return (world.getBlockState(pos).getBlock() == Blocks.AIR);
     }
 
-    @Override
-    public void setupConfig() {
-        requireBait = loadPropBool("Require Bait", "Change Fishing Rods to require being Baited with certain items to entice fish, they won't nibble without it!", true);
-        restrictToOpenWater = loadPropBool("Restrict to Open Water", "Fishing on underground locations won't work, hook must be placed on a water block with line of sight to the sky.", true);
-        minimumWaterDepth = loadPropInt("Minimum Water Depth", "If higher than 1, requires bodies of water to have a minimum depth for fishing to be successful.", 3);
-
-    }
 
     @Override
-    public void preInit(FMLPreInitializationEvent event) {
+    public void onPreInit(FMLPreInitializationEvent event) {
+        requireBait = loadProperty("Require Bait", true).setComment("Change Fishing Rods to require being Baited with certain items to entice fish, they won't nibble without it!").get();
+        restrictToOpenWater = loadProperty("Restrict to Open Water", true).setComment("Fishing on underground locations won't work, hook must be placed on a water block with line of sight to the sky.").get();
+        minimumWaterDepth = loadProperty("Minimum Water Depth", 3).setComment("If higher than 1, requires bodies of water to have a minimum depth for fishing to be successful.").get();
+
         CapabilityManager.INSTANCE.register(FishingBait.class, new CapabilityFishingRod(), FishingBait::new);
         BWMRecipes.removeRecipe(new ResourceLocation("fishing_rod"));
     }
 
-    @SubscribeEvent
     public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        BAIT = StackIngredient.fromStacks(loadItemStackArray("Bait", "Add items as valid fishing bait", new ItemStack[]{
+        BAIT = StackIngredient.fromStacks(config().loadItemStackArray("Bait", getCategory(),"Add items as valid fishing bait", new ItemStack[]{
                 new ItemStack(Items.SPIDER_EYE),
                 new ItemStack(BWMItems.CREEPER_OYSTER),
                 new ItemStack(Items.FISH, 1, 2),
@@ -184,7 +182,7 @@ public class HCFishing extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public void onLootTableLoad(LootTableLoadEvent event) {
+    public static void onLootTableLoad(LootTableLoadEvent event) {
         if (event.getName().equals(LootTableList.GAMEPLAY_FISHING)) {
             LootTable table = event.getLootTableManager().getLootTableFromLocation(HCFISHING_LOOT);
             //FIXME this is a shitty hack to stop the overriding loottable from being frozen immediately and stopping other modded events from being able to apply their additions to to the fishing loottable
@@ -194,19 +192,19 @@ public class HCFishing extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Change Fishing Rods to require bait and a large enough water source exposed to the sky.";
     }
 
     @SubscribeEvent
-    public void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
+    public static void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
         if (event.getObject().getItem() instanceof ItemFishingRod) {
             event.addCapability(BAITED_FISHING_ROD, new FishingBait());
         }
     }
 
     @SubscribeEvent
-    public void onFished(ItemFishedEvent event) {
+    public static void onFished(ItemFishedEvent event) {
         BlockPos hookPos = getHookSurfacePos(event.getHookEntity());
         if (restrictToOpenWater) {
             if (event.getHookEntity().getEntityWorld().getHeight(hookPos.getX(), hookPos.getZ()) > hookPos.getY() || !isAirBlock(event.getHookEntity().getEntityWorld(), hookPos)) {
@@ -241,7 +239,7 @@ public class HCFishing extends Feature {
     }
 
     @SubscribeEvent
-    public void useFishingRod(PlayerInteractEvent.RightClickItem event) {
+    public static void useFishingRod(PlayerInteractEvent.RightClickItem event) {
         if (requireBait) {
             if (isFishingRod(event.getItemStack())) {
                 FishingBait cap = event.getItemStack().getCapability(FISHING_ROD_CAP, EnumFacing.UP);
@@ -260,7 +258,7 @@ public class HCFishing extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public void onTooltip(ItemTooltipEvent event) {
+    public static void onTooltip(ItemTooltipEvent event) {
         if (requireBait) {
             ItemStack stack = event.getItemStack();
             if (isFishingRod(stack)) {
@@ -281,10 +279,6 @@ public class HCFishing extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 
     public static class CapabilityFishingRod implements Capability.IStorage<FishingBait> {
 

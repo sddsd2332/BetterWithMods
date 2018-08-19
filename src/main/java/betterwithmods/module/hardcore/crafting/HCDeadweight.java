@@ -7,19 +7,21 @@ import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
+@Mod.EventBusSubscriber
 public class HCDeadweight extends Feature {
 
     @Override
-    public void postInit(FMLPostInitializationEvent event) {
+    public void onPostInit(FMLPostInitializationEvent event) {
         BWMRecipes.removeRecipe(new ItemStack(Blocks.ANVIL));
-        Blocks.ANVIL.setUnlocalizedName("betterwithmods:deadweight");
+        Blocks.ANVIL.setTranslationKey("betterwithmods:deadweight");
     }
 
     @SubscribeEvent
-    public void onInteract(PlayerInteractEvent.RightClickBlock event) {
+    public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
         if (!PlayerHelper.isSurvival(event.getEntityPlayer()))
             return;
 
@@ -30,12 +32,8 @@ public class HCDeadweight extends Feature {
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Disables the vanilla Anvil";
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
 }
