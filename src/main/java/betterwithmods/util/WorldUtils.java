@@ -64,10 +64,13 @@ public final class WorldUtils {
         world.getPlayers(EntityPlayer.class, (T) -> true).forEach(player -> world.playSound(null, player.getPosition(), event, SoundCategory.BLOCKS, volume, pitch));
     }
 
+    public static boolean hasAi(EntityLiving entity, Class<? extends EntityAIBase> clazz) {
+        return entity.tasks.taskEntries.stream().anyMatch(task -> clazz.isAssignableFrom(task.action.getClass()));
+    }
+
     public static void removeTask(EntityLiving entity, Class<? extends EntityAIBase> clazz) {
         entity.tasks.taskEntries.removeIf(task -> clazz.isAssignableFrom(task.action.getClass()));
     }
-
 
     public static boolean isNether(World world) {
         return isDimension(world, DimensionType.NETHER);

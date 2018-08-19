@@ -2,8 +2,10 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.ai.eat.EntityAIMonsterEat;
 import betterwithmods.module.Feature;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
+import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -21,12 +23,13 @@ public class MobEating extends Feature {
     @SuppressWarnings("unchecked")
     @SubscribeEvent
     public static void addEntityAI(EntityJoinWorldEvent event) {
-
         Entity entity = event.getEntity();
         if (entity instanceof EntitySpider) {
-            ((EntitySpider) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("meatChicken"), radius));
+            if (!WorldUtils.hasAi((EntityLiving) entity, EntityAIMonsterEat.class))
+                ((EntitySpider) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("meatChicken"), radius));
         } else if (entity instanceof EntityZombie) {
-            ((EntityZombie) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("listAllmeat"), radius));
+            if (!WorldUtils.hasAi((EntityLiving) entity, EntityAIMonsterEat.class))
+                ((EntityZombie) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("listAllmeat"), radius));
         }
     }
 }
