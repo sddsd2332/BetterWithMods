@@ -129,9 +129,9 @@ public class PollutionHandler {
     }
 
     @SubscribeEvent
-    public void onPlayerTick(TickEvent.PlayerTickEvent evt) {
-        if (evt.player instanceof EntityPlayerMP && evt.phase == TickEvent.Phase.END) {
-            EntityPlayerMP player = (EntityPlayerMP) evt.player;
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.player instanceof EntityPlayerMP && event.phase == TickEvent.Phase.END) {
+            EntityPlayerMP player = (EntityPlayerMP) event.player;
             if (player.getEntityWorld().hasCapability(WorldPollutionCapability.POLLUTION, null)) {
                 IWorldPollution pollution = player.getEntityWorld().getCapability(WorldPollutionCapability.POLLUTION, null);
                 if (pollution != null && !player.capabilities.isCreativeMode && isRaining(player.getEntityWorld(), player.getPosition()) && player.getEntityWorld().canSeeSky(player.getPosition())) {

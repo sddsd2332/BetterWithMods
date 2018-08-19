@@ -32,6 +32,9 @@ public class PenaltyEventHandler {
 
     @SubscribeEvent
     public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.START)
+            return;
+
         EntityPlayer player = event.player;
         //Don't run on client side
         if (player.world.isRemote)

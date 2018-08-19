@@ -51,6 +51,9 @@ public class VisibleStorms extends Feature {
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public void playerTick(TickEvent.PlayerTickEvent tickEvent) {
+        if (tickEvent.phase == TickEvent.Phase.START)
+            return;
+
         EntityPlayer entity = tickEvent.player;
         if (entity == null)
             return;

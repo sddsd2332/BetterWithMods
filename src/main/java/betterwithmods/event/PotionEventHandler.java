@@ -111,7 +111,7 @@ public class PotionEventHandler {
     public static void onLivingDeath(LootingLevelEvent event) {
         if (event.getEntityLiving() != null) {
             PotionEffect effect = event.getEntityLiving().getActivePotionEffect(BWRegistry.POTION_LOOTING);
-            if(effect != null) {
+            if (effect != null) {
                 int level = effect.getAmplifier() + 1;
                 if (event.getLootingLevel() < level) {
                     event.setLootingLevel(level);
@@ -122,6 +122,9 @@ public class PotionEventHandler {
 
     @SubscribeEvent
     public static void onPlayerUpdate(TickEvent.PlayerTickEvent e) {
+        if (e.phase == TickEvent.Phase.START)
+            return;
+
         EntityPlayer player = e.player;
         for (PotionEffect potion : player.getActivePotionEffects()) {
             if (potion.getPotion() instanceof BWPotion) {
@@ -135,16 +138,14 @@ public class PotionEventHandler {
     public static void saveSoup(LivingEntityUseItemEvent.Finish event) {
         ItemStack item = event.getItem();
         if (item.getItem() instanceof ItemSoup) {
-            if (item.getCount() > 0) {
-                ItemStack result = event.getResultStack();
-                ItemStack copy = item.copy();
-                copy.shrink(1);
-                event.setResultStack(copy);
-                if (event.getEntityLiving() instanceof EntityPlayer) {
-                    EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-                    if (!player.inventory.addItemStackToInventory(result)) {
-                        player.dropItem(result, false);
-                    }
+            ItemStack result = event.getResultStack();
+            ItemStack copy = item.copy();
+            copy.shrink(1);
+            event.setResultStack(copy);
+            if (event.getEntityLiving() instanceof EntityPlayer) {
+                EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+                if (!player.inventory.addItemStackToInventory(result)) {
+                    player.dropItem(result, false);
                 }
             }
         }
