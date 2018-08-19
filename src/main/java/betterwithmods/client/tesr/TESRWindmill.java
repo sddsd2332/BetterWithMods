@@ -23,7 +23,6 @@ public class TESRWindmill extends TileEntitySpecialRenderer<TileWindmillHorizont
         GlStateManager.enableRescaleNormal();
         GlStateManager.translate(x + 0.5D, y + 0.5D, z + 0.5D);
         GlStateManager.rotate(direction, 0.0F, 1.0F, 0.0F);
-        render = new ModelHorizontalWindmill();
         if(data != null) {
             for (int i = 0; i < data.length; i++) {
                 render.setBanner(i, data[i]);

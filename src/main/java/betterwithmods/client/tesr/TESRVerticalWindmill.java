@@ -26,7 +26,6 @@ public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileWindmill
         GlStateManager.translate(x + 0.5D, y + 0.5D, z + 0.5D);
         //Why is it upside down?
         GlStateManager.scale(1.0F, -1.0F, -1.0F);
-        
         if (data != null) {
             for (int i = 0; i < render.bladeCount; i++) {
                 render.setBanner(i, data[i]);
