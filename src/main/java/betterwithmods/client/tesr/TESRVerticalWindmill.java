@@ -24,8 +24,9 @@ public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileWindmill
         GlStateManager.pushMatrix();
         GlStateManager.enableRescaleNormal();
         GlStateManager.translate(x + 0.5D, y + 0.5D, z + 0.5D);
-
-        render = new ModelVerticalWindmill();
+        //Why is it upside down?
+        GlStateManager.scale(1.0F, -1.0F, -1.0F);
+        
         if (data != null) {
             for (int i = 0; i < render.bladeCount; i++) {
                 render.setBanner(i, data[i]);
@@ -33,7 +34,7 @@ public class TESRVerticalWindmill extends TileEntitySpecialRenderer<TileWindmill
         }
 
         render.setAngle(0, (float) Math.toRadians(rotation), 0);
-        render.render(0.062F);
+        render.render(0.0625f);
         GlStateManager.popMatrix();
         GlStateManager.color(1.0F, 1.0F, 1.0F, alpha);
     }

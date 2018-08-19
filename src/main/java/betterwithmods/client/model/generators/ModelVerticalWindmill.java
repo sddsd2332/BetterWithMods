@@ -19,14 +19,15 @@ public class ModelVerticalWindmill extends ModelRadialBlades {
         float radius = 72.5f;
         float x = radius * MathHelper.sin(angle), z = radius * MathHelper.cos(angle);
 
-        double sailAngle = Math.PI / bladeCount;
+        double sailAngle = (Math.PI / (bladeCount * 2));
+        
         //Sails
         part.addChild(new ModelPart(this, 0, 0)
                 .addBanner(BannerUtils.VERTICAL_WINDMILL)
                 .setTextureSize(128, 128)
                 .addBox(0, 0, 0, 20, 100, 1, true)
-                .setRotationCenter(x, 0, z)
-                .setRotateAngle(0, sailAngle + angle, 0)
+                .setRotationCenter(x, -50, z)
+                .setRotateAngle(0, angle + sailAngle, 0)
                 .setTexture(TESRVerticalWindmill.WINDMILL_SAIL)
         );
 
