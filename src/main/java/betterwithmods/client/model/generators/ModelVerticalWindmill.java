@@ -23,10 +23,9 @@ public class ModelVerticalWindmill extends ModelRadialBlades {
         //Sails
         part.addChild(new ModelPart(this, 0, 0)
                 .addBanner(BannerUtils.VERTICAL_WINDMILL)
-                .setTextureSize(128, -128)
-                .setTextureOffset(0, 0)
-                .addBox(0, 0, 0, 20, 100, 1)
-                .setRotationCenter(x, -50, z)
+                .setTextureSize(128, 128)
+                .addBox(0, 0, 0, 20, 100, 1, true)
+                .setRotationCenter(x, 0, z)
                 .setRotateAngle(0, sailAngle + angle, 0)
                 .setTexture(TESRVerticalWindmill.WINDMILL_SAIL)
         );
