@@ -1,10 +1,8 @@
 package betterwithmods.event;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.BWMSounds;
-import betterwithmods.BWMod;
-import betterwithmods.common.BWRegistry;
-import betterwithmods.common.BWSounds;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;

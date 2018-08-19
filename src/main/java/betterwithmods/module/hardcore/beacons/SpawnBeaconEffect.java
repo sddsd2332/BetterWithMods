@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.tile.TileBeacon;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;

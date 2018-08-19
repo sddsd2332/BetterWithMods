@@ -116,7 +116,7 @@ public class HCGloom extends Feature {
     }
 
     @SubscribeEvent
-    public void inDarkness(TickEvent.PlayerTickEvent e) {
+    public static void inDarkness(TickEvent.PlayerTickEvent e) {
         if (e.phase == TickEvent.Phase.START)
             return;
 

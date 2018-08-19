@@ -170,7 +170,7 @@ public class HCEnchanting extends Feature {
     }
 
     @SubscribeEvent
-    public void onTick(TickEvent.PlayerTickEvent event) {
+    public static void onTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.START)
             return;
         if(!event.player.getEntityWorld().isRemote) {

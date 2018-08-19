@@ -42,7 +42,6 @@ public class BlockCrank extends BWMBlock implements IOverpower {
         this.setTickRandomly(true);
         this.setDefaultState(getDefaultState().withProperty(STAGE, 0));
         this.setHarvestLevel("pickaxe", 0);
-
     }
 
     @Override
