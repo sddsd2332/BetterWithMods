@@ -74,7 +74,7 @@ public class HCTools extends Feature {
         ));
 
         OVERRIDES.put(Item.ToolMaterial.WOOD, new ToolMaterialOverride("wood", 1, 1.01F, 0).addClassOverride("shovel", 10));
-        OVERRIDES.put(Item.ToolMaterial.STONE, new ToolMaterialOverride("stone", 6, 1.01F, 5).addClassOverride("shovel", 50).addClassOverride("axe", 10));
+        OVERRIDES.put(Item.ToolMaterial.STONE, new ToolMaterialOverride("stone", 6, 1.01F, 5).addClassOverride("shovel", 50).addClassOverride("axe", 50));
         OVERRIDES.put(Item.ToolMaterial.IRON, new ToolMaterialOverride("iron", 500, 6.0F, 14));
         OVERRIDES.put(Item.ToolMaterial.DIAMOND, new ToolMaterialOverride("diamond", 1561, 8.0F, 14));
         OVERRIDES.put(Item.ToolMaterial.GOLD, new ToolMaterialOverride("gold", 32, 12.0F, 22));
