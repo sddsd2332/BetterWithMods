@@ -1,6 +1,7 @@
 package betterwithmods.util;
 
 import com.google.common.collect.Sets;
+import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -154,20 +155,26 @@ public final class WorldUtils {
     public static boolean spawnGhast(World world, BlockPos pos) {
         EntityGhast ghast = new EntityGhast(world);
         double failures = 1;
-        for (int i = 0; i < 200; i++) {
-            double xPos = pos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * Math.max(20, failures);
-            double yPos = pos.getY() + failures;
-            double zPos = pos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * Math.max(20, failures);
 
+        int i = 0;
+
+        double xPos = pos.getX(), yPos = pos.getY(), zPos = pos.getZ();
+        do {
             ghast.setLocationAndAngles(xPos, yPos, zPos, world.rand.nextFloat() * 360.0F, 0.0F);
-            AxisAlignedBB box = ghast.getEntityBoundingBox().offset(ghast.getPosition().up(5));
+            AxisAlignedBB box = Block.FULL_BLOCK_AABB.grow(2);
             boolean blocked = StreamSupport.stream(BlockPos.MutableBlockPos.getAllInBox(getMin(box), getMax(box)).spliterator(), false).anyMatch(p -> !world.isAirBlock(p));
             if (!blocked) {
                 return world.spawnEntity(ghast);
             } else {
                 failures++;
             }
+
+            xPos = pos.getX() + (world.rand.nextDouble() - world.rand.nextDouble()) * Math.max(20, failures);
+            yPos = pos.getY() + failures;
+            zPos = pos.getZ() + (world.rand.nextDouble() - world.rand.nextDouble()) * Math.max(20, failures);
+            i++;
         }
+        while (i < 200);
         return false;
     }
 
