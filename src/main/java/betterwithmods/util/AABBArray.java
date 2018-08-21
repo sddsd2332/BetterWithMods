@@ -5,6 +5,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 
+import javax.annotation.Nonnull;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.function.Function;
@@ -31,7 +32,7 @@ public class AABBArray extends AxisAlignedBB {
 
     private static AxisAlignedBB join(AxisAlignedBB[] in) {
         if (in.length == 0) {
-            return null;
+            throw new NullPointerException();
         }
 
         AxisAlignedBB aabb1 = in[0];
@@ -44,15 +45,10 @@ public class AABBArray extends AxisAlignedBB {
     public static AxisAlignedBB[] getParts(AxisAlignedBB source) {
         if (source instanceof AABBArray) {
             HashSet<AxisAlignedBB> bbs = new HashSet<>();
-            Arrays.asList(((AABBArray) source).boundingBoxes)
-                    .forEach(aabb -> bbs.addAll(Arrays.asList(getParts(aabb))));
+            Arrays.asList(((AABBArray) source).boundingBoxes).forEach(aabb -> bbs.addAll(Arrays.asList(getParts(aabb))));
             return bbs.toArray(new AxisAlignedBB[0]);
         }
         return new AxisAlignedBB[]{source};
-    }
-
-    public static AxisAlignedBB toAABB(AxisAlignedBB source) {
-        return new AxisAlignedBB(source.minX, source.minY, source.minZ, source.maxX, source.maxY, source.maxZ);
     }
 
     @Override
@@ -73,11 +69,6 @@ public class AABBArray extends AxisAlignedBB {
         return flag;
     }
 
-    public AABBArray addBoundingBox(AxisAlignedBB aabb) {
-        AxisAlignedBB[] bbs = new AxisAlignedBB[boundingBoxes.length + 1];
-        bbs[bbs.length] = aabb;
-        return new AABBArray(bbs);
-    }
 
     @Override
     public AABBArray offset(double x, double y, double z) {
@@ -110,33 +101,6 @@ public class AABBArray extends AxisAlignedBB {
             offsetZ = axisAlignedBB.calculateZOffset(other, offsetZ);
         }
         return offsetZ;
-    }
-
-    public boolean intersectsWithXY(AxisAlignedBB other) {
-        boolean flag = false;
-        for (AxisAlignedBB axisAlignedBB : getParts(this)) {
-            flag |= axisAlignedBB.intersects(other.minX, other.minY, Double.NEGATIVE_INFINITY, other.maxX, other.maxY,
-                    Double.POSITIVE_INFINITY);
-        }
-        return flag;
-    }
-
-    public boolean intersectsWithXZ(AxisAlignedBB other) {
-        boolean flag = false;
-        for (AxisAlignedBB axisAlignedBB : getParts(this)) {
-            flag |= axisAlignedBB.intersects(other.minX, Double.NEGATIVE_INFINITY, other.minZ, other.maxX,
-                    Double.POSITIVE_INFINITY, other.maxZ);
-        }
-        return flag;
-    }
-
-    public boolean intersectsWithYZ(AxisAlignedBB other) {
-        boolean flag = false;
-        for (AxisAlignedBB axisAlignedBB : getParts(this)) {
-            flag |= axisAlignedBB.intersects(Double.NEGATIVE_INFINITY, other.minY, other.minZ, Double.POSITIVE_INFINITY,
-                    other.maxY, other.maxZ);
-        }
-        return flag;
     }
 
     @Override
@@ -184,16 +148,19 @@ public class AABBArray extends AxisAlignedBB {
         return flag;
     }
 
+    @Nonnull
     @Override
-    public AxisAlignedBB grow(double x, double y, double z) {
-        if (x == 0 && y == 0 && z == 0) {
-            return new AABBArray(boundingBoxes);
+    public AABBArray grow(double x, double y, double z) {
+        AABBArray aabbArray = new AABBArray(boundingBoxes);
+        for (int i = 0; i < aabbArray.boundingBoxes.length; i++) {
+            aabbArray.boundingBoxes[i] = aabbArray.boundingBoxes[i].grow(x, y, z);
         }
-        return super.grow(x, y, z);
+        return aabbArray;
     }
 
+    @Nonnull
     @Override
-    public AxisAlignedBB grow(double value) {
+    public AABBArray grow(double value) {
         return this.grow(value, value, value);
     }
 
@@ -218,8 +185,6 @@ public class AABBArray extends AxisAlignedBB {
         return new AABBArray(var1);
     }
 
-    // to implement
-
     @Override
     public AxisAlignedBB expand(double x, double y, double z) {
         return super.expand(x, y, z);
@@ -243,6 +208,10 @@ public class AABBArray extends AxisAlignedBB {
     @Override
     public AxisAlignedBB union(AxisAlignedBB other) {
         return super.union(other);
+    }
+
+    public AxisAlignedBB[] getBoundingBoxes() {
+        return this.boundingBoxes;
     }
 
 }

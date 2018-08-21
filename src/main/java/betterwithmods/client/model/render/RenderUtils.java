@@ -298,6 +298,8 @@ public class RenderUtils {
     }
 
     public static void renderBoundingBox(Vec3d pos, Vec3d color, AxisAlignedBB... boxes) {
+        if (boxes == null)
+            return;
         GlStateManager.depthMask(false);
         GlStateManager.disableTexture2D();
         GlStateManager.disableLighting();
@@ -305,7 +307,7 @@ public class RenderUtils {
         GlStateManager.disableBlend();
 
         for (AxisAlignedBB box : boxes) {
-            if(box != null) {
+            if (box != null) {
                 box = box.offset(pos);
                 RenderGlobal.drawBoundingBox(box.minX, box.minY, box.minZ, box.maxX, box.maxY, box.maxZ, (float) color.x, (float) color.y, (float) color.z, 1.0F);
             }
@@ -318,11 +320,16 @@ public class RenderUtils {
         GlStateManager.depthMask(true);
     }
 
+
     public static void renderDebugBoundingBox(double x, double y, double z, AxisAlignedBB... boxes) {
+        renderDebugBoundingBox(x, y, z, new Vec3d(0.5D, 0.5D, 1.0D), boxes);
+    }
+
+    public static void renderDebugBoundingBox(double x, double y, double z, Vec3d color, AxisAlignedBB... boxes) {
         if (!Minecraft.getMinecraft().getRenderManager().isDebugBoundingBox())
             return;
 
-        renderBoundingBox(new Vec3d(x, y, z), new Vec3d(0.5D, 0.5D, 1.0D), boxes);
+        renderBoundingBox(new Vec3d(x, y, z), color, boxes);
     }
 
 }
