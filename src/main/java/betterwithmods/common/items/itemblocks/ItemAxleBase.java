@@ -30,7 +30,7 @@ public abstract class ItemAxleBase extends ItemBlock implements IRenderRotationP
     public ItemAxleBase(Block block) {
         super(block);
 
-        this.setMaxStackSize(1);
+        this.setMaxStackSize(16);
     }
 
     public abstract boolean isAxis(EnumFacing.Axis axis);
