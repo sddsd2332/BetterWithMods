@@ -1,17 +1,23 @@
 package betterwithmods.module.gameplay;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
+import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.crafting.ChoppingRecipe;
 import betterwithmods.common.registry.crafting.RecipeArmorDye;
 import betterwithmods.module.Feature;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -61,10 +67,26 @@ public class CraftingRecipes extends Feature {
 
     }
 
+    private boolean hasLog(IRecipe recipe, ItemStack log) {
+        NonNullList<Ingredient> ingredients = recipe.getIngredients();
+        for (Ingredient ingredient : ingredients) {
+            if (ingredient.getMatchingStacks().length > 0) {
+                for (ItemStack stack : ingredient.getMatchingStacks()) {
+                    if (stack.isItemEqual(log))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-
-
+        for (IRecipe recipe : BWOreDictionary.logRecipes) {
+            ItemStack plank = recipe.getRecipeOutput();
+            BWOreDictionary.woods.stream().filter(w -> w.getPlank(4).isItemEqual(plank) && hasLog(recipe, w.getLog(1))).forEach(wood ->
+                    addHardcoreRecipe(new ChoppingRecipe(wood, 4).setRegistryName(new ResourceLocation(BWMod.MODID, recipe.getRegistryName().getPath()))));
+        }
     }
 
     @Override
