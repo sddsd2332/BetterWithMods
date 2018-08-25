@@ -2,23 +2,17 @@ package betterwithmods.common.tile;
 
 import betterwithmods.api.block.IWaterCurrent;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.BlockWaterwheel;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.util.math.Vec3i;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidRegistry;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import java.util.HashMap;
 
 public class TileWaterwheel extends TileAxleGenerator {
@@ -185,26 +179,6 @@ public class TileWaterwheel extends TileAxleGenerator {
         if (power != this.power) {
             setPower(power);
         }
-    }
-
-
-    //Extend the bounding box if the TESR is bigger than the occupying block.
-    @Nonnull
-    @Override
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox() {
-        IBlockState state = getBlockWorld().getBlockState(pos);
-        if (!(state.getBlock() instanceof BlockWaterwheel))
-            return Block.FULL_BLOCK_AABB;
-
-        EnumFacing.Axis axis = state.getValue(DirUtils.AXIS);
-        EnumFacing facing = (axis == EnumFacing.Axis.Z) ? EnumFacing.SOUTH : EnumFacing.EAST;
-        Vec3i vec = facing.getDirectionVec();
-        int xP = axis == EnumFacing.Axis.Z ? getRadius() : 0;
-        int yP = getRadius();
-        int zP = axis == EnumFacing.Axis.X ? getRadius() : 0;
-
-        return new AxisAlignedBB(-xP, -yP, -zP, xP, yP, zP).offset(0.5, 0.5, 0.5).offset(pos).expand(vec.getX(), vec.getY(), vec.getZ());
     }
 
     @Override

@@ -12,6 +12,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ITickable;
 import net.minecraft.util.SoundCategory;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -25,7 +26,6 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
     public static int generatorRenderDistance;
 
     protected final float runningSpeed = 0.4F;
-    public byte dyeIndex = 0;
     public float currentRotation = 0.0F;
     public float previousRotation = 0.0F;
     public float waterMod = 1;
@@ -50,8 +50,6 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
             previousRotation = tag.getFloat("RotationSpeed");
         if (tag.hasKey("power"))
             power = tag.getByte("power");
-        if (tag.hasKey("DyeIndex"))
-            dyeIndex = tag.getByte("DyeIndex");
     }
 
     @Nonnull
@@ -110,7 +108,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
         return oldState.getBlock() != newState.getBlock();
     }
 
-    //Unless you increase this, expect to see the TESR to pop in as you approach.
+
     @Override
     @SideOnly(Side.CLIENT)
     public double getMaxRenderDistanceSquared() {
@@ -156,8 +154,8 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
                 default:
                     return EnumFacing.UP;
             }
-        } else
-            return EnumFacing.UP;
+        }
+        return EnumFacing.UP;
     }
 
     @Override
@@ -176,4 +174,24 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
     }
 
 
+    //Extend the bounding box if the TESR is bigger than the occupying block.
+    @Nonnull
+    @Override
+    @SideOnly(Side.CLIENT)
+    public AxisAlignedBB getRenderBoundingBox() {
+        IBlockState state = getBlockWorld().getBlockState(pos);
+        AxisAlignedBB box = Block.FULL_BLOCK_AABB.offset(pos);
+        if (!(state.getBlock() instanceof BlockAxleGenerator))
+            return box;
+
+        EnumFacing facing = getOrientation();
+        EnumFacing.Axis axis = facing.getAxis();
+        if (axis == EnumFacing.Axis.Z) {
+            return box.grow(getRadius(), getRadius(), 0);
+        } else if (axis == EnumFacing.Axis.X) {
+            return box.grow(0, getRadius(), getRadius());
+        } else {
+            return box.grow(getRadius());
+        }
+    }
 }

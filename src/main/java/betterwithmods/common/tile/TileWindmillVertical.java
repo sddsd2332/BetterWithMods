@@ -2,23 +2,19 @@ package betterwithmods.common.tile;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
-import betterwithmods.common.blocks.mechanical.BlockWindmill;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.network.NetworkManager;
 import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
-
 public class TileWindmillVertical extends TileBaseWindmill {
 
     public TileWindmillVertical() {
-        this.bladeMeta = new int[]{0, 0, 0, 0, 0, 0, 0, 0};
+        super(8);
     }
 
     public boolean isSlaveValid(int offset) {
@@ -82,15 +78,5 @@ public class TileWindmillVertical extends TileBaseWindmill {
         this.getBlockWorld().notifyBlockUpdate(this.pos, state, state, 3);
     }
 
-    @Nonnull
-    @Override
-    @SideOnly(Side.CLIENT)
-    public AxisAlignedBB getRenderBoundingBox() {
-        IBlockState state = getBlockWorld().getBlockState(pos);
-        if (state.getBlock() instanceof BlockWindmill)
-            return new AxisAlignedBB(pos).grow(4, 3, 4);
-        else
-            return super.getRenderBoundingBox();
-    }
 
 }

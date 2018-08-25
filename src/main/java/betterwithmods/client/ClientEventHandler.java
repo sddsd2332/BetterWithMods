@@ -12,6 +12,7 @@ import net.minecraft.client.renderer.Tessellator;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -141,6 +142,15 @@ public class ClientEventHandler {
         GlStateManager.disableBlend();
     }
 
+    public static IRenderRotationPlacement findRenderer(Item item, Block block) {
+        if (item instanceof IRenderRotationPlacement) {
+            return (IRenderRotationPlacement) item;
+        } else if (block instanceof IRenderRotationPlacement) {
+            return (IRenderRotationPlacement) block;
+        }
+        return null;
+    }
+
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
     public static void onBlockHighlight(DrawBlockHighlightEvent event) {
@@ -153,18 +163,14 @@ public class ClientEventHandler {
         } else if (!player.getHeldItem(EnumHand.MAIN_HAND).isEmpty()) {
             stack = player.getHeldItem(EnumHand.MAIN_HAND);
         }
+        Item item = stack.getItem();
         Block block = Block.getBlockFromItem(stack.getItem());
-        if (event.getTarget().typeOfHit == RayTraceResult.Type.BLOCK) {
+        IRenderRotationPlacement renderer = findRenderer(item, block);
+        if (renderer != null && event.getTarget().typeOfHit == RayTraceResult.Type.BLOCK) {
             World world = player.getEntityWorld();
             EnumFacing side = event.getTarget().sideHit;
             BlockPos pos = event.getTarget().getBlockPos();
-            if (block instanceof IRenderRotationPlacement) {
-                if (world.getWorldBorder().contains(pos)) {
-                    ((IRenderRotationPlacement) block).render(world, block, pos, stack, player, side, event.getTarget(), event.getPartialTicks());
-                }
-            } else if (stack.getItem() instanceof IRenderRotationPlacement) {
-                ((IRenderRotationPlacement) stack.getItem()).render(world, block, pos, stack, player, side, event.getTarget(), event.getPartialTicks());
-            }
+            renderer.render(world, block, pos, stack, player, side, event.getTarget(), event.getPartialTicks());
         }
     }
 

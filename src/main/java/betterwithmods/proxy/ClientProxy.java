@@ -2,7 +2,10 @@ package betterwithmods.proxy;
 
 import betterwithmods.BWMod;
 import betterwithmods.api.client.IColorable;
-import betterwithmods.client.*;
+import betterwithmods.client.BWParticleDigging;
+import betterwithmods.client.ClientEventHandler;
+import betterwithmods.client.ColorHandlers;
+import betterwithmods.client.ResourceProxy;
 import betterwithmods.client.baking.BarkModel;
 import betterwithmods.client.baking.IStateParticleBakedModel;
 import betterwithmods.client.model.render.RenderUtils;
@@ -54,7 +57,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
-import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -95,7 +97,6 @@ public class ClientProxy implements IProxy {
     @SubscribeEvent
     public static void registerModels(ModelRegistryEvent event) {
         BWMItems.getItems().forEach(BWMItems::setInventoryModel);
-        ModelLoader.setCustomStateMapper(BWMBlocks.STOKED_FLAME, new BWStateMapper(BWMBlocks.STOKED_FLAME.getRegistryName()));
     }
 
     @Override

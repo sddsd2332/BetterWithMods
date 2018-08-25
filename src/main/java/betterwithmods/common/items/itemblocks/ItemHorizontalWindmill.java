@@ -1,21 +1,16 @@
 package betterwithmods.common.items.itemblocks;
 
-import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.tesr.TESRWindmill;
 import net.minecraft.block.Block;
-import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class ItemHorizontalWindmill extends ItemAxleBase {
+public class ItemHorizontalWindmill extends ItemAxleGenerator {
 
     public ItemHorizontalWindmill(Block block) {
         super(block);
-        this.radius = 6;
+        this.radius = 7;
     }
 
     @Override
@@ -23,17 +18,9 @@ public class ItemHorizontalWindmill extends ItemAxleBase {
         return axis.isHorizontal();
     }
 
-
     @Override
-    public void render(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial) {
-
-        double[] deltas = ClientEventHandler.getPlayerPositionDelta(player, partial);
-        double dx = deltas[0];
-        double dy = deltas[1];
-        double dz = deltas[2];
-
-        GlStateManager.disableBlend();
-        TESRWindmill.renderWindmill(side.getAxis() == EnumFacing.Axis.X ? 90 : 180, 0, pos.getX() - dx, pos.getY() - dy, pos.getZ() - dz, new int[]{0, 0, 0, 0});
-        GlStateManager.enableBlend();
+    public void renderModel(World world, BlockPos pos, double x, double y, double z, double partial) {
+        EnumFacing.Axis axis = getAxleAxis(world, pos);
+        TESRWindmill.renderWindmill(axis == EnumFacing.Axis.Z ? 180 : 90, 0, x, y, z, 0, null);
     }
 }

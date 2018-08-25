@@ -88,7 +88,7 @@ public final class WorldUtils {
 
 
     public static Iterable<BlockPos> getPosInBox(AxisAlignedBB box) {
-        return BlockPos.getAllInBox(new BlockPos(box.minX, box.minY, box.minZ), new BlockPos(box.maxX, box.maxY, box.maxZ));
+        return BlockPos.getAllInBox(new BlockPos(box.minX, box.minY, box.minZ), new BlockPos(box.maxX-0.1, box.maxY-0.1, box.maxZ-0.1));
     }
 
     public static boolean isSolid(World world, BlockPos pos, EnumFacing facing, IBlockState state) {

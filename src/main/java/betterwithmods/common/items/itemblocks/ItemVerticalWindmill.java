@@ -1,15 +1,15 @@
 package betterwithmods.common.items.itemblocks;
 
+import betterwithmods.client.tesr.TESRVerticalWindmill;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class ItemVerticalWindmill extends ItemAxleBase {
+import static net.minecraft.util.EnumFacing.Axis.Y;
+
+public class ItemVerticalWindmill extends ItemAxleGenerator {
 
     public ItemVerticalWindmill(Block block) {
         super(block);
@@ -23,17 +23,17 @@ public class ItemVerticalWindmill extends ItemAxleBase {
 
     @Override
     public AxisAlignedBB getBounds(EnumFacing.Axis axis, int radius) {
-        switch (axis) {
-            case Y:
-                return new AxisAlignedBB(-radius, -radius + 1, -radius, radius, radius - 1, radius);
-            default:
-                return Block.NULL_AABB;
+        if (axis == Y) {
+            return new AxisAlignedBB(-radius, -radius + 1, -radius, radius, radius - 1, radius);
         }
-
+        return Block.NULL_AABB;
     }
+
 
     @Override
-    public void render(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial) {
-
+    public void renderModel(World world, BlockPos pos, double x, double y, double z, double partial) {
+        TESRVerticalWindmill.renderWindmill(0, x, y, z, 0, null);
     }
+
+
 }

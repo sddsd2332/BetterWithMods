@@ -1,14 +1,12 @@
 package betterwithmods.common.items.itemblocks;
 
+import betterwithmods.client.tesr.TESRWaterwheel;
 import net.minecraft.block.Block;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.World;
 
-public class ItemWaterwheel extends ItemAxleBase {
+public class ItemWaterwheel extends ItemAxleGenerator {
 
     public ItemWaterwheel(Block block) {
         super(block);
@@ -21,7 +19,9 @@ public class ItemWaterwheel extends ItemAxleBase {
     }
 
     @Override
-    public void render(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial) {
-
+    public void renderModel(World world, BlockPos pos, double x, double y, double z, double partial) {
+        EnumFacing.Axis axis = getAxleAxis(world, pos);
+        TESRWaterwheel.renderWaterwheel(axis == EnumFacing.Axis.Z ? 180 : 90, 0, x, y, z);
     }
+
 }
