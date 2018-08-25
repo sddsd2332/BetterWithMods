@@ -212,7 +212,8 @@ public class MiniBlocks extends Feature {
 
     public void addOldRecipeConversation(ItemStack old, Block mini, IBlockState base) {
         ItemStack output = fromParent(mini, base);
-        addHardcoreRecipe(new ShapelessRecipes("mini_conversion", output, InvUtils.asNonnullList(Ingredient.fromStacks(old))).setRegistryName(BWMod.MODID + ":" + old.getItem().getTranslationKey(old).replace("tile.", "")));
+        String oldName = old.getItem().getTranslationKey(old).replace("tile.bwm:", "");
+        addHardcoreRecipe(new ShapelessRecipes("mini_conversion", output, InvUtils.asNonnullList(Ingredient.fromStacks(old))).setRegistryName(new ResourceLocation(BWMod.MODID, oldName)));
     }
 
     @Override
