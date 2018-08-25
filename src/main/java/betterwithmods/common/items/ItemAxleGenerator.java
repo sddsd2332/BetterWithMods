@@ -38,7 +38,7 @@ public class ItemAxleGenerator extends Item implements IMultiLocations {
     public ItemAxleGenerator() {
         super();
         this.setCreativeTab(BWCreativeTabs.BWTAB);
-        this.maxStackSize = 1;
+        this.setMaxStackSize(16);
         this.setHasSubtypes(true);
     }
 
