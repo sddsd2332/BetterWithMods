@@ -2,18 +2,30 @@ package betterwithmods.module.gameplay;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockBUD;
+import betterwithmods.common.blocks.BlockDetector;
+import betterwithmods.common.blocks.BlockHemp;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityWaterwheel;
 import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
+import betterwithmods.common.registry.block.recipe.BlockIngredientSpecial;
 import betterwithmods.common.registry.block.recipe.StateIngredient;
 import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Module;
 import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
 import betterwithmods.module.gameplay.miniblocks.MiniBlocks;
 import betterwithmods.util.SetBlockIngredient;
+import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Sets;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockCrops;
+import net.minecraft.block.BlockNetherWart;
+import net.minecraft.block.BlockVine;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -112,6 +124,28 @@ public class Gameplay extends Module {
                 new BlockDropIngredient(new ItemStack(BWMBlocks.LIGHT)),
                 new BlockDropIngredient(new ItemStack(BWMBlocks.BUDDY_BLOCK))
         );
+
+        BlockDetector.DETECTION_HANDLERS = Sets.newHashSet(
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(WorldUtils::isPrecipitationAt), facing -> facing == EnumFacing.UP),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getMaterial().isSolid()))),
+                new BlockDetector.IngredientDetection(new BlockDropIngredient(new ItemStack(Items.REEDS))),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockVine))),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock().equals(BWMBlocks.LIGHT_SOURCE)))),
+                new BlockDetector.IngredientDetection(new StateIngredient(Lists.newArrayList(BWMBlocks.HEMP.getDefaultState().withProperty(BlockHemp.TOP, true)), Lists.newArrayList(new ItemStack(BWMBlocks.HEMP)))),
+                new BlockDetector.EntityDetection(),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> {
+                    BlockPos downOffset = pos.down();
+                    IBlockState downState = world.getBlockState(downOffset);
+                    Block downBlock = downState.getBlock();
+                    if (!(downBlock instanceof BlockHemp) && downBlock instanceof BlockCrops) {
+                        return ((BlockCrops) downBlock).isMaxAge(downState);
+                    } else if (downBlock == Blocks.NETHER_WART) {
+                        return downState.getValue(BlockNetherWart.AGE) >= 3;
+                    }
+                    return false;
+                })))
+        );
+
 
     }
 

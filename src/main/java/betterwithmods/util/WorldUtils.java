@@ -246,6 +246,15 @@ public final class WorldUtils {
         return (int) (world.getWorldTime() % Time.DAY.getTicks());
     }
 
+    public static boolean isPrecipitationAt(World world, BlockPos pos) {
+        if (world.isRaining()) {
+            if (world.canSeeSky(pos)) {
+                return world.getPrecipitationHeight(pos).getY() <= pos.getY();
+            }
+        }
+        return false;
+    }
+
     public static void setWeatherCleared(MinecraftServer server) {
         for (int i = 0; i < server.worlds.length; ++i) {
             World world = server.worlds[i];
