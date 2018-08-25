@@ -45,7 +45,7 @@ public class HCSapling extends Feature {
 
     @SubscribeEvent
     public static void onBlockPlaced(BlockEvent.PlaceEvent event) {
-        if (event.getPlayer() != null && event.getPlacedBlock().getBlock() instanceof BlockSapling) {
+        if (event.getPlacedBlock().getBlock() instanceof BlockSapling) {
             IBlockState state = event.getPlacedBlock();
             IBlockState replaced = event.getBlockSnapshot().getReplacedBlock();
             if(replaced.getBlock().isReplaceable(event.getWorld(), event.getBlockSnapshot().getPos())) {

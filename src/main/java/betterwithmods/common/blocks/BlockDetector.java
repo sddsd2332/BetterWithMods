@@ -1,15 +1,16 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.util.DirUtils;
-import net.minecraft.block.*;
+import com.google.common.collect.Sets;
+import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -22,11 +23,14 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.List;
 import java.util.Random;
+import java.util.Set;
+import java.util.function.Predicate;
 
 public class BlockDetector extends BWMBlock {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
+
+    public static Set<IDetection> DETECTION_HANDLERS = Sets.newHashSet();
 
     public BlockDetector() {
         super(Material.ROCK);
@@ -137,42 +141,9 @@ public class BlockDetector extends BWMBlock {
     public boolean detectBlock(World world, BlockPos pos) {
         EnumFacing facing = getFacing(world.getBlockState(pos));
         BlockPos offset = pos.offset(facing);
-        IBlockState blockState = world.getBlockState(offset);
-        Block target = blockState.getBlock();
-
-        if (facing == EnumFacing.UP && world.isAirBlock(offset) && (world.getBiomeForCoordsBody(offset).canRain() && world.canBlockSeeSky(offset) && (world.isRaining() || world.isThundering()))) {
-            return true;
-        } else if (target == BWMBlocks.LENS) {
-            BlockLens lens = (BlockLens) target;
-            return lens.getFacing(blockState) == DirUtils.getOpposite(getFacing(world.getBlockState(pos))) && lens.isLit(world, offset);
-        } else if (blockState.getMaterial().isSolid() || target instanceof BlockVine || target instanceof BlockReed) {
-            return true;
-        } else if (target == BWMBlocks.LIGHT_SOURCE) {
-            return blockState.getValue(DirUtils.FACING) == facing;
-        } else if (target instanceof BlockHemp) {
-            return blockState.getValue(BlockHemp.TOP);
-        } else if (world.isAirBlock(offset)) {
-            int x = offset.getX();
-            int y = offset.getY();
-            int z = offset.getZ();
-            AxisAlignedBB collisionBox = new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1);
-            List<Entity> entityList = world.getEntitiesWithinAABB(Entity.class, collisionBox, Entity::isEntityAlive);
-            world.scheduleBlockUpdate(pos, this, tickRate(world), 5);
-            if (!entityList.isEmpty())
+        for (IDetection detection : DETECTION_HANDLERS) {
+            if (detection.apply(facing, world, pos, offset))
                 return true;
-            else {
-                //Crops except hemp;
-
-                BlockPos downOffset = offset.down();
-                IBlockState downState = world.getBlockState(downOffset);
-                Block downBlock = downState.getBlock();
-
-                if (!(downBlock instanceof BlockHemp) && downBlock instanceof BlockCrops) {
-                    return ((BlockCrops) downBlock).isMaxAge(downState);
-                } else if (downBlock == Blocks.NETHER_WART) {
-                    return downState.getValue(BlockNetherWart.AGE) >= 3;
-                }
-            }
         }
         return false;
     }
@@ -210,4 +181,43 @@ public class BlockDetector extends BWMBlock {
     public boolean rotates() {
         return true;
     }
+
+    public interface IDetection {
+        boolean apply(EnumFacing direction, World world, BlockPos pos, BlockPos offset);
+    }
+
+    public static class EntityDetection implements IDetection {
+
+        @Override
+        public boolean apply(EnumFacing direction, World world, BlockPos pos, BlockPos offset) {
+            int x = offset.getX();
+            int y = offset.getY();
+            int z = offset.getZ();
+            AxisAlignedBB collisionBox = new AxisAlignedBB(x, y, z, x + 1, y + 1, z + 1);
+            return world.getEntitiesWithinAABB(Entity.class, collisionBox, Entity::isEntityAlive).stream().findAny().isPresent();
+        }
+    }
+
+    public static class IngredientDetection implements IDetection {
+        private BlockIngredient ingredients;
+        private Predicate<EnumFacing> direction;
+
+        public IngredientDetection(BlockIngredient ingredients) {
+            this(ingredients, facing -> true);
+        }
+
+
+        public IngredientDetection(BlockIngredient ingredients, Predicate<EnumFacing> direction) {
+            this.ingredients = ingredients;
+            this.direction = direction;
+        }
+
+        public boolean apply(EnumFacing direction, World world, BlockPos pos, BlockPos offset) {
+            if (this.direction.test(direction)) {
+                return ingredients.apply(world, offset, world.getBlockState(offset));
+            }
+            return false;
+        }
+    }
+
 }

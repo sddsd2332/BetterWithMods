@@ -24,8 +24,8 @@ public class DynamicTrees extends CompatFeature {
     private static Block junglebranch;
     @GameRegistry.ObjectHolder("dynamictrees:acaciabranch")
     private static Block acaciabranch;
-    @GameRegistry.ObjectHolder("dynamictrees:darkoakabranch")
-    private static Block darkoakabranch;
+    @GameRegistry.ObjectHolder("dynamictrees:darkoakbranch")
+    private static Block darkoakbranch;
 
     public DynamicTrees() {
         super("dynamictrees");

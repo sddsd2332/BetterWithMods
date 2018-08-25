@@ -12,10 +12,7 @@ import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemBlockSpecial;
-import net.minecraft.item.ItemSeeds;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.util.EnumActionResult;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -33,9 +30,7 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
     @Override
     protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
         EnumFacing facing = source.getBlockState().getValue(BlockBDispenser.FACING);
-
         IPosition pos = BlockBDispenser.getDispensePosition(source);
-
         BlockPos check = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
 
         World world = source.getWorld();
@@ -50,30 +45,29 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
         if (!world.isAirBlock(check) && !world.getBlockState(check).getBlock().isReplaceable(world, check))
             return ItemStack.EMPTY;
 
-        if (stack.getItem() instanceof ItemBlock) {
-            ItemBlock itemblock = (ItemBlock) stack.getItem();
-            if (canPlaceBlockOnSide(itemblock, world, check, facing, fake, stack)) {
-                Block block = ((ItemBlock) stack.getItem()).getBlock();
-                boolean blockAcross = !world.isAirBlock(check.offset(facing));
-                IBlockState state = block.getStateForPlacement(world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), stack.getItemDamage(), fake, fake.getActiveHand());
-                if (block.canPlaceBlockAt(world, check)) {
-                    if (itemblock.placeBlockAt(stack, fake, world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), state)) {
-                        world.playSound(null, check, state.getBlock().getSoundType(state, world, check, fake).getPlaceSound(), SoundCategory.BLOCKS, 0.7F, 1.0F);
-                        stack.shrink(1);
-                        return stack.isEmpty() ? ItemStack.EMPTY : stack;
-                    }
+        Item item = stack.getItem();
+
+        if (item instanceof ItemBlock && canPlaceBlockOnSide((ItemBlock) item, world, check, facing, fake, stack)) {
+            ItemBlock itemblock = (ItemBlock) item;
+            Block block = ((ItemBlock) item).getBlock();
+            boolean blockAcross = !world.isAirBlock(check.offset(facing));
+            IBlockState state = block.getStateForPlacement(world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), stack.getItemDamage(), fake, fake.getActiveHand());
+            if (block.canPlaceBlockAt(world, check)) {
+                if (itemblock.placeBlockAt(stack, fake, world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), state)) {
+                    world.playSound(null, check, state.getBlock().getSoundType(state, world, check, fake).getPlaceSound(), SoundCategory.BLOCKS, 0.7F, 1.0F);
+                    stack.shrink(1);
+                    return stack.isEmpty() ? ItemStack.EMPTY : stack;
                 }
             }
-        } else if (stack.getItem() instanceof ItemBlockSpecial) {
-            if (stack.getItem().onItemUse(fake, world, check, EnumHand.MAIN_HAND, facing, 0.1F, 0.0F, 0.1F) == EnumActionResult.SUCCESS) {
-                stack.shrink(1);
-                return stack.isEmpty() ? ItemStack.EMPTY : stack;
-            }
-        } else if (stack.getItem() instanceof ItemSeeds) {
-            if (stack.getItem().onItemUse(fake, world, check.down(), EnumHand.MAIN_HAND, EnumFacing.UP, 0.1F, 0.0F, 0.1F) == EnumActionResult.SUCCESS) {
-                stack.shrink(1);
-                return stack.isEmpty() ? ItemStack.EMPTY : stack;
-            }
+        } else if (item instanceof ItemBlockSpecial && item.onItemUse(fake, world, check, EnumHand.MAIN_HAND, facing, 0.1F, 0.0F, 0.1F) == EnumActionResult.SUCCESS) {
+            stack.shrink(1);
+            return stack.isEmpty() ? ItemStack.EMPTY : stack;
+
+        } else if (item instanceof ItemSeeds && item.onItemUse(fake, world, check.down(), EnumHand.MAIN_HAND, EnumFacing.UP, 0.1F, 0.0F, 0.1F) == EnumActionResult.SUCCESS) {
+            stack.shrink(1);
+            return stack.isEmpty() ? ItemStack.EMPTY : stack;
+        } else {
+            super.dispenseStack(source, stack);
         }
         return ItemStack.EMPTY;
     }
@@ -90,7 +84,7 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
         return facing == EnumFacing.WEST && blockAcross ? 0.9F : 0.1F;
     }
 
-    public boolean canPlaceBlockOnSide(ItemBlock itemBlock, World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
+    private boolean canPlaceBlockOnSide(ItemBlock itemBlock, World worldIn, BlockPos pos, EnumFacing side, EntityPlayer player, ItemStack stack) {
         Block block = worldIn.getBlockState(pos).getBlock();
 
         if (block == Blocks.SNOW_LAYER && block.isReplaceable(worldIn, pos)) {

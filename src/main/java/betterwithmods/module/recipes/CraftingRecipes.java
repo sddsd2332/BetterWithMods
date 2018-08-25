@@ -1,15 +1,22 @@
 package betterwithmods.module.recipes;
 
+import betterwithmods.BWMod;
+import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
+import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.crafting.ChoppingRecipe;
 import betterwithmods.common.registry.crafting.RecipeArmorDye;
 import betterwithmods.module.Feature;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
@@ -50,6 +57,28 @@ public class CraftingRecipes extends Feature {
         GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.COOKIE), new ItemStack(Items.COOKIE, 16), 0.1F);
     }
 
+
+    private boolean hasLog(IRecipe recipe, ItemStack log) {
+        NonNullList<Ingredient> ingredients = recipe.getIngredients();
+        for (Ingredient ingredient : ingredients) {
+            if (ingredient.getMatchingStacks().length > 0) {
+                for (ItemStack stack : ingredient.getMatchingStacks()) {
+                    if (stack.isItemEqual(log))
+                        return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    @Override
+    public void onPostInit(FMLPostInitializationEvent event) {
+        for (IRecipe recipe : BWOreDictionary.logRecipes) {
+            ItemStack plank = recipe.getRecipeOutput();
+            BWOreDictionary.woods.stream().filter(w -> w.getPlank(4).isItemEqual(plank) && hasLog(recipe, w.getLog(1))).forEach(wood ->
+                    addHardcoreRecipe(new ChoppingRecipe(wood, 4).setRegistryName(new ResourceLocation(BWMod.MODID, recipe.getRegistryName().getPath()))));
+        }
+    }
 
     @Override
     public String getDescription() {

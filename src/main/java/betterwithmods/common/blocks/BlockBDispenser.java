@@ -83,8 +83,17 @@ public class BlockBDispenser extends BlockDispenser {
         }
     }
 
+    private boolean isValidEntity(Entity entity) {
+        if (entity != null) {
+            ResourceLocation key = EntityList.getKey(entity);
+            if (key != null)
+                return ENTITY_COLLECT_REGISTRY.containsKey(key) && entity.isEntityAlive();
+        }
+        return false;
+    }
+
     private Optional<Entity> getEntity(World world, BlockPos pos) {
-        return world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Entity::isEntityAlive).stream().findFirst();
+        return world.getEntitiesWithinAABB(Entity.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), this::isValidEntity).stream().findFirst();
     }
 
     @Override
@@ -97,11 +106,6 @@ public class BlockBDispenser extends BlockDispenser {
 
             if (world.getBlockState(check).getBlockHardness(world, check) < 0)
                 return;
-            IBehaviorCollect behavior = BLOCK_COLLECT_REGISTRY.getObject(block);
-            if (!world.isAirBlock(check) || !block.isReplaceable(world, check)) {
-                NonNullList<ItemStack> stacks = behavior.collect(new BlockSourceImpl(world, check));
-                InvUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
-            }
 
             Optional<Entity> entity = getEntity(world, check);
             if (entity.isPresent()) {
@@ -109,6 +113,13 @@ public class BlockBDispenser extends BlockDispenser {
                 ResourceLocation name = EntityList.getKey(e);
                 IBehaviorEntity behaviorEntity = ENTITY_COLLECT_REGISTRY.getObject(name);
                 NonNullList<ItemStack> stacks = behaviorEntity.collect(world, check, e, tile.getCurrentSlot());
+                InvUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
+                return;
+            }
+
+            IBehaviorCollect behavior = BLOCK_COLLECT_REGISTRY.getObject(block);
+            if (!world.isAirBlock(check) || !block.isReplaceable(world, check)) {
+                NonNullList<ItemStack> stacks = behavior.collect(new BlockSourceImpl(world, check));
                 InvUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
             }
         } else {

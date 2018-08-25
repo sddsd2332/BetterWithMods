@@ -42,5 +42,5 @@ public class ReflectionLib {
 
     public static final String[] ENTITY_JUMP_MOTION = new String[]{"getJumpUpwardsMotion", "func_175134_bD"};
 
-
+    public static final String[] MINECART_DISPENSER_BEHAVIOR = new String[]{"MINECART_DISPENSER_BEHAVIOR", "field_96602_b"};
 }

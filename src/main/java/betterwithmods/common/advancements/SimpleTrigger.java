@@ -1,6 +1,5 @@
 package betterwithmods.common.advancements;
 
-import betterwithmods.BWMod;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -20,33 +19,33 @@ import java.util.Set;
 /**
  * Created by michaelepps on 7/19/18.
  */
-public class HopperGhastTrigger implements ICriterionTrigger<HopperGhastTrigger.Instance> {
+public class SimpleTrigger implements ICriterionTrigger<SimpleTrigger.Instance> {
 
-    private static final ResourceLocation ID = new ResourceLocation(BWMod.MODID,"spawn_hopper_friend");
-
+    private final ResourceLocation id;
     private final Map<PlayerAdvancements, Listeners> listeners = Maps.newHashMap();
+
+    public SimpleTrigger(ResourceLocation id) {
+        this.id = id;
+    }
 
     @Nonnull
     public ResourceLocation getId() {
-        return ID;
+        return id;
     }
 
-    public void addListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull ICriterionTrigger.Listener<HopperGhastTrigger.Instance> listener) {
-        HopperGhastTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
-
+    public void addListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull Listener<SimpleTrigger.Instance> listener) {
+        SimpleTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
         if (listeners == null) {
-            listeners = new HopperGhastTrigger.Listeners(playerAdvancementsIn);
+            listeners = new SimpleTrigger.Listeners(playerAdvancementsIn);
             this.listeners.put(playerAdvancementsIn, listeners);
         }
         listeners.add(listener);
     }
 
-    public void removeListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull ICriterionTrigger.Listener<HopperGhastTrigger.Instance> listener) {
-        HopperGhastTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
-
+    public void removeListener(@Nonnull PlayerAdvancements playerAdvancementsIn, @Nonnull Listener<SimpleTrigger.Instance> listener) {
+        SimpleTrigger.Listeners listeners = this.listeners.get(playerAdvancementsIn);
         if (listeners != null) {
             listeners.remove(listener);
-
             if (listeners.isEmpty()) {
                 this.listeners.remove(playerAdvancementsIn);
             }
@@ -59,13 +58,13 @@ public class HopperGhastTrigger implements ICriterionTrigger<HopperGhastTrigger.
 
 
     @Nonnull
-    public HopperGhastTrigger.Instance deserializeInstance(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
-        return new HopperGhastTrigger.Instance();
+    public SimpleTrigger.Instance deserializeInstance(@Nonnull JsonObject json, @Nonnull JsonDeserializationContext context) {
+        return new SimpleTrigger.Instance(this.id);
     }
 
 
     public void trigger(EntityPlayerMP player) {
-        HopperGhastTrigger.Listeners listeners = this.listeners.get(player.getAdvancements());
+        SimpleTrigger.Listeners listeners = this.listeners.get(player.getAdvancements());
         if (listeners != null) {
             listeners.trigger();
         }
@@ -73,8 +72,8 @@ public class HopperGhastTrigger implements ICriterionTrigger<HopperGhastTrigger.
 
 
     public static class Instance extends AbstractCriterionInstance {
-        public Instance() {
-            super(HopperGhastTrigger.ID);
+        public Instance(ResourceLocation id) {
+            super(id);
         }
 
         public boolean test() {
@@ -95,17 +94,17 @@ public class HopperGhastTrigger implements ICriterionTrigger<HopperGhastTrigger.
             return this.listeners.isEmpty();
         }
 
-        public void add(ICriterionTrigger.Listener<HopperGhastTrigger.Instance> listener) {
+        public void add(Listener<SimpleTrigger.Instance> listener) {
             this.listeners.add(listener);
         }
 
-        public void remove(ICriterionTrigger.Listener<HopperGhastTrigger.Instance> listener) {
+        public void remove(Listener<SimpleTrigger.Instance> listener) {
             this.listeners.remove(listener);
         }
 
         public void trigger() {
             List<Listener<Instance>> list = null;
-            for (ICriterionTrigger.Listener<HopperGhastTrigger.Instance> listener : this.listeners) {
+            for (Listener<SimpleTrigger.Instance> listener : this.listeners) {
                 if (listener.getCriterionInstance().test()) {
                     if (list == null) {
                         list = Lists.newArrayList();
@@ -115,7 +114,7 @@ public class HopperGhastTrigger implements ICriterionTrigger<HopperGhastTrigger.
             }
 
             if (list != null) {
-                for (ICriterionTrigger.Listener<HopperGhastTrigger.Instance> listener1 : list) {
+                for (Listener<SimpleTrigger.Instance> listener1 : list) {
                     listener1.grantCriterion(this.playerAdvancements);
                 }
             }

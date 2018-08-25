@@ -7,7 +7,6 @@ import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.common.tile.TileKiln;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -49,7 +48,7 @@ public class KilnStructureManager {
                 ((TileKiln) tile).setState(state);
                 world.notifyBlockUpdate(pos, kiln, kiln, 8);
                 //TRIGGER ADVANCEMENT
-                world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(BWAdvancements.CONSTRUCT_KILN::trigger);
+                BWAdvancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), BWAdvancements.CONSTRUCT_KILN);
             }
             return true;
         }

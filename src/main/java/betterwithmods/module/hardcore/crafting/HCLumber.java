@@ -64,8 +64,6 @@ public class HCLumber extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-
-
         BrokenToolRegistry.init();
         BWMOreDictionary.logRecipes.forEach(r -> BWMRecipes.removeRecipe(r.getRegistryName()));
     }

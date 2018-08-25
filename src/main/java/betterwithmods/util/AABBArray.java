@@ -44,15 +44,10 @@ public class AABBArray extends AxisAlignedBB {
     public static AxisAlignedBB[] getParts(AxisAlignedBB source) {
         if (source instanceof AABBArray) {
             HashSet<AxisAlignedBB> bbs = new HashSet<>();
-            Arrays.asList(((AABBArray) source).boundingBoxes)
-                    .forEach(aabb -> bbs.addAll(Arrays.asList(getParts(aabb))));
+            Arrays.asList(((AABBArray) source).boundingBoxes).forEach(aabb -> bbs.addAll(Arrays.asList(getParts(aabb))));
             return bbs.toArray(new AxisAlignedBB[0]);
         }
         return new AxisAlignedBB[]{source};
-    }
-
-    public static AxisAlignedBB toAABB(AxisAlignedBB source) {
-        return new AxisAlignedBB(source.minX, source.minY, source.minZ, source.maxX, source.maxY, source.maxZ);
     }
 
     @Override
@@ -113,33 +108,6 @@ public class AABBArray extends AxisAlignedBB {
         return offsetZ;
     }
 
-    public boolean intersectsWithXY(AxisAlignedBB other) {
-        boolean flag = false;
-        for (AxisAlignedBB axisAlignedBB : getParts(this)) {
-            flag |= axisAlignedBB.intersects(other.minX, other.minY, Double.NEGATIVE_INFINITY, other.maxX, other.maxY,
-                    Double.POSITIVE_INFINITY);
-        }
-        return flag;
-    }
-
-    public boolean intersectsWithXZ(AxisAlignedBB other) {
-        boolean flag = false;
-        for (AxisAlignedBB axisAlignedBB : getParts(this)) {
-            flag |= axisAlignedBB.intersects(other.minX, Double.NEGATIVE_INFINITY, other.minZ, other.maxX,
-                    Double.POSITIVE_INFINITY, other.maxZ);
-        }
-        return flag;
-    }
-
-    public boolean intersectsWithYZ(AxisAlignedBB other) {
-        boolean flag = false;
-        for (AxisAlignedBB axisAlignedBB : getParts(this)) {
-            flag |= axisAlignedBB.intersects(Double.NEGATIVE_INFINITY, other.minY, other.minZ, Double.POSITIVE_INFINITY,
-                    other.maxY, other.maxZ);
-        }
-        return flag;
-    }
-
     @Override
     public boolean intersects(AxisAlignedBB other) {
         boolean flag = false;
@@ -187,16 +155,17 @@ public class AABBArray extends AxisAlignedBB {
 
     @Nonnull
     @Override
-    public AxisAlignedBB grow(double x, double y, double z) {
-        if (x == 0 && y == 0 && z == 0) {
-            return new AABBArray(boundingBoxes);
+    public AABBArray grow(double x, double y, double z) {
+        AABBArray aabbArray = new AABBArray(boundingBoxes);
+        for (int i = 0; i < aabbArray.boundingBoxes.length; i++) {
+            aabbArray.boundingBoxes[i] = aabbArray.boundingBoxes[i].grow(x, y, z);
         }
-        return super.grow(x, y, z);
+        return aabbArray;
     }
 
     @Nonnull
     @Override
-    public AxisAlignedBB grow(double value) {
+    public AABBArray grow(double value) {
         return this.grow(value, value, value);
     }
 
@@ -221,6 +190,8 @@ public class AABBArray extends AxisAlignedBB {
         return new AABBArray(var1);
     }
 
-    // to implement
+    public AxisAlignedBB[] getBoundingBoxes() {
+        return this.boundingBoxes;
+    }
 
 }
