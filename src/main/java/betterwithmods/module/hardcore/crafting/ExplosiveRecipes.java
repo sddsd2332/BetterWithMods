@@ -2,11 +2,13 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.registry.bulk.recipes.BulkCraftEvent;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.module.Feature;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -30,6 +32,7 @@ public class ExplosiveRecipes extends Feature {
             CookingPotRecipe recipe = (CookingPotRecipe) event.getRecipe();
             if (((IHeated) event.getTile()).getHeat(event.getWorld(), event.getTile().getPos()) > recipe.getHeat()) {
                 explodeCauldron(event.getWorld(), event.getTile().getPos(), event.getInventory());
+
             }
         }
     }
@@ -52,6 +55,11 @@ public class ExplosiveRecipes extends Feature {
         }
 
         expSize = blockAmt == 0 ? Math.max(expSize, 2.0f) : Math.max(expSize, 4.0f) + blockAmt;
+
+        BWAdvancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), BWAdvancements.EXPLOSIVE_RECIPE);
+
         world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, expSize, true);
+
+
     }
 }
