@@ -10,6 +10,8 @@ import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.BlockBUD;
+import betterwithmods.common.blocks.BlockDetector;
+import betterwithmods.common.blocks.BlockHemp;
 import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.entity.*;
@@ -27,6 +29,7 @@ import betterwithmods.common.registry.block.managers.CraftingManagerSaw;
 import betterwithmods.common.registry.block.managers.CraftingManagerTurntable;
 import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.common.registry.block.recipe.BlockIngredientSpecial;
 import betterwithmods.common.registry.block.recipe.StateIngredient;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerMill;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerPot;
@@ -37,14 +40,10 @@ import betterwithmods.manual.api.API;
 import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
 import betterwithmods.network.BWNetwork;
-import betterwithmods.util.DispenserBehaviorDynamite;
-import betterwithmods.util.InvUtils;
-import betterwithmods.util.MechanicalUtil;
-import betterwithmods.util.SetBlockIngredient;
-import betterwithmods.util.ReflectionLib;
+import betterwithmods.util.*;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockDispenser;
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.entity.Entity;
@@ -183,6 +182,7 @@ public class BWMRegistry {
         BWMRegistry.registerHeatSources();
         BWMOreDictionary.registerOres();
         BWMRegistry.registerBUDBlacklist();
+        BWMRegistry.registerDetectorHandlers();
     }
 
     public static void postInit() {
@@ -353,6 +353,29 @@ public class BWMRegistry {
                 new StateIngredient(Blocks.REDSTONE_TORCH),
                 new BlockDropIngredient(new ItemStack(BWMBlocks.LIGHT)),
                 new BlockDropIngredient(new ItemStack(BWMBlocks.BUDDY_BLOCK))
+        );
+    }
+
+    private static void registerDetectorHandlers() {
+        BlockDetector.DETECTION_HANDLERS = Sets.newHashSet(
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(WorldUtils::isPrecipitationAt), facing -> facing == EnumFacing.UP),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getMaterial().isSolid()))),
+                new BlockDetector.IngredientDetection(new BlockDropIngredient(new ItemStack(Items.REEDS))),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockVine))),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock().equals(BWMBlocks.LIGHT_SOURCE)))),
+                new BlockDetector.IngredientDetection(new StateIngredient(Lists.newArrayList(BWMBlocks.HEMP.getDefaultState().withProperty(BlockHemp.TOP, true)), Lists.newArrayList(new ItemStack(BWMBlocks.HEMP)))),
+                new BlockDetector.EntityDetection(),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> {
+                    BlockPos downOffset = pos.down();
+                    IBlockState downState = world.getBlockState(downOffset);
+                    Block downBlock = downState.getBlock();
+                    if (!(downBlock instanceof BlockHemp) && downBlock instanceof BlockCrops) {
+                        return ((BlockCrops) downBlock).isMaxAge(downState);
+                    } else if (downBlock == Blocks.NETHER_WART) {
+                        return downState.getValue(BlockNetherWart.AGE) >= 3;
+                    }
+                    return false;
+                })))
         );
     }
 

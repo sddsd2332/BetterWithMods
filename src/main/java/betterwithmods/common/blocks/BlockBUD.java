@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.module.recipes.Recipes;
+import betterwithmods.common.BWMRegistry;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.SetBlockIngredient;
 import net.minecraft.block.Block;
@@ -17,7 +17,6 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 import javax.annotation.Nonnull;
 import java.util.Random;
@@ -33,7 +32,7 @@ public class BlockBUD extends BWMBlock {
 
     /**
      * This list contains the blocks that should not cause the Buddy Block to update.
-     * It is initialized at {@link Recipes#postInit(FMLPostInitializationEvent)} }
+     * It is initialized at {@link BWMRegistry#registerBUDBlacklist()} }
      */
     public static SetBlockIngredient BLACKLIST;
 
