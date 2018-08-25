@@ -6,6 +6,7 @@ import betterwithmods.api.capabilities.CapabilityAxle;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IAxle;
 import betterwithmods.api.tile.IMechanicalPower;
+import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
@@ -43,16 +44,23 @@ import betterwithmods.network.BWNetwork;
 import betterwithmods.util.DispenserBehaviorDynamite;
 import betterwithmods.util.InvUtils;
 import betterwithmods.util.MechanicalUtil;
+import betterwithmods.util.ReflectionLib;
+import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
+import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
+import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
@@ -71,6 +79,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistry;
 import net.minecraftforge.registries.IForgeRegistry;
 
@@ -136,14 +145,14 @@ public class BWRegistry {
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
 
-        for(IRecipe recipe: BWMRecipes.getRecipes()) {
+        for (IRecipe recipe : BWMRecipes.getRecipes()) {
             event.getRegistry().register(recipe);
         }
 
         for (IRecipe recipe : reg) {
-            for(Pattern pattern: BWMRecipes.REMOVE_BY_REGEX) {
+            for (Pattern pattern : BWMRecipes.REMOVE_BY_REGEX) {
                 Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
-                if(matcher.matches()) {
+                if (matcher.matches()) {
                     reg.remove(recipe.getRegistryName());
                 }
             }
@@ -194,7 +203,7 @@ public class BWRegistry {
         BWRegistry.registerEntity(EntityHCFishHook.class, "bwm_fishing_hook", 64, 20, true);
         BWRegistry.registerEntity(EntityTentacle.class, "bwm_tentacle", 64, 1, true);
 
-        BWRegistry.registerEntity(EntityJungleSpider.class, "bwm_jungle_spider", 64, 1, true, 0x3C6432, 0x648C50 );
+        BWRegistry.registerEntity(EntityJungleSpider.class, "bwm_jungle_spider", 64, 1, true, 0x3C6432, 0x648C50);
     }
 
     public static void registerBlockDispenserBehavior() {
@@ -218,6 +227,33 @@ public class BWRegistry {
         BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.STONE, new BehaviorSilkTouch());
         BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.LOG, new BehaviorSilkTouch());
         BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.LOG2, new BehaviorSilkTouch());
+
+        //Dispenser Minecarts
+        IBehaviorDispenseItem MINECART_DISPENSER_BEHAVIOR = ReflectionHelper.getPrivateValue(ItemMinecart.class, null, ReflectionLib.MINECART_DISPENSER_BEHAVIOR);
+        for (Item minecart : Sets.newHashSet(Items.MINECART, Items.CHEST_MINECART, Items.FURNACE_MINECART, Items.HOPPER_MINECART, Items.TNT_MINECART, Items.COMMAND_BLOCK_MINECART)) {
+            BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(minecart, MINECART_DISPENSER_BEHAVIOR);
+        }
+
+        IBehaviorEntity MINECART_COLLECT_BEHAVIOR = (world, pos, entity, stack) -> {
+            EntityMinecart minecart = (EntityMinecart) entity;
+
+            if (minecart instanceof IInventory) {
+                InventoryHelper.dropInventoryItems(world, minecart, (IInventory) minecart);
+            }
+
+            IBlockState state = minecart.getDisplayTile();
+            if (state == Blocks.LIT_FURNACE.getDefaultState())
+                state = Blocks.FURNACE.getDefaultState();
+            ItemStack tile = BWMRecipes.getStackFromState(state);
+            minecart.setDead();
+
+            return InvUtils.asNonnullList(new ItemStack(Items.MINECART), tile);
+        };
+
+        for (String name : Sets.newHashSet("commandblock_minecart", "minecart", "chest_minecart", "furnace_minecart", "tnt_minecart", "hopper_minecart", "spawner_minecart")) {
+            ResourceLocation loc = new ResourceLocation(name);
+            BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(loc, MINECART_COLLECT_BEHAVIOR);
+        }
 
 
         BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:sheep"), (world, pos, entity, stack) -> {
@@ -246,6 +282,8 @@ public class BWRegistry {
             }
             return NonNullList.create();
         });
+
+
     }
 
     /**
