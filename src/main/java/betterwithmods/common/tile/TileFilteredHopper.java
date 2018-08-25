@@ -269,7 +269,6 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
             this.getBlockWorld().playSound(null, this.pos, SoundEvents.ENTITY_GHAST_SCREAM, SoundCategory.BLOCKS, 1.0F, getBlockWorld().rand.nextFloat() * 0.1F + 0.8F);
             if (WorldUtils.spawnGhast(world, pos)) {
                 BWAdvancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), BWAdvancements.SPAWN_HOPPER_FRIEND);
-                world.getEntitiesWithinAABB(EntityPlayerMP.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D)).forEach(BWAdvancements.SPAWN_HOPPER_FRIEND::trigger);
             }
         }
 

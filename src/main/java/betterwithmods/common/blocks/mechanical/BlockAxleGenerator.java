@@ -3,6 +3,7 @@ package betterwithmods.common.blocks.mechanical;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.util.DirUtils;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -19,7 +20,6 @@ import javax.annotation.Nonnull;
 import static betterwithmods.util.DirUtils.AXIS;
 import static net.minecraft.util.EnumFacing.Axis.Y;
 
-`ft.block.material.Material;
 
 public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActive {
 

@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.registry.bulk.recipes.BulkCraftEvent;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
