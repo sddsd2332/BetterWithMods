@@ -34,8 +34,8 @@ public class DynamicTrees extends CompatFeature {
     @GameRegistry.ObjectHolder("dynamictrees:acaciabranch")
     private static Block acaciabranch;
 
-    @GameRegistry.ObjectHolder("dynamictrees:darkoakabranch")
-    private static Block darkoakabranch;
+    @GameRegistry.ObjectHolder("dynamictrees:darkoakbranch")
+    private static Block darkoakbranch;
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
@@ -45,7 +45,7 @@ public class DynamicTrees extends CompatFeature {
         BWOreDictionary.woodProviders.add(new DynamicWoodProvider(birchbranch, new ItemStack(Blocks.LOG, 1, 2), new ItemStack(Blocks.PLANKS, 1, 2), ItemBark.getStack("birch", 1)));
         BWOreDictionary.woodProviders.add(new DynamicWoodProvider(junglebranch, new ItemStack(Blocks.LOG, 1, 3), new ItemStack(Blocks.PLANKS, 1, 3), ItemBark.getStack("jungle", 1)));
         BWOreDictionary.woodProviders.add(new DynamicWoodProvider(acaciabranch, new ItemStack(Blocks.LOG2, 1, 0), new ItemStack(Blocks.PLANKS, 1, 4), ItemBark.getStack("acacia", 1)));
-        BWOreDictionary.woodProviders.add(new DynamicWoodProvider(darkoakabranch, new ItemStack(Blocks.LOG2, 1, 1), new ItemStack(Blocks.PLANKS, 1, 5), ItemBark.getStack("dark_oak", 1)));
+        BWOreDictionary.woodProviders.add(new DynamicWoodProvider(darkoakbranch, new ItemStack(Blocks.LOG2, 1, 1), new ItemStack(Blocks.PLANKS, 1, 5), ItemBark.getStack("dark_oak", 1)));
     }
 
 
