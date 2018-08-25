@@ -112,7 +112,6 @@ public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
             if (world.getBlockState(check).getBlockHardness(world, check) < 0)
                 return;
 
-            //TODO entity first
             Optional<Entity> entity = getEntity(world, check);
             if (entity.isPresent()) {
                 Entity e = entity.get();
