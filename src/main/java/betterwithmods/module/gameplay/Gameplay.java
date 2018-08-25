@@ -16,10 +16,7 @@ import betterwithmods.util.SetBlockIngredient;
 import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
-import net.minecraft.block.Block;
-import net.minecraft.block.BlockCrops;
-import net.minecraft.block.BlockNetherWart;
-import net.minecraft.block.BlockVine;
+import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -128,8 +125,8 @@ public class Gameplay extends Module {
         BlockDetector.DETECTION_HANDLERS = Sets.newHashSet(
                 new BlockDetector.IngredientDetection(new BlockIngredientSpecial(WorldUtils::isPrecipitationAt), facing -> facing == EnumFacing.UP),
                 new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getMaterial().isSolid()))),
-                new BlockDetector.IngredientDetection(new BlockDropIngredient(new ItemStack(Items.REEDS))),
                 new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockVine))),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockReed))),
                 new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock().equals(BWMBlocks.LIGHT_SOURCE)))),
                 new BlockDetector.IngredientDetection(new StateIngredient(Lists.newArrayList(BWMBlocks.HEMP.getDefaultState().withProperty(BlockHemp.TOP, true)), Lists.newArrayList(new ItemStack(BWMBlocks.HEMP)))),
                 new BlockDetector.EntityDetection(),
