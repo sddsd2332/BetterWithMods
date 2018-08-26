@@ -22,7 +22,9 @@ public class ExplosionTracker extends Feature {
 
     @SubscribeEvent
     public void onExplodeTrack(ExplosionTrackingEvent event) {
-        BWMod.getLog().warn("[EXPLOSION] -  position: {}, placer: {}", event.getSource(), Optional.ofNullable(event.getExploder()).map(EntityLivingBase::getName).orElse("No Placer"));
+        Optional<EntityLivingBase> entity = Optional.ofNullable(event.getExploder());
+
+        BWMod.getLog().warn("[EXPLOSION] -  position: {}, cause: {}", event.getSource(), entity.map(EntityLivingBase::getName).orElse("No Placer"));
     }
 
     @Override
