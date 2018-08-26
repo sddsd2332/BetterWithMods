@@ -1,6 +1,7 @@
 package betterwithmods.common.entity;
 
 import betterwithmods.event.FakePlayerHandler;
+import betterwithmods.module.tweaks.ExplosionTracker;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -18,8 +19,10 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
+import net.minecraftforge.common.MinecraftForge;
 
 import java.util.HashMap;
 import java.util.List;
@@ -135,6 +138,7 @@ public class EntityMiningCharge extends Entity {
         List<EntityLivingBase> entities = world.getEntitiesWithinAABB(EntityLivingBase.class, area);
         entities.forEach(entity -> entity.attackEntityFrom(DamageSource.causeExplosionDamage(igniter), 45f));
 
+        MinecraftForge.EVENT_BUS.post(new ExplosionTracker.ExplosionTrackingEvent(new Vec3d(pos), this.igniter, world));
     }
 
 

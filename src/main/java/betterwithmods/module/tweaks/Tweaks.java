@@ -47,6 +47,7 @@ public class Tweaks extends Module {
         registerFeature(new SilverfishClay());
         registerFeature(new AnimalBirth());
         registerFeature(new HopperMinecarts());
+        registerFeature(new ExplosionTracker());
         //        registerFeature(new MushroomFarming());
     }
 
