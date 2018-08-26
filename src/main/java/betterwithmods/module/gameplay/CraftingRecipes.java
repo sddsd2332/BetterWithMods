@@ -85,7 +85,7 @@ public class CraftingRecipes extends Feature {
         for (IRecipe recipe : BWOreDictionary.logRecipes) {
             ItemStack plank = recipe.getRecipeOutput();
             BWOreDictionary.woods.stream().filter(w -> w.getPlank(4).isItemEqual(plank) && hasLog(recipe, w.getLog(1))).forEach(wood ->
-                    addHardcoreRecipe(new ChoppingRecipe(wood, 4).setRegistryName(new ResourceLocation(BWMod.MODID, recipe.getRegistryName().getPath()))));
+                    addHardcoreRecipe(new ChoppingRecipe(wood).setRegistryName(new ResourceLocation(BWMod.MODID, recipe.getRegistryName().getPath()))));
         }
     }
 
