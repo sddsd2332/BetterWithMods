@@ -20,6 +20,7 @@ import betterwithmods.manual.api.ManualAPI;
 import betterwithmods.manual.api.prefab.manual.TextureTabIconRenderer;
 import betterwithmods.manual.common.DirectoryDefaultProvider;
 import betterwithmods.manual.common.api.ManualDefinitionImpl;
+import betterwithmods.manual.custom.StatePathProvider;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
 import betterwithmods.module.gameplay.breeding_harness.CapabilityHarness;
@@ -109,7 +110,9 @@ public class ClientProxy implements IProxy {
 
         ManualAPI.addProvider(new DirectoryDefaultProvider(new ResourceLocation(BWMod.MODID, "documentation/docs/")));
         ManualDefinitionImpl.INSTANCE.addDefaultProviders();
+        ManualAPI.addProvider(new StatePathProvider());
         ManualAPI.addTab(new TextureTabIconRenderer(new ResourceLocation(BWMod.MODID, "textures/gui/manual_home.png")), "bwm.manual.home", "%LANGUAGE%/index.md");
+
     }
 
     @Override

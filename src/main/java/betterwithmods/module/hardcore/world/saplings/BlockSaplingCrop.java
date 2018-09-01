@@ -29,6 +29,7 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
             new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.8, 0.8D),
             new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.875, 0.8D),
             new AxisAlignedBB(0.2D, 0.0D, 0.20D, 0.8D, 0.95, 0.8D),
+            Block.FULL_BLOCK_AABB //Unused as it gets converted to a real sapling here
     };
 
     private IBlockState fullyGrown;
