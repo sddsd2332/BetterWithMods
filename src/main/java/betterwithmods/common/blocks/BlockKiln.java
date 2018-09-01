@@ -93,7 +93,9 @@ public class BlockKiln extends BWMBlock {
 
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
-        world.scheduleBlockUpdate(pos, this, 20, 5);
+        if (other.equals(pos.up())) {
+            setCookCounter(world, pos, 0);
+        }
     }
 
 
@@ -151,7 +153,7 @@ public class BlockKiln extends BWMBlock {
 
     @Override
     public ItemStack getPickBlock(IBlockState state, RayTraceResult target, World world, BlockPos pos, EntityPlayer player) {
-        IExtendedBlockState extendedBlockState = (IExtendedBlockState) getExtendedState(state,world,pos);
+        IExtendedBlockState extendedBlockState = (IExtendedBlockState) getExtendedState(state, world, pos);
         return BWMRecipes.getStackFromState(extendedBlockState.getValue(HELD_STATE));
     }
 

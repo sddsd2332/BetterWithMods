@@ -48,6 +48,11 @@ public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
     }
 
     @Override
+    public int tickRate(World worldIn) {
+        return 1;
+    }
+
+    @Override
     public String[] getVariants() {
         return new String[]{"facing=north,triggered=false"};
     }
