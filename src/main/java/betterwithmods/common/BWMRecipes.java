@@ -15,9 +15,11 @@ import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.registries.ForgeRegistry;
 
 import java.io.File;
 import java.io.FileWriter;
@@ -72,6 +74,11 @@ public final class BWMRecipes {
 
     public static void removeRecipe(Ingredient... inputs) {
         REMOVE_RECIPE_BY_INPUT.add(Lists.newArrayList(inputs));
+    }
+
+    public static void removeRecipe(IRecipe recipe) {
+        ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) ForgeRegistries.RECIPES;
+        reg.remove(recipe.getRegistryName());
     }
 
     public static void removeRecipe(ItemStack output) {

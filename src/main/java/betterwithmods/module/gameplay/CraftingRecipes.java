@@ -67,7 +67,7 @@ public class CraftingRecipes extends Feature {
 
     }
 
-    private boolean hasLog(IRecipe recipe, ItemStack log) {
+    public boolean hasLog(IRecipe recipe, ItemStack log) {
         NonNullList<Ingredient> ingredients = recipe.getIngredients();
         for (Ingredient ingredient : ingredients) {
             if (ingredient.getMatchingStacks().length > 0) {
