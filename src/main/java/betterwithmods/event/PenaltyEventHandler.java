@@ -63,7 +63,6 @@ public class PenaltyEventHandler {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
 
 
-
             if (!PlayerHelper.isSurvival(player) || player.isRiding()) {
                 //Remove the modifier when gamemode changes.
                 PlayerHelper.removeModifier(player, SharedMonsterAttributes.MOVEMENT_SPEED, PlayerHelper.PENALTY_SPEED_UUID);
@@ -76,7 +75,7 @@ public class PenaltyEventHandler {
             }
 
             //Pain
-            if (BWRegistry.PENALTY_HANDLERS.inPain(player)) {
+            if (!player.world.isRemote && BWRegistry.PENALTY_HANDLERS.inPain(player)) {
                 if (PlayerHelper.isMoving(player) && player.world.getWorldTime() % 60 == 0) {
                     player.playSound(BWSounds.OOF, 0.75f, 1f);
                 }
