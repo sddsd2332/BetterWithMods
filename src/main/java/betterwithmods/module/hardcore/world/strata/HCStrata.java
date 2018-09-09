@@ -108,7 +108,7 @@ public class HCStrata extends Feature {
         };
         INCORRECT_STRATA_SCALE = (float) loadPropDouble("Incorrect Strata", "Speed scale for when the Strata is higher than the tool", 0.10);
 
-        CTM = loadPropBool("CTM Support", "Use the ConnectedTextureMod to visualize the stratas", true);
+        CTM = loadPropBool("CTM Support", "Use the ConnectedTextureMod to visualize the stratas", true) && enabled;
 
         Arrays.stream(loadPropStringList("Strata Configs", "Set the strata levels for a given dimension, <dim>=< medium start y>,<hard start y>", new String[]{
                 "0=42,21"

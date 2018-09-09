@@ -127,7 +127,7 @@ public class HCStumping extends Feature {
         SPEED_UP_WITH_TOOLS = loadPropBool("Speed up with tool", "Speed up Stump mining with tools", true);
         STUMP_BREAK_SPEED = (float) loadPropDouble("Stump Break speed", "Base break speed of stumps, scaled by tool speed option", 0.03f);
         ROOT_BREAK_SPEED = (float) loadPropDouble("Root Break speed", "Base break speed of roots, scaled by tool speed option", 0.01f);
-        CTM = loadPropBool("CTM Support", "Use ConnectedTextureMod to show the stumps", true);
+        CTM = loadPropBool("CTM Support", "Use ConnectedTextureMod to show the stumps", true) && enabled;
     }
 
     @SubscribeEvent
