@@ -27,3 +27,4 @@ run*
 /src/main/java/mcmultipart/test/
 /src/main/resources/assets/mcmultiparttest/
 /src/main/java/net/minecraftforge/debug/
+*.py
