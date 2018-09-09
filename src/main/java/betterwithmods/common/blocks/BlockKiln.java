@@ -75,6 +75,8 @@ public class BlockKiln extends BWMBlock {
                 tile.kiln(world, craftPos, rand);
             }
         }
+
+        world.scheduleBlockUpdate(pos, this, 20, 5);
     }
 
     public int calculateTickRate(World world, BlockPos pos) {
@@ -93,7 +95,7 @@ public class BlockKiln extends BWMBlock {
 
     @Override
     public void neighborChanged(IBlockState state, World world, BlockPos pos, Block block, BlockPos other) {
-        if (other.equals(pos.up())) {
+        if(world.isAirBlock(pos.up())) {
             setCookCounter(world, pos, 0);
         }
     }
