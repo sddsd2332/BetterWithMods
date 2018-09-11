@@ -12,6 +12,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -36,11 +37,7 @@ public class KilnCharcoal extends Feature {
     }
 
     @Override
-    public void disabledInit(FMLInitializationEvent event) {
-    }
-
-    @Override
-    public void init(FMLInitializationEvent event) {
+    public void postInit(FMLPostInitializationEvent event) {
         List<ItemStack> logs = Lists.newArrayList();
         logs.addAll(OreDictionary.getOres("logWood"));
 
@@ -55,6 +52,5 @@ public class KilnCharcoal extends Feature {
             }
         }
     }
-
 
 }
