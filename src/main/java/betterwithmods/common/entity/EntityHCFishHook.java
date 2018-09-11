@@ -1,5 +1,6 @@
 package betterwithmods.common.entity;
 
+import betterwithmods.module.hardcore.crafting.HCFishing;
 import betterwithmods.util.WorldUtils;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
@@ -54,22 +55,17 @@ public class EntityHCFishHook extends EntityFishHook implements IEntityAdditiona
         WorldServer worldserver = (WorldServer) this.world;
 
         //minutes
-        double min = 1;
-        if (WorldUtils.isTimeFrame(world, WorldUtils.TimeFrame.NIGHT)) {
-            min *= 2; //2
-        }
-
-        if (worldserver.isRainingAt(pos.up())) {
-            min *= 0.75; //1.5
-        }
-
-        if (WorldUtils.isMoonPhase(world, WorldUtils.MoonPhase.Full)) {
-            min /= 2; //.75
-        }
-
-        if (WorldUtils.isTimeFrame(worldserver, WorldUtils.TimeFrame.DAWN) || WorldUtils.isTimeFrame(worldserver, WorldUtils.TimeFrame.DUSK)) {
-            min /= 2;
-        }
+        double initialTime = HCFishing.configuration.initialTime;
+        if (WorldUtils.isTimeFrame(world, WorldUtils.TimeFrame.NIGHT))
+            initialTime *= HCFishing.configuration.nightModifier;
+        if (worldserver.isRainingAt(pos.up()))
+            initialTime *= HCFishing.configuration.rainModifier;
+        if (WorldUtils.isMoonPhase(world, WorldUtils.MoonPhase.Full))
+            initialTime *= HCFishing.configuration.fullMoonModifier;
+        if (WorldUtils.isTimeFrame(worldserver, WorldUtils.TimeFrame.DAWN))
+            initialTime *= HCFishing.configuration.dawnModifier;
+        else if (WorldUtils.isTimeFrame(worldserver, WorldUtils.TimeFrame.DUSK))
+            initialTime *= HCFishing.configuration.duskModifier;
 
         if (this.ticksCatchable > 0) {
             --this.ticksCatchable;
@@ -145,7 +141,7 @@ public class EntityHCFishHook extends EntityFishHook implements IEntityAdditiona
                 this.ticksCaughtDelay = 1;
             } else {
                 int modifer = 20 * 60;
-                this.ticksCaughtDelay = MathHelper.getInt(this.rand, (int) (min * (modifer)), (int) ((min + 2) * (modifer)));
+                this.ticksCaughtDelay = MathHelper.getInt(this.rand, (int) (initialTime * (modifer)), (int) ((initialTime + 2) * (modifer)));
                 this.ticksCaughtDelay = Math.max(1200, this.ticksCaughtDelay - (this.lureSpeed * 1200));
             }
 
