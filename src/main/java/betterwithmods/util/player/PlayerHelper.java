@@ -10,6 +10,7 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -43,6 +44,13 @@ public final class PlayerHelper {
 
     private PlayerHelper() {
 
+    }
+
+    public static Entity getEntityById(int id) {
+        World world = Minecraft.getMinecraft().world;
+        if (world == null)
+            return null;
+        return world.getEntityByID(id);
     }
 
     public static EntityPlayer getPlayerById(String id) {

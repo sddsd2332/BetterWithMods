@@ -25,8 +25,6 @@ import betterwithmods.manual.custom.StatePathProvider;
 import betterwithmods.module.hardcore.beacons.TileBeacon;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
-import betterwithmods.module.recipes.animal_restraint.AnimalRestraint;
-import betterwithmods.module.recipes.animal_restraint.Harness;
 import betterwithmods.util.ReflectionLib;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -41,7 +39,6 @@ import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
@@ -134,24 +131,23 @@ public class ClientProxy implements IProxy {
     }
 
     private void registerColors() {
+        final BlockColors BLOCK_COLORS = Minecraft.getMinecraft().getBlockColors();
+        final ItemColors ITEM_COLORS = Minecraft.getMinecraft().getItemColors();
 
-        final BlockColors col = Minecraft.getMinecraft().getBlockColors();
-        final ItemColors itCol = Minecraft.getMinecraft().getItemColors();
+        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_PLANTER, BlockPlanter.BLOCKS.get(BlockPlanter.EnumType.GRASS));
+        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_FOLIAGE, BWMBlocks.VINE_TRAP);
+        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_BLOOD_LEAF, BWMBlocks.BLOOD_LEAVES);
+        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_GRASS, BWMBlocks.DIRT_SLAB);
 
-        col.registerBlockColorHandler(ColorHandlers.BlockPlanterColor, BlockPlanter.BLOCKS.get(BlockPlanter.EnumType.GRASS));
-        col.registerBlockColorHandler(ColorHandlers.BlockFoliageColor, BWMBlocks.VINE_TRAP);
-        col.registerBlockColorHandler(ColorHandlers.BlockBloodLeafColor, BWMBlocks.BLOOD_LEAVES);
-        col.registerBlockColorHandler(ColorHandlers.BlockGrassColor, BWMBlocks.DIRT_SLAB);
-
-        itCol.registerItemColorHandler(ColorHandlers.ItemPlanterColor, BlockPlanter.BLOCKS.get(BlockPlanter.EnumType.GRASS));
-        itCol.registerItemColorHandler(ColorHandlers.ItemFoliageColor, BWMBlocks.VINE_TRAP);
-        itCol.registerItemColorHandler(ColorHandlers.ItemBloodLeafColor, BWMBlocks.BLOOD_LEAVES);
-        itCol.registerItemColorHandler(ColorHandlers.ItemGrassColor, BWMBlocks.DIRT_SLAB);
-        BWMItems.getItems().forEach(item -> registerColor(itCol, item));
-        col.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> worldIn != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(worldIn, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D), BWMBlocks.DIRT_SLAB);
-        itCol.registerItemColorHandler((stack, tintIndex) -> {
+        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_PLANTER, BlockPlanter.BLOCKS.get(BlockPlanter.EnumType.GRASS));
+        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_FOLIAGE, BWMBlocks.VINE_TRAP);
+        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_BLOOD_LEAF, BWMBlocks.BLOOD_LEAVES);
+        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_GRASS, BWMBlocks.DIRT_SLAB);
+        BWMItems.getItems().forEach(item -> registerColor(ITEM_COLORS, item));
+        BLOCK_COLORS.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> worldIn != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(worldIn, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D), BWMBlocks.DIRT_SLAB);
+        ITEM_COLORS.registerItemColorHandler((stack, tintIndex) -> {
             IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
-            return col.colorMultiplier(iblockstate, null, null, tintIndex);
+            return BLOCK_COLORS.colorMultiplier(iblockstate, null, null, tintIndex);
         }, BWMBlocks.DIRT_SLAB);
     }
 
@@ -173,38 +169,6 @@ public class ClientProxy implements IProxy {
     public void addResourceOverride(String space, String dir, String file, String ext) {
         resourceProxy.addResource(space, dir, file, ext);
     }
-
-    @Override
-    public void addResourceOverride(String space, String domain, String dir, String file, String ext) {
-        resourceProxy.addResource(space, domain, dir, file, ext);
-    }
-
-    @Override
-    public void syncHarness(int entityId, ItemStack harness) {
-        Entity entity = getEntityByID(entityId);
-        if (entity != null) {
-            Harness cap = AnimalRestraint.getHarnessCapability(entity);
-            if (cap != null) {
-                cap.setHarness(harness);
-            }
-        }
-    }
-
-    @Override
-    public void rotateEntity(int entityId, float yaw, float pitch) {
-        Entity entity = getEntityByID(entityId);
-        if (entity != null) {
-            entity.setPositionAndRotation(entity.posX, entity.posY, entity.posZ, yaw, pitch);
-        }
-    }
-
-    private Entity getEntityByID(int id) {
-        World world = Minecraft.getMinecraft().world;
-        if (world == null)
-            return null;
-        return world.getEntityByID(id);
-    }
-
 
     @Override
     public boolean addRunningParticles(IBlockState state, World world, BlockPos pos, Entity entity) {

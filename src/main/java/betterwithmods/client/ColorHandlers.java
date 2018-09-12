@@ -13,20 +13,20 @@ import net.minecraft.world.biome.BiomeColorHelper;
  * Created by Christian on 21.10.2016.
  */
 public class ColorHandlers {
-    public static final IBlockColor BlockPlanterColor = (state, worldIn, pos, tintIndex) ->
+    public static final IBlockColor BLOCK_PLANTER = (state, worldIn, pos, tintIndex) ->
             state.getBlock() instanceof BlockPlanter ? ((BlockPlanter) state.getBlock()).colorMultiplier(worldIn, pos, tintIndex) : -1;
-    public static final IBlockColor BlockFoliageColor = (state, worldIn, pos, tintIndex) ->
+    public static final IBlockColor BLOCK_FOLIAGE = (state, worldIn, pos, tintIndex) ->
             worldIn != null && pos != null ? BiomeColorHelper.getFoliageColorAtPos(worldIn, pos) : ColorizerFoliage.getFoliageColor(0.5D, 1.0D);
-    public static final IBlockColor BlockBloodLeafColor = (state, worldIn, pos, tintIndex) ->
+    public static final IBlockColor BLOCK_BLOOD_LEAF = (state, worldIn, pos, tintIndex) ->
             worldIn != null && pos != null ? blendColors(0xB70606, BiomeColorHelper.getFoliageColorAtPos(worldIn, pos)) : blendColors(0xB70606, ColorizerFoliage.getFoliageColor(0.5D, 1.0D));
-    public static final IBlockColor BlockGrassColor = (state, worldIn, pos, tintIndex) -> worldIn != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(worldIn, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D);
+    public static final IBlockColor BLOCK_GRASS = (state, worldIn, pos, tintIndex) -> worldIn != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(worldIn, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D);
 
-    public static final IItemColor ItemPlanterColor = (stack, tintIndex) -> ColorizerGrass.getGrassColor(0.5D, 1.0D);
-    public static final IItemColor ItemGrassColor = (stack, tintIndex) -> ColorizerGrass.getGrassColor(0.5D, 1.0D);
-    public static final IItemColor ItemFoliageColor = (stack, tintIndex) ->
-            BlockFoliageColor.colorMultiplier(((ItemBlock) stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
-    public static final IItemColor ItemBloodLeafColor = (stack, tintIndex) ->
-            BlockBloodLeafColor.colorMultiplier(((ItemBlock) stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
+    public static final IItemColor ITEM_PLANTER = (stack, tintIndex) -> ColorizerGrass.getGrassColor(0.5D, 1.0D);
+    public static final IItemColor ITEM_GRASS = (stack, tintIndex) -> ColorizerGrass.getGrassColor(0.5D, 1.0D);
+    public static final IItemColor ITEM_FOLIAGE = (stack, tintIndex) ->
+            BLOCK_FOLIAGE.colorMultiplier(((ItemBlock) stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
+    public static final IItemColor ITEM_BLOOD_LEAF = (stack, tintIndex) ->
+            BLOCK_BLOOD_LEAF.colorMultiplier(((ItemBlock) stack.getItem()).getBlock().getDefaultState(), null, null, tintIndex);
 
     public static final IItemColor armor = (stack, tintIndex) ->
             (tintIndex != 1 && stack.getItem() instanceof BWMArmor) ? ((BWMArmor) stack.getItem()).getColor(stack) : -1;
