@@ -32,7 +32,6 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class PotionEventHandler {
 
-
     @SubscribeEvent
     public static void onEndermanLook(LivingSetAttackTargetEvent event) {
         EntityLivingBase target = event.getTarget();

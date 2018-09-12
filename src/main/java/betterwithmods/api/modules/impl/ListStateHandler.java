@@ -36,13 +36,28 @@ public abstract class ListStateHandler<T extends IStateHandler> extends ArrayLis
     }
 
     @Override
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        forEachEnabled(i -> i.onPreInitClient(event));
+    }
+
+    @Override
     public void onInit(FMLInitializationEvent event) {
         forEachEnabled(i -> i.onInit(event));
     }
 
     @Override
+    public void onInitClient(FMLInitializationEvent event) {
+        forEachEnabled(i -> i.onInitClient(event));
+    }
+
+    @Override
     public void onPostInit(FMLPostInitializationEvent event) {
         forEachEnabled(i -> i.onPostInit(event));
+    }
+
+    @Override
+    public void onPostInitClient(FMLPostInitializationEvent event) {
+        forEachEnabled(i -> i.onPostInitClient(event));
     }
 
     @Override
@@ -59,6 +74,8 @@ public abstract class ListStateHandler<T extends IStateHandler> extends ArrayLis
     public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         forEachEnabled(i -> i.registerRecipes(event));
     }
+
+
 
     @Override
     public boolean isEnabled() {

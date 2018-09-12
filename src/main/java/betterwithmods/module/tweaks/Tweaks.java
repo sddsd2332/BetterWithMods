@@ -48,6 +48,7 @@ public class Tweaks extends Module {
         addFeature(new SilverfishClay());
         addFeature(new AnimalBirth());
         addFeature(new HopperMinecarts());
+        addFeature(new FeedWolfchop());
 
     }
 

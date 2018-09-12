@@ -1,7 +1,8 @@
-package betterwithmods.event;
+package betterwithmods.module.tweaks;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
+import betterwithmods.module.Feature;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -15,11 +16,13 @@ import java.util.Random;
 
 import static betterwithmods.util.WorldUtils.addDrop;
 
-/**
- * Created by primetoxinz on 4/21/17.
- */
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
-public class FeedWolfchopEvent {
+public class FeedWolfchop extends Feature {
+    @Override
+    public String getDescription() {
+        return "Feeding a Wolf a Wolf chop? Might not be the best idea";
+    }
+
     @SubscribeEvent
     public static void feedDog(PlayerInteractEvent.EntityInteractSpecific event) {
         ItemStack stack = event.getItemStack();
@@ -45,6 +48,5 @@ public class FeedWolfchopEvent {
             addDrop(event, new ItemStack(BWMItems.WOLF_CHOP, world.rand.nextInt(2)));
         }
     }
-
 
 }

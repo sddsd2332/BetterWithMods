@@ -105,7 +105,6 @@ public class Dung extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-
         wolvesOnly = loadProperty("Only Wolves produce dung", true).get();
         CapabilityManager.INSTANCE.register(DungProducer.class, new Capability.IStorage<DungProducer>() {
             @Nullable

@@ -20,8 +20,7 @@ public class PenaltyEventHandler {
 
     @SubscribeEvent
     public static void onJump(LivingEvent.LivingJumpEvent event) {
-
-        //This has to fun on clientside and serverside
+        //This has to run on clientside and serverside
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             //Whether the player can jump.

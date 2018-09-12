@@ -22,6 +22,7 @@ public class General extends Module {
                 new MechanicalPower(),
                 new Hemp(),
                 new MoreCobble(),
+                new FluidBottles(),
                 new UnitTesting()
         );
     }
