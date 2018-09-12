@@ -1,4 +1,4 @@
-package betterwithmods.event;
+package betterwithmods.common.event;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;

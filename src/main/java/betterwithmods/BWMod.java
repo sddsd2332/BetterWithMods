@@ -2,8 +2,8 @@ package betterwithmods;
 
 import betterwithmods.client.BWGuiHandler;
 import betterwithmods.common.BWMRegistry;
+import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
-import betterwithmods.event.FakePlayerHandler;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.general.General;
 import betterwithmods.module.hardcore.Hardcore;

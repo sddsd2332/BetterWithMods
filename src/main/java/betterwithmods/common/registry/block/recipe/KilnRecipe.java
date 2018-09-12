@@ -1,8 +1,8 @@
 package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.api.tile.IHeatRecipe;
+import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.common.registry.KilnStructureManager;
-import betterwithmods.event.FakePlayerHandler;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;

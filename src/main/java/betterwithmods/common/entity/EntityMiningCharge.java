@@ -1,6 +1,6 @@
 package betterwithmods.common.entity;
 
-import betterwithmods.event.FakePlayerHandler;
+import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.module.tweaks.ExplosionTracker;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

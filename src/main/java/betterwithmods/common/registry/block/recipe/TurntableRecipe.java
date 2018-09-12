@@ -1,9 +1,9 @@
 package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.api.recipe.output.IRecipeOutputs;
+import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.common.registry.block.managers.CraftingManagerTurntable;
 import betterwithmods.common.tile.TileTurntable;
-import betterwithmods.event.FakePlayerHandler;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
