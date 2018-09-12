@@ -169,7 +169,6 @@ public class ClientProxy implements IProxy {
     }
 
 
-
     @Override
     public void addResourceOverride(String space, String dir, String file, String ext) {
         resourceProxy.addResource(space, dir, file, ext);
@@ -207,18 +206,17 @@ public class ClientProxy implements IProxy {
     }
 
 
+    @Override
     public boolean addRunningParticles(IBlockState state, World world, BlockPos pos, Entity entity) {
         IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
         if (model instanceof IStateParticleBakedModel) {
             state = state.getBlock().getExtendedState(state.getActualState(world, pos), world, pos);
             TextureAtlasSprite sprite = ((IStateParticleBakedModel) model).getParticleTexture(state, EnumFacing.UP);
 
-            double posX = entity.posY + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width, posY = entity.getEntityBoundingBox().minY + 0.1D, posZ = entity.posZ + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width;
-            double vX = -entity.motionX * 4.0D, vY = 1.5D, vZ = -entity.motionZ * 4.0D;
-            Particle particle = new BWParticleDigging(world, posX, posY, posZ, vX, vY, vZ,
+            Particle particle = new BWParticleDigging(world, entity.posX + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width, entity.getEntityBoundingBox().minY + 0.1D, entity.posZ + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D,
                     state, pos, sprite, ((BWMBlock) state.getBlock()).getParticleTintIndex());
-
             Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+
             return true;
         } else {
             return false;
