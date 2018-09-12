@@ -42,6 +42,4 @@ public interface IProxy {
         return false;
     }
 
-    default void syncPlaced(BlockPos[] pos) {
-    }
 }

@@ -25,19 +25,13 @@ import betterwithmods.manual.custom.StatePathProvider;
 import betterwithmods.module.hardcore.beacons.TileBeacon;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
-import betterwithmods.module.hardcore.world.stumping.HCStumping;
-import betterwithmods.module.hardcore.world.stumping.PlacedCapability;
 import betterwithmods.module.recipes.animal_restraint.AnimalRestraint;
 import betterwithmods.module.recipes.animal_restraint.Harness;
 import betterwithmods.util.ReflectionLib;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.particle.Particle;
-import net.minecraft.client.particle.ParticleManager;
-import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.IBakedModel;
-import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.client.renderer.block.statemap.StateMapperBase;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.RenderSnowball;
@@ -58,7 +52,6 @@ import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.common.MinecraftForge;
-import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.Mod;
@@ -70,9 +63,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
 import java.util.List;
-import java.util.Random;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BWMod.MODID, value = Side.CLIENT)
@@ -216,55 +207,6 @@ public class ClientProxy implements IProxy {
     }
 
 
-    @Override
-    public void syncPlaced(BlockPos[] pos) {
-        World world = Minecraft.getMinecraft().world;
-        if (world == null)
-            return;
-        PlacedCapability capability = HCStumping.getCapability(world);
-        if (capability != null) {
-            capability.addAll(pos);
-        }
-    }
-
-    @Override
-    public void spawnBlockDustClient(World world, BlockPos pos, Random rand, float posX, float posY, float posZ, int numberOfParticles, float particleSpeed, EnumFacing facing) {
-        if (pos == null)
-            return;
-        TextureAtlasSprite sprite;
-        int tintIndex = -1;
-
-        IBlockState state = world.getBlockState(pos);
-        if (state.getBlock() instanceof BWMBlock) {
-            tintIndex = ((BWMBlock) state.getBlock()).getParticleTintIndex();
-        }
-
-        IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
-        if (model instanceof IStateParticleBakedModel) {
-            state = state.getBlock().getExtendedState(state.getActualState(world, pos), world, pos);
-            sprite = ((IStateParticleBakedModel) model).getParticleTexture(state, facing);
-        } else {
-            sprite = model.getParticleTexture();
-        }
-
-        ParticleManager manager = Minecraft.getMinecraft().effectRenderer;
-
-        for (int i = 0; i < numberOfParticles; i++) {
-            double xSpeed = rand.nextGaussian() * particleSpeed;
-            double ySpeed = rand.nextGaussian() * particleSpeed;
-            double zSpeed = rand.nextGaussian() * particleSpeed;
-
-            try {
-                Particle particle = new BWParticleDigging(world, posX, posY, posZ, xSpeed, ySpeed, zSpeed, state, pos, sprite, tintIndex);
-                manager.addEffect(particle);
-            } catch (Throwable var16) {
-                BWMod.logger.warn("Could not spawn block particle!");
-                return;
-            }
-        }
-    }
-
-
     public boolean addRunningParticles(IBlockState state, World world, BlockPos pos, Entity entity) {
         IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
         if (model instanceof IStateParticleBakedModel) {
@@ -282,30 +224,5 @@ public class ClientProxy implements IProxy {
             return false;
         }
     }
-
-    public static class FluidStateMapper extends StateMapperBase implements ItemMeshDefinition {
-
-        public final Fluid fluid;
-        public final ModelResourceLocation location;
-
-        public FluidStateMapper(Fluid fluid) {
-            this.fluid = fluid;
-            // have each block hold its fluid per nbt? hm
-            this.location = new ModelResourceLocation(new ResourceLocation("betterwithmods", "fluid_block"), fluid.getName());
-        }
-
-        @Nonnull
-        @Override
-        protected ModelResourceLocation getModelResourceLocation(@Nonnull IBlockState state) {
-            return location;
-        }
-
-        @Nonnull
-        @Override
-        public ModelResourceLocation getModelLocation(@Nonnull ItemStack stack) {
-            return location;
-        }
-    }
-
 
 }

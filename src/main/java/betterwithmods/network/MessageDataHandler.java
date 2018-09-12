@@ -7,6 +7,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.fml.common.network.ByteBufUtils;
 
 import javax.annotation.Nonnull;
@@ -37,6 +38,14 @@ public class MessageDataHandler<DataType> {
         addHandler(NBTTagCompound.class, ByteBufUtils::readTag, ByteBufUtils::writeTag);
         addHandler(ItemStack.class, ByteBufUtils::readItemStack, ByteBufUtils::writeItemStack);
         addHandler(BlockPos.class, buf -> BlockPos.fromLong(buf.readLong()), (buf, data) -> buf.writeLong(data.toLong()));
+        addHandler(Vec3d.class, buf -> new Vec3d(buf.readDouble(), buf.readDouble(), buf.readDouble()),
+                (buf, data) -> {
+                    buf.writeDouble(data.x);
+                    buf.writeDouble(data.y);
+                    buf.writeDouble(data.z);
+                }
+        );
+
         addHandler(ChunkPos.class, buf -> new ChunkPos(buf.readInt(), buf.readInt()), (buf, data) -> {
             buf.writeInt(data.x);
             buf.writeInt(data.z);

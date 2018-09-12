@@ -17,6 +17,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
@@ -33,6 +34,8 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import java.util.Set;
 
@@ -170,7 +173,6 @@ public class HCStumping extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         CapabilityManager.INSTANCE.register(PlacedCapability.class, new PlacedCapability.Storage(), PlacedCapability::new);
-
     }
 
     @Override
@@ -183,5 +185,16 @@ public class HCStumping extends Feature {
         STUMP_BREAK_SPEED = loadProperty("Stump Break speed", 0.3f).setComment("Base break speed of stumps, scaled by tool speed option").get();
         ROOT_BREAK_SPEED = loadProperty("Root Break speed", 0.01f).setComment("Base break speed of roots, scaled by tool speed option").get();
         CTM = loadProperty("CTM Support", true).setComment("Use ConnectedTextureMod to show the stumps").get();
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static void syncPlaced(BlockPos[] pos) {
+        World world = Minecraft.getMinecraft().world;
+        if (world == null)
+            return;
+        PlacedCapability capability = HCStumping.getCapability(world);
+        if (capability != null) {
+            capability.addAll(pos);
+        }
     }
 }

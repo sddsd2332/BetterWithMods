@@ -4,6 +4,8 @@ import betterwithmods.BWMod;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
 import betterwithmods.common.tile.TileBasic;
+import betterwithmods.network.BWNetwork;
+import betterwithmods.network.messages.MessageCustomDust;
 import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.InvUtils;
 import betterwithmods.util.item.ToolsManager;
@@ -179,10 +181,10 @@ public abstract class BWMBlock extends Block implements IRotate {
 
     @Override
     public boolean addLandingEffects(IBlockState state, WorldServer world, BlockPos pos, IBlockState stateAgain, EntityLivingBase entity, int numberOfParticles) {
-        //TODO
-//        MessageCustomBlockDust packet = new MessageCustomBlockDust(world, pos, entity.posX, entity.posY, entity.posZ, numberOfParticles, 0.15f);
-//        NetworkHandler.sendToAllAround(packet, world, pos);
-        return super.addLandingEffects(state, world, pos, stateAgain, entity, numberOfParticles);
+        MessageCustomDust packet = new MessageCustomDust(world, pos, entity.posX, entity.posY, entity.posZ, numberOfParticles, 0.15f);
+        BWNetwork.sendToAllAround(packet, world, pos);
+        return true;
+
     }
 
     @Override

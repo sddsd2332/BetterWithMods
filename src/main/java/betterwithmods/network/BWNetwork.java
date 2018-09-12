@@ -25,6 +25,7 @@ public class BWNetwork {
         registerMessage(MessageRotateHandler.class, MessageRotate.class, Side.CLIENT);
         registerMessage(MessageGloomHandler.class, MessageGloom.class, Side.CLIENT);
         registerMessage(MessagePlacedHandler.class, MessagePlaced.class, Side.CLIENT);
+        registerMessage(MessageCustomDustHandler.class,MessageCustomDust.class, Side.CLIENT);
     }
 
     public static <REQ extends IMessage, REPLY extends IMessage> void registerMessage(Class<? extends IMessageHandler<REQ, REPLY>> messageHandler, Class<REQ> requestMessageType, Side side) {

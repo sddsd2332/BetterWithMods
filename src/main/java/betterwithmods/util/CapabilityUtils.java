@@ -14,13 +14,12 @@ import java.util.Optional;
 public class CapabilityUtils {
 
     public static <T> Optional<T> getCapability(@Nullable ICapabilityProvider provider, Capability<T> capability, EnumFacing facing) {
-        if (provider != null && provider.hasCapability(capability, facing)) {
+        if (provider != null)
             return Optional.ofNullable(provider.getCapability(capability, facing));
-        }
         return Optional.empty();
     }
 
-    public static Optional<IItemHandler> getInventory(@Nullable ICapabilityProvider provider, EnumFacing facing) {
+    public static Optional<IItemHandler> getInventory(@Nonnull ICapabilityProvider provider, EnumFacing facing) {
         return getCapability(provider, CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, facing);
     }
 
