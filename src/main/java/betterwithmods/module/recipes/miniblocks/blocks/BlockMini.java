@@ -4,9 +4,9 @@ import betterwithmods.api.block.IRenderRotationPlacement;
 import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.dynamic.BWMDynamicBlocks;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.recipes.miniblocks.ItemMini;
-import betterwithmods.module.recipes.miniblocks.MiniBlocks;
 import betterwithmods.module.recipes.miniblocks.client.MiniInfo;
 import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.recipes.miniblocks.tiles.TileMini;
@@ -56,7 +56,7 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        items.addAll(MiniBlocks.MATERIALS.get(material).stream().sorted(this::compareBlockStates).map(state -> MiniBlocks.fromParent(this, state)).collect(Collectors.toList()));
+        items.addAll(BWMDynamicBlocks.MATERIALS.get(material).stream().sorted(this::compareBlockStates).map(state -> BWMDynamicBlocks.fromParent(this, state)).collect(Collectors.toList()));
     }
 
     @Override

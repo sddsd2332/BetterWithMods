@@ -13,6 +13,7 @@ import betterwithmods.client.gui.bulk.GuiMill;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRegistry;
+import betterwithmods.common.dynamic.BWMDynamicBlocks;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
 import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
@@ -29,7 +30,6 @@ import betterwithmods.module.compat.jei.category.*;
 import betterwithmods.module.compat.jei.ingredient.OutputHelper;
 import betterwithmods.module.compat.jei.ingredient.OutputRenderer;
 import betterwithmods.module.compat.jei.wrapper.*;
-import betterwithmods.module.recipes.miniblocks.MiniBlocks;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import mezz.jei.Internal;
@@ -126,7 +126,7 @@ public class JEI implements IModPlugin {
     }
 
     private Item[] getAllMiniBlocks() {
-        return MiniBlocks.MINI_MATERIAL_BLOCKS.values().stream().map(HashMap::values).flatMap(Collection::stream).map(Item::getItemFromBlock).toArray(Item[]::new);
+        return BWMDynamicBlocks.MINI_MATERIAL_BLOCKS.values().stream().map(HashMap::values).flatMap(Collection::stream).map(Item::getItemFromBlock).toArray(Item[]::new);
     }
 
     @Override

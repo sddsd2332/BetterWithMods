@@ -3,6 +3,7 @@ package betterwithmods.module.recipes.miniblocks;
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.dynamic.BWMDynamicBlocks;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.util.StackIngredient;
 import com.google.gson.JsonObject;
@@ -29,11 +30,11 @@ import java.util.Arrays;
 public class MiniBlockIngredient extends BlockIngredient {
 
     private final Ingredient base;
-    private final MiniType type;
+    private final DynamicVariant type;
     private ItemStack[] cache = null;
 
     public MiniBlockIngredient(String type, Ingredient base) {
-        this.type = MiniType.fromName(type.toLowerCase());
+        this.type = DynamicVariant.fromName(type.toLowerCase());
         this.base = base;
     }
 
@@ -44,7 +45,7 @@ public class MiniBlockIngredient extends BlockIngredient {
     @Override
     public boolean apply(@Nullable ItemStack stack) {
         IBlockState state = ItemCamo.getState(stack);
-        if (state != null && MiniType.matches(type, stack)) {
+        if (state != null && DynamicVariant.matches(type, stack)) {
             ItemStack baseStack = BWMRecipes.getStackFromState(state);
             return base.apply(baseStack);
         }
@@ -85,9 +86,9 @@ public class MiniBlockIngredient extends BlockIngredient {
                 if (!stack.isEmpty() && stack.getItem() instanceof ItemBlock) {
                     IBlockState state = BWMRecipes.getStateFromStack(stack);
                     Material material = state.getMaterial();
-                    if (MiniBlocks.isValidMini(state)) {
-                        BlockCamo blockMini = MiniBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);
-                        stacks.add(MiniBlocks.fromParent(blockMini, state));
+                    if (BWMDynamicBlocks.canBeCamo(state)) {
+                        BlockCamo blockMini = BWMDynamicBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);
+                        stacks.add(BWMDynamicBlocks.fromParent(blockMini, state));
                     }
                 }
             }

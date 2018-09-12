@@ -14,7 +14,7 @@ public interface ManualDefinition {
      * <p>
      * These are intended to link to index pages, and for the time being there
      * a relatively low number of tabs that can be displayed, so I'd ask you to
-     * only register as many tabs as actually, technically *needed*. Which will
+     * only registerBlocks as many tabs as actually, technically *needed*. Which will
      * usually be one, for your main index page.
      *
      * @param renderer the renderer used to render the icon on your tab.
@@ -29,7 +29,7 @@ public interface ManualDefinition {
      * Path providers are used to find documentation entries for item stacks
      * and blocks in the world.
      *
-     * @param provider the provider to register.
+     * @param provider the provider to registerBlocks.
      */
     void addProvider(PathProvider provider);
 
@@ -41,7 +41,7 @@ public interface ManualDefinition {
      * <p>
      * This can be useful for providing dynamic content, for example.
      *
-     * @param provider the provider to register.
+     * @param provider the provider to registerBlocks.
      */
     void addProvider(ContentProvider provider);
 
@@ -60,7 +60,7 @@ public interface ManualDefinition {
      * resource providing facilities, and display that.
      *
      * @param prefix   the prefix on which to use the provider.
-     * @param provider the provider to register.
+     * @param provider the provider to registerBlocks.
      */
     void addProvider(String prefix, ImageProvider provider);
 

@@ -1,13 +1,13 @@
 package betterwithmods.manual.client.manual.provider;
 
 import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.dynamic.BWMDynamicBlocks;
 import betterwithmods.manual.api.API;
 import betterwithmods.manual.api.manual.ImageProvider;
 import betterwithmods.manual.api.manual.ImageRenderer;
 import betterwithmods.manual.client.manual.segment.render.ItemStackImageRenderer;
 import betterwithmods.manual.client.manual.segment.render.MissingItemRenderer;
-import betterwithmods.module.recipes.miniblocks.MiniBlocks;
-import betterwithmods.module.recipes.miniblocks.MiniType;
+import betterwithmods.module.recipes.miniblocks.DynamicVariant;
 import com.google.common.base.Strings;
 import net.minecraft.block.Block;
 import net.minecraft.init.Items;
@@ -38,7 +38,7 @@ public final class BlockImageProvider implements ImageProvider {
         final Block block = Block.REGISTRY.getObject(new ResourceLocation(name));
         if (Item.getItemFromBlock(block) != Items.AIR) {
             if (block instanceof BlockCamo) {
-                return new ItemStackImageRenderer(MiniBlocks.getStacks(MiniType.fromBlock((BlockCamo) block), block.getMaterial(block.getDefaultState())).toArray(new ItemStack[0]));
+                return new ItemStackImageRenderer(BWMDynamicBlocks.getStacks(DynamicVariant.fromBlock((BlockCamo) block), block.getMaterial(block.getDefaultState())).toArray(new ItemStack[0]));
             }
             return new ItemStackImageRenderer(new ItemStack(block, 1, meta));
         } else {

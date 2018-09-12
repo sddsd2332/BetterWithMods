@@ -240,8 +240,8 @@ public final class BWMBlocks {
      * Register a block with its specified linked item. Block's registry name
      * prevail and must be set before call.
      *
-     * @param block Block instance to register.
-     * @param item  Item instance to register. Will have the same registered name
+     * @param block Block instance to registerBlocks.
+     * @param item  Item instance to registerBlocks. Will have the same registered name
      *              as the block. If null, then no item will be linked to the
      */
     public static void registerBlock(Block block, @Nullable Item item) {
@@ -265,7 +265,7 @@ public final class BWMBlocks {
     /**
      * Register a Block and a new ItemBlock generated from it.
      *
-     * @param block Block instance to register.
+     * @param block Block instance to registerBlocks.
      * @return Registered block.
      */
     public static Block registerBlock(Block block) {

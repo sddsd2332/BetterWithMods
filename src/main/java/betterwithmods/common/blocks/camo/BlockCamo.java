@@ -3,9 +3,9 @@ package betterwithmods.common.blocks.camo;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.dynamic.BWMDynamicBlocks;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.recipes.miniblocks.ItemCamo;
-import betterwithmods.module.recipes.miniblocks.MiniBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -77,7 +77,7 @@ public abstract class BlockCamo extends BWMBlock {
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
         for (IBlockState state : subtypes.apply(material)) {
-            items.add(MiniBlocks.fromParent(this, state));
+            items.add(BWMDynamicBlocks.fromParent(this, state));
         }
     }
 
