@@ -25,7 +25,6 @@ import betterwithmods.manual.custom.StatePathProvider;
 import betterwithmods.module.hardcore.beacons.TileBeacon;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
-import betterwithmods.module.hardcore.needs.HCGloom;
 import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import betterwithmods.module.hardcore.world.stumping.PlacedCapability;
 import betterwithmods.module.recipes.animal_restraint.AnimalRestraint;
@@ -45,7 +44,6 @@ import net.minecraft.client.renderer.entity.RenderSnowball;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
@@ -75,7 +73,6 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.Random;
-import java.util.UUID;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = BWMod.MODID, value = Side.CLIENT)
@@ -218,23 +215,6 @@ public class ClientProxy implements IProxy {
         return world.getEntityByID(id);
     }
 
-    private EntityPlayer getPlayerById(String id) {
-        World world = Minecraft.getMinecraft().world;
-        if (world == null)
-            return null;
-        return world.getPlayerEntityByUUID(UUID.fromString(id));
-    }
-
-    @Override
-    public void syncGloom(String entityId, int gloom) {
-        EntityPlayer e = getPlayerById(entityId);
-        if (e != null) {
-            HCGloom.Gloom g = HCGloom.getGloom(e);
-            if (g != null) {
-                g.setGloom(gloom);
-            }
-        }
-    }
 
     @Override
     public void syncPlaced(BlockPos[] pos) {

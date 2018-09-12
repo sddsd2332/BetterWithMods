@@ -42,9 +42,6 @@ public interface IProxy {
         return false;
     }
 
-    default void syncGloom(String entityId, int gloom) {
-    }
-
     default void syncPlaced(BlockPos[] pos) {
     }
 }

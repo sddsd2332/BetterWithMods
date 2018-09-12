@@ -1,7 +1,6 @@
 package betterwithmods.client;
 
 import betterwithmods.api.block.IRenderRotationPlacement;
-import betterwithmods.client.gui.GuiStatus;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -23,7 +22,6 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
-import net.minecraftforge.client.event.RenderGameOverlayEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -174,12 +172,6 @@ public class ClientEventHandler {
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public static void renderStatus(RenderGameOverlayEvent.Post event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-            GuiStatus.INSTANCE.draw();
-        }
-    }
+
 }
 

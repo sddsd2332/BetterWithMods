@@ -40,6 +40,8 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import org.apache.commons.lang3.ArrayUtils;
 
 import javax.annotation.Nonnull;
@@ -251,4 +253,14 @@ public class HCGloom extends Feature {
     }
 
 
+    @SideOnly(Side.CLIENT)
+    public static void syncGloom(String entityId, int gloom) {
+        EntityPlayer e = PlayerHelper.getPlayerById(entityId);
+        if (e != null) {
+            HCGloom.Gloom g = HCGloom.getGloom(e);
+            if (g != null) {
+                g.setGloom(gloom);
+            }
+        }
+    }
 }

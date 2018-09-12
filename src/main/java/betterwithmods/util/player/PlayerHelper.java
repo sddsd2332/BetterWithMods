@@ -9,6 +9,7 @@ import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
@@ -43,6 +44,14 @@ public final class PlayerHelper {
     private PlayerHelper() {
 
     }
+
+    public static EntityPlayer getPlayerById(String id) {
+        World world = Minecraft.getMinecraft().world;
+        if (world == null)
+            return null;
+        return world.getPlayerEntityByUUID(UUID.fromString(id));
+    }
+
 
     public static boolean areHandsEmpty(EntityPlayer player) {
         return getHolding(player, EnumHand.MAIN_HAND).isEmpty() && getHolding(player, EnumHand.OFF_HAND).isEmpty();
