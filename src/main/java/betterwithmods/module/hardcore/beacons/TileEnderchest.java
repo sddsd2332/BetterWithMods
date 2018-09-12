@@ -1,6 +1,5 @@
-package betterwithmods.common.tile;
+package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.module.hardcore.beacons.EnderchestCap;
 import betterwithmods.util.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryEnderChest;

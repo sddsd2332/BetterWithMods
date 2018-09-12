@@ -8,35 +8,30 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ExplosionEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Optional;
 
+@Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class ExplosionTracker extends Feature {
 
     @SubscribeEvent
-    public void onExplode(ExplosionEvent event) {
+    public static void onExplode(ExplosionEvent event) {
         MinecraftForge.EVENT_BUS.post(new ExplosionTrackingEvent(event.getWorld(), event.getExplosion()));
     }
 
     @SubscribeEvent
-    public void onExplodeTrack(ExplosionTrackingEvent event) {
+    public static void onExplodeTrack(ExplosionTrackingEvent event) {
         Optional<EntityLivingBase> entity = Optional.ofNullable(event.getExploder());
-
         BWMod.getLog().warn("[EXPLOSION] -  position: {}, cause: {}", event.getSource(), entity.map(EntityLivingBase::getName).orElse("No Placer"));
     }
 
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Small server tweak for logging explosion sources";
     }
-
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
 
     public static class ExplosionTrackingEvent extends Event {
         private Vec3d source;

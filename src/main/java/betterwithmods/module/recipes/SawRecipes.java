@@ -13,7 +13,6 @@ import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.common.registry.crafting.ChoppingRecipe;
 import betterwithmods.module.Feature;
-import betterwithmods.module.hardcore.crafting.HCLumber;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -57,13 +56,12 @@ public class SawRecipes extends Feature {
         BWMOreDictionary.findLogRecipes();
         //TODO configure this
         BWMOreDictionary.logRecipes.forEach(BWMRecipes::removeRecipe);
-        int plankCount = BWMod.MODULE_LOADER.isFeatureEnabled(HCLumber.class) ? HCLumber.axePlankAmount : 4;
         if (!Loader.isModLoaded("primal")) {
             for (IBlockVariants variant : BWMOreDictionary.blockVariants) {
                 ItemStack log = variant.getVariant(IBlockVariants.EnumBlock.LOG, 1);
                 if (!log.isEmpty()) {
                     ResourceLocation location = new ResourceLocation(BWMod.MODID, log.getItem().getRegistryName().getPath() + "_" + log.getMetadata());
-                    BWMRecipes.addRecipe(new ChoppingRecipe(variant, plankCount).setRegistryName(location));
+                    BWMRecipes.addRecipe(new ChoppingRecipe(variant).setRegistryName(location));
                 }
             }
         }

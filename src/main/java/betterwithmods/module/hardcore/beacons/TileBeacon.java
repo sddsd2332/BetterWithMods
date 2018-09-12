@@ -1,10 +1,6 @@
-package betterwithmods.common.tile;
+package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.module.hardcore.beacons.BeaconEffect;
-import betterwithmods.module.hardcore.beacons.CapabilityBeacon;
-import betterwithmods.module.hardcore.beacons.HCBeacons;
-import betterwithmods.module.hardcore.beacons.SpawnBeaconEffect;
 import betterwithmods.util.ColorUtils;
 import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Lists;

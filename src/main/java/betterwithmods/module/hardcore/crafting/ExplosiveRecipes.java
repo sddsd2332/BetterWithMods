@@ -26,7 +26,7 @@ public class ExplosiveRecipes extends Feature {
         if (event.getTile() instanceof IHeated && event.getRecipe() instanceof CookingPotRecipe) {
             CookingPotRecipe recipe = (CookingPotRecipe) event.getRecipe();
             if (((IHeated) event.getTile()).getHeat(event.getWorld(), event.getTile().getPos()) > recipe.getHeat()) {
-                explodeCauldron(event.getWorld(), event.getTile().getPos(), event.getInventory());
+                explodeCauldron(event.getWorld(), event.getTile().getPos(), event.getTile().getInventory());
             }
         }
     }

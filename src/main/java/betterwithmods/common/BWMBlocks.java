@@ -15,6 +15,8 @@ import betterwithmods.common.blocks.mechanical.mech_machine.BlockTurntable;
 import betterwithmods.common.items.itemblocks.*;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.tile.*;
+import betterwithmods.module.hardcore.beacons.TileBeacon;
+import betterwithmods.module.hardcore.beacons.TileEnderchest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.MapColor;

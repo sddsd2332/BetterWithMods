@@ -78,10 +78,10 @@ public class PenaltyEventHandler {
 
             //Pain
 
-            if (!world.isRemote && BWRegistry.PENALTY_HANDLERS.inPain(player)) {
+            if (!world.isRemote && BWMRegistry.PENALTY_HANDLERS.inPain(player)) {
                 long time = world.getWorldTime();
                 if (PlayerHelper.isMoving(player) && time % (5*20) == 0) {
-                    world.playSound(null, player.getPosition(), BWSounds.OOF, SoundCategory.BLOCKS, 0.75f, 1f);
+                    world.playSound(null, player.getPosition(), BWMSounds.OOF, SoundCategory.BLOCKS, 0.75f, 1f);
                 }
             }
 

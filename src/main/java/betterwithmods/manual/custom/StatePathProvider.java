@@ -2,8 +2,7 @@ package betterwithmods.manual.custom;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockAesthetic;
-import betterwithmods.common.blocks.mechanical.BlockMechMachines;
-import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
+import betterwithmods.common.blocks.BlockChime;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.StateIngredient;
 import betterwithmods.manual.api.manual.PathProvider;
@@ -25,8 +24,7 @@ public class StatePathProvider implements PathProvider {
     private final Set<PathOverride> PATH_OVERRIDES = Sets.newHashSet();
 
     {
-
-        addBlock(new SetBlockIngredient(new StateIngredient(BWMBlocks.BAMBOO_CHIME), new StateIngredient(BWMBlocks.METAL_CHIME)), "wind_chime");
+        addBlock(new SetBlockIngredient(BlockChime.BLOCKS), "wind_chime");
         addBlock(new StateIngredient(BWMBlocks.WOODEN_BROKEN_GEARBOX), "wooden_gearbox");
 
         addBlock(new BlockIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK), BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCKBLOOD)), "chopping_block");
@@ -34,16 +32,17 @@ public class StatePathProvider implements PathProvider {
         addBlock(new BlockIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE)), "white_stone");
         addItem(new BlockIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.NETHERCOAL)), "nether_coal");
 
-        addBlock(new BlockDropIngredient(BlockMechMachines.getStack(BlockMechMachines.EnumType.TURNTABLE)), "turntable");
-        addBlock(new BlockDropIngredient(BlockMechMachines.getStack(BlockMechMachines.EnumType.MILL)), "millstone");
-        addBlock(new BlockDropIngredient(BlockMechMachines.getStack(BlockMechMachines.EnumType.HOPPER)), "hopper");
-        addBlock(new BlockDropIngredient(BlockMechMachines.getStack(BlockMechMachines.EnumType.PULLEY)), "pulley");
+        addBlock(new StateIngredient(BWMBlocks.TURNTABLE), "turntable");
+        addBlock(new StateIngredient(BWMBlocks.MILLSTONE), "millstone");
+        addBlock(new StateIngredient(BWMBlocks.FILTERED_HOPPER), "hopper");
+        addBlock(new StateIngredient(BWMBlocks.PULLEY), "pulley");
         addItem(new StateIngredient(BWMBlocks.ROPE), "rope");
 
         addBlock(new SetBlockIngredient(
-                        new StateIngredient(BWMBlocks.GRATE),
-                        new StateIngredient(BWMBlocks.WICKER),
-                        new StateIngredient(BWMBlocks.SLATS)),
+//                        new StateIngredient(BWMBlocks.GRATE),
+                        new StateIngredient(BWMBlocks.WICKER)
+//                        new StateIngredient(BWMBlocks.SLATS)
+                ),
                 "decoration");
     }
 

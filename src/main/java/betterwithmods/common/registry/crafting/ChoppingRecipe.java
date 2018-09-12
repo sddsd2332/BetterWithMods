@@ -3,13 +3,13 @@ package betterwithmods.common.registry.crafting;
 import betterwithmods.BWMod;
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.module.hardcore.crafting.HCLumber;
+import betterwithmods.util.StackIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.common.MinecraftForge;
@@ -25,8 +25,8 @@ import java.util.Set;
 public class ChoppingRecipe extends ToolDamageRecipe {
     private final IBlockVariants wood;
 
-    public ChoppingRecipe(IWood wood) {
-        super(new ResourceLocation(BWMod.MODID, "chopping"), wood.getPlank(HCLumber.axePlankAmount), StackIngredient.fromStacks(wood.getLog(1)), ChoppingRecipe::isAxe);
+    public ChoppingRecipe(IBlockVariants wood) {
+        super(new ResourceLocation(BWMod.MODID, "chopping"), wood.getVariant(IBlockVariants.EnumBlock.BLOCK, HCLumber.axePlankAmount), StackIngredient.fromStacks(wood.getVariant(IBlockVariants.EnumBlock.LOG, 1)), ChoppingRecipe::isAxe);
         this.wood = wood;
         MinecraftForge.EVENT_BUS.register(this);
     }

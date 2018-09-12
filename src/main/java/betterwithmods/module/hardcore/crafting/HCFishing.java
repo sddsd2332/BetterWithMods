@@ -173,7 +173,7 @@ public class HCFishing extends Feature {
     }
 
     public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        BAIT = StackIngredient.fromStacks(config().loadItemStackArray("Bait", getCategory(),"Add items as valid fishing bait", new ItemStack[]{
+        BAIT = StackIngredient.fromStacks(config().loadItemStackArray("Bait", getCategory(), "Add items as valid fishing bait", new ItemStack[]{
                 new ItemStack(Items.SPIDER_EYE),
                 new ItemStack(BWMItems.CREEPER_OYSTER),
                 new ItemStack(Items.FISH, 1, 2),
@@ -342,13 +342,13 @@ public class HCFishing extends Feature {
         public double initialTime;
         public double nightModifier, rainModifier, fullMoonModifier, dawnModifier, duskModifier;
 
-        public FishingTimes() {
-            initialTime = loadPropDouble("Base Time", "Starting time for which fishing events are calculated in minutes", 1);
-            nightModifier = loadPropDouble("Night Modifier", "Scale the baseTime by this when it is night time", 2);
-            rainModifier = loadPropDouble("Rain Modifier", "Scale the baseTime by this when it is raining", 0.75);
-            fullMoonModifier = loadPropDouble("Full Moon Modifier", "Scale the baseTime by this when it is a full moon", 0.5);
-            dawnModifier = loadPropDouble("Dawn Modifier", "Scale the baseTime by this when it is dawn", 0.5);
-            duskModifier = loadPropDouble("Dusk Modifier", "Scale the baseTime by this when it is dusk", 0.5);
+        FishingTimes() {
+            initialTime = loadProperty("Base Time", 1).setComment("Starting time for which fishing events are calculated in minutes").get();
+            nightModifier = loadProperty("Night Modifier", 2).setComment("Scale the baseTime by this when it is night time").get();
+            rainModifier = loadProperty("Rain Modifier", 0.75).setComment("Scale the baseTime by this when it is raining").get();
+            fullMoonModifier = loadProperty("Full Moon Modifier", 0.5).setComment("Scale the baseTime by this when it is a full moon").get();
+            dawnModifier = loadProperty("Dawn Modifier", 0.5).setComment("Scale the baseTime by this when it is dawn").get();
+            duskModifier = loadProperty("Dusk Modifier", 0.5).setComment("Scale the baseTime by this when it is dusk").get();
         }
     }
 }

@@ -1,7 +1,5 @@
-package betterwithmods.common.blocks;
+package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.tile.TileEnderchest;
-import betterwithmods.module.hardcore.beacons.EnderchestCap;
 import betterwithmods.util.CapabilityUtils;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.state.IBlockState;

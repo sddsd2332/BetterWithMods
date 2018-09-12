@@ -1,9 +1,6 @@
-package betterwithmods.common.blocks.tile;
+package betterwithmods.common.tile;
 
 import betterwithmods.module.hardcore.crafting.HCFurnace;
-
-import java.util.Map.Entry;
-
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -17,6 +14,8 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.GameRegistry.ItemStackHolder;
 import net.minecraftforge.items.ItemHandlerHelper;
 import net.minecraftforge.oredict.OreDictionary;
+
+import java.util.Map.Entry;
 
 //Borrowing caching logic from https://github.com/Shadows-of-Fire/FastFurnace
 
