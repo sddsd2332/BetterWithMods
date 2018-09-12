@@ -1,10 +1,15 @@
 package betterwithmods.common.entity.ai;
 
+import betterwithmods.util.player.PlayerHelper;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
+
+import java.util.function.Predicate;
 
 /**
  * The Entity will flee from threats in the opposite direction.
@@ -13,13 +18,13 @@ import net.minecraft.util.math.Vec3d;
  */
 public class EntityAIFlee extends EntityAIBase {
     protected final double speed;
-    private final EntityCreature theEntityCreature;
+    private final EntityCreature creature;
     private double randPosX;
     private double randPosY;
     private double randPosZ;
 
     public EntityAIFlee(EntityCreature creature, double speedIn) {
-        this.theEntityCreature = creature;
+        this.creature = creature;
         this.speed = speedIn;
         this.setMutexBits(1);
     }
@@ -30,12 +35,11 @@ public class EntityAIFlee extends EntityAIBase {
     @Override
     public boolean shouldExecute() {
         Vec3d vec3d = null;
-
-        if (this.theEntityCreature.isBurning()) {
-            vec3d = RandomPositionGenerator.findRandomTarget(this.theEntityCreature, 5, 4);
-        } else if (this.theEntityCreature.getRevengeTarget() != null) {
-            vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.theEntityCreature, 5, 0,
-                    new Vec3d(this.theEntityCreature.getRevengeTarget().posX, this.theEntityCreature.getRevengeTarget().posY, this.theEntityCreature.getRevengeTarget().posZ));
+        Entity target = creature.getRevengeTarget();
+        if (this.creature.isBurning()) {
+            vec3d = RandomPositionGenerator.findRandomTarget(this.creature, 5, 4);
+        } else if (target != null && (!(target instanceof EntityPlayer) || PlayerHelper.isSurvival((EntityPlayer) target))) {
+            vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.creature, 5, 0, new Vec3d(target.posX, target.posY, target.posZ));
         }
 
         if (vec3d != null) {
@@ -53,7 +57,7 @@ public class EntityAIFlee extends EntityAIBase {
      */
     @Override
     public void startExecuting() {
-        this.theEntityCreature.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, this.speed);
+        this.creature.getNavigator().tryMoveToXYZ(this.randPosX, this.randPosY, this.randPosZ, this.speed);
     }
 
     /**
@@ -61,17 +65,16 @@ public class EntityAIFlee extends EntityAIBase {
      */
     @Override
     public boolean shouldContinueExecuting() {
-        if (!this.theEntityCreature.getNavigator().noPath() && this.theEntityCreature.getRevengeTarget() != null) {
-            EntityLivingBase target = this.theEntityCreature.getRevengeTarget();
+        if (!this.creature.getNavigator().noPath() && this.creature.getRevengeTarget() != null) {
+            EntityLivingBase target = this.creature.getRevengeTarget();
 
-            if (target == null) {
+            if (target == null)
                 return true;
-            }
 
-            double sqDistToPos = this.theEntityCreature.getDistanceSq(this.randPosX, this.randPosY, this.randPosZ);
+            double sqDistToPos = this.creature.getDistanceSq(this.randPosX, this.randPosY, this.randPosZ);
 
             if (sqDistToPos > 2.0D) {
-                double sqDistToTarget = this.theEntityCreature.getDistanceSq(target);
+                double sqDistToTarget = this.creature.getDistanceSq(target);
                 double sqDistOfTargetToPos = target.getDistanceSq(this.randPosX, this.randPosY, this.randPosZ);
 
                 return sqDistToTarget < sqDistOfTargetToPos;

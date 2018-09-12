@@ -25,8 +25,8 @@ import java.util.Set;
 public class ChoppingRecipe extends ToolDamageRecipe {
     private final IBlockVariants wood;
 
-    public ChoppingRecipe(IBlockVariants wood, int planks) {
-        super(new ResourceLocation(BWMod.MODID, "chopping"), wood.getVariant(IBlockVariants.EnumBlock.BLOCK, planks), Ingredient.fromStacks(wood.getVariant(IBlockVariants.EnumBlock.LOG, 1)), ChoppingRecipe::isAxe);
+    public ChoppingRecipe(IWood wood) {
+        super(new ResourceLocation(BWMod.MODID, "chopping"), wood.getPlank(HCLumber.axePlankAmount), StackIngredient.fromStacks(wood.getLog(1)), ChoppingRecipe::isAxe);
         this.wood = wood;
         MinecraftForge.EVENT_BUS.register(this);
     }

@@ -158,11 +158,15 @@ public class HCFishing extends Feature {
     }
 
 
+    public static FishingTimes configuration;
+
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         requireBait = loadProperty("Require Bait", true).setComment("Change Fishing Rods to require being Baited with certain items to entice fish, they won't nibble without it!").get();
         restrictToOpenWater = loadProperty("Restrict to Open Water", true).setComment("Fishing on underground locations won't work, hook must be placed on a water block with line of sight to the sky.").get();
         minimumWaterDepth = loadProperty("Minimum Water Depth", 3).setComment("If higher than 1, requires bodies of water to have a minimum depth for fishing to be successful.").get();
+
+        configuration = new FishingTimes();
 
         CapabilityManager.INSTANCE.register(FishingBait.class, new CapabilityFishingRod(), FishingBait::new);
         BWMRecipes.removeRecipe(new ResourceLocation("fishing_rod"));
@@ -331,6 +335,20 @@ public class HCFishing extends Feature {
         @Override
         public void deserializeNBT(NBTTagCompound nbt) {
             setBait(nbt.getBoolean("bait"));
+        }
+    }
+
+    public class FishingTimes {
+        public double initialTime;
+        public double nightModifier, rainModifier, fullMoonModifier, dawnModifier, duskModifier;
+
+        public FishingTimes() {
+            initialTime = loadPropDouble("Base Time", "Starting time for which fishing events are calculated in minutes", 1);
+            nightModifier = loadPropDouble("Night Modifier", "Scale the baseTime by this when it is night time", 2);
+            rainModifier = loadPropDouble("Rain Modifier", "Scale the baseTime by this when it is raining", 0.75);
+            fullMoonModifier = loadPropDouble("Full Moon Modifier", "Scale the baseTime by this when it is a full moon", 0.5);
+            dawnModifier = loadPropDouble("Dawn Modifier", "Scale the baseTime by this when it is dawn", 0.5);
+            duskModifier = loadPropDouble("Dusk Modifier", "Scale the baseTime by this when it is dusk", 0.5);
         }
     }
 }

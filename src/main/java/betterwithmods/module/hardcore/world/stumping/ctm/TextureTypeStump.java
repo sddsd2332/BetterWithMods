@@ -11,16 +11,20 @@ import team.chisel.ctm.api.texture.ITextureType;
 import team.chisel.ctm.api.texture.TextureType;
 import team.chisel.ctm.api.util.TextureInfo;
 
+import javax.annotation.Nonnull;
+
 @TextureType(value = "bwm_stump")
 public class TextureTypeStump implements ITextureType {
 
     @Override
-    public TextureStump makeTexture(TextureInfo info) {
+    public TextureStump makeTexture(@Nonnull TextureInfo info) {
         return new TextureStump(this, info);
     }
 
     @Override
     public ITextureContext getBlockRenderContext(IBlockState state, IBlockAccess world, BlockPos pos, ICTMTexture<?> tex) {
+        if(!HCStumping.CTM)
+            return null;
         WorldClient worldClient = Minecraft.getMinecraft().world;
         return new TextureContextStump(HCStumping.isStump(worldClient, pos) ? 1 : 0);
     }

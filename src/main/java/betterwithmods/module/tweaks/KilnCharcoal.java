@@ -8,7 +8,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.List;
@@ -28,10 +28,8 @@ public class KilnCharcoal extends Feature {
     }
 
     @Override
-    public void onInit(FMLInitializationEvent event) {
-
+    public void onPostInit(FMLPostInitializationEvent event) {
         disableFurnaceCharcoal = loadProperty("Disable Furnace Charcoal", true).setComment("Remove recipes to make Charcoal in a Furnace").get();
-
         List<ItemStack> logs = Lists.newArrayList();
         logs.addAll(OreDictionary.getOres("logWood"));
 

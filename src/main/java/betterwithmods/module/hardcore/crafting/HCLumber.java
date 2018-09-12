@@ -24,7 +24,7 @@ import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
 public class HCLumber extends Feature {
     private static int plankAmount, barkAmount, sawDustAmount;
 
-    public static int axePlankAmount, axeBarkAmount, axeSawDustAmount;
+    public static int axePlankAmount = 4, axeBarkAmount = 1, axeSawDustAmount = 2;
 
     private static boolean hasAxe(EntityPlayer harvester, BlockPos pos, IBlockState state) {
         if (harvester == null)

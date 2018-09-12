@@ -48,6 +48,11 @@ public class BlockBDispenser extends BlockDispenser {
     }
 
     @Override
+    public int tickRate(World worldIn) {
+        return 1;
+    }
+
+    @Override
     public boolean onBlockActivated(World world, @Nonnull BlockPos pos, IBlockState state, @Nonnull EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         if (world.isRemote)
             return true;

@@ -21,6 +21,10 @@ import betterwithmods.manual.api.ManualAPI;
 import betterwithmods.manual.api.prefab.manual.TextureTabIconRenderer;
 import betterwithmods.manual.common.DirectoryDefaultProvider;
 import betterwithmods.manual.common.api.ManualDefinitionImpl;
+import betterwithmods.manual.custom.StatePathProvider;
+import betterwithmods.module.ModuleLoader;
+import betterwithmods.module.gameplay.breeding_harness.BreedingHarness;
+import betterwithmods.module.gameplay.breeding_harness.CapabilityHarness;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
 import betterwithmods.module.hardcore.needs.HCGloom;
@@ -112,6 +116,7 @@ public class ClientProxy implements IProxy {
         List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), ReflectionLib.DEFAULT_RESOURCE_PACKS);
         ManualAPI.addProvider(new DirectoryDefaultProvider(new ResourceLocation(BWMod.MODID, "documentation/docs/")));
         ManualDefinitionImpl.INSTANCE.addDefaultProviders();
+        ManualAPI.addProvider(new StatePathProvider());
         ManualAPI.addTab(new TextureTabIconRenderer(new ResourceLocation(BWMod.MODID, "textures/gui/manual_home.png")), "bwm.manual.home", "%LANGUAGE%/index.md");
         registerColors();
         BWMod.MODULE_LOADER.onInitClient(event);

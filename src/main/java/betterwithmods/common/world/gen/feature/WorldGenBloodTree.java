@@ -2,6 +2,8 @@ package betterwithmods.common.world.gen.feature;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockBloodLog;
+import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.common.registry.block.recipe.StateIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
@@ -18,6 +20,8 @@ import java.util.Random;
 public class WorldGenBloodTree extends WorldGenAbstractTree {
     private final IBlockState log = BWMBlocks.BLOOD_LOG.getDefaultState();
     private final IBlockState leaves = BWMBlocks.BLOOD_LEAVES.getDefaultState().withProperty(BlockLeaves.DECAYABLE, true);
+
+    private BlockIngredient BLOOD_LOG = new StateIngredient(BWMBlocks.BLOOD_LOG);
 
     public WorldGenBloodTree() {
         super(true);
@@ -103,28 +107,59 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
             BlockPos check = pos.offset(facing);
             IBlockState checkState = world.getBlockState(check);
             if (canOverwrite(checkState, world, check)) {
+                if (findNear(world, check, facing.getAxis(), 2, BLOOD_LOG) > 3) {
+                    return;
+                }
                 world.setBlockState(check, log.withProperty(BlockBloodLog.EXPANDABLE, world.provider.isNether()).withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.fromFacingAxis(facing.getAxis())));
+                doFloodFill(world, check.offset(facing), world.rand.nextInt(2) + 2, leaves);
             }
-            generateLeafExpansion(world, check, facing.getAxis());
-            generateLeafExpansion(world, check.offset(facing), facing.getAxis());
+        }
+    }
+
+    private int findNear(World world, BlockPos pos, EnumFacing.Axis axis, int range, BlockIngredient match) {
+        int j = 0;
+        for (EnumFacing facing : axis.getPlane().facings()) {
+            for (int i = 1; i <= range; i++) {
+                BlockPos offset = pos.offset(facing, i);
+                IBlockState state = world.getBlockState(offset);
+                if (match.apply(world, offset, state))
+                    j++;
+            }
+        }
+        return j;
+    }
+
+    private void doFloodFill(World world, BlockPos pos, int maxRange, IBlockState replace) {
+        if (maxRange < 0)
+            return;
+        IBlockState current = world.getBlockState(pos);
+        if (current.equals(replace))
+            return;
+
+        if (canOverwrite(current, world, pos)) {
+            world.setBlockState(pos, replace);
+            for (EnumFacing f : EnumFacing.VALUES) {
+                doFloodFill(world, pos.offset(f), maxRange - 1, replace);
+            }
         }
     }
 
     private void generateLeafExpansion(World world, BlockPos pos, EnumFacing.Axis axis) {
-        for (int i = -1; i <= 1; i++) {
-            for (int j = -1; j <= 1; j++) {
-                BlockPos offset;
-                if (axis == EnumFacing.Axis.X)
-                    offset = pos.add(0, i, j);
-                else if (axis == EnumFacing.Axis.Y)
-                    offset = pos.add(i, 0, j);
-                else
-                    offset = pos.add(i, j, 0);
-                if (canOverwrite(world.getBlockState(offset), world, offset)) {
-                    world.setBlockState(offset, leaves);
-                }
-            }
-        }
+
+//        for (int i = -1; i <= 1; i++) {
+//            for (int j = -1; j <= 1; j++) {
+//                BlockPos offset;
+//                if (axis == EnumFacing.Axis.X)
+//                    offset = pos.add(0, i, j);
+//                else if (axis == EnumFacing.Axis.Y)
+//                    offset = pos.add(i, 0, j);
+//                else
+//                    offset = pos.add(i, j, 0);
+//                if (canOverwrite(world.getBlockState(offset), world, offset)) {
+//                    world.setBlockState(offset, leaves);
+//                }
+//            }
+//        }
     }
 
     @Override

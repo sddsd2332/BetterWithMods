@@ -1,122 +1,159 @@
-package betterwithmods.common.tile;
+package betterwithmods.common.blocks.tile;
 
 import betterwithmods.module.hardcore.crafting.HCFurnace;
-import net.minecraft.block.BlockFurnace;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
-import net.minecraft.network.NetworkManager;
-import net.minecraft.network.play.server.SPacketUpdateTileEntity;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.math.MathHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 
-import javax.annotation.Nonnull;
+import java.util.Map.Entry;
+
+import net.minecraft.block.BlockFurnace;
+import net.minecraft.block.state.IBlockState;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.GameRegistry.ItemStackHolder;
+import net.minecraftforge.items.ItemHandlerHelper;
+import net.minecraftforge.oredict.OreDictionary;
+
+//Borrowing caching logic from https://github.com/Shadows-of-Fire/FastFurnace
 
 public class TileFurnace extends TileEntityFurnace {
-    @Override
-    public void setInventorySlotContents(int index, ItemStack stack) {
-        super.setInventorySlotContents(index, stack);
-        markDirty();
+
+    public static final int INPUT = 0;
+    public static final int FUEL = 1;
+    public static final int OUTPUT = 2;
+
+    protected ItemStack recipeKey = ItemStack.EMPTY;
+    protected ItemStack recipeOutput = ItemStack.EMPTY;
+    protected ItemStack failedMatch = ItemStack.EMPTY;
+
+
+    @ItemStackHolder(value = "minecraft:sponge", meta = 1)
+    public static final ItemStack WET_SPONGE = ItemStack.EMPTY;
+
+    public TileFurnace() {
+        this.totalCookTime = 200;
     }
 
-    @Override
-    public void markDirty() {
-        world.markBlockRangeForRenderUpdate(pos, pos);
-        world.notifyBlockUpdate(pos, world.getBlockState(pos), world.getBlockState(pos), 3);
-        world.scheduleBlockUpdate(pos, this.getBlockType(), 0, 0);
-    }
 
     @Override
     public int getCookTime(ItemStack stack) {
-        return HCFurnace.getCookingTime(stack).orElse(HCFurnace.DEFAULT_FURNACE_TIMING);
+        return HCFurnace.getCookingTime(stack).orElse(200);
     }
 
+    @Override
+    public void readFromNBT(NBTTagCompound tag) {
+        super.readFromNBT(tag);
+    }
+
+    @Override
+    public NBTTagCompound writeToNBT(NBTTagCompound compound) {
+        compound = super.writeToNBT(compound);
+        compound.setInteger("BurnTime", this.furnaceBurnTime);
+        compound.setInteger("CookTime", this.cookTime);
+        compound.setInteger("CookTimeTotal", this.totalCookTime);
+        return compound;
+    }
+
+    @Override
     public void update() {
-        boolean flag = this.isBurning();
-        boolean flag1 = false;
+        if (world.isRemote && isBurning()) {
+            furnaceBurnTime--;
+            return;
+        } else if (world.isRemote) return;
+
+        ItemStack fuel = ItemStack.EMPTY;
+        boolean canSmelt = canSmelt();
+
+        if (!this.isBurning() && !(fuel = furnaceItemStacks.get(FUEL)).isEmpty()) {
+            burnFuel(fuel, false);
+        }
+
+        boolean wasBurning = isBurning();
 
         if (this.isBurning()) {
-            --this.furnaceBurnTime;
+            furnaceBurnTime--;
+            if (canSmelt) smelt();
+            else cookTime = 0;
         }
 
-        if (!this.world.isRemote) {
-            ItemStack fuel = this.furnaceItemStacks.get(1);
-            ItemStack smelt = this.furnaceItemStacks.get(0);
-            if (this.isBurning() || !fuel.isEmpty()) {
-                boolean fuelConsumeCondition = HCFurnace.CONSUME_FUEL_WHEN_IDLE || this.canSmelt();
-                if (!this.isBurning() && fuelConsumeCondition) {
-                    this.furnaceBurnTime = getItemBurnTime(fuel);
-                    this.currentItemBurnTime = this.furnaceBurnTime;
+        if (!this.isBurning() && !(fuel = furnaceItemStacks.get(FUEL)).isEmpty()) {
+            burnFuel(fuel, wasBurning);
+        }
 
-                    if (this.isBurning()) {
-                        flag1 = true;
+        if (wasBurning && !isBurning())
+            world.setBlockState(pos, Blocks.FURNACE.getDefaultState().withProperty(BlockFurnace.FACING, world.getBlockState(pos).getValue(BlockFurnace.FACING)));
+    }
 
-                        if (!fuel.isEmpty()) {
-                            Item item = fuel.getItem();
-                            fuel.shrink(1);
+    private void smelt() {
+        cookTime++;
+        if (this.cookTime == this.totalCookTime) {
+            this.cookTime = 0;
+            this.totalCookTime = this.getCookTime(this.furnaceItemStacks.get(INPUT));
+            this.smeltItem();
+        }
+    }
 
-                            if (fuel.isEmpty()) {
-                                ItemStack item1 = item.getContainerItem(fuel);
-                                this.furnaceItemStacks.set(1, item1);
-                            }
-                        }
-                    }
+    private void burnFuel(ItemStack fuel, boolean burnedThisTick) {
+        currentItemBurnTime = (furnaceBurnTime = getItemBurnTime(fuel));
+        if (this.isBurning()) {
+            fuel.shrink(1);
+            if (fuel.isEmpty()) furnaceItemStacks.set(FUEL, fuel.getItem().getContainerItem(fuel));
+            if (!burnedThisTick)
+                world.setBlockState(pos, Blocks.LIT_FURNACE.getDefaultState().withProperty(BlockFurnace.FACING, world.getBlockState(pos).getValue(BlockFurnace.FACING)));
+        }
+    }
+
+
+    public boolean canSmelt() {
+        ItemStack input = furnaceItemStacks.get(INPUT);
+        ItemStack output = furnaceItemStacks.get(OUTPUT);
+        if (input.isEmpty() || input == failedMatch) return false;
+
+        if (recipeKey.isEmpty() || !OreDictionary.itemMatches(recipeKey, input, false)) {
+            boolean matched = false;
+            for (Entry<ItemStack, ItemStack> e : FurnaceRecipes.instance().getSmeltingList().entrySet()) {
+                if (OreDictionary.itemMatches(e.getKey(), input, false)) {
+                    recipeKey = e.getKey();
+                    recipeOutput = e.getValue();
+                    matched = true;
+                    failedMatch = ItemStack.EMPTY;
+                    break;
                 }
-
-                if (this.isBurning() && this.canSmelt()) {
-                    ++this.cookTime;
-
-                    if (this.cookTime == this.totalCookTime) {
-                        this.cookTime = 0;
-                        this.totalCookTime = this.getCookTime(smelt);
-                        this.smeltItem();
-                        flag1 = true;
-                    }
-                } else {
-                    this.cookTime = 0;
-                }
-            } else if (!this.isBurning() && this.cookTime > 0) {
-                this.cookTime = MathHelper.clamp(this.cookTime - 2, 0, this.totalCookTime);
             }
-
-            if (flag != this.isBurning()) {
-                flag1 = true;
-                BlockFurnace.setState(this.isBurning(), this.world, this.pos);
+            if (!matched) {
+                recipeKey = ItemStack.EMPTY;
+                recipeOutput = ItemStack.EMPTY;
+                failedMatch = input;
+                return false;
             }
         }
 
-        if (flag1) {
-            this.markDirty();
-        }
+        return !recipeOutput.isEmpty() && (output.isEmpty() || (ItemHandlerHelper.canItemStacksStack(recipeOutput, output) && (recipeOutput.getCount() + output.getCount() <= output.getMaxStackSize())));
     }
 
     @Override
-    public void handleUpdateTag(@Nonnull NBTTagCompound tag) {
-        super.handleUpdateTag(tag);
-        markDirty();
+    public void smeltItem() {
+        ItemStack input = this.furnaceItemStacks.get(INPUT);
+        ItemStack recipeOutput = FurnaceRecipes.instance().getSmeltingList().get(recipeKey);
+        ItemStack output = this.furnaceItemStacks.get(OUTPUT);
+
+        if (output.isEmpty()) this.furnaceItemStacks.set(OUTPUT, recipeOutput.copy());
+        else if (ItemHandlerHelper.canItemStacksStack(output, recipeOutput)) output.grow(recipeOutput.getCount());
+
+        if (input.isItemEqual(WET_SPONGE) && this.furnaceItemStacks.get(FUEL).getItem() == Items.BUCKET)
+            this.furnaceItemStacks.set(FUEL, new ItemStack(Items.WATER_BUCKET));
+
+        input.shrink(1);
     }
 
     @Override
-    public SPacketUpdateTileEntity getUpdatePacket() {
-        NBTTagCompound nbtTag = new NBTTagCompound();
-        this.writeToNBT(nbtTag);
-        return new SPacketUpdateTileEntity(getPos(), 0, nbtTag);
+    public boolean shouldRefresh(World world, BlockPos pos, IBlockState oldState, IBlockState newState) {
+        if (oldState.getBlock() == Blocks.FURNACE && newState.getBlock() == Blocks.LIT_FURNACE) return false;
+        else if (oldState.getBlock() == Blocks.LIT_FURNACE && newState.getBlock() == Blocks.FURNACE) return false;
+        return true;
     }
-
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void onDataPacket(NetworkManager net, SPacketUpdateTileEntity packet) {
-        super.onDataPacket(net, packet);
-        this.readFromNBT(packet.getNbtCompound());
-    }
-
-    @Nonnull
-    @Override
-    public NBTTagCompound getUpdateTag() {
-        return writeToNBT(new NBTTagCompound());
-    }
-
 }

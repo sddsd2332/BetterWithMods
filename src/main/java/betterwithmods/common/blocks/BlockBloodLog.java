@@ -11,6 +11,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -45,6 +46,7 @@ public class BlockBloodLog extends BlockLog {
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
         if (!world.isRemote && world.provider.isNether() && state.getValue(EXPANDABLE)) {
+
             for (EnumFacing face : DirUtils.NOT_DOWN) {
                 if (rand.nextInt(20) == 0)
                     expandTree(world, pos, face);
@@ -98,5 +100,13 @@ public class BlockBloodLog extends BlockLog {
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, EXPANDABLE, LOG_AXIS);
+    }
+
+    @Override
+    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+
+
+        worldIn.setBlockState(pos, state.withProperty(EXPANDABLE, true));
+        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
 }

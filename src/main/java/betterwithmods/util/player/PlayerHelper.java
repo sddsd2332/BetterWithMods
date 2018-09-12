@@ -200,6 +200,6 @@ public final class PlayerHelper {
     }
 
     public static boolean isMoving(EntityPlayer player) {
-        return player.motionX != 0 && player.motionZ != 0;
+        return player.motionX != 0 || player.motionZ != 0 || player.motionY != 0;
     }
 }

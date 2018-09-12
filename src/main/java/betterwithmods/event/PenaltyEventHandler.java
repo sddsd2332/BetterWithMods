@@ -6,6 +6,8 @@ import betterwithmods.common.BWMSounds;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.util.SoundCategory;
+import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingAttackEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.fml.common.Mod;
@@ -61,8 +63,7 @@ public class PenaltyEventHandler {
     public static void onPlayerUpdate(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-
-
+            World world = player.world;
 
             if (!PlayerHelper.isSurvival(player) || player.isRiding()) {
                 //Remove the modifier when gamemode changes.
@@ -76,9 +77,11 @@ public class PenaltyEventHandler {
             }
 
             //Pain
-            if (BWMRegistry.PENALTY_HANDLERS.inPain(player)) {
-                if (PlayerHelper.isMoving(player) && player.world.getWorldTime() % 60 == 0) {
-                    player.playSound(BWMSounds.OOF, 0.75f, 1f);
+
+            if (!world.isRemote && BWRegistry.PENALTY_HANDLERS.inPain(player)) {
+                long time = world.getWorldTime();
+                if (PlayerHelper.isMoving(player) && time % (5*20) == 0) {
+                    world.playSound(null, player.getPosition(), BWSounds.OOF, SoundCategory.BLOCKS, 0.75f, 1f);
                 }
             }
 
