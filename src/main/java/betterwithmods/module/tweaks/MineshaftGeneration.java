@@ -2,12 +2,11 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.bwl.event.StructureSetBlockEvent;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.common.registry.block.recipe.BlockIngredientSpecial;
 import betterwithmods.module.Feature;
 import betterwithmods.module.hardcore.world.structures.IngredientChanger;
 import betterwithmods.module.hardcore.world.structures.StructureChanger;
+import betterwithmods.util.SetBlockIngredient;
 import com.google.common.collect.Sets;
-import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.state.IBlockState;
@@ -48,8 +47,8 @@ public class MineshaftGeneration extends Feature {
 
     @Override
     public void init(FMLInitializationEvent event) {
-        BlockIngredient fence = new BlockIngredientSpecial((world, blockPos) -> world.getBlockState(blockPos).getBlock() instanceof BlockFence);
-        MINESHAFT_CHANGER.addChanger(new MineshaftIngredientChanger(fence, Blocks.LOG.getDefaultState(), MapGenMineshaft.Type.MESA));
+        BlockIngredient fence = new SetBlockIngredient(Blocks.OAK_FENCE, Blocks.DARK_OAK_FENCE);
+        MINESHAFT_CHANGER.addChanger(new MineshaftIngredientChanger(fence, Blocks.LOG.getDefaultState(), MapGenMineshaft.Type.NORMAL));
         MINESHAFT_CHANGER.addChanger(new MineshaftIngredientChanger(fence, Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK), MapGenMineshaft.Type.MESA));
     }
 
@@ -57,12 +56,13 @@ public class MineshaftGeneration extends Feature {
     @SubscribeEvent
     public void onStructureSetBlock(StructureSetBlockEvent event) {
         if (event.getComponent() instanceof StructureMineshaftPieces.Peice) {
+                        System.out.printf("/tp %s ~ %s\n", event.getPos().getX(), event.getPos().getZ());
             StructureChanger.convert(MINESHAFT, event);
         }
     }
 
     public static class MineshaftIngredientChanger extends IngredientChanger {
-        private MapGenMineshaft.Type type;
+        protected MapGenMineshaft.Type type;
 
         public MineshaftIngredientChanger(BlockIngredient ingredient, IBlockState state, MapGenMineshaft.Type type) {
             super(ingredient, state);

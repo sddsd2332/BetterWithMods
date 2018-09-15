@@ -1,7 +1,9 @@
 package betterwithmods.util;
 
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.common.registry.block.recipe.StateIngredient;
 import com.google.common.collect.Sets;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -13,6 +15,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 public class SetBlockIngredient extends BlockIngredient implements Set<BlockIngredient> {
 
@@ -20,6 +23,11 @@ public class SetBlockIngredient extends BlockIngredient implements Set<BlockIngr
 
     public SetBlockIngredient() {
         super();
+    }
+
+    public SetBlockIngredient(Block... blocks) {
+        super();
+        this.ingredients.addAll(Arrays.stream(blocks).map(StateIngredient::new).collect(Collectors.toSet()));
     }
 
     public SetBlockIngredient(BlockIngredient... ingredients) {
