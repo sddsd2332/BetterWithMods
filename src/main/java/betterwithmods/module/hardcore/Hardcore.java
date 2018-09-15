@@ -14,6 +14,7 @@ import betterwithmods.module.hardcore.world.saplings.HCSapling;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;
 import betterwithmods.module.hardcore.world.strata.HCStrata;
 import betterwithmods.module.hardcore.world.stumping.HCStumping;
+import betterwithmods.module.hardcore.world.village.HCVillages;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
