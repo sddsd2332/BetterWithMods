@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.world.village;
+package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.bwl.event.StructureSetBlockEvent;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
@@ -92,7 +92,7 @@ public class HCVillages extends Feature {
     public void onStructureSetBlock(StructureSetBlockEvent event) {
         if (event.getComponent() instanceof StructureVillagePieces.Village) {
             System.out.printf("/tp %s ~ %s\n", event.getPos().getX(), event.getPos().getZ());
-            IBlockState state = StructureChanger.getConversion(VILLAGE, event.getWorld(), event.getPos(), event.getState());
+            IBlockState state = StructureChanger.getConversion(VILLAGE, event.getWorld(), event.getPos(), event.getRelativePos(), event.getState());
             if (state != null) {
                 event.setState(state);
             }

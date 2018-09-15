@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.world.village;
+package betterwithmods.module.hardcore.world.structures;
 
 import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
@@ -11,10 +11,10 @@ import java.util.function.BiPredicate;
 public class StructureChanger {
 
 
-    public static IBlockState getConversion(Set<StructureChanger> changers, World world, BlockPos pos, IBlockState state) {
+    public static IBlockState getConversion(Set<StructureChanger> changers, World world, BlockPos pos, BlockPos relativePos, IBlockState state) {
         for (StructureChanger changer : changers) {
             if (changer.canConvert(world, pos)) {
-                return changer.getConversion(world, pos, state);
+                return changer.getConversion(world, pos, relativePos, state);
             }
         }
         return null;
@@ -43,10 +43,10 @@ public class StructureChanger {
         return predicate.test(world, pos);
     }
 
-    public IBlockState getConversion(World world, BlockPos pos, IBlockState state) {
+    public IBlockState getConversion(World world, BlockPos pos, BlockPos relativePos, IBlockState state) {
         for (IChanger changer : changers) {
-            if (changer.canChange(world, pos, state)) {
-                IBlockState newState = changer.change(world, pos, state);
+            if (changer.canChange(world, pos, relativePos, state)) {
+                IBlockState newState = changer.change(world, pos, relativePos, state);
                 if (newState != null) {
                     return newState;
                 }

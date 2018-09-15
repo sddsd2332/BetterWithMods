@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.world.village;
+package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
 import net.minecraft.block.BlockFence;
@@ -9,7 +9,7 @@ import net.minecraft.world.World;
 
 public class TableChanger implements IChanger {
     @Override
-    public boolean canChange(World world, BlockPos pos, IBlockState state) {
+    public boolean canChange(World world, BlockPos pos, BlockPos relativePos, IBlockState state) {
         if(state.getBlock() == Blocks.WOODEN_PRESSURE_PLATE) {
             IBlockState below = world.getBlockState(pos.down());
             return below.getBlock() instanceof BlockFence;
@@ -18,7 +18,7 @@ public class TableChanger implements IChanger {
     }
 
     @Override
-    public IBlockState change(World world, BlockPos pos, IBlockState state) {
+    public IBlockState change(World world, BlockPos pos, BlockPos relativePos, IBlockState state) {
         world.setBlockState(pos.down(), BWMBlocks.WOOD_TABLE.getDefaultState());
         return Blocks.AIR.getDefaultState();
     }
