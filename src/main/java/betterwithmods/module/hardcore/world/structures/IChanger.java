@@ -3,11 +3,12 @@ package betterwithmods.module.hardcore.world.structures;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraft.world.gen.structure.StructureComponent;
 
 public interface IChanger {
 
-    boolean canChange(World world, BlockPos pos, BlockPos relativePos, IBlockState original);
+    boolean canChange(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original);
 
-    IBlockState change(World world, BlockPos pos, BlockPos relativePos, IBlockState original);
+    IBlockState change(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original);
 
 }

@@ -9,7 +9,6 @@ import betterwithmods.module.Feature;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.monster.EntityIronGolem;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.EnumDyeColor;
@@ -91,11 +90,8 @@ public class HCVillages extends Feature {
     @SubscribeEvent
     public void onStructureSetBlock(StructureSetBlockEvent event) {
         if (event.getComponent() instanceof StructureVillagePieces.Village) {
-            System.out.printf("/tp %s ~ %s\n", event.getPos().getX(), event.getPos().getZ());
-            IBlockState state = StructureChanger.getConversion(VILLAGE, event.getWorld(), event.getPos(), event.getRelativePos(), event.getState());
-            if (state != null) {
-                event.setState(state);
-            }
+//            System.out.printf("/tp %s ~ %s\n", event.getPos().getX(), event.getPos().getZ());
+            StructureChanger.convert(VILLAGE, event);
         }
     }
 

@@ -9,7 +9,6 @@ import betterwithmods.module.Feature;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockLadder;
 import net.minecraft.block.BlockPlanks;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -100,13 +99,14 @@ public class HCStructures extends Feature {
                 //Replace clay with obsidian
                 .addChanger(new IngredientChanger(new StateIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()));
 
+
+        //TODO
         ABANDONED_JUNGLE_TEMPLE
                 .addChanger(new IngredientChanger(new StateIngredient(Blocks.REDSTONE_WIRE), Blocks.AIR.getDefaultState()));
 
-         NORMAL_JUNGLE_TEMPLE
+        NORMAL_JUNGLE_TEMPLE
                 .addChanger(new RelativePosChanger(BWMBlocks.HAND_CRANK.getDefaultState(), new BlockPos(5, 3, 10)))
                 .addChanger(new RelativePosChanger(BWMBlocks.COOKING_POTS.getDefaultState().withProperty(BlockCookingPot.TYPE, BlockCookingPot.EnumType.DRAGONVESSEL), new BlockPos(6, 3, 10)));
-
 
 
         WITCH_HUT_CHANGER
@@ -118,19 +118,12 @@ public class HCStructures extends Feature {
     @SubscribeEvent
     public void onStructureSetBlock(StructureSetBlockEvent event) {
         if (event.getComponent() instanceof ComponentScatteredFeaturePieces.DesertPyramid) {
-            convert(DESERT_TEMPLE, event);
+            StructureChanger.convert(DESERT_TEMPLE, event);
         } else if (event.getComponent() instanceof ComponentScatteredFeaturePieces.JunglePyramid) {
 //            System.out.printf("/tp %s ~ %s\n", event.getPos().getX(), event.getPos().getZ());
-            convert(JUNGLE_TEMPLE, event);
-        }   else if (event.getComponent() instanceof ComponentScatteredFeaturePieces.SwampHut) {
-            convert(WITCH_HUT, event);
-        }
-    }
-
-    private static void convert(Set<StructureChanger> set, StructureSetBlockEvent event) {
-        IBlockState state = StructureChanger.getConversion(set, event.getWorld(), event.getPos(), event.getRelativePos(), event.getState());
-        if (state != null) {
-            event.setState(state);
+            StructureChanger.convert(JUNGLE_TEMPLE, event);
+        } else if (event.getComponent() instanceof ComponentScatteredFeaturePieces.SwampHut) {
+            StructureChanger.convert(WITCH_HUT, event);
         }
     }
 
