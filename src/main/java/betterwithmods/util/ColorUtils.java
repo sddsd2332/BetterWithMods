@@ -17,6 +17,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 import javax.annotation.Nullable;
 import java.util.HashMap;
@@ -131,5 +132,9 @@ public class ColorUtils {
         public ItemStack getStack() {
             return getDye(dye, count);
         }
+    }
+
+    public static int getDyeColor(EnumDyeColor color) {
+        return ReflectionHelper.getPrivateValue(EnumDyeColor.class, color, ReflectionLib.ENUMDYEECOLOR_COLORVALUE);
     }
 }

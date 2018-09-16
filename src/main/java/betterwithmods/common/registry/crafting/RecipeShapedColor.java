@@ -2,6 +2,7 @@ package betterwithmods.common.registry.crafting;
 
 import betterwithmods.api.util.IColorProvider;
 import betterwithmods.api.util.impl.BlockColorProvider;
+import betterwithmods.util.ColorUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
@@ -10,7 +11,10 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonSyntaxException;
 import net.minecraft.block.Block;
 import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.item.*;
+import net.minecraft.item.Item;
+import net.minecraft.item.ItemArmor;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.JsonUtils;
@@ -81,7 +85,7 @@ public class RecipeShapedColor extends ShapedOreRecipe {
         } else if (item instanceof ItemBlock) {
             return BlockColorProvider.INSTANCE.getColor(stack);
         }
-        return DyeUtils.colorFromStack(stack).map(EnumDyeColor::getColorValue).orElse(0);
+        return DyeUtils.colorFromStack(stack).map(ColorUtils::getDyeColor).orElse(0);
     }
 
 
