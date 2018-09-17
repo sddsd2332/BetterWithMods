@@ -11,6 +11,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldEntitySpawner;
 
 public class PotionTruesight extends BWPotion {
     public PotionTruesight(String name, boolean b, int potionColor) {
@@ -58,10 +59,10 @@ public class PotionTruesight extends BWPotion {
         if (world.getLightFor(EnumSkyBlock.BLOCK, pos) >= 8)
             return false;
 
-        IBlockState state = world.getBlockState(pos.down());
         if (world.getBiome(pos).getSpawnableList(EnumCreatureType.MONSTER).isEmpty())
             return false;
-        if (!state.getBlock().canCreatureSpawn(state, world, pos.down(), EntityLiving.SpawnPlacementType.ON_GROUND))
+
+        if(!WorldEntitySpawner.canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, world,pos))
             return false;
 
         if (!checkCollision(pos, world))
