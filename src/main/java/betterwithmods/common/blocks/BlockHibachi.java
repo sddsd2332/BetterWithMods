@@ -2,7 +2,6 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
@@ -95,18 +94,7 @@ public class BlockHibachi extends BWMBlock {
     }
 
     private boolean shouldIgnite(World world, BlockPos pos) {
-        if (world.isAirBlock(pos))
-            return true;
-        if (world.getBlockState(pos).getBlock().isFlammable(world, pos, EnumFacing.DOWN))
-            return true;
-        Block block = world.getBlockState(pos).getBlock();
-        Material material = world.getBlockState(pos).getMaterial();
-
-        if (!material.blocksMovement() && material != Material.LAVA && material != Material.WATER) {
-            if (!(block instanceof BlockDoor))
-                return true;
-        }
-        return false;
+        return world.getBlockState(pos).getBlock().isReplaceable(world, pos);
     }
 
     private void ignite(World world, BlockPos pos) {
