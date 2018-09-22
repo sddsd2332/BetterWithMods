@@ -1,7 +1,7 @@
 package betterwithmods.common.items;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMRegistry;
+import betterwithmods.lib.ModLib;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -25,6 +25,6 @@ public class ItemEnderSpectacles extends ItemArmor {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        return BWMod.MODID + ":textures/models/armor/ender_spectacles.png";
+        return ModLib.MODID + ":textures/models/armor/ender_spectacles.png";
     }
 }

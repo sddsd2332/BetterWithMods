@@ -1,9 +1,9 @@
 package betterwithmods.client.tesr;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.model.generators.ModelWaterwheel;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.tile.TileWaterwheel;
+import betterwithmods.lib.ModLib;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;
@@ -11,7 +11,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 
 public class TESRWaterwheel extends TileEntitySpecialRenderer<TileWaterwheel> {
-    public static final ResourceLocation WATERWHEEL = new ResourceLocation(BWMod.MODID, "textures/blocks/waterwheel.png");
+    public static final ResourceLocation WATERWHEEL = new ResourceLocation(ModLib.MODID, "textures/blocks/waterwheel.png");
     private static ModelWaterwheel waterwheel = new ModelWaterwheel();
 
     public TESRWaterwheel() {

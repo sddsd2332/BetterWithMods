@@ -1,6 +1,6 @@
 package betterwithmods.client.tesr;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.hardcore.beacons.TileBeacon;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,7 +18,7 @@ import java.util.List;
  */
 public class TESRBeacon extends TileEntitySpecialRenderer<TileBeacon> {
 
-    public static final ResourceLocation TEXTURE_BEACON_BEAM = new ResourceLocation(BWMod.MODID, "textures/entity/beacon_beam.png");
+    public static final ResourceLocation TEXTURE_BEACON_BEAM = new ResourceLocation(ModLib.MODID, "textures/entity/beacon_beam.png");
 
     public static void renderBeamSegment(double x, double y, double z, double partialTicks, double textureScale, double totalWorldTime, int yOffset, int height, float[] colors) {
         renderBeamSegment(x, y, z, partialTicks, textureScale, totalWorldTime, yOffset, height, colors, 0.2D, 0.25D);

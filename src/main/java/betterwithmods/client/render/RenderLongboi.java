@@ -1,8 +1,8 @@
 package betterwithmods.client.render;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.model.ModelLongBoi;
 import betterwithmods.common.entity.EntityLongboi;
+import betterwithmods.lib.ModLib;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.entity.RenderManager;
@@ -11,9 +11,9 @@ import net.minecraft.util.ResourceLocation;
 import javax.annotation.Nonnull;
 
 public class RenderLongboi extends RenderLiving<EntityLongboi> {
-    private static final ResourceLocation WOLF_TEXTURES = new ResourceLocation(BWMod.MODID, "textures/entity/wild_boi.png");
-    private static final ResourceLocation TAMED_WOLF_TEXTURES = new ResourceLocation(BWMod.MODID, "textures/entity/long_boi.png");
-    private static final ResourceLocation ANRGY_WOLF_TEXTURES = new ResourceLocation(BWMod.MODID, "textures/entity/mad_boi.png");
+    private static final ResourceLocation WOLF_TEXTURES = new ResourceLocation(ModLib.MODID, "textures/entity/wild_boi.png");
+    private static final ResourceLocation TAMED_WOLF_TEXTURES = new ResourceLocation(ModLib.MODID, "textures/entity/long_boi.png");
+    private static final ResourceLocation ANRGY_WOLF_TEXTURES = new ResourceLocation(ModLib.MODID, "textures/entity/mad_boi.png");
 
     public RenderLongboi(RenderManager manager) {
         super(manager, new ModelLongBoi(), 0.5F);

@@ -4,6 +4,7 @@ import betterwithmods.client.BWGuiHandler;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.general.General;
 import betterwithmods.module.hardcore.Hardcore;
@@ -22,13 +23,9 @@ import java.io.File;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber
-@Mod(modid = BWMod.MODID, name = BWMod.NAME, version = BWMod.VERSION, dependencies = BWMod.DEPENDENCIES, guiFactory = "betterwithmods.client.gui.BWGuiFactory", acceptedMinecraftVersions = "[1.12, 1.13)")
+@Mod(modid = ModLib.MODID, name = ModLib.NAME, version = ModLib.VERSION, dependencies = ModLib.DEPENDENCIES, guiFactory = "betterwithmods.client.gui.BWGuiFactory", acceptedMinecraftVersions = "[1.12, 1.13)")
 public class BWMod {
-    public static final String MODID = "betterwithmods";
-    public static final String VERSION = "%VERSION%";
-    public static final String NAME = "Better With Mods";
-    public static final String DEPENDENCIES = "before:survivalist;after:traverse;after:thaumcraft;after:natura;after:mantle;after:tconstruct;after:minechem;after:natura;after:terrafirmacraft;after:immersiveengineering;after:mekanism;after:thermalexpansion;after:ctm;after:geolosys;";
-    public static final ModuleLoader MODULE_LOADER = new ModuleLoader(new File(BWMod.MODID)).addModules(
+    public static final ModuleLoader MODULE_LOADER = new ModuleLoader(new File(ModLib.MODID)).addModules(
             new General(),
             new Recipes(),
             new Tweaks(),
@@ -40,7 +37,7 @@ public class BWMod {
     @SidedProxy(serverSide = "betterwithmods.proxy.ServerProxy", clientSide = "betterwithmods.proxy.ClientProxy")
     public static IProxy proxy;
     @SuppressWarnings({"CanBeFinal", "unused"})
-    @Mod.Instance(BWMod.MODID)
+    @Mod.Instance(ModLib.MODID)
     public static BWMod instance;
 
     static {

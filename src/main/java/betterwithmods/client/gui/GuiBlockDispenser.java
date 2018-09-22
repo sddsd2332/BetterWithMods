@@ -1,8 +1,8 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.container.other.ContainerBlockDispenser;
 import betterwithmods.common.tile.TileBlockDispenser;
+import betterwithmods.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
@@ -12,7 +12,7 @@ public class GuiBlockDispenser extends GuiBase {
     private final TileBlockDispenser tile;
 
     public GuiBlockDispenser(EntityPlayer player, TileBlockDispenser tile) {
-        super(new ContainerBlockDispenser(player, tile), new ResourceLocation(BWMod.MODID, "textures/gui/dispenser.png"));
+        super(new ContainerBlockDispenser(player, tile), new ResourceLocation(ModLib.MODID, "textures/gui/dispenser.png"));
         this.tile = tile;
         this.ySize = guiHeight;
     }

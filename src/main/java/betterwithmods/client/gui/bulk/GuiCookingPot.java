@@ -1,14 +1,14 @@
 package betterwithmods.client.gui.bulk;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.container.bulk.ContainerCookingPot;
 import betterwithmods.client.gui.GuiProgress;
 import betterwithmods.common.tile.TileCookingPot;
+import betterwithmods.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiCookingPot extends GuiProgress {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/cooking_pot.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/cooking_pot.png");
 
     private final TileCookingPot tile;
     private final ContainerCookingPot container;

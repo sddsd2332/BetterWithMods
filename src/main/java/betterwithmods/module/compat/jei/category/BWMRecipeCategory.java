@@ -1,6 +1,6 @@
 package betterwithmods.module.compat.jei.category;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.recipe.IRecipeCategory;
@@ -50,7 +50,7 @@ public abstract class BWMRecipeCategory<T extends IRecipeWrapper> implements IRe
     @Nonnull
     @Override
     public String getModName() {
-        return BWMod.NAME;
+        return ModLib.NAME;
     }
 
 }

@@ -1,9 +1,9 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityIngredientRelationRegistry;
 import betterwithmods.common.entity.ai.eat.EntityAIAnimalEat;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import net.minecraft.entity.EntityLivingBase;
@@ -41,10 +41,10 @@ public class EasyBreeding extends Feature {
     public void onPostInit(FMLPostInitializationEvent event) {
         REGISTRY.addBreedingEntry(new HCChickens.LayerIngredientRelation());
         //only called if the layer entry fails
-        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "chicken"), e -> e instanceof EntityChicken).addIngredient(new OreIngredient("seed"));
+        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "chicken"), e -> e instanceof EntityChicken).addIngredient(new OreIngredient("seed"));
 
-        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "pig"), e -> e instanceof EntityPig).addIngredient(Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT, BWMItems.KIBBLE));
-        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "herd"), e -> e instanceof EntitySheep || e instanceof EntityCow).addIngredient(Ingredient.fromStacks(new ItemStack(Items.WHEAT)));
+        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "pig"), e -> e instanceof EntityPig).addIngredient(Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT, BWMItems.KIBBLE));
+        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "herd"), e -> e instanceof EntitySheep || e instanceof EntityCow).addIngredient(Ingredient.fromStacks(new ItemStack(Items.WHEAT)));
     }
 
     @SubscribeEvent

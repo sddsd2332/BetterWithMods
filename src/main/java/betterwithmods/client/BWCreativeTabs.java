@@ -1,9 +1,9 @@
 package betterwithmods.client;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.recipes.miniblocks.MiniBlocks;
 import betterwithmods.module.recipes.miniblocks.MiniType;
 import net.minecraft.block.material.Material;
@@ -13,7 +13,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BWCreativeTabs {
-    public static final CreativeTabs ITEMS = new CreativeTabs(BWMod.MODID + ":items") {
+    public static final CreativeTabs ITEMS = new CreativeTabs(ModLib.MODID + ":items") {
         @Override
         @SideOnly(Side.CLIENT)
         public ItemStack createIcon() {
@@ -21,7 +21,7 @@ public class BWCreativeTabs {
         }
     };
 
-    public static final CreativeTabs BLOCKS = new CreativeTabs(BWMod.MODID + ":blocks") {
+    public static final CreativeTabs BLOCKS = new CreativeTabs(ModLib.MODID + ":blocks") {
         @Override
         @SideOnly(Side.CLIENT)
         public ItemStack createIcon() {
@@ -29,7 +29,7 @@ public class BWCreativeTabs {
         }
     };
 
-    public static final CreativeTabs FOODS = new CreativeTabs(BWMod.MODID + ":foods") {
+    public static final CreativeTabs FOODS = new CreativeTabs(ModLib.MODID + ":foods") {
         @Override
         @SideOnly(Side.CLIENT)
         public ItemStack createIcon() {
@@ -37,7 +37,7 @@ public class BWCreativeTabs {
         }
     };
 
-    public static final CreativeTabs MINI_BLOCKS = new CreativeTabs(BWMod.MODID + ":mini_blocks") {
+    public static final CreativeTabs MINI_BLOCKS = new CreativeTabs(ModLib.MODID + ":mini_blocks") {
         @Override
         @SideOnly(Side.CLIENT)
         public ItemStack createIcon() {

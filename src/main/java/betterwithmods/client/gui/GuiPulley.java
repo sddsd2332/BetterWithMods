@@ -1,14 +1,14 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.container.other.ContainerPulley;
 import betterwithmods.common.tile.TilePulley;
+import betterwithmods.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiPulley extends GuiProgress {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/pulley.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/pulley.png");
 
     private final TilePulley tile;
 

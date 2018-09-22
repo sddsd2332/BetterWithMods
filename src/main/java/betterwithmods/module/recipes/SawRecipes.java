@@ -1,6 +1,5 @@
 package betterwithmods.module.recipes;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.recipe.output.impl.RandomCountOutputs;
 import betterwithmods.api.recipe.output.impl.RandomOutput;
 import betterwithmods.api.util.IBlockVariants;
@@ -12,6 +11,7 @@ import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.common.registry.crafting.ChoppingRecipe;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
@@ -60,7 +60,7 @@ public class SawRecipes extends Feature {
             for (IBlockVariants variant : BWMOreDictionary.blockVariants) {
                 ItemStack log = variant.getVariant(IBlockVariants.EnumBlock.LOG, 1);
                 if (!log.isEmpty()) {
-                    ResourceLocation location = new ResourceLocation(BWMod.MODID, log.getItem().getRegistryName().getPath() + "_" + log.getMetadata());
+                    ResourceLocation location = new ResourceLocation(ModLib.MODID, log.getItem().getRegistryName().getPath() + "_" + log.getMetadata());
                     BWMRecipes.addRecipe(new ChoppingRecipe(variant).setRegistryName(location));
                 }
             }

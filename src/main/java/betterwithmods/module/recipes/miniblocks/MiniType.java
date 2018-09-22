@@ -1,8 +1,8 @@
 package betterwithmods.module.recipes.miniblocks;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.tile.TileCamo;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.recipes.miniblocks.blocks.*;
 import betterwithmods.module.recipes.miniblocks.tiles.*;
 import net.minecraft.item.ItemStack;
@@ -63,7 +63,7 @@ public enum MiniType {
         for (MiniType type : VALUES) {
             if (type.tile != null) {
                 if (TileEntity.getKey(type.tile) == null) {
-                    GameRegistry.registerTileEntity(type.tile, new ResourceLocation(BWMod.MODID, type.name));
+                    GameRegistry.registerTileEntity(type.tile, new ResourceLocation(ModLib.MODID, type.name));
                 }
             }
         }

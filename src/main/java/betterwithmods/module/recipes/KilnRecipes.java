@@ -9,6 +9,7 @@ import betterwithmods.common.blocks.*;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.module.hardcore.needs.HCCooking;
 import betterwithmods.module.recipes.miniblocks.client.CamoModel;
@@ -89,7 +90,7 @@ public class KilnRecipes extends Feature {
     @SideOnly(Side.CLIENT)
     public void onPostBake(ModelBakeEvent event) {
         CamoModel.KILN = new CamoModel(RenderUtils.getModel(new ResourceLocation("minecraft", "block/cube")));
-        event.getModelRegistry().putObject(new ModelResourceLocation(BWMod.MODID + ":kiln", "normal"), CamoModel.KILN);
+        event.getModelRegistry().putObject(new ModelResourceLocation(ModLib.MODID + ":kiln", "normal"), CamoModel.KILN);
     }
 }
 

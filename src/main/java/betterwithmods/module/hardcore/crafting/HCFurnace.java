@@ -3,8 +3,8 @@ package betterwithmods.module.hardcore.crafting;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockFurnace;
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.module.Feature;
-import betterwithmods.util.TooltipLib;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -26,7 +26,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.OptionalInt;
 
-import static betterwithmods.util.TooltipLib.FURNACE_TIME;
+import static betterwithmods.lib.TooltipLib.FURNACE_TIME;
 
 public class HCFurnace extends Feature {
     public static final Block FURNACE = new BlockFurnace(false).setRegistryName("minecraft:furnace");

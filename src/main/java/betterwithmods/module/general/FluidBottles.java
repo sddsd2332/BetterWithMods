@@ -1,6 +1,6 @@
 package betterwithmods.module.general;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
@@ -22,12 +22,12 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class FluidBottles extends Feature {
 
     private static int waterBottleAmount = 300;
 
-    private static final ResourceLocation KEY = new ResourceLocation(BWMod.MODID, "bottle");
+    private static final ResourceLocation KEY = new ResourceLocation(ModLib.MODID, "bottle");
 
 
     @SubscribeEvent

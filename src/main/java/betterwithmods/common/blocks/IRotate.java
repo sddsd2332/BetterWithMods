@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.util.TooltipLib;
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

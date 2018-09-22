@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical.mech_machine;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.tile.TileTurntable;
+import betterwithmods.lib.ModLib;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockTurntable extends BlockMechMachine {
-    public static final ResourceLocation TURNTABLE = LootTableList.register(new ResourceLocation(BWMod.MODID, "block/turntable"));
+    public static final ResourceLocation TURNTABLE = LootTableList.register(new ResourceLocation(ModLib.MODID, "block/turntable"));
     public static final PropertyInteger SPEED = PropertyInteger.create("speed", 0, 3);
 
     public BlockTurntable() {

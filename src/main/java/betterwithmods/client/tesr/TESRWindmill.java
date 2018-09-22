@@ -1,9 +1,9 @@
 package betterwithmods.client.tesr;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.model.generators.ModelHorizontalWindmill;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.tile.TileWindmillHorizontal;
+import betterwithmods.lib.ModLib;
 import betterwithmods.util.BannerUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
@@ -14,8 +14,8 @@ import net.minecraft.util.math.BlockPos;
 import javax.annotation.Nullable;
 
 public class TESRWindmill extends TileEntitySpecialRenderer<TileWindmillHorizontal> {
-    public static final ResourceLocation WINDMILL_FRAME = new ResourceLocation(BWMod.MODID, "textures/blocks/windmills/horizontal_frame.png");
-    public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(BWMod.MODID, "textures/blocks/windmills/sail.png");
+    public static final ResourceLocation WINDMILL_FRAME = new ResourceLocation(ModLib.MODID, "textures/blocks/windmills/horizontal_frame.png");
+    public static final ResourceLocation WINDMILL_SAIL = new ResourceLocation(ModLib.MODID, "textures/blocks/windmills/sail.png");
     private static ModelHorizontalWindmill render = new ModelHorizontalWindmill();
 
     public static void renderWindmill(float direction, float rotation, double x, double y, double z, float alpha, @Nullable BannerUtils.BannerData[] data) {

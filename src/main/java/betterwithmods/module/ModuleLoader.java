@@ -66,12 +66,7 @@ public class ModuleLoader extends ListStateHandler<Module> {
         File file = event.getSuggestedConfigurationFile();
         ConfigHelper helper = new ConfigHelper(file.getParent(), new Configuration(file));
         forEach(module -> {
-            //FIXME Currently have a config for each module, not entirely sure about this
-//            File file = new File(event.getModConfigurationDirectory(), relativeConfigDir.getPath());
-//            ConfigHelper helper = new ConfigHelper(file.getPath(), new Configuration(new File(file, module.getName() + ".cfg")));
-
             List<Feature> feature = module.setup(helper, getLogger());
-            //Add all feature classes to the set;
             enabledFeatures.addAll(feature.stream().map(Feature::getClass).collect(Collectors.toSet()));
         });
         super.onPreInit(event);

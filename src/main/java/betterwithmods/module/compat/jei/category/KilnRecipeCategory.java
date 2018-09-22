@@ -1,9 +1,9 @@
 package betterwithmods.module.compat.jei.category;
 
 
-import betterwithmods.BWMod;
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.compat.jei.wrapper.KilnRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
@@ -20,7 +20,7 @@ public class KilnRecipeCategory extends BWMRecipeCategory<KilnRecipeWrapper> {
     public static final int width = 145;
     public static final int height = 80;
     public static final String UID = "bwm.kiln";
-    private static final ResourceLocation guiTexture = new ResourceLocation(BWMod.MODID, "textures/gui/jei/kiln.png");
+    private static final ResourceLocation guiTexture = new ResourceLocation(ModLib.MODID, "textures/gui/jei/kiln.png");
     private final IGuiHelper helper;
     private IDrawableAnimated flame;
 

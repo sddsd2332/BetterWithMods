@@ -1,8 +1,8 @@
 package betterwithmods.module.compat.jei.category;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.compat.jei.wrapper.BlockRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IGuiItemStackGroup;
@@ -24,7 +24,7 @@ public class SteelSawRecipeCategory extends BWMRecipeCategory<BlockRecipeWrapper
     public static final int HEIGHT = 50;
     public static final String UID = "bwm.saw.steel";
 
-    public static final ResourceLocation LOCATION = new ResourceLocation(BWMod.MODID, "textures/gui/jei/saw.png");
+    public static final ResourceLocation LOCATION = new ResourceLocation(ModLib.MODID, "textures/gui/jei/saw.png");
 
     public SteelSawRecipeCategory(IGuiHelper guiHelper) {
         super(guiHelper.createDrawable(LOCATION, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.saw.name"));

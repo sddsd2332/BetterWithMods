@@ -1,8 +1,8 @@
 package betterwithmods.common.entity;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.tile.TilePulley;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.general.General;
 import betterwithmods.util.AABBArray;
 import betterwithmods.util.InvUtils;
@@ -35,7 +35,7 @@ import java.nio.charset.Charset;
 import java.util.*;
 import java.util.Map.Entry;
 
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class EntityExtendingRope extends Entity implements IEntityAdditionalSpawnData {
 
     public AABBArray blockBB;

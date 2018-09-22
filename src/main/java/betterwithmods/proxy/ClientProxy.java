@@ -17,6 +17,7 @@ import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.entity.*;
 import betterwithmods.common.tile.*;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.hardcore.beacons.TileBeacon;
 import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
@@ -58,7 +59,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.List;
 
 @SuppressWarnings("unused")
-@Mod.EventBusSubscriber(modid = BWMod.MODID, value = Side.CLIENT)
+@Mod.EventBusSubscriber(modid = ModLib.MODID, value = Side.CLIENT)
 public class ClientProxy implements IProxy {
 
     private static ResourceProxy resourceProxy;
@@ -72,7 +73,7 @@ public class ClientProxy implements IProxy {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public static void onPostBake(ModelBakeEvent event) {
-        BarkModel.BARK = new BarkModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "item/bark")));
+        BarkModel.BARK = new BarkModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "item/bark")));
         event.getModelRegistry().putObject(BarkModel.LOCATION, BarkModel.BARK);
     }
 

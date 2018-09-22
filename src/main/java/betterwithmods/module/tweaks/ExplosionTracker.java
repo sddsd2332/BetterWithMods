@@ -1,6 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.Vec3d;
@@ -14,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Optional;
 
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class ExplosionTracker extends Feature {
 
     @SubscribeEvent

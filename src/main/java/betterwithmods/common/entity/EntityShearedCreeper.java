@@ -1,6 +1,6 @@
 package betterwithmods.common.entity;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.*;
@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
  * Created by primetoxinz on 9/21/16.
  */
 public class EntityShearedCreeper extends EntityMob {
-    public static final ResourceLocation LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "entity/sheared_creeper"));
+    public static final ResourceLocation LOOT = LootTableList.register(new ResourceLocation(ModLib.MODID, "entity/sheared_creeper"));
 
     public EntityShearedCreeper(World worldIn) {
         super(worldIn);

@@ -1,8 +1,8 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.container.other.ContainerInfernalEnchanter;
 import betterwithmods.common.tile.TileInfernalEnchanter;
+import betterwithmods.lib.ModLib;
 import com.google.common.collect.Maps;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -18,7 +18,7 @@ import java.util.Map;
  * Created by primetoxinz on 9/11/16.
  */
 public class GuiInfernalEnchanter extends GuiBase {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/infernal_enchanter.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/infernal_enchanter.png");
     private static final HashMap<Integer, String> numerals = Maps.newHashMap();
 
     static {

@@ -1,6 +1,7 @@
 package betterwithmods.module.general.player;
 
 import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.module.hardcore.needs.HCNames;
 import net.minecraft.entity.Entity;
@@ -22,7 +23,7 @@ public class PlayerDataHandler extends Feature {
     //TODO better way to handle the team.
     public static final String TEAM = "BWMTeam";
 
-    private static final ResourceLocation PLAYER_INFO = new ResourceLocation(BWMod.MODID, "player_info");
+    private static final ResourceLocation PLAYER_INFO = new ResourceLocation(ModLib.MODID, "player_info");
 
     @SubscribeEvent
     public static void clone(PlayerEvent.Clone event) {

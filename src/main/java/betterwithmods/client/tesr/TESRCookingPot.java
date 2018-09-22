@@ -1,11 +1,11 @@
 package betterwithmods.client.tesr;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.common.tile.TileCauldron;
 import betterwithmods.common.tile.TileCookingPot;
 import betterwithmods.common.tile.TileCrucible;
+import betterwithmods.lib.ModLib;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.ResourceLocation;
 
@@ -34,7 +34,7 @@ public class TESRCookingPot extends TileEntitySpecialRenderer<TileCookingPot> {
         boolean stoked = tile.getHeat(tile.getBlockWorld(), tile.getBlockPos()) >= BWMHeatRegistry.STOKED_HEAT;
 
         if (tile instanceof TileCauldron) {
-            return new ResourceLocation(BWMod.MODID, "blocks/cauldron_contents");
+            return new ResourceLocation(ModLib.MODID, "blocks/cauldron_contents");
         } else if (tile instanceof TileCrucible) {
             return stoked ? new ResourceLocation("minecraft", "blocks/lava_still") : new ResourceLocation("minecraft", "blocks/gravel");
         }

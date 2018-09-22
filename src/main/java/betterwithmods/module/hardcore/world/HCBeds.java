@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.world;
 
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.module.Feature;
-import betterwithmods.util.TooltipLib;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.EnumHelper;
@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static betterwithmods.util.TooltipLib.BED_TOO_RESTLESS;
+import static betterwithmods.lib.TooltipLib.BED_TOO_RESTLESS;
 
 /**
  * Created by primetoxinz on 4/20/17.

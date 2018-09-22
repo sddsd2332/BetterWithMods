@@ -1,6 +1,6 @@
 package betterwithmods.network;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.network.handler.*;
 import betterwithmods.network.messages.*;
 import net.minecraft.entity.Entity;
@@ -16,7 +16,7 @@ import net.minecraftforge.fml.relauncher.Side;
 
 public class BWNetwork {
 
-    public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(BWMod.MODID);
+    public static final SimpleNetworkWrapper INSTANCE = NetworkRegistry.INSTANCE.newSimpleChannel(ModLib.MODID);
     private static int i = 0;
 
     public static void registerNetworking() {

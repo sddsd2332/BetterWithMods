@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.creatures.chicken;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.entity.EntityIngredientRelation;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.Entity;
@@ -32,7 +32,7 @@ import static betterwithmods.module.hardcore.creatures.chicken.EggLayer.EGG_LAYE
  */
 public class HCChickens extends Feature {
 
-    private static final ResourceLocation EGG_LAYER = new ResourceLocation(BWMod.MODID, "egglayer");
+    private static final ResourceLocation EGG_LAYER = new ResourceLocation(ModLib.MODID, "egglayer");
     private static Ingredient SEEDS = new OreIngredient("seed");
 
     @Nullable

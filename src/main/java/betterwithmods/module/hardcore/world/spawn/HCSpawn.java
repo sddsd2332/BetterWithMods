@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.world.spawn;
 
 import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.module.general.General;
 import betterwithmods.module.general.player.PlayerInfo;
@@ -47,7 +48,7 @@ public class HCSpawn extends Feature {
     public static int HARDCORE_SPAWN_COOLDOWN_RADIUS;
     public static int HARDCORE_SPAWN_COOLDOWN; //20 min
     public static int HARDCORE_SPAWN_MAX_ATTEMPTS = 20;
-    public static ResourceLocation PLAYER_SPAWN_POSITION = new ResourceLocation(BWMod.MODID, "spawn_position");
+    public static ResourceLocation PLAYER_SPAWN_POSITION = new ResourceLocation(ModLib.MODID, "spawn_position");
 
     public static void setSpawn(EntityPlayer player, BlockPos pos) {
         SpawnSaving.getCapability(player).ifPresent(cap -> cap.setPos(pos));

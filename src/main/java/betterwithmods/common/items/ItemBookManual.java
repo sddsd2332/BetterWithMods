@@ -1,7 +1,7 @@
 package betterwithmods.common.items;
 
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.manual.api.ManualAPI;
-import betterwithmods.util.TooltipLib;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBook;

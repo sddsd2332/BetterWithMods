@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.SoundEvents;
@@ -16,7 +16,7 @@ import java.util.Random;
 
 import static betterwithmods.util.WorldUtils.addDrop;
 
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class FeedWolfchop extends Feature {
     @Override
     public String getDescription() {

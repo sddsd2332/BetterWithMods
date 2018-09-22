@@ -1,7 +1,8 @@
 package betterwithmods.module.general;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
+import betterwithmods.lib.ModLib;
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.manual.api.ManualAPI;
 import betterwithmods.manual.api.prefab.manual.TextureTabIconRenderer;
 import betterwithmods.manual.common.DirectoryDefaultProvider;
@@ -10,7 +11,6 @@ import betterwithmods.manual.custom.StatePathProvider;
 import betterwithmods.module.Feature;
 import betterwithmods.module.general.player.PlayerInfo;
 import betterwithmods.util.InvUtils;
-import betterwithmods.util.TooltipLib;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Mod;
@@ -20,7 +20,7 @@ import net.minecraftforge.fml.common.gameevent.PlayerEvent;
 
 import java.util.Locale;
 
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class Documentation extends Feature {
 
     private static boolean giveAfterCraft;
@@ -37,10 +37,10 @@ public class Documentation extends Feature {
 
     @Override
     public void onInitClient(FMLInitializationEvent event) {
-        ManualAPI.addProvider(new DirectoryDefaultProvider(new ResourceLocation(BWMod.MODID, "documentation/docs/")));
+        ManualAPI.addProvider(new DirectoryDefaultProvider(new ResourceLocation(ModLib.MODID, "documentation/docs/")));
         ManualDefinitionImpl.INSTANCE.addDefaultProviders();
         ManualAPI.addProvider(new StatePathProvider());
-        ManualAPI.addTab(new TextureTabIconRenderer(new ResourceLocation(BWMod.MODID, "textures/gui/manual_home.png")), "bwm.manual.home", "%LANGUAGE%/index.md");
+        ManualAPI.addTab(new TextureTabIconRenderer(new ResourceLocation(ModLib.MODID, "textures/gui/manual_home.png")), "bwm.manual.home", "%LANGUAGE%/index.md");
     }
 
     @SubscribeEvent
@@ -49,7 +49,7 @@ public class Documentation extends Feature {
             return;
         if (!event.player.world.isRemote && !event.crafting.isEmpty() && event.crafting.getItem() != BWMItems.MANUAL) {
             ResourceLocation name = event.crafting.getItem().getRegistryName();
-            if (name != null && name.toString().toLowerCase(Locale.ROOT).contains(BWMod.MODID)) {
+            if (name != null && name.toString().toLowerCase(Locale.ROOT).contains(ModLib.MODID)) {
                 PlayerInfo save = PlayerInfo.getPlayerInfo(event.player);
                 if (save != null && !save.givenManual) {
                     save.givenManual = true;

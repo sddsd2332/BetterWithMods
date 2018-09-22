@@ -1,8 +1,8 @@
 package betterwithmods.module.compat.jei.category;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.compat.jei.wrapper.TurntableRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IGuiIngredientGroup;
@@ -25,7 +25,7 @@ public class TurntableRecipeCategory extends BWMRecipeCategory<TurntableRecipeWr
     public static final int width = 76;
     public static final int height = 50;
     public static final String UID = "bwm.turntable";
-    private static final ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/turntable.png");
+    private static final ResourceLocation location = new ResourceLocation(ModLib.MODID, "textures/gui/jei/turntable.png");
 
 
     public TurntableRecipeCategory(IGuiHelper helper) {

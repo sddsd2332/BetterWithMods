@@ -1,7 +1,7 @@
 package betterwithmods.module.compat.jei.category;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.recipe.output.IOutput;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.compat.jei.wrapper.BulkRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
@@ -17,7 +17,7 @@ public class MillRecipeCategory extends BWMRecipeCategory<BulkRecipeWrapper> {
     private static final int height = 32;
     private static final int inputSlots = 0;
     private static final int outputSlot = 3;
-    private static final ResourceLocation guiTexture = new ResourceLocation(BWMod.MODID, "textures/gui/jei/mill.png");
+    private static final ResourceLocation guiTexture = new ResourceLocation(ModLib.MODID, "textures/gui/jei/mill.png");
 
     @Nonnull
     private final IDrawableAnimated gear;

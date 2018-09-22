@@ -1,6 +1,6 @@
 package betterwithmods.common.penalties.attribute;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.Range;
@@ -11,16 +11,16 @@ public class BWMAttributes {
     public static Attribute<Float> SPEED, SPOOKED;
 
     public static void registerAttributes() {
-        JUMP = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "jump"), true).setDescription("Can the player jump with this penalty active?");
-        SWIM = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "swim"), true).setDescription("Can the player swim with this penalty active?");
-        HEAL = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "heal"), true).setDescription("Can the player heal with this penalty active?");
-        SPRINT = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "sprint"), true).setDescription("Can the player sprint with this penalty active?");
-        ATTACK = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "attack"), true).setDescription("Can the player attack with this penalty active?");
-        PAIN = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "pain"), false).setDescription("Is the player in pain? (Plays the OOF noise periodically)");
-        GRUE = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "grue"), false).setDescription("Can the player be eaten by the Grue when this is active?");
+        JUMP = new BooleanAttribute(new ResourceLocation(ModLib.MODID, "jump"), true).setDescription("Can the player jump with this penalty active?");
+        SWIM = new BooleanAttribute(new ResourceLocation(ModLib.MODID, "swim"), true).setDescription("Can the player swim with this penalty active?");
+        HEAL = new BooleanAttribute(new ResourceLocation(ModLib.MODID, "heal"), true).setDescription("Can the player heal with this penalty active?");
+        SPRINT = new BooleanAttribute(new ResourceLocation(ModLib.MODID, "sprint"), true).setDescription("Can the player sprint with this penalty active?");
+        ATTACK = new BooleanAttribute(new ResourceLocation(ModLib.MODID, "attack"), true).setDescription("Can the player attack with this penalty active?");
+        PAIN = new BooleanAttribute(new ResourceLocation(ModLib.MODID, "pain"), false).setDescription("Is the player in pain? (Plays the OOF noise periodically)");
+        GRUE = new BooleanAttribute(new ResourceLocation(ModLib.MODID, "grue"), false).setDescription("Can the player be eaten by the Grue when this is active?");
 
-        SPEED = new FloatAttribute(new ResourceLocation(BWMod.MODID, "speed"), 1f).setDescription("Speed modifier when this penalty is active. (Multiplies the player's existing speed)");
-        SPOOKED = new FloatAttribute(new ResourceLocation(BWMod.MODID, "spooked"), 0f).setDescription("Does the player start to go insane when this is active?");
+        SPEED = new FloatAttribute(new ResourceLocation(ModLib.MODID, "speed"), 1f).setDescription("Speed modifier when this penalty is active. (Multiplies the player's existing speed)");
+        SPOOKED = new FloatAttribute(new ResourceLocation(ModLib.MODID, "spooked"), 0f).setDescription("Does the player start to go insane when this is active?");
     }
 
     public static boolean isCustom(Feature feature) {

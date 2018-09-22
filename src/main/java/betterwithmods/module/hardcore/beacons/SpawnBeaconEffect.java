@@ -1,9 +1,9 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.lib.ModLib;
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;
-import betterwithmods.util.TooltipLib;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.EntityLivingBase;
@@ -32,7 +32,7 @@ import java.util.UUID;
 /**
  * Created by primetoxinz on 7/17/17.
  */
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class SpawnBeaconEffect extends BeaconEffect {
 
     public static final HashMap<BlockPos, HashSet<BindingPoint>> SPAWN_LIST = Maps.newHashMap();

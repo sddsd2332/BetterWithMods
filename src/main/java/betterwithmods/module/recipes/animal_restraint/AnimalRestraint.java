@@ -1,9 +1,9 @@
 package betterwithmods.module.recipes.animal_restraint;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemAnimalHarness;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.module.recipes.breeding_harness.models.ModelCowHarness;
 import betterwithmods.module.recipes.breeding_harness.models.ModelSheepHarness;
@@ -50,7 +50,7 @@ public class AnimalRestraint extends Feature {
 
     public static final Item ANIMAL_RESTRAINT = new ItemAnimalHarness().setRegistryName("animal_restraint");
     public static final Set<Class<? extends EntityAnimal>> HARNESS_ANIMALS = Sets.newHashSet();
-    private static final ResourceLocation CAPABILITY = new ResourceLocation(BWMod.MODID, "harness");
+    private static final ResourceLocation CAPABILITY = new ResourceLocation(ModLib.MODID, "harness");
     private static final Object2BooleanMap<Class<? extends Entity>> HARNESS_CACHE = new Object2BooleanOpenHashMap<>();
 
     static {
@@ -122,9 +122,9 @@ public class AnimalRestraint extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void onPostInitClient(FMLPostInitializationEvent event) {
-        addLayer(EntityCow.class, new ModelCowHarness(0.5f), new ResourceLocation(BWMod.MODID, "textures/entity/cow_harness.png"));
-        addLayer(EntityPig.class, new ModelPig(0.5f), new ResourceLocation(BWMod.MODID, "textures/entity/pig_harness.png"));
-        addLayer(EntitySheep.class, new ModelSheepHarness(0.5f), new ResourceLocation(BWMod.MODID, "textures/entity/sheep_harness.png"));
+        addLayer(EntityCow.class, new ModelCowHarness(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/cow_harness.png"));
+        addLayer(EntityPig.class, new ModelPig(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/pig_harness.png"));
+        addLayer(EntitySheep.class, new ModelSheepHarness(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/sheep_harness.png"));
     }
 
     @SubscribeEvent

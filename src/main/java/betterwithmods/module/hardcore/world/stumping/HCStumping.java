@@ -1,10 +1,10 @@
 package betterwithmods.module.hardcore.world.stumping;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.module.hardcore.world.HCBonemeal;
 import betterwithmods.network.BWNetwork;
@@ -47,7 +47,7 @@ import static net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 @Mod.EventBusSubscriber
 public class HCStumping extends Feature {
     public static final Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
-    private static final ResourceLocation PLACED_LOG = new ResourceLocation(BWMod.MODID, "placed_log");
+    private static final ResourceLocation PLACED_LOG = new ResourceLocation(ModLib.MODID, "placed_log");
     public static boolean CTM;
     public static boolean SPEED_UP_WITH_TOOLS;
     public static float STUMP_BREAK_SPEED;

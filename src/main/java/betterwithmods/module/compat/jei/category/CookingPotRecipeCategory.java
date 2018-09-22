@@ -1,9 +1,9 @@
 package betterwithmods.module.compat.jei.category;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.compat.jei.wrapper.BulkRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
@@ -24,7 +24,7 @@ public class CookingPotRecipeCategory extends BWMRecipeCategory<BulkRecipeWrappe
     private static final int inputSlots = 9;
     private static final int outputSlot = 0;
 
-    private static final ResourceLocation guiTexture = new ResourceLocation(BWMod.MODID, "textures/gui/jei/cooking.png");
+    private static final ResourceLocation guiTexture = new ResourceLocation(ModLib.MODID, "textures/gui/jei/cooking.png");
     @Nonnull
     private final ICraftingGridHelper craftingGrid;
     private final IGuiHelper helper;

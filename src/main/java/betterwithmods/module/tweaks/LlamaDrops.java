@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTable;
@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 @Mod.EventBusSubscriber
 public class LlamaDrops extends Feature {
 
-    public static final ResourceLocation LLAMA_LOOT = new ResourceLocation(BWMod.MODID, "entity/llama");
+    public static final ResourceLocation LLAMA_LOOT = new ResourceLocation(ModLib.MODID, "entity/llama");
 
     //Override loottables
     @SubscribeEvent

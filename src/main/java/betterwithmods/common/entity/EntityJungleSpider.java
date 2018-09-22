@@ -1,6 +1,6 @@
 package betterwithmods.common.entity;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -22,7 +22,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 
 public class EntityJungleSpider extends EntityCaveSpider {
-    public static final ResourceLocation LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "entity/jungle_spider"));
+    public static final ResourceLocation LOOT = LootTableList.register(new ResourceLocation(ModLib.MODID, "entity/jungle_spider"));
 
     public EntityJungleSpider(World worldIn) {
         super(worldIn);

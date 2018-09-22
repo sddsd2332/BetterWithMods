@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.tile.TileBarrel;
-import betterwithmods.util.TooltipLib;
+import betterwithmods.lib.TooltipLib;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

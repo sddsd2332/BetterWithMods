@@ -1,6 +1,6 @@
 package betterwithmods.common;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;
@@ -8,7 +8,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class BWMSounds {
     @GameRegistry.ObjectHolder("betterwithmods:block.wood.creak")
     public static final SoundEvent WOODCREAK = null;
@@ -49,7 +49,7 @@ public class BWMSounds {
     }
 
     public static SoundEvent registerSound(String soundName) {
-        ResourceLocation soundID = new ResourceLocation(BWMod.MODID, soundName);
+        ResourceLocation soundID = new ResourceLocation(ModLib.MODID, soundName);
         return new SoundEvent(soundID).setRegistryName(soundID);
     }
 }

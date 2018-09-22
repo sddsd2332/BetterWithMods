@@ -1,14 +1,14 @@
 package betterwithmods.client.gui.bulk;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.container.bulk.ContainerFilteredHopper;
 import betterwithmods.client.gui.GuiProgress;
 import betterwithmods.common.tile.TileFilteredHopper;
+import betterwithmods.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiFilteredHopper extends GuiProgress {
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/hopper.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/hopper.png");
     private final TileFilteredHopper tile;
 
     public GuiFilteredHopper(EntityPlayer player, TileFilteredHopper tile) {

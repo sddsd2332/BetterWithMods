@@ -1,10 +1,10 @@
 package betterwithmods.common.registry.hopper.filters;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.tile.IHopperFilter;
 import betterwithmods.client.model.filters.ModelTransparent;
 import betterwithmods.client.model.filters.ModelWithResource;
 import betterwithmods.client.model.render.RenderUtils;
+import betterwithmods.lib.ModLib;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -14,7 +14,7 @@ import java.util.List;
 
 public class HopperFilter implements IHopperFilter {
 
-    public static final IHopperFilter NONE = new HopperFilter(new ResourceLocation(BWMod.MODID, "none"), Ingredient.EMPTY, Lists.newArrayList());
+    public static final IHopperFilter NONE = new HopperFilter(new ResourceLocation(ModLib.MODID, "none"), Ingredient.EMPTY, Lists.newArrayList());
     public final ResourceLocation name;
     public final Ingredient filter;
     public final List<Ingredient> filtered;

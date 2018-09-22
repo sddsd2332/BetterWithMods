@@ -1,7 +1,7 @@
 package betterwithmods.common.event;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
+import betterwithmods.lib.ModLib;
 import betterwithmods.util.player.Profiles;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class FakePlayerHandler {
     @GameRegistry.ObjectHolder("minecraft:looting")
     public static final Enchantment looting = null;

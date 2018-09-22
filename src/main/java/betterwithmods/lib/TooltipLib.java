@@ -1,6 +1,5 @@
-package betterwithmods.util;
+package betterwithmods.lib;
 
-import betterwithmods.BWMod;
 import net.minecraft.util.text.TextComponentTranslation;
 
 public class TooltipLib {
@@ -36,7 +35,7 @@ public class TooltipLib {
 
 
     public static TextComponentTranslation getInfoComponent(String prefix, String base, Object... format) {
-        return new TextComponentTranslation(String.format("%s.%s:%s", prefix, BWMod.MODID, base), format);
+        return new TextComponentTranslation(String.format("%s.%s:%s", prefix, ModLib.MODID, base), format);
     }
 
     public static TextComponentTranslation getMessageComponent(String base, Object... format) {

@@ -11,6 +11,7 @@ import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.tile.TileCamo;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.module.recipes.AnvilRecipes;
 import betterwithmods.module.recipes.miniblocks.blocks.*;
@@ -171,7 +172,7 @@ public class MiniBlocks extends Feature {
     @SideOnly(Side.CLIENT)
     public static void registerModel(IRegistry<ModelResourceLocation, IBakedModel> registry, String name, IBakedModel model, Set<String> variants) {
         for (String variant : variants) {
-            registry.putObject(new ModelResourceLocation(BWMod.MODID + ":" + name, variant), model);
+            registry.putObject(new ModelResourceLocation(ModLib.MODID + ":" + name, variant), model);
         }
     }
 
@@ -200,27 +201,27 @@ public class MiniBlocks extends Feature {
 
     private static ResourceLocation getRecipeRegistry(ItemStack output, ItemStack parent) {
         if (parent.getMetadata() > 0)
-            return new ResourceLocation(BWMod.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath() + "_" + parent.getMetadata());
-        return new ResourceLocation(BWMod.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath());
+            return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath() + "_" + parent.getMetadata());
+        return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath());
     }
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public static void onPostBake(ModelBakeEvent event) {
-        MiniModel.SIDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/siding")));
-        MiniModel.MOULDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/moulding")));
-        MiniModel.CORNER = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/corner")));
-        MiniModel.COLUMN = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/column")));
-        MiniModel.PEDESTAL = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/pedestal")));
-        MiniModel.STAIR = new StairModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/stair")),
-                RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/mini/stair_inner_corner")));
-        MiniModel.CHAIR = new MiniModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/chair")));
+        MiniModel.SIDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/siding")));
+        MiniModel.MOULDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/moulding")));
+        MiniModel.CORNER = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/corner")));
+        MiniModel.COLUMN = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/column")));
+        MiniModel.PEDESTAL = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/pedestal")));
+        MiniModel.STAIR = new StairModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair")),
+                RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair_inner_corner")));
+        MiniModel.CHAIR = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/chair")));
 
-        CamoModel.TABLE_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/table_supported")));
-        CamoModel.TABLE_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/table_unsupported")));
+        CamoModel.TABLE_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_supported")));
+        CamoModel.TABLE_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_unsupported")));
 
-        CamoModel.BENCH_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/bench_supported")));
-        CamoModel.BENCH_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(BWMod.MODID, "block/bench_unsupported")));
+        CamoModel.BENCH_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_supported")));
+        CamoModel.BENCH_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_unsupported")));
 
         for (Material material : names.keySet()) {
             String name = names.get(material);

@@ -1,10 +1,10 @@
 package betterwithmods.common.event;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemEnderSpectacles;
 import betterwithmods.common.potion.BWPotion;
+import betterwithmods.lib.ModLib;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -29,7 +29,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class PotionEventHandler {
 
     @SubscribeEvent
@@ -69,7 +69,7 @@ public class PotionEventHandler {
         for (int i = 0; i < 2; ++i) {
             GlStateManager.pushMatrix();
             TextureAtlasSprite textureatlassprite = mc.getTextureMapBlocks()
-                    .getTextureExtry(BWMod.MODID + ":blocks/stoked_fire_layer_0");
+                    .getTextureExtry(ModLib.MODID + ":blocks/stoked_fire_layer_0");
             if (textureatlassprite == null)
                 textureatlassprite = mc.getTextureMapBlocks().getMissingSprite();
             mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);

@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.InvUtils;
 import net.minecraft.entity.Entity;
@@ -33,7 +33,7 @@ import java.util.function.Predicate;
 @Mod.EventBusSubscriber
 public class HopperMinecarts extends Feature {
 
-    private static final ResourceLocation COUNTER = new ResourceLocation(BWMod.MODID, "counter");
+    private static final ResourceLocation COUNTER = new ResourceLocation(ModLib.MODID, "counter");
     private static final int STACK_SIZE = 1;
     private static final Predicate<TileEntity> IGNORE_INVENTORIES_THAT_PULL = tile -> !(tile instanceof TileEntityHopper);
     @CapabilityInject(Counter.class)

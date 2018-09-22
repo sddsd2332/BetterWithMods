@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.entity.ai.EntityAIMate;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.EntityUtils;
 import net.minecraft.entity.EntityLiving;
@@ -10,7 +10,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class AnimalBirth extends Feature {
 
     @SubscribeEvent

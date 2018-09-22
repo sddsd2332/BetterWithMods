@@ -36,6 +36,7 @@ import betterwithmods.common.registry.bulk.manager.CraftingManagerPot;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.common.registry.hopper.filters.HopperFilters;
 import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
+import betterwithmods.lib.ModLib;
 import betterwithmods.manual.api.API;
 import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
@@ -83,7 +84,7 @@ import java.util.regex.Pattern;
 
 
 @SuppressWarnings("unused")
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class BWMRegistry {
 
     public static final PenaltyHandlerRegistry PENALTY_HANDLERS = new PenaltyHandlerRegistry();
@@ -294,14 +295,14 @@ public class BWMRegistry {
      */
     public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int trackingRange,
                                       int updateFrequency, boolean sendsVelocityUpdates) {
-        EntityRegistry.registerModEntity(new ResourceLocation(BWMod.MODID, entityName), entityClass, entityName, availableEntityId, BWMod.instance, trackingRange,
+        EntityRegistry.registerModEntity(new ResourceLocation(ModLib.MODID, entityName), entityClass, entityName, availableEntityId, BWMod.instance, trackingRange,
                 updateFrequency, sendsVelocityUpdates);
         availableEntityId++;
     }
 
 
     public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates, int primaryColor, int secondaryColor) {
-        EntityRegistry.registerModEntity(new ResourceLocation(BWMod.MODID, entityName), entityClass, entityName, availableEntityId, BWMod.instance, trackingRange,
+        EntityRegistry.registerModEntity(new ResourceLocation(ModLib.MODID, entityName), entityClass, entityName, availableEntityId, BWMod.instance, trackingRange,
                 updateFrequency, sendsVelocityUpdates, primaryColor, secondaryColor);
         availableEntityId++;
     }

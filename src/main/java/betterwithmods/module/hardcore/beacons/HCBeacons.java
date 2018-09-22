@@ -1,6 +1,5 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockBeacon;
@@ -8,6 +7,7 @@ import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.IngredientSpecial;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -45,9 +45,9 @@ public class HCBeacons extends Feature {
 
 
     public static final List<BeaconEffect> BEACON_EFFECTS = Lists.newArrayList();
-    public static ResourceLocation WORLD1 = new ResourceLocation(BWMod.MODID, "world_enderchest");
-    public static ResourceLocation WORLD2 = new ResourceLocation(BWMod.MODID, "world2_enderchest");
-    public static ResourceLocation GLOBAL = new ResourceLocation(BWMod.MODID, "global_enderchest");
+    public static ResourceLocation WORLD1 = new ResourceLocation(ModLib.MODID, "world_enderchest");
+    public static ResourceLocation WORLD2 = new ResourceLocation(ModLib.MODID, "world2_enderchest");
+    public static ResourceLocation GLOBAL = new ResourceLocation(ModLib.MODID, "global_enderchest");
     private static boolean enderchestBeacon;
     private static boolean enableBeaconCustomization;
 
@@ -83,7 +83,7 @@ public class HCBeacons extends Feature {
     @SubscribeEvent
     public static void attachTileCapability(AttachCapabilitiesEvent<TileEntity> event) {
         if (event.getObject() instanceof TileEnderchest && !event.getObject().hasCapability(ENDERCHEST_CAPABILITY, EnumFacing.UP)) {
-            event.addCapability(new ResourceLocation(BWMod.MODID, "enderchest"), new EnderchestCap(EnumFacing.UP));
+            event.addCapability(new ResourceLocation(ModLib.MODID, "enderchest"), new EnderchestCap(EnumFacing.UP));
         }
     }
 
@@ -98,7 +98,7 @@ public class HCBeacons extends Feature {
 
         //Capability for tracking beacon ranges
         if (!world.hasCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP)) {
-            event.addCapability(new ResourceLocation(BWMod.MODID, "beacons"), new CapabilityBeacon());
+            event.addCapability(new ResourceLocation(ModLib.MODID, "beacons"), new CapabilityBeacon());
         }
         if (world.provider.getDimensionType() == DimensionType.OVERWORLD) {
             if (!world.hasCapability(ENDERCHEST_CAPABILITY, EnumFacing.DOWN)) {

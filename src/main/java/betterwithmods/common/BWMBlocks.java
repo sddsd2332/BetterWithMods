@@ -1,6 +1,5 @@
 package betterwithmods.common;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.*;
 import betterwithmods.common.blocks.camo.BlockCamo;
@@ -15,6 +14,7 @@ import betterwithmods.common.blocks.mechanical.mech_machine.BlockTurntable;
 import betterwithmods.common.items.itemblocks.*;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.tile.*;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.hardcore.beacons.TileBeacon;
 import betterwithmods.module.hardcore.beacons.TileEnderchest;
 import net.minecraft.block.Block;
@@ -203,33 +203,33 @@ public final class BWMBlocks {
     }
 
     public static void registerTileEntities() {
-        GameRegistry.registerTileEntity(TileMill.class, new ResourceLocation(BWMod.MODID, "millstone"));
-        GameRegistry.registerTileEntity(TilePulley.class, new ResourceLocation(BWMod.MODID, "pulley"));
-        GameRegistry.registerTileEntity(TileFilteredHopper.class, new ResourceLocation(BWMod.MODID, "hopper"));
-        GameRegistry.registerTileEntity(TileCauldron.class, new ResourceLocation(BWMod.MODID, "cauldron"));
-        GameRegistry.registerTileEntity(TileCrucible.class, new ResourceLocation(BWMod.MODID, "crucible"));
-        GameRegistry.registerTileEntity(TileDragonVessel.class, new ResourceLocation(BWMod.MODID, "vessel"));
-        GameRegistry.registerTileEntity(TileTurntable.class, new ResourceLocation(BWMod.MODID, "turntable"));
-        GameRegistry.registerTileEntity(TileSteelAnvil.class, new ResourceLocation(BWMod.MODID, "steel_anvil"));
-        GameRegistry.registerTileEntity(TileVase.class, new ResourceLocation(BWMod.MODID, "vase"));
-        GameRegistry.registerTileEntity(TileWindmillVertical.class, new ResourceLocation(BWMod.MODID, "vertical_windmill"));
-        GameRegistry.registerTileEntity(TileWindmillHorizontal.class, new ResourceLocation(BWMod.MODID, "horizontal_windmill"));
-        GameRegistry.registerTileEntity(TileWaterwheel.class, new ResourceLocation(BWMod.MODID, "waterwheel"));
-        GameRegistry.registerTileEntity(TileBlockDispenser.class, new ResourceLocation(BWMod.MODID, "block_dispenser"));
-        GameRegistry.registerTileEntity(TileCreativeGen.class, new ResourceLocation(BWMod.MODID, "creative_generator"));
-        GameRegistry.registerTileEntity(TileGearbox.class, new ResourceLocation(BWMod.MODID, "gearbox"));
-        GameRegistry.registerTileEntity(TileBellows.class, new ResourceLocation(BWMod.MODID, "bellows"));
-        GameRegistry.registerTileEntity(TileBeacon.class, new ResourceLocation(BWMod.MODID, "beacon"));
-        GameRegistry.registerTileEntity(TileEnderchest.class, new ResourceLocation(BWMod.MODID, "enderchest"));
-        GameRegistry.registerTileEntity(TileAxle.class, new ResourceLocation(BWMod.MODID, "axle"));
-        GameRegistry.registerTileEntity(TileSaw.class, new ResourceLocation(BWMod.MODID, "saw"));
-        GameRegistry.registerTileEntity(TilePump.class, new ResourceLocation(BWMod.MODID, "pump"));
-        GameRegistry.registerTileEntity(TileCrank.class, new ResourceLocation(BWMod.MODID, "crank"));
-        GameRegistry.registerTileEntity(TileInfernalEnchanter.class, new ResourceLocation(BWMod.MODID, "infernal_enchanter"));
-        GameRegistry.registerTileEntity(TileKiln.class, new ResourceLocation(BWMod.MODID, "kiln"));
-        GameRegistry.registerTileEntity(TileFurnace.class, new ResourceLocation(BWMod.MODID, "furnace"));
-        GameRegistry.registerTileEntity(TileBucket.class, new ResourceLocation(BWMod.MODID, "bucket"));
-        GameRegistry.registerTileEntity(TileBarrel.class, new ResourceLocation(BWMod.MODID, "barrel"));
+        GameRegistry.registerTileEntity(TileMill.class, new ResourceLocation(ModLib.MODID, "millstone"));
+        GameRegistry.registerTileEntity(TilePulley.class, new ResourceLocation(ModLib.MODID, "pulley"));
+        GameRegistry.registerTileEntity(TileFilteredHopper.class, new ResourceLocation(ModLib.MODID, "hopper"));
+        GameRegistry.registerTileEntity(TileCauldron.class, new ResourceLocation(ModLib.MODID, "cauldron"));
+        GameRegistry.registerTileEntity(TileCrucible.class, new ResourceLocation(ModLib.MODID, "crucible"));
+        GameRegistry.registerTileEntity(TileDragonVessel.class, new ResourceLocation(ModLib.MODID, "vessel"));
+        GameRegistry.registerTileEntity(TileTurntable.class, new ResourceLocation(ModLib.MODID, "turntable"));
+        GameRegistry.registerTileEntity(TileSteelAnvil.class, new ResourceLocation(ModLib.MODID, "steel_anvil"));
+        GameRegistry.registerTileEntity(TileVase.class, new ResourceLocation(ModLib.MODID, "vase"));
+        GameRegistry.registerTileEntity(TileWindmillVertical.class, new ResourceLocation(ModLib.MODID, "vertical_windmill"));
+        GameRegistry.registerTileEntity(TileWindmillHorizontal.class, new ResourceLocation(ModLib.MODID, "horizontal_windmill"));
+        GameRegistry.registerTileEntity(TileWaterwheel.class, new ResourceLocation(ModLib.MODID, "waterwheel"));
+        GameRegistry.registerTileEntity(TileBlockDispenser.class, new ResourceLocation(ModLib.MODID, "block_dispenser"));
+        GameRegistry.registerTileEntity(TileCreativeGen.class, new ResourceLocation(ModLib.MODID, "creative_generator"));
+        GameRegistry.registerTileEntity(TileGearbox.class, new ResourceLocation(ModLib.MODID, "gearbox"));
+        GameRegistry.registerTileEntity(TileBellows.class, new ResourceLocation(ModLib.MODID, "bellows"));
+        GameRegistry.registerTileEntity(TileBeacon.class, new ResourceLocation(ModLib.MODID, "beacon"));
+        GameRegistry.registerTileEntity(TileEnderchest.class, new ResourceLocation(ModLib.MODID, "enderchest"));
+        GameRegistry.registerTileEntity(TileAxle.class, new ResourceLocation(ModLib.MODID, "axle"));
+        GameRegistry.registerTileEntity(TileSaw.class, new ResourceLocation(ModLib.MODID, "saw"));
+        GameRegistry.registerTileEntity(TilePump.class, new ResourceLocation(ModLib.MODID, "pump"));
+        GameRegistry.registerTileEntity(TileCrank.class, new ResourceLocation(ModLib.MODID, "crank"));
+        GameRegistry.registerTileEntity(TileInfernalEnchanter.class, new ResourceLocation(ModLib.MODID, "infernal_enchanter"));
+        GameRegistry.registerTileEntity(TileKiln.class, new ResourceLocation(ModLib.MODID, "kiln"));
+        GameRegistry.registerTileEntity(TileFurnace.class, new ResourceLocation(ModLib.MODID, "furnace"));
+        GameRegistry.registerTileEntity(TileBucket.class, new ResourceLocation(ModLib.MODID, "bucket"));
+        GameRegistry.registerTileEntity(TileBarrel.class, new ResourceLocation(ModLib.MODID, "barrel"));
     }
 
     public static void registerBlocks(Collection<? extends Block> blocks) {

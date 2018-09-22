@@ -1,10 +1,10 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.Penalty;
 import betterwithmods.common.penalties.PenaltyHandler;
-import betterwithmods.util.TooltipLib;
+import betterwithmods.lib.ModLib;
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -19,7 +19,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 /**
  * Created by primetoxinz on 5/13/17.
  */
-@Mod.EventBusSubscriber(modid = BWMod.MODID, value = Side.CLIENT)
+@Mod.EventBusSubscriber(modid = ModLib.MODID, value = Side.CLIENT)
 @SideOnly(Side.CLIENT)
 public class GuiStatus {
 

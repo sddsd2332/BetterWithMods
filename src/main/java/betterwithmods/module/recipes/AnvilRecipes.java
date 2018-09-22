@@ -8,6 +8,7 @@ import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
 import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.module.hardcore.needs.HCTools;
 import net.minecraft.init.Blocks;
@@ -22,7 +23,7 @@ import net.minecraftforge.event.RegistryEvent;
 public class AnvilRecipes extends Feature {
 
     public static ShapedAnvilRecipe addSteelShapedRecipe(String recipeName, ItemStack output, Object... input) {
-        return addSteelShapedRecipe(new ResourceLocation(BWMod.MODID, recipeName), output, input);
+        return addSteelShapedRecipe(new ResourceLocation(ModLib.MODID, recipeName), output, input);
     }
 
     public static ShapedAnvilRecipe addSteelShapedRecipe(ResourceLocation recipeName, ItemStack output, Object... input) {
@@ -36,7 +37,7 @@ public class AnvilRecipes extends Feature {
     }
 
     public static ShapelessAnvilRecipe addSteelShapelessRecipe(String recipeName, ItemStack output, Object... input) {
-        return addSteelShapelessRecipe(new ResourceLocation(BWMod.MODID, recipeName), output, input);
+        return addSteelShapelessRecipe(new ResourceLocation(ModLib.MODID, recipeName), output, input);
     }
 
     public static ShapelessAnvilRecipe addSteelShapelessRecipe(ResourceLocation recipeName, ItemStack output, Object... input) {

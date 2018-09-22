@@ -1,11 +1,11 @@
 package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.util.InvUtils;
-import betterwithmods.util.TooltipLib;
 import net.minecraft.item.ItemStack;
 
-import static betterwithmods.util.TooltipLib.CHANCE_OUTPUT;
+import static betterwithmods.lib.TooltipLib.CHANCE_OUTPUT;
 
 public class ChanceOutput extends StackOutput {
     private final double weight;

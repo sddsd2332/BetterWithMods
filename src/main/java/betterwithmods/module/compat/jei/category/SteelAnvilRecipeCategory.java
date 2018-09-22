@@ -1,6 +1,6 @@
 package betterwithmods.module.compat.jei.category;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
@@ -24,7 +24,7 @@ public class SteelAnvilRecipeCategory extends BWMRecipeCategory<IRecipeWrapper> 
     public static final String UID = "bwm.steel_anvil";
     private static final int craftOutputSlot = 16;
     private static final int craftInputSlot1 = 0;
-    private static final ResourceLocation location = new ResourceLocation(BWMod.MODID, "textures/gui/jei/steel_anvil.png");
+    private static final ResourceLocation location = new ResourceLocation(ModLib.MODID, "textures/gui/jei/steel_anvil.png");
 
     public SteelAnvilRecipeCategory(IGuiHelper guiHelper) {
         super(guiHelper.createDrawable(location, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.steel_anvil.name"));

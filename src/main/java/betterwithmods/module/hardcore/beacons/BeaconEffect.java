@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.state.IBlockState;
@@ -33,7 +33,7 @@ public abstract class BeaconEffect {
     protected int tickRate;
 
     public BeaconEffect(String name, BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
-        this.resourceLocation = new ResourceLocation(BWMod.MODID, name + "_beacon");
+        this.resourceLocation = new ResourceLocation(ModLib.MODID, name + "_beacon");
         this.structureBlock = structureBlock;
         this.validEntityType = validEntityType;
         this.enabled = true;

@@ -1,7 +1,7 @@
 package betterwithmods.manual.api;
 
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.manual.api.detail.ManualDefinition;
 
 /**
@@ -11,9 +11,9 @@ public final class API {
     /**
      * The ID of the mod, i.e. the internal string it is identified by.
      */
-    public static final String MOD_ID = BWMod.MODID;
+    public static final String MOD_ID = ModLib.MODID;
 
-    public static final String MOD_VERSION = BWMod.VERSION;
+    public static final String MOD_VERSION = ModLib.VERSION;
 
     // --------------------------------------------------------------------- //
 

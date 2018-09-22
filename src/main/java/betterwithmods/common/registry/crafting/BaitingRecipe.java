@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.crafting;
 
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.hardcore.crafting.HCFishing;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.InventoryCrafting;
@@ -19,7 +19,7 @@ import static betterwithmods.module.hardcore.crafting.HCFishing.setBaited;
 public class BaitingRecipe extends ToolBaseRecipe {
 
     public BaitingRecipe() {
-        super(new ResourceLocation(BWMod.MODID, "baiting_recipe"), ItemStack.EMPTY, HCFishing.BAIT, stack -> HCFishing.isBaited(stack, false));
+        super(new ResourceLocation(ModLib.MODID, "baiting_recipe"), ItemStack.EMPTY, HCFishing.BAIT, stack -> HCFishing.isBaited(stack, false));
         setRegistryName(getGroup());
     }
 

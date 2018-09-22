@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
@@ -28,7 +28,7 @@ import java.util.HashMap;
 import java.util.Random;
 
 public class HCSheep extends Feature {
-    public static final ResourceLocation NATURAL_COLOR = new ResourceLocation(BWMod.MODID, "natural_color");
+    public static final ResourceLocation NATURAL_COLOR = new ResourceLocation(ModLib.MODID, "natural_color");
     private static final HashMap<NaturalColorMix, EnumDyeColor> COLOR_MIX_TABLE = new HashMap<>();
     private static final ArrayList<EnumDyeColor> MUTATION_COLORS = new ArrayList<>();
     @CapabilityInject(NaturalColor.class)

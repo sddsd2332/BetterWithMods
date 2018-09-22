@@ -1,6 +1,6 @@
 package betterwithmods.common.registry.crafting;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import com.google.common.collect.Lists;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemArmor;
@@ -21,7 +21,7 @@ public class RecipeArmorDye extends IForgeRegistryEntry.Impl<IRecipe> implements
 
     public RecipeArmorDye(Ingredient validArmor) {
         this.validArmor = validArmor;
-        setRegistryName(new ResourceLocation(BWMod.MODID, "armor_dye"));
+        setRegistryName(new ResourceLocation(ModLib.MODID, "armor_dye"));
     }
 
     @Override

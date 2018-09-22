@@ -1,12 +1,12 @@
 package betterwithmods.common.blocks.mechanical;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.tile.TileSaw;
+import betterwithmods.lib.ModLib;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
@@ -210,7 +210,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     @Override
     public void overpower(World world, BlockPos pos) {
         if (doesOverpower()) {
-            InvUtils.ejectBrokenItems(world, pos, new ResourceLocation(BWMod.MODID, "block/saw"));
+            InvUtils.ejectBrokenItems(world, pos, new ResourceLocation(ModLib.MODID, "block/saw"));
             world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.3F, world.rand.nextFloat() * 0.1F + 0.45F);
             world.setBlockToAir(pos);
         }

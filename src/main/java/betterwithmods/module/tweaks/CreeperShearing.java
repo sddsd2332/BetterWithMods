@@ -1,8 +1,8 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityShearedCreeper;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.EntityUtils;
 import betterwithmods.util.InvUtils;
@@ -27,7 +27,7 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber(modid = BWMod.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class CreeperShearing extends Feature {
 
     public static Set<ResourceLocation> CREEPERS;

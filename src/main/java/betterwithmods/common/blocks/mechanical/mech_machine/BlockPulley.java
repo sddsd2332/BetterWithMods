@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical.mech_machine;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.tile.TilePulley;
+import betterwithmods.lib.ModLib;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -14,7 +14,7 @@ import javax.annotation.Nullable;
 
 public class BlockPulley extends BlockMechMachine {
 
-    public static final ResourceLocation PULLEY = LootTableList.register(new ResourceLocation(BWMod.MODID, "block/pulley"));
+    public static final ResourceLocation PULLEY = LootTableList.register(new ResourceLocation(ModLib.MODID, "block/pulley"));
 
     public BlockPulley() {
         super(Material.WOOD, PULLEY);

@@ -1,6 +1,6 @@
 package betterwithmods.common.advancements;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -19,7 +19,7 @@ import java.util.Set;
 
 public class ConstructLibraryTrigger implements ICriterionTrigger<ConstructLibraryTrigger.Instance> {
 
-    private static final ResourceLocation ID = new ResourceLocation(BWMod.MODID, "construct_library");
+    private static final ResourceLocation ID = new ResourceLocation(ModLib.MODID, "construct_library");
 
     private final Map<PlayerAdvancements, ConstructLibraryTrigger.Listeners> listeners = Maps.newHashMap();
 

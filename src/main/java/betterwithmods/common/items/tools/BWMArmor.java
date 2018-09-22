@@ -1,8 +1,8 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.client.IColorable;
 import betterwithmods.client.ColorHandlers;
+import betterwithmods.lib.ModLib;
 import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.entity.Entity;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -24,7 +24,7 @@ public class BWMArmor extends ItemArmor implements IColorable {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        return new ResourceLocation(BWMod.MODID, String.format("textures/models/armor/%s_layer_%s%s.png", this.name, (this.armorType.getSlotIndex() == 2 ? "2" : "1"), type != null ? "_" + type : "")).toString();
+        return new ResourceLocation(ModLib.MODID, String.format("textures/models/armor/%s_layer_%s%s.png", this.name, (this.armorType.getSlotIndex() == 2 ? "2" : "1"), type != null ? "_" + type : "")).toString();
     }
 
     @Override

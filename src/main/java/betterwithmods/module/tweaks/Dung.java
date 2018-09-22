@@ -1,8 +1,8 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
@@ -36,7 +36,7 @@ import java.util.Random;
  */
 @Mod.EventBusSubscriber
 public class Dung extends Feature {
-    public static final ResourceLocation DUNG_PRODUCER = new ResourceLocation(BWMod.MODID, "dung_producer");
+    public static final ResourceLocation DUNG_PRODUCER = new ResourceLocation(ModLib.MODID, "dung_producer");
     @CapabilityInject(DungProducer.class)
     public static Capability<DungProducer> DUNG_PRODUCER_CAP;
     private static boolean wolvesOnly;

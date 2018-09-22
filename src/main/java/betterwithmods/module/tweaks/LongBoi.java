@@ -1,6 +1,5 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.render.RenderLongboi;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRegistry;
@@ -8,6 +7,7 @@ import betterwithmods.common.blocks.BlockWolf;
 import betterwithmods.common.entity.EntityLongboi;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.EntityUtils;
 import com.google.common.collect.Lists;
@@ -34,7 +34,7 @@ import java.util.Optional;
 public class LongBoi extends Feature {
 
 
-    public static final Block LONG_FRIEND = new BlockWolf(new ResourceLocation(BWMod.MODID, "longboi")).setRegistryName("long_friend");
+    public static final Block LONG_FRIEND = new BlockWolf(new ResourceLocation(ModLib.MODID, "longboi")).setRegistryName("long_friend");
 
     private static Optional<EntityLivingBase> getEntity(World world, BlockPos pos) {
         return world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Entity::isEntityAlive).stream().findFirst();

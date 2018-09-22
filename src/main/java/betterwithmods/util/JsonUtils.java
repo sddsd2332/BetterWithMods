@@ -1,6 +1,6 @@
 package betterwithmods.util;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonArray;
@@ -15,7 +15,7 @@ import java.nio.file.Path;
 public class JsonUtils {
     public static final Gson GSON = new GsonBuilder().setPrettyPrinting().disableHtmlEscaping().create();
 
-    public static final JsonContext BWM_CONTEXT = new JsonContext(BWMod.MODID);
+    public static final JsonContext BWM_CONTEXT = new JsonContext(ModLib.MODID);
 
     public static JsonObject[] readerFile(File file) {
         Path path = file.toPath();

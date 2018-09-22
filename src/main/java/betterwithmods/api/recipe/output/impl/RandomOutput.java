@@ -1,13 +1,13 @@
 package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.util.InvUtils;
-import betterwithmods.util.TooltipLib;
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
 
-import static betterwithmods.util.TooltipLib.RANDOM_OUTPUT;
+import static betterwithmods.lib.TooltipLib.RANDOM_OUTPUT;
 
 public class RandomOutput extends StackOutput {
     private static final Random RANDOM = new Random();

@@ -1,9 +1,9 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityIngredientRelationRegistry;
 import betterwithmods.common.entity.ai.eat.EntityAITempt;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,11 +31,11 @@ public class MoreTempting extends Feature {
 
     @Override
     public void onPostInit(FMLPostInitializationEvent event) {
-        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "chicken"), e -> e instanceof EntityChicken)
+        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "chicken"), e -> e instanceof EntityChicken)
                 .addIngredient(new OreIngredient("seed"));
-        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "pig"), e -> e instanceof EntityPig)
+        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "pig"), e -> e instanceof EntityPig)
                 .addIngredient(Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT));
-        REGISTRY.addPredicateEntry(new ResourceLocation(BWMod.MODID, "herd"), e -> e instanceof EntitySheep || e instanceof EntityCow)
+        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "herd"), e -> e instanceof EntitySheep || e instanceof EntityCow)
                 .addIngredient(Ingredient.fromStacks(new ItemStack(Items.WHEAT), new ItemStack(Blocks.TALLGRASS)));
     }
 

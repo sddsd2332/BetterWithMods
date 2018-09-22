@@ -1,11 +1,11 @@
 package betterwithmods.module.hardcore.needs;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessageGloom;
@@ -55,7 +55,7 @@ import java.util.Set;
 @Mod.EventBusSubscriber
 public class HCGloom extends Feature {
     private static final List<SoundEvent> sounds = Lists.newArrayList(SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundEvents.ENTITY_ENDERMEN_SCREAM, SoundEvents.ENTITY_SILVERFISH_AMBIENT, SoundEvents.ENTITY_WOLF_GROWL);
-    private static final ResourceLocation PLAYER_GLOOM = new ResourceLocation(BWMod.MODID, "gloom");
+    private static final ResourceLocation PLAYER_GLOOM = new ResourceLocation(ModLib.MODID, "gloom");
     @CapabilityInject(Gloom.class)
     public static Capability<Gloom> GLOOM_CAPABILITY;
     public static GloomPenalties PENALTIES;

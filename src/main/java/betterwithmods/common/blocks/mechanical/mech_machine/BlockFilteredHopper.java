@@ -1,8 +1,8 @@
 package betterwithmods.common.blocks.mechanical.mech_machine;
 
-import betterwithmods.BWMod;
 import betterwithmods.api.block.IUrnConnector;
 import betterwithmods.common.tile.TileFilteredHopper;
+import betterwithmods.lib.ModLib;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 
 public class BlockFilteredHopper extends BlockMechMachine implements IUrnConnector {
-    public static final ResourceLocation HOPPER = LootTableList.register(new ResourceLocation(BWMod.MODID, "block/hopper"));
+    public static final ResourceLocation HOPPER = LootTableList.register(new ResourceLocation(ModLib.MODID, "block/hopper"));
 
     private static final AxisAlignedBB BOX = new AxisAlignedBB(0, 4 / 16d, 0, 1, 0.99d, 1);
 

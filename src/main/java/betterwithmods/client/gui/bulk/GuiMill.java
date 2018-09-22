@@ -1,19 +1,19 @@
 package betterwithmods.client.gui.bulk;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.container.bulk.ContainerMill;
 import betterwithmods.client.gui.GuiProgress;
 import betterwithmods.common.tile.TileMill;
-import betterwithmods.util.TooltipLib;
+import betterwithmods.lib.ModLib;
+import betterwithmods.lib.TooltipLib;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 
-import static betterwithmods.util.TooltipLib.MILLSTONE_BLOCKED;
+import static betterwithmods.lib.TooltipLib.MILLSTONE_BLOCKED;
 
 public class GuiMill extends GuiProgress {
 
-    private static final ResourceLocation TEXTURE = new ResourceLocation(BWMod.MODID, "textures/gui/mill.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/mill.png");
     private static final String NAME = "inv.mill.name";
     private final ContainerMill container;
 

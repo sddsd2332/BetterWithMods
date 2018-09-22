@@ -1,6 +1,6 @@
 package betterwithmods.util;
 
-import betterwithmods.BWMod;
+import betterwithmods.lib.ModLib;
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.item.EnumDyeColor;
@@ -17,7 +17,7 @@ import java.util.stream.Collectors;
 
 public class BannerUtils {
 
-    public static final BannerTextures.Cache WINDMILLS = new BannerTextures.Cache("betterwithmods:W", new ResourceLocation(BWMod.MODID, "textures/blocks/windmills/banner.png"), "betterwithmods:textures/blocks/windmills/");
+    public static final BannerTextures.Cache WINDMILLS = new BannerTextures.Cache("betterwithmods:W", new ResourceLocation(ModLib.MODID, "textures/blocks/windmills/banner.png"), "betterwithmods:textures/blocks/windmills/");
 
     public static void readArray(BannerData[] array, NBTTagCompound tag) {
         NBTTagList list = tag.getTagList("Banners", 10);

@@ -1,7 +1,7 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMOreDictionary;
+import betterwithmods.lib.ModLib;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
@@ -30,7 +30,7 @@ public class ItemSoulforgeArmor extends ItemArmor {
 
     @Override
     public String getArmorTexture(ItemStack stack, Entity entity, EntityEquipmentSlot slot, String type) {
-        return BWMod.MODID + ":textures/models/armor/steel_layer_" + (this.armorType.getSlotIndex() == 2 ? "2" : "1") + ".png";
+        return ModLib.MODID + ":textures/models/armor/steel_layer_" + (this.armorType.getSlotIndex() == 2 ? "2" : "1") + ".png";
     }
 
     @Override

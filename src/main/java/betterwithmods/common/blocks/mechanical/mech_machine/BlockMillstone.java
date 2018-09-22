@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical.mech_machine;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.tile.TileMill;
+import betterwithmods.lib.ModLib;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -17,7 +17,7 @@ import javax.annotation.Nonnull;
 import java.util.Random;
 
 public class BlockMillstone extends BlockMechMachine {
-    public static final ResourceLocation MILLSTONE = LootTableList.register(new ResourceLocation(BWMod.MODID, "block/mill"));
+    public static final ResourceLocation MILLSTONE = LootTableList.register(new ResourceLocation(ModLib.MODID, "block/mill"));
 
 
     public BlockMillstone() {

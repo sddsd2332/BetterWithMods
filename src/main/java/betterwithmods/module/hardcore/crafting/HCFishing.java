@@ -1,13 +1,13 @@
 package betterwithmods.module.hardcore.crafting;
 
-import betterwithmods.BWMod;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.entity.EntityHCFishHook;
 import betterwithmods.common.registry.crafting.BaitingRecipe;
+import betterwithmods.lib.ModLib;
+import betterwithmods.lib.TooltipLib;
 import betterwithmods.module.Feature;
 import betterwithmods.util.StackIngredient;
-import betterwithmods.util.TooltipLib;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
@@ -55,8 +55,8 @@ import java.util.Random;
  */
 @Mod.EventBusSubscriber
 public class HCFishing extends Feature {
-    public static final ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "gameplay/fishing"));
-    private static final ResourceLocation BAITED_FISHING_ROD = new ResourceLocation(BWMod.MODID, "baited_fishing_rod");
+    public static final ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(ModLib.MODID, "gameplay/fishing"));
+    private static final ResourceLocation BAITED_FISHING_ROD = new ResourceLocation(ModLib.MODID, "baited_fishing_rod");
     public static boolean requireBait, restrictToOpenWater;
     public static int minimumWaterDepth;
     public static Ingredient BAIT = Ingredient.EMPTY;
