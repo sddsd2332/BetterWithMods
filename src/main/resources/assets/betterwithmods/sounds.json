@@ -1,26 +1,26 @@
 {
-  "block.wood.creak": {
+  "block_wood_creak": {
     "category": "block",
     "sounds": [
       "betterwithmods:wood/wood_creak"
     ],
     "subtitle": "subtitles.bwm.wood.creak"
   },
-  "block.stone.grind": {
+  "block_grind_normal": {
     "category": "block",
     "sounds": [
       "betterwithmods:stone/stone_grind"
     ],
     "subtitle": "subtitles.bwm.stone.grind"
   },
-  "block.wood.bellow": {
+  "block_wood_bellow": {
     "category": "block",
     "sounds": [
       "betterwithmods:wood/bellow"
     ],
     "subtitle": "subtitles.bwm.wood.bellow"
   },
-  "block.wood.chime": {
+  "block_chime_wood": {
     "category": "block",
     "sounds": [
       "betterwithmods:wood/bamboo_chime_0",
@@ -30,7 +30,7 @@
     ],
     "subtitle": "subtitles.bwm.wood.chime"
   },
-  "block.metal.chime": {
+  "block_chime_metal": {
     "category": "block",
     "sounds": [
       "betterwithmods:metal/metal_chime_0",
@@ -39,21 +39,14 @@
     ],
     "subtitle": "subtitles.bwm.metal.chime"
   },
-  "block.metal.hacksaw": {
-    "category": "block",
-    "sounds": [
-      "betterwithmods:metal/hacksaw"
-    ],
-    "subtitle": "subtitles.bwm.metal.hacksaw"
-  },
-  "entity.player.oof": {
+  "entity_player_oof": {
     "category": "player",
     "sounds": [
       "betterwithmods:player/oof"
     ],
     "subtitle": "subtitles.bwm.oof"
   },
-  "block.millstone.netherrack": {
+  "block_grind_scream": {
     "category": "block",
     "sounds": [
       "mob/ghast/scream1",
@@ -64,14 +57,14 @@
     ],
     "subtitle": "subtitles.bwm.millstone.netherrack"
   },
-  "block.saw.cut": {
+  "block_saw_cut": {
     "category": "block",
     "sounds": [
       "minecart/base"
     ],
     "subtitle": "subtitle.bwm.saw.cut"
   },
-  "block.mechanical.overpower": {
+  "block_mechanical_overpower": {
     "category": "block",
     "sounds": [
       "mob/zombie/wood1",

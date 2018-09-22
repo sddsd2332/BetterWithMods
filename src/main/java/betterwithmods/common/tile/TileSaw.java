@@ -4,14 +4,12 @@ import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.BWMRegistry;
-import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.mechanical.BlockSaw;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
@@ -39,7 +37,8 @@ public class TileSaw extends TileBasic implements IMechanicalPower {
         if (recipe != null) {
             if (!recipe.craftRecipe(world, blockPos, rand, state)) {
                 if (!getBlock().isChoppingBlock(state, false) && WorldUtils.isSolid(world, blockPos, facing, state)) {
-                    world.playSound(null, blockPos, BWMSounds.METAL_HACKSAW, SoundCategory.BLOCKS, 1.0f, 0.80f);
+                    //TODO
+//                    world.playSound(null, blockPos, BWMSounds.METAL_HACKSAW, SoundCategory.BLOCKS, 1.0f, 0.80f);
                 }
             }
         }

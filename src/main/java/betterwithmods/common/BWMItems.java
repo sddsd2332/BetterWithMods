@@ -1,6 +1,5 @@
 package betterwithmods.common;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.items.*;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.items.tools.*;
@@ -146,9 +145,9 @@ public final class BWMItems {
         }
 
         if (item instanceof ItemFood || item instanceof ItemBlockEdible) {
-            item.setCreativeTab(BWCreativeTabs.FOODS);
+            item.setCreativeTab(BWMCreativeTabs.FOODS);
         } else {
-            item.setCreativeTab(BWCreativeTabs.ITEMS);
+            item.setCreativeTab(BWMCreativeTabs.ITEMS);
         }
 
         ITEMS.add(item);

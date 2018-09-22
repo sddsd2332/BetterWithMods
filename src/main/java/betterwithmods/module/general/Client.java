@@ -3,10 +3,10 @@ package betterwithmods.module.general;
 import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.common.tile.TileAxleGenerator;
-import betterwithmods.module.Feature;
+import betterwithmods.module.RequiredFeature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class Client extends Feature {
+public class Client extends RequiredFeature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
@@ -27,8 +27,4 @@ public class Client extends Feature {
         return "Change settings for the Client";
     }
 
-    @Override
-    protected boolean canEnable() {
-        return true;
-    }
 }

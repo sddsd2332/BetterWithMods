@@ -1,8 +1,8 @@
 package betterwithmods.common.event;
 
 import betterwithmods.common.BWMRegistry;
-import betterwithmods.common.BWMSounds;
 import betterwithmods.lib.ModLib;
+import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
@@ -80,7 +80,7 @@ public class PenaltyEventHandler {
             if (!world.isRemote && BWMRegistry.PENALTY_HANDLERS.inPain(player)) {
                 long time = world.getWorldTime();
                 if (PlayerHelper.isMoving(player) && time % (5*20) == 0) {
-                    world.playSound(null, player.getPosition(), BWMSounds.OOF, SoundCategory.BLOCKS, 0.75f, 1f);
+                    world.playSound(null, player.getPosition(), SoundRegistry.ENTITY_PLAYER_OOF, SoundCategory.BLOCKS, 0.75f, 1f);
                 }
             }
 
@@ -93,7 +93,7 @@ public class PenaltyEventHandler {
             EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
             if (PlayerHelper.isSurvival(player)) {
                 if (!BWMRegistry.PENALTY_HANDLERS.canAttack(player)) {
-                    player.playSound(BWMSounds.OOF, 0.75f, 1f);
+                    player.playSound(SoundRegistry.ENTITY_PLAYER_OOF, 0.75f, 1f);
                     event.setCanceled(true);
                     event.setResult(Event.Result.DENY);
                 }

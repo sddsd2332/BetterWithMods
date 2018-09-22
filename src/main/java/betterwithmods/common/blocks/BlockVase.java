@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.tile.TileVase;
 import betterwithmods.util.CapabilityUtils;
 import betterwithmods.util.ColorUtils;
@@ -8,6 +7,7 @@ import betterwithmods.util.InvUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -39,7 +39,7 @@ public class BlockVase extends BWMBlock {
     private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125D, 0, 0.125D, 0.875D, 1.0D, 0.875D);
 
     public BlockVase(EnumDyeColor color) {
-        super(BWMBlocks.POTTERY);
+        super(Material.ROCK);
         this.setHardness(2.0F);
         this.setHarvestLevel("pickaxe", -1);
         this.setSoundType(SoundType.GLASS);

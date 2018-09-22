@@ -1,6 +1,6 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.client.container.other.ContainerPulley;
+import betterwithmods.common.container.other.ContainerPulley;
 import betterwithmods.common.tile.TilePulley;
 import betterwithmods.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;

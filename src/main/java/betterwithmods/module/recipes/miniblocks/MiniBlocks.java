@@ -3,7 +3,6 @@ package betterwithmods.module.recipes.miniblocks;
 import betterwithmods.BWMod;
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWMRegistry;
@@ -13,6 +12,7 @@ import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
+import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;
 import betterwithmods.module.recipes.miniblocks.blocks.*;
 import betterwithmods.module.recipes.miniblocks.client.CamoModel;
@@ -194,7 +194,7 @@ public class MiniBlocks extends Feature {
 
         for (MiniType type : MiniType.VALUES) {
             for (BlockCamo mini : MINI_MATERIAL_BLOCKS.get(type).values()) {
-                BWMBlocks.registerBlock(mini, mini.createItemBlock(mini));
+                BlockRegistry.registerBlock(mini, mini.createItemBlock(mini));
             }
         }
     }

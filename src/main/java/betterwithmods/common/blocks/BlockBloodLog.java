@@ -1,7 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.BWMSounds;
-import betterwithmods.common.world.gen.feature.WorldGenBloodTree;
+import betterwithmods.common.worldgen.WorldGenBloodTree;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.SoundType;
@@ -23,7 +22,7 @@ import java.util.Random;
 public class BlockBloodLog extends BlockLog {
     public static final PropertyBool EXPANDABLE = PropertyBool.create("expandable");
 
-    public static final SoundType BLOODWOOD = new SoundType(1.0F, 1.0F, BWMSounds.BLOODWOOD_BREAK, SoundEvents.BLOCK_WOOD_STEP, SoundEvents.BLOCK_WOOD_PLACE, SoundEvents.BLOCK_WOOD_HIT, SoundEvents.BLOCK_WOOD_FALL);
+    public static final SoundType BLOODWOOD = new SoundType(1.0F, 1.0F, SoundEvents.BLOCK_SLIME_BREAK, SoundEvents.BLOCK_WOOD_STEP, SoundEvents.BLOCK_WOOD_PLACE, SoundEvents.BLOCK_WOOD_HIT, SoundEvents.BLOCK_WOOD_FALL);
 
     public BlockBloodLog() {
         this.setDefaultState(this.blockState.getBaseState().withProperty(LOG_AXIS, EnumAxis.Y).withProperty(EXPANDABLE, false));

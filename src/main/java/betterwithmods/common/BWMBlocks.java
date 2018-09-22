@@ -1,8 +1,6 @@
 package betterwithmods.common;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.blocks.*;
-import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.blocks.mechanical.*;
 import betterwithmods.common.blocks.mechanical.cookingpot.BlockCauldron;
 import betterwithmods.common.blocks.mechanical.cookingpot.BlockCrucible;
@@ -19,22 +17,18 @@ import betterwithmods.module.hardcore.beacons.TileBeacon;
 import betterwithmods.module.hardcore.beacons.TileEnderchest;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import javax.annotation.Nullable;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.List;
+import static betterwithmods.module.internal.BlockRegistry.registerBlock;
+import static betterwithmods.module.internal.BlockRegistry.registerBlocks;
 
+
+@GameRegistry.ObjectHolder(ModLib.MODID)
 public final class BWMBlocks {
-    public static final Material POTTERY = new Material(MapColor.STONE);
     public static final Block ANCHOR = new BlockAnchor().setRegistryName("anchor");
     public static final Block ROPE = new BlockRope().setRegistryName("rope");
     public static final Block FILTERED_HOPPER = new BlockFilteredHopper().setRegistryName("filtered_hopper");
@@ -46,18 +40,6 @@ public final class BWMBlocks {
     public static final Block WOODEN_BROKEN_GEARBOX = new BlockBrokenGearbox(Material.WOOD).setRegistryName("wooden_broken_gearbox");
     public static final Block HAND_CRANK = new BlockCrank().setRegistryName("hand_crank");
     public static final Block WICKER = new BlockWicker().setRegistryName("wicker");
-    public static final Block OAK_GRATE = new BlockPane(Material.WOOD).setRegistryName("oak_grate");
-    public static final Block SPRUCE_GRATE = new BlockPane(Material.WOOD).setRegistryName("spruce_grate");
-    public static final Block BIRCH_GRATE = new BlockPane(Material.WOOD).setRegistryName("birch_grate");
-    public static final Block JUNGLE_GRATE = new BlockPane(Material.WOOD).setRegistryName("jungle_grate");
-    public static final Block ACACIA_GRATE = new BlockPane(Material.WOOD).setRegistryName("acacia_grate");
-    public static final Block DARK_OAK_GRATE = new BlockPane(Material.WOOD).setRegistryName("dark_oak_grate");
-    public static final Block OAK_SLATS = new BlockPane(Material.WOOD).setRegistryName("oak_slats");
-    public static final Block SPRUCE_SLATS = new BlockPane(Material.WOOD).setRegistryName("spruce_slats");
-    public static final Block BIRCH_SLATS = new BlockPane(Material.WOOD).setRegistryName("birch_slats");
-    public static final Block JUNGLE_SLATS = new BlockPane(Material.WOOD).setRegistryName("jungle_slats");
-    public static final Block ACACIA_SLATS = new BlockPane(Material.WOOD).setRegistryName("acacia_slats");
-    public static final Block DARK_OAK_SLATS = new BlockPane(Material.WOOD).setRegistryName("dark_oak_slats");
     public static final Block URN = new BlockUrn(BlockUrn.EnumType.EMPTY).setRegistryName("urn");
     public static final Block SOUL_URN = new BlockUrn(BlockUrn.EnumType.SOUL).setRegistryName("soul_urn");
     public static final Block STOKED_FLAME = new BlockFireStoked().setRegistryName("stoked_flame");
@@ -105,8 +87,6 @@ public final class BWMBlocks {
     public static final Block BUCKET = new BlockBucket().setRegistryName("bucket");
     public static final Block BARREL = new BlockBarrel(Material.WOOD).setRegistryName("barrel");
 
-    private static final List<Block> BLOCKS = new ArrayList<>();
-
     static {
         BlockCandle.init();
         BlockVase.init();
@@ -118,11 +98,9 @@ public final class BWMBlocks {
         BlockRawPastry.init();
     }
 
-    public static List<Block> getBlocks() {
-        return BLOCKS;
-    }
+    public static void register() {
 
-    public static void registerBlocks() {
+
         registerBlocks(BlockPlanter.BLOCKS.values());
         registerBlocks(BlockCandle.BLOCKS.values());
         registerBlocks(BlockVase.BLOCKS.values());
@@ -142,18 +120,6 @@ public final class BWMBlocks {
         registerBlock(WOODEN_BROKEN_GEARBOX);
         registerBlock(HAND_CRANK);
         registerBlock(WICKER);
-        registerBlock(OAK_GRATE);
-        registerBlock(SPRUCE_GRATE);
-        registerBlock(BIRCH_GRATE);
-        registerBlock(JUNGLE_GRATE);
-        registerBlock(ACACIA_GRATE);
-        registerBlock(DARK_OAK_GRATE);
-        registerBlock(OAK_SLATS);
-        registerBlock(SPRUCE_SLATS);
-        registerBlock(BIRCH_SLATS);
-        registerBlock(JUNGLE_SLATS);
-        registerBlock(ACACIA_SLATS);
-        registerBlock(DARK_OAK_SLATS);
         registerBlock(URN);
         registerBlock(SOUL_URN, new ItemBlockUrn(SOUL_URN));
         registerBlock(STOKED_FLAME, null);
@@ -230,46 +196,5 @@ public final class BWMBlocks {
         GameRegistry.registerTileEntity(TileFurnace.class, new ResourceLocation(ModLib.MODID, "furnace"));
         GameRegistry.registerTileEntity(TileBucket.class, new ResourceLocation(ModLib.MODID, "bucket"));
         GameRegistry.registerTileEntity(TileBarrel.class, new ResourceLocation(ModLib.MODID, "barrel"));
-    }
-
-    public static void registerBlocks(Collection<? extends Block> blocks) {
-        blocks.forEach(BWMBlocks::registerBlock);
-    }
-
-    /**
-     * Register a block with its specified linked item. Block's registry name
-     * prevail and must be set before call.
-     *
-     * @param block Block instance to register.
-     * @param item  Item instance to register. Will have the same registered name
-     *              as the block. If null, then no item will be linked to the
-     */
-    public static void registerBlock(Block block, @Nullable Item item) {
-        if (block.getRegistryName() != null) {
-
-            if(block instanceof BlockCamo) {
-                block.setCreativeTab(BWCreativeTabs.MINI_BLOCKS);
-            } else {
-                block.setCreativeTab(BWCreativeTabs.BLOCKS);
-            }
-            //TODO remove this in 1.13, it is done automatically
-            if (block.getTranslationKey().equals("tile.null"))
-                block.setTranslationKey(block.getRegistryName().toString());
-            BLOCKS.add(block);
-            if (item != null) {
-                BWMItems.registerItem(item.setRegistryName(block.getRegistryName()));
-            }
-        }
-    }
-
-    /**
-     * Register a Block and a new ItemBlock generated from it.
-     *
-     * @param block Block instance to register.
-     * @return Registered block.
-     */
-    public static Block registerBlock(Block block) {
-        registerBlock(block, new ItemBlock(block));
-        return block;
     }
 }

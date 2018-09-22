@@ -6,6 +6,7 @@ import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockRailDetectorBase;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
+import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.recipes.MetalReclaming;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -19,7 +20,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.util.Objects;
 
-import static betterwithmods.common.BWMBlocks.registerBlock;
 
 public class DetectorRail extends Feature {
 
@@ -39,8 +39,8 @@ public class DetectorRail extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        registerBlock(DETECTOR_RAIL_STEEL);
-        registerBlock(DETECTOR_RAIL_STONE);
+        BlockRegistry.registerBlock(DETECTOR_RAIL_STEEL);
+        BlockRegistry.registerBlock(DETECTOR_RAIL_STONE);
 
         Blocks.DETECTOR_RAIL.setTranslationKey("detector_rail_wood");
 

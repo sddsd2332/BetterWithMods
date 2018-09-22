@@ -8,7 +8,7 @@ import betterwithmods.module.Module;
 public class Tweaks extends Module {
 
     @Override
-    public void addFeatures() {
+    public void setup() {
         addFeature(new FastStick().recipes());
         addFeature(new CheaperAxes().recipes());
         addFeature(new DetectorRail().recipes());

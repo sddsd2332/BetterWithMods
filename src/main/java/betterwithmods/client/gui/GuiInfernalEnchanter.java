@@ -1,6 +1,6 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.client.container.other.ContainerInfernalEnchanter;
+import betterwithmods.common.container.other.ContainerInfernalEnchanter;
 import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.lib.ModLib;
 import com.google.common.collect.Maps;

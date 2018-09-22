@@ -14,8 +14,7 @@ import betterwithmods.common.blocks.BlockDetector;
 import betterwithmods.common.blocks.BlockHemp;
 import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
-import betterwithmods.common.entity.*;
-import betterwithmods.common.entity.item.EntityFallingBlockCustom;
+import betterwithmods.common.entity.EntityMiningCharge;
 import betterwithmods.common.fluid.BWFluidRegistry;
 import betterwithmods.common.penalties.PenaltyHandlerRegistry;
 import betterwithmods.common.potion.BWPotion;
@@ -38,9 +37,6 @@ import betterwithmods.common.registry.hopper.filters.HopperFilters;
 import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.ReflectionLib;
-import betterwithmods.manual.api.API;
-import betterwithmods.manual.common.api.ManualDefinitionImpl;
-import betterwithmods.module.hardcore.creatures.EntityTentacle;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.util.*;
 import com.google.common.collect.Lists;
@@ -48,7 +44,6 @@ import com.google.common.collect.Sets;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.item.EntityMinecart;
 import net.minecraft.entity.passive.EntitySheep;
@@ -74,7 +69,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.EntityRegistry;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.registries.ForgeRegistry;
@@ -117,24 +111,17 @@ public class BWMRegistry {
     }
 
     public static void onPreInit() {
-        API.manualAPI = ManualDefinitionImpl.INSTANCE;
         BWFluidRegistry.registerFluids();
         BWAdvancements.registerAdvancements();
         BWNetwork.registerNetworking();
-        BWMBlocks.registerBlocks();
         BWMItems.registerItems();
         BWMBlocks.registerTileEntities();
-        BWMRegistry.registerEntities();
+        betterwithmods.module.internal.EntityRegistry.registerEntities();
         BWMRegistry.registerBlockDispenserBehavior();
         CapabilityManager.INSTANCE.register(IMechanicalPower.class, new CapabilityMechanicalPower.Impl(), CapabilityMechanicalPower.Default::new);
         CapabilityManager.INSTANCE.register(IAxle.class, new CapabilityAxle.Impl(), CapabilityAxle.Default::new);
         KilnStructureManager.registerKilnBlock(Blocks.BRICK_BLOCK.getDefaultState());
         KilnStructureManager.registerKilnBlock(Blocks.NETHER_BRICK.getDefaultState());
-    }
-
-    @SubscribeEvent
-    public static void registerBlocks(RegistryEvent.Register<Block> event) {
-        BWMBlocks.getBlocks().forEach(event.getRegistry()::register);
     }
 
     @SubscribeEvent
@@ -189,25 +176,6 @@ public class BWMRegistry {
 
     public static void postInit() {
         BellowsManager.postInit();
-    }
-
-    /**
-     * All names should be snake_case by convention (enforced in 1.11).
-     */
-    private static void registerEntities() {
-        BWMRegistry.registerEntity(EntityExtendingRope.class, "extending_rope", 64, 20, true);
-        BWMRegistry.registerEntity(EntityDynamite.class, "dynamite", 10, 50, true);
-        BWMRegistry.registerEntity(EntityUrn.class, "urn", 10, 50, true);
-        BWMRegistry.registerEntity(EntityMiningCharge.class, "mining_charge", 10, 50, true);
-        BWMRegistry.registerEntity(EntityShearedCreeper.class, "sheared_creeper", 64, 1, true);
-        BWMRegistry.registerEntity(EntityBroadheadArrow.class, "broadhead_arrow", 64, 1, true);
-        BWMRegistry.registerEntity(EntityFallingGourd.class, "falling_gourd", 64, 1, true);
-        BWMRegistry.registerEntity(EntityFallingBlockCustom.class, "falling_block_custom", 64, 20, true);
-        BWMRegistry.registerEntity(EntitySpiderWeb.class, "spider_web", 64, 20, true);
-        BWMRegistry.registerEntity(EntityHCFishHook.class, "fishing_hook", 64, 20, true);
-        BWMRegistry.registerEntity(EntityTentacle.class, "tentacle", 64, 1, true);
-        BWMRegistry.registerEntity(EntitySitMount.class, "sit_mount", 64, 20, false);
-        BWMRegistry.registerEntity(EntityJungleSpider.class, "jungle_spider", 64, 1, true, 0x3C6432, 0x648C50);
     }
 
     public static void registerBlockDispenserBehavior() {
@@ -290,23 +258,6 @@ public class BWMRegistry {
 
     }
 
-    /**
-     * Registers an entity for this mod. Handles automatic available ID
-     * assignment.
-     */
-    public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int trackingRange,
-                                      int updateFrequency, boolean sendsVelocityUpdates) {
-        EntityRegistry.registerModEntity(new ResourceLocation(ModLib.MODID, entityName), entityClass, entityName, availableEntityId, BWMod.instance, trackingRange,
-                updateFrequency, sendsVelocityUpdates);
-        availableEntityId++;
-    }
-
-
-    public static void registerEntity(Class<? extends Entity> entityClass, String entityName, int trackingRange, int updateFrequency, boolean sendsVelocityUpdates, int primaryColor, int secondaryColor) {
-        EntityRegistry.registerModEntity(new ResourceLocation(ModLib.MODID, entityName), entityClass, entityName, availableEntityId, BWMod.instance, trackingRange,
-                updateFrequency, sendsVelocityUpdates, primaryColor, secondaryColor);
-        availableEntityId++;
-    }
 
     public static void registerHeatSources() {
         BWMHeatRegistry.addHeatSource(new StateIngredient(Blocks.FIRE, Items.AIR), 1);

@@ -1,6 +1,6 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.client.container.ContainerProgress;
+import betterwithmods.common.container.ContainerProgress;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class GuiProgress extends GuiBase {

@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.client.render.RenderLongboi;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockWolf;
 import betterwithmods.common.entity.EntityLongboi;
@@ -9,6 +8,8 @@ import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
+import betterwithmods.module.internal.BlockRegistry;
+import betterwithmods.module.internal.EntityRegistry;
 import betterwithmods.util.EntityUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -52,8 +53,8 @@ public class LongBoi extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMBlocks.registerBlock(LONG_FRIEND);
-        BWMRegistry.registerEntity(EntityLongboi.class, "longboi", 64, 1, true, 0xe4d3d0, 0xfd742b);
+        BlockRegistry.registerBlock(LONG_FRIEND);
+        EntityRegistry.registerEntity(EntityLongboi.class, "longboi", 64, 1, true, 0xe4d3d0, 0xfd742b);
         BWMRegistry.TURNTABLE.addRecipe(new LongRecipe());
     }
 

@@ -32,7 +32,7 @@ public class Module extends ListStateHandler<Feature> {
         this.name = getClass().getSimpleName().toLowerCase();
     }
 
-    public void addFeatures() {
+    public void setup() {
     }
 
     /**
@@ -43,7 +43,7 @@ public class Module extends ListStateHandler<Feature> {
     public List<Feature> setup(ConfigHelper helper, Logger logger) {
         this.setLogger(logger);
         this.setConfig(helper);
-        this.addFeatures();
+        this.setup();
         this.enabled = canEnable();
         if (isEnabled()) {
             forEach(Feature::setup);

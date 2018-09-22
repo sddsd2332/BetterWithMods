@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.module.Feature;
-import betterwithmods.module.general.player.PlayerDataHandler;
+import betterwithmods.module.internal.player.PlayerDataHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.scoreboard.Scoreboard;

@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.EntityJungleSpider;
-import betterwithmods.common.entity.EntitySpawnWhitelist;
+import betterwithmods.common.entity.SpawningWhitelist;
 import betterwithmods.common.registry.block.recipe.BlockMaterialIngredient;
 import betterwithmods.module.Feature;
 import net.minecraft.block.material.Material;
@@ -26,8 +26,8 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
  * Created by primetoxinz on 4/20/17.
  */
 public class MobSpawning extends Feature {
-    public static final EntitySpawnWhitelist NETHER = new EntitySpawnWhitelist();
-    public static final EntitySpawnWhitelist SLIME = new EntitySpawnWhitelist();
+    public static final SpawningWhitelist NETHER = new SpawningWhitelist();
+    public static final SpawningWhitelist SLIME = new SpawningWhitelist();
 
     private static boolean slime, nether, witches, jungleSpiders;
 

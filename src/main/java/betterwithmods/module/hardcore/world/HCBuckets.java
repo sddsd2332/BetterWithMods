@@ -1,11 +1,11 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockIce;
 import betterwithmods.common.blocks.behaviors.BehaviorFluidContainer;
 import betterwithmods.module.Feature;
 import betterwithmods.module.general.General;
+import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.util.FluidUtils;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
@@ -92,7 +92,7 @@ public class HCBuckets extends Feature {
         stopDispenserFillBehavior = loadProperty("Stop Dispenser Fill Behavior", false).setComment("Disallow the dispenser from using an empty bucket for anything.").get();
 
         if (fixIce) {
-            BWMBlocks.registerBlock(ICE);
+            BlockRegistry.registerBlock(ICE);
         }
     }
 

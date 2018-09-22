@@ -10,7 +10,7 @@ import betterwithmods.module.recipes.miniblocks.MiniBlocks;
 public class Recipes extends Module {
 
     @Override
-    public void addFeatures() {
+    public void setup() {
         addFeature(new MetalReclaming());
         addFeature(new NuggetCompression());
         addFeature(new HarderSteelRecipe());

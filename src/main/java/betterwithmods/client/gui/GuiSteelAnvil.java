@@ -1,6 +1,6 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.client.container.anvil.ContainerSteelAnvil;
+import betterwithmods.common.container.anvil.ContainerSteelAnvil;
 import betterwithmods.common.tile.TileSteelAnvil;
 import betterwithmods.lib.ModLib;
 import net.minecraft.util.ResourceLocation;

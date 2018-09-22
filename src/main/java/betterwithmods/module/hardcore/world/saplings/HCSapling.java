@@ -1,11 +1,11 @@
 package betterwithmods.module.hardcore.world.saplings;
 
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
+import betterwithmods.module.internal.BlockRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
@@ -38,7 +38,7 @@ public class HCSapling extends Feature {
         for (BlockPlanks.EnumType type : BlockPlanks.EnumType.values()) {
             IBlockState sapling = getSapling(type);
             Block crop = new BlockSaplingCrop(sapling).setRegistryName(ModLib.MODID, String.format("sapling_crop_%s", type.getName()));
-            BWMBlocks.registerBlock(crop, null);
+            BlockRegistry.registerBlock(crop, null);
             SAPLING_CONVERSIONS.add(new SaplingConversion(new BlockDropIngredient(BWMRecipes.getStackFromState(sapling)), crop));
         }
     }

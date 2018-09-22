@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.camo;
 
-import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
+import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.recipes.miniblocks.ItemCamo;
@@ -47,7 +47,7 @@ public abstract class BlockCamo extends BWMBlock {
     public BlockCamo(Material material, Function<Material, Collection<IBlockState>> subtypes) {
         super(material);
         this.subtypes = subtypes;
-        setCreativeTab(BWCreativeTabs.MINI_BLOCKS);
+        setCreativeTab(BWMCreativeTabs.MINI_BLOCKS);
     }
 
     public Optional<? extends TileCamo> getTile(IBlockAccess world, BlockPos pos) {

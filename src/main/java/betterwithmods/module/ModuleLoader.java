@@ -10,7 +10,7 @@
  */
 package betterwithmods.module;
 
-import betterwithmods.api.modules.impl.ListStateHandler;
+import betterwithmods.api.modules.impl.PriorityStateHandler;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonObject;
@@ -28,7 +28,7 @@ import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
-public class ModuleLoader extends ListStateHandler<Module> {
+public class ModuleLoader extends PriorityStateHandler<Module> {
 
     static final HashMap<String, Boolean> JSON_CONDITIONS = Maps.newHashMap();
 

@@ -5,9 +5,9 @@ import betterwithmods.api.block.IAdvancedRotationPlacement;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.api.block.IRenderRotationPlacement;
 import betterwithmods.client.ClientEventHandler;
-import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileGearbox;
+import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -106,7 +106,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
                     world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundEvents.ENTITY_ZOMBIE_ATTACK_DOOR_WOOD, SoundCategory.BLOCKS, 0.25F, world.rand.nextFloat() * 0.25F + 0.25F, true);
             }
             if (rand.nextInt(50) == 0) {
-                world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, BWMSounds.WOODCREAK, SoundCategory.BLOCKS, 0.25F, world.rand.nextFloat() * 0.25F + 0.25F, false);
+                world.playSound(pos.getX() + 0.5D, pos.getY() + 0.5D, pos.getZ() + 0.5D, SoundRegistry.BLOCK_WOOD_CREAK, SoundCategory.BLOCKS, 0.25F, world.rand.nextFloat() * 0.25F + 0.25F, false);
             }
 
         }
@@ -179,7 +179,7 @@ public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, 
     @Override
     public void onChangeActive(World world, BlockPos pos, boolean newValue) {
         if (newValue) {
-            world.playSound(null, pos, BWMSounds.WOODCREAK, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.25F + 0.25F);
+            world.playSound(null, pos, SoundRegistry.BLOCK_WOOD_CREAK, SoundCategory.BLOCKS, 0.5F, world.rand.nextFloat() * 0.25F + 0.25F);
         }
     }
 

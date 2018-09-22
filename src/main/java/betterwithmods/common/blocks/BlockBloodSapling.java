@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.world.gen.feature.WorldGenBloodTree;
+import betterwithmods.common.worldgen.WorldGenBloodTree;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyInteger;

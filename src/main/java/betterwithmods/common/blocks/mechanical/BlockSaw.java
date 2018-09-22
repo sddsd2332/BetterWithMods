@@ -2,11 +2,11 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMDamageSource;
-import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.tile.TileSaw;
 import betterwithmods.lib.ModLib;
+import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
@@ -148,9 +148,9 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
         emitSawParticles(world, pos, rand, EnumParticleTypes.SMOKE_NORMAL, 5);
         if (newValue) {
             world.scheduleBlockUpdate(pos, this, tickRate(world) + rand.nextInt(6), 5);
-            world.playSound(null, pos, BWMSounds.SAW_CUT, SoundCategory.BLOCKS, 1.0F + rand.nextFloat() * 0.1F, 1.5F + rand.nextFloat() * 0.1F);
+            world.playSound(null, pos, SoundRegistry.BLOCK_SAW_CUT, SoundCategory.BLOCKS, 1.0F + rand.nextFloat() * 0.1F, 1.5F + rand.nextFloat() * 0.1F);
         } else {
-            world.playSound(null, pos, BWMSounds.SAW_CUT, SoundCategory.BLOCKS, 1.0F + rand.nextFloat() * 0.1F, 0.75F + rand.nextFloat() * 0.1F);
+            world.playSound(null, pos, SoundRegistry.BLOCK_SAW_CUT, SoundCategory.BLOCKS, 1.0F + rand.nextFloat() * 0.1F, 0.75F + rand.nextFloat() * 0.1F);
         }
     }
 
@@ -180,7 +180,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
             }
             if (source != null && entity.attackEntityFrom(source, damage)) {
                 ((EntityLivingBase) entity).recentlyHit = 60;
-                world.playSound(null, pos, BWMSounds.SAW_CUT, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat() * 0.1F, 1.5F + world.rand.nextFloat() * 0.1F);
+                world.playSound(null, pos, SoundRegistry.BLOCK_SAW_CUT, SoundCategory.BLOCKS, 1.0F + world.rand.nextFloat() * 0.1F, 1.5F + world.rand.nextFloat() * 0.1F);
             }
         }
     }

@@ -1,6 +1,6 @@
 package betterwithmods.module.compat.jei;
 
-import betterwithmods.client.container.anvil.ContainerSteelAnvil;
+import betterwithmods.common.container.anvil.ContainerSteelAnvil;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.inventory.Slot;

@@ -34,7 +34,7 @@ public class Hardcore extends Module {
 
 
     @Override
-    public void addFeatures() {
+    public void setup() {
 
         addFeature(HCHunger.class, "applecore");
         addFeature(HCMobEquipment.class, "betterwithlib");

@@ -3,11 +3,11 @@ package betterwithmods.module.recipes;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWMRegistry;
-import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.module.Feature;
+import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.ColorUtils;
 import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
@@ -54,7 +54,7 @@ public class MillRecipes extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        BWMRegistry.MILLSTONE.addMillRecipe(new OreIngredient("netherrack"), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.GROUND_NETHERRACK)), BWMSounds.MILLSTONE_NETHERRACK);
+        BWMRegistry.MILLSTONE.addMillRecipe(new OreIngredient("netherrack"), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.GROUND_NETHERRACK)), SoundRegistry.BLOCK_GRIND_SCREAM);
         BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.BLAZE_ROD), Lists.newArrayList(new ItemStack(Items.BLAZE_POWDER, 3)), SoundEvents.ENTITY_BLAZE_DEATH);
 
         BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(BWMBlocks.WOLF), Lists.newArrayList(new ItemStack(Items.STRING, 10), ColorUtils.getDye(EnumDyeColor.RED, 3)), SoundEvents.ENTITY_WOLF_WHINE);

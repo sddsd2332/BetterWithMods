@@ -1,10 +1,10 @@
 package betterwithmods.module.hardcore.crafting;
 
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockFurnace;
 import betterwithmods.lib.TooltipLib;
 import betterwithmods.module.Feature;
+import betterwithmods.module.internal.BlockRegistry;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -81,8 +81,8 @@ public class HCFurnace extends Feature {
         TOOLTIP = loadProperty("Tooltip for modified cooking time", true).setComment("Shows a tooltip for items with modified cooking time").get();
 
 
-        BWMBlocks.registerBlock(FURNACE);
-        BWMBlocks.registerBlock(LIT_FURNACE, null);
+        BlockRegistry.registerBlock(FURNACE);
+        BlockRegistry.registerBlock(LIT_FURNACE, null);
     }
 
     @Override

@@ -2,10 +2,10 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.registry.BellowsManager;
 import betterwithmods.common.tile.TileBellows;
+import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
@@ -91,10 +91,10 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
     public void onChangeActive(World world, BlockPos pos, boolean active) {
         world.scheduleBlockUpdate(pos, this, tickRate(world), 5);
         if (active) {
-            world.playSound(null, pos, BWMSounds.BELLOW, SoundCategory.BLOCKS, 0.7F, world.rand.nextFloat() * 0.25F + 2.5F);
+            world.playSound(null, pos, SoundRegistry.BLOCK_WOOD_BELLOW, SoundCategory.BLOCKS, 0.7F, world.rand.nextFloat() * 0.25F + 2.5F);
             blow(world, pos);
         } else {
-            world.playSound(null, pos, BWMSounds.BELLOW, SoundCategory.BLOCKS, 0.2F, world.rand.nextFloat() * 0.25F + 2.5F);
+            world.playSound(null, pos, SoundRegistry.BLOCK_WOOD_BELLOW, SoundCategory.BLOCKS, 0.2F, world.rand.nextFloat() * 0.25F + 2.5F);
         }
         liftCollidingEntities(world, pos);
     }

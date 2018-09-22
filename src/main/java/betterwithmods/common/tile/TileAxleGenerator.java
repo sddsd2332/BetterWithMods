@@ -2,9 +2,9 @@ package betterwithmods.common.tile;
 
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.common.BWMSounds;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
 import betterwithmods.common.blocks.mechanical.IBlockActive;
+import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -85,7 +85,7 @@ public abstract class TileAxleGenerator extends TileBasic implements ITickable, 
                 this.currentRotation += (this.power * this.power) * runningSpeed * waterMod;
                 this.currentRotation %= 360;
                 if (this.getBlockWorld().rand.nextInt(100) == 0)
-                    this.getBlockWorld().playSound(null, pos, BWMSounds.WOODCREAK, SoundCategory.BLOCKS, 0.5F, getBlockWorld().rand.nextFloat() * 0.25F + 0.25F);
+                    this.getBlockWorld().playSound(null, pos, SoundRegistry.BLOCK_WOOD_CREAK, SoundCategory.BLOCKS, 0.5F, getBlockWorld().rand.nextFloat() * 0.25F + 0.25F);
             } else {
                 previousRotation = 0;
                 currentRotation = 0;

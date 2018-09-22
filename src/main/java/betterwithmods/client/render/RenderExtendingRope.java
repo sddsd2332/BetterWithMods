@@ -3,12 +3,6 @@ package betterwithmods.client.render;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.entity.EntityExtendingRope;
-import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.BlockBucket;
-import betterwithmods.common.entity.EntityExtendingRope;
-import betterwithmods.common.tile.TileBucket;
-import betterwithmods.util.AABBArray;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
@@ -21,10 +15,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
 import net.minecraft.world.World;
+import org.lwjgl.opengl.GL11;
 
 import javax.annotation.Nonnull;
-
-import org.lwjgl.opengl.GL11;
 
 public class RenderExtendingRope extends Render<EntityExtendingRope> {
 

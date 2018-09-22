@@ -2,9 +2,9 @@ package betterwithmods.common.registry.bulk.manager;
 
 import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.common.BWMRegistry;
-import betterwithmods.common.BWMSounds;
 import betterwithmods.common.registry.bulk.recipes.MillRecipe;
 import betterwithmods.common.tile.TileMill;
+import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
@@ -72,7 +72,7 @@ public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
             MillRecipe recipe = findRecipe(recipes, tile).orElse(null);
 
             if (mill.getBlockWorld().rand.nextInt(20) == 0)
-                mill.getBlockWorld().playSound(null, mill.getBlockPos(), BWMSounds.STONEGRIND, SoundCategory.BLOCKS, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F);
+                mill.getBlockWorld().playSound(null, mill.getBlockPos(), SoundRegistry.BLOCK_GRIND_NORMAL, SoundCategory.BLOCKS, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F);
 
             if (recipe != null) {
                 if (mill.grindMax != recipe.getTicks())

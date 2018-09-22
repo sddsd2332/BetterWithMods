@@ -1,6 +1,6 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.client.container.other.ContainerBlockDispenser;
+import betterwithmods.common.container.other.ContainerBlockDispenser;
 import betterwithmods.common.tile.TileBlockDispenser;
 import betterwithmods.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,7 +1,7 @@
 package betterwithmods.client.gui.bulk;
 
-import betterwithmods.client.container.bulk.ContainerCookingPot;
 import betterwithmods.client.gui.GuiProgress;
+import betterwithmods.common.container.bulk.ContainerCookingPot;
 import betterwithmods.common.tile.TileCookingPot;
 import betterwithmods.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;

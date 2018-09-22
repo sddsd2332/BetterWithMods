@@ -1,7 +1,7 @@
 package betterwithmods.module.general;
 
 import betterwithmods.common.tile.TileWaterwheel;
-import betterwithmods.module.Feature;
+import betterwithmods.module.RequiredFeature;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
@@ -9,17 +9,7 @@ import java.util.Arrays;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-public class Waterwheel extends Feature {
-    @Override
-    protected boolean canEnable() {
-        return true;
-    }
-
-    @Override
-    public String getDescription() {
-        return null;
-    }
-
+public class Waterwheel extends RequiredFeature {
     @Override
     public void onPostInit(FMLPostInitializationEvent event) {
         Arrays.stream(

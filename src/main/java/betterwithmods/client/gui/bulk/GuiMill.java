@@ -1,7 +1,7 @@
 package betterwithmods.client.gui.bulk;
 
-import betterwithmods.client.container.bulk.ContainerMill;
 import betterwithmods.client.gui.GuiProgress;
+import betterwithmods.common.container.bulk.ContainerMill;
 import betterwithmods.common.tile.TileMill;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;

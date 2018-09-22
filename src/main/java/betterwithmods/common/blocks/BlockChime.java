@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.BWMSounds;
+import betterwithmods.module.internal.SoundRegistry;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
@@ -40,7 +40,7 @@ public class BlockChime extends BWMBlock {
 
         this.setSoundType(SoundType.WOOD);
         this.setRegistryName((material == Material.WOOD ? "bamboo" : "metal") + "_chime_" + type.getName());
-        this.setChimeSound(material == Material.IRON ? BWMSounds.METALCHIME : BWMSounds.WOODCHIME);
+        this.setChimeSound(material == Material.IRON ? SoundRegistry.BLOCK_CHIME_METAL: SoundRegistry.BLOCK_CHIME_WOOD);
     }
 
     public static void init() {

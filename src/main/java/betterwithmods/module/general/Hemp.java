@@ -2,12 +2,12 @@ package betterwithmods.module.general;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockHemp;
-import betterwithmods.module.Feature;
+import betterwithmods.module.RequiredFeature;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-public class Hemp extends Feature {
+public class Hemp extends RequiredFeature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
@@ -19,11 +19,6 @@ public class Hemp extends Feature {
         BlockHemp.fertileModifier = loadProperty("Fertile Modifer", 1.33d).setComment("Modifies Hemp Growth Chance when planted on Fertile Farmland").get();
         BlockHemp.lampModifier = loadProperty("Light Block Modifier", 1.5d).setComment("Modifies Hemp Growth Chance when a Light Block is two blocks above the Hemp").get();
         BlockHemp.neighborModifier = loadProperty("Neighbor Modifier", 1.1d).setComment("Modifies Hemp Growth Chance for each other crop next to it").get();
-    }
-
-    @Override
-    protected boolean canEnable() {
-        return true;
     }
 
     @Override

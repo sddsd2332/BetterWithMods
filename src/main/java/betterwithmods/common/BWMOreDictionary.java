@@ -144,8 +144,6 @@ public class BWMOreDictionary {
         registerOre("logWood", new ItemStack(BWMBlocks.BLOOD_LOG));
         registerOre("blockNetherSludge", new ItemStack(BWMBlocks.NETHER_CLAY));
 
-        registerOre("slats", new ItemStack(BWMBlocks.OAK_SLATS), new ItemStack(BWMBlocks.SPRUCE_SLATS), new ItemStack(BWMBlocks.BIRCH_SLATS), new ItemStack(BWMBlocks.JUNGLE_SLATS), new ItemStack(BWMBlocks.ACACIA_SLATS), new ItemStack(BWMBlocks.DARK_OAK_SLATS));
-        registerOre("grates", new ItemStack(BWMBlocks.OAK_GRATE), new ItemStack(BWMBlocks.SPRUCE_GRATE), new ItemStack(BWMBlocks.BIRCH_GRATE), new ItemStack(BWMBlocks.JUNGLE_GRATE), new ItemStack(BWMBlocks.ACACIA_GRATE), new ItemStack(BWMBlocks.DARK_OAK_GRATE));
         registerOre("wicker", new ItemStack(BWMBlocks.WICKER));
 
         registerOre("blockPlanter", BlockPlanter.BLOCKS.values());

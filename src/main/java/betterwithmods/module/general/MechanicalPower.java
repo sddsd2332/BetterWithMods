@@ -2,13 +2,13 @@ package betterwithmods.module.general;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.module.ConfigHelper;
-import betterwithmods.module.Feature;
+import betterwithmods.module.RequiredFeature;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
-public class MechanicalPower extends Feature {
+public class MechanicalPower extends RequiredFeature {
 
     public static float HAND_CRANK_EXHAUSTION;
 
@@ -48,8 +48,4 @@ public class MechanicalPower extends Feature {
         return "Configurations for Mechanical Power";
     }
 
-    @Override
-    protected boolean canEnable() {
-        return true;
-    }
 }

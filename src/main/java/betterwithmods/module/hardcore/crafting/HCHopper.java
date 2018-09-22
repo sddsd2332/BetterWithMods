@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.module.Feature;
+import betterwithmods.module.internal.BlockRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +30,7 @@ public class HCHopper extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMBlocks.registerBlock(HOPPER);
+        BlockRegistry.registerBlock(HOPPER);
     }
 
     public static class BlockHopper extends net.minecraft.block.BlockHopper {

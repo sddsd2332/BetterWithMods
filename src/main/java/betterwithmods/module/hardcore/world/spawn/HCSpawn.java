@@ -4,7 +4,7 @@ import betterwithmods.BWMod;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.Feature;
 import betterwithmods.module.general.General;
-import betterwithmods.module.general.player.PlayerInfo;
+import betterwithmods.module.internal.player.PlayerInfo;
 import betterwithmods.util.WorldUtils;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.block.material.Material;

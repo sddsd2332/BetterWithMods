@@ -9,8 +9,6 @@ import net.minecraft.entity.ai.RandomPositionGenerator;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
 
-import java.util.function.Predicate;
-
 /**
  * The Entity will flee from threats in the opposite direction.
  *

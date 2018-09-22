@@ -1,7 +1,7 @@
 package betterwithmods.module.general;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.module.RequiredFeature;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;
@@ -23,7 +23,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
-public class FluidBottles extends Feature {
+public class FluidBottles extends RequiredFeature {
 
     private static int waterBottleAmount = 300;
 
@@ -169,11 +169,6 @@ public class FluidBottles extends Feature {
 
     }
 
-
-    @Override
-    protected boolean canEnable() {
-        return true;
-    }
 
     @Override
     public String getDescription() {

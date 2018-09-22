@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.api.recipe.output.IRecipeOutputs;
-import betterwithmods.common.BWMSounds;
+import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.StackEjector;
 import betterwithmods.util.VectorBuilder;
 import net.minecraft.block.state.IBlockState;
@@ -36,7 +36,7 @@ public class SawRecipe extends BlockRecipe {
         for (ItemStack stack : output) {
             EJECTOR.setStack(stack).ejectStack(world, new Vec3d(pos), Vec3d.ZERO);
         }
-        world.playSound(null, pos, BWMSounds.SAW_CUT, SoundCategory.BLOCKS, 1.5F + rand.nextFloat() * 0.1F, 2.0F + rand.nextFloat() * 0.1F);
+        world.playSound(null, pos, SoundRegistry.BLOCK_SAW_CUT, SoundCategory.BLOCKS, 1.5F + rand.nextFloat() * 0.1F, 2.0F + rand.nextFloat() * 0.1F);
         return true;
     }
 }

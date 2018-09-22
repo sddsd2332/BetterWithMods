@@ -1,10 +1,11 @@
 package betterwithmods.module.general;
 
-import betterwithmods.module.Module;
-import betterwithmods.module.general.player.PlayerDataHandler;
+import betterwithmods.module.RequiredModule;
+import betterwithmods.module.internal.UnitTesting;
+import betterwithmods.module.internal.player.PlayerDataHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
-public class General extends Module {
+public class General extends RequiredModule {
 
     private static boolean debug;
 
@@ -13,7 +14,7 @@ public class General extends Module {
     }
 
     @Override
-    public void addFeatures() {
+    public void setup() {
         addFeatures(
                 new Client(),
                 new Waterwheel(),
@@ -25,11 +26,6 @@ public class General extends Module {
                 new FluidBottles(),
                 new UnitTesting()
         );
-    }
-
-    @Override
-    protected boolean canEnable() {
-        return true;
     }
 
     @Override

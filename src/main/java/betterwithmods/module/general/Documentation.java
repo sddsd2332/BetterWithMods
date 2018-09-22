@@ -3,13 +3,14 @@ package betterwithmods.module.general;
 import betterwithmods.common.BWMItems;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
+import betterwithmods.manual.api.API;
 import betterwithmods.manual.api.ManualAPI;
 import betterwithmods.manual.api.prefab.manual.TextureTabIconRenderer;
 import betterwithmods.manual.common.DirectoryDefaultProvider;
 import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.manual.custom.StatePathProvider;
 import betterwithmods.module.Feature;
-import betterwithmods.module.general.player.PlayerInfo;
+import betterwithmods.module.internal.player.PlayerInfo;
 import betterwithmods.util.InvUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
@@ -37,6 +38,7 @@ public class Documentation extends Feature {
 
     @Override
     public void onInitClient(FMLInitializationEvent event) {
+        API.manualAPI = ManualDefinitionImpl.INSTANCE;
         ManualAPI.addProvider(new DirectoryDefaultProvider(new ResourceLocation(ModLib.MODID, "documentation/docs/")));
         ManualDefinitionImpl.INSTANCE.addDefaultProviders();
         ManualAPI.addProvider(new StatePathProvider());

@@ -1,7 +1,7 @@
 package betterwithmods.client.gui.bulk;
 
-import betterwithmods.client.container.bulk.ContainerFilteredHopper;
 import betterwithmods.client.gui.GuiProgress;
+import betterwithmods.common.container.bulk.ContainerFilteredHopper;
 import betterwithmods.common.tile.TileFilteredHopper;
 import betterwithmods.lib.ModLib;
 import net.minecraft.entity.player.EntityPlayer;
