@@ -93,6 +93,7 @@ public class TileCamo extends TileBasic {
 
     public void setState(IBlockState state) {
         this.state = state;
+        this.markDirty();
     }
 
     public ItemStack getPickBlock(EntityPlayer player, RayTraceResult target, IBlockState state) {

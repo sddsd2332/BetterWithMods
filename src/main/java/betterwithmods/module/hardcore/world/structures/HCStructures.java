@@ -3,7 +3,6 @@ package betterwithmods.module.hardcore.world.structures;
 import betterwithmods.bwl.event.StructureSetBlockEvent;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.blocks.mechanical.BlockCookingPot;
 import betterwithmods.common.registry.block.recipe.StateIngredient;
 import betterwithmods.module.Feature;
 import com.google.common.collect.Sets;
@@ -15,8 +14,8 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -26,6 +25,7 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber
 public class HCStructures extends Feature {
     public static int HARDCORE_STRUCTURE_RADIUS;
     private boolean disableRecipes;
@@ -39,35 +39,22 @@ public class HCStructures extends Feature {
     public static Set<StructureChanger> WITCH_HUT = Sets.newHashSet();
     public static StructureChanger WITCH_HUT_CHANGER = StructureChanger.create(WITCH_HUT, (w, p) -> true);
 
-    @Deprecated
-    public static boolean isInRadius(World worldIn, int worldX, int worldZ) {
-        return false;
-    }
-
     @Override
-    public String getFeatureDescription() {
+    public String getDescription() {
         return "Makes it so structures are looted within a radius of spawn and unlooted outside of that radius. Encourages exploration and also makes unlooted structures the only source of Enchanting Tables and Brewing Stands.";
     }
 
+
     @Override
-    public void setupConfig() {
-        HARDCORE_STRUCTURE_RADIUS = loadPropInt("Hardcore Structure Radius", "Radius from original spawn which structures will be abandoned in", 2000);
-        disableRecipes = loadPropBool("Disable Recipes", "Disable Recipes for blocks that generate only in structures, including Enchanting Tables and Brewing Stands", true);
+    public void onPreInit(FMLPreInitializationEvent event) {
+        HARDCORE_STRUCTURE_RADIUS = loadProperty("Hardcore Structure Radius", 2000).setComment("Radius from original spawn which structures will be abandoned in").get();
+        disableRecipes = loadProperty("Disable Recipes", true).setComment("Disable Recipes for blocks that generate only in structures, including Enchanting Tables and Brewing Stands").get();
         ABANDONED_DESERT_TEMPLE = StructureChanger.create(DESERT_TEMPLE, (w, p) -> p.distanceSq(w.getSpawnPoint()) < HARDCORE_STRUCTURE_RADIUS * HARDCORE_STRUCTURE_RADIUS);
         NORMAL_DESERT_TEMPLE = StructureChanger.create(DESERT_TEMPLE, (w, p) -> p.distanceSq(w.getSpawnPoint()) >= HARDCORE_STRUCTURE_RADIUS * HARDCORE_STRUCTURE_RADIUS);
 
         ABANDONED_JUNGLE_TEMPLE = StructureChanger.create(JUNGLE_TEMPLE, (w, p) -> p.distanceSq(w.getSpawnPoint()) < HARDCORE_STRUCTURE_RADIUS * HARDCORE_STRUCTURE_RADIUS);
         NORMAL_JUNGLE_TEMPLE = StructureChanger.create(JUNGLE_TEMPLE, (w, p) -> p.distanceSq(w.getSpawnPoint()) >= HARDCORE_STRUCTURE_RADIUS * HARDCORE_STRUCTURE_RADIUS);
-    }
 
-    @Override
-    public boolean requiresMinecraftRestartToEnable() {
-        return true;
-    }
-
-
-    @Override
-    public void preInit(FMLPreInitializationEvent event) {
         if (disableRecipes) {
             BWMRecipes.removeRecipe(new ItemStack(Blocks.ENCHANTING_TABLE));
             BWMRecipes.removeRecipe(new ItemStack(Items.BREWING_STAND));
@@ -75,7 +62,7 @@ public class HCStructures extends Feature {
     }
 
     @Override
-    public void init(FMLInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         ABANDONED_DESERT_TEMPLE
                 //Dig hole
                 .addChanger(new RelativePosChanger(Blocks.AIR.getDefaultState(),
@@ -106,7 +93,7 @@ public class HCStructures extends Feature {
 
         NORMAL_JUNGLE_TEMPLE
                 .addChanger(new RelativePosChanger(BWMBlocks.HAND_CRANK.getDefaultState(), new BlockPos(5, 3, 10)))
-                .addChanger(new RelativePosChanger(BWMBlocks.COOKING_POTS.getDefaultState().withProperty(BlockCookingPot.TYPE, BlockCookingPot.EnumType.DRAGONVESSEL), new BlockPos(6, 3, 10)));
+                .addChanger(new RelativePosChanger(BWMBlocks.DRAGON_VESSEL.getDefaultState(), new BlockPos(6, 3, 10)));
 
 
         WITCH_HUT_CHANGER
@@ -127,13 +114,4 @@ public class HCStructures extends Feature {
         }
     }
 
-    @Override
-    public boolean hasSubscriptions() {
-        return true;
-    }
-
-    @Override
-    public boolean hasTerrainSubscriptions() {
-        return true;
-    }
 }

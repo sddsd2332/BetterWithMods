@@ -10,6 +10,7 @@ import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.Feature;
 import betterwithmods.module.recipes.AnvilRecipes;
 import betterwithmods.module.recipes.miniblocks.blocks.*;
@@ -77,6 +78,7 @@ public class MiniBlocks extends Feature {
             MINI_MATERIAL_BLOCKS.put(type, Maps.newHashMap());
         }
     }
+
 
     public static List<ItemStack> getStacks(MiniType type, Material material) {
         List<ItemStack> stacks = Lists.newArrayList();
@@ -393,4 +395,13 @@ public class MiniBlocks extends Feature {
         return "Dynamically generate Siding, Mouldings and Corners for many of the blocks in the game.";
     }
 
+
+    public static void placeMini(World world, BlockPos pos, MiniType type, IBlockState parent) {
+        Material material = parent.getMaterial();
+        Block block = MINI_MATERIAL_BLOCKS.get(type).get(material);
+        world.setBlockState(pos, block.getDefaultState());
+        TileCamo camo = (TileCamo) world.getTileEntity(pos);
+        if(camo != null)
+            camo.setState(parent);
+    }
 }
