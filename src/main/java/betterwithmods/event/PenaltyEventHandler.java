@@ -4,6 +4,8 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.BWSounds;
 import betterwithmods.util.player.PlayerHelper;
+import it.unimi.dsi.fastutil.objects.Object2IntMap;
+import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.SoundCategory;
@@ -14,6 +16,8 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+
+import java.util.UUID;
 
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class PenaltyEventHandler {
@@ -59,6 +63,19 @@ public class PenaltyEventHandler {
         }
     }
 
+
+    private static Object2IntMap<UUID> painTimers = new Object2IntOpenHashMap<>();
+
+    private static boolean inPain(EntityPlayer player) {
+        UUID uuid = player.getUniqueID();
+        if(painTimers.get(uuid) > 60) {
+            painTimers.put(uuid, 0);
+            return true;
+        }
+        painTimers.put(uuid, painTimers.getOrDefault(uuid, 0) + 1);
+        return false;
+    }
+
     @SubscribeEvent
     public static void onPlayerUpdate(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
@@ -79,8 +96,7 @@ public class PenaltyEventHandler {
             //Pain
 
             if (!world.isRemote && BWRegistry.PENALTY_HANDLERS.inPain(player)) {
-                long time = world.getWorldTime();
-                if (PlayerHelper.isMoving(player) && time % (5*20) == 0) {
+                if (PlayerHelper.isMoving(player) && inPain(player)) {
                     world.playSound(null, player.getPosition(), BWSounds.OOF, SoundCategory.BLOCKS, 0.75f, 1f);
                 }
             }
