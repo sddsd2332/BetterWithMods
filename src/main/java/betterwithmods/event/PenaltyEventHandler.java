@@ -68,7 +68,9 @@ public class PenaltyEventHandler {
 
     private static boolean inPain(EntityPlayer player) {
         UUID uuid = player.getUniqueID();
-        if(painTimers.get(uuid) > 60) {
+        if(uuid == null)
+            return false;
+        if(painTimers.getOrDefault(uuid,0) > 60) {
             painTimers.put(uuid, 0);
             return true;
         }
