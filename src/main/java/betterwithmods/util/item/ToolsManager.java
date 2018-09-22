@@ -1,6 +1,6 @@
 package betterwithmods.util.item;
 
-import betterwithmods.util.ReflectionLib;
+import betterwithmods.lib.ReflectionLib;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.*;

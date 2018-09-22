@@ -2,8 +2,8 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.lib.ReflectionLib;
 import betterwithmods.module.Feature;
-import betterwithmods.util.ReflectionLib;
 import betterwithmods.util.StackIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.entity.Entity;

@@ -4,6 +4,7 @@ import betterwithmods.api.util.impl.BlockColorProvider;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.lib.ReflectionLib;
 import com.google.common.base.CaseFormat;
 import com.google.common.collect.Maps;
 import net.minecraft.block.BlockColored;

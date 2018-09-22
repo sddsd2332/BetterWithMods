@@ -37,6 +37,7 @@ import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.common.registry.hopper.filters.HopperFilters;
 import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
 import betterwithmods.lib.ModLib;
+import betterwithmods.lib.ReflectionLib;
 import betterwithmods.manual.api.API;
 import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;

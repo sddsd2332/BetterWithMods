@@ -1,8 +1,8 @@
 package betterwithmods.common.blocks.behaviors;
 
 import betterwithmods.api.tile.dispenser.IBehaviorCollect;
+import betterwithmods.lib.ReflectionLib;
 import betterwithmods.util.InvUtils;
-import betterwithmods.util.ReflectionLib;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBlockSource;
