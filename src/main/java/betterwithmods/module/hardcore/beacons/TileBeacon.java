@@ -109,9 +109,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
     }
 
     public boolean canSeeSky() {
-        if (world.provider.isSurfaceWorld()) {
-            return world.canBlockSeeSky(pos);
-        } else if (world.provider.isNether()) {
+        if (world.provider.isNether()) {
             BlockPos.MutableBlockPos pos;
             for (pos = new BlockPos.MutableBlockPos(getPos().up()); pos.getY() < 128; pos.setY(pos.getY() + 1)) {
                 IBlockState state = world.getBlockState(pos);
@@ -122,7 +120,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
             }
             return true;
         }
-        return false;
+        return world.canBlockSeeSky(pos);
     }
 
     @SideOnly(Side.CLIENT)
