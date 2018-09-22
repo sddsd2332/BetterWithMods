@@ -25,6 +25,11 @@ public class SetBlockIngredient extends BlockIngredient implements Set<BlockIngr
         super();
     }
 
+    public SetBlockIngredient(Block... blocks) {
+        super();
+        this.ingredients.addAll(Arrays.stream(blocks).map(StateIngredient::new).collect(Collectors.toSet()));
+    }
+
     public SetBlockIngredient(BlockIngredient... ingredients) {
         super();
         this.ingredients.addAll(Arrays.asList(ingredients));
