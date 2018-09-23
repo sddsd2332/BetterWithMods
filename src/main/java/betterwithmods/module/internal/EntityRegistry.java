@@ -4,21 +4,36 @@ import betterwithmods.common.entity.*;
 import betterwithmods.common.entity.item.EntityFallingBlockCustom;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.RequiredFeature;
+import com.google.common.collect.Lists;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 
+import java.util.Arrays;
+import java.util.List;
+
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class EntityRegistry extends RequiredFeature {
 
-    private static int TOTAL_ENTITY_IDS;
+    public static int TOTAL_ENTITY_IDS;
 
-    @SubscribeEvent
-    public static void onEntityRegister(RegistryEvent.Register<EntityEntry> event) {
-        event.getRegistry().registerAll(
+    private static List<EntityEntry> REGISTRY = Lists.newArrayList();
+
+    public static void registerEntity(EntityEntry entry) {
+        REGISTRY.add(entry);
+    }
+
+    public static void registerEntities(EntityEntry... entries) {
+        REGISTRY.addAll(Arrays.asList(entries));
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        registerEntities(
                 EntityEntryBuilder.create()
                         .entity(EntityJungleSpider.class)
                         .egg(0x3C6432, 0x648C50)
@@ -97,5 +112,10 @@ public class EntityRegistry extends RequiredFeature {
                         .tracker(64, 20, true)
                         .build()
         );
+    }
+
+    @SubscribeEvent
+    public static void onEntityRegister(RegistryEvent.Register<EntityEntry> event) {
+        event.getRegistry().registerAll(REGISTRY.toArray(new EntityEntry[0]));
     }
 }

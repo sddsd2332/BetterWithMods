@@ -28,6 +28,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
@@ -45,7 +46,7 @@ public class LongBoi extends Feature {
     public String getDescription() {
         return "Long Bois!";
     }
-    
+
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
         RenderingRegistry.registerEntityRenderingHandler(EntityLongboi.class, RenderLongboi::new);
@@ -54,7 +55,14 @@ public class LongBoi extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         BlockRegistry.registerBlock(LONG_FRIEND);
-        EntityRegistry.registerEntity(EntityLongboi.class, "longboi", 64, 1, true, 0xe4d3d0, 0xfd742b);
+        EntityRegistry.registerEntity(
+                EntityEntryBuilder.create()
+                        .entity(EntityLongboi.class)
+                        .id(new ResourceLocation(ModLib.MODID, "longboi"), EntityRegistry.TOTAL_ENTITY_IDS++)
+                        .tracker(64, 1, true)
+                        .egg(0xe4d3d0, 0xfd742b)
+                        .build()
+        );
         BWMRegistry.TURNTABLE.addRecipe(new LongRecipe());
     }
 

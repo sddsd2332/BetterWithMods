@@ -116,7 +116,6 @@ public class BWMRegistry {
         BWNetwork.registerNetworking();
         BWMItems.registerItems();
         BWMBlocks.registerTileEntities();
-        betterwithmods.module.internal.EntityRegistry.registerEntities();
         BWMRegistry.registerBlockDispenserBehavior();
         CapabilityManager.INSTANCE.register(IMechanicalPower.class, new CapabilityMechanicalPower.Impl(), CapabilityMechanicalPower.Default::new);
         CapabilityManager.INSTANCE.register(IAxle.class, new CapabilityAxle.Impl(), CapabilityAxle.Default::new);
