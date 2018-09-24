@@ -2,7 +2,7 @@ package betterwithmods.module.general;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockHemp;
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

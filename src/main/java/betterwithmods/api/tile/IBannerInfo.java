@@ -1,6 +1,6 @@
 package betterwithmods.api.tile;
 
-import betterwithmods.util.BannerUtils;
+import betterwithmods.library.utils.BannerUtils;
 import net.minecraft.item.ItemStack;
 
 public interface IBannerInfo {

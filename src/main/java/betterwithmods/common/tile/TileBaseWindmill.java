@@ -1,7 +1,7 @@
 package betterwithmods.common.tile;
 
 import betterwithmods.api.tile.IBannerInfo;
-import betterwithmods.util.BannerUtils;
+import betterwithmods.library.utils.BannerUtils;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.DimensionType;

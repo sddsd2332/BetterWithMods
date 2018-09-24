@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.entity.monster.AbstractSkeleton;
 import net.minecraft.util.DamageSource;
 import net.minecraftforge.event.entity.living.LivingHurtEvent;

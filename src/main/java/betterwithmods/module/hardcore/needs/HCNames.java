@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.needs;
 
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.player.PlayerDataHandler;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

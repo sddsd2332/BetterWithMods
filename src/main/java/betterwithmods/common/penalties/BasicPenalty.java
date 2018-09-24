@@ -1,7 +1,7 @@
 package betterwithmods.common.penalties;
 
 import betterwithmods.common.penalties.attribute.BWMAttributes;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import org.apache.commons.lang3.Range;
 
 public class BasicPenalty<T extends Number & Comparable> extends Penalty<T> {

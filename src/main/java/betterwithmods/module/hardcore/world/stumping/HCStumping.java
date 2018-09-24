@@ -5,12 +5,12 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.hardcore.world.HCBonemeal;
-import betterwithmods.network.BWNetwork;
+import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessagePlaced;
 import betterwithmods.util.item.ToolsManager;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -87,7 +87,7 @@ public class HCStumping extends Feature {
         PlacedCapability capability = getCapability(world);
         if (capability != null) {
             if (capability.addPlaced(pos)) {
-                BWNetwork.sendTo(new MessagePlaced(pos), player);
+                BWMNetwork.INSTANCE.sendTo(new MessagePlaced(pos), player);
                 return true;
             }
         }
@@ -115,7 +115,7 @@ public class HCStumping extends Feature {
         if (world.isRemote || !(event.getPlayer() instanceof EntityPlayerMP))
             return;
 
-        if (PlayerHelper.isHolding(event.getPlayer(), HCBonemeal.FERTILIZERS))
+        if (PlayerUtils.isHolding(event.getPlayer(), HCBonemeal.FERTILIZERS))
             return;
 
         if (isLog(event.getState())) {
@@ -165,7 +165,7 @@ public class HCStumping extends Feature {
         if (event.player instanceof EntityPlayerMP) {
             PlacedCapability capability = getCapability(event.player.world);
             if (capability != null) {
-                BWNetwork.sendTo(new MessagePlaced(capability.getPlaced().toArray(new BlockPos[0])), (EntityPlayerMP) event.player);
+                BWMNetwork.INSTANCE.sendTo(new MessagePlaced(capability.getPlaced().toArray(new BlockPos[0])), (EntityPlayerMP) event.player);
             }
         }
     }

@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.heat;
 
 import betterwithmods.api.tile.IHeatSource;
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;

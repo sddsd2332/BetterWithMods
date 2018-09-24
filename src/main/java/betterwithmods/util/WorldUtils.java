@@ -6,14 +6,11 @@ import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLiving;
-import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityGhast;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
@@ -25,12 +22,10 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
-import net.minecraft.world.storage.WorldInfo;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import javax.annotation.Nullable;
 import java.util.HashSet;
-import java.util.Random;
 import java.util.Set;
 import java.util.stream.StreamSupport;
 
@@ -63,14 +58,6 @@ public final class WorldUtils {
         if (event == null)
             return;
         world.getPlayers(EntityPlayer.class, (T) -> true).forEach(player -> world.playSound(null, player.getPosition(), event, SoundCategory.BLOCKS, volume, pitch));
-    }
-
-    public static boolean hasAi(EntityLiving entity, Class<? extends EntityAIBase> clazz) {
-        return entity.tasks.taskEntries.stream().anyMatch(task -> clazz.isAssignableFrom(task.action.getClass()));
-    }
-
-    public static void removeTask(EntityLiving entity, Class<? extends EntityAIBase> clazz) {
-        entity.tasks.taskEntries.removeIf(task -> clazz.isAssignableFrom(task.action.getClass()));
     }
 
     public static boolean isNether(World world) {
@@ -253,105 +240,5 @@ public final class WorldUtils {
         evt.getDrops().add(item);
     }
 
-    public static boolean isPast(World world, TimeFrame frame) {
-        return frame.start < getDayTicks(world);
-    }
-
-    public static boolean isTimeFrame(World world, TimeFrame frame) {
-        return frame.isBetween(getDayTicks(world));
-    }
-
-    public static boolean isMoonPhase(World world, MoonPhase phase) {
-        return phase.ordinal() == world.provider.getMoonPhase(world.getWorldTime());
-    }
-
-    public static int getDayTicks(World world) {
-        return (int) (world.getWorldTime() % Time.DAY.getTicks());
-    }
-
-    public static boolean isPrecipitationAt(World world, BlockPos pos) {
-        if (world.isRaining()) {
-            if (world.canSeeSky(pos)) {
-                return world.getPrecipitationHeight(pos).getY() <= pos.getY();
-            }
-        }
-        return false;
-    }
-
-    public static void setWeatherCleared(MinecraftServer server) {
-        for (int i = 0; i < server.worlds.length; ++i) {
-            World world = server.worlds[i];
-            WorldInfo info = world.getWorldInfo();
-            info.setCleanWeatherTime((int) Time.DAY.ticks);
-            info.setRainTime(0);
-            info.setThunderTime(0);
-            info.setRaining(false);
-            info.setThundering(false);
-        }
-    }
-
-    public static void setAllWorldTimes(MinecraftServer server, TimeFrame time) {
-        for (int i = 0; i < server.worlds.length; ++i) {
-            server.worlds[i].setWorldTime((long) time.start);
-        }
-    }
-
-
-    public enum MoonPhase {
-        Full,
-        WaningGibbous,
-        LastQuarter,
-        WaningCrescent,
-        New,
-        WaxingCrescent,
-        FirstQuarter,
-        WaxingGibbous
-    }
-
-    public enum Time {
-        SECOND(0.27),
-        MINUTE(16.6),
-        HOUR(1000),
-        DAY(24000);
-        private final double ticks;
-
-        Time(double ticks) {
-            this.ticks = ticks;
-        }
-
-        public double getTicks() {
-            return ticks;
-        }
-    }
-
-    public enum TimeFrame {
-        DAWN(0, 3600),
-        MORNING(1000),
-        NOON(5000, 7000),
-        DUSK(10200, 12700),
-        MIDNIGHT(17000, 19000),
-        NIGHT(13001, 24000),
-        DAY(0, 13000);
-        private static final Random rand = new Random();
-        private final int start;
-        private final int end;
-
-        TimeFrame(int start, int end) {
-            this.start = start;
-            this.end = end;
-        }
-
-        TimeFrame(int time) {
-            this(time, time);
-        }
-
-        public boolean isBetween(int time) {
-            return time >= start && time <= end;
-        }
-
-        public int randomBetween() {
-            return rand.nextInt((end - start) + 1) + start;
-        }
-    }
 
 }

@@ -3,7 +3,8 @@ package betterwithmods.common.registry.block.recipe;
 import betterwithmods.api.tile.IHeatRecipe;
 import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.common.registry.KilnStructureManager;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -52,7 +53,7 @@ public class KilnRecipe extends BlockRecipe implements IHeatRecipe {
 
     @Override
     public boolean craftRecipe(World world, BlockPos pos, Random rand, IBlockState state) {
-        InvUtils.ejectStackWithOffset(world, pos, onCraft(world, pos));
+        InventoryUtils.ejectStackWithOffset(world, pos, onCraft(world, pos));
         state.getBlock().onBlockHarvested(world, pos, state, FakePlayerHandler.getSword());
         world.setBlockState(pos, Blocks.AIR.getDefaultState(), world.isRemote ? 11 : 3);
         return true;

@@ -1,7 +1,7 @@
 package betterwithmods.module.general;
 
 import betterwithmods.common.tile.TileWaterwheel;
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 

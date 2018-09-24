@@ -1,9 +1,10 @@
 package betterwithmods.network.messages;
 
+import betterwithmods.library.network.Message;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.item.ItemStack;
 
-public class MessageHarness extends BWMessage {
+public class MessageHarness extends Message {
     public ItemStack stack;
     public int entity;
 

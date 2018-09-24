@@ -3,7 +3,7 @@ package betterwithmods.module.tweaks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.crafting.RecipeArmorDye;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 

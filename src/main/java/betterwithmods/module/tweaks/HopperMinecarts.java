@@ -1,8 +1,8 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecartHopper;
 import net.minecraft.item.ItemStack;
@@ -66,7 +66,7 @@ public class HopperMinecarts extends Feature {
             EntityMinecartHopper cart = (EntityMinecartHopper) event.getEntity();
             World world = cart.getWorld();
             IItemHandler cartInv = cart.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, EnumFacing.DOWN);
-            Optional<IItemHandler> inv = InvUtils.getItemHandler(world, cart.getPosition().down(), EnumFacing.UP, IGNORE_INVENTORIES_THAT_PULL);
+            Optional<IItemHandler> inv = InventoryUtils.getItemHandler(world, cart.getPosition().down(), EnumFacing.UP, IGNORE_INVENTORIES_THAT_PULL);
 
             if (!world.isRemote && entity.isEntityAlive() && cartInv != null && inv != null) {
                 Counter c = getCounter(cart);
@@ -74,13 +74,13 @@ public class HopperMinecarts extends Feature {
                     int ejectCounter = c.getCounter();
 
                     if (ejectCounter > 2) {
-                        int slot = InvUtils.getFirstOccupiedStackInRange(cartInv, 0, 4);
+                        int slot = InventoryUtils.getFirstOccupiedStackInRange(cartInv, 0, 4);
                         if (slot != -1) {
                             ItemStack stack = cartInv.getStackInSlot(slot);
                             if (inv.isPresent()) {
-                                if (InvUtils.canInsert(inv.get(), stack, STACK_SIZE)) {
-                                    ItemStack insert = InvUtils.insert(inv.get(), stack, STACK_SIZE, false);
-                                    InvUtils.consumeItemsInInventory(cartInv, stack, STACK_SIZE - insert.getCount(), false);
+                                if (InventoryUtils.canInsert(inv.get(), stack, STACK_SIZE)) {
+                                    ItemStack insert = InventoryUtils.insert(inv.get(), stack, STACK_SIZE, false);
+                                    InventoryUtils.consumeItemsInInventory(cartInv, stack, STACK_SIZE - insert.getCount(), false);
                                 }
                             }
                         }

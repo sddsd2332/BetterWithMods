@@ -2,7 +2,7 @@ package betterwithmods.module.internal.player;
 
 import betterwithmods.BWMod;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import betterwithmods.module.hardcore.needs.HCNames;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;

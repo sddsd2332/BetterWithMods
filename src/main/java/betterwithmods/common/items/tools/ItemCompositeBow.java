@@ -1,6 +1,6 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.util.CapabilityUtils;
+import betterwithmods.library.utils.CapabilityUtils;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

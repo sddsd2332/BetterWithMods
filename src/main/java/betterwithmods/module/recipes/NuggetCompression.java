@@ -2,8 +2,8 @@ package betterwithmods.module.recipes;
 
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRegistry;
-import betterwithmods.module.Feature;
-import betterwithmods.util.StackIngredient;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.ingredient.StackIngredient;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 /**

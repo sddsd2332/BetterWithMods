@@ -1,6 +1,6 @@
 package betterwithmods.module.internal;
 
-import betterwithmods.module.RequiredModule;
+import betterwithmods.library.modularity.impl.RequiredModule;
 
 public class InternalRegistries extends RequiredModule {
 

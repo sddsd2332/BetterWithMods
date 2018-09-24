@@ -2,10 +2,10 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.util.DirUtils;
-import betterwithmods.util.InvUtils;
-import betterwithmods.util.StackIngredient;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -52,8 +52,8 @@ public class BlockBrokenGearbox extends BWMBlock {
 
     @Override
     public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (PlayerHelper.isHolding(playerIn, repairIngredient)) {
-            if (InvUtils.usePlayerItemStrict(playerIn, EnumFacing.UP, repairIngredient, repairCost)) {
+        if (PlayerUtils.isHolding(playerIn, repairIngredient)) {
+            if (InventoryUtils.usePlayerItemStrict(playerIn, EnumFacing.UP, repairIngredient, repairCost)) {
                 worldIn.setBlockState(pos, repairedBlock.getDefaultState().withProperty(DirUtils.FACING, state.getValue(DirUtils.FACING)));
                 worldIn.playSound(null, pos, SoundEvents.BLOCK_WOODEN_DOOR_CLOSE, SoundCategory.BLOCKS, 1, 1);
             }

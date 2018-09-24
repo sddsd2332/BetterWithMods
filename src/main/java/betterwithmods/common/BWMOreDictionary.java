@@ -7,7 +7,8 @@ import betterwithmods.common.items.ItemBark;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.variants.BlockVariant;
 import betterwithmods.common.registry.variants.WoodVariant;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.GlobalUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -198,7 +199,7 @@ public class BWMOreDictionary {
         if (log.isEmpty())
             return null;
         for (IRecipe recipe : CraftingManager.REGISTRY) {
-            if (InvUtils.applyIngredients(recipe.getIngredients(), log)) {
+            if (InventoryUtils.applyIngredients(recipe.getIngredients(), log)) {
                 if (isPlank(recipe.getRecipeOutput())) {
                     return recipe;
                 }
@@ -371,10 +372,10 @@ public class BWMOreDictionary {
     }
 
     public static IBlockVariants getVariantFromState(IBlockVariants.EnumBlock variant, IBlockState state) {
-        ItemStack stack = BWMRecipes.getStackFromState(state);
+        ItemStack stack = GlobalUtils.getStackFromState(state);
         IBlockVariants blockVariant = null;
         if (!stack.isEmpty()) {
-            blockVariant = blockVariants.stream().filter(w -> InvUtils.matches(w.getVariant(variant, 1), stack)).findFirst().orElse(null);
+            blockVariant = blockVariants.stream().filter(w -> InventoryUtils.matches(w.getVariant(variant, 1), stack)).findFirst().orElse(null);
         }
         if (blockVariant == null) {
             for (IVariantProvider provider : variantProviders) {

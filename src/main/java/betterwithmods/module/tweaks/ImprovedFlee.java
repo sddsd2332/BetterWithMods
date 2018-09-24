@@ -1,8 +1,8 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.ai.EntityAIFlee;
-import betterwithmods.module.Feature;
-import betterwithmods.util.EntityUtils;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -45,7 +45,7 @@ public class ImprovedFlee extends Feature {
             EntityLiving entity = (EntityLiving) evt.getEntity();
             if (entity instanceof EntityAnimal && EntityUtils.hasAI(entity, EntityAIPanic.class)) {
                 float speed = (float) entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).getAttributeValue() * 7;
-                EntityUtils.removeAI(entity, EntityAIPanic.class);
+                EntityUtils.removeTask(entity, EntityAIPanic.class);
                 entity.tasks.addTask(0, new EntityAIFlee((EntityCreature) entity, speed));
             }
         }

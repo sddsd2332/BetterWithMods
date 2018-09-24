@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.util.CapabilityUtils;
+import betterwithmods.library.utils.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.nbt.NBTTagCompound;

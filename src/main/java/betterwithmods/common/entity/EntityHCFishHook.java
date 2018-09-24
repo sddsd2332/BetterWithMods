@@ -1,7 +1,7 @@
 package betterwithmods.common.entity;
 
+import betterwithmods.library.utils.TimeUtils;
 import betterwithmods.module.hardcore.crafting.HCFishing;
-import betterwithmods.util.WorldUtils;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.block.Block;
 import net.minecraft.client.Minecraft;
@@ -58,15 +58,15 @@ public class EntityHCFishHook extends EntityFishHook implements IEntityAdditiona
 
         //minutes
         double initialTime = HCFishing.configuration.initialTime;
-        if (WorldUtils.isTimeFrame(world, WorldUtils.TimeFrame.NIGHT))
+        if (TimeUtils.isTimeFrame(world, TimeUtils.TimeFrame.NIGHT))
             initialTime *= HCFishing.configuration.nightModifier;
         if (worldserver.isRainingAt(pos.up()))
             initialTime *= HCFishing.configuration.rainModifier;
-        if (WorldUtils.isMoonPhase(world, WorldUtils.MoonPhase.Full))
+        if (TimeUtils.isMoonPhase(world, TimeUtils.MoonPhase.Full))
             initialTime *= HCFishing.configuration.fullMoonModifier;
-        if (WorldUtils.isTimeFrame(worldserver, WorldUtils.TimeFrame.DAWN))
+        if (TimeUtils.isTimeFrame(worldserver, TimeUtils.TimeFrame.DAWN))
             initialTime *= HCFishing.configuration.dawnModifier;
-        else if (WorldUtils.isTimeFrame(worldserver, WorldUtils.TimeFrame.DUSK))
+        else if (TimeUtils.isTimeFrame(worldserver, TimeUtils.TimeFrame.DUSK))
             initialTime *= HCFishing.configuration.duskModifier;
 
         if (this.ticksCatchable > 0) {

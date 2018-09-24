@@ -2,7 +2,7 @@ package betterwithmods.common.container.bulk;
 
 import betterwithmods.common.container.ContainerProgress;
 import betterwithmods.common.tile.TileCookingPot;
-import betterwithmods.util.CapabilityUtils;
+import betterwithmods.library.utils.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.IContainerListener;

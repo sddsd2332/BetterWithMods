@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.lib.TooltipLib;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.util.ITooltipFlag;
@@ -38,7 +38,7 @@ public interface IRotate {
         if (!rotates())
             return false;
 
-        if (PlayerHelper.areHandsEmpty(player) && player.isSneaking()) {
+        if (PlayerUtils.areHandsEmpty(player) && player.isSneaking()) {
             world.playSound(null, pos, block.getSoundType(state, world, pos, player).getPlaceSound(), SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
             nextState(world, pos, state);
             world.notifyNeighborsOfStateChange(pos, block, false);

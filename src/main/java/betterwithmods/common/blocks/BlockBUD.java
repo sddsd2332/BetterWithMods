@@ -2,7 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.util.DirUtils;
-import betterwithmods.util.SetBlockIngredient;
+import betterwithmods.library.utils.ingredient.SetBlockIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

@@ -4,10 +4,11 @@ import betterwithmods.BWMod;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
 import betterwithmods.common.tile.TileBasic;
-import betterwithmods.network.BWNetwork;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.network.NetworkHandler;
+import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageCustomDust;
-import betterwithmods.util.CapabilityUtils;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.util.item.ToolsManager;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -92,7 +93,7 @@ public abstract class BWMBlock extends Block implements IRotate {
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
         if (hasTileEntity(blockState)) {
             TileEntity tile = worldIn.getTileEntity(pos);
-            return CapabilityUtils.getInventory(tile, EnumFacing.UP).map(InvUtils::calculateComparatorLevel).orElse(0);
+            return CapabilityUtils.getInventory(tile, EnumFacing.UP).map(InventoryUtils::calculateComparatorLevel).orElse(0);
         }
         return 0;
     }
@@ -182,7 +183,7 @@ public abstract class BWMBlock extends Block implements IRotate {
     @Override
     public boolean addLandingEffects(IBlockState state, WorldServer world, BlockPos pos, IBlockState stateAgain, EntityLivingBase entity, int numberOfParticles) {
         MessageCustomDust packet = new MessageCustomDust(world, pos, entity.posX, entity.posY, entity.posZ, numberOfParticles, 0.15f);
-        BWNetwork.sendToAllAround(packet, world, pos);
+        BWMNetwork.INSTANCE.sendToAllAround(packet, world, pos);
         return true;
 
     }

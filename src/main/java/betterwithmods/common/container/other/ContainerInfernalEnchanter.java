@@ -7,7 +7,7 @@ import betterwithmods.common.tile.SimpleStackHandler;
 import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.util.InfernalEnchantment;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -200,7 +200,7 @@ public class ContainerInfernalEnchanter extends Container {
             ItemStack stack = handler.getStackInSlot(i);
 
             if (!stack.isEmpty() && !playerIn.getEntityWorld().isRemote)
-                InvUtils.ejectStack(playerIn.getEntityWorld(), playerIn.posX, playerIn.posY, playerIn.posZ, stack);
+                InventoryUtils.ejectStack(playerIn.getEntityWorld(), playerIn.posX, playerIn.posY, playerIn.posZ, stack);
         }
     }
 

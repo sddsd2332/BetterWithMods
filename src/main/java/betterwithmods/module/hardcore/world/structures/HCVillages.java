@@ -1,11 +1,11 @@
 package betterwithmods.module.hardcore.world.structures;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.common.registry.block.recipe.BlockIngredientSpecial;
-import betterwithmods.common.registry.block.recipe.BlockMaterialIngredient;
-import betterwithmods.common.registry.block.recipe.StateIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredientSpecial;
+import betterwithmods.library.utils.ingredient.BlockMaterialIngredient;
+import betterwithmods.library.utils.ingredient.StateIngredient;
 import betterwithmods.library.event.StructureSetBlockEvent;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;

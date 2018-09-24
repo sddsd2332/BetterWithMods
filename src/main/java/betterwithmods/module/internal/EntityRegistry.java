@@ -3,7 +3,7 @@ package betterwithmods.module.internal;
 import betterwithmods.common.entity.*;
 import betterwithmods.common.entity.item.EntityFallingBlockCustom;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import com.google.common.collect.Lists;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;

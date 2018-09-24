@@ -3,7 +3,7 @@ package betterwithmods.common.event;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.internal.SoundRegistry;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -46,7 +46,7 @@ public class PenaltyEventHandler {
         if (player.world.isRemote)
             return;
 
-        if (!PlayerHelper.isSurvival(player))
+        if (!PlayerUtils.isSurvival(player))
             return;
 
         //Handle whether the player can sprint
@@ -56,7 +56,7 @@ public class PenaltyEventHandler {
 
         //Swimming
         if (player.isInWater() && !BWMRegistry.PENALTY_HANDLERS.canSwim(player)) {
-            if (!PlayerHelper.isNearBottom(player)) {
+            if (!PlayerUtils.isNearBottom(player)) {
                 player.motionY -= 0.04;
             }
         }
@@ -83,20 +83,20 @@ public class PenaltyEventHandler {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             World world = player.world;
 
-            if (!PlayerHelper.isSurvival(player) || player.isRiding()) {
+            if (!PlayerUtils.isSurvival(player) || player.isRiding()) {
                 //Remove the modifier when gamemode changes.
-                PlayerHelper.removeModifier(player, SharedMonsterAttributes.MOVEMENT_SPEED, PlayerHelper.PENALTY_SPEED_UUID);
+                PlayerUtils.removeModifier(player, SharedMonsterAttributes.MOVEMENT_SPEED, PlayerUtils.PENALTY_SPEED_UUID);
                 return;
             }
             //Speed
             double speed = BWMRegistry.PENALTY_HANDLERS.getSpeedModifier(player);
             if (speed != 0) {
-                PlayerHelper.changeSpeed(player, "Penalty Speed Modifier", speed, PlayerHelper.PENALTY_SPEED_UUID);
+                PlayerUtils.changeSpeed(player, "Penalty Speed Modifier", speed, PlayerUtils.PENALTY_SPEED_UUID);
             }
 
             //Pain
             if (!world.isRemote && BWMRegistry.PENALTY_HANDLERS.inPain(player)) {
-                if (PlayerHelper.isMoving(player) && inPain(player)) {
+                if (PlayerUtils.isMoving(player) && inPain(player)) {
                     world.playSound(null, player.getPosition(), SoundRegistry.ENTITY_PLAYER_OOF, SoundCategory.BLOCKS, 0.75f, 1f);
                 }
             }
@@ -108,7 +108,7 @@ public class PenaltyEventHandler {
     public static void onPlayerAttack(LivingAttackEvent event) {
         if (event.getSource().getTrueSource() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
-            if (PlayerHelper.isSurvival(player)) {
+            if (PlayerUtils.isSurvival(player)) {
                 if (!BWMRegistry.PENALTY_HANDLERS.canAttack(player)) {
                     player.playSound(SoundRegistry.ENTITY_PLAYER_OOF, 0.75f, 1f);
                     event.setCanceled(true);

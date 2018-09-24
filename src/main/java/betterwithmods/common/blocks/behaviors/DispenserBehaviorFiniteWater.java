@@ -1,4 +1,4 @@
-package betterwithmods.util;
+package betterwithmods.common.blocks.behaviors;
 
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;

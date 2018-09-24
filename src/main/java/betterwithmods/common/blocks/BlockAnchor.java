@@ -3,7 +3,7 @@ package betterwithmods.common.blocks;
 import betterwithmods.api.tile.IRopeConnector;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -140,7 +140,7 @@ public class BlockAnchor extends BWMBlock implements IRopeConnector {
         if (player.inventory.addItemStackToInventory(rope))
             world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.2F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
         else
-            InvUtils.ejectStackWithOffset(world, pos, rope);
+            InventoryUtils.ejectStackWithOffset(world, pos, rope);
     }
 
     @Override

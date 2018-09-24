@@ -3,7 +3,7 @@ package betterwithmods.module.hardcore.crafting;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockFurnace;
 import betterwithmods.lib.TooltipLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;

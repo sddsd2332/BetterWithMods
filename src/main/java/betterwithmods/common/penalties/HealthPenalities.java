@@ -1,6 +1,6 @@
 package betterwithmods.common.penalties;
 
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.entity.player.EntityPlayer;
 import org.apache.commons.lang3.Range;
 

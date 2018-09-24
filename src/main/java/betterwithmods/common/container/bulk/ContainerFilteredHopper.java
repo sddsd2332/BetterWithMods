@@ -4,7 +4,7 @@ import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.container.ContainerProgress;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.tile.TileFilteredHopper;
-import betterwithmods.util.CapabilityUtils;
+import betterwithmods.library.utils.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;

@@ -2,8 +2,8 @@ package betterwithmods.util.player;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.BrokenToolRegistry;
+import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.hardcore.needs.HCArmor;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import com.google.common.collect.Sets;
@@ -39,10 +39,10 @@ import java.util.stream.Collectors;
  *
  * @author Koward
  */
-public final class PlayerHelper {
+public final class PlayerUtils {
     public final static UUID PENALTY_SPEED_UUID = UUID.fromString("c5595a67-9410-4fb2-826a-bcaf432c6a6f");
 
-    private PlayerHelper() {
+    private PlayerUtils() {
 
     }
 
@@ -179,7 +179,7 @@ public final class PlayerHelper {
             }
         }
 
-        ItemStack block = BWMRecipes.getStackFromState(state);
+        ItemStack block = GlobalUtils.getStackFromState(state);
 
         Material material = state.getMaterial();
         if (effective_materials.contains(material))

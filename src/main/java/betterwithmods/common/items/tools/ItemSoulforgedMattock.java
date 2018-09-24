@@ -4,7 +4,7 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.util.item.ToolsManager;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -38,7 +38,7 @@ public class ItemSoulforgedMattock extends ItemTool {
 
     @Override
     public float getDestroySpeed(@Nonnull ItemStack stack, IBlockState state) {
-        if (PlayerHelper.isCurrentToolEffectiveOnBlock(stack, state, EFFECTIVE_MATERIALS))
+        if (PlayerUtils.isCurrentToolEffectiveOnBlock(stack, state, EFFECTIVE_MATERIALS))
             return efficiency;
         return EFFECTIVE.contains(state.getBlock()) ? this.efficiency : 1.0F;
     }

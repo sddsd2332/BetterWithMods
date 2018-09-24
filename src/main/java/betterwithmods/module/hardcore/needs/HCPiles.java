@@ -2,12 +2,12 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.registry.BrokenToolRegistry;
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.GlobalUtils;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -35,7 +35,7 @@ public class HCPiles extends Feature {
     public static boolean keepSoilDrops;
 
     public static void removePile(ItemStack input) {
-        blockStateToPile.remove(BWMRecipes.getStateFromStack(input));
+        blockStateToPile.remove(GlobalUtils.getStateFromStack(input));
     }
 
     public static void registerPile(Block block, int meta, ItemStack stack) {
@@ -79,7 +79,7 @@ public class HCPiles extends Feature {
         if (event.isSilkTouching() || event.getResult().equals(Event.Result.DENY) || !blockStateToPile.containsKey(state))
             return;
 
-        if (PlayerHelper.isCurrentToolEffectiveOnBlock(event.getHarvester(), event.getPos(), event.getState()))
+        if (PlayerUtils.isCurrentToolEffectiveOnBlock(event.getHarvester(), event.getPos(), event.getState()))
             return;
 
         if (blockStateToPile.containsKey(state)) {

@@ -1,8 +1,9 @@
 package betterwithmods.network.messages;
 
+import betterwithmods.library.network.Message;
 import io.netty.buffer.ByteBuf;
 
-public class MessageRotate extends BWMessage {
+public class MessageRotate extends Message {
     public int entity;
     public float yaw, pitch;
 

@@ -1,7 +1,7 @@
 package betterwithmods.module.internal;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraftforge.event.RegistryEvent;

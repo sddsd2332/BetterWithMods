@@ -4,7 +4,7 @@ import betterwithmods.client.model.generators.ModelHorizontalWindmill;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.tile.TileWindmillHorizontal;
 import betterwithmods.lib.ModLib;
-import betterwithmods.util.BannerUtils;
+import betterwithmods.library.utils.BannerUtils;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
 import net.minecraft.util.EnumFacing;

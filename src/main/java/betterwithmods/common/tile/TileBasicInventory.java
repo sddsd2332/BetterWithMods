@@ -1,7 +1,7 @@
 package betterwithmods.common.tile;
 
-import betterwithmods.util.CapabilityUtils;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.CapabilityUtils;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraftforge.common.capabilities.Capability;
@@ -60,7 +60,7 @@ public abstract class TileBasicInventory extends TileBasic {
 
     @Override
     public void onBreak() {
-        CapabilityUtils.getInventory(this, EnumFacing.UP).ifPresent(inv -> InvUtils.ejectInventoryContents(world, pos, inv));
+        CapabilityUtils.getInventory(this, EnumFacing.UP).ifPresent(inv -> InventoryUtils.ejectInventoryContents(world, pos, inv));
     }
 
 }

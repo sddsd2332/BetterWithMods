@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.util.DirUtils;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -109,7 +109,7 @@ public class BlockStakeString extends BWMBlock {
 
     public void drop(World world, BlockPos pos) {
         if (world.getBlockState(pos).getBlock() instanceof BlockStakeString) {
-            InvUtils.ejectStackWithOffset(world, pos, getItem(world, pos, world.getBlockState(pos)));
+            InventoryUtils.ejectStackWithOffset(world, pos, getItem(world, pos, world.getBlockState(pos)));
             world.setBlockToAir(pos);
         }
     }

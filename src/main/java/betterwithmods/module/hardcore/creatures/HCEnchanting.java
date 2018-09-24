@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.items.ItemArcaneScroll;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.util.InfernalEnchantment;
 import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Maps;

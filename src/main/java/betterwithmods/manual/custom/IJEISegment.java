@@ -1,6 +1,6 @@
 package betterwithmods.manual.custom;
 
-import betterwithmods.util.StackIngredient;
+import betterwithmods.library.utils.ingredient.StackIngredient;
 import com.google.common.base.Strings;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;

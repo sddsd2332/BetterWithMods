@@ -1,8 +1,8 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.module.Feature;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.projectile.EntityEgg;
 import net.minecraft.entity.projectile.EntityThrowable;
@@ -50,7 +50,7 @@ public class EggDrops extends Feature {
                         egg.getEntityWorld().spawnEntity(entitychicken);
                     }
                 } else {
-                    InvUtils.ejectStack(egg.getEntityWorld(), egg.posX, egg.posY, egg.posZ, new ItemStack(BWMItems.RAW_EGG));
+                    InventoryUtils.ejectStack(egg.getEntityWorld(), egg.posX, egg.posY, egg.posZ, new ItemStack(BWMItems.RAW_EGG));
                 }
             }
 

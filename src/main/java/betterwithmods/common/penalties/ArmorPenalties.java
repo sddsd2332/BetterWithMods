@@ -1,7 +1,7 @@
 package betterwithmods.common.penalties;
 
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import org.apache.commons.lang3.Range;
 
@@ -16,7 +16,7 @@ public class ArmorPenalties extends PenaltyHandler<Integer, BasicPenalty<Integer
 
     @Override
     public BasicPenalty<Integer> getPenalty(EntityPlayer player) {
-        return getPenalty(PlayerHelper.getWornArmorWeight(player));
+        return getPenalty(PlayerUtils.getWornArmorWeight(player));
     }
 
     @Override

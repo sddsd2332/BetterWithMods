@@ -2,7 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.util.DirUtils;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -196,7 +196,7 @@ public class BlockStake extends BWMBlock {
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
         if (!isSupported(worldIn, pos, state)) {
-            InvUtils.ejectStackWithOffset(worldIn, pos, getItem(worldIn, pos, state));
+            InventoryUtils.ejectStackWithOffset(worldIn, pos, getItem(worldIn, pos, state));
             worldIn.setBlockToAir(pos);
         }
     }

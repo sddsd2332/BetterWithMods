@@ -2,8 +2,8 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.module.Feature;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
@@ -59,7 +59,7 @@ public class HCSeeds extends Feature {
     public static NonNullList<ItemStack> getDrops(boolean isGrass, int fortune) {
         if (RANDOM.nextInt(8) != 0) return NonNullList.create();
         ItemStack seed = net.minecraftforge.common.ForgeHooks.getGrassSeed(RANDOM, 0);
-        if (SEED_BLACKLIST.stream().anyMatch(s -> InvUtils.matches(s, seed)) || seed.isEmpty() || (!isGrass && seed.getItem().equals(Item.getItemFromBlock(BWMBlocks.HEMP))))
+        if (SEED_BLACKLIST.stream().anyMatch(s -> InventoryUtils.matches(s, seed)) || seed.isEmpty() || (!isGrass && seed.getItem().equals(Item.getItemFromBlock(BWMBlocks.HEMP))))
             return NonNullList.create();
         else
             return NonNullList.withSize(1, seed);
@@ -75,7 +75,7 @@ public class HCSeeds extends Feature {
             if (world.isAirBlock(pos.up())) {
                 IBlockState state = world.getBlockState(pos);
                 if (state.getBlock() instanceof BlockGrass || state.getBlock() instanceof BlockDirt) {
-                    InvUtils.ejectStackWithOffset(world, pos.up(), getDrops(state.getBlock() instanceof BlockGrass, 0));
+                    InventoryUtils.ejectStackWithOffset(world, pos.up(), getDrops(state.getBlock() instanceof BlockGrass, 0));
                 }
             }
         }

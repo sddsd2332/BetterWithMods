@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.item.EnumDyeColor;

@@ -5,7 +5,7 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockRailDetectorBase;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.recipes.MetalReclaming;
 import com.google.common.collect.Lists;
@@ -33,8 +33,9 @@ public class DetectorRail extends Feature {
 
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
-        config().overrideBlock("rail_detector");
-        config().overrideBlock("rail_detector_powered");
+        //TODO
+//        config().overrideBlock("rail_detector");
+//        config().overrideBlock("rail_detector_powered");
     }
 
     @Override

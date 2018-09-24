@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.util.ColorUtils;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.colors.ColorUtils;
 import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

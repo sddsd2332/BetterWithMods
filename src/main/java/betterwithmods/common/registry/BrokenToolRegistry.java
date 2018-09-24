@@ -1,6 +1,6 @@
 package betterwithmods.common.registry;
 
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -36,7 +36,7 @@ public class BrokenToolRegistry {
     public static ItemStack findItem(EntityPlayer player, IBlockState state) {
         if (player == null)
             return ItemStack.EMPTY;
-        ItemStack stack = PlayerHelper.getHolding(player, player.getActiveHand());
+        ItemStack stack = PlayerUtils.getHolding(player, player.getActiveHand());
         if (stack.isEmpty()) {
             // if the tool broke while harvesting this block...
             // it's not in the main hand anymore by the time HarvestDropsEvent happens

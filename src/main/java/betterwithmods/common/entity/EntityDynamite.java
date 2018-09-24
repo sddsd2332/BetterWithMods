@@ -1,8 +1,8 @@
 package betterwithmods.common.entity;
 
 import betterwithmods.common.BWMItems;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.util.FluidUtils;
-import betterwithmods.util.InvUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -207,13 +207,13 @@ public class EntityDynamite extends Entity implements IProjectile {
         LootContext.Builder build = new LootContext.Builder((WorldServer) world);
         List<ItemStack> fish = world.getLootTableManager().getLootTableFromLocation(LootTableList.GAMEPLAY_FISHING_FISH).generateLootForPools(world.rand, build.build());
         for (ItemStack stack : fish) {
-            InvUtils.spawnStack(world, pos, Lists.newArrayList(stack));
+            InventoryUtils.spawnStack(world, pos, Lists.newArrayList(stack));
         }
     }
 
     private void convertToItem() {
         if (!world.isRemote)
-            InvUtils.spawnStack(world, posX, posY, posZ, 20, new ItemStack(BWMItems.DYNAMITE));
+            InventoryUtils.spawnStack(world, posX, posY, posZ, 20, new ItemStack(BWMItems.DYNAMITE));
         this.setDead();
     }
 

@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.lib.TooltipLib;
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
@@ -36,7 +36,7 @@ public class HCBeds extends Feature {
      */
     @SubscribeEvent
     public static void onSleepInBed(PlayerSleepInBedEvent event) {
-        if (PlayerHelper.isSurvival(event.getEntityPlayer())) {
+        if (PlayerUtils.isSurvival(event.getEntityPlayer())) {
             event.getEntityPlayer().sendStatusMessage(TooltipLib.getMessageComponent(BED_TOO_RESTLESS), true);
             event.setResult(TOO_RESTLESS);
             if (stillSetSpawn) {

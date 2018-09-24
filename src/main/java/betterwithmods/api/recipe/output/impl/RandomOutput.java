@@ -2,7 +2,7 @@ package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.lib.TooltipLib;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
@@ -34,7 +34,7 @@ public class RandomOutput extends StackOutput {
     }
 
     public ItemStack getRandomStack() {
-        return InvUtils.setCount(getOutput(), rand());
+        return InventoryUtils.setCount(getOutput(), rand());
     }
 
 
@@ -50,7 +50,7 @@ public class RandomOutput extends StackOutput {
     public boolean equals(IOutput output) {
         if (output instanceof RandomOutput) {
             RandomOutput other = (RandomOutput) output;
-            return this.getMax() == other.getMax() && this.getMin() == other.getMin() && InvUtils.matches(other.getOutput(), this.getOutput());
+            return this.getMax() == other.getMax() && this.getMin() == other.getMin() && InventoryUtils.matches(other.getOutput(), this.getOutput());
         }
         return false;
     }

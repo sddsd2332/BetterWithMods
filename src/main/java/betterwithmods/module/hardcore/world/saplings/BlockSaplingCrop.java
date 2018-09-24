@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.world.saplings;
 
-import betterwithmods.common.BWMRecipes;
+import betterwithmods.library.utils.GlobalUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockBush;
 import net.minecraft.block.IGrowable;
@@ -172,6 +172,6 @@ public class BlockSaplingCrop extends BlockBush implements IGrowable {
 
     @Override
     public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
-        drops.add(BWMRecipes.getStackFromState(fullyGrown));
+        drops.add(GlobalUtils.getStackFromState(fullyGrown));
     }
 }

@@ -5,7 +5,7 @@ import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.registry.bulk.recipes.MillRecipe;
 import betterwithmods.common.tile.TileMill;
 import betterwithmods.module.internal.SoundRegistry;
-import betterwithmods.util.StackIngredient;
+import betterwithmods.library.utils.ingredient.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;

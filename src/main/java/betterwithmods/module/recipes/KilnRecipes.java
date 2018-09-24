@@ -10,7 +10,7 @@ import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.hardcore.needs.HCCooking;
 import betterwithmods.module.recipes.miniblocks.client.CamoModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;

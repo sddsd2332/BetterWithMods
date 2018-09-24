@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.util.ColorUtils;
+import betterwithmods.library.utils.colors.ColorUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

@@ -1,8 +1,9 @@
 package betterwithmods.network.messages;
 
+import betterwithmods.library.network.Message;
 import io.netty.buffer.ByteBuf;
 
-public class MessageGloom extends BWMessage {
+public class MessageGloom extends Message {
     public String uuid;
     public int gloom;
 

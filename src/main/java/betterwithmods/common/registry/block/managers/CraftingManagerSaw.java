@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.block.managers;
 
-import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.ingredient.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;

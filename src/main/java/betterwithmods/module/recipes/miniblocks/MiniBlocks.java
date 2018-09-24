@@ -4,14 +4,14 @@ import betterwithmods.BWMod;
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;
 import betterwithmods.module.recipes.miniblocks.blocks.*;
@@ -288,7 +288,7 @@ public class MiniBlocks extends Feature {
                 for (final ItemStack stack : list) {
                     if (!(stack.getItem() instanceof ItemBlock))
                         continue;
-                    IBlockState state = BWMRecipes.getStateFromStack(stack);
+                    IBlockState state = GlobalUtils.getStateFromStack(stack);
                     if (state != null && isValidMini(state, stack)) {
                         Material material = state.getMaterial();
                         if (names.containsKey(material)) {
@@ -333,7 +333,7 @@ public class MiniBlocks extends Feature {
         }
 
         for (IBlockState parent : MATERIALS.values()) {
-            ItemStack parentStack = BWMRecipes.getStackFromState(parent);
+            ItemStack parentStack = GlobalUtils.getStackFromState(parent);
             Material material = parent.getMaterial();
             MiniBlockIngredient siding = new MiniBlockIngredient("siding", parentStack);
             MiniBlockIngredient moulding = new MiniBlockIngredient("moulding", parentStack);

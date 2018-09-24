@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.util.CapabilityUtils;
+import betterwithmods.library.utils.CapabilityUtils;
 import net.minecraft.block.BlockEnderChest;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

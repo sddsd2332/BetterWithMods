@@ -14,6 +14,7 @@ import betterwithmods.common.blocks.BlockDetector;
 import betterwithmods.common.blocks.BlockHemp;
 import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
+import betterwithmods.common.blocks.behaviors.DispenserBehaviorDynamite;
 import betterwithmods.common.entity.EntityMiningCharge;
 import betterwithmods.common.fluid.BWFluidRegistry;
 import betterwithmods.common.penalties.PenaltyHandlerRegistry;
@@ -26,10 +27,11 @@ import betterwithmods.common.registry.anvil.CraftingManagerAnvil;
 import betterwithmods.common.registry.block.managers.CrafingManagerKiln;
 import betterwithmods.common.registry.block.managers.CraftingManagerSaw;
 import betterwithmods.common.registry.block.managers.CraftingManagerTurntable;
-import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.common.registry.block.recipe.BlockIngredientSpecial;
-import betterwithmods.common.registry.block.recipe.StateIngredient;
+import betterwithmods.library.utils.GlobalUtils;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ListUtils;
+import betterwithmods.library.utils.WeatherUtils;
+import betterwithmods.library.utils.ingredient.*;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerMill;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerPot;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
@@ -37,12 +39,12 @@ import betterwithmods.common.registry.hopper.filters.HopperFilters;
 import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.ReflectionLib;
-import betterwithmods.network.BWNetwork;
 import betterwithmods.util.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.item.EntityMinecart;
@@ -104,6 +106,8 @@ public class BWMRegistry {
     @GameRegistry.ObjectHolder("betterwithmods:slow_fall")
     public static final Potion POTION_SLOWFALL = null;
 
+    public static final BannerTextures.Cache WINDMILLS = new BannerTextures.Cache("betterwithmods:W", new ResourceLocation(ModLib.MODID, "textures/blocks/windmills/banner.png"), "betterwithmods:textures/blocks/windmills/");
+
     private static int availableEntityId = 0;
 
     static {
@@ -113,7 +117,6 @@ public class BWMRegistry {
     public static void onPreInit() {
         BWFluidRegistry.registerFluids();
         BWAdvancements.registerAdvancements();
-        BWNetwork.registerNetworking();
         BWMItems.registerItems();
         BWMBlocks.registerTileEntities();
         BWMRegistry.registerBlockDispenserBehavior();
@@ -152,12 +155,12 @@ public class BWMRegistry {
                     reg.remove(recipe.getRegistryName());
             }
             for (ItemStack output : BWMRecipes.REMOVE_RECIPE_BY_OUTPUT) {
-                if (InvUtils.matches(recipe.getRecipeOutput(), output)) {
+                if (InventoryUtils.matches(recipe.getRecipeOutput(), output)) {
                     reg.remove(recipe.getRegistryName());
                 }
             }
             for (List<Ingredient> inputs : BWMRecipes.REMOVE_RECIPE_BY_INPUT) {
-                if (InvUtils.containsIngredient(recipe.getIngredients(), inputs)) {
+                if (InventoryUtils.containsIngredient(recipe.getIngredients(), inputs)) {
                     reg.remove(recipe.getRegistryName());
                 }
             }
@@ -215,10 +218,10 @@ public class BWMRegistry {
             IBlockState state = minecart.getDisplayTile();
             if (state == Blocks.LIT_FURNACE.getDefaultState())
                 state = Blocks.FURNACE.getDefaultState();
-            ItemStack tile = BWMRecipes.getStackFromState(state);
+            ItemStack tile = GlobalUtils.getStackFromState(state);
             minecart.setDead();
 
-            return InvUtils.asNonnullList(new ItemStack(Items.MINECART), tile);
+            return ListUtils.asNonnullList(new ItemStack(Items.MINECART), tile);
         };
 
         for (String name : Sets.newHashSet("commandblock_minecart", "minecart", "chest_minecart", "furnace_minecart", "tnt_minecart", "hopper_minecart", "spawner_minecart")) {
@@ -230,17 +233,17 @@ public class BWMRegistry {
         BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:sheep"), (world, pos, entity, stack) -> {
             EntitySheep sheep = (EntitySheep) entity;
             if (sheep.isShearable(new ItemStack(Items.SHEARS), world, pos)) {
-                return InvUtils.asNonnullList(sheep.onSheared(new ItemStack(Items.SHEARS), world, pos, 0));
+                return ListUtils.asNonnullList(sheep.onSheared(new ItemStack(Items.SHEARS), world, pos, 0));
             }
             return NonNullList.create();
         });
         BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:chicken"), (world, pos, entity, stack) -> {
             if (((EntityAgeable) entity).isChild())
                 return NonNullList.create();
-            InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.FEATHER, 1 + world.rand.nextInt(2)));
+            InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.FEATHER, 1 + world.rand.nextInt(2)));
             world.playSound(null, pos, SoundEvents.ENTITY_CHICKEN_HURT, SoundCategory.NEUTRAL, 0.75F, 1.0F);
             entity.setDead();
-            return InvUtils.asNonnullList(new ItemStack(Items.EGG));
+            return ListUtils.asNonnullList(new ItemStack(Items.EGG));
         });
         BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:cow"), (world, pos, entity, stack) -> {
             if (((EntityAgeable) entity).isChild())
@@ -249,7 +252,7 @@ public class BWMRegistry {
                 stack.shrink(1);
                 world.playSound(null, pos, SoundEvents.ENTITY_COW_MILK, SoundCategory.BLOCKS, 1.0F, 1.0F);
 
-                InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.MILK_BUCKET));
+                InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.MILK_BUCKET));
             }
             return NonNullList.create();
         });
@@ -310,7 +313,7 @@ public class BWMRegistry {
 
     private static void registerDetectorHandlers() {
         BlockDetector.DETECTION_HANDLERS = Sets.newHashSet(
-                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(WorldUtils::isPrecipitationAt), facing -> facing == EnumFacing.UP),
+                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(WeatherUtils::isPrecipitationAt), facing -> facing == EnumFacing.UP),
                 new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getMaterial().isSolid()))),
                 new BlockDetector.IngredientDetection(new BlockDropIngredient(new ItemStack(Items.REEDS))),
                 new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockVine))),

@@ -4,6 +4,7 @@ import betterwithmods.BWMod;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
 import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.library.network.MessageHandler;
 import betterwithmods.network.messages.MessageCustomDust;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
@@ -18,7 +19,7 @@ import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 
 import java.util.Random;
 
-public class MessageCustomDustHandler extends BWMessageHandler<MessageCustomDust> {
+public class MessageCustomDustHandler extends MessageHandler<MessageCustomDust> {
     @Override
     public void handleMessage(MessageCustomDust message, MessageContext context) {
         World world = getClientWorld();

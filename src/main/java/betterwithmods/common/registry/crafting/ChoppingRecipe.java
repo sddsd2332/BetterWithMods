@@ -3,7 +3,7 @@ package betterwithmods.common.registry.crafting;
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.hardcore.crafting.HCLumber;
-import betterwithmods.util.StackIngredient;
+import betterwithmods.library.utils.ingredient.StackIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

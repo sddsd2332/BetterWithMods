@@ -1,6 +1,6 @@
 package betterwithmods.module.recipes;
 
-import betterwithmods.module.Module;
+import betterwithmods.library.modularity.impl.Module;
 import betterwithmods.module.recipes.animal_restraint.AnimalRestraint;
 import betterwithmods.module.recipes.miniblocks.MiniBlocks;
 

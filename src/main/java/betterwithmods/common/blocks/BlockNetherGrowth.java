@@ -2,7 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -198,7 +198,7 @@ public class BlockNetherGrowth extends BWMBlock {
                 entityIn.setDead();
             }
         } else if (entityIn instanceof EntityLivingBase) {
-            if (PlayerHelper.hasPart((EntityLivingBase) entityIn, EntityEquipmentSlot.FEET, ItemSoulforgeArmor.class))
+            if (PlayerUtils.hasPart((EntityLivingBase) entityIn, EntityEquipmentSlot.FEET, ItemSoulforgeArmor.class))
                 return;
             entityIn.attackEntityFrom(BWMDamageSource.growth, 5);
             entityIn.fallDistance = 0;

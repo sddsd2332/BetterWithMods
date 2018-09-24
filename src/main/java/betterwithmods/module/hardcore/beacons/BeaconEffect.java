@@ -1,9 +1,9 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.ListUtils;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -131,7 +131,7 @@ public abstract class BeaconEffect {
     public NonNullList<EntityLivingBase> getEntitiesInRange(World world, BlockPos pos, int beaconLevel) {
         int radius = effectRanges[Math.min(beaconLevel - 1, 3)];
         AxisAlignedBB box = new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(radius);
-        return InvUtils.asNonnullList(world.getEntitiesWithinAABB(getValidEntityType(), box));
+        return ListUtils.asNonnullList(world.getEntitiesWithinAABB(getValidEntityType(), box));
     }
 
     public abstract void onBeaconCreate(@Nonnull World world, @Nonnull BlockPos pos, int beaconLevel);

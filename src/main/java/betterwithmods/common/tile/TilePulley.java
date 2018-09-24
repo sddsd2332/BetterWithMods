@@ -11,8 +11,8 @@ import betterwithmods.common.blocks.BlockRope;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.entity.EntityExtendingRope;
 import betterwithmods.common.registry.PulleyStructureManager;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.general.Pulley;
-import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockRailBase;
 import net.minecraft.block.BlockRailBase.EnumRailDirection;
@@ -289,11 +289,11 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     }
 
     private boolean takeRope(boolean flag) {
-        return InvUtils.consumeItemsInInventory(inventory, new ItemStack(BWMBlocks.ROPE), 1, !flag);
+        return InventoryUtils.consumeItemsInInventory(inventory, new ItemStack(BWMBlocks.ROPE), 1, !flag);
     }
 
     private boolean putRope(boolean flag) {
-        return InvUtils.insert(inventory, new ItemStack(BWMBlocks.ROPE, 1), !flag).isEmpty();
+        return InventoryUtils.insert(inventory, new ItemStack(BWMBlocks.ROPE, 1), !flag).isEmpty();
     }
 
     public boolean onJobCompleted(boolean up, int targetY, EntityExtendingRope theRope) {

@@ -1,6 +1,6 @@
 package betterwithmods.api.recipe.output;
 
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 
@@ -20,7 +20,7 @@ public interface IRecipeOutputs {
 
 
     default List<List<IOutput>> getExpandedOutputs(int boxes) {
-        return InvUtils.splitIntoBoxes(getDisplayOutputs(), boxes);
+        return InventoryUtils.splitIntoBoxes(getDisplayOutputs(), boxes);
     }
 
     default List<IOutput> cast(List<? extends IOutput> list) {

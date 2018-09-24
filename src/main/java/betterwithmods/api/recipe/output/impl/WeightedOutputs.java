@@ -2,7 +2,8 @@ package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.ListUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -38,17 +39,17 @@ public class WeightedOutputs implements IRecipeOutputs {
 
     @Override
     public NonNullList<ItemStack> getOutputs() {
-        return InvUtils.asNonnullList(findResult());
+        return ListUtils.asNonnullList(findResult());
     }
 
     @Override
     public boolean matches(List<ItemStack> outputs) {
-        return InvUtils.matchesExact(outputs, itemStacksList);
+        return InventoryUtils.matchesExact(outputs, itemStacksList);
     }
 
     @Override
     public boolean matchesFuzzy(List<ItemStack> outputs) {
-        return InvUtils.matches(outputs, itemStacksList);
+        return InventoryUtils.matches(outputs, itemStacksList);
     }
 
     @Override

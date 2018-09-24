@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.util.ColorUtils;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.colors.ColorUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;

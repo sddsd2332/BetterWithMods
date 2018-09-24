@@ -1,10 +1,11 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.crafting.IngredientTool;
-import betterwithmods.util.InvUtils;
-import betterwithmods.util.StackIngredient;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.utils.GlobalUtils;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ListUtils;
+import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
@@ -82,7 +83,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        ItemStack heldItem = PlayerHelper.getHolding(player, hand);
+        ItemStack heldItem = PlayerUtils.getHolding(player, hand);
         EnumType itemType = getTypeFromStack(heldItem);
         EnumType newType = type;
         switch (type) {
@@ -90,7 +91,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
                 if (itemType != null && itemType != EMPTY && itemType != FARMLAND && itemType != FERTILE) {
                     if (world.isRemote)
                         return true;
-                    if (player.isCreative() || InvUtils.usePlayerItem(player, EnumFacing.UP, heldItem, 1)) {
+                    if (player.isCreative() || InventoryUtils.usePlayerItem(player, EnumFacing.UP, heldItem, 1)) {
                         world.playSound(null, pos, itemType == WATER ? SoundEvents.ITEM_BUCKET_EMPTY : itemType.getState().getBlock().getSoundType(state, world, pos, player).getPlaceSound(), SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
                         player.swingArm(hand);
                         newType = itemType;
@@ -101,8 +102,8 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
                 if (heldItem.isItemEqual(new ItemStack(Items.BUCKET))) {
                     if (world.isRemote)
                         return true;
-                    if (InvUtils.usePlayerItem(player, EnumFacing.UP, heldItem, 1))
-                        InvUtils.givePlayer(player, EnumFacing.UP, InvUtils.asNonnullList(new ItemStack(Items.WATER_BUCKET)));
+                    if (InventoryUtils.usePlayerItem(player, EnumFacing.UP, heldItem, 1))
+                        InventoryUtils.givePlayer(player, EnumFacing.UP, ListUtils.asNonnullList(new ItemStack(Items.WATER_BUCKET)));
                     player.swingArm(hand);
                     world.playSound(null, pos, SoundEvents.ITEM_BUCKET_FILL, SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);
                     newType = EMPTY;
@@ -127,7 +128,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
                 if (itemType == FERTILE) {
                     if (world.isRemote)
                         return true;
-                    if (InvUtils.usePlayerItem(player, EnumFacing.UP, heldItem, 1)) {
+                    if (InventoryUtils.usePlayerItem(player, EnumFacing.UP, heldItem, 1)) {
                         world.playSound(null, pos, SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.BLOCKS, 0.25F, ((world.rand.nextFloat() - world.rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                         newType = itemType;
                         world.playEvent(2005, pos.up(), 0);
@@ -139,7 +140,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
             case REDSAND:
                 if (itemType == EMPTY) {
                     if (!player.isCreative()) {
-                        InvUtils.givePlayer(player, EnumFacing.UP, InvUtils.asNonnullList(BWMRecipes.getStackFromState(type.getState())));
+                        InventoryUtils.givePlayer(player, EnumFacing.UP, ListUtils.asNonnullList(GlobalUtils.getStackFromState(type.getState())));
                     }
                     heldItem.damageItem(1, player);
                     world.playSound(null, pos, type.getState().getBlock().getSoundType(state, world, pos, player).getBreakSound(), SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.1F + 0.9F);

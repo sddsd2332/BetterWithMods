@@ -3,11 +3,11 @@ package betterwithmods.module.hardcore.world;
 import betterwithmods.BWMod;
 import betterwithmods.common.blocks.BlockIce;
 import betterwithmods.common.blocks.behaviors.BehaviorFluidContainer;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.general.General;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.util.FluidUtils;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import net.minecraft.block.Block;
@@ -154,7 +154,7 @@ public class HCBuckets extends Feature {
             BlockPos pos = raytraceresult.getBlockPos();
             World world = event.getWorld();
             EntityPlayer player = event.getEntityPlayer();
-            if (!PlayerHelper.isSurvival(player))
+            if (!PlayerUtils.isSurvival(player))
                 return;
 
 

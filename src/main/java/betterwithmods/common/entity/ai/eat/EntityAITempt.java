@@ -1,6 +1,6 @@
 package betterwithmods.common.entity.ai.eat;
 
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -44,7 +44,7 @@ public class EntityAITempt extends EntityAIBase {
             if (this.temptingPlayer == null) {
                 return false;
             } else {
-                return PlayerHelper.isHolding(this.temptingPlayer, this.temptIngredient);
+                return PlayerUtils.isHolding(this.temptingPlayer, this.temptIngredient);
             }
         }
     }

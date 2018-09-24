@@ -1,8 +1,8 @@
 package betterwithmods.common.registry.crafting;
 
-import betterwithmods.api.util.IColorProvider;
-import betterwithmods.api.util.impl.BlockColorProvider;
-import betterwithmods.util.ColorUtils;
+import betterwithmods.library.utils.colors.IColorProvider;
+import betterwithmods.library.utils.colors.BlockColorProvider;
+import betterwithmods.library.utils.colors.ColorUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;

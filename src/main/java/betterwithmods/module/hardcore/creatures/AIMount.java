@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.network.BWNetwork;
+import betterwithmods.library.network.NetworkHandler;
+import betterwithmods.network.BWMNetwork;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
@@ -31,7 +32,7 @@ public class AIMount extends EntityAIBase {
         if (!target.isBeingRidden()) {
             if (rider.startRiding(target, true)) {
                 if (target instanceof EntityPlayerMP) {
-                    BWNetwork.sendPacket(target, new SPacketSetPassengers(target));
+                    BWMNetwork.INSTANCE.sendPacket(target, new SPacketSetPassengers(target));
                 }
             }
         }

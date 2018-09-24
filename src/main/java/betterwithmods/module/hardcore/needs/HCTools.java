@@ -3,7 +3,7 @@ package betterwithmods.module.hardcore.needs;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.lib.ReflectionLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;

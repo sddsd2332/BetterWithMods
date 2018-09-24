@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.creatures.chicken;
 
-import betterwithmods.util.InvUtils;
-import betterwithmods.util.WorldUtils;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.TimeUtils;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
@@ -72,11 +72,11 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
     private int calculateLayTime(EntityLiving entity) {
         World world = entity.world;
 
-        int time = (int) (world.getTotalWorldTime() % WorldUtils.Time.DAY.getTicks());
-        int timeLeft = (int) (WorldUtils.Time.DAY.getTicks() - time);
-        int ticks = timeLeft + WorldUtils.TimeFrame.DAWN.randomBetween() / 2;
-        if (WorldUtils.isPast(world, WorldUtils.TimeFrame.NIGHT)) {
-            ticks += WorldUtils.Time.DAY.getTicks();
+        int time = (int) (world.getTotalWorldTime() % TimeUtils.Time.DAY.getTicks());
+        int timeLeft = (int) (TimeUtils.Time.DAY.getTicks() - time);
+        int ticks = timeLeft + TimeUtils.TimeFrame.DAWN.randomBetween() / 2;
+        if (TimeUtils.isPast(world, TimeUtils.TimeFrame.NIGHT)) {
+            ticks += TimeUtils.Time.DAY.getTicks();
         }
 
         return ticks;
@@ -101,7 +101,7 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
             return;
 
         entityLiving.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (entityLiving.getRNG().nextFloat() - entityLiving.getRNG().nextFloat()) * 0.2F + 1.0F);
-        InvUtils.ejectStackWithOffset(entityLiving.world, entityLiving.getPosition(), getEggItem());
+        InventoryUtils.ejectStackWithOffset(entityLiving.world, entityLiving.getPosition(), getEggItem());
         setFeed(false);
     }
 

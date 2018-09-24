@@ -5,7 +5,7 @@ import betterwithmods.api.recipe.input.impl.IngredientInputs;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.api.tile.IBulkTile;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -73,7 +73,7 @@ public class BulkRecipe implements Comparable<BulkRecipe> {
 
 
     public boolean isInvalid() {
-        return (getInputs().isEmpty() || getInputs().stream().anyMatch(InvUtils::isIngredientValid) || recipeOutput.isInvalid());
+        return (getInputs().isEmpty() || getInputs().stream().anyMatch(InventoryUtils::isIngredientValid) || recipeOutput.isInvalid());
     }
 
     @Override

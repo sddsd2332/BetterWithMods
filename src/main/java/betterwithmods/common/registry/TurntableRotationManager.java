@@ -1,6 +1,6 @@
 package betterwithmods.common.registry;
 
-import betterwithmods.network.BWNetwork;
+import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageRotate;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -128,7 +128,7 @@ public class TurntableRotationManager {
             angle = 180;
         float newYaw = entity.rotationYaw + angle;
         entity.setPositionAndRotation(entity.posX, entity.posY, entity.posZ, newYaw, entity.rotationPitch);
-        BWNetwork.sendToAllAround(new MessageRotate(entity.getEntityId(), newYaw, entity.rotationPitch), entity.world, entity.getPosition());
+        BWMNetwork.INSTANCE.sendToAllAround(new MessageRotate(entity.getEntityId(), newYaw, entity.rotationPitch), entity.world, entity.getPosition());
     }
 
     public interface IRotation {

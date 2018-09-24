@@ -2,7 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;

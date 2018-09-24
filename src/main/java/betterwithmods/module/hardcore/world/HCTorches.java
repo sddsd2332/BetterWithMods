@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 

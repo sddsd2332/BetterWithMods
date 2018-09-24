@@ -18,9 +18,6 @@ public interface IProxy {
     default void postInit(FMLPostInitializationEvent event) {
     }
 
-    default void addResourceOverride(String space, String dir, String file, String ext) {
-    }
-
     default boolean addRunningParticles(IBlockState state, World world, BlockPos pos, Entity entity) {
         return false;
     }

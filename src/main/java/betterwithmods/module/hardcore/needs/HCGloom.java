@@ -6,11 +6,11 @@ import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
-import betterwithmods.network.BWNetwork;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageGloom;
-import betterwithmods.util.StackIngredient;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.Entity;
@@ -78,7 +78,7 @@ public class HCGloom extends Feature {
         Gloom gloom = getGloom(player);
         if (gloom != null) {
             gloom.setGloom(value);
-            BWNetwork.INSTANCE.sendTo(new MessageGloom(player.getUniqueID().toString(), value), player);
+            BWMNetwork.INSTANCE.sendTo(new MessageGloom(player.getUniqueID().toString(), value), player);
         }
     }
 
@@ -126,7 +126,7 @@ public class HCGloom extends Feature {
         EntityPlayer player = e.player;
         World world = player.getEntityWorld();
 
-        if (!PlayerHelper.isSurvival(player) || !dimensionWhitelist.contains(world.provider.getDimension()))
+        if (!PlayerUtils.isSurvival(player) || !dimensionWhitelist.contains(world.provider.getDimension()))
             return;
 
 
@@ -137,7 +137,7 @@ public class HCGloom extends Feature {
                 BlockPos head = playermp.getPosition().up();
                 int light = world.getLight(head, true);
                 int tick = getGloomTime(playermp);
-                if (PlayerHelper.isHolding(playermp, gloomOverrideItems))
+                if (PlayerUtils.isHolding(playermp, gloomOverrideItems))
                     light = 15;
                 if (player.isPotionActive(MobEffects.NIGHT_VISION))
                     light = 15;
@@ -255,7 +255,7 @@ public class HCGloom extends Feature {
 
     @SideOnly(Side.CLIENT)
     public static void syncGloom(String entityId, int gloom) {
-        EntityPlayer e = PlayerHelper.getPlayerById(entityId);
+        EntityPlayer e = PlayerUtils.getPlayerById(entityId);
         if (e != null) {
             HCGloom.Gloom g = HCGloom.getGloom(e);
             if (g != null) {

@@ -1,6 +1,6 @@
 package betterwithmods.client.model.generators;
 
-import betterwithmods.util.BannerUtils;
+import betterwithmods.library.utils.BannerUtils;
 import net.minecraft.client.model.ModelBase;
 import net.minecraft.client.model.ModelRenderer;
 

@@ -1,23 +1,17 @@
 package betterwithmods.common;
 
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Sets;
-import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
-import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.List;
-import java.util.Set;
 import java.util.regex.Pattern;
 
 public final class BWMRecipes {
@@ -69,37 +63,7 @@ public final class BWMRecipes {
 
     public static boolean removeFurnaceRecipe(ItemStack input) {
         //for some reason mojang put fucking wildcard for their ore meta
-        return FurnaceRecipes.instance().getSmeltingList().entrySet().removeIf(next -> InvUtils.matches(next.getKey(), input));
-    }
-
-    //TODO find out how to do this properly in 1.13
-    @Deprecated
-    public static Set<IBlockState> getStatesFromStack(ItemStack stack) {
-        if (stack.getItem() instanceof ItemBlock) {
-            if (stack.getMetadata() == OreDictionary.WILDCARD_VALUE) {
-                return Sets.newHashSet(((ItemBlock) stack.getItem()).getBlock().getBlockState().getValidStates());
-            }
-            return Sets.newHashSet(getStateFromStack(stack));
-        }
-        return Sets.newHashSet();
-    }
-
-    //TODO find out how to do this properly in 1.13
-    @Deprecated
-    public static IBlockState getStateFromStack(ItemStack stack) {
-        if (stack != null && stack.getItem() instanceof ItemBlock) {
-            final ItemBlock itemBlock = ((ItemBlock) stack.getItem());
-            return itemBlock.getBlock().getStateFromMeta(itemBlock.getMetadata(stack));
-        }
-        return null;
-    }
-
-    public static ItemStack getStackFromState(IBlockState state) {
-        if (state == null)
-            return ItemStack.EMPTY;
-        Block block = state.getBlock();
-        int meta = block.damageDropped(state);
-        return new ItemStack(block, 1, meta);
+        return FurnaceRecipes.instance().getSmeltingList().entrySet().removeIf(next -> InventoryUtils.matches(next.getKey(), input));
     }
 
 

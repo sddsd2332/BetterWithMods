@@ -4,8 +4,8 @@ import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.BrokenToolRegistry;
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -29,7 +29,7 @@ public class HCLumber extends Feature {
     private static boolean hasAxe(EntityPlayer harvester, BlockPos pos, IBlockState state) {
         if (harvester == null)
             return false;
-        return PlayerHelper.isCurrentToolEffectiveOnBlock(harvester, pos, state);
+        return PlayerUtils.isCurrentToolEffectiveOnBlock(harvester, pos, state);
     }
 
     @Override

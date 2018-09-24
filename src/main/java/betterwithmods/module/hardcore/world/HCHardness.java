@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.world;
 
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.util.item.ToolsManager;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

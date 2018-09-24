@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.world;
 
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.item.EntityBoat;
@@ -61,7 +61,7 @@ public class HCBoating extends Feature {
         EntityPlayer player = event.player;
         Entity riding = player.getRidingEntity();
         if (riding != null && BOAT_ENTRIES.stream().anyMatch(r -> EntityList.isMatchingName(riding, r))) {
-            Set<ItemStack> stacks = PlayerHelper.getHolding(player);
+            Set<ItemStack> stacks = PlayerUtils.getHolding(player);
             int speed = defaultSpeed;
             for (ItemStack stack : stacks) {
                 if (speed <= defaultSpeed) {

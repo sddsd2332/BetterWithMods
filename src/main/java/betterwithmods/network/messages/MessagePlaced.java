@@ -1,9 +1,10 @@
 package betterwithmods.network.messages;
 
+import betterwithmods.library.network.Message;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.math.BlockPos;
 
-public class MessagePlaced extends BWMessage {
+public class MessagePlaced extends Message {
     public BlockPos[] pos;
 
     public MessagePlaced(BlockPos... pos) {

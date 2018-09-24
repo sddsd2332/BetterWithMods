@@ -1,6 +1,6 @@
 package betterwithmods.common.items.itemblocks;
 
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -29,7 +29,7 @@ public class ItemHempSeed extends ItemBlock implements IPlantable {
             EntityChicken chicken = (EntityChicken) target;
             if (chicken.getGrowingAge() == 0 && !chicken.isInLove()) {
                 chicken.setInLove(playerIn);
-                InvUtils.usePlayerItem(playerIn, EnumFacing.UP, stack, 1);
+                InventoryUtils.usePlayerItem(playerIn, EnumFacing.UP, stack, 1);
                 return true;
             }
         }

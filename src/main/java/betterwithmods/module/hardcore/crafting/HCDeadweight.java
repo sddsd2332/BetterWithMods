@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumActionResult;
@@ -22,7 +22,7 @@ public class HCDeadweight extends Feature {
 
     @SubscribeEvent
     public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
-        if (!PlayerHelper.isSurvival(event.getEntityPlayer()))
+        if (!PlayerUtils.isSurvival(event.getEntityPlayer()))
             return;
 
         if (event.getWorld().getBlockState(event.getPos()).getBlock().equals(Blocks.ANVIL)) {

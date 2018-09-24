@@ -5,7 +5,7 @@ import betterwithmods.client.model.filters.ModelTransparent;
 import betterwithmods.client.model.filters.ModelWithResource;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.lib.ModLib;
-import betterwithmods.util.StackIngredient;
+import betterwithmods.library.utils.ingredient.StackIngredient;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;

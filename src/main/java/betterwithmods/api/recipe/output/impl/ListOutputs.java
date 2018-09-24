@@ -2,7 +2,8 @@ package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ListUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -23,7 +24,7 @@ public class ListOutputs implements IRecipeOutputs {
 
     @Override
     public NonNullList<ItemStack> getOutputs() {
-        return InvUtils.asNonnullList(this.outputs.stream().map(StackOutput::getOutput).map(ItemStack::copy).collect(Collectors.toList()));
+        return ListUtils.asNonnullList(this.outputs.stream().map(StackOutput::getOutput).map(ItemStack::copy).collect(Collectors.toList()));
     }
 
     @Override
@@ -33,12 +34,12 @@ public class ListOutputs implements IRecipeOutputs {
 
     @Override
     public boolean matches(List<ItemStack> outputs) {
-        return InvUtils.matchesExact(getOutputs(), outputs);
+        return InventoryUtils.matchesExact(getOutputs(), outputs);
     }
 
     @Override
     public boolean matchesFuzzy(List<ItemStack> outputs) {
-        return InvUtils.matches(getOutputs(), outputs);
+        return InventoryUtils.matches(getOutputs(), outputs);
     }
 
     @Override

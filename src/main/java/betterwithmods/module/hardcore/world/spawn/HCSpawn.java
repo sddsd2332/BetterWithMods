@@ -2,11 +2,12 @@ package betterwithmods.module.hardcore.world.spawn;
 
 import betterwithmods.BWMod;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.TimeUtils;
+import betterwithmods.library.utils.WeatherUtils;
 import betterwithmods.module.general.General;
 import betterwithmods.module.internal.player.PlayerInfo;
-import betterwithmods.util.WorldUtils;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -98,7 +99,7 @@ public class HCSpawn extends Feature {
 
         PlayerInfo info = PlayerInfo.getPlayerInfo(player);
 
-        if (PlayerHelper.isSurvival(player)) {
+        if (PlayerUtils.isSurvival(player)) {
             int timeSinceDeath = info.getTicksSinceDeath();
             boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
             if (isNew) {
@@ -174,7 +175,7 @@ public class HCSpawn extends Feature {
         World world = player.getEntityWorld();
         if (!world.getGameRules().getBoolean(GAMERULE_CHANGETIME))
             return;
-        if (!PlayerHelper.isSurvival(player) && !(player instanceof EntityPlayerMP))
+        if (!PlayerUtils.isSurvival(player) && !(player instanceof EntityPlayerMP))
             return;
 
         MinecraftServer server = player.getServer();
@@ -184,8 +185,8 @@ public class HCSpawn extends Feature {
             int timeSinceDeath = info.getTicksSinceDeath();
             boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
             if (isNew) {
-                WorldUtils.setWeatherCleared(server);
-                WorldUtils.setAllWorldTimes(server, WorldUtils.TimeFrame.DAWN);
+                WeatherUtils.setWeatherCleared(server);
+                TimeUtils.setAllWorldTimes(server, TimeUtils.TimeFrame.DAWN);
             }
         }
 

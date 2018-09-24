@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.HealthPenalities;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**

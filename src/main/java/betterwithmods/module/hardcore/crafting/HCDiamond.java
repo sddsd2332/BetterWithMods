@@ -4,7 +4,7 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.recipes.MetalReclaming;
 import betterwithmods.module.tweaks.CheaperAxes;
 import net.minecraft.init.Items;

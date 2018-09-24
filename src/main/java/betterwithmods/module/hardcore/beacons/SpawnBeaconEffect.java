@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;

@@ -2,7 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWMRegistry;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;

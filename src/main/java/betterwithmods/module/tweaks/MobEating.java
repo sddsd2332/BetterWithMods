@@ -1,8 +1,8 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.ai.eat.EntityAIMonsterEat;
-import betterwithmods.module.Feature;
-import betterwithmods.util.WorldUtils;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
@@ -25,10 +25,10 @@ public class MobEating extends Feature {
     public static void addEntityAI(EntityJoinWorldEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof EntitySpider) {
-            if (!WorldUtils.hasAi((EntityLiving) entity, EntityAIMonsterEat.class))
+            if (!EntityUtils.hasAI((EntityLiving) entity, EntityAIMonsterEat.class))
                 ((EntitySpider) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("meatChicken"), radius));
         } else if (entity instanceof EntityZombie) {
-            if (!WorldUtils.hasAi((EntityLiving) entity, EntityAIMonsterEat.class))
+            if (!EntityUtils.hasAI((EntityLiving) entity, EntityAIMonsterEat.class))
                 ((EntityZombie) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("listAllmeat"), radius));
         }
     }

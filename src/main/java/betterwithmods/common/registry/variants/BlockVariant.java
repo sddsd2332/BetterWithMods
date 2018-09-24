@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.variants;
 
 import betterwithmods.api.util.IBlockVariants;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.item.ItemStack;
 
@@ -17,7 +17,7 @@ public class BlockVariant implements IBlockVariants {
     @Override
     public ItemStack getVariant(EnumBlock type, int count) {
 
-        return InvUtils.setCount(variants.getOrDefault(type, ItemStack.EMPTY), count);
+        return InventoryUtils.setCount(variants.getOrDefault(type, ItemStack.EMPTY), count);
     }
 
     @Override

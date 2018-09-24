@@ -4,12 +4,13 @@ import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemAnimalHarness;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.recipes.breeding_harness.models.ModelCowHarness;
 import betterwithmods.module.recipes.breeding_harness.models.ModelSheepHarness;
-import betterwithmods.network.BWNetwork;
+import betterwithmods.library.network.NetworkHandler;
+import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageHarness;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
@@ -68,7 +69,7 @@ public class AnimalRestraint extends Feature {
     private static void sendPacket(Entity entity) {
         Harness cap = getHarnessCapability(entity);
         if (cap != null) {
-            BWNetwork.sendToAllAround(new MessageHarness(entity.getEntityId(), cap.getHarness()), entity.getEntityWorld(), entity.getPosition());
+            BWMNetwork.INSTANCE.sendToAllAround(new MessageHarness(entity.getEntityId(), cap.getHarness()), entity.getEntityWorld(), entity.getPosition());
         }
     }
 
@@ -156,7 +157,7 @@ public class AnimalRestraint extends Feature {
             ItemStack harness = cap.getHarness();
             if (harness.isEmpty() && !event.getEntityPlayer().isSneaking()) {
                 if (hand.getItem() instanceof ItemAnimalHarness) {
-                    cap.setHarness(InvUtils.setCount(hand.copy(), 1));
+                    cap.setHarness(InventoryUtils.setCount(hand.copy(), 1));
                     if (!event.getEntityPlayer().capabilities.isCreativeMode)
                         hand.shrink(1);
                     event.getWorld().playSound(null, entity.getPosition(), SoundEvents.ITEM_ARMOR_EQUIP_LEATHER, SoundCategory.NEUTRAL, 0.5f, 1.3f);

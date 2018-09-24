@@ -1,11 +1,11 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import betterwithmods.library.event.StructureSetBlockEvent;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.hardcore.world.structures.IngredientChanger;
 import betterwithmods.module.hardcore.world.structures.StructureChanger;
-import betterwithmods.util.SetBlockIngredient;
+import betterwithmods.library.utils.ingredient.SetBlockIngredient;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockPlanks;

@@ -1,6 +1,6 @@
 package betterwithmods.module.internal;
 
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 
 public class RecipeRegistry extends RequiredFeature {
 

@@ -8,11 +8,11 @@ import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.hardcore.needs.HCTools;
-import betterwithmods.network.BWNetwork;
+import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageHungerShake;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -126,11 +126,11 @@ public class HCHunger extends Feature {
         if (!event.player.world.isRemote && event.phase == TickEvent.Phase.START) {
             EntityPlayer player = event.player;
 
-            if (!PlayerHelper.isSurvival(player) || player.world.getDifficulty() == EnumDifficulty.PEACEFUL)
+            if (!PlayerUtils.isSurvival(player) || player.world.getDifficulty() == EnumDifficulty.PEACEFUL)
                 return;
             int tick = getExhaustionTick(player);
 
-            int totalTicks = passiveExhaustionTick * (PlayerHelper.isSitting(player) ? 2 : 1);
+            int totalTicks = passiveExhaustionTick * (PlayerUtils.isSitting(player) ? 2 : 1);
 
             if (tick > totalTicks) {
                 BWMod.getLog().debug("Adding Exhaustion ({}) after {} ticks", passiveExhaustion, totalTicks);
@@ -146,7 +146,7 @@ public class HCHunger extends Feature {
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onHarvest(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
-        if (event.isCanceled() || !PlayerHelper.isSurvival(player))
+        if (event.isCanceled() || !PlayerUtils.isSurvival(player))
             return;
         World world = event.getWorld();
         BlockPos pos = event.getPos();
@@ -331,7 +331,7 @@ public class HCHunger extends Feature {
     public static void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
         if (event.deltaExhaustion >= HCHunger.blockBreakExhaustion) {
             if (event.player instanceof EntityPlayerMP)
-                BWNetwork.INSTANCE.sendTo(new MessageHungerShake(), (EntityPlayerMP) event.player);
+                BWMNetwork.INSTANCE.sendTo(new MessageHungerShake(), (EntityPlayerMP) event.player);
             else
                 GuiHunger.INSTANCE.shake();
         }

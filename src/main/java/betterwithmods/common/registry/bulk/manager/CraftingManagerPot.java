@@ -6,8 +6,8 @@ import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.common.tile.TileCookingPot;
-import betterwithmods.util.InvUtils;
-import betterwithmods.util.StackIngredient;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ingredient.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -105,7 +105,7 @@ public class CraftingManagerPot extends CraftingManagerBulk<CookingPotRecipe> {
 
             if (canCraft(r, tile)) {
                 if (pot.cookProgress >= pot.getMax()) {
-                    InvUtils.insert(world, pot.getBlockPos().up(), tile.getInventory(), craftItem(r, world, tile), false);
+                    InventoryUtils.insert(world, pot.getBlockPos().up(), tile.getInventory(), craftItem(r, world, tile), false);
                     pot.cookProgress = 0;
                     return true;
                 }

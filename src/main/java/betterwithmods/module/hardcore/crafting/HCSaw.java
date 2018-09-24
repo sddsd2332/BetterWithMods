@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import com.google.common.collect.Sets;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

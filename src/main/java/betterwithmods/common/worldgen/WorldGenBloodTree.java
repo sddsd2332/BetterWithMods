@@ -2,8 +2,8 @@ package betterwithmods.common.worldgen;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockBloodLog;
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.common.registry.block.recipe.StateIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.StateIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;

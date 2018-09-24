@@ -11,7 +11,7 @@ import betterwithmods.common.registry.bulk.manager.CraftingManagerBulk;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.util.DirUtils;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
@@ -135,7 +135,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
 
                 entityCollision();
                 //Only do crafting on the server
-                if (!world.isRemote && !InvUtils.isEmpty(inventory)) {
+                if (!world.isRemote && !InventoryUtils.isEmpty(inventory)) {
                     int heat = findHeat(getPos());
                     if (this.heat != heat) {
                         this.heat = heat;
@@ -214,10 +214,10 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
 
     private boolean captureDroppedItems() {
         boolean insert = false;
-        if (!InvUtils.isFull(inventory)) {
+        if (!InventoryUtils.isFull(inventory)) {
             List<EntityItem> items = this.getCaptureItems(getBlockWorld(), getPos());
             for (EntityItem item : items)
-                insert |= InvUtils.insertFromWorld(inventory, item, 0, 27, false);
+                insert |= InventoryUtils.insertFromWorld(inventory, item, 0, 27, false);
         }
         if (insert) {
             this.getBlockWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((getBlockWorld().rand.nextFloat() - getBlockWorld().rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
@@ -227,7 +227,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
     }
 
     public void ejectInventory(EnumFacing facing) {
-        int index = InvUtils.getFirstOccupiedStackNotOfItem(inventory, new ItemStack(Items.BRICK));
+        int index = InventoryUtils.getFirstOccupiedStackNotOfItem(inventory, new ItemStack(Items.BRICK));
         if (index >= 0 && index < inventory.getSlots()) {
             ItemStack stack = inventory.getStackInSlot(index);
             int ejectStackSize = 8;
@@ -236,7 +236,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
             }
             BlockPos target = pos.offset(facing);
             ItemStack eject = new ItemStack(stack.getItem(), ejectStackSize, stack.getItemDamage());
-            InvUtils.copyTags(eject, stack);
+            InventoryUtils.copyTags(eject, stack);
             IBlockState targetState = getBlockWorld().getBlockState(target);
             boolean ejectIntoWorld = getBlockWorld().isAirBlock(target) ||
                     targetState.getBlock().isReplaceable(getBlockWorld(), target) ||

@@ -5,7 +5,7 @@ import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileAxle;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -188,7 +188,7 @@ public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
     public void overpower(World world, BlockPos pos) {
         if (doesOverpower()) {
             world.setBlockToAir(pos);
-            InvUtils.ejectStackWithOffset(world, pos, new ItemStack(this, 1, damageDropped(world.getBlockState(pos))));
+            InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(this, 1, damageDropped(world.getBlockState(pos))));
         }
     }
 

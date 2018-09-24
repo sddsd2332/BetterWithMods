@@ -2,8 +2,8 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.BWMItems;
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
@@ -78,7 +78,7 @@ public class HeadDrops extends Feature {
         else if (evt.getEntityLiving() instanceof EntityCreeper)
             addDrop(evt, new ItemStack(Items.SKULL, 1, 4));
         else if (evt.getEntityLiving() instanceof EntityPlayer) {
-            addDrop(evt, PlayerHelper.getPlayerHead((EntityPlayer) evt.getEntityLiving()));
+            addDrop(evt, PlayerUtils.getPlayerHead((EntityPlayer) evt.getEntityLiving()));
         }
     }
 

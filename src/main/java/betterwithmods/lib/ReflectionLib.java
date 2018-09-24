@@ -44,6 +44,6 @@ public class ReflectionLib {
 
     public static final String[] MINECART_DISPENSER_BEHAVIOR = new String[]{"MINECART_DISPENSER_BEHAVIOR", "field_96602_b"};
 
-    public static final String[] ENUMDYEECOLOR_COLORVALUE = new String[]{"field_193351_w","colorValue"};
+
 
 }

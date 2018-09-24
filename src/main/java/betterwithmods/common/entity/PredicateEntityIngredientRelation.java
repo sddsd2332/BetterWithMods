@@ -1,6 +1,6 @@
 package betterwithmods.common.entity;
 
-import betterwithmods.util.SetIngredient;
+import betterwithmods.library.utils.ingredient.SetIngredient;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;

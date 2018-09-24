@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 
 public class FastStick extends Feature {
     @Override

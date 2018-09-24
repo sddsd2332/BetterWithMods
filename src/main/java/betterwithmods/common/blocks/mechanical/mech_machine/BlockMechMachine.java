@@ -4,7 +4,7 @@ import betterwithmods.BWMod;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.mechanical.IBlockActive;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -82,7 +82,7 @@ public abstract class BlockMechMachine extends BWMBlock implements IBlockActive,
     public void overpower(World world, BlockPos pos) {
         if (doesOverpower()) {
             overpowerSound(world, pos);
-            InvUtils.ejectBrokenItems(world, pos.offset(EnumFacing.random(world.rand)), overpowerDrops);
+            InventoryUtils.ejectBrokenItems(world, pos.offset(EnumFacing.random(world.rand)), overpowerDrops);
             world.setBlockToAir(pos);
         }
     }

@@ -4,7 +4,7 @@ import betterwithmods.api.block.ISoulContainer;
 import betterwithmods.api.block.IUrnConnector;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockFilteredHopper;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
@@ -142,7 +142,7 @@ public class BlockUrn extends BWMBlock implements ISoulContainer {
         switch (type) {
             case EMPTY:
                 if (world.setBlockToAir(pos)) {
-                    InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMBlocks.SOUL_URN));
+                    InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMBlocks.SOUL_URN));
                 }
                 break;
             default:

@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.entity.EntityFallingGourd;
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockMelon;
@@ -52,7 +52,7 @@ public class HCMelon extends Feature {
             if (event.getDrops().removeIf(x -> x.getItem().equals(Items.MELON)))
                 event.getDrops().add(new ItemStack(Blocks.MELON_BLOCK, 1));
 
-            if (!PlayerHelper.isCurrentToolEffectiveOnBlock(event.getHarvester(), event.getPos(), event.getState())) {
+            if (!PlayerUtils.isCurrentToolEffectiveOnBlock(event.getHarvester(), event.getPos(), event.getState())) {
                 event.getDrops().clear();
                 if (block.equals(Blocks.MELON_BLOCK)) {
                     event.getDrops().add(new ItemStack(Items.MELON_SEEDS));

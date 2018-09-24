@@ -9,7 +9,7 @@ import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
 import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.hardcore.needs.HCTools;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;

@@ -1,7 +1,7 @@
 package betterwithmods.common.items;
 
 import betterwithmods.common.entity.EntityDynamite;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -34,7 +34,7 @@ public class ItemDynamite extends Item {
 
         if (!world.isRemote) {
 
-            ItemStack activator = InvUtils.findItemInInventory(FLINT_AND_STEEL, InvUtils.getPlayerInventory(player, null));
+            ItemStack activator = InventoryUtils.findItemInInventory(FLINT_AND_STEEL, InventoryUtils.getPlayerInventory(player, null));
             if (!activator.isEmpty()) {
                 activator.damageItem(1, player);
             }

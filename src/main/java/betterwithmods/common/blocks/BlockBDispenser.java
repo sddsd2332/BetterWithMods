@@ -7,8 +7,8 @@ import betterwithmods.common.blocks.behaviors.BehaviorBreakBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorDefaultDispenseBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorEntity;
 import betterwithmods.common.tile.TileBlockDispenser;
-import betterwithmods.util.CapabilityUtils;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.CapabilityUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
 import net.minecraft.block.BlockDispenser;
@@ -118,14 +118,14 @@ public class BlockBDispenser extends BlockDispenser {
                 ResourceLocation name = EntityList.getKey(e);
                 IBehaviorEntity behaviorEntity = ENTITY_COLLECT_REGISTRY.getObject(name);
                 NonNullList<ItemStack> stacks = behaviorEntity.collect(world, check, e, tile.getCurrentSlot());
-                InvUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
+                InventoryUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
                 return;
             }
 
             IBehaviorCollect behavior = BLOCK_COLLECT_REGISTRY.getObject(block);
             if (!world.isAirBlock(check) || !block.isReplaceable(world, check)) {
                 NonNullList<ItemStack> stacks = behavior.collect(new BlockSourceImpl(world, check));
-                InvUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
+                InventoryUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
             }
         } else {
             int index = tile.nextIndex;
@@ -143,7 +143,7 @@ public class BlockBDispenser extends BlockDispenser {
     public void breakBlock(World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         TileEntity te = world.getTileEntity(pos);
         if (te instanceof TileBlockDispenser) {
-            InvUtils.ejectInventoryContents(world, pos, ((TileBlockDispenser) te).inventory);
+            InventoryUtils.ejectInventoryContents(world, pos, ((TileBlockDispenser) te).inventory);
             world.updateComparatorOutputLevel(pos, this);
         }
         super.breakBlock(world, pos, state);
@@ -166,7 +166,7 @@ public class BlockBDispenser extends BlockDispenser {
 
     public int getComparatorInputOverride(IBlockState blockState, World worldIn, @Nonnull BlockPos pos) {
         TileEntity tile = worldIn.getTileEntity(pos);
-        return CapabilityUtils.getInventory(tile, null).map(InvUtils::calculateComparatorLevel).orElse(0);
+        return CapabilityUtils.getInventory(tile, null).map(InventoryUtils::calculateComparatorLevel).orElse(0);
     }
 }
 

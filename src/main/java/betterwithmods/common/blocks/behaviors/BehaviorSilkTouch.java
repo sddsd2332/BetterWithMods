@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.behaviors;
 
 import betterwithmods.api.tile.dispenser.IBehaviorCollect;
 import betterwithmods.lib.ReflectionLib;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.ListUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBlockSource;
@@ -31,7 +31,7 @@ public class BehaviorSilkTouch implements IBehaviorCollect {
 
     @Override
     public NonNullList<ItemStack> collect(IBlockSource source) {
-        NonNullList<ItemStack> list = InvUtils.asNonnullList(getBlockSilkTouchDrop(source.getBlockState()));
+        NonNullList<ItemStack> list = ListUtils.asNonnullList(getBlockSilkTouchDrop(source.getBlockState()));
         breakBlock(source.getWorld(), source.getBlockState(), source.getBlockPos());
         return list;
     }

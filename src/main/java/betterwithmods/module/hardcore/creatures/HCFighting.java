@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;
@@ -22,7 +22,7 @@ public class HCFighting extends Feature {
     public static void onKnockback(LivingKnockBackEvent event) {
         Entity attacker = event.getAttacker();
         if (attacker instanceof EntityPlayer) {
-            if (!PlayerHelper.isSurvival((EntityPlayer) attacker))
+            if (!PlayerUtils.isSurvival((EntityPlayer) attacker))
                 return;
             boolean attack = false;
             for (EnumHand hand : EnumHand.values()) {

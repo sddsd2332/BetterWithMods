@@ -1,10 +1,11 @@
 package betterwithmods.network.messages;
 
+import betterwithmods.library.network.Message;
 import io.netty.buffer.ByteBuf;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-public class MessageCustomDust extends BWMessage {
+public class MessageCustomDust extends Message {
     private World world;
     public BlockPos pos;
     public float x, y, z;

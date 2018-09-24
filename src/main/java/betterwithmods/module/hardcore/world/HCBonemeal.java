@@ -4,9 +4,9 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.items.ItemFertilizer;
-import betterwithmods.module.Feature;
-import betterwithmods.util.StackIngredient;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;
@@ -50,7 +50,7 @@ public class HCBonemeal extends Feature {
 
     @SubscribeEvent
     public static void onBonemeal(BonemealEvent e) {
-        if (!PlayerHelper.isSurvival(e.getEntityPlayer()))
+        if (!PlayerUtils.isSurvival(e.getEntityPlayer()))
             return;
         if (!(e.getBlock().getBlock() instanceof BlockGrass) && !(e.getBlock().getBlock() instanceof BlockPlanter) && e.getBlock().getBlock() instanceof IGrowable) {
             IBlockState below = e.getWorld().getBlockState(e.getPos().down());

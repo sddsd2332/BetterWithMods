@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.world.structures;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;

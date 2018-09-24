@@ -5,7 +5,7 @@ import betterwithmods.common.penalties.Penalty;
 import betterwithmods.common.penalties.PenaltyHandler;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;
@@ -31,7 +31,7 @@ public class GuiStatus {
 
     @SideOnly(Side.CLIENT)
     public void draw() {
-        if (!PlayerHelper.isSurvival(mc.player))
+        if (!PlayerUtils.isSurvival(mc.player))
             return;
         ScaledResolution scale = ((GuiIngameForge) mc.ingameGUI).getResolution();
         int left = scale.getScaledWidth() / 2 + 91 + offsetX;

@@ -3,13 +3,13 @@ package betterwithmods.module.hardcore.beacons;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
-import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.common.registry.block.recipe.IngredientSpecial;
+import betterwithmods.library.utils.ingredient.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.IngredientSpecial;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -150,13 +150,13 @@ public class HCBeacons extends Feature {
                 .setBaseBeamColor(Color.GREEN));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("dung", new BlockIngredient("blockDung"), EntityPlayer.class)
-                .setCanApply((entityPlayer) -> !PlayerHelper.hasFullSet(((EntityPlayer) entityPlayer), ItemSoulforgeArmor.class))
+                .setCanApply((entityPlayer) -> !PlayerUtils.hasFullSet(((EntityPlayer) entityPlayer), ItemSoulforgeArmor.class))
                 .addPotionEffect(MobEffects.POISON, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .addPotionEffect(MobEffects.NAUSEA, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLACK));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("coal", new BlockIngredient("blockCoal"), EntityPlayer.class)
-                .setCanApply((entityPlayer) -> !PlayerHelper.hasPart(entityPlayer, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class))
+                .setCanApply((entityPlayer) -> !PlayerUtils.hasPart(entityPlayer, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class))
                 .addPotionEffect(MobEffects.BLINDNESS, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLACK));
 

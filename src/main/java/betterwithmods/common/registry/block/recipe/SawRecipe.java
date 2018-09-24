@@ -1,9 +1,10 @@
 package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.api.recipe.output.IRecipeOutputs;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import betterwithmods.module.internal.SoundRegistry;
-import betterwithmods.util.StackEjector;
-import betterwithmods.util.VectorBuilder;
+import betterwithmods.library.utils.StackEjector;
+import betterwithmods.library.utils.VectorBuilder;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.SoundCategory;

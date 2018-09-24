@@ -2,7 +2,7 @@ package betterwithmods.common.items;
 
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWMRecipes;
+import betterwithmods.library.utils.GlobalUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
@@ -31,7 +31,7 @@ public class ItemBark extends Item {
         ItemStack stack = new ItemStack(bark, count);
         NBTTagCompound tag = new NBTTagCompound();
         NBTTagCompound texture = new NBTTagCompound();
-        NBTUtil.writeBlockState(texture, BWMRecipes.getStateFromStack(log));
+        NBTUtil.writeBlockState(texture, GlobalUtils.getStateFromStack(log));
         tag.setTag("texture", texture);
         stack.setTagCompound(tag);
         return stack;

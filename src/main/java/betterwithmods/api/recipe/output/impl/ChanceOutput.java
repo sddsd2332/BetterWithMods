@@ -2,7 +2,7 @@ package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.lib.TooltipLib;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.item.ItemStack;
 
 import static betterwithmods.lib.TooltipLib.CHANCE_OUTPUT;
@@ -28,7 +28,7 @@ public class ChanceOutput extends StackOutput {
     public boolean equals(IOutput output) {
         if (output instanceof ChanceOutput) {
             ChanceOutput other = (ChanceOutput) output;
-            return other.getWeight() == this.getWeight() && InvUtils.matches(other.getOutput(), this.getOutput());
+            return other.getWeight() == this.getWeight() && InventoryUtils.matches(other.getOutput(), this.getOutput());
         }
         return false;
     }

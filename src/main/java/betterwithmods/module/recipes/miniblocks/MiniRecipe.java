@@ -1,6 +1,6 @@
 package betterwithmods.module.recipes.miniblocks;
 
-import betterwithmods.common.BWMRecipes;
+import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.recipes.miniblocks.blocks.BlockMini;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -92,7 +92,7 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
             } else {
                 IBlockState state = ItemCamo.getState(input);
                 if (state != null)
-                    result = BWMRecipes.getStackFromState(state);
+                    result = GlobalUtils.getStackFromState(state);
             }
         }
         return result;

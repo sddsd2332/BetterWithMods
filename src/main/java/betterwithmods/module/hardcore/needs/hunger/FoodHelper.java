@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.needs.hunger;
 
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
@@ -21,7 +21,7 @@ public class FoodHelper {
     }
 
     protected static Optional<FoodValues> getFoodValue(ItemStack stack) {
-        return FOOD_VALUES.entrySet().stream().filter(entry -> InvUtils.matches(entry.getKey(), stack)).map(Map.Entry::getValue).findFirst();
+        return FOOD_VALUES.entrySet().stream().filter(entry -> InventoryUtils.matches(entry.getKey(), stack)).map(Map.Entry::getValue).findFirst();
     }
 
     public static void registerFood(ItemStack item, int hunger) {

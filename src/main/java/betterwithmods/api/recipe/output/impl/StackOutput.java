@@ -1,7 +1,7 @@
 package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -26,7 +26,7 @@ public class StackOutput implements IOutput {
 
     @Override
     public boolean equals(IOutput output) {
-        return InvUtils.matches(output.getOutput(), this.getOutput());
+        return InventoryUtils.matches(output.getOutput(), this.getOutput());
     }
 
     @Override

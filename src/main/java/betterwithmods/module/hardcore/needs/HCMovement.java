@@ -2,8 +2,8 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockDirtSlab;
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -100,7 +100,7 @@ public class HCMovement extends Feature {
             }
             if (speed == 0)
                 speed = PREVIOUS_SPEED.getOrDefault(player.getGameProfile().getId(), DEFAULT_SPEED);
-            PlayerHelper.changeSpeed(player, "HCMovement", speed, HCMOVEMENT_SPEED_UUID);
+            PlayerUtils.changeSpeed(player, "HCMovement", speed, HCMOVEMENT_SPEED_UUID);
         }
     }
 

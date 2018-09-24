@@ -6,7 +6,7 @@ import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.tile.TileCrank;
 import betterwithmods.lib.TooltipLib;
 import betterwithmods.module.general.MechanicalPower;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -76,7 +76,7 @@ public class BlockCrank extends BWMBlock implements IOverpower {
     }
 
     private boolean toggleWithExhaustion(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand) {
-        if (player.getFoodStats().getFoodLevel() > PlayerHelper.getMinimumHunger()) {
+        if (player.getFoodStats().getFoodLevel() > PlayerUtils.getMinimumHunger()) {
             player.addExhaustion(MechanicalPower.HAND_CRANK_EXHAUSTION);
             if (!world.isRemote) {
                 toggleSwitch(world, pos, state);

@@ -2,7 +2,7 @@ package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.ListUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -24,12 +24,12 @@ public class CombinedOutputs implements IRecipeOutputs {
 
     @Override
     public NonNullList<ItemStack> getOutputs() {
-        return InvUtils.asNonnullList(recipeOutputs.stream().map(IRecipeOutputs::getOutputs).flatMap(List::stream).collect(Collectors.toList()));
+        return ListUtils.asNonnullList(recipeOutputs.stream().map(IRecipeOutputs::getOutputs).flatMap(List::stream).collect(Collectors.toList()));
     }
 
     @Override
     public List<IOutput> getDisplayOutputs() {
-        return InvUtils.asNonnullList(recipeOutputs.stream().map(IRecipeOutputs::getDisplayOutputs).flatMap(List::stream).collect(Collectors.toList()));
+        return ListUtils.asNonnullList(recipeOutputs.stream().map(IRecipeOutputs::getDisplayOutputs).flatMap(List::stream).collect(Collectors.toList()));
     }
 
     @Override

@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;

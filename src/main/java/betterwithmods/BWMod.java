@@ -5,7 +5,7 @@ import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.ModuleLoader;
+import betterwithmods.library.modularity.impl.ModuleLoader;
 import betterwithmods.module.general.General;
 import betterwithmods.module.hardcore.Hardcore;
 import betterwithmods.module.internal.InternalRegistries;

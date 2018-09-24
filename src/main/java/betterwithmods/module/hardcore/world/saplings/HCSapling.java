@@ -1,10 +1,10 @@
 package betterwithmods.module.hardcore.world.saplings;
 
-import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.GlobalUtils;
+import betterwithmods.library.utils.ingredient.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -39,7 +39,7 @@ public class HCSapling extends Feature {
             IBlockState sapling = getSapling(type);
             Block crop = new BlockSaplingCrop(sapling).setRegistryName(ModLib.MODID, String.format("sapling_crop_%s", type.getName()));
             BlockRegistry.registerBlock(crop, null);
-            SAPLING_CONVERSIONS.add(new SaplingConversion(new BlockDropIngredient(BWMRecipes.getStackFromState(sapling)), crop));
+            SAPLING_CONVERSIONS.add(new SaplingConversion(new BlockDropIngredient(GlobalUtils.getStackFromState(sapling)), crop));
         }
     }
 

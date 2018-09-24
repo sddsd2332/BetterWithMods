@@ -1,6 +1,6 @@
 package betterwithmods.common.penalties.attribute;
 
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.util.ResourceLocation;
 
 public abstract class Attribute<V> implements IAttribute<V> {

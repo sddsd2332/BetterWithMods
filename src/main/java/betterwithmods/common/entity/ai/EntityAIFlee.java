@@ -1,6 +1,6 @@
 package betterwithmods.common.entity.ai;
 
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
@@ -46,7 +46,7 @@ public class EntityAIFlee extends EntityAIBase {
         if (isValidEntity()) {
             if (this.creature.isBurning()) {
                 vec3d = RandomPositionGenerator.findRandomTarget(this.creature, 5, 4);
-            } else if (target != null && (!(target instanceof EntityPlayer) || PlayerHelper.isSurvival((EntityPlayer) target))) {
+            } else if (target != null && (!(target instanceof EntityPlayer) || PlayerUtils.isSurvival((EntityPlayer) target))) {
                 vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.creature, 5, 0, new Vec3d(target.posX, target.posY, target.posZ));
             }
         }

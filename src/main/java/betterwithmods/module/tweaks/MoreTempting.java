@@ -4,8 +4,8 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityIngredientRelationRegistry;
 import betterwithmods.common.entity.ai.eat.EntityAITempt;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
-import betterwithmods.util.WorldUtils;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.*;
 import net.minecraft.init.Blocks;
@@ -47,7 +47,7 @@ public class MoreTempting extends Feature {
                 EntityAnimal animal = ((EntityAnimal) entity);
                 Ingredient ingredient = REGISTRY.findIngredient(animal);
                 if (ingredient != null) {
-                    WorldUtils.removeTask(animal, net.minecraft.entity.ai.EntityAITempt.class);
+                    EntityUtils.removeTask(animal, net.minecraft.entity.ai.EntityAITempt.class);
                     animal.tasks.addTask(3, new EntityAITempt(animal, 1.5, false, ingredient));
                 }
             }

@@ -1,7 +1,7 @@
 package betterwithmods.module.general;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
 import net.minecraft.item.ItemStack;

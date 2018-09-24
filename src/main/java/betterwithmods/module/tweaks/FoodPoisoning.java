@@ -1,8 +1,8 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.module.Feature;
-import betterwithmods.util.player.PlayerHelper;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -37,7 +37,7 @@ public class FoodPoisoning extends Feature {
     //Stops Eating if Hunger Effect is active
     @SubscribeEvent
     public static void onFood(LivingEntityUseItemEvent.Start event) {
-        if (event.getItem().getItem() instanceof ItemFood && event.getEntityLiving() instanceof EntityPlayer && PlayerHelper.isSurvival((EntityPlayer) event.getEntityLiving())) {
+        if (event.getItem().getItem() instanceof ItemFood && event.getEntityLiving() instanceof EntityPlayer && PlayerUtils.isSurvival((EntityPlayer) event.getEntityLiving())) {
             if (event.getEntityLiving().isPotionActive(MobEffects.HUNGER)) {
                 event.setCanceled(true);
             }

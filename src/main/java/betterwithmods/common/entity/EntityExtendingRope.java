@@ -5,7 +5,7 @@ import betterwithmods.common.tile.TilePulley;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.general.General;
 import betterwithmods.util.AABBArray;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import io.netty.buffer.ByteBuf;
@@ -320,7 +320,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         }
 
         if (retries > 0) {
-            blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InvUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
+            blocks.forEach((vec, state) -> state.getBlock().getDrops(getEntityWorld(), pos, state, 0).forEach(stack -> InventoryUtils.spawnStack(getEntityWorld(), posX, posY, posZ, stack, 10)));
         }
 
         updatePassengers(posY, posY + (up ? 0 : 0.5), true);

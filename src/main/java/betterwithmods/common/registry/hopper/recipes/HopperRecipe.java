@@ -5,8 +5,8 @@ import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.tile.SimpleStackHandler;
 import betterwithmods.common.tile.TileFilteredHopper;
-import betterwithmods.util.InvUtils;
-import betterwithmods.util.StackIngredient;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ingredient.StackIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -50,12 +50,12 @@ public class HopperRecipe {
 
         SimpleStackHandler inventory = tile.inventory;
         for (ItemStack output : getOutputs()) {
-            ItemStack remainder = InvUtils.insert(inventory, output, false);
+            ItemStack remainder = InventoryUtils.insert(inventory, output, false);
 
             if (!remainder.isEmpty())
-                InvUtils.ejectStackWithOffset(world, inputStack.getPosition(), remainder);
+                InventoryUtils.ejectStackWithOffset(world, inputStack.getPosition(), remainder);
         }
-        InvUtils.ejectStackWithOffset(world, inputStack.getPosition(), getSecondaryOutputs());
+        InventoryUtils.ejectStackWithOffset(world, inputStack.getPosition(), getSecondaryOutputs());
         onCraft(world, pos, inputStack, tile);
         return true;
     }
@@ -109,6 +109,6 @@ public class HopperRecipe {
         List<ItemStack> outputs = getOutputs();
         if (outputs.isEmpty())
             return true;
-        return outputs.stream().allMatch(stack -> InvUtils.insert(inventory, stack, true).isEmpty());
+        return outputs.stream().allMatch(stack -> InventoryUtils.insert(inventory, stack, true).isEmpty());
     }
 }

@@ -1,6 +1,6 @@
 package betterwithmods.module.general;
 
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class Pulley extends RequiredFeature {

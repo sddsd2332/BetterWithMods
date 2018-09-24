@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.module.Module;
+import betterwithmods.library.modularity.impl.Module;
 
 /**
  * Created by primetoxinz on 4/20/17.

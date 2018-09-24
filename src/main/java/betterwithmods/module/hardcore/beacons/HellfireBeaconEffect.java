@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.module.Feature;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

@@ -1,7 +1,8 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ListUtils;
 import betterwithmods.util.DirUtils;
-import betterwithmods.util.InvUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
@@ -38,10 +39,10 @@ public class BlockWolf extends BWMBlock {
         BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(entityName, (world, pos, entity, stack) -> {
             if (((EntityAgeable) entity).isChild())
                 return NonNullList.create();
-            InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.STRING, 1 + world.rand.nextInt(3)));
+            InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.STRING, 1 + world.rand.nextInt(3)));
             world.playSound(null, pos, SoundEvents.ENTITY_WOLF_HURT, SoundCategory.NEUTRAL, 0.75F, 1.0F);
             entity.setDead();
-            return InvUtils.asNonnullList(new ItemStack(this));
+            return ListUtils.asNonnullList(new ItemStack(this));
         });
     }
 

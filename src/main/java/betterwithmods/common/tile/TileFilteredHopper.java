@@ -12,7 +12,7 @@ import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -99,7 +99,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     }
 
     public void insert(Entity entity) {
-        if (!InvUtils.isFull(inventory) && entity instanceof EntityItem) {
+        if (!InventoryUtils.isFull(inventory) && entity instanceof EntityItem) {
             EntityItem item = (EntityItem) entity;
             if (item.isDead)
                 return;
@@ -109,7 +109,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
                     this.getBlockWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((getBlockWorld().rand.nextFloat() - getBlockWorld().rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 }
             } else if (canFilterProcessItem(item.getItem())) {
-                if (InvUtils.insertFromWorld(inventory, item, 0, 18, false))
+                if (InventoryUtils.insertFromWorld(inventory, item, 0, 18, false))
                     this.getBlockWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((getBlockWorld().rand.nextFloat() - getBlockWorld().rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
                 hopperFilter.onInsert(world, pos, this, entity);
             }
@@ -117,18 +117,18 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     }
 
     private void extract() {
-        Optional<IItemHandler> inv = InvUtils.getItemHandler(world, pos.down(), EnumFacing.UP);
+        Optional<IItemHandler> inv = InventoryUtils.getItemHandler(world, pos.down(), EnumFacing.UP);
         if (ejectCounter > 2) {
-            int slot = InvUtils.getRandomOccupiedStackInRange(inventory, 0, 17);
+            int slot = InventoryUtils.getRandomOccupiedStackInRange(inventory, 0, 17);
             if (slot != -1) {
                 ItemStack stack = inventory.getStackInSlot(slot);
                 if (inv.isPresent()) {
-                    if (InvUtils.canInsert(inv.get(), stack, STACK_SIZE)) {
-                        ItemStack insert = InvUtils.insert(inv.get(), stack, STACK_SIZE, false);
+                    if (InventoryUtils.canInsert(inv.get(), stack, STACK_SIZE)) {
+                        ItemStack insert = InventoryUtils.insert(inv.get(), stack, STACK_SIZE, false);
                         stack.shrink(STACK_SIZE - insert.getCount());
                     }
                 } else if (canDropIntoBlock(pos.down())) {
-                    InvUtils.spawnStack(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack.splitStack(STACK_SIZE), 10);
+                    InventoryUtils.spawnStack(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack.splitStack(STACK_SIZE), 10);
                 }
             }
             ejectCounter = 0;
@@ -195,7 +195,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
             this.hopperFilter = newFilter;
             stateChanged = true;
         }
-        byte slotsOccupied = (byte) InvUtils.getOccupiedStacks(inventory, 0, 17);
+        byte slotsOccupied = (byte) InventoryUtils.getOccupiedStacks(inventory, 0, 17);
         if (slotsOccupied != this.occupiedSlots) {
             this.occupiedSlots = slotsOccupied;
             stateChanged = true;
@@ -360,7 +360,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     @Override
     public void onBreak() {
         super.onBreak();
-        InvUtils.ejectInventoryContents(world, pos, filter);
+        InventoryUtils.ejectInventoryContents(world, pos, filter);
     }
 
     public int getExperienceCount() {

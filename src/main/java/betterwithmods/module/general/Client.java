@@ -3,7 +3,7 @@ package betterwithmods.module.general;
 import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.common.tile.TileAxleGenerator;
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class Client extends RequiredFeature {

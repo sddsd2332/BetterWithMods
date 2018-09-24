@@ -113,9 +113,9 @@ public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
     public void overpower(World world, BlockPos pos) {
         if (doesOverpower()) {
             //TODO replace with loot table
-//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(Blocks.WOODEN_SLAB, 2, 0));
-//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 1, 0));
-//        InvUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 2, 6));
+//        InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(Blocks.WOODEN_SLAB, 2, 0));
+//        InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 1, 0));
+//        InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 2, 6));
             world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.3F,
                     world.rand.nextFloat() * 0.1F + 0.45F);
             world.setBlockToAir(pos);

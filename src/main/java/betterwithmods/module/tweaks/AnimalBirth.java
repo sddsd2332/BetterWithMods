@@ -2,8 +2,8 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.ai.EntityAIMate;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
-import betterwithmods.util.EntityUtils;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
@@ -18,7 +18,7 @@ public class AnimalBirth extends Feature {
         if (evt.getEntity() instanceof EntityLiving) {
             EntityLiving entity = (EntityLiving) evt.getEntity();
             if (entity instanceof EntityAnimal && EntityUtils.hasAI(entity, net.minecraft.entity.ai.EntityAIMate.class)) {
-                EntityUtils.removeAI(entity, net.minecraft.entity.ai.EntityAIMate.class);
+                EntityUtils.removeTask(entity, net.minecraft.entity.ai.EntityAIMate.class);
                 entity.tasks.addTask(0, new EntityAIMate((EntityAnimal) entity, 1.0D, 25d));
             }
         }

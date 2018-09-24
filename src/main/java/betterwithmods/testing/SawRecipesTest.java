@@ -1,8 +1,8 @@
 package betterwithmods.testing;
 
 import betterwithmods.common.registry.block.managers.CraftingManagerSaw;
-import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.ingredient.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.testing.base.BaseBlockTest;
 import betterwithmods.testing.base.Before;

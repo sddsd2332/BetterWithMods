@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.AbstractIllager;
 import net.minecraft.entity.passive.EntityVillager;

@@ -5,7 +5,7 @@ import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.RequiredFeature;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;

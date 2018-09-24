@@ -3,7 +3,7 @@ package betterwithmods.module.recipes;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockUnfiredPottery;
 import betterwithmods.common.registry.TurntableRotationManager;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import com.google.common.collect.Lists;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;

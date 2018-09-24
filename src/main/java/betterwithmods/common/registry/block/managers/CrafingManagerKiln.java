@@ -1,6 +1,6 @@
 package betterwithmods.common.registry.block.managers;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import com.google.common.collect.Lists;

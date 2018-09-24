@@ -2,8 +2,8 @@ package betterwithmods.module.hardcore.creatures.chicken;
 
 import betterwithmods.common.entity.EntityIngredientRelation;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.Feature;
-import betterwithmods.util.WorldUtils;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.TimeUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
@@ -63,7 +63,7 @@ public class HCChickens extends Feature {
                 if (layer.isFeed()) {
                     layer.setTicks(layer.getTicks() - 1);
 
-                    if (WorldUtils.isTimeFrame(entityLiving.world, WorldUtils.TimeFrame.DAWN)) {
+                    if (TimeUtils.isTimeFrame(entityLiving.world, TimeUtils.TimeFrame.DAWN)) {
                         if (layer.canLayEgg()) {
                             layer.lay(entityLiving);
                         }

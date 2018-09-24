@@ -1,4 +1,4 @@
-package betterwithmods.util;
+package betterwithmods.common.blocks.behaviors;
 
 import betterwithmods.common.entity.EntityDynamite;
 import net.minecraft.dispenser.BehaviorProjectileDispense;

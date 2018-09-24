@@ -1,10 +1,10 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.BWMod;
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.camo.BlockCamo;
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
-import betterwithmods.util.StackIngredient;
+import betterwithmods.library.utils.GlobalUtils;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.StackIngredient;
 import com.google.gson.JsonObject;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -45,7 +45,7 @@ public class MiniBlockIngredient extends BlockIngredient {
     public boolean apply(@Nullable ItemStack stack) {
         IBlockState state = ItemCamo.getState(stack);
         if (state != null && MiniType.matches(type, stack)) {
-            ItemStack baseStack = BWMRecipes.getStackFromState(state);
+            ItemStack baseStack = GlobalUtils.getStackFromState(state);
             return base.apply(baseStack);
         }
         return false;
@@ -83,7 +83,7 @@ public class MiniBlockIngredient extends BlockIngredient {
             ArrayList<ItemStack> stacks = new ArrayList<>();
             for (ItemStack stack : base.getMatchingStacks()) {
                 if (!stack.isEmpty() && stack.getItem() instanceof ItemBlock) {
-                    IBlockState state = BWMRecipes.getStateFromStack(stack);
+                    IBlockState state = GlobalUtils.getStateFromStack(stack);
                     Material material = state.getMaterial();
                     if (MiniBlocks.isValidMini(state)) {
                         BlockCamo blockMini = MiniBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);

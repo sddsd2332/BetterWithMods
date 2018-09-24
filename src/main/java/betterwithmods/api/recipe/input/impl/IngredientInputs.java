@@ -4,7 +4,8 @@ import betterwithmods.api.recipe.input.IRecipeContext;
 import betterwithmods.api.recipe.input.IRecipeInputs;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ListUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
@@ -17,7 +18,7 @@ public class IngredientInputs implements IRecipeInputs {
     private NonNullList<Ingredient> ingredients;
 
     public IngredientInputs(List<Ingredient> ingredients) {
-        this(InvUtils.asNonnullList(ingredients));
+        this(ListUtils.asNonnullList(ingredients));
     }
 
     public IngredientInputs(NonNullList<Ingredient> ingredients) {
@@ -29,7 +30,7 @@ public class IngredientInputs implements IRecipeInputs {
     public int orderedMatch(IRecipeContext context) {
         int index = Integer.MAX_VALUE;
         for (Ingredient ingredient : ingredients) {
-            if ((index = Math.min(index, InvUtils.getFirstOccupiedStackOfItem(context.getInventory(), ingredient))) == -1)
+            if ((index = Math.min(index, InventoryUtils.getFirstOccupiedStackOfItem(context.getInventory(), ingredient))) == -1)
                 return -1;
         }
         return index;
@@ -38,7 +39,7 @@ public class IngredientInputs implements IRecipeInputs {
     @Override
     public boolean match(IRecipeContext context) {
         for (Ingredient ingredient : ingredients) {
-            if (InvUtils.getFirstOccupiedStackOfItem(context.getInventory(), ingredient)== -1)
+            if (InventoryUtils.getFirstOccupiedStackOfItem(context.getInventory(), ingredient)== -1)
                 return false;
         }
         return true;
@@ -49,7 +50,7 @@ public class IngredientInputs implements IRecipeInputs {
         IItemHandler inventory = context.getInventory();
         NonNullList<ItemStack> containItems = NonNullList.create();
         for (Ingredient ingredient : ingredients) {
-            if (!InvUtils.consumeItemsInInventory(inventory, ingredient, false, containItems))
+            if (!InventoryUtils.consumeItemsInInventory(inventory, ingredient, false, containItems))
                 return null;
         }
         //this is dumb :P
@@ -60,7 +61,7 @@ public class IngredientInputs implements IRecipeInputs {
 
     @Override
     public boolean isInvalid() {
-        return ingredients.isEmpty() || ingredients.stream().noneMatch(InvUtils::isIngredientValid);
+        return ingredients.isEmpty() || ingredients.stream().noneMatch(InventoryUtils::isIngredientValid);
     }
 
     @Override

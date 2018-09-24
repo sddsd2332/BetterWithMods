@@ -2,7 +2,7 @@ package betterwithmods.client.model.generators;
 
 import betterwithmods.client.tesr.TESRVerticalWindmill;
 import betterwithmods.client.tesr.TESRWindmill;
-import betterwithmods.util.BannerUtils;
+import betterwithmods.common.BWMRegistry;
 import net.minecraft.util.math.MathHelper;
 
 public class ModelVerticalWindmill extends ModelRadialBlades {
@@ -33,7 +33,7 @@ public class ModelVerticalWindmill extends ModelRadialBlades {
 
         //Sails
         part.addChild(new ModelPart(this, 0, 0)
-                .addBanner(BannerUtils.WINDMILLS)
+                .addBanner(BWMRegistry.WINDMILLS)
                 .setTextureSize(128, 128)
                 .addBox(0, 0, 0, 20, 100, 1, true)
                 .setRotationCenter(x, -50, z)

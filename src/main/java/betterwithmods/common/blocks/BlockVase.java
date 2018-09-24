@@ -1,9 +1,9 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.tile.TileVase;
-import betterwithmods.util.CapabilityUtils;
-import betterwithmods.util.ColorUtils;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.CapabilityUtils;
+import betterwithmods.library.utils.colors.ColorUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -88,7 +88,7 @@ public class BlockVase extends BWMBlock {
     @Override
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
         TileEntity tile = world.getTileEntity(pos);
-        CapabilityUtils.getInventory(tile, null).ifPresent(inv -> InvUtils.readFromStack(inv, stack));
+        CapabilityUtils.getInventory(tile, null).ifPresent(inv -> InventoryUtils.readFromStack(inv, stack));
     }
 
     @Override
@@ -96,8 +96,8 @@ public class BlockVase extends BWMBlock {
         ItemStack heldItem = playerIn.getHeldItem(hand);
         if (playerIn.isSneaking())
             return false;
-        InvUtils.getItemHandler(worldIn, pos, null).ifPresent(inv -> {
-            if (InvUtils.insertSingle(inv, heldItem, false).isEmpty()) {
+        InventoryUtils.getItemHandler(worldIn, pos, null).ifPresent(inv -> {
+            if (InventoryUtils.insertSingle(inv, heldItem, false).isEmpty()) {
                 if (!playerIn.isCreative())
                     heldItem.shrink(1);
                 worldIn.playSound(null, pos.getX(), pos.getY(), pos.getZ(),
@@ -123,7 +123,7 @@ public class BlockVase extends BWMBlock {
     public ItemStack getPickBlock(@Nonnull IBlockState state, RayTraceResult target, @Nonnull World world, @Nonnull BlockPos pos, EntityPlayer player) {
         ItemStack stack = new ItemStack(this);
         TileEntity tile = world.getTileEntity(pos);
-        CapabilityUtils.getInventory(tile, null).ifPresent(inv -> InvUtils.writeToStack(inv, stack));
+        CapabilityUtils.getInventory(tile, null).ifPresent(inv -> InventoryUtils.writeToStack(inv, stack));
         return stack;
     }
 

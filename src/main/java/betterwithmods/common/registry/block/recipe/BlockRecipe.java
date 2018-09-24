@@ -2,7 +2,8 @@ package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
-import betterwithmods.util.InvUtils;
+import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -63,7 +64,7 @@ public abstract class BlockRecipe {
     }
 
     public boolean isInvalid() {
-        return (input.isSimple() && InvUtils.isIngredientValid(input) || recipeOutput.isInvalid());
+        return (input.isSimple() && InventoryUtils.isIngredientValid(input) || recipeOutput.isInvalid());
     }
 
     public boolean matches(World world, BlockPos pos, IBlockState state) {

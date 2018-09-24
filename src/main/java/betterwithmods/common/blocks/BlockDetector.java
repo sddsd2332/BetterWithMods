@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.utils.ingredient.BlockIngredient;
 import betterwithmods.util.DirUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;

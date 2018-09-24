@@ -158,11 +158,6 @@ public class ClientProxy implements IProxy {
 
 
     @Override
-    public void addResourceOverride(String space, String dir, String file, String ext) {
-        resourceProxy.addResource(space, dir, file, ext);
-    }
-
-    @Override
     public boolean addRunningParticles(IBlockState state, World world, BlockPos pos, Entity entity) {
         IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
         if (model instanceof IStateParticleBakedModel) {

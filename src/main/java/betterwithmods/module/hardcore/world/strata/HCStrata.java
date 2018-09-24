@@ -1,9 +1,9 @@
 package betterwithmods.module.hardcore.world.strata;
 
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.BrokenToolRegistry;
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.utils.GlobalUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -159,7 +159,7 @@ public class HCStrata extends Feature {
             }
         }
         List<ItemStack> stones = config().loadItemStackList("Strata Stones", getCategory(), "Blocks that are considered as stone to HCStrata", new ItemStack[]{new ItemStack(Blocks.STONE, 1, OreDictionary.WILDCARD_VALUE)});
-        stones.stream().map(BWMRecipes::getStatesFromStack).flatMap(Set::stream).forEach(HCStrata::addStone);
+        stones.stream().map(GlobalUtils::getStatesFromStack).flatMap(Set::stream).forEach(HCStrata::addStone);
     }
 
     private enum BlockType {

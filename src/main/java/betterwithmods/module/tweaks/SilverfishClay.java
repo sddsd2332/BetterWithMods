@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.module.Feature;
+import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySilverfish;
