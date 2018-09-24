@@ -246,8 +246,8 @@ public class MiniBlocks extends Feature {
         CORNERS.values().forEach(b -> BWMBlocks.registerBlock(b, new ItemMini(b)));
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public void afterItemRegister(RegistryEvent.Register<Item> event) {
+    @Override
+    public void init(FMLInitializationEvent event) {
         final NonNullList<ItemStack> list = NonNullList.create();
         for (Item item : ForgeRegistries.ITEMS) {
             if (!(item instanceof ItemBlock))
@@ -273,11 +273,6 @@ public class MiniBlocks extends Feature {
             } catch (Throwable ignored) {
             }
         }
-    }
-
-    @Override
-    public void init(FMLInitializationEvent event) {
-
     }
 
     @Override
