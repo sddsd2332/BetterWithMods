@@ -47,7 +47,14 @@ dependencies {
     deobfCompile "applecore:AppleCore:1.12.2-3.1.0"
     deobfCompile "team.chisel.ctm:CTM:MC1.12+"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
-    deobfCompile "betterwithmods.core:BetterWithLib:1.12-1.4"
+
+    if (!project.hasProperty("singleproject")) {
+        deobfCompile "betterwithmods.core:BetterWithLib:1.12-1.4"
+    } else {
+        compile project(':BetterWithLib')
+    }
+
+
 
     compile "MCMultiPart2:MCMultiPart:2.4.1"
     runtime "MCMultiPart2:MCMultiPart:2.4.1"
@@ -55,6 +62,7 @@ dependencies {
     compile 'org.easytesting:fest-assert:1.4'
     compile 'org.easytesting:fest-util:1.1.6'
 
+    compile files('libraries/Thaumcraft-1.12.2-6.1.BETA16-deobf.jar')
 }
 
 sourceSets {

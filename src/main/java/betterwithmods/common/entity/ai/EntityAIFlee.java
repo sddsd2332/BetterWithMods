@@ -6,6 +6,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.ai.RandomPositionGenerator;
+import net.minecraft.entity.monster.EntityPolarBear;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.math.Vec3d;
 
@@ -27,6 +28,14 @@ public class EntityAIFlee extends EntityAIBase {
         this.setMutexBits(1);
     }
 
+
+    private boolean isValidEntity() {
+        if (creature instanceof EntityPolarBear) {
+            return creature.isChild();
+        }
+        return true;
+    }
+
     /**
      * Returns whether the EntityAIBase should begin execution.
      */
@@ -34,10 +43,12 @@ public class EntityAIFlee extends EntityAIBase {
     public boolean shouldExecute() {
         Vec3d vec3d = null;
         Entity target = creature.getRevengeTarget();
-        if (this.creature.isBurning()) {
-            vec3d = RandomPositionGenerator.findRandomTarget(this.creature, 5, 4);
-        } else if (target != null && (!(target instanceof EntityPlayer) || PlayerHelper.isSurvival((EntityPlayer) target))) {
-            vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.creature, 5, 0, new Vec3d(target.posX, target.posY, target.posZ));
+        if (isValidEntity()) {
+            if (this.creature.isBurning()) {
+                vec3d = RandomPositionGenerator.findRandomTarget(this.creature, 5, 4);
+            } else if (target != null && (!(target instanceof EntityPlayer) || PlayerHelper.isSurvival((EntityPlayer) target))) {
+                vec3d = RandomPositionGenerator.findRandomTargetBlockAwayFrom(this.creature, 5, 0, new Vec3d(target.posX, target.posY, target.posZ));
+            }
         }
 
         if (vec3d != null) {
