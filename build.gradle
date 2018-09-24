@@ -49,7 +49,7 @@ dependencies {
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
 
     if (!project.hasProperty("singleproject")) {
-        deobfCompile "betterwithmods.core:BetterWithLib:1.12-1.4"
+        deobfCompile "betterwithmods.core:BetterWithLib:1.12-1.5"
     } else {
         compile project(':BetterWithLib')
     }
