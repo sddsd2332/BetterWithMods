@@ -1,9 +1,9 @@
 package betterwithmods.module.hardcore.world.structures;
 
-import betterwithmods.bwl.event.StructureSetBlockEvent;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.registry.block.recipe.StateIngredient;
+import betterwithmods.library.event.StructureSetBlockEvent;
 import betterwithmods.module.Feature;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockLadder;

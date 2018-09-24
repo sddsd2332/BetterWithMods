@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.bwl.event.StructureSetBlockEvent;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
+import betterwithmods.library.event.StructureSetBlockEvent;
 import betterwithmods.module.Feature;
 import betterwithmods.module.hardcore.world.structures.IngredientChanger;
 import betterwithmods.module.hardcore.world.structures.StructureChanger;

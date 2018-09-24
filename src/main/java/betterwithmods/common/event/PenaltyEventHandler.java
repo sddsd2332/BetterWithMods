@@ -17,6 +17,8 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 
+import java.util.UUID;
+
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class PenaltyEventHandler {
 
@@ -93,9 +95,9 @@ public class PenaltyEventHandler {
             }
 
             //Pain
-            if (!world.isRemote && BWRegistry.PENALTY_HANDLERS.inPain(player)) {
+            if (!world.isRemote && BWMRegistry.PENALTY_HANDLERS.inPain(player)) {
                 if (PlayerHelper.isMoving(player) && inPain(player)) {
-                    world.playSound(null, player.getPosition(), BWSounds.OOF, SoundCategory.BLOCKS, 0.75f, 1f);
+                    world.playSound(null, player.getPosition(), SoundRegistry.ENTITY_PLAYER_OOF, SoundCategory.BLOCKS, 0.75f, 1f);
                 }
             }
 

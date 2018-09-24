@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.world.structures;
 
-import betterwithmods.bwl.event.StructureSetBlockEvent;
+import betterwithmods.library.event.StructureSetBlockEvent;
 import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
