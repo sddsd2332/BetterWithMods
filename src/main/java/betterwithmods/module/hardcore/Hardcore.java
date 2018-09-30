@@ -105,4 +105,10 @@ public class Hardcore extends Module {
         GuiStatus.isInjuryLoaded = BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCInjury.class);
     }
 
+
+    //Force Hardcore module to load last
+    @Override
+    public int priority() {
+        return Integer.MIN_VALUE;
+    }
 }

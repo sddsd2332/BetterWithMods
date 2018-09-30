@@ -63,4 +63,9 @@ public class BlockRegistry extends RequiredFeature {
         REGISTRY.forEach(block -> event.getRegistry().register(block));
         BWMBlocks.registerTileEntities();
     }
+
+    @Override
+    public int priority() {
+        return 100;
+    }
 }

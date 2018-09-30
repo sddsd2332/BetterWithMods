@@ -19,4 +19,9 @@ public class UnitTesting extends Feature {
     public void onServerStarted(FMLServerStartedEvent event) {
         BWMTests.runTests();
     }
+
+    @Override
+    public int priority() {
+        return -1;
+    }
 }

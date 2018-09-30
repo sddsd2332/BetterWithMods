@@ -176,6 +176,7 @@ public class MiniBlocks extends Feature {
         }
     }
 
+
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void beforeBlockRegister(RegistryEvent.Register<Block> event) {
 
@@ -205,9 +206,8 @@ public class MiniBlocks extends Feature {
         return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath());
     }
 
-    @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public static void onPostBake(ModelBakeEvent event) {
+    public void onPostBake(ModelBakeEvent event) {
         MiniModel.SIDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/siding")));
         MiniModel.MOULDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/moulding")));
         MiniModel.CORNER = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/corner")));

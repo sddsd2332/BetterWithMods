@@ -60,12 +60,7 @@
 //        packs.add(resourceProxy);
 //    }
 //
-//    @SubscribeEvent
-//    @SideOnly(Side.CLIENT)
-//    public static void onPostBake(ModelBakeEvent event) {
-//        BarkModel.BARK = new BarkModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "item/bark")));
-//        event.getModelRegistry().putObject(BarkModel.LOCATION, BarkModel.BARK);
-//    }
+
 //
 //    @SubscribeEvent
 //    public static void registerModels(ModelRegistryEvent event) {
