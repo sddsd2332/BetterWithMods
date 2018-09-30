@@ -2,7 +2,6 @@ package betterwithmods.client.model.generators;
 
 import betterwithmods.client.tesr.TESRVerticalWindmill;
 import betterwithmods.client.tesr.TESRWindmill;
-import betterwithmods.common.Registration;
 import betterwithmods.proxy.BWMClientProxy;
 import net.minecraft.util.math.MathHelper;
 

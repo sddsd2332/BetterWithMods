@@ -177,9 +177,7 @@ public class MiniBlocks extends Feature {
     }
 
 
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void beforeBlockRegister(RegistryEvent.Register<Block> event) {
-
+    public void createBlocks() {
         for (Material material : names.keySet()) {
             String name = names.get(material);
             MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).put(material, (BlockMini) new BlockSiding(material, MATERIALS::get).setRegistryName(String.format("%s_%s", "siding", name)));
@@ -195,7 +193,7 @@ public class MiniBlocks extends Feature {
 
         for (MiniType type : MiniType.VALUES) {
             for (BlockCamo mini : MINI_MATERIAL_BLOCKS.get(type).values()) {
-                BlockRegistry.registerBlock(mini, mini.createItemBlock(mini));
+                BlockRegistry.registerBlock(mini, mini.createItemBlock(mini).setRegistryName(mini.getRegistryName()));
             }
         }
     }
@@ -310,6 +308,7 @@ public class MiniBlocks extends Feature {
         names.put(Material.WOOD, "wood");
         names.put(Material.ROCK, "rock");
         names.put(Material.IRON, "iron");
+        createBlocks();
         MiniType.registerTiles();
     }
 

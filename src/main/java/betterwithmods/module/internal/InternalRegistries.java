@@ -1,6 +1,7 @@
 package betterwithmods.module.internal;
 
 import betterwithmods.library.modularity.impl.RequiredModule;
+import betterwithmods.network.BWMNetwork;
 
 public class InternalRegistries extends RequiredModule {
 
@@ -15,7 +16,8 @@ public class InternalRegistries extends RequiredModule {
                 new SoundRegistry(),
                 new EntityRegistry(),
                 new RecipeRegistry(),
-                new MiscRegistry()
+                new MiscRegistry(),
+                BWMNetwork.INSTANCE
         );
     }
 

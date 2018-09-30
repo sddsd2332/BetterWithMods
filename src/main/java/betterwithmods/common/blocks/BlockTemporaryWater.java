@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.mechanical.BlockPump;
+import betterwithmods.common.blocks.mechanical.BlockScrewPump;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.BlockLiquid;
@@ -35,7 +35,7 @@ public class BlockTemporaryWater extends BlockLiquid {
 
         IBlockState stateBelow = worldIn.getBlockState(pos.down());
 
-        if (!(stateBelow.getBlock() == BWMBlocks.PUMP && stateBelow.getValue(BlockPump.ACTIVE) && BlockPump.hasWaterToPump(worldIn, pos.down()))) {
+        if (!(stateBelow.getBlock() == BWMBlocks.PUMP && stateBelow.getValue(BlockScrewPump.ACTIVE) && BlockScrewPump.hasWaterToPump(worldIn, pos.down()))) {
             worldIn.setBlockToAir(pos);
             return;
         }

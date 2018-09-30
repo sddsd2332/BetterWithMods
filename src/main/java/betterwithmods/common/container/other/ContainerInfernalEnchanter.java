@@ -2,8 +2,8 @@ package betterwithmods.common.container.other;
 
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.items.ItemArcaneScroll;
-import betterwithmods.common.tile.FilteredStackHandler;
-import betterwithmods.common.tile.SimpleStackHandler;
+import betterwithmods.library.common.inventory.FilteredStackHandler;
+import betterwithmods.library.common.inventory.SimpleStackHandler;
 import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.util.InfernalEnchantment;

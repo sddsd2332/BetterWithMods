@@ -62,7 +62,7 @@ dependencies {
     compile 'org.easytesting:fest-assert:1.4'
     compile 'org.easytesting:fest-util:1.1.6'
 
-    compile files('libraries/Thaumcraft-1.12.2-6.1.BETA16-deobf.jar')
+//    compile files('libraries/Thaumcraft-1.12.2-6.1.BETA16-deobf.jar')
 }
 
 sourceSets {

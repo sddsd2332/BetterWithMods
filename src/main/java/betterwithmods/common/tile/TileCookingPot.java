@@ -10,6 +10,7 @@ import betterwithmods.common.blocks.mechanical.cookingpot.BlockCookingPot;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerBulk;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
+import betterwithmods.library.common.tile.TileVisibleInventory;
 import betterwithmods.util.DirUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;

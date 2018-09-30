@@ -7,6 +7,7 @@ import betterwithmods.api.tile.ICrankable;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.util.IProgressSource;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
+import betterwithmods.library.common.tile.TileBasicInventory;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.DirUtils;
 import betterwithmods.library.utils.StackEjector;
@@ -174,7 +175,7 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
     public int getMechanicalInput(EnumFacing facing) {
         if (facing.getAxis().isVertical())
             return BWMAPI.IMPLEMENTATION.getPowerOutput(world, pos.offset(facing), facing.getOpposite());
-        if (world.getTileEntity(pos.offset(facing)) instanceof TileCrank) {
+        if (world.getTileEntity(pos.offset(facing)) instanceof TileHandCrank) {
             return BWMAPI.IMPLEMENTATION.getPowerOutput(world, pos.offset(facing), facing.getOpposite());
         }
         return 0;

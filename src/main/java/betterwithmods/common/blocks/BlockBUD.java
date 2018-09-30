@@ -1,6 +1,5 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.Registration;
 import betterwithmods.util.DirUtils;
 import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
 import net.minecraft.block.Block;
@@ -32,7 +31,6 @@ public class BlockBUD extends BWMBlock {
 
     /**
      * This list contains the blocks that should not cause the Buddy Block to update.
-     * It is initialized at {@link Registration#registerBUDBlacklist()} }
      */
     public static BlockStateIngredientSet BLACKLIST;
 

@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.common.blocks.BWMBlock;
-import betterwithmods.common.tile.TileCreativeGen;
+import betterwithmods.common.tile.TileCreativeGenerator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
@@ -25,7 +25,7 @@ public class BlockCreativeGenerator extends BWMBlock {
 
     @Override
     public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
-        return new TileCreativeGen();
+        return new TileCreativeGenerator();
     }
 
     @Override

@@ -1,6 +1,7 @@
 package betterwithmods.common.tile;
 
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.library.common.tile.TileBasicInventory;
 import net.minecraft.item.ItemStack;
 
 /**

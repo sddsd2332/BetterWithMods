@@ -5,6 +5,7 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.blocks.mechanical.BlockSaw;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
+import betterwithmods.library.common.tile.TileBasic;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.state.IBlockState;

@@ -11,6 +11,7 @@ import betterwithmods.common.blocks.BlockRope;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.entity.EntityExtendingRope;
 import betterwithmods.common.registry.PulleyStructureManager;
+import betterwithmods.library.common.tile.TileVisibleInventory;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.general.Pulley;
 import net.minecraft.block.Block;

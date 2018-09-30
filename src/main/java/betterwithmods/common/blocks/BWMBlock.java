@@ -2,7 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
-import betterwithmods.common.tile.TileBasic;
+import betterwithmods.library.common.tile.TileBasic;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageCustomDust;

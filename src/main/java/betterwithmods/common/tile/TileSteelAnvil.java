@@ -1,5 +1,6 @@
 package betterwithmods.common.tile;
 
+import betterwithmods.library.common.tile.TileBasicInventory;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 

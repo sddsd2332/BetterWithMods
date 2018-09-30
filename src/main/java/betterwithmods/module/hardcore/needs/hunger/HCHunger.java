@@ -195,7 +195,6 @@ public class HCHunger extends Feature {
     /*--------------------------------------------------*/
 
 
-
     public void registerFoods() {
         FoodHelper.registerFood(new ItemStack(Items.BEEF), 12);
         FoodHelper.registerFood(new ItemStack(Items.PORKCHOP), 12);
@@ -329,11 +328,13 @@ public class HCHunger extends Feature {
     //Shake Hunger bar whenever any exhaustion is given?
     @SubscribeEvent
     public static void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
-        if (event.deltaExhaustion >= HCHunger.blockBreakExhaustion) {
-            if (event.player instanceof EntityPlayerMP)
-                BWMNetwork.INSTANCE.sendTo(new MessageHungerShake(), (EntityPlayerMP) event.player);
-            else
-                GuiHunger.INSTANCE.shake();
+        if (PlayerUtils.isSurvival(event.player)) {
+            if (event.deltaExhaustion >= HCHunger.blockBreakExhaustion) {
+                if (event.player instanceof EntityPlayerMP)
+                    BWMNetwork.INSTANCE.sendTo(new MessageHungerShake(), (EntityPlayerMP) event.player);
+                else
+                    GuiHunger.INSTANCE.shake();
+            }
         }
     }
 
@@ -362,8 +363,6 @@ public class HCHunger extends Feature {
     public String getDescription() {
         return "Revamps the hunger system.";
     }
-
-
 
 
 }

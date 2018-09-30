@@ -5,6 +5,7 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.registry.TurntableRotationManager;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
+import betterwithmods.library.common.tile.TileBasic;
 import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

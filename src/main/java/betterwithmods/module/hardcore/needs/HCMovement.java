@@ -17,6 +17,7 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.fml.common.Mod;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -44,7 +45,7 @@ public class HCMovement extends Feature {
     }
 
     @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
+    public void onInit(FMLInitializationEvent event) {
         MATERIAL_MOVEMENT.put(Material.ROCK, FAST);
         MATERIAL_MOVEMENT.put(Material.WOOD, FAST);
         MATERIAL_MOVEMENT.put(Material.IRON, FAST);

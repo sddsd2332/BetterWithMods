@@ -4,6 +4,7 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
 import betterwithmods.common.blocks.mechanical.IBlockActive;
+import betterwithmods.library.common.tile.TileBasic;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;

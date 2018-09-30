@@ -3,7 +3,7 @@ package betterwithmods.common.blocks.mechanical;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BWMBlock;
-import betterwithmods.common.tile.TilePump;
+import betterwithmods.common.tile.TileScrewPump;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
@@ -30,9 +30,9 @@ import java.util.Random;
  * @author mrebhan
  */
 
-public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
+public class BlockScrewPump extends BWMBlock implements IBlockActive, IOverpower {
 
-    public BlockPump() {
+    public BlockScrewPump() {
         super(Material.WOOD);
 
         this.setTickRandomly(true);
@@ -108,12 +108,12 @@ public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
 
     @Override
     public void neighborChanged(IBlockState state, World worldIn, BlockPos pos, Block blockIn, BlockPos fromPos) {
-        withTile(worldIn, pos).ifPresent(TilePump::onChanged);
+        withTile(worldIn, pos).ifPresent(TileScrewPump::onChanged);
     }
 
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
-        withTile(world, pos).ifPresent(TilePump::onChanged);
+        withTile(world, pos).ifPresent(TileScrewPump::onChanged);
         if (isActive(state)) {
             if (world.isAirBlock(pos.up()) && hasWaterToPump(world, pos)) {
                 world.setBlockState(pos.up(), BWMBlocks.TEMP_LIQUID_SOURCE.getDefaultState());
@@ -135,7 +135,7 @@ public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
     @Nullable
     @Override
     public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
-        return new TilePump();
+        return new TileScrewPump();
     }
 
     @Override
@@ -143,14 +143,14 @@ public class BlockPump extends BWMBlock implements IBlockActive, IOverpower {
 
     }
 
-    public Optional<TilePump> withTile(World world, BlockPos pos) {
+    public Optional<TileScrewPump> withTile(World world, BlockPos pos) {
         return Optional.ofNullable(getTile(world, pos));
     }
 
-    public TilePump getTile(World world, BlockPos pos) {
+    public TileScrewPump getTile(World world, BlockPos pos) {
         TileEntity tile = world.getTileEntity(pos);
-        if (tile instanceof TilePump)
-            return (TilePump) tile;
+        if (tile instanceof TileScrewPump)
+            return (TileScrewPump) tile;
         return null;
     }
 

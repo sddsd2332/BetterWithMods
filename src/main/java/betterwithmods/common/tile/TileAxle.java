@@ -8,6 +8,7 @@ import betterwithmods.api.tile.IAxle;
 import betterwithmods.api.tile.IAxleTick;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
+import betterwithmods.library.common.tile.TileBasic;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.nbt.NBTTagCompound;

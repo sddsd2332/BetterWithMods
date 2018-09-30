@@ -11,6 +11,8 @@ import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
+import betterwithmods.library.common.inventory.SimpleStackHandler;
+import betterwithmods.library.common.tile.TileVisibleInventory;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.WorldUtils;

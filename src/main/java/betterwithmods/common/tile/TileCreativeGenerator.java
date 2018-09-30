@@ -16,7 +16,7 @@ import javax.annotation.Nonnull;
 /**
  * Created by primetoxinz on 8/5/16.
  */
-public class TileCreativeGen extends TileEntity implements IMechanicalPower {
+public class TileCreativeGenerator extends TileEntity implements IMechanicalPower {
     @Override
     public int getMinimumInput(EnumFacing facing) {
         return 0;

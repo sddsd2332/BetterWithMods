@@ -2,6 +2,7 @@ package betterwithmods.common.tile;
 
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.BlockInfernalEnchanter;
+import betterwithmods.library.common.tile.TileBasic;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

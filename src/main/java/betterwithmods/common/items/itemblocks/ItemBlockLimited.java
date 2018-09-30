@@ -7,6 +7,10 @@ import net.minecraft.item.ItemStack;
 public class ItemBlockLimited extends ItemBlock {
     private final int stackLimit;
 
+    public ItemBlockLimited(Block block) {
+        this(block, 1);
+    }
+
     public ItemBlockLimited(Block block, int stackLimit) {
         super(block);
         this.stackLimit = stackLimit;

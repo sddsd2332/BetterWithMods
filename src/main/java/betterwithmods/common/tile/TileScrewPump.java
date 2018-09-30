@@ -3,7 +3,8 @@ package betterwithmods.common.tile;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.common.blocks.mechanical.BlockPump;
+import betterwithmods.common.blocks.mechanical.BlockScrewPump;
+import betterwithmods.library.common.tile.TileBasic;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +17,7 @@ import javax.annotation.Nullable;
 /**
  * Created by primetoxinz on 7/24/17.
  */
-public class TilePump extends TileBasic implements IMechanicalPower {
+public class TileScrewPump extends TileBasic implements IMechanicalPower {
     private int power;
 
     public void onChanged() {
@@ -76,8 +77,8 @@ public class TilePump extends TileBasic implements IMechanicalPower {
         return super.getCapability(capability, facing);
     }
 
-    public BlockPump getBlock() {
-        return (BlockPump) getBlockType();
+    public BlockScrewPump getBlock() {
+        return (BlockScrewPump) getBlockType();
     }
 
     @Override
