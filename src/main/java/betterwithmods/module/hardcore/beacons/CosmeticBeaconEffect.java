@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.colors.ColorUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -19,7 +19,7 @@ public class CosmeticBeaconEffect extends BeaconEffect {
 
     private Map<BlockPos, float[]> colorCache;
 
-    public CosmeticBeaconEffect(String name, BlockIngredient structureBlock) {
+    public CosmeticBeaconEffect(String name, BlockStateIngredient structureBlock) {
         super(name, structureBlock, EntityLivingBase.class);
         this.colorCache = new HashMap<>();
         this.setBaseBeamColor(Color.white);

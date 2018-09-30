@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -24,7 +24,7 @@ public class PotionBeaconEffect extends BeaconEffect {
     private Map<PotionEffect, Amplification> potionEffects;
     private Predicate<EntityLivingBase> canApply;
 
-    public PotionBeaconEffect(String name, BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
+    public PotionBeaconEffect(String name, BlockStateIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
         super(name, structureBlock, validEntityType);
         this.potionEffects = new HashMap<>();
         this.canApply = (T) -> true;

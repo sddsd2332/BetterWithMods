@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.colors.ColorUtils;
 import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Lists;
@@ -62,7 +62,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
             tick = DEFAULT_TICK_RATE;
 
             if (effect != null) {
-                BlockIngredient structureBlock = effect.getStructureBlock();
+                BlockStateIngredient structureBlock = effect.getStructureBlock();
                 currentLevel = calcLevel(structureBlock);
                 if (currentLevel > 0) {
                     if (!active) {
@@ -178,7 +178,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
     }
 
 
-    public int calcLevel(BlockIngredient structureBlock) {
+    public int calcLevel(BlockStateIngredient structureBlock) {
         IBlockState stateAtPos;
         int r;
         for (r = 1; r <= 4; r++) {

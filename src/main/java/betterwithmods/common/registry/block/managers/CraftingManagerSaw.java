@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.block.managers;
 
-import betterwithmods.library.utils.ingredient.BlockDropIngredient;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
@@ -15,14 +15,14 @@ public class CraftingManagerSaw extends CraftingManagerBlock<SawRecipe> {
     }
 
     public SawRecipe addRecipe(ItemStack input, List<ItemStack> outputs) {
-        return addRecipe(new SawRecipe(new BlockIngredient(input), outputs));
+        return addRecipe(new SawRecipe(new BlockStateIngredient(input), outputs));
     }
 
-    public SawRecipe addRecipe(BlockIngredient input, ItemStack outputs) {
+    public SawRecipe addRecipe(BlockStateIngredient input, ItemStack outputs) {
         return addRecipe(input, Lists.newArrayList(outputs));
     }
 
-    public SawRecipe addRecipe(BlockIngredient input, List<ItemStack> outputs) {
+    public SawRecipe addRecipe(BlockStateIngredient input, List<ItemStack> outputs) {
         return addRecipe(new SawRecipe(input, outputs));
     }
 

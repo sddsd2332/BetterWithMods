@@ -4,7 +4,7 @@ import betterwithmods.BWMod;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.ArmorPenalties;
 import betterwithmods.library.modularity.impl.Feature;
-import betterwithmods.library.utils.ingredient.IngredientMap;
+import betterwithmods.library.utils.ingredient.collections.IngredientMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;

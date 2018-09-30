@@ -1,9 +1,9 @@
 package betterwithmods.module.hardcore.world.structures;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
-import betterwithmods.library.utils.ingredient.BlockIngredientSpecial;
-import betterwithmods.library.utils.ingredient.BlockMaterialIngredient;
-import betterwithmods.library.utils.ingredient.StateIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.PredicateBlockStateIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.MaterialIngredient;
 import betterwithmods.library.event.StructureSetBlockEvent;
 import betterwithmods.library.modularity.impl.Feature;
 import com.google.common.collect.Sets;
@@ -61,19 +61,19 @@ public class HCVillages extends Feature {
 
         ABANDONED
                 .addChanger(tableChanger)
-                .addChanger(new BiomeIngredientChanger(new BlockIngredient(new ItemStack(Blocks.WOOL, 1, EnumDyeColor.BLACK.getMetadata())), Blocks.PLANKS.getDefaultState()))
-                .addChanger(new IngredientChanger(new StateIngredient(Blocks.CRAFTING_TABLE), Blocks.AIR.getDefaultState()))
-                .addChanger(new IngredientChanger(new StateIngredient(Blocks.BOOKSHELF), Blocks.AIR.getDefaultState()))
-                .addChanger(new IngredientChanger(new StateIngredient(Blocks.TORCH), Blocks.AIR.getDefaultState()))
-                .addChanger(new IngredientChanger(new BlockMaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()))
-                .addChanger(new IngredientChanger(new BlockMaterialIngredient(Material.PLANTS), Blocks.AIR.getDefaultState()))
-                .addChanger(new IngredientChanger(new BlockMaterialIngredient(Material.WATER), Blocks.DIRT.getDefaultState()))
-                .addChanger(new IngredientChanger(new BlockIngredientSpecial((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockDoor), Blocks.AIR.getDefaultState()));
+                .addChanger(new BiomeIngredientChanger(new BlockStateIngredient(new ItemStack(Blocks.WOOL, 1, EnumDyeColor.BLACK.getMetadata())), Blocks.PLANKS.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.CRAFTING_TABLE), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.BOOKSHELF), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.TORCH), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new MaterialIngredient(Material.PLANTS), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.DIRT.getDefaultState()))
+                .addChanger(new IngredientChanger(new PredicateBlockStateIngredient((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockDoor), Blocks.AIR.getDefaultState()));
 
         SEMIABANDONED = NORMAL = ABANDONED;
 //                .addChanger(tableChanger)
-//                .addChanger(new IngredientChanger(new BlockMaterialIngredient(Material.WATER), Blocks.AIR.getDefaultState()))
-//                .addChanger(new IngredientChanger(new BlockMaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()));
+//                .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.AIR.getDefaultState()))
+//                .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()));
 
         NORMAL.addChanger(tableChanger);
 

@@ -4,7 +4,7 @@ import betterwithmods.client.render.RenderLongboi;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockWolf;
 import betterwithmods.common.entity.EntityLongboi;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
@@ -66,7 +66,7 @@ public class LongBoi extends Feature {
         BWMRegistry.TURNTABLE.addRecipe(new LongRecipe());
     }
 
-    private static class EntityIngredient extends BlockIngredient {
+    private static class EntityIngredient extends BlockStateIngredient {
 
         private final ResourceLocation name;
 

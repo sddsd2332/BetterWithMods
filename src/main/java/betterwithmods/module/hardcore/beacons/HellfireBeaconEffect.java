@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -25,7 +25,7 @@ public class HellfireBeaconEffect extends PotionBeaconEffect {
     private static boolean catchFire = true;
 
     public HellfireBeaconEffect() {
-        super("hellfire", new BlockIngredient("blockConcentratedHellfire"), EntityPlayer.class);
+        super("hellfire", new BlockStateIngredient("blockConcentratedHellfire"), EntityPlayer.class);
         this.addPotionEffect(MobEffects.FIRE_RESISTANCE, 120, PotionBeaconEffect.Amplification.LEVEL);
         this.setBaseBeamColor(Color.ORANGE);
         this.setActivationSound(SoundEvents.ENTITY_BLAZE_SHOOT);

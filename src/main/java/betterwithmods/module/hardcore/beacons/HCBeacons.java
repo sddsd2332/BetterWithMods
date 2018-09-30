@@ -3,9 +3,9 @@ package betterwithmods.module.hardcore.beacons;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
-import betterwithmods.library.utils.ingredient.BlockDropIngredient;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
-import betterwithmods.library.utils.ingredient.IngredientSpecial;
+import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
+import betterwithmods.library.utils.ingredient.PredicateIngredient;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
@@ -120,53 +120,53 @@ public class HCBeacons extends Feature {
         BEACON_EFFECTS.add(new CosmeticBeaconEffect("terracotta", new BlockDropIngredient("terracotta")));
         BEACON_EFFECTS.add(new CosmeticBeaconEffect("concrete", new BlockDropIngredient("concrete")));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("iron", new BlockIngredient("blockIron"), EntityMob.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("iron", new BlockStateIngredient("blockIron"), EntityMob.class)
                 .addPotionEffect(MobEffects.GLOWING, 25000, PotionBeaconEffect.Amplification.ZERO)
                 .setBaseBeamColor(Color.WHITE)
                 .setTickRate(3600));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("emerald", new BlockIngredient("blockEmerald"), EntityLivingBase.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("emerald", new BlockStateIngredient("blockEmerald"), EntityLivingBase.class)
                 .addPotionEffect(BWMRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.GREEN));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("lapis", new BlockIngredient("blockLapis"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("lapis", new BlockStateIngredient("blockLapis"), EntityPlayer.class)
                 .addPotionEffect(BWMRegistry.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE)
                 .setBaseBeamColor(Color.BLUE));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("diamond", new BlockIngredient("blockDiamond"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("diamond", new BlockStateIngredient("blockDiamond"), EntityPlayer.class)
                 .addPotionEffect(BWMRegistry.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
                 .setBaseBeamColor(Color.CYAN));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("glowstone", new BlockIngredient("glowstone"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("glowstone", new BlockStateIngredient("glowstone"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.NIGHT_VISION, 400, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
                 .setBaseBeamColor(Color.YELLOW));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("gold", new BlockIngredient("blockGold"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("gold", new BlockStateIngredient("blockGold"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.HASTE, 120, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
                 .setBaseBeamColor(Color.YELLOW));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("slime", new BlockIngredient("blockSlime"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("slime", new BlockStateIngredient("blockSlime"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.JUMP_BOOST, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.GREEN));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("dung", new BlockIngredient("blockDung"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("dung", new BlockStateIngredient("blockDung"), EntityPlayer.class)
                 .setCanApply((entityPlayer) -> !PlayerUtils.hasFullSet(((EntityPlayer) entityPlayer), ItemSoulforgeArmor.class))
                 .addPotionEffect(MobEffects.POISON, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .addPotionEffect(MobEffects.NAUSEA, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLACK));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("coal", new BlockIngredient("blockCoal"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("coal", new BlockStateIngredient("blockCoal"), EntityPlayer.class)
                 .setCanApply((entityPlayer) -> !PlayerUtils.hasPart(entityPlayer, EntityEquipmentSlot.HEAD, ItemSoulforgeArmor.class))
                 .addPotionEffect(MobEffects.BLINDNESS, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLACK));
 
         BEACON_EFFECTS.add(new HellfireBeaconEffect());
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("prismarine", new BlockIngredient("blockPrismarine"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("prismarine", new BlockStateIngredient("blockPrismarine"), EntityPlayer.class)
                 .addPotionEffect(MobEffects.WATER_BREATHING, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.BLUE));
 
-        BEACON_EFFECTS.add(new PotionBeaconEffect("padding", new BlockIngredient("blockPadding"), EntityPlayer.class)
+        BEACON_EFFECTS.add(new PotionBeaconEffect("padding", new BlockStateIngredient("blockPadding"), EntityPlayer.class)
                 .addPotionEffect(BWMRegistry.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.PINK));
 
@@ -176,7 +176,7 @@ public class HCBeacons extends Feature {
             BEACON_EFFECTS.add(new EnderBeaconEffect());
         }
 
-        BEACON_EFFECTS.add(new CosmeticBeaconEffect("compatibility", new BlockIngredient(new IngredientSpecial(
+        BEACON_EFFECTS.add(new CosmeticBeaconEffect("compatibility", new BlockStateIngredient(new PredicateIngredient(
                 stack -> {
                     try {
                         return stack.getItem() instanceof ItemBlock && ((ItemBlock) stack.getItem()).getBlock().isBeaconBase(null, null, null);

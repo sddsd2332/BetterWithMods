@@ -1,6 +1,6 @@
 package betterwithmods.common.entity;
 
-import betterwithmods.library.utils.ingredient.SetIngredient;
+import betterwithmods.library.utils.ingredient.collections.IngredientSet;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -9,7 +9,7 @@ import java.util.function.Predicate;
 
 public class PredicateEntityIngredientRelation implements EntityIngredientRelation {
     private Predicate<Entity> predicate;
-    private SetIngredient ingredients = new SetIngredient();
+    private IngredientSet ingredients = new IngredientSet();
     private ResourceLocation name;
 
     public PredicateEntityIngredientRelation(ResourceLocation name, Predicate<Entity> predicate) {

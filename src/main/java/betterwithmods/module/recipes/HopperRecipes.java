@@ -10,7 +10,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.library.utils.ingredient.IngredientSpecial;
+import betterwithmods.library.utils.ingredient.PredicateIngredient;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.registry.hopper.filters.SoulsandFilter;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
@@ -54,7 +54,7 @@ public class HopperRecipes extends Feature {
         boolean brimstoneFiltering = loadProperty("Glowstone Filtering", true).setComment("Passing glowstone through a soulsand filter makes brimstone.").get();
         useSelfFiltering = loadProperty("Self Filtering", false).setComment("Allow the Hopper to filter by the item in the filter slot.").get();
         BWMRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(new ResourceLocation(ModLib.MODID, "ladder"), StackIngredient.fromStacks(new ItemStack(Blocks.LADDER)), Lists.newArrayList(
-                new IngredientSpecial(stack -> !(stack.getItem() instanceof ItemBlock)),
+                new PredicateIngredient(stack -> !(stack.getItem() instanceof ItemBlock)),
                 new OreIngredient("treeSapling")
         )));
 
@@ -65,15 +65,15 @@ public class HopperRecipes extends Feature {
                 new OreIngredient("listAllseeds"),
                 new OreIngredient("foodFlour"),
                 new OreIngredient("pile"),
-                new IngredientSpecial(stack -> BWMOreDictionary.dustNames.stream().anyMatch(ore -> ore.apply(stack)))
+                new PredicateIngredient(stack -> BWMOreDictionary.dustNames.stream().anyMatch(ore -> ore.apply(stack)))
         )));
 
         BWMRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(new ResourceLocation(ModLib.MODID, "trapdoor"), StackIngredient.fromStacks(new ItemStack(Blocks.TRAPDOOR)), Lists.newArrayList(
-                new IngredientSpecial(stack -> stack.getItem() instanceof ItemBlock)
+                new PredicateIngredient(stack -> stack.getItem() instanceof ItemBlock)
         )));
 
         BWMRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(new ResourceLocation(ModLib.MODID, "grates"), new OreIngredient("grates"), Lists.newArrayList(
-                new IngredientSpecial(stack -> stack.getMaxStackSize() == 1)
+                new PredicateIngredient(stack -> stack.getMaxStackSize() == 1)
         )) {
             @Override
             public ModelWithResource getModelOverride(ItemStack filter) {
@@ -82,7 +82,7 @@ public class HopperRecipes extends Feature {
         });
 
         BWMRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(new ResourceLocation(ModLib.MODID, "iron_bar"), StackIngredient.fromStacks(new ItemStack(Blocks.IRON_BARS)), Lists.newArrayList(
-                new IngredientSpecial(stack -> stack.getMaxStackSize() > 1)
+                new PredicateIngredient(stack -> stack.getMaxStackSize() > 1)
         )));
 
         BWMRegistry.HOPPER_FILTERS.addFilter(new HopperFilter(new ResourceLocation(ModLib.MODID, "slats"), new OreIngredient("slats"),

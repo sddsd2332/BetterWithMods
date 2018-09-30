@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.world.saplings;
 
 import betterwithmods.library.utils.GlobalUtils;
-import betterwithmods.library.utils.ingredient.BlockDropIngredient;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
@@ -59,15 +59,15 @@ public class HCSapling extends Feature {
     }
 
     public class SaplingConversion {
-        private final BlockIngredient ingredient;
+        private final BlockStateIngredient ingredient;
         private final Block replacement;
 
-        public SaplingConversion(BlockIngredient ingredient, Block replacement) {
+        public SaplingConversion(BlockStateIngredient ingredient, Block replacement) {
             this.ingredient = ingredient;
             this.replacement = replacement;
         }
 
-        public BlockIngredient getIngredient() {
+        public BlockStateIngredient getIngredient() {
             return ingredient;
         }
 

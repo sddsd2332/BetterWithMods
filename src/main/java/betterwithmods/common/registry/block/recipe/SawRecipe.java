@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.api.recipe.output.IRecipeOutputs;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.library.utils.StackEjector;
 import betterwithmods.library.utils.VectorBuilder;
@@ -22,11 +22,11 @@ public class SawRecipe extends BlockRecipe {
 
     public static StackEjector EJECTOR = new StackEjector(new VectorBuilder().rand(0.4f).offset(0.25f, 0, 0.25f), new VectorBuilder().setGaussian(0.01f, 0.01f, 0.01f));
 
-    public SawRecipe(BlockIngredient input, List<ItemStack> outputs) {
+    public SawRecipe(BlockStateIngredient input, List<ItemStack> outputs) {
         super(input, outputs);
     }
 
-    public SawRecipe(BlockIngredient input, IRecipeOutputs recipeOutput) {
+    public SawRecipe(BlockStateIngredient input, IRecipeOutputs recipeOutput) {
         super(input, recipeOutput);
     }
 

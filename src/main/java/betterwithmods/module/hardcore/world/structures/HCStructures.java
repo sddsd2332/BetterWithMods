@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.library.utils.ingredient.StateIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
 import betterwithmods.library.event.StructureSetBlockEvent;
 import betterwithmods.library.modularity.impl.Feature;
 import com.google.common.collect.Sets;
@@ -79,17 +79,17 @@ public class HCStructures extends Feature {
                 //TODO This doesn't work as the lootable gets set again later
                 .addChanger(new ChestLootChanger())
                 //Replace clay with obsidian
-                .addChanger(new IngredientChanger(new StateIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()));
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()));
 
         NORMAL_DESERT_TEMPLE
                 .addChanger(new RelativePosChanger(Blocks.ENCHANTING_TABLE.getDefaultState(), new BlockPos(10, 1, 10)))
                 //Replace clay with obsidian
-                .addChanger(new IngredientChanger(new StateIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()));
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()));
 
 
         //TODO
         ABANDONED_JUNGLE_TEMPLE
-                .addChanger(new IngredientChanger(new StateIngredient(Blocks.REDSTONE_WIRE), Blocks.AIR.getDefaultState()));
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.REDSTONE_WIRE), Blocks.AIR.getDefaultState()));
 
         NORMAL_JUNGLE_TEMPLE
                 .addChanger(new RelativePosChanger(BWMBlocks.HAND_CRANK.getDefaultState(), new BlockPos(5, 3, 10)))

@@ -2,7 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.util.DirUtils;
-import betterwithmods.library.utils.ingredient.SetBlockIngredient;
+import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -34,7 +34,7 @@ public class BlockBUD extends BWMBlock {
      * This list contains the blocks that should not cause the Buddy Block to update.
      * It is initialized at {@link BWMRegistry#registerBUDBlacklist()} }
      */
-    public static SetBlockIngredient BLACKLIST;
+    public static BlockStateIngredientSet BLACKLIST;
 
     public BlockBUD() {
         super(Material.ROCK);

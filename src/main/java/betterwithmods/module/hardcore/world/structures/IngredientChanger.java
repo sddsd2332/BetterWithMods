@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.world.structures;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -9,10 +9,10 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.terraingen.BiomeEvent;
 
 public class IngredientChanger implements IChanger {
-    private BlockIngredient ingredient;
+    private BlockStateIngredient ingredient;
     protected IBlockState state;
 
-    public IngredientChanger(BlockIngredient ingredient, IBlockState state) {
+    public IngredientChanger(BlockStateIngredient ingredient, IBlockState state) {
         this.ingredient = ingredient;
         this.state = state;
     }

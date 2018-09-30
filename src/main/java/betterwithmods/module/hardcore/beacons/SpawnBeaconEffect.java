@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;
@@ -38,7 +38,7 @@ public class SpawnBeaconEffect extends BeaconEffect {
     public static final HashMap<BlockPos, HashSet<BindingPoint>> SPAWN_LIST = Maps.newHashMap();
 
     public SpawnBeaconEffect() {
-        super("spawn", new BlockIngredient("blockSoulforgedSteel"), EntityPlayer.class);
+        super("spawn", new BlockStateIngredient("blockSoulforgedSteel"), EntityPlayer.class);
         this.setBaseBeamColor(Color.GRAY);
     }
 

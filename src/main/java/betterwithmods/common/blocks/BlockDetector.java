@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.util.DirUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -199,15 +199,15 @@ public class BlockDetector extends BWMBlock {
     }
 
     public static class IngredientDetection implements IDetection {
-        private BlockIngredient ingredients;
+        private BlockStateIngredient ingredients;
         private Predicate<EnumFacing> direction;
 
-        public IngredientDetection(BlockIngredient ingredients) {
+        public IngredientDetection(BlockStateIngredient ingredients) {
             this(ingredients, facing -> true);
         }
 
 
-        public IngredientDetection(BlockIngredient ingredients, Predicate<EnumFacing> direction) {
+        public IngredientDetection(BlockStateIngredient ingredients, Predicate<EnumFacing> direction) {
             this.ingredients = ingredients;
             this.direction = direction;
         }

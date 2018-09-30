@@ -4,7 +4,7 @@ import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.common.registry.block.managers.CraftingManagerTurntable;
 import betterwithmods.common.tile.TileTurntable;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -26,22 +26,22 @@ public class TurntableRecipe extends BlockRecipe {
     private final IBlockState productState;
     private final ItemStack representative;
 
-    public TurntableRecipe(BlockIngredient input, List<ItemStack> outputs, IBlockState productState, int rotations) {
+    public TurntableRecipe(BlockStateIngredient input, List<ItemStack> outputs, IBlockState productState, int rotations) {
         this(input, productState, outputs, rotations);
     }
 
-    public TurntableRecipe(BlockIngredient input, IBlockState productState, List<ItemStack> outputs, int rotations) {
+    public TurntableRecipe(BlockStateIngredient input, IBlockState productState, List<ItemStack> outputs, int rotations) {
         this(input, productState, new ItemStack(productState.getBlock(), 1, productState.getBlock().getMetaFromState(productState)), outputs, rotations);
     }
 
-    public TurntableRecipe(BlockIngredient input, IBlockState productState, ItemStack representative, List<ItemStack> outputs, int rotations) {
+    public TurntableRecipe(BlockStateIngredient input, IBlockState productState, ItemStack representative, List<ItemStack> outputs, int rotations) {
         super(input, outputs);
         this.rotations = rotations;
         this.productState = productState;
         this.representative = representative;
     }
 
-    public TurntableRecipe(BlockIngredient input, IBlockState productState, ItemStack representative, IRecipeOutputs outputs, int rotations) {
+    public TurntableRecipe(BlockStateIngredient input, IBlockState productState, ItemStack representative, IRecipeOutputs outputs, int rotations) {
         super(input, outputs);
         this.rotations = rotations;
         this.productState = productState;

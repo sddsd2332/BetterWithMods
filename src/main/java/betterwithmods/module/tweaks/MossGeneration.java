@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.state.IBlockState;
@@ -29,12 +29,12 @@ import java.util.stream.Collectors;
  */
 @Mod.EventBusSubscriber
 public class MossGeneration extends Feature {
-    private static final HashMap<BlockIngredient, IBlockState> CONVERTED_BLOCKS = new HashMap<>();
+    private static final HashMap<BlockStateIngredient, IBlockState> CONVERTED_BLOCKS = new HashMap<>();
     public static int RADIUS;
     public static int RATE;
     public static boolean DISABLE_VINE_RECIPES;
 
-    public static void addBlockConversion(BlockIngredient ingredient, IBlockState mossyState) {
+    public static void addBlockConversion(BlockStateIngredient ingredient, IBlockState mossyState) {
         CONVERTED_BLOCKS.put(ingredient, mossyState);
     }
 
@@ -102,8 +102,8 @@ public class MossGeneration extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        addBlockConversion(new BlockIngredient(new ItemStack(Blocks.COBBLESTONE)), Blocks.MOSSY_COBBLESTONE.getDefaultState());
-        addBlockConversion(new BlockIngredient(new ItemStack(Blocks.STONEBRICK)), Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY));
+        addBlockConversion(new BlockStateIngredient(new ItemStack(Blocks.COBBLESTONE)), Blocks.MOSSY_COBBLESTONE.getDefaultState());
+        addBlockConversion(new BlockStateIngredient(new ItemStack(Blocks.STONEBRICK)), Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY));
     }
 
 

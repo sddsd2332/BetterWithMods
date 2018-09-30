@@ -1,8 +1,8 @@
 package betterwithmods.testing;
 
 import betterwithmods.common.registry.block.managers.CraftingManagerSaw;
-import betterwithmods.library.utils.ingredient.BlockDropIngredient;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.testing.base.BaseBlockTest;
 import betterwithmods.testing.base.Before;
@@ -28,10 +28,10 @@ public class SawRecipesTest extends BaseBlockTest<SawRecipe> {
         world.setBlockState(origin, Blocks.PLANKS.getDefaultState());
         world.setBlockState(origin.up(), Blocks.LOG.getDefaultState().withProperty(BlockLog.LOG_AXIS, BlockLog.EnumAxis.X));
 
-        BlockIngredient dropIngredient = new BlockDropIngredient("logWood");
+        BlockStateIngredient dropIngredient = new BlockDropIngredient("logWood");
 
-        BlockIngredient ingredient = new BlockIngredient(Blocks.PLANKS.getDefaultState());
-        BlockIngredient oreIngredient = new BlockIngredient("plankWood");
+        BlockStateIngredient ingredient = new BlockStateIngredient(Blocks.PLANKS.getDefaultState());
+        BlockStateIngredient oreIngredient = new BlockStateIngredient("plankWood");
 
         List<ItemStack> outputs = Lists.newArrayList(new ItemStack(Items.IRON_INGOT));
         recipe = new SawRecipe(ingredient, outputs);

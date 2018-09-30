@@ -1,11 +1,11 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.event.StructureSetBlockEvent;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.hardcore.world.structures.IngredientChanger;
 import betterwithmods.module.hardcore.world.structures.StructureChanger;
-import betterwithmods.library.utils.ingredient.SetBlockIngredient;
+import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockPlanks;
@@ -35,7 +35,7 @@ public class MineshaftGeneration extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        BlockIngredient fence = new SetBlockIngredient(Blocks.OAK_FENCE, Blocks.DARK_OAK_FENCE);
+        BlockStateIngredient fence = new BlockStateIngredientSet(Blocks.OAK_FENCE, Blocks.DARK_OAK_FENCE);
         MINESHAFT_CHANGER.addChanger(new MineshaftIngredientChanger(fence, Blocks.LOG.getDefaultState(), MapGenMineshaft.Type.NORMAL));
         MINESHAFT_CHANGER.addChanger(new MineshaftIngredientChanger(fence, Blocks.LOG2.getDefaultState().withProperty(BlockNewLog.VARIANT, BlockPlanks.EnumType.DARK_OAK), MapGenMineshaft.Type.MESA));
     }
@@ -53,7 +53,7 @@ public class MineshaftGeneration extends Feature {
     public static class MineshaftIngredientChanger extends IngredientChanger {
         protected MapGenMineshaft.Type type;
 
-        public MineshaftIngredientChanger(BlockIngredient ingredient, IBlockState state, MapGenMineshaft.Type type) {
+        public MineshaftIngredientChanger(BlockStateIngredient ingredient, IBlockState state, MapGenMineshaft.Type type) {
             super(ingredient, state);
             this.type = type;
         }

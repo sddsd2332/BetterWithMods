@@ -2,7 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.EntityJungleSpider;
 import betterwithmods.common.entity.SpawningWhitelist;
-import betterwithmods.library.utils.ingredient.BlockMaterialIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.MaterialIngredient;
 import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -48,7 +48,7 @@ public class MobSpawning extends Feature {
         }
 
         if (slime) {
-            SLIME.addIngredient(new BlockMaterialIngredient(Material.GRASS, Material.ROCK, Material.GROUND));
+            SLIME.addIngredient(new MaterialIngredient(Material.GRASS, Material.ROCK, Material.GROUND));
         }
 
         for (Biome biome : Biome.REGISTRY) {

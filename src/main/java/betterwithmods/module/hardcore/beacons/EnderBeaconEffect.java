@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 public class EnderBeaconEffect extends BeaconEffect {
 
     public EnderBeaconEffect() {
-        super("ender", new BlockIngredient("blockEnder"), EntityPlayer.class);
+        super("ender", new BlockStateIngredient("blockEnder"), EntityPlayer.class);
     }
 
     @Override

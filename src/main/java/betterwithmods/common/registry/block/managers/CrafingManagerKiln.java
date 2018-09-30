@@ -1,6 +1,6 @@
 package betterwithmods.common.registry.block.managers;
 
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import com.google.common.collect.Lists;
@@ -34,11 +34,11 @@ public class CrafingManagerKiln extends CraftingManagerBlock<KilnRecipe> {
     }
 
     public KilnRecipe addRecipe(ItemStack input, List<ItemStack> outputs, int heat) {
-        return addRecipe(new KilnRecipe(new BlockIngredient(input), outputs, heat, 500 * heat));
+        return addRecipe(new KilnRecipe(new BlockStateIngredient(input), outputs, heat, 500 * heat));
     }
 
     public KilnRecipe addRecipe(ItemStack input, List<ItemStack> outputs, int heat, int cookTime) {
-        return addRecipe(new KilnRecipe(new BlockIngredient(input), outputs, heat, cookTime));
+        return addRecipe(new KilnRecipe(new BlockStateIngredient(input), outputs, heat, cookTime));
     }
 
     @Override

@@ -5,7 +5,7 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.library.utils.colors.ColorUtils;
@@ -46,7 +46,7 @@ public class MillRecipes extends Feature {
             BWMRecipes.removeRecipe(new ItemStack(Items.SUGAR));
             BWMRecipes.removeRecipe(new ItemStack(Items.BLAZE_POWDER));
             BWMRecipes.removeRecipe(StackIngredient.fromStacks(new ItemStack(Items.BEETROOT)));
-            for (BlockIngredient flower : ColorUtils.FLOWER_TO_DYES.keySet()) {
+            for (BlockStateIngredient flower : ColorUtils.FLOWER_TO_DYES.keySet()) {
                 BWMRecipes.removeRecipe(flower);
             }
         }
@@ -72,7 +72,7 @@ public class MillRecipes extends Feature {
         BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.LEATHER), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER));
         BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.RABBIT_HIDE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT));
         BWMRegistry.MILLSTONE.addMillRecipe(ItemMaterial.getStack(ItemMaterial.EnumMaterial.LEATHER_CUT), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT));
-        for (BlockIngredient flower : ColorUtils.FLOWER_TO_DYES.keySet()) {
+        for (BlockStateIngredient flower : ColorUtils.FLOWER_TO_DYES.keySet()) {
             BWMRegistry.MILLSTONE.addMillRecipe(flower, ColorUtils.FLOWER_TO_DYES.get(flower).getStack());
         }
         BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()), ItemMaterial.getStack(ItemMaterial.EnumMaterial.COCOA_POWDER));

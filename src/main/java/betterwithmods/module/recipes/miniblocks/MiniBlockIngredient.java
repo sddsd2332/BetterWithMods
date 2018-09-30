@@ -3,7 +3,7 @@ package betterwithmods.module.recipes.miniblocks;
 import betterwithmods.BWMod;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.library.utils.GlobalUtils;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import com.google.gson.JsonObject;
 import net.minecraft.block.material.Material;
@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class MiniBlockIngredient extends BlockIngredient {
+public class MiniBlockIngredient extends BlockStateIngredient {
 
     private final Ingredient base;
     private final MiniType type;

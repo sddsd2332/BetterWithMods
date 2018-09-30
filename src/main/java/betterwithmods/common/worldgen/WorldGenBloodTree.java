@@ -2,8 +2,8 @@ package betterwithmods.common.worldgen;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockBloodLog;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
-import betterwithmods.library.utils.ingredient.StateIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
@@ -21,7 +21,7 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
     private final IBlockState log = BWMBlocks.BLOOD_LOG.getDefaultState();
     private final IBlockState leaves = BWMBlocks.BLOOD_LEAVES.getDefaultState().withProperty(BlockLeaves.DECAYABLE, true);
 
-    private BlockIngredient BLOOD_LOG = new StateIngredient(BWMBlocks.BLOOD_LOG);
+    private BlockStateIngredient BLOOD_LOG = new BlockIngredient(BWMBlocks.BLOOD_LOG);
 
     public WorldGenBloodTree() {
         super(true);
@@ -116,7 +116,7 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
         }
     }
 
-    private int findNear(World world, BlockPos pos, EnumFacing.Axis axis, int range, BlockIngredient match) {
+    private int findNear(World world, BlockPos pos, EnumFacing.Axis axis, int range, BlockStateIngredient match) {
         int j = 0;
         for (EnumFacing facing : axis.getPlane().facings()) {
             for (int i = 1; i <= range; i++) {

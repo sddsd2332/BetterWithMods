@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.block.managers;
 
 import betterwithmods.library.utils.GlobalUtils;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import betterwithmods.common.tile.TileTurntable;
 import com.google.common.collect.Lists;
@@ -28,22 +28,22 @@ public class CraftingManagerTurntable extends CraftingManagerBlock<TurntableReci
     }
 
     public TurntableRecipe addDefaultRecipe(ItemStack input, ItemStack productState) {
-        return addDefaultRecipe(new BlockIngredient(input), GlobalUtils.getStateFromStack(productState), Lists.newArrayList());
+        return addDefaultRecipe(new BlockStateIngredient(input), GlobalUtils.getStateFromStack(productState), Lists.newArrayList());
     }
 
     public TurntableRecipe addDefaultRecipe(ItemStack input, ItemStack productState, List<ItemStack> outputs) {
-        return addDefaultRecipe(new BlockIngredient(input), GlobalUtils.getStateFromStack(productState), outputs);
+        return addDefaultRecipe(new BlockStateIngredient(input), GlobalUtils.getStateFromStack(productState), outputs);
     }
 
     public TurntableRecipe addDefaultRecipe(ItemStack input, IBlockState productState, List<ItemStack> outputs) {
-        return addDefaultRecipe(new BlockIngredient(input), productState, outputs);
+        return addDefaultRecipe(new BlockStateIngredient(input), productState, outputs);
     }
 
-    public TurntableRecipe addDefaultRecipe(BlockIngredient input, IBlockState productState, List<ItemStack> outputs) {
+    public TurntableRecipe addDefaultRecipe(BlockStateIngredient input, IBlockState productState, List<ItemStack> outputs) {
         return addRecipe(input, productState, outputs, 8);
     }
 
-    public TurntableRecipe addRecipe(BlockIngredient input, IBlockState productState, List<ItemStack> outputs, int rotations) {
+    public TurntableRecipe addRecipe(BlockStateIngredient input, IBlockState productState, List<ItemStack> outputs, int rotations) {
         return addRecipe(new TurntableRecipe(input, productState, outputs, rotations));
     }
 

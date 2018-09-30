@@ -31,7 +31,6 @@ import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ListUtils;
 import betterwithmods.library.utils.WeatherUtils;
-import betterwithmods.library.utils.ingredient.*;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerMill;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerPot;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
@@ -39,6 +38,11 @@ import betterwithmods.common.registry.hopper.filters.HopperFilters;
 import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.ReflectionLib;
+import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.PredicateBlockStateIngredient;
+import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
 import betterwithmods.util.*;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -262,8 +266,8 @@ public class BWMRegistry {
 
 
     public static void registerHeatSources() {
-        BWMHeatRegistry.addHeatSource(new StateIngredient(Blocks.FIRE, Items.AIR), 1);
-        BWMHeatRegistry.addHeatSource(new StateIngredient(BWMBlocks.STOKED_FLAME, Items.AIR), 2);
+        BWMHeatRegistry.addHeatSource(new BlockIngredient(Blocks.FIRE, Items.AIR), 1);
+        BWMHeatRegistry.addHeatSource(new BlockIngredient(BWMBlocks.STOKED_FLAME, Items.AIR), 2);
     }
 
     @SubscribeEvent
@@ -294,18 +298,18 @@ public class BWMRegistry {
         Blocks.FIRE.setFireInfo(BWMBlocks.VINE_TRAP, 5, 20);
         //TODO 1.13 block of nethercoal
 
-        registerFireInfo(new BlockIngredient("blockCandle"), 5, 20);
-        registerFireInfo(new BlockIngredient("slats"), 5, 20);
-        registerFireInfo(new BlockIngredient("grates"), 5, 20);
+        registerFireInfo(new BlockStateIngredient("blockCandle"), 5, 20);
+        registerFireInfo(new BlockStateIngredient("slats"), 5, 20);
+        registerFireInfo(new BlockStateIngredient("grates"), 5, 20);
     }
 
     private static void registerBUDBlacklist() {
-        BlockBUD.BLACKLIST = new SetBlockIngredient(
-                new StateIngredient(Blocks.REDSTONE_WIRE, Items.REDSTONE),
-                new StateIngredient(Blocks.POWERED_REPEATER, Items.REPEATER),
-                new StateIngredient(Blocks.UNPOWERED_REPEATER, Items.REPEATER),
-                new StateIngredient(Blocks.UNLIT_REDSTONE_TORCH),
-                new StateIngredient(Blocks.REDSTONE_TORCH),
+        BlockBUD.BLACKLIST = new BlockStateIngredientSet(
+                new BlockIngredient(Blocks.REDSTONE_WIRE, Items.REDSTONE),
+                new BlockIngredient(Blocks.POWERED_REPEATER, Items.REPEATER),
+                new BlockIngredient(Blocks.UNPOWERED_REPEATER, Items.REPEATER),
+                new BlockIngredient(Blocks.UNLIT_REDSTONE_TORCH),
+                new BlockIngredient(Blocks.REDSTONE_TORCH),
                 new BlockDropIngredient(new ItemStack(BWMBlocks.LIGHT)),
                 new BlockDropIngredient(new ItemStack(BWMBlocks.BUDDY_BLOCK))
         );
@@ -313,14 +317,14 @@ public class BWMRegistry {
 
     private static void registerDetectorHandlers() {
         BlockDetector.DETECTION_HANDLERS = Sets.newHashSet(
-                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(WeatherUtils::isPrecipitationAt), facing -> facing == EnumFacing.UP),
-                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getMaterial().isSolid()))),
+                new BlockDetector.IngredientDetection(new PredicateBlockStateIngredient(WeatherUtils::isPrecipitationAt), facing -> facing == EnumFacing.UP),
+                new BlockDetector.IngredientDetection(new PredicateBlockStateIngredient(((world, pos) -> world.getBlockState(pos).getMaterial().isSolid()))),
                 new BlockDetector.IngredientDetection(new BlockDropIngredient(new ItemStack(Items.REEDS))),
-                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockVine))),
-                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> world.getBlockState(pos).getBlock().equals(BWMBlocks.LIGHT_SOURCE)))),
-                new BlockDetector.IngredientDetection(new StateIngredient(Lists.newArrayList(BWMBlocks.HEMP.getDefaultState().withProperty(BlockHemp.TOP, true)), Lists.newArrayList(new ItemStack(BWMBlocks.HEMP)))),
+                new BlockDetector.IngredientDetection(new PredicateBlockStateIngredient(((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockVine))),
+                new BlockDetector.IngredientDetection(new PredicateBlockStateIngredient(((world, pos) -> world.getBlockState(pos).getBlock().equals(BWMBlocks.LIGHT_SOURCE)))),
+                new BlockDetector.IngredientDetection(new BlockIngredient(Lists.newArrayList(BWMBlocks.HEMP.getDefaultState().withProperty(BlockHemp.TOP, true)), Lists.newArrayList(new ItemStack(BWMBlocks.HEMP)))),
                 new BlockDetector.EntityDetection(),
-                new BlockDetector.IngredientDetection(new BlockIngredientSpecial(((world, pos) -> {
+                new BlockDetector.IngredientDetection(new PredicateBlockStateIngredient(((world, pos) -> {
                     BlockPos downOffset = pos.down();
                     IBlockState downState = world.getBlockState(downOffset);
                     Block downBlock = downState.getBlock();
@@ -334,7 +338,7 @@ public class BWMRegistry {
         );
     }
 
-    public static void registerFireInfo(BlockIngredient ingredient, int encouragement, int flammability) {
+    public static void registerFireInfo(BlockStateIngredient ingredient, int encouragement, int flammability) {
         for (IBlockState state : ingredient.getStates()) {
             Blocks.FIRE.setFireInfo(state.getBlock(), encouragement, flammability);
         }

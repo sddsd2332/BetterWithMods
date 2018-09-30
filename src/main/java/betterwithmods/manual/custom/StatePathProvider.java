@@ -3,10 +3,10 @@ package betterwithmods.manual.custom;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockChime;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
-import betterwithmods.library.utils.ingredient.StateIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.manual.api.manual.PathProvider;
-import betterwithmods.library.utils.ingredient.SetBlockIngredient;
+import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -24,33 +24,33 @@ public class StatePathProvider implements PathProvider {
     private final Set<PathOverride> PATH_OVERRIDES = Sets.newHashSet();
 
     {
-        addBlock(new SetBlockIngredient(BlockChime.BLOCKS), "wind_chime");
-        addBlock(new StateIngredient(BWMBlocks.WOODEN_BROKEN_GEARBOX), "wooden_gearbox");
+        addBlock(new BlockStateIngredientSet(BlockChime.BLOCKS), "wind_chime");
+        addBlock(new BlockIngredient(BWMBlocks.WOODEN_BROKEN_GEARBOX), "wooden_gearbox");
 
-        addBlock(new BlockIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK), BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCKBLOOD)), "chopping_block");
+        addBlock(new BlockStateIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK), BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCKBLOOD)), "chopping_block");
 
-        addBlock(new BlockIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE)), "white_stone");
-        addItem(new BlockIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.NETHERCOAL)), "nether_coal");
+        addBlock(new BlockStateIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE)), "white_stone");
+        addItem(new BlockStateIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.NETHERCOAL)), "nether_coal");
 
-        addBlock(new StateIngredient(BWMBlocks.TURNTABLE), "turntable");
-        addBlock(new StateIngredient(BWMBlocks.MILLSTONE), "millstone");
-        addBlock(new StateIngredient(BWMBlocks.FILTERED_HOPPER), "hopper");
-        addBlock(new StateIngredient(BWMBlocks.PULLEY), "pulley");
-        addItem(new StateIngredient(BWMBlocks.ROPE), "rope");
+        addBlock(new BlockIngredient(BWMBlocks.TURNTABLE), "turntable");
+        addBlock(new BlockIngredient(BWMBlocks.MILLSTONE), "millstone");
+        addBlock(new BlockIngredient(BWMBlocks.FILTERED_HOPPER), "hopper");
+        addBlock(new BlockIngredient(BWMBlocks.PULLEY), "pulley");
+        addItem(new BlockIngredient(BWMBlocks.ROPE), "rope");
 
-        addBlock(new SetBlockIngredient(
-//                        new StateIngredient(BWMBlocks.GRATE),
-                        new StateIngredient(BWMBlocks.WICKER)
-//                        new StateIngredient(BWMBlocks.SLATS)
+        addBlock(new BlockStateIngredientSet(
+//                        new BlockIngredient(BWMBlocks.GRATE),
+                        new BlockIngredient(BWMBlocks.WICKER)
+//                        new BlockIngredient(BWMBlocks.SLATS)
                 ),
                 "decoration");
     }
 
-    private void addBlock(BlockIngredient ingredient, String name) {
+    private void addBlock(BlockStateIngredient ingredient, String name) {
         PATH_OVERRIDES.add(new PathOverride(ingredient, name));
     }
 
-    private void addItem(BlockIngredient ingredient, String name) {
+    private void addItem(BlockStateIngredient ingredient, String name) {
         PATH_OVERRIDES.add(new PathOverride(ingredient, "items", name));
     }
 
@@ -81,15 +81,15 @@ public class StatePathProvider implements PathProvider {
     }
 
     private class PathOverride {
-        private BlockIngredient ingredient;
+        private BlockStateIngredient ingredient;
 
         private String name, path;
 
-        public PathOverride(BlockIngredient ingredient, String name) {
+        public PathOverride(BlockStateIngredient ingredient, String name) {
             this(ingredient, "blocks", name);
         }
 
-        public PathOverride(BlockIngredient ingredient, String path, String name) {
+        public PathOverride(BlockStateIngredient ingredient, String path, String name) {
             this.ingredient = ingredient;
             this.name = name;
             this.path = path;

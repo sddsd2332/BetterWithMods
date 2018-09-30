@@ -3,7 +3,7 @@ package betterwithmods.common.registry.block.recipe;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.library.utils.InventoryUtils;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
@@ -20,14 +20,14 @@ import java.util.Random;
  * @version 03/19/2018
  */
 public abstract class BlockRecipe {
-    private final BlockIngredient input;
+    private final BlockStateIngredient input;
     private final IRecipeOutputs recipeOutput;
 
-    public BlockRecipe(BlockIngredient input, List<ItemStack> outputs) {
+    public BlockRecipe(BlockStateIngredient input, List<ItemStack> outputs) {
         this(input, new ListOutputs(outputs));
     }
 
-    public BlockRecipe(BlockIngredient input, IRecipeOutputs recipeOutput) {
+    public BlockRecipe(BlockStateIngredient input, IRecipeOutputs recipeOutput) {
         this.input = input;
         this.recipeOutput = recipeOutput;
     }
@@ -46,7 +46,7 @@ public abstract class BlockRecipe {
         return world.setBlockToAir(pos);
     }
 
-    public BlockIngredient getInput() {
+    public BlockStateIngredient getInput() {
         return input;
     }
 

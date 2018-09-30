@@ -4,7 +4,7 @@ import betterwithmods.api.tile.IHeatRecipe;
 import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.library.utils.InventoryUtils;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -22,7 +22,7 @@ public class KilnRecipe extends BlockRecipe implements IHeatRecipe {
     private boolean ignoreHeat;
     private int cookTime;
 
-    public KilnRecipe(BlockIngredient input, List<ItemStack> outputs, int heat, int cookTime) {
+    public KilnRecipe(BlockStateIngredient input, List<ItemStack> outputs, int heat, int cookTime) {
         super(input, outputs);
         this.heat = heat;
         this.cookTime = cookTime;

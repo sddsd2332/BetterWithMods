@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.library.utils.ListUtils;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.block.state.IBlockState;
@@ -25,14 +25,14 @@ public abstract class BeaconEffect {
     protected boolean enabled;
 
     protected ResourceLocation resourceLocation;
-    protected BlockIngredient structureBlock;
+    protected BlockStateIngredient structureBlock;
     protected Class<? extends EntityLivingBase> validEntityType;
     protected float[] baseBeamColor;
     protected int[] effectRanges;
     protected SoundEvent activationSound, deactivationSound;
     protected int tickRate;
 
-    public BeaconEffect(String name, BlockIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
+    public BeaconEffect(String name, BlockStateIngredient structureBlock, Class<? extends EntityLivingBase> validEntityType) {
         this.resourceLocation = new ResourceLocation(ModLib.MODID, name + "_beacon");
         this.structureBlock = structureBlock;
         this.validEntityType = validEntityType;
@@ -112,7 +112,7 @@ public abstract class BeaconEffect {
         return this;
     }
 
-    public BlockIngredient getStructureBlock() {
+    public BlockStateIngredient getStructureBlock() {
         return structureBlock;
     }
 

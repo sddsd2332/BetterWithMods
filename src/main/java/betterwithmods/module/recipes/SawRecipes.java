@@ -7,8 +7,8 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWMRegistry;
-import betterwithmods.library.utils.ingredient.BlockDropIngredient;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.common.registry.crafting.ChoppingRecipe;
 import betterwithmods.lib.ModLib;
@@ -51,7 +51,7 @@ public class SawRecipes extends Feature {
         for (int i = 0; i < 9; i++)
             BWMRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.RED_FLOWER, 1, i));
 
-        BWMRegistry.WOOD_SAW.addRecipe(new SawRecipe(new BlockIngredient(new ItemStack(Blocks.MELON_BLOCK)), new RandomCountOutputs(new RandomOutput(new ItemStack(Items.MELON), 3, 8))));
+        BWMRegistry.WOOD_SAW.addRecipe(new SawRecipe(new BlockStateIngredient(new ItemStack(Blocks.MELON_BLOCK)), new RandomCountOutputs(new RandomOutput(new ItemStack(Items.MELON), 3, 8))));
 
         BWMOreDictionary.findLogRecipes();
         //TODO configure this

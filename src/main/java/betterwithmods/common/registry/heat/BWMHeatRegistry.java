@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.heat;
 
 import betterwithmods.api.tile.IHeatSource;
-import betterwithmods.library.utils.ingredient.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
@@ -16,7 +16,7 @@ public class BWMHeatRegistry {
     public static final int STOKED_HEAT = 2;
     private static final List<HeatSource> HEAT_SOURCES = Lists.newArrayList();
 
-    public static void addHeatSource(BlockIngredient ingredient, int heat) {
+    public static void addHeatSource(BlockStateIngredient ingredient, int heat) {
         HEAT_SOURCES.add(new HeatSource(ingredient, heat));
     }
 
@@ -44,10 +44,10 @@ public class BWMHeatRegistry {
     }
 
     public static class HeatSource implements IHeatSource {
-        private final BlockIngredient ingredient;
+        private final BlockStateIngredient ingredient;
         private final int heat;
 
-        public HeatSource(BlockIngredient ingredient, int heat) {
+        public HeatSource(BlockStateIngredient ingredient, int heat) {
             this.ingredient = ingredient;
             this.heat = heat;
         }
