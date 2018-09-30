@@ -19,7 +19,7 @@ import java.util.Optional;
 public class ExplosionTracker extends Feature {
 
     @SubscribeEvent
-    public static void onExplode(ExplosionEvent event) {
+    public void onExplode(ExplosionEvent.Start event) {
         MinecraftForge.EVENT_BUS.post(new ExplosionTrackingEvent(event.getWorld(), event.getExplosion()));
     }
 
