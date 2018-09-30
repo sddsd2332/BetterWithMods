@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.BWMRecipes;
+
 import betterwithmods.library.recipes.RecipeMatchers;
 import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;

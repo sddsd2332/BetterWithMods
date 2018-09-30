@@ -1,7 +1,7 @@
 package betterwithmods.module.recipes;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWMRecipes;
+
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.recipes.RecipeMatcher;

@@ -27,7 +27,7 @@ public class SteelSawRecipeCategory extends BWMRecipeCategory<BlockRecipeWrapper
     public static final ResourceLocation LOCATION = new ResourceLocation(ModLib.MODID, "textures/gui/jei/saw.png");
 
     public SteelSawRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(LOCATION, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.saw.entityName"));
+        super(guiHelper.createDrawable(LOCATION, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.saw.name"));
     }
 
 

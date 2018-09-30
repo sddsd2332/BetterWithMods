@@ -8,7 +8,7 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiBlockDispenser extends GuiBase {
     private static final int guiHeight = 182;
-    private static final String NAME = "inv.betterwithmods.dispenser.entityName";
+    private static final String NAME = "inv.betterwithmods.dispenser.name";
     private final TileBlockDispenser tile;
 
     public GuiBlockDispenser(EntityPlayer player, TileBlockDispenser tile) {

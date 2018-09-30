@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWMRecipes;
+
 import betterwithmods.lib.ReflectionLib;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.recipes.RecipeMatchers;

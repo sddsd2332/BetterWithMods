@@ -1,13 +1,12 @@
 package betterwithmods.module.hardcore.crafting;
 
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.recipes.RecipeMatchers;
 import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;
-import betterwithmods.library.utils.ingredient.StackIngredient;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

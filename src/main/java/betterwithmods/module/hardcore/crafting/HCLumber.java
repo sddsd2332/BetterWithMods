@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWMRecipes;
+
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.recipes.RecipeMatchers;

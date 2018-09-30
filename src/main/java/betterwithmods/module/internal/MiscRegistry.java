@@ -1,12 +1,13 @@
-package betterwithmods.common;
+package betterwithmods.module.internal;
 
-import betterwithmods.BetterWithMods;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityAxle;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IAxle;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.tile.dispenser.IBehaviorEntity;
+import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.BWMItems;
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.BlockBUD;
@@ -16,39 +17,27 @@ import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.blocks.behaviors.DispenserBehaviorDynamite;
 import betterwithmods.common.entity.EntityMiningCharge;
-import betterwithmods.common.fluid.BWFluidRegistry;
 import betterwithmods.common.penalties.PenaltyHandlerRegistry;
-import betterwithmods.common.potion.BWPotion;
-import betterwithmods.common.potion.PotionSlowfall;
-import betterwithmods.common.potion.PotionTruesight;
 import betterwithmods.common.registry.BellowsManager;
 import betterwithmods.common.registry.KilnStructureManager;
-import betterwithmods.common.registry.anvil.CraftingManagerAnvil;
-import betterwithmods.common.registry.block.managers.CrafingManagerKiln;
-import betterwithmods.common.registry.block.managers.CraftingManagerSaw;
-import betterwithmods.common.registry.block.managers.CraftingManagerTurntable;
+import betterwithmods.common.registry.heat.BWMHeatRegistry;
+import betterwithmods.lib.ModLib;
+import betterwithmods.lib.ReflectionLib;
+import betterwithmods.library.modularity.impl.RequiredFeature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ListUtils;
 import betterwithmods.library.utils.WeatherUtils;
-import betterwithmods.common.registry.bulk.manager.CraftingManagerMill;
-import betterwithmods.common.registry.bulk.manager.CraftingManagerPot;
-import betterwithmods.common.registry.heat.BWMHeatRegistry;
-import betterwithmods.common.registry.hopper.filters.HopperFilters;
-import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
-import betterwithmods.lib.ModLib;
-import betterwithmods.lib.ReflectionLib;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.PredicateBlockStateIngredient;
 import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
-import betterwithmods.util.*;
+import betterwithmods.util.MechanicalUtil;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.dispenser.IBehaviorDispenseItem;
 import net.minecraft.entity.EntityAgeable;
 import net.minecraft.entity.item.EntityMinecart;
@@ -61,9 +50,6 @@ import net.minecraft.inventory.InventoryHelper;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.potion.Potion;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
@@ -71,84 +57,47 @@ import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
-import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.registries.ForgeRegistry;
 
-import java.util.List;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
+public class MiscRegistry extends RequiredFeature {
 
-
-@SuppressWarnings("unused")
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
-public class Registration {
-
+    public static final Fluid MILK = new Fluid("milk", new ResourceLocation(ModLib.MODID, "blocks/milk_still"), new ResourceLocation(ModLib.MODID, "blocks/milk_flowing"));
     public static final PenaltyHandlerRegistry PENALTY_HANDLERS = new PenaltyHandlerRegistry();
 
-    @GameRegistry.ObjectHolder("betterwithmods:true_sight")
-    public static final Potion POTION_TRUESIGHT = null;
-    @GameRegistry.ObjectHolder("betterwithmods:fortune")
-    public static final Potion POTION_FORTUNE = null;
-    @GameRegistry.ObjectHolder("betterwithmods:looting")
-    public static final Potion POTION_LOOTING = null;
-    @GameRegistry.ObjectHolder("betterwithmods:slow_fall")
-    public static final Potion POTION_SLOWFALL = null;
-
-
-
-    private static int availableEntityId = 0;
-
-    static {
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        //FIXME Initialize api
         BWMAPI.IMPLEMENTATION = new MechanicalUtil();
-    }
 
-    public static void onPreInit() {
-        BWFluidRegistry.registerFluids();
-        BWAdvancements.registerAdvancements();
-        BWMItems.registerItems();
-        BWMBlocks.registerTileEntities();
-        Registration.registerBlockDispenserBehavior();
+        //FIXME Registry capabilities
         CapabilityManager.INSTANCE.register(IMechanicalPower.class, new CapabilityMechanicalPower.Impl(), CapabilityMechanicalPower.Default::new);
         CapabilityManager.INSTANCE.register(IAxle.class, new CapabilityAxle.Impl(), CapabilityAxle.Default::new);
+
+        //FIXME Registry kiln blocks
         KilnStructureManager.registerKilnBlock(Blocks.BRICK_BLOCK.getDefaultState());
         KilnStructureManager.registerKilnBlock(Blocks.NETHER_BRICK.getDefaultState());
+
+        FluidRegistry.registerFluid(MILK);
+        //FIXME migrate
+        BWAdvancements.registerAdvancements();
+        MiscRegistry.registerBlockDispenserBehavior();
     }
 
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
-        BWMItems.getItems().forEach(event.getRegistry()::register);
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        registerHeatSources();
+        registerBUDBlacklist();
+        registerDetectorHandlers();
+        registerFireInfo();
+        BellowsManager.init();
     }
 
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void postPreInit(RegistryEvent.Register<Item> event) {
-        BWMOreDictionary.registerOres();
-        BWMOreDictionary.oreGathering();
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
-
-        BetterWithMods.MODULE_LOADER.registerRecipes(event);
-    }
-
-    public static void init() {
-        Registration.registerHeatSources();
-        BWMOreDictionary.registerOres();
-        Registration.registerBUDBlacklist();
-        Registration.registerDetectorHandlers();
-    }
-
-    public static void postInit() {
-        BellowsManager.postInit();
-    }
 
     public static void registerBlockDispenserBehavior() {
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(BWMItems.DYNAMITE, new DispenserBehaviorDynamite());
@@ -230,45 +179,6 @@ public class Registration {
 
     }
 
-
-    public static void registerHeatSources() {
-        BWMHeatRegistry.addHeatSource(new BlockIngredient(Blocks.FIRE, Items.AIR), 1);
-        BWMHeatRegistry.addHeatSource(new BlockIngredient(BWMBlocks.STOKED_FLAME, Items.AIR), 2);
-    }
-
-    @SubscribeEvent
-    public static void registerPotions(RegistryEvent.Register<Potion> event) {
-        event.getRegistry().register(registerPotion(new PotionTruesight("true_sight", true, 14270531).setIconIndex(4, 1)));
-        event.getRegistry().register(registerPotion(new BWPotion("fortune", true, 14270531).setIconIndex(5, 2)));
-        event.getRegistry().register(registerPotion(new BWPotion("looting", true, 14270531).setIconIndex(6, 2)));
-        event.getRegistry().register(registerPotion(new PotionSlowfall("slow_fall", true, 0xF46F20).setIconIndex(4, 1)));
-    }
-
-    private static Potion registerPotion(Potion potion) {
-        if (potion.getRegistryName() != null) {
-            String potionName = potion.getRegistryName().getPath();
-            potion.setPotionName("betterwithmods.effect." + potionName);
-        }
-        return potion;
-
-    }
-
-    private static void registerFireInfo() {
-
-        Blocks.FIRE.setFireInfo(BWMBlocks.WOODEN_AXLE, 5, 20);
-        Blocks.FIRE.setFireInfo(BWMBlocks.WOODEN_BROKEN_GEARBOX, 5, 20);
-        Blocks.FIRE.setFireInfo(BWMBlocks.WOODEN_GEARBOX, 5, 20);
-        Blocks.FIRE.setFireInfo(BWMBlocks.HORIZONTAL_WINDMILL, 5, 20);
-        Blocks.FIRE.setFireInfo(BWMBlocks.VERTICAL_WINDMILL, 5, 20);
-        Blocks.FIRE.setFireInfo(BWMBlocks.WATERWHEEL, 5, 20);
-        Blocks.FIRE.setFireInfo(BWMBlocks.VINE_TRAP, 5, 20);
-        //TODO 1.13 block of nethercoal
-
-        registerFireInfo(new BlockStateIngredient("blockCandle"), 5, 20);
-        registerFireInfo(new BlockStateIngredient("slats"), 5, 20);
-        registerFireInfo(new BlockStateIngredient("grates"), 5, 20);
-    }
-
     private static void registerBUDBlacklist() {
         BlockBUD.BLACKLIST = new BlockStateIngredientSet(
                 new BlockIngredient(Blocks.REDSTONE_WIRE, Items.REDSTONE),
@@ -304,6 +214,28 @@ public class Registration {
         );
     }
 
+    public static void registerHeatSources() {
+        BWMHeatRegistry.addHeatSource(new BlockIngredient(Blocks.FIRE, Items.AIR), 1);
+        BWMHeatRegistry.addHeatSource(new BlockIngredient(BWMBlocks.STOKED_FLAME, Items.AIR), 2);
+    }
+
+    private static void registerFireInfo() {
+
+        Blocks.FIRE.setFireInfo(BWMBlocks.WOODEN_AXLE, 5, 20);
+        Blocks.FIRE.setFireInfo(BWMBlocks.WOODEN_BROKEN_GEARBOX, 5, 20);
+        Blocks.FIRE.setFireInfo(BWMBlocks.WOODEN_GEARBOX, 5, 20);
+        Blocks.FIRE.setFireInfo(BWMBlocks.HORIZONTAL_WINDMILL, 5, 20);
+        Blocks.FIRE.setFireInfo(BWMBlocks.VERTICAL_WINDMILL, 5, 20);
+        Blocks.FIRE.setFireInfo(BWMBlocks.WATERWHEEL, 5, 20);
+        Blocks.FIRE.setFireInfo(BWMBlocks.VINE_TRAP, 5, 20);
+        //TODO 1.13 block of nethercoal
+
+        registerFireInfo(new BlockStateIngredient("blockCandle"), 5, 20);
+        registerFireInfo(new BlockStateIngredient("slats"), 5, 20);
+        registerFireInfo(new BlockStateIngredient("grates"), 5, 20);
+    }
+
+
     public static void registerFireInfo(BlockStateIngredient ingredient, int encouragement, int flammability) {
         for (IBlockState state : ingredient.getStates()) {
             Blocks.FIRE.setFireInfo(state.getBlock(), encouragement, flammability);
@@ -311,5 +243,3 @@ public class Registration {
     }
 
 }
-
-

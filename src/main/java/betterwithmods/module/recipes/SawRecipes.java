@@ -5,7 +5,7 @@ import betterwithmods.api.recipe.output.impl.RandomOutput;
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWMRecipes;
+
 import betterwithmods.library.recipes.RecipeMatchers;
 import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;

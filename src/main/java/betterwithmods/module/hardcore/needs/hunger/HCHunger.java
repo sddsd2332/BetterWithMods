@@ -3,13 +3,13 @@ package betterwithmods.module.hardcore.needs.hunger;
 import betterwithmods.BetterWithMods;
 import betterwithmods.client.gui.GuiHunger;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.Registration;
 import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.hardcore.needs.HCTools;
+import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageHungerShake;
 import betterwithmods.util.player.PlayerUtils;
@@ -163,7 +163,7 @@ public class HCHunger extends Feature {
         if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
             return;
         //Whether the player can heal
-        Event.Result result = Registration.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
+        Event.Result result = MiscRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
         event.setResult(result);
     }
 
@@ -352,8 +352,8 @@ public class HCHunger extends Feature {
     @Override
     public void onInit(FMLInitializationEvent event) {
 
-        Registration.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties(this));
-        Registration.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties(this));
+        MiscRegistry.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties(this));
+        MiscRegistry.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties(this));
 
 
         registerFoods();

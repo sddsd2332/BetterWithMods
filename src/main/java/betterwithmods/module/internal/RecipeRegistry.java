@@ -1,6 +1,7 @@
 package betterwithmods.module.internal;
 
 import betterwithmods.BetterWithMods;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.registry.anvil.CraftingManagerAnvil;
 import betterwithmods.common.registry.block.managers.CrafingManagerKiln;
 import betterwithmods.common.registry.block.managers.CraftingManagerSaw;
@@ -67,6 +68,11 @@ public class RecipeRegistry extends RequiredFeature {
 
     @Override
     public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        //Gather oredictionary
+        //TODO should be obsolute in 1.13
+        BWMOreDictionary.registerOres();
+        BWMOreDictionary.oreGathering();
+
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
         for (IRecipe recipe : reg) {
             for (RecipeRemover remover : RECIPE_REMOVERS) {

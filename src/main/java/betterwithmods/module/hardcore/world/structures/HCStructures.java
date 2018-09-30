@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWMRecipes;
+
 import betterwithmods.library.recipes.RecipeMatchers;
 import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;

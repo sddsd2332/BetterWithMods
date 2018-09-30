@@ -1,6 +1,5 @@
 package betterwithmods;
 
-import betterwithmods.common.Registration;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.ModuleLoader;
 import betterwithmods.library.modularity.impl.proxy.Proxy;
@@ -9,15 +8,11 @@ import betterwithmods.module.hardcore.Hardcore;
 import betterwithmods.module.internal.InternalRegistries;
 import betterwithmods.module.recipes.Recipes;
 import betterwithmods.module.tweaks.Tweaks;
-import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.ForgeModContainer;
-import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import org.apache.logging.log4j.Logger;
 
 import java.io.File;
@@ -57,19 +52,15 @@ public class BetterWithMods {
         MODULE_LOADER.setLogger(LOGGER);
         PROXY.setLoader(MODULE_LOADER);
         PROXY.onPreInit(event);
-
-        Registration.onPreInit();//TODO
     }
 
     @Mod.EventHandler
     public void onInit(FMLInitializationEvent event) {
-        Registration.init();    //TODO
         PROXY.onInit(event);
     }
 
     @Mod.EventHandler
     public void onPostInit(FMLPostInitializationEvent event) {
-        Registration.postInit(); //TODO
         PROXY.onPostInit(event);
     }
 

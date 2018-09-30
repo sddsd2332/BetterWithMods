@@ -10,9 +10,12 @@ public class InternalRegistries extends RequiredModule {
         addFeatures(
                 new UnitTesting(),
                 new BlockRegistry(),
+                new ItemRegistry(),
+                new PotionRegistry(),
                 new SoundRegistry(),
                 new EntityRegistry(),
-                new RecipeRegistry()
+                new RecipeRegistry(),
+                new MiscRegistry()
         );
     }
 

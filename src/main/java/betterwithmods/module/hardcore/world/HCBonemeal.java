@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWMRecipes;
+
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.items.ItemFertilizer;
 import betterwithmods.library.modularity.impl.Feature;

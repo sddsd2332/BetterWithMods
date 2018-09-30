@@ -1,7 +1,7 @@
 package betterwithmods.common.event;
 
-import betterwithmods.common.Registration;
 import betterwithmods.lib.ModLib;
+import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.player.PlayerUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
@@ -28,7 +28,7 @@ public class PenaltyEventHandler {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             //Whether the player can jump.
-            if (!Registration.PENALTY_HANDLERS.canJump(player)) {
+            if (!MiscRegistry.PENALTY_HANDLERS.canJump(player)) {
                 event.getEntityLiving().motionX = 0;
                 event.getEntityLiving().motionY = 0;
                 event.getEntityLiving().motionZ = 0;
@@ -50,12 +50,12 @@ public class PenaltyEventHandler {
             return;
 
         //Handle whether the player can sprint
-        if (!Registration.PENALTY_HANDLERS.canSprint(player)) {
+        if (!MiscRegistry.PENALTY_HANDLERS.canSprint(player)) {
             player.setSprinting(false);
         }
 
         //Swimming
-        if (player.isInWater() && !Registration.PENALTY_HANDLERS.canSwim(player)) {
+        if (player.isInWater() && !MiscRegistry.PENALTY_HANDLERS.canSwim(player)) {
             if (!PlayerUtils.isNearBottom(player)) {
                 player.motionY -= 0.04;
             }
@@ -89,13 +89,13 @@ public class PenaltyEventHandler {
                 return;
             }
             //Speed
-            double speed = Registration.PENALTY_HANDLERS.getSpeedModifier(player);
+            double speed = MiscRegistry.PENALTY_HANDLERS.getSpeedModifier(player);
             if (speed != 0) {
                 PlayerUtils.changeSpeed(player, "Penalty Speed Modifier", speed, PlayerUtils.PENALTY_SPEED_UUID);
             }
 
             //Pain
-            if (!world.isRemote && Registration.PENALTY_HANDLERS.inPain(player)) {
+            if (!world.isRemote && MiscRegistry.PENALTY_HANDLERS.inPain(player)) {
                 if (PlayerUtils.isMoving(player) && inPain(player)) {
                     world.playSound(null, player.getPosition(), SoundRegistry.ENTITY_PLAYER_OOF, SoundCategory.BLOCKS, 0.75f, 1f);
                 }
@@ -109,7 +109,7 @@ public class PenaltyEventHandler {
         if (event.getSource().getTrueSource() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getSource().getTrueSource();
             if (PlayerUtils.isSurvival(player)) {
-                if (!Registration.PENALTY_HANDLERS.canAttack(player)) {
+                if (!MiscRegistry.PENALTY_HANDLERS.canAttack(player)) {
                     player.playSound(SoundRegistry.ENTITY_PLAYER_OOF, 0.75f, 1f);
                     event.setCanceled(true);
                     event.setResult(Event.Result.DENY);

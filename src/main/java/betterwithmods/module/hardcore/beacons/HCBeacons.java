@@ -1,6 +1,5 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.Registration;
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
@@ -9,6 +8,7 @@ import betterwithmods.library.utils.ingredient.PredicateIngredient;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
+import betterwithmods.module.internal.PotionRegistry;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
@@ -126,15 +126,15 @@ public class HCBeacons extends Feature {
                 .setTickRate(3600));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("emerald", new BlockStateIngredient("blockEmerald"), EntityLivingBase.class)
-                .addPotionEffect(Registration.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL)
+                .addPotionEffect(PotionRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.GREEN));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("lapis", new BlockStateIngredient("blockLapis"), EntityPlayer.class)
-                .addPotionEffect(Registration.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE)
+                .addPotionEffect(PotionRegistry.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE)
                 .setBaseBeamColor(Color.BLUE));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("diamond", new BlockStateIngredient("blockDiamond"), EntityPlayer.class)
-                .addPotionEffect(Registration.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
+                .addPotionEffect(PotionRegistry.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
                 .setBaseBeamColor(Color.CYAN));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("glowstone", new BlockStateIngredient("glowstone"), EntityPlayer.class)
@@ -167,7 +167,7 @@ public class HCBeacons extends Feature {
                 .setBaseBeamColor(Color.BLUE));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("padding", new BlockStateIngredient("blockPadding"), EntityPlayer.class)
-                .addPotionEffect(Registration.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
+                .addPotionEffect(PotionRegistry.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.PINK));
 
         BEACON_EFFECTS.add(new SpawnBeaconEffect());

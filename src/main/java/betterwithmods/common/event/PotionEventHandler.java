@@ -1,10 +1,10 @@
 package betterwithmods.common.event;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.Registration;
 import betterwithmods.common.items.ItemEnderSpectacles;
 import betterwithmods.common.potion.BWPotion;
 import betterwithmods.lib.ModLib;
+import betterwithmods.module.internal.PotionRegistry;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
@@ -96,8 +96,8 @@ public class PotionEventHandler {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onHarvestBlock(BlockEvent.HarvestDropsEvent event) {
-        if (event.getHarvester() != null && !event.isSilkTouching() && event.getHarvester().isPotionActive(Registration.POTION_FORTUNE)) {
-            PotionEffect effect = event.getHarvester().getActivePotionEffect(Registration.POTION_FORTUNE);
+        if (event.getHarvester() != null && !event.isSilkTouching() && event.getHarvester().isPotionActive(PotionRegistry.POTION_FORTUNE)) {
+            PotionEffect effect = event.getHarvester().getActivePotionEffect(PotionRegistry.POTION_FORTUNE);
             int level = effect.getAmplifier() + 1;
             if (event.getFortuneLevel() < level) {
                 event.getDrops().clear();
@@ -109,7 +109,7 @@ public class PotionEventHandler {
     @SubscribeEvent
     public static void onLivingDeath(LootingLevelEvent event) {
         if (event.getEntityLiving() != null) {
-            PotionEffect effect = event.getEntityLiving().getActivePotionEffect(Registration.POTION_LOOTING);
+            PotionEffect effect = event.getEntityLiving().getActivePotionEffect(PotionRegistry.POTION_LOOTING);
             if(effect != null) {
                 int level = effect.getAmplifier() + 1;
                 if (event.getLootingLevel() < level) {

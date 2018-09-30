@@ -19,7 +19,7 @@ public class BellowsManager {
     }
 
 
-    public static void postInit() {
+    public static void init() {
         bellowing.put(Items.GUNPOWDER, 3f);
         bellowing.put(Items.PAPER, 3f);
         bellowing.put(Items.MAP, 3f);

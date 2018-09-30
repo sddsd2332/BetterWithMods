@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.needs;
 
-import betterwithmods.common.Registration;
 import betterwithmods.common.penalties.HealthPenalities;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.module.internal.MiscRegistry;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
@@ -11,7 +11,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 public class HCInjury extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        Registration.PENALTY_HANDLERS.add(new HealthPenalities(this));
+        MiscRegistry.PENALTY_HANDLERS.add(new HealthPenalities(this));
     }
 
     @Override

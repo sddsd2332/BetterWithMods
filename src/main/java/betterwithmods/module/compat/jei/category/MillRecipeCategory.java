@@ -23,7 +23,7 @@ public class MillRecipeCategory extends BWMRecipeCategory<BulkRecipeWrapper> {
     private final IDrawableAnimated gear;
 
     public MillRecipeCategory(IGuiHelper helper) {
-        super(helper.createDrawable(guiTexture, 0, 0, width, height), UID, "inv.mill.entityName");
+        super(helper.createDrawable(guiTexture, 0, 0, width, height), UID, "inv.mill.name");
         IDrawableStatic flameDrawable = helper.createDrawable(guiTexture, 150, 0, 14, 14);
         this.gear = helper.createAnimatedDrawable(flameDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
     }

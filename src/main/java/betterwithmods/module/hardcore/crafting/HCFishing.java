@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWMRecipes;
+
 import betterwithmods.common.entity.EntityHCFishHook;
 import betterwithmods.common.registry.crafting.BaitingRecipe;
 import betterwithmods.lib.ModLib;

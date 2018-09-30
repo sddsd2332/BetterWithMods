@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.common.BWMRecipes;
+
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.recipes.RecipeMatchers;

@@ -1,10 +1,10 @@
 package betterwithmods.client.gui;
 
-import betterwithmods.common.Registration;
 import betterwithmods.common.penalties.Penalty;
 import betterwithmods.common.penalties.PenaltyHandler;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
+import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
@@ -45,7 +45,7 @@ public class GuiStatus {
         if (this.mc.player.isEntityAlive()) {
             int y = top;
             FontRenderer fontRenderer = this.mc.fontRenderer;
-            for (PenaltyHandler handler : Registration.PENALTY_HANDLERS) {
+            for (PenaltyHandler handler : MiscRegistry.PENALTY_HANDLERS) {
                 if (!handler.isDisplayed())
                     continue;
                 Penalty p = handler.getPenalty(mc.player);

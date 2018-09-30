@@ -49,7 +49,7 @@ public class HCBoating extends Feature {
                 "minecraft:banner:*=100"
         });
         defaultSpeed = loadProperty("Default Speed modifier", 50).setComment("Speed modifier when not holding any sail type item").get();
-        BOAT_ENTRIES = config().loadResouceLocations("Boat List", getCategory(), "Registry entityName for entities which are considered boats", new String[]{"minecraft:boat"});
+        BOAT_ENTRIES = config().loadResouceLocations("Boat List", getCategory(), "Registry name for entities which are considered boats", new String[]{"minecraft:boat"});
     }
 
     @SubscribeEvent

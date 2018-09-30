@@ -27,7 +27,7 @@ public class SteelAnvilRecipeCategory extends BWMRecipeCategory<IRecipeWrapper> 
     private static final ResourceLocation location = new ResourceLocation(ModLib.MODID, "textures/gui/jei/steel_anvil.png");
 
     public SteelAnvilRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(location, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.steel_anvil.entityName"));
+        super(guiHelper.createDrawable(location, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.steel_anvil.name"));
     }
 
     @Override
