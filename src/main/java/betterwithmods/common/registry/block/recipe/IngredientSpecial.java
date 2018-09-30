@@ -1,5 +1,6 @@
 package betterwithmods.common.registry.block.recipe;
 
+import betterwithmods.BWMod;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
@@ -12,9 +13,9 @@ import java.util.ArrayList;
 import java.util.function.Predicate;
 
 public class IngredientSpecial extends Ingredient {
-    ItemStack[] matchingStacks = new ItemStack[0];
-    boolean matchingStacksCached;
-    Predicate<ItemStack> matcher;
+    private ItemStack[] matchingStacks = new ItemStack[0];
+    private boolean matchingStacksCached;
+    private Predicate<ItemStack> matcher;
 
     public IngredientSpecial(Predicate<ItemStack> matcher) {
         super(0);
@@ -44,8 +45,13 @@ public class IngredientSpecial extends Ingredient {
                 if (tab == null)
                     continue;
                 NonNullList<ItemStack> items = NonNullList.create();
-                item.getSubItems(tab, items);
-                items.stream().filter(matcher::test).forEach(matches::add);
+                try {
+                    item.getSubItems(tab, items);
+                }   catch(Exception e) {
+                    items.add(new ItemStack(item));
+                    BWMod.getLog().catching(e);
+                }
+                items.stream().filter(matcher).forEach(matches::add);
             }
         }
         matchingStacks = matches.toArray(matchingStacks);
