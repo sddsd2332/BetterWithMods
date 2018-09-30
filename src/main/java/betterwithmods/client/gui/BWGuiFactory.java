@@ -35,16 +35,16 @@ public class BWGuiFactory implements IModGuiFactory {
 //    public static class BWGuiConfig extends GuiConfig {
 //
 //        public BWGuiConfig(GuiScreen parentScreen) {
-//            super(parentScreen, getAllElements(), BWMod.MODID, false, false, GuiConfig.getAbridgedConfigPath(BWMod.MODULE_LOADER.configHelper.config.toString()));
+//            super(parentScreen, getAllElements(), BetterWithMods.MODID, false, false, GuiConfig.getAbridgedConfigPath(BetterWithMods.MODULE_LOADER.configHelper.config.toString()));
 //        }
 //
 //        public static List<IConfigElement> getAllElements() {
 //            List<IConfigElement> list = new ArrayList<>();
 //
-//            Set<String> categories = BWMod.MODULE_LOADER.configHelper.config.getCategoryNames();
+//            Set<String> categories = BetterWithMods.MODULE_LOADER.configHelper.config.getCategoryNames();
 //            for (String s : categories)
 //                if (!s.contains("."))
-//                    list.add(new DummyConfigElement.DummyCategoryElement(s, s, new ConfigElement(BWMod.MODULE_LOADER.configHelper.config.getCategory(s)).getChildElements()));
+//                    list.add(new DummyConfigElement.DummyCategoryElement(s, s, new ConfigElement(BetterWithMods.MODULE_LOADER.configHelper.config.getCategory(s)).getChildElements()));
 //
 //            return list;
 //        }

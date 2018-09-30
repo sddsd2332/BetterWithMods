@@ -1,6 +1,6 @@
 package betterwithmods.module.internal.player;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.RequiredFeature;
 import betterwithmods.module.hardcore.needs.HCNames;
@@ -52,7 +52,7 @@ public class PlayerDataHandler extends RequiredFeature {
         Scoreboard scoreboard = event.getServer().getEntityWorld().getScoreboard();
         if (scoreboard.getTeam(TEAM) == null)
             scoreboard.createTeam(TEAM);
-        scoreboard.getTeam(TEAM).setNameTagVisibility(BWMod.MODULE_LOADER.isFeatureEnabled(HCNames.class) ? Team.EnumVisible.NEVER : Team.EnumVisible.ALWAYS);
+        scoreboard.getTeam(TEAM).setNameTagVisibility(BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCNames.class) ? Team.EnumVisible.NEVER : Team.EnumVisible.ALWAYS);
     }
 
     @Override

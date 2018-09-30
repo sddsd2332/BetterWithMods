@@ -58,6 +58,7 @@ public class LongBoi extends Feature {
         EntityRegistry.registerEntity(
                 EntityEntryBuilder.create()
                         .entity(EntityLongboi.class)
+                        .name("longboi")
                         .id(new ResourceLocation(ModLib.MODID, "longboi"), EntityRegistry.TOTAL_ENTITY_IDS++)
                         .tracker(64, 1, true)
                         .egg(0xe4d3d0, 0xfd742b)

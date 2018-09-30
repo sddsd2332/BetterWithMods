@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks.behaviors;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.module.general.General;
 import betterwithmods.util.DirUtils;
@@ -40,7 +40,7 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
         DirUtils.setEntityOrientationFacing(fake, facing.getOpposite());
 
         if (General.isDebug())
-            BWMod.logger.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
+            BetterWithMods.logger.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
 
         if (!world.isAirBlock(check) && !world.getBlockState(check).getBlock().isReplaceable(world, check))
             return ItemStack.EMPTY;

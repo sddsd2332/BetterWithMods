@@ -25,7 +25,7 @@ public class SawRecipeCategory extends BWMRecipeCategory<BlockRecipeWrapper<SawR
     public static final ResourceLocation LOCATION = new ResourceLocation(ModLib.MODID, "textures/gui/jei/saw.png");
 
     public SawRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(LOCATION, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.saw.name"));
+        super(guiHelper.createDrawable(LOCATION, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.saw.entityName"));
     }
 
     @Override

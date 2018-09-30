@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWGuiHandler;
 import betterwithmods.common.tile.TileInfernalEnchanter;
 import net.minecraft.block.material.Material;
@@ -80,7 +80,7 @@ public class BlockInfernalEnchanter extends BWMBlock {
             return true;
         } else {
             if (worldIn.getTileEntity(pos) != null) {
-                playerIn.openGui(BWMod.instance, BWGuiHandler.Gui.TILE.ordinal(), worldIn, pos.getX(), pos.getY(), pos.getZ());
+                playerIn.openGui(BetterWithMods.instance, BWGuiHandler.Gui.TILE.ordinal(), worldIn, pos.getX(), pos.getY(), pos.getZ());
             }
             return true;
         }

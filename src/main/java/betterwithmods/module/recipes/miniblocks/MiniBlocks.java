@@ -1,6 +1,6 @@
 package betterwithmods.module.recipes.miniblocks;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMOreDictionary;
@@ -129,7 +129,7 @@ public class MiniBlocks extends Feature {
         } catch (final NoSuchMethodException | SecurityException e) {
             // nothing here...
         } catch (final NoClassDefFoundError e) {
-            BWMod.logger.info("Unable to determine blocks eligibility for making a miniblock, " + blkClass.getName() + " attempted to load " + e.getMessage());
+            BetterWithMods.logger.info("Unable to determine blocks eligibility for making a miniblock, " + blkClass.getName() + " attempted to load " + e.getMessage());
             return blkClass;
         } catch (final Throwable t) {
             return blkClass;

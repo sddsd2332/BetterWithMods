@@ -1,6 +1,6 @@
 package betterwithmods.util.player;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.library.utils.GlobalUtils;
@@ -129,7 +129,7 @@ public final class PlayerUtils {
      * Edit the speed of an entity.
      *
      * @param entity           The entity whose speed will be changed.
-     * @param name             Unique name for easier debugging
+     * @param name             Unique entityName for easier debugging
      * @param modifier         The speed will be multiplied by this number
      * @param penaltySpeedUuid uuid for speed attribute
      */
@@ -150,7 +150,7 @@ public final class PlayerUtils {
     }
 
     public static int getMinimumHunger() {
-        return BWMod.MODULE_LOADER.isFeatureEnabled(HCHunger.class) ? 20 : 6;
+        return BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCHunger.class) ? 20 : 6;
     }
 
     public static int getWornArmorWeight(EntityPlayer player) {

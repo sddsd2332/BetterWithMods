@@ -1,6 +1,6 @@
 package betterwithmods.module.recipes;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRegistry;
@@ -52,7 +52,7 @@ public class MetalReclaming extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        int axe_amt = BWMod.MODULE_LOADER.isFeatureEnabled(CheaperAxes.class) ? 2 : 3;
+        int axe_amt = BetterWithMods.MODULE_LOADER.isFeatureEnabled(CheaperAxes.class) ? 2 : 3;
         reclaimCount = loadProperty("Reclaming Count", 6).setMin(0).setMax(9).setComment("Amount (in nuggets per ingot) tools and armor in the crucible reclaim. Does not affect diamond or soulforged steel ingot reclamation. (Set to 0 to disable reclamation entirely.)").get();
 
         if (reclaimCount > 0) {

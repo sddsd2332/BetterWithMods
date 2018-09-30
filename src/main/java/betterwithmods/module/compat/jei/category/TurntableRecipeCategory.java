@@ -29,7 +29,7 @@ public class TurntableRecipeCategory extends BWMRecipeCategory<TurntableRecipeWr
 
 
     public TurntableRecipeCategory(IGuiHelper helper) {
-        super(helper.createDrawable(location, 0, 0, width, height), UID, Translator.translateToLocal("inv.turntable.name"));
+        super(helper.createDrawable(location, 0, 0, width, height), UID, Translator.translateToLocal("inv.turntable.entityName"));
     }
 
     @Override

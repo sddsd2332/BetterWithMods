@@ -1,6 +1,6 @@
 package betterwithmods.manual.client.manual.provider;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.manual.api.API;
 import betterwithmods.manual.api.manual.ImageProvider;
 import betterwithmods.manual.api.manual.ImageRenderer;
@@ -55,14 +55,14 @@ public final class OreDictImageProvider implements ImageProvider {
             try {
                 item.getSubItems(itemTab, subItems);
             } catch (RuntimeException | LinkageError e) {
-                BWMod.getLog().warn("Caught a crash while getting sub-items of {}", item, e);
+                BetterWithMods.getLog().warn("Caught a crash while getting sub-items of {}", item, e);
             }
 
             for (ItemStack subItem : subItems) {
                 if (subItem == null) {
-                    BWMod.getLog().warn("Found a null subItem of {}", item);
+                    BetterWithMods.getLog().warn("Found a null subItem of {}", item);
                 } else if (subItem.isEmpty()) {
-                    BWMod.getLog().warn("Found an empty subItem of {}", item);
+                    BetterWithMods.getLog().warn("Found an empty subItem of {}", item);
                 } else {
                     if (subItem.getCount() != stackSize) {
                         ItemStack subItemCopy = subItem.copy();

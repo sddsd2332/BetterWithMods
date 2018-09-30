@@ -9,7 +9,7 @@ public class TileCrucible extends TileCookingPot {
 
     @Override
     public String getName() {
-        return "inv.crucible.name";
+        return "inv.crucible.entityName";
     }
 
 }

@@ -14,7 +14,7 @@ import static betterwithmods.lib.TooltipLib.MILLSTONE_BLOCKED;
 public class GuiMill extends GuiProgress {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/mill.png");
-    private static final String NAME = "inv.mill.name";
+    private static final String NAME = "inv.mill.entityName";
     private final ContainerMill container;
 
     public GuiMill(EntityPlayer player, TileMill mill) {

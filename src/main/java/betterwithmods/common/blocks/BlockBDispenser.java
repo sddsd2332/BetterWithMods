@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.api.tile.dispenser.IBehaviorCollect;
 import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import betterwithmods.common.blocks.behaviors.BehaviorBreakBlock;
@@ -58,7 +58,7 @@ public class BlockBDispenser extends BlockDispenser {
             return true;
         else {
             if (world.getTileEntity(pos) != null) {
-                player.openGui(BWMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+                player.openGui(BetterWithMods.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
             }
             return true;
         }

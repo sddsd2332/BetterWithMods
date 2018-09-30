@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.library.modularity.impl.Module;
 import betterwithmods.module.general.MoreCobble;
@@ -100,9 +100,9 @@ public class Hardcore extends Module {
 
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
-        GuiStatus.isGloomLoaded = BWMod.MODULE_LOADER.isFeatureEnabled(HCGloom.class);
-        GuiStatus.isHungerLoaded = BWMod.MODULE_LOADER.isFeatureEnabled(HCHunger.class);
-        GuiStatus.isInjuryLoaded = BWMod.MODULE_LOADER.isFeatureEnabled(HCInjury.class);
+        GuiStatus.isGloomLoaded = BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCGloom.class);
+        GuiStatus.isHungerLoaded = BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCHunger.class);
+        GuiStatus.isInjuryLoaded = BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCInjury.class);
     }
 
 }

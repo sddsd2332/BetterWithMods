@@ -250,7 +250,7 @@ public class HCBrewing extends Feature {
 
     private boolean isModdedPotion(MixPredicate<PotionType> predicate) {
         ResourceLocation registryName = predicate.output.getRegistryName();
-        //If there's no registry name it's surely modded as only modders make dumb mistakes like that
+        //If there's no registry entityName it's surely modded as only modders make dumb mistakes like that
         return registryName == null || (!registryName.getNamespace().toLowerCase().equals("minecraft") && !registryName.getNamespace().toLowerCase().equals("betterwithmods"));
     }
 

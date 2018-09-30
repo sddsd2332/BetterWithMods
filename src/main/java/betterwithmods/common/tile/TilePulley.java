@@ -1,6 +1,6 @@
 package betterwithmods.common.tile;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
@@ -70,7 +70,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
 
     @Override
     public String getName() {
-        return "inv.pulley.name";
+        return "inv.pulley.entityName";
     }
 
     @Override
@@ -241,7 +241,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
                     getBlockWorld().setBlockState(rail, state.withProperty(shape, flatten(currentShape)), 6);
                 }
             } else {
-                BWMod.logger.warn(String.format("Rail at %s has no shape?", rail));
+                BetterWithMods.logger.warn(String.format("Rail at %s has no shape?", rail));
             }
         }
     }

@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks.mechanical.cookingpot;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.SoundType;
@@ -64,7 +64,7 @@ public class BlockCookingPot extends BWMBlock {
             return true;
         } else {
             if (world.getTileEntity(pos) != null && world.getTileEntity(pos).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
-                player.openGui(BWMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+                player.openGui(BetterWithMods.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
             }
             return true;
         }

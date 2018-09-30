@@ -1,6 +1,6 @@
 package betterwithmods.network.handler;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
 import betterwithmods.common.blocks.BWMBlock;
@@ -57,7 +57,7 @@ public class MessageCustomDustHandler extends MessageHandler<MessageCustomDust> 
                 Particle particle = new BWParticleDigging(world, posX, posY, posZ, xSpeed, ySpeed, zSpeed, state, pos, sprite, tintIndex);
                 manager.addEffect(particle);
             } catch (Throwable var16) {
-                BWMod.logger.warn("Could not spawn block particle!");
+                BetterWithMods.logger.warn("Could not spawn block particle!");
                 return;
             }
         }

@@ -1,6 +1,6 @@
 package betterwithmods.common;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityAxle;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
@@ -170,7 +170,7 @@ public class BWMRegistry {
             }
         }
 
-        BWMod.MODULE_LOADER.registerRecipes(event);
+        BetterWithMods.MODULE_LOADER.registerRecipes(event);
     }
 
     public static void init() {

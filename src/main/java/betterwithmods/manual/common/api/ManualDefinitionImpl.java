@@ -1,6 +1,6 @@
 package betterwithmods.manual.common.api;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.manual.api.detail.ManualDefinition;
 import betterwithmods.manual.api.manual.*;
 import betterwithmods.manual.client.gui.GuiManual;
@@ -102,7 +102,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
     public void addTab(final TabIconRenderer renderer, @Nullable final String tooltip, final String path) {
         tabs.add(new Tab(renderer, tooltip, path));
         if (tabs.size() > 7) {
-            BWMod.getLog().warn("Gosh I'm popular! Too many tabs were added to the in-game manual, so some won't be shown. In case this actually happens, let me know and I'll look into making them scrollable or something...");
+            BetterWithMods.getLog().warn("Gosh I'm popular! Too many tabs were added to the in-game manual, so some won't be shown. In case this actually happens, let me know and I'll look into making them scrollable or something...");
         }
     }
 
@@ -169,7 +169,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
                         return image;
                     }
                 } catch (final Throwable t) {
-                    BWMod.getLog().warn(MESSAGE_IMAGE_PROVIDER_EXCEPTION, t);
+                    BetterWithMods.getLog().warn(MESSAGE_IMAGE_PROVIDER_EXCEPTION, t);
                 }
             }
         }
@@ -247,7 +247,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
                     return path;
                 }
             } catch (final Throwable t) {
-                BWMod.getLog().warn(warning, t);
+                BetterWithMods.getLog().warn(warning, t);
             }
         }
         return null;
@@ -290,7 +290,7 @@ public final class ManualDefinitionImpl implements ManualDefinition {
                     return Optional.of(lines);
                 }
             } catch (final Throwable t) {
-                BWMod.getLog().warn(MESSAGE_CONTENT_LOOKUP_EXCEPTION, t);
+                BetterWithMods.getLog().warn(MESSAGE_CONTENT_LOOKUP_EXCEPTION, t);
             }
         }
         return Optional.empty();

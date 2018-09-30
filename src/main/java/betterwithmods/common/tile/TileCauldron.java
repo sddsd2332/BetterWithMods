@@ -9,7 +9,7 @@ public class TileCauldron extends TileCookingPot {
 
     @Override
     public String getName() {
-        return "inv.cauldron.name";
+        return "inv.cauldron.entityName";
     }
 
 

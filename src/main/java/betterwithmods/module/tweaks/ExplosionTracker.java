@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
 import net.minecraft.entity.EntityLivingBase;
@@ -26,7 +26,7 @@ public class ExplosionTracker extends Feature {
     @SubscribeEvent
     public static void onExplodeTrack(ExplosionTrackingEvent event) {
         Optional<EntityLivingBase> entity = Optional.ofNullable(event.getExploder());
-        BWMod.getLog().warn("[EXPLOSION] -  position: {}, cause: {}", event.getSource(), entity.map(EntityLivingBase::getName).orElse("No Placer"));
+        BetterWithMods.getLog().warn("[EXPLOSION] -  position: {}, cause: {}", event.getSource(), entity.map(EntityLivingBase::getName).orElse("No Placer"));
     }
 
     @Override

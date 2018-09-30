@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.world.spawn;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.utils.TimeUtils;
@@ -142,7 +142,7 @@ public class HCSpawn extends Feature {
                 }
             }
             if (!found)
-                BWMod.logger.info("New respawn point could not be found.");
+                BetterWithMods.logger.info("New respawn point could not be found.");
         }
 
         return ret;

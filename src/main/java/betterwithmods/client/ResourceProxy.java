@@ -1,7 +1,7 @@
 package betterwithmods.client;
 /* Resource Proxy borrowed from Quark*/
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Maps;
@@ -32,20 +32,20 @@ public class ResourceProxy extends AbstractResourcePack {
         String bare = String.format(BARE_FORMAT, domain, space, dir, file, ext);
         String override = String.format(OVERRIDE_FORMAT, domain, space, dir, file, ext);
         overrides.put(bare, override);
-        BWMod.logger.info("Override texture: {} to {}", bare, override);
+        BetterWithMods.logger.info("Override texture: {} to {}", bare, override);
     }
 
     public void addResource(String space, String dir, String file, String ext) {
         String bare = String.format(BARE_FORMAT, MINECRAFT, space, dir, file, ext);
         String override = String.format(OVERRIDE_FORMAT, ModLib.MODID, space, dir, file, ext);
         overrides.put(bare, override);
-        BWMod.logger.info("Override texture: {} to {}", bare, override);
+        BetterWithMods.logger.info("Override texture: {} to {}", bare, override);
     }
 
     @Nonnull
     @Override
     protected InputStream getInputStreamByName(@Nonnull String name) {
-        return BWMod.class.getResourceAsStream(overrides.get(name));
+        return BetterWithMods.class.getResourceAsStream(overrides.get(name));
     }
 
     @Override

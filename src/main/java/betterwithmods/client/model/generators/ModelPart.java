@@ -1,6 +1,6 @@
 package betterwithmods.client.model.generators;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.library.utils.BannerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.model.ModelBase;
@@ -38,7 +38,7 @@ public class ModelPart extends net.minecraft.client.model.ModelRenderer {
                 if (texture != null)
                     Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
             } catch (Exception e) {
-                BWMod.logger.error(e);
+                BetterWithMods.logger.error(e);
             }
         }
 

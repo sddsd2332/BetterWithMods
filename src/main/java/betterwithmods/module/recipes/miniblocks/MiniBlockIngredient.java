@@ -1,6 +1,6 @@
 package betterwithmods.module.recipes.miniblocks;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
@@ -59,7 +59,7 @@ public class MiniBlockIngredient extends BlockStateIngredient {
                 ItemStack stack = state.getBlock().getPickBlock(state, rayTraceResult, world, pos, null);
                 return apply(stack);
             } catch (NullPointerException e) {
-                BWMod.logger.error("The pick-block for {} was invalid with a raytrace or a null player. Please report to the owner of the block.", state.getBlock().getRegistryName());
+                BetterWithMods.logger.error("The pick-block for {} was invalid with a raytrace or a null player. Please report to the owner of the block.", state.getBlock().getRegistryName());
             }
         }
         return false;

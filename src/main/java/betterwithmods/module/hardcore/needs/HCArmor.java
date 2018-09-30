@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.needs;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.penalties.ArmorPenalties;
 import betterwithmods.library.modularity.impl.Feature;
@@ -20,7 +20,7 @@ public class HCArmor extends Feature {
     public static boolean shieldRebalance;
 
     public static float getWeight(ItemStack stack) {
-        if (!BWMod.MODULE_LOADER.isFeatureEnabled(HCArmor.class))
+        if (!BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCArmor.class))
             return 0;
         return weights.findValue(stack);
     }

@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.needs.hunger;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.client.gui.GuiHunger;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRegistry;
@@ -133,11 +133,11 @@ public class HCHunger extends Feature {
             int totalTicks = passiveExhaustionTick * (PlayerUtils.isSitting(player) ? 2 : 1);
 
             if (tick > totalTicks) {
-                BWMod.getLog().debug("Adding Exhaustion ({}) after {} ticks", passiveExhaustion, totalTicks);
+                BetterWithMods.getLog().debug("Adding Exhaustion ({}) after {} ticks", passiveExhaustion, totalTicks);
                 player.addExhaustion(passiveExhaustion);
                 setExhaustionTick(player, 0);
             } else {
-                BWMod.getLog().debug(" {} exhaustion ticks", getExhaustionTick(player));
+                BetterWithMods.getLog().debug(" {} exhaustion ticks", getExhaustionTick(player));
                 setExhaustionTick(player, getExhaustionTick(player) + 1);
             }
         }

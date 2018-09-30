@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks.mechanical.mech_machine;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.mechanical.IBlockActive;
@@ -49,7 +49,7 @@ public abstract class BlockMechMachine extends BWMBlock implements IBlockActive,
         if (!world.isRemote) {
             boolean isInventory = Arrays.stream(EnumFacing.VALUES).anyMatch(f -> world.getTileEntity(pos).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, f));
             if (!player.isSneaking() && world.getTileEntity(pos) != null && isInventory) {
-                player.openGui(BWMod.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+                player.openGui(BetterWithMods.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
             }
             return true;
         }

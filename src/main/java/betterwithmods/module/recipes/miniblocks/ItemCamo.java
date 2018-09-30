@@ -96,9 +96,9 @@ public class ItemCamo extends ItemBlock {
     public String getItemStackDisplayName(@Nonnull ItemStack stack) {
         NBTTagCompound tag = stack.getSubCompound("texture");
 
-        //TODO .name
-        ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_mini.name");
-        ITextComponent base = new TextComponentTranslation(this.getTranslationKey(stack) + ".name");
+        //TODO .entityName
+        ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_mini.entityName");
+        ITextComponent base = new TextComponentTranslation(this.getTranslationKey(stack) + ".entityName");
 
         if (tag != null) {
             IBlockState state = NBTUtil.readBlockState(tag);

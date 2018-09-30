@@ -35,7 +35,7 @@ public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper>
     final int secondaryOutputSlot = 5;
 
     public HopperRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(location, 0, 0, width, height), UID, Translator.translateToLocal("inv.hopper.name"));
+        super(guiHelper.createDrawable(location, 0, 0, width, height), UID, Translator.translateToLocal("inv.hopper.entityName"));
     }
 
     @SideOnly(Side.CLIENT)

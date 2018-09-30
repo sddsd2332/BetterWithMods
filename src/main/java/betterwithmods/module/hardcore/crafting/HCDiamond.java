@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.crafting;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
@@ -38,8 +38,8 @@ public class HCDiamond extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        if (BWMod.MODULE_LOADER.isFeatureEnabled(MetalReclaming.class) && MetalReclaming.reclaimCount > 0) {
-            if (BWMod.MODULE_LOADER.isFeatureEnabled(CheaperAxes.class)) {
+        if (BetterWithMods.MODULE_LOADER.isFeatureEnabled(MetalReclaming.class) && MetalReclaming.reclaimCount > 0) {
+            if (BetterWithMods.MODULE_LOADER.isFeatureEnabled(CheaperAxes.class)) {
                 BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.DIAMOND_AXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT, 2));
 
             } else {

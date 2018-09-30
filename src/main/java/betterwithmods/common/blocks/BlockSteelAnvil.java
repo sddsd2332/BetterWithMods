@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.tile.TileSteelAnvil;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.SoundType;
@@ -102,7 +102,7 @@ public class BlockSteelAnvil extends BWMBlock {
         if (worldIn.isRemote)
             return true;
         else
-            playerIn.openGui(BWMod.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
+            playerIn.openGui(BetterWithMods.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
         return true;
     }
 

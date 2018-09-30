@@ -1,11 +1,9 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.BWMod;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
 import betterwithmods.common.tile.TileBasic;
 import betterwithmods.library.utils.InventoryUtils;
-import betterwithmods.library.network.NetworkHandler;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageCustomDust;
 import betterwithmods.library.utils.CapabilityUtils;
@@ -188,9 +186,22 @@ public abstract class BWMBlock extends Block implements IRotate {
 
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public boolean addRunningEffects(IBlockState state, World world, BlockPos pos, Entity entity) {
-        return BWMod.proxy.addRunningParticles(state, world, pos, entity);
+        IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
+        if (model instanceof IStateParticleBakedModel) {
+            state = state.getBlock().getExtendedState(state.getActualState(world, pos), world, pos);
+            TextureAtlasSprite sprite = ((IStateParticleBakedModel) model).getParticleTexture(state, EnumFacing.UP);
+
+            Particle particle = new BWParticleDigging(world, entity.posX + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width, entity.getEntityBoundingBox().minY + 0.1D, entity.posZ + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D,
+                    state, pos, sprite, ((BWMBlock) state.getBlock()).getParticleTintIndex());
+            Minecraft.getMinecraft().effectRenderer.addEffect(particle);
+
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public int getParticleTintIndex() {

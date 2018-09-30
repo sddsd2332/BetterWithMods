@@ -23,7 +23,7 @@ import org.apache.logging.log4j.Logger;
 import java.io.File;
 
 @Mod(modid = ModLib.MODID, name = ModLib.NAME, version = ModLib.VERSION, dependencies = ModLib.DEPENDENCIES, guiFactory = ModLib.GUI_FACTORY, acceptedMinecraftVersions = ModLib.MINECRAFT_VERISONS)
-public class BWMod {
+public class BetterWithMods {
 
     public static final ModuleLoader MODULE_LOADER = new ModuleLoader(new File(ModLib.MODID)).addModules(
             new InternalRegistries(),
@@ -39,7 +39,7 @@ public class BWMod {
     public static IProxy proxy;
 
     @Mod.Instance(ModLib.MODID)
-    public static BWMod instance;
+    public static BetterWithMods instance;
 
     static {
         FluidRegistry.enableUniversalBucket();

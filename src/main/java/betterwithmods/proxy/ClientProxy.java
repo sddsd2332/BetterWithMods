@@ -1,19 +1,16 @@
 package betterwithmods.proxy;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.api.client.IColorable;
-import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.ColorHandlers;
 import betterwithmods.client.ResourceProxy;
 import betterwithmods.client.baking.BarkModel;
-import betterwithmods.client.baking.IStateParticleBakedModel;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.client.render.*;
 import betterwithmods.client.tesr.*;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.entity.*;
 import betterwithmods.common.tile.*;
@@ -24,19 +21,15 @@ import betterwithmods.module.hardcore.crafting.HCFurnace;
 import betterwithmods.module.hardcore.creatures.EntityTentacle;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
-import net.minecraft.client.particle.Particle;
-import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.client.renderer.entity.RenderSnowball;
-import net.minecraft.client.renderer.texture.TextureAtlasSprite;
 import net.minecraft.client.resources.IResourcePack;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerGrass;
@@ -84,7 +77,7 @@ public class ClientProxy implements IProxy {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMod.MODULE_LOADER.onPreInitClient(event);
+        BetterWithMods.MODULE_LOADER.onPreInitClient(event);
         registerRenderInformation();
         initRenderers();
         MinecraftForge.EVENT_BUS.register(new ClientEventHandler());
@@ -94,12 +87,12 @@ public class ClientProxy implements IProxy {
     public void onInit(FMLInitializationEvent event) {
         List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), ReflectionLib.DEFAULT_RESOURCE_PACKS);
         registerColors();
-        BWMod.MODULE_LOADER.onInitClient(event);
+        BetterWithMods.MODULE_LOADER.onInitClient(event);
     }
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
-        BWMod.MODULE_LOADER.onPostInitClient(event);
+        BetterWithMods.MODULE_LOADER.onPostInitClient(event);
     }
 
     private void registerRenderInformation() {
@@ -111,7 +104,7 @@ public class ClientProxy implements IProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileCrucible.class, new TESRCookingPot());
         ClientRegistry.bindTileEntitySpecialRenderer(TileBeacon.class, new TESRBeacon());
         ClientRegistry.bindTileEntitySpecialRenderer(TileBucket.class, new TESRBucket());
-        if (BWMod.MODULE_LOADER.isFeatureEnabled(HCFurnace.class)) {
+        if (BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCFurnace.class)) {
             ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFurnace.class, new TESRFurnaceContent());
         }
     }
@@ -159,19 +152,7 @@ public class ClientProxy implements IProxy {
 
     @Override
     public boolean addRunningParticles(IBlockState state, World world, BlockPos pos, Entity entity) {
-        IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);
-        if (model instanceof IStateParticleBakedModel) {
-            state = state.getBlock().getExtendedState(state.getActualState(world, pos), world, pos);
-            TextureAtlasSprite sprite = ((IStateParticleBakedModel) model).getParticleTexture(state, EnumFacing.UP);
-
-            Particle particle = new BWParticleDigging(world, entity.posX + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width, entity.getEntityBoundingBox().minY + 0.1D, entity.posZ + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D,
-                    state, pos, sprite, ((BWMBlock) state.getBlock()).getParticleTintIndex());
-            Minecraft.getMinecraft().effectRenderer.addEffect(particle);
-
-            return true;
-        } else {
-            return false;
-        }
+        return false;
     }
 
 }

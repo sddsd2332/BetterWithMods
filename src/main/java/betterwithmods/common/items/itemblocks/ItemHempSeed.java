@@ -23,7 +23,7 @@ public class ItemHempSeed extends ItemBlock implements IPlantable {
     @Override
     public boolean itemInteractionForEntity(ItemStack stack, EntityPlayer playerIn, EntityLivingBase target, EnumHand hand) {
         //Confirm this is no longer necessary since the event in HCChickens cancels this method
-//        if (BWMod.MODULE_LOADER.isFeatureEnabled(HCChickens.class))
+//        if (BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCChickens.class))
 //            return true;
         if (target instanceof EntityChicken) {
             EntityChicken chicken = (EntityChicken) target;

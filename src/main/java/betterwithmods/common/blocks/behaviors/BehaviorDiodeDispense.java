@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks.behaviors;
 
-import betterwithmods.BWMod;
+import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.module.general.General;
 import betterwithmods.util.DirUtils;
@@ -33,7 +33,7 @@ public class BehaviorDiodeDispense extends BehaviorDefaultDispenseItem {
             fake.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
             DirUtils.setEntityOrientationFacing(fake, facing);
             if (General.isDebug())
-                BWMod.logger.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
+                BetterWithMods.logger.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
             if (stack.getItem().onItemUse(fake, source.getWorld(), check, EnumHand.MAIN_HAND, facing, 0.1F, 0.0F, 0.1F) == EnumActionResult.SUCCESS) {
                 stack.shrink(1);
                 return stack.isEmpty() ? ItemStack.EMPTY : stack;
