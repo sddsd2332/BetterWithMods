@@ -2,7 +2,9 @@ package betterwithmods.testing.base;
 
 import betterwithmods.common.registry.block.managers.CraftingManagerBlock;
 import betterwithmods.common.registry.block.recipe.BlockRecipe;
-import betterwithmods.testing.base.world.FakeWorld;
+import betterwithmods.library.testing.BaseTest;
+import betterwithmods.library.testing.Test;
+import betterwithmods.library.testing.world.FakeWorld;
 import net.minecraft.init.Blocks;
 import net.minecraft.util.math.BlockPos;
 import org.fest.assertions.Assertions;

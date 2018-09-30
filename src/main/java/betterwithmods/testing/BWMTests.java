@@ -1,6 +1,6 @@
 package betterwithmods.testing;
 
-import betterwithmods.testing.base.BaseTest;
+import betterwithmods.library.testing.BaseTest;
 import com.google.common.collect.Lists;
 
 public class BWMTests {

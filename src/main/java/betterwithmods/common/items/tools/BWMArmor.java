@@ -37,7 +37,6 @@ public class BWMArmor extends ItemArmor implements IColorable {
             }
         }
         return 0x00FFFFFF;
-//        return 0xa06540;
     }
 
     @Override
