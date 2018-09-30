@@ -1,9 +1,9 @@
 package betterwithmods.module.recipes;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -18,7 +18,7 @@ public class NetherGrowth extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        BWMRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
+        RecipeRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
                 StackIngredient.fromStacks(new ItemStack(Blocks.BROWN_MUSHROOM)),
                 StackIngredient.fromStacks(new ItemStack(Blocks.RED_MUSHROOM)),
                 StackIngredient.fromStacks(new ItemStack(Blocks.MYCELIUM)),

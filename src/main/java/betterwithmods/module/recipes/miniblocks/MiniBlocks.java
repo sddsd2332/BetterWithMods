@@ -4,7 +4,6 @@ import betterwithmods.BetterWithMods;
 import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.items.ItemMaterial;
@@ -13,6 +12,7 @@ import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.internal.BlockRegistry;
+import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;
 import betterwithmods.module.recipes.miniblocks.blocks.*;
 import betterwithmods.module.recipes.miniblocks.client.CamoModel;
@@ -129,7 +129,7 @@ public class MiniBlocks extends Feature {
         } catch (final NoSuchMethodException | SecurityException e) {
             // nothing here...
         } catch (final NoClassDefFoundError e) {
-            BetterWithMods.logger.info("Unable to determine blocks eligibility for making a miniblock, " + blkClass.getName() + " attempted to load " + e.getMessage());
+            BetterWithMods.LOGGER.info("Unable to determine blocks eligibility for making a miniblock, " + blkClass.getName() + " attempted to load " + e.getMessage());
             return blkClass;
         } catch (final Throwable t) {
             return blkClass;
@@ -372,11 +372,11 @@ public class MiniBlocks extends Feature {
                 ItemStack sidingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material), parent, 2);
                 ItemStack mouldingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(material), parent, 2);
                 ItemStack cornerStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(material), parent, 2);
-                BWMRegistry.WOOD_SAW.addRecipe(parentStack, sidingStack);
-                BWMRegistry.WOOD_SAW.addRecipe(siding, mouldingStack);
-                BWMRegistry.WOOD_SAW.addRecipe(moulding, cornerStack);
+                RecipeRegistry.WOOD_SAW.addRecipe(parentStack, sidingStack);
+                RecipeRegistry.WOOD_SAW.addRecipe(siding, mouldingStack);
+                RecipeRegistry.WOOD_SAW.addRecipe(moulding, cornerStack);
                 if (BWMOreDictionary.isOre(parentStack, "plankWood")) {
-                    BWMRegistry.WOOD_SAW.addRecipe(corner, ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_GEAR, 2));
+                    RecipeRegistry.WOOD_SAW.addRecipe(corner, ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_GEAR, 2));
                 }
             } else {
                 ItemStack sidingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material), parent, 8);

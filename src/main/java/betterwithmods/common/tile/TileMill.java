@@ -6,8 +6,8 @@ import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.api.tile.ICrankable;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.util.IProgressSource;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
+import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.DirUtils;
 import betterwithmods.library.utils.StackEjector;
 import betterwithmods.library.utils.VectorBuilder;
@@ -98,7 +98,7 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
         }
 
         if (isActive()) {
-            BWMRegistry.MILLSTONE.craftRecipe(world, this);
+            RecipeRegistry.MILLSTONE.craftRecipe(world, this);
         }
     }
 

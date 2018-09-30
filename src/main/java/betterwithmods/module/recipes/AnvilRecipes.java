@@ -3,7 +3,6 @@ package betterwithmods.module.recipes;
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
@@ -11,6 +10,7 @@ import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.hardcore.needs.HCTools;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
@@ -28,7 +28,7 @@ public class AnvilRecipes extends Feature {
 
     public static ShapedAnvilRecipe addSteelShapedRecipe(ResourceLocation recipeName, ItemStack output, Object... input) {
         if (recipeName == null || recipeName.toString().isEmpty()) {
-            BetterWithMods.logger.warn("Anvil Recipe is missing recipeName" + output);
+            BetterWithMods.LOGGER.warn("Anvil Recipe is missing recipeName" + output);
             recipeName = output.getItem().getRegistryName();
         }
         ShapedAnvilRecipe recipe = new ShapedAnvilRecipe(null, output, input);
@@ -42,7 +42,7 @@ public class AnvilRecipes extends Feature {
 
     public static ShapelessAnvilRecipe addSteelShapelessRecipe(ResourceLocation recipeName, ItemStack output, Object... input) {
         if (recipeName == null || recipeName.toString().isEmpty()) {
-            BetterWithMods.logger.warn("Anvil Recipe is missing recipeName" + output);
+            BetterWithMods.LOGGER.warn("Anvil Recipe is missing recipeName" + output);
             recipeName = output.getItem().getRegistryName();
         }
         ShapelessAnvilRecipe recipe = new ShapelessAnvilRecipe(null, output, input);
@@ -51,9 +51,9 @@ public class AnvilRecipes extends Feature {
     }
 
     private static IRecipe addAnvilRecipe(IRecipe recipe) {
-        BWMRegistry.ANVIL.addRecipe(recipe);
+        RecipeRegistry.ANVIL.addRecipe(recipe);
         if (recipe.getRecipeOutput().isEmpty()) {
-            BetterWithMods.logger.warn("Recipe is missing output " + recipe.getGroup());
+            BetterWithMods.LOGGER.warn("Recipe is missing output " + recipe.getGroup());
         }
         return recipe;
     }

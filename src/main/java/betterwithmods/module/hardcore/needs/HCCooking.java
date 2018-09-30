@@ -1,7 +1,10 @@
 package betterwithmods.module.hardcore.needs;
 
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.module.internal.RecipeRegistry;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -14,13 +17,14 @@ public class HCCooking extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMRecipes.removeRecipe(Items.MUSHROOM_STEW.getRegistryName());
-        BWMRecipes.removeRecipe(Items.CAKE.getRegistryName());
-        BWMRecipes.removeRecipe(Items.COOKIE.getRegistryName());
-        BWMRecipes.removeRecipe(Items.PUMPKIN_PIE.getRegistryName());
-        BWMRecipes.removeRecipe(Items.RABBIT_STEW.getRegistryName());
-        BWMRecipes.removeRecipe(Items.BEETROOT_SOUP.getRegistryName());
-        BWMRecipes.removeRecipe(Items.BREAD.getRegistryName());
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.TNT.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.MUSHROOM_STEW.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.CAKE.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.COOKIE.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.PUMPKIN_PIE.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.RABBIT_STEW.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.BEETROOT_SOUP.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.BREAD.getRegistryName()));
     }
 
 

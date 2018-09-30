@@ -3,7 +3,7 @@ package betterwithmods.module.hardcore.needs.hunger;
 import betterwithmods.BetterWithMods;
 import betterwithmods.client.gui.GuiHunger;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWMRegistry;
+import betterwithmods.common.Registration;
 import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
@@ -163,7 +163,7 @@ public class HCHunger extends Feature {
         if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
             return;
         //Whether the player can heal
-        Event.Result result = BWMRegistry.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
+        Event.Result result = Registration.PENALTY_HANDLERS.canHeal(event.player) ? Event.Result.ALLOW : Event.Result.DENY;
         event.setResult(result);
     }
 
@@ -352,8 +352,8 @@ public class HCHunger extends Feature {
     @Override
     public void onInit(FMLInitializationEvent event) {
 
-        BWMRegistry.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties(this));
-        BWMRegistry.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties(this));
+        Registration.PENALTY_HANDLERS.add(hungerPenalties = new HungerPenalties(this));
+        Registration.PENALTY_HANDLERS.add(fatPenalties = new FatPenalties(this));
 
 
         registerFoods();

@@ -2,11 +2,11 @@ package betterwithmods.common.registry.hopper.recipes;
 
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.tile.SimpleStackHandler;
 import betterwithmods.common.tile.TileFilteredHopper;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
@@ -72,7 +72,7 @@ public class HopperRecipe {
     }
 
     public List<ItemStack> getFilters() {
-        return Lists.newArrayList(BWMRegistry.HOPPER_FILTERS.getFilter(getFilterType()).getFilter().getMatchingStacks());
+        return Lists.newArrayList(RecipeRegistry.HOPPER_FILTERS.getFilter(getFilterType()).getFilter().getMatchingStacks());
     }
 
     public List<ItemStack> getInputContainer() {

@@ -5,7 +5,10 @@ import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.items.ItemFertilizer;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -23,6 +26,7 @@ import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Created by primetoxinz on 5/14/17.
@@ -44,8 +48,9 @@ public class HCBonemeal extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         boolean removeBonemealRecipe = loadProperty("Remove Bonemeal Crafting Recipe", true).get();
-        if (removeBonemealRecipe)
-            BWMRecipes.removeRecipe(new ItemStack(Items.DYE, 3, EnumDyeColor.WHITE.getDyeDamage()));
+        if (removeBonemealRecipe) {
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT_SIZE, new ItemStack(Items.DYE, 3, EnumDyeColor.WHITE.getDyeDamage())));
+        }
     }
 
     @SubscribeEvent

@@ -1,9 +1,9 @@
 package betterwithmods.module.recipes;
 
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 /**
@@ -22,7 +22,7 @@ public class NuggetCompression extends Feature {
             String suffix = ingot.getSuffix();
             if (!ingot.getOres().isEmpty() && suffix != null) {
                 StackIngredient nugget = StackIngredient.fromOre(9, "nugget" + suffix);
-                BWMRegistry.CRUCIBLE.addStokedRecipe(nugget, ingot.getOres().get(0));
+                RecipeRegistry.CRUCIBLE.addStokedRecipe(nugget, ingot.getOres().get(0));
             }
         }
     }

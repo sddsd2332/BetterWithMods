@@ -7,12 +7,12 @@ import betterwithmods.api.tile.IHopperFilter;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.util.IProgressSource;
 import betterwithmods.client.model.filters.ModelWithResource;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
 import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -103,7 +103,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
             EntityItem item = (EntityItem) entity;
             if (item.isDead)
                 return;
-            HopperRecipe recipe = BWMRegistry.FILTERED_HOPPER.findRecipe(this, item.getItem()).orElse(null);
+            HopperRecipe recipe = RecipeRegistry.FILTERED_HOPPER.findRecipe(this, item.getItem()).orElse(null);
             if (recipe != null) {
                 if (recipe.craftRecipe(item, world, pos, this)) {
                     this.getBlockWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((getBlockWorld().rand.nextFloat() - getBlockWorld().rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
@@ -190,7 +190,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     private void validateInventory() {
         boolean stateChanged = false;
         ItemStack filter = getFilterStack();
-        IHopperFilter newFilter = BWMRegistry.HOPPER_FILTERS.getFilter(filter);
+        IHopperFilter newFilter = RecipeRegistry.HOPPER_FILTERS.getFilter(filter);
         if (this.hopperFilter != newFilter) {
             this.hopperFilter = newFilter;
             stateChanged = true;
@@ -394,7 +394,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
         @Nonnull
         @Override
         public ItemStack insertItem(int slot, @Nonnull ItemStack stack, boolean simulate) {
-            if (!BWMRegistry.HOPPER_FILTERS.isFilter(stack))
+            if (!RecipeRegistry.HOPPER_FILTERS.isFilter(stack))
                 return stack;
             return super.insertItem(slot, stack, simulate);
         }

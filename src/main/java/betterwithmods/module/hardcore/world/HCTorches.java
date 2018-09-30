@@ -1,7 +1,9 @@
 package betterwithmods.module.hardcore.world;
 
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -16,6 +18,6 @@ public class HCTorches extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMRecipes.removeRecipe(Blocks.TORCH.getRegistryName());
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.TORCH.getRegistryName()));
     }
 }

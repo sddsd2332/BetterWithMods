@@ -1,17 +1,19 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
@@ -55,12 +57,10 @@ public class HCOres extends Feature {
 
 
         if (fixVanillaRecipes) {
-
-            BWMRecipes.removeRecipe(Items.COMPASS.getRegistryName());
-            BWMRecipes.removeRecipe(Items.CLOCK.getRegistryName());
-            BWMRecipes.removeRecipe(Items.BUCKET.getRegistryName());
-            BWMRecipes.removeRecipe(Items.FLINT_AND_STEEL.getRegistryName());
-
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.COMPASS.getRegistryName()));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.CLOCK.getRegistryName()));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.BUCKET.getRegistryName()));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.FLINT_AND_STEEL.getRegistryName()));
             //TODO
 //            addHardcoreRecipe(new ShapedOreRecipe(null, Items.COMPASS, " N ", "NRN", " N ", 'N', "nuggetIron", 'R', "dustRedstone").setRegistryName(new ResourceLocation("minecraft", "compass")));
 //            addHardcoreRecipe(new ShapedOreRecipe(null, Items.CLOCK, " N ", "NQN", " N ", 'N', "nuggetGold", 'Q', "gemQuartz").setRegistryName(new ResourceLocation("minecraft", "clock")));
@@ -71,15 +71,15 @@ public class HCOres extends Feature {
         addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
         addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
         addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
-        BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_NUGGET, 4));
-        BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_NUGGET, 4));
-        BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_NUGGET));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_NUGGET, 4));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_NUGGET, 4));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_NUGGET));
 
-        BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_NUGGET, 4));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_NUGGET, 4));
     }
 
     private void addMeltingRecipeWithoutReturn(ItemStack input, ItemStack output) {
-        BWMRegistry.CRUCIBLE.addRecipe(new CookingPotRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {
+        RecipeRegistry.CRUCIBLE.addRecipe(new CookingPotRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {
             //TODO
 //            @Override
 //            protected boolean consumeIngredients(ItemStackHandler inventory, NonNullList<ItemStack> containItems) {
@@ -124,10 +124,12 @@ public class HCOres extends Feature {
             Optional<ItemStack> optionalNugget = BWMOreDictionary.nuggetNames.stream().filter(o -> o.getSuffix().equals(ore.getSuffix())).flatMap(o -> o.getOres().stream()).findFirst();
             if (optionalNugget.isPresent()) {
                 for (ItemStack oreStack : ore.getOres()) {
-                    if (BWMRecipes.removeFurnaceRecipe(oreStack)) {
+                    if (RecipeRegistry.removeFurnaceRecipe(oreStack)) {
                         ItemStack nugget = optionalNugget.get().copy();
                         nugget.setCount(oreProductionCount);
-                        BWMRecipes.addFurnaceRecipe(oreStack, nugget);
+                        //TODO likely changes in 1.13
+                        FurnaceRecipes.instance().getSmeltingList().put(oreStack, nugget);
+
                     }
                 }
             }

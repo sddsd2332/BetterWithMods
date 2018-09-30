@@ -57,7 +57,7 @@ public class MessageCustomDustHandler extends MessageHandler<MessageCustomDust> 
                 Particle particle = new BWParticleDigging(world, posX, posY, posZ, xSpeed, ySpeed, zSpeed, state, pos, sprite, tintIndex);
                 manager.addEffect(particle);
             } catch (Throwable var16) {
-                BetterWithMods.logger.warn("Could not spawn block particle!");
+                BetterWithMods.LOGGER.warn("Could not spawn block particle!");
                 return;
             }
         }

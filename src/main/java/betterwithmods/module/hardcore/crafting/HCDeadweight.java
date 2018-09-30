@@ -2,6 +2,9 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -16,7 +19,7 @@ public class HCDeadweight extends Feature {
 
     @Override
     public void onPostInit(FMLPostInitializationEvent event) {
-        BWMRecipes.removeRecipe(new ItemStack(Blocks.ANVIL));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Blocks.ANVIL)));
         Blocks.ANVIL.setTranslationKey("betterwithmods:deadweight");
     }
 

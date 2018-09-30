@@ -1,8 +1,11 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMRecipes;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -95,8 +98,8 @@ public class MossGeneration extends Feature {
         DISABLE_VINE_RECIPES = loadProperty("Disable Vine Recipes", true).setComment("Disables the mossy cobblestone and mossy brick recipes involving vines.").get();
 
         if (DISABLE_VINE_RECIPES) {
-            BWMRecipes.removeRecipe("minecraft:mossy_cobblestone");
-            BWMRecipes.removeRecipe("minecraft:mossy_stonebrick");
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:mossy_cobblestone"));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:mossy_stonebrick"));
         }
     }
 

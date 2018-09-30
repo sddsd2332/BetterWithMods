@@ -241,7 +241,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
                     getBlockWorld().setBlockState(rail, state.withProperty(shape, flatten(currentShape)), 6);
                 }
             } else {
-                BetterWithMods.logger.warn(String.format("Rail at %s has no shape?", rail));
+                BetterWithMods.LOGGER.warn(String.format("Rail at %s has no shape?", rail));
             }
         }
     }

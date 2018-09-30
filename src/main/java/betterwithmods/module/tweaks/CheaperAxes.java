@@ -2,6 +2,11 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.module.internal.RecipeRegistry;
+import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
@@ -9,10 +14,10 @@ public class CheaperAxes extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMRecipes.removeRecipe(new ResourceLocation("minecraft:stone_axe"));
-        BWMRecipes.removeRecipe(new ResourceLocation("minecraft:iron_axe"));
-        BWMRecipes.removeRecipe(new ResourceLocation("minecraft:golden_axe"));
-        BWMRecipes.removeRecipe(new ResourceLocation("minecraft:diamond_axe"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.STONE_AXE.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.IRON_AXE.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.GOLDEN_AXE.getRegistryName()));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.DIAMOND_AXE.getRegistryName()));
     }
 
     @Override

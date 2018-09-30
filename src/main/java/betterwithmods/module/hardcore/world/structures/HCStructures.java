@@ -2,9 +2,12 @@ package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
 import betterwithmods.library.event.StructureSetBlockEvent;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockLadder;
 import net.minecraft.block.BlockPlanks;
@@ -12,6 +15,7 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
@@ -56,8 +60,8 @@ public class HCStructures extends Feature {
         NORMAL_JUNGLE_TEMPLE = StructureChanger.create(JUNGLE_TEMPLE, (w, p) -> p.distanceSq(w.getSpawnPoint()) >= HARDCORE_STRUCTURE_RADIUS * HARDCORE_STRUCTURE_RADIUS);
 
         if (disableRecipes) {
-            BWMRecipes.removeRecipe(new ItemStack(Blocks.ENCHANTING_TABLE));
-            BWMRecipes.removeRecipe(new ItemStack(Items.BREWING_STAND));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Blocks.ENCHANTING_TABLE)));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Items.BREWING_STAND)));
         }
     }
 

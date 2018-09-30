@@ -32,14 +32,14 @@ public class ResourceProxy extends AbstractResourcePack {
         String bare = String.format(BARE_FORMAT, domain, space, dir, file, ext);
         String override = String.format(OVERRIDE_FORMAT, domain, space, dir, file, ext);
         overrides.put(bare, override);
-        BetterWithMods.logger.info("Override texture: {} to {}", bare, override);
+        BetterWithMods.LOGGER.info("Override texture: {} to {}", bare, override);
     }
 
     public void addResource(String space, String dir, String file, String ext) {
         String bare = String.format(BARE_FORMAT, MINECRAFT, space, dir, file, ext);
         String override = String.format(OVERRIDE_FORMAT, ModLib.MODID, space, dir, file, ext);
         overrides.put(bare, override);
-        BetterWithMods.logger.info("Override texture: {} to {}", bare, override);
+        BetterWithMods.LOGGER.info("Override texture: {} to {}", bare, override);
     }
 
     @Nonnull
@@ -62,7 +62,7 @@ public class ResourceProxy extends AbstractResourcePack {
     @Nonnull
     @Override
     public String getPackName() {
-        return "bwm-texture-proxy";
+        return "bwm-texture-PROXY";
     }
 
 }

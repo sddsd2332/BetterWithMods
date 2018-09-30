@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.common.BWMRegistry;
+import betterwithmods.common.Registration;
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
@@ -126,15 +126,15 @@ public class HCBeacons extends Feature {
                 .setTickRate(3600));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("emerald", new BlockStateIngredient("blockEmerald"), EntityLivingBase.class)
-                .addPotionEffect(BWMRegistry.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL)
+                .addPotionEffect(Registration.POTION_LOOTING, 125, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.GREEN));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("lapis", new BlockStateIngredient("blockLapis"), EntityPlayer.class)
-                .addPotionEffect(BWMRegistry.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE)
+                .addPotionEffect(Registration.POTION_TRUESIGHT, 125, PotionBeaconEffect.Amplification.NONE)
                 .setBaseBeamColor(Color.BLUE));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("diamond", new BlockStateIngredient("blockDiamond"), EntityPlayer.class)
-                .addPotionEffect(BWMRegistry.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
+                .addPotionEffect(Registration.POTION_FORTUNE, 125, PotionBeaconEffect.Amplification.LEVEL_REDUCED)
                 .setBaseBeamColor(Color.CYAN));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("glowstone", new BlockStateIngredient("glowstone"), EntityPlayer.class)
@@ -167,7 +167,7 @@ public class HCBeacons extends Feature {
                 .setBaseBeamColor(Color.BLUE));
 
         BEACON_EFFECTS.add(new PotionBeaconEffect("padding", new BlockStateIngredient("blockPadding"), EntityPlayer.class)
-                .addPotionEffect(BWMRegistry.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
+                .addPotionEffect(Registration.POTION_SLOWFALL, 120, PotionBeaconEffect.Amplification.LEVEL)
                 .setBaseBeamColor(Color.PINK));
 
         BEACON_EFFECTS.add(new SpawnBeaconEffect());

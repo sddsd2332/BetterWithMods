@@ -33,7 +33,7 @@ public class BehaviorDiodeDispense extends BehaviorDefaultDispenseItem {
             fake.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
             DirUtils.setEntityOrientationFacing(fake, facing);
             if (General.isDebug())
-                BetterWithMods.logger.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
+                BetterWithMods.LOGGER.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
             if (stack.getItem().onItemUse(fake, source.getWorld(), check, EnumHand.MAIN_HAND, facing, 0.1F, 0.0F, 0.1F) == EnumActionResult.SUCCESS) {
                 stack.shrink(1);
                 return stack.isEmpty() ? ItemStack.EMPTY : stack;

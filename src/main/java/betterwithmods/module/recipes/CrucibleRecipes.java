@@ -1,11 +1,11 @@
 package betterwithmods.module.recipes;
 
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockCobble;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -24,16 +24,16 @@ public class CrucibleRecipes extends Feature {
     @Override
     public void onInit(FMLInitializationEvent event) {
 
-        BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.STONE));
-        BWMRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromOre(9, "nuggetDiamond"), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT));
-        BWMRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromOre(9, "nuggetSoulforgedSteel"), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT));
-        BWMRegistry.CRUCIBLE.addStokedRecipe(new OreIngredient("sand"), new ItemStack(Blocks.GLASS));
-        BWMRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.GLASS_PANE, 8)), new ItemStack(Blocks.GLASS));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.STONE));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromOre(9, "nuggetDiamond"), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromOre(9, "nuggetSoulforgedSteel"), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(new OreIngredient("sand"), new ItemStack(Blocks.GLASS));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.GLASS_PANE, 8)), new ItemStack(Blocks.GLASS));
 
-        BWMRegistry.CRUCIBLE.addStokedRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE));
 
         for (BlockCobble block : BlockCobble.BLOCKS.values()) {
-            BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(block), block.type.getStone());
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(block), block.type.getStone());
         }
     }
 

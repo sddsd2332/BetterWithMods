@@ -32,7 +32,7 @@ public enum MiniType {
     private final Class<? extends TileEntity> tile;
     private final String name;
 
-    @SideOnly(Side.CLIENT)
+
     MiniType(Class<? extends BlockCamo> block, Class<? extends TileEntity> tile, String name) {
         this.block = block;
         this.tile = tile;

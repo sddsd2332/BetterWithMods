@@ -1,10 +1,10 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
@@ -118,8 +118,8 @@ public class Dung extends Feature {
                 instance.deserializeNBT((NBTTagCompound) nbt);
             }
         }, DungProducer::new);
-        BWMRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER)));
-        BWMRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT, 2)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2)));
+        RecipeRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER)));
+        RecipeRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT, 2)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2)));
     }
 
 

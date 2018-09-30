@@ -59,7 +59,7 @@ public class MiniBlockIngredient extends BlockStateIngredient {
                 ItemStack stack = state.getBlock().getPickBlock(state, rayTraceResult, world, pos, null);
                 return apply(stack);
             } catch (NullPointerException e) {
-                BetterWithMods.logger.error("The pick-block for {} was invalid with a raytrace or a null player. Please report to the owner of the block.", state.getBlock().getRegistryName());
+                BetterWithMods.LOGGER.error("The pick-block for {} was invalid with a raytrace or a null player. Please report to the owner of the block.", state.getBlock().getRegistryName());
             }
         }
         return false;

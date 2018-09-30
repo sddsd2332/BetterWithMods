@@ -1,10 +1,10 @@
 package betterwithmods.module.hardcore.crafting;
 
-import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockFurnace;
 import betterwithmods.lib.TooltipLib;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -89,39 +89,39 @@ public class HCFurnace extends Feature {
     public void onInit(FMLInitializationEvent event) {
 
 
-        BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.DIAMOND_ORE));
-        BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.COAL_ORE));
-        BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.EMERALD_ORE));
-        BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.REDSTONE_ORE));
-        BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.LAPIS_ORE));
-        BWMRecipes.removeFurnaceRecipe(new ItemStack(Blocks.QUARTZ_BLOCK));
+        RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.DIAMOND_ORE));
+        RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.COAL_ORE));
+        RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.EMERALD_ORE));
+        RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.REDSTONE_ORE));
+        RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.LAPIS_ORE));
+        RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.QUARTZ_BLOCK));
 
         //Remove Furnace Recycling
 
-        BWMRecipes.removeFurnaceRecipe(Items.CHAINMAIL_HELMET);
-        BWMRecipes.removeFurnaceRecipe(Items.CHAINMAIL_CHESTPLATE);
-        BWMRecipes.removeFurnaceRecipe(Items.CHAINMAIL_LEGGINGS);
-        BWMRecipes.removeFurnaceRecipe(Items.CHAINMAIL_BOOTS);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_PICKAXE);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_SHOVEL);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_AXE);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_HOE);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_SWORD);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_HELMET);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_CHESTPLATE);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_LEGGINGS);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_BOOTS);
-        BWMRecipes.removeFurnaceRecipe(Items.IRON_HORSE_ARMOR);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_PICKAXE);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_SHOVEL);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_AXE);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_HOE);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_SWORD);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_HELMET);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_CHESTPLATE);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_LEGGINGS);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_BOOTS);
-        BWMRecipes.removeFurnaceRecipe(Items.GOLDEN_HORSE_ARMOR);
+        RecipeRegistry.removeFurnaceRecipe(Items.CHAINMAIL_HELMET);
+        RecipeRegistry.removeFurnaceRecipe(Items.CHAINMAIL_CHESTPLATE);
+        RecipeRegistry.removeFurnaceRecipe(Items.CHAINMAIL_LEGGINGS);
+        RecipeRegistry.removeFurnaceRecipe(Items.CHAINMAIL_BOOTS);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_PICKAXE);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_SHOVEL);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_AXE);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_HOE);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_SWORD);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_HELMET);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_CHESTPLATE);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_LEGGINGS);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_BOOTS);
+        RecipeRegistry.removeFurnaceRecipe(Items.IRON_HORSE_ARMOR);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_PICKAXE);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_SHOVEL);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_AXE);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_HOE);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_SWORD);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_HELMET);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_CHESTPLATE);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_LEGGINGS);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_BOOTS);
+        RecipeRegistry.removeFurnaceRecipe(Items.GOLDEN_HORSE_ARMOR);
 
         FURNACE_TIMINGS = config().loadItemStackIntMap("Furnace Timing Recipes", getCategory(), "example recipes  minecraft:iron_ore=1000  or ore:oreIron=1000", new String[]{
                 "ore:oreIron=1600",

@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMDamageSource;
-import betterwithmods.common.BWMRegistry;
+import betterwithmods.common.Registration;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
@@ -150,7 +150,7 @@ public class HCGloom extends Feature {
 
             if (world.getTotalWorldTime() % 40 == 0) {
                 if (world.rand.nextInt(2) == 0) {
-                    if (BWMRegistry.PENALTY_HANDLERS.attackedByGrue(player)) {
+                    if (Registration.PENALTY_HANDLERS.attackedByGrue(player)) {
                         player.attackEntityFrom(BWMDamageSource.gloom, 2);
                     }
                 }
@@ -160,7 +160,7 @@ public class HCGloom extends Feature {
         //Client Side
         //Random sounds
         if (world.isRemote) {
-            float spooked = BWMRegistry.PENALTY_HANDLERS.getSpooked(player);
+            float spooked = Registration.PENALTY_HANDLERS.getSpooked(player);
             GloomPenalty most = PENALTIES.getMostSevere();
 
             if (world.rand.nextDouble() <= spooked) {
@@ -177,7 +177,7 @@ public class HCGloom extends Feature {
 
     @SubscribeEvent
     public static void onFOVUpdate(FOVUpdateEvent event) {
-        float spooked = BWMRegistry.PENALTY_HANDLERS.getSpooked(event.getEntity());
+        float spooked = Registration.PENALTY_HANDLERS.getSpooked(event.getEntity());
         GloomPenalty most = PENALTIES.getMostSevere();
         if (most != null && (spooked >= (most.getFloat(BWMAttributes.SPOOKED).getValue()))) {
             float change = -(getGloomTime(event.getEntity()) / 100000f);
@@ -187,7 +187,7 @@ public class HCGloom extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties(this));
+        Registration.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties(this));
         CapabilityManager.INSTANCE.register(Gloom.class, new CapabilityGloom(), Gloom::new);
 
     }

@@ -1,8 +1,7 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
@@ -39,8 +38,8 @@ public class KilnCharcoal extends Feature {
                 if (charcoalOutput.isEmpty())
                     continue;
                 if (disableFurnaceCharcoal)
-                    BWMRecipes.removeFurnaceRecipe(stack);
-                BWMRegistry.KILN.addStokedRecipe(stack, charcoalOutput);
+                    RecipeRegistry.removeFurnaceRecipe(stack);
+                RecipeRegistry.KILN.addStokedRecipe(stack, charcoalOutput);
             }
         }
     }

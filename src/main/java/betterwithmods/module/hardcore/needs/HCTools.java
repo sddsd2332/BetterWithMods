@@ -4,11 +4,15 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.lib.ReflectionLib;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.math.BlockPos;
@@ -40,11 +44,11 @@ public class HCTools extends Feature {
     public static int noDamageThreshold;
 
     private static void removeLowTierToolRecipes() {
-        BWMRecipes.removeRecipe(new ItemStack(Items.WOODEN_AXE, OreDictionary.WILDCARD_VALUE));
-        BWMRecipes.removeRecipe(new ItemStack(Items.WOODEN_HOE, OreDictionary.WILDCARD_VALUE));
-        BWMRecipes.removeRecipe(new ItemStack(Items.WOODEN_SWORD, OreDictionary.WILDCARD_VALUE));
-        BWMRecipes.removeRecipe(new ItemStack(Items.STONE_HOE, OreDictionary.WILDCARD_VALUE));
-        BWMRecipes.removeRecipe(new ItemStack(Items.STONE_SWORD, OreDictionary.WILDCARD_VALUE));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.ITEM_OUTPUT, Items.WOODEN_AXE));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.ITEM_OUTPUT, Items.WOODEN_HOE));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.ITEM_OUTPUT, Items.WOODEN_SWORD));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.ITEM_OUTPUT, Items.STONE_HOE));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.ITEM_OUTPUT, Items.STONE_SWORD));
     }
 
     @Override

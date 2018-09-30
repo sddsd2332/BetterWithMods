@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.client.render.RenderLongboi;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockWolf;
 import betterwithmods.common.entity.EntityLongboi;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
@@ -11,6 +10,7 @@ import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.EntityRegistry;
 import betterwithmods.library.utils.EntityUtils;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -64,7 +64,7 @@ public class LongBoi extends Feature {
                         .egg(0xe4d3d0, 0xfd742b)
                         .build()
         );
-        BWMRegistry.TURNTABLE.addRecipe(new LongRecipe());
+        RecipeRegistry.TURNTABLE.addRecipe(new LongRecipe());
     }
 
     private static class EntityIngredient extends BlockStateIngredient {

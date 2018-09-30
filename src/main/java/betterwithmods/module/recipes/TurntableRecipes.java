@@ -1,9 +1,9 @@
 package betterwithmods.module.recipes;
 
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockUnfiredPottery;
 import betterwithmods.common.registry.TurntableRotationManager;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
@@ -27,11 +27,11 @@ public class TurntableRecipes extends Feature {
     @Override
     public void onInit(FMLInitializationEvent event) {
 
-        BWMRegistry.TURNTABLE.addDefaultRecipe(new ItemStack(Blocks.CLAY), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        BWMRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER));
-        BWMRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.VASE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        BWMRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.VASE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        BWMRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), Blocks.AIR.getDefaultState(), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(new ItemStack(Blocks.CLAY), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.VASE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.VASE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), Blocks.AIR.getDefaultState(), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
 
 
         TurntableRotationManager.addAttachment(b -> b instanceof BlockTorch);

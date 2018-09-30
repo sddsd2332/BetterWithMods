@@ -2,6 +2,7 @@ package betterwithmods.module.internal;
 
 import betterwithmods.common.entity.*;
 import betterwithmods.common.entity.item.EntityFallingBlockCustom;
+import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.RequiredFeature;
 import com.google.common.collect.Lists;
@@ -40,6 +41,8 @@ public class EntityRegistry extends RequiredFeature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
+        BWMAttributes.registerAttributes();
+
         registerEntities(
                 EntityEntryBuilder.create()
                         .entity(EntityJungleSpider.class)

@@ -7,7 +7,10 @@ import betterwithmods.common.registry.crafting.BaitingRecipe;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.projectile.EntityFishHook;
@@ -169,7 +172,8 @@ public class HCFishing extends Feature {
         configuration = new FishingTimes();
 
         CapabilityManager.INSTANCE.register(FishingBait.class, new CapabilityFishingRod(), FishingBait::new);
-        BWMRecipes.removeRecipe(new ResourceLocation("fishing_rod"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:fishing_rod"));
+
     }
 
     public void registerRecipes(RegistryEvent.Register<IRecipe> event) {

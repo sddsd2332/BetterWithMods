@@ -7,6 +7,7 @@ import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.crafting.RecipeArmorDye;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -26,7 +27,7 @@ public class CraftingRecipes extends Feature {
     //TODO json registration
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMRecipes.addRecipe(new RecipeArmorDye(Ingredient.fromItems(BWMItems.LEATHER_TANNED_HELMET, BWMItems.LEATHER_TANNED_CHEST, BWMItems.LEATHER_TANNED_PANTS, BWMItems.LEATHER_TANNED_BOOTS)));
+        RecipeRegistry.addRecipe(new RecipeArmorDye(Ingredient.fromItems(BWMItems.LEATHER_TANNED_HELMET, BWMItems.LEATHER_TANNED_CHEST, BWMItems.LEATHER_TANNED_PANTS, BWMItems.LEATHER_TANNED_BOOTS)));
     }
 
     @Override

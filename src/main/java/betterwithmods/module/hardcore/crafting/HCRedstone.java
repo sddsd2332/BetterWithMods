@@ -1,9 +1,11 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import net.minecraft.init.Blocks;
@@ -28,28 +30,29 @@ public class HCRedstone extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMRecipes.removeRecipe("minecraft:dispenser");
-        BWMRecipes.removeRecipe("minecraft:dropper");
-        BWMRecipes.removeRecipe("minecraft:iron_door");
-        BWMRecipes.removeRecipe("minecraft:iron_trapdoor");
-        BWMRecipes.removeRecipe("minecraft:lever");
-        BWMRecipes.removeRecipe("minecraft:piston");
-        BWMRecipes.removeRecipe("minecraft:tripwire_hook");
-        BWMRecipes.removeRecipe("minecraft:wooden_button");
-        BWMRecipes.removeRecipe("minecraft:wooden_pressure_plate");
-        BWMRecipes.removeRecipe("minecraft:stone_button");
-        BWMRecipes.removeRecipe("minecraft:stone_pressure_plate");
-        BWMRecipes.removeRecipe("minecraft:repeater");
-        BWMRecipes.removeRecipe("minecraft:heavy_weighted_pressure_plate");
-        BWMRecipes.removeRecipe("minecraft:light_weighted_pressure_plate");
-        BWMRecipes.removeRecipe("minecraft:comparator");
-        BWMRecipes.removeRecipe("minecraft:observer");
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:dispenser"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:dropper"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:iron_door"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:iron_trapdoor"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:lever"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:piston"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:tripwire_hook"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:wooden_button"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:wooden_pressure_plate"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:stone_button"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:stone_pressure_plate"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:repeater"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:heavy_weighted_pressure_plate"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:light_weighted_pressure_plate"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:comparator"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:observer"));
+
     }
 
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        BWMRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 4));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 4));
         //New observer recipe :)
         AnvilRecipes.addSteelShapedRecipe(new ResourceLocation("betterwithmods", "observer"), new ItemStack(Blocks.OBSERVER), "LSSL", "SRRS", "STTS", 'S', "stone", 'R', "dustRedstone", 'T', Blocks.REDSTONE_TORCH, 'L', ItemMaterial.getStack(ItemMaterial.EnumMaterial.POLISHED_LAPIS));
     }

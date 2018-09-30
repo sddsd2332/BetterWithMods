@@ -77,6 +77,8 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.registries.ForgeRegistry;
 
 import java.util.List;
@@ -86,20 +88,9 @@ import java.util.regex.Pattern;
 
 @SuppressWarnings("unused")
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
-public class BWMRegistry {
+public class Registration {
 
     public static final PenaltyHandlerRegistry PENALTY_HANDLERS = new PenaltyHandlerRegistry();
-
-    public static final CraftingManagerPot CAULDRON = new CraftingManagerPot();
-    public static final CraftingManagerPot CRUCIBLE = new CraftingManagerPot();
-    public static final CraftingManagerMill MILLSTONE = new CraftingManagerMill();
-    public static final CraftingManagerSaw WOOD_SAW = new CraftingManagerSaw();
-    public static final CrafingManagerKiln KILN = new CrafingManagerKiln();
-    public static final CraftingManagerTurntable TURNTABLE = new CraftingManagerTurntable();
-    public static final CraftingManagerHopper FILTERED_HOPPER = new CraftingManagerHopper();
-    public static final CraftingManagerAnvil ANVIL = new CraftingManagerAnvil();
-
-    public static final HopperFilters HOPPER_FILTERS = new HopperFilters();
 
     @GameRegistry.ObjectHolder("betterwithmods:true_sight")
     public static final Potion POTION_TRUESIGHT = null;
@@ -110,7 +101,7 @@ public class BWMRegistry {
     @GameRegistry.ObjectHolder("betterwithmods:slow_fall")
     public static final Potion POTION_SLOWFALL = null;
 
-    public static final BannerTextures.Cache WINDMILLS = new BannerTextures.Cache("betterwithmods:W", new ResourceLocation(ModLib.MODID, "textures/blocks/windmills/banner.png"), "betterwithmods:textures/blocks/windmills/");
+
 
     private static int availableEntityId = 0;
 
@@ -123,7 +114,7 @@ public class BWMRegistry {
         BWAdvancements.registerAdvancements();
         BWMItems.registerItems();
         BWMBlocks.registerTileEntities();
-        BWMRegistry.registerBlockDispenserBehavior();
+        Registration.registerBlockDispenserBehavior();
         CapabilityManager.INSTANCE.register(IMechanicalPower.class, new CapabilityMechanicalPower.Impl(), CapabilityMechanicalPower.Default::new);
         CapabilityManager.INSTANCE.register(IAxle.class, new CapabilityAxle.Impl(), CapabilityAxle.Default::new);
         KilnStructureManager.registerKilnBlock(Blocks.BRICK_BLOCK.getDefaultState());
@@ -145,39 +136,14 @@ public class BWMRegistry {
     public static void registerRecipes(RegistryEvent.Register<IRecipe> event) {
         ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
 
-        for (IRecipe recipe : reg) {
-            for (Pattern pattern : BWMRecipes.REMOVE_BY_REGEX) {
-                if (recipe.getRegistryName() != null) {
-                    Matcher matcher = pattern.matcher(recipe.getRegistryName().toString());
-                    if (matcher.matches()) {
-                        reg.remove(recipe.getRegistryName());
-                    }
-                }
-            }
-            for (ResourceLocation loc : BWMRecipes.REMOVE_RECIPE_BY_RL) {
-                if (loc.equals(recipe.getRegistryName()))
-                    reg.remove(recipe.getRegistryName());
-            }
-            for (ItemStack output : BWMRecipes.REMOVE_RECIPE_BY_OUTPUT) {
-                if (InventoryUtils.matches(recipe.getRecipeOutput(), output)) {
-                    reg.remove(recipe.getRegistryName());
-                }
-            }
-            for (List<Ingredient> inputs : BWMRecipes.REMOVE_RECIPE_BY_INPUT) {
-                if (InventoryUtils.containsIngredient(recipe.getIngredients(), inputs)) {
-                    reg.remove(recipe.getRegistryName());
-                }
-            }
-        }
-
         BetterWithMods.MODULE_LOADER.registerRecipes(event);
     }
 
     public static void init() {
-        BWMRegistry.registerHeatSources();
+        Registration.registerHeatSources();
         BWMOreDictionary.registerOres();
-        BWMRegistry.registerBUDBlacklist();
-        BWMRegistry.registerDetectorHandlers();
+        Registration.registerBUDBlacklist();
+        Registration.registerDetectorHandlers();
     }
 
     public static void postInit() {

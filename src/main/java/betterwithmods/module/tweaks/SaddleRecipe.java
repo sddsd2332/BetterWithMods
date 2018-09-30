@@ -1,8 +1,8 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -15,7 +15,7 @@ public class SaddleRecipe extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        BWMRegistry.CAULDRON.addStokedRecipe(Ingredient.fromStacks(new ItemStack(Items.SADDLE)), ItemMaterial.getStack(ItemMaterial.EnumMaterial.GLUE, 2));
+        RecipeRegistry.CAULDRON.addStokedRecipe(Ingredient.fromStacks(new ItemStack(Items.SADDLE)), ItemMaterial.getStack(ItemMaterial.EnumMaterial.GLUE, 2));
     }
 
     @Override

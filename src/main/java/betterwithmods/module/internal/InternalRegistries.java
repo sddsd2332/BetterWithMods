@@ -11,10 +11,12 @@ public class InternalRegistries extends RequiredModule {
                 new UnitTesting(),
                 new BlockRegistry(),
                 new SoundRegistry(),
-                new EntityRegistry()
+                new EntityRegistry(),
+                new RecipeRegistry()
         );
     }
 
+    //Register first.
     @Override
     public int priority() {
         return Integer.MAX_VALUE;

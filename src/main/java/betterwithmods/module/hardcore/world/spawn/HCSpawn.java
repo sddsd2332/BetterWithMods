@@ -142,7 +142,7 @@ public class HCSpawn extends Feature {
                 }
             }
             if (!found)
-                BetterWithMods.logger.info("New respawn point could not be found.");
+                BetterWithMods.LOGGER.info("New respawn point could not be found.");
         }
 
         return ret;

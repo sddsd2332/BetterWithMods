@@ -1,8 +1,8 @@
 package betterwithmods.common.tile;
 
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ITickable;
@@ -26,7 +26,7 @@ public class TileKiln extends TileCamo implements ITickable {
 
         BlockPos cookPos = pos.up();
         IBlockState cookState = world.getBlockState(cookPos);
-        KilnRecipe recipe = BWMRegistry.KILN.findRecipe(world, cookPos, cookState).orElse(null);
+        KilnRecipe recipe = RecipeRegistry.KILN.findRecipe(world, cookPos, cookState).orElse(null);
         if (recipe != null) {
             int progress = (int) ((((double) cookTicks) / ((double) recipe.getCookTime())) * 10);
             if (prevProgress != progress) {

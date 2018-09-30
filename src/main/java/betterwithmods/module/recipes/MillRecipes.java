@@ -2,11 +2,14 @@ package betterwithmods.module.recipes;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.library.recipes.RecipeMatcher;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.library.utils.colors.ColorUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
@@ -43,44 +46,46 @@ public class MillRecipes extends Feature {
         grindingOnly = loadProperty("Grinding Only", true).setComment("Remove normal recipes for certain grindable items").get();
 
         if (grindingOnly) {
-            BWMRecipes.removeRecipe(new ItemStack(Items.SUGAR));
-            BWMRecipes.removeRecipe(new ItemStack(Items.BLAZE_POWDER));
-            BWMRecipes.removeRecipe(StackIngredient.fromStacks(new ItemStack(Items.BEETROOT)));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Items.SUGAR)));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Items.BLAZE_POWDER)));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Items.BLAZE_POWDER)));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.INPUT, Lists.newArrayList(StackIngredient.fromStacks(new ItemStack(Items.BEETROOT)))));
+
             for (BlockStateIngredient flower : ColorUtils.FLOWER_TO_DYES.keySet()) {
-                BWMRecipes.removeRecipe(flower);
+                RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.INPUT, Lists.newArrayList(flower)));
             }
         }
     }
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        BWMRegistry.MILLSTONE.addMillRecipe(new OreIngredient("netherrack"), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.GROUND_NETHERRACK)), SoundRegistry.BLOCK_GRIND_SCREAM);
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.BLAZE_ROD), Lists.newArrayList(new ItemStack(Items.BLAZE_POWDER, 3)), SoundEvents.ENTITY_BLAZE_DEATH);
+        RecipeRegistry.MILLSTONE.addMillRecipe(new OreIngredient("netherrack"), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.GROUND_NETHERRACK)), SoundRegistry.BLOCK_GRIND_SCREAM);
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.BLAZE_ROD), Lists.newArrayList(new ItemStack(Items.BLAZE_POWDER, 3)), SoundEvents.ENTITY_BLAZE_DEATH);
 
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(BWMBlocks.WOLF), Lists.newArrayList(new ItemStack(Items.STRING, 10), ColorUtils.getDye(EnumDyeColor.RED, 3)), SoundEvents.ENTITY_WOLF_WHINE);
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.REEDS), Lists.newArrayList(new ItemStack(Items.SUGAR, 2)));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(BWMBlocks.WOLF), Lists.newArrayList(new ItemStack(Items.STRING, 10), ColorUtils.getDye(EnumDyeColor.RED, 3)), SoundEvents.ENTITY_WOLF_WHINE);
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.REEDS), Lists.newArrayList(new ItemStack(Items.SUGAR, 2)));
 
-        BWMRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropHemp"), ItemMaterial.getStack(ItemMaterial.EnumMaterial.HEMP_FIBERS, 3));
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.COAL, 1), ItemMaterial.getStack(ItemMaterial.EnumMaterial.COAL_DUST));
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.COAL, 1, 1), ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHARCOAL_DUST));
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.BONE), ColorUtils.getDye(EnumDyeColor.WHITE, 6));
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.SKULL, 1, 0), ColorUtils.getDye(EnumDyeColor.WHITE, 10));
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.SKULL, 1, 1), ColorUtils.getDye(EnumDyeColor.WHITE, 10));
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Blocks.BONE_BLOCK), ColorUtils.getDye(EnumDyeColor.WHITE, 9));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropHemp"), ItemMaterial.getStack(ItemMaterial.EnumMaterial.HEMP_FIBERS, 3));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.COAL, 1), ItemMaterial.getStack(ItemMaterial.EnumMaterial.COAL_DUST));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.COAL, 1, 1), ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHARCOAL_DUST));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.BONE), ColorUtils.getDye(EnumDyeColor.WHITE, 6));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.SKULL, 1, 0), ColorUtils.getDye(EnumDyeColor.WHITE, 10));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.SKULL, 1, 1), ColorUtils.getDye(EnumDyeColor.WHITE, 10));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Blocks.BONE_BLOCK), ColorUtils.getDye(EnumDyeColor.WHITE, 9));
 
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.BEETROOT), ColorUtils.getDye(EnumDyeColor.RED, 2));
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.LEATHER), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER));
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.RABBIT_HIDE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT));
-        BWMRegistry.MILLSTONE.addMillRecipe(ItemMaterial.getStack(ItemMaterial.EnumMaterial.LEATHER_CUT), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.BEETROOT), ColorUtils.getDye(EnumDyeColor.RED, 2));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.LEATHER), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.RABBIT_HIDE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT));
+        RecipeRegistry.MILLSTONE.addMillRecipe(ItemMaterial.getStack(ItemMaterial.EnumMaterial.LEATHER_CUT), ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT));
         for (BlockStateIngredient flower : ColorUtils.FLOWER_TO_DYES.keySet()) {
-            BWMRegistry.MILLSTONE.addMillRecipe(flower, ColorUtils.FLOWER_TO_DYES.get(flower).getStack());
+            RecipeRegistry.MILLSTONE.addMillRecipe(flower, ColorUtils.FLOWER_TO_DYES.get(flower).getStack());
         }
-        BWMRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()), ItemMaterial.getStack(ItemMaterial.EnumMaterial.COCOA_POWDER));
-        BWMRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropWheat"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
-        BWMRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropBarley"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
-        BWMRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropOats"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
-        BWMRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropRye"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
-        BWMRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropRice"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new ItemStack(Items.DYE, 1, EnumDyeColor.BROWN.getDyeDamage()), ItemMaterial.getStack(ItemMaterial.EnumMaterial.COCOA_POWDER));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropWheat"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropBarley"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropOats"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropRye"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
+        RecipeRegistry.MILLSTONE.addMillRecipe(new OreIngredient("cropRice"), BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
     }
 
 }

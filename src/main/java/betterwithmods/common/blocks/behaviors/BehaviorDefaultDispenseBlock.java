@@ -40,7 +40,7 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
         DirUtils.setEntityOrientationFacing(fake, facing.getOpposite());
 
         if (General.isDebug())
-            BetterWithMods.logger.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
+            BetterWithMods.LOGGER.debug("Better With Mods FakePlayer ID: " + fake.getUniqueID());
 
         if (!world.isAirBlock(check) && !world.getBlockState(check).getBlock().isReplaceable(world, check))
             return ItemStack.EMPTY;

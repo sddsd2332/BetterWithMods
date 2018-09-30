@@ -2,6 +2,9 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
@@ -25,7 +28,8 @@ public class PowderKegs extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMRecipes.removeRecipe(new ResourceLocation("minecraft:tnt"));
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.TNT.getRegistryName()));
+
         Blocks.TNT.setTranslationKey("betterwithmods:powder_keg");
         Items.TNT_MINECART.setTranslationKey("betterwithmods:powder_keg_minecart");
     }

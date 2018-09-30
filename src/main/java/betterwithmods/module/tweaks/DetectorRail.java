@@ -2,11 +2,13 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMRecipes;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.blocks.BlockRailDetectorBase;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
 import betterwithmods.module.internal.BlockRegistry;
+import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.MetalReclaming;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
@@ -45,14 +47,14 @@ public class DetectorRail extends Feature {
 
         Blocks.DETECTOR_RAIL.setTranslationKey("detector_rail_wood");
 
-        BWMRecipes.removeRecipe(Blocks.DETECTOR_RAIL.getRegistryName());
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.DETECTOR_RAIL.getRegistryName()));
     }
 
     @Override
     public void onInit(FMLInitializationEvent event) {
         if (BetterWithMods.MODULE_LOADER.isFeatureEnabled(MetalReclaming.class)) {
-            BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STONE, 6), new ItemStack(Items.IRON_INGOT, 6));
-            BWMRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2)));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STONE, 6), new ItemStack(Items.IRON_INGOT, 6));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2)));
         }
     }
 }

@@ -2,7 +2,8 @@ package betterwithmods.client.model.generators;
 
 import betterwithmods.client.tesr.TESRVerticalWindmill;
 import betterwithmods.client.tesr.TESRWindmill;
-import betterwithmods.common.BWMRegistry;
+import betterwithmods.common.Registration;
+import betterwithmods.proxy.BWMClientProxy;
 
 public class ModelHorizontalWindmill extends ModelRadialBlades {
 
@@ -29,7 +30,7 @@ public class ModelHorizontalWindmill extends ModelRadialBlades {
 
         //SAIL
         combo.addChild(new ModelPart(this, 0, 0)
-                .addBanner(BWMRegistry.WINDMILLS)
+                .addBanner(BWMClientProxy.WINDMILLS)
                 .setTextureSize(128, 128)
                 .addBox(0, 10, 0, 20, 100, 1, true)
                 .setRotateAngle(0, 0, -rotation)

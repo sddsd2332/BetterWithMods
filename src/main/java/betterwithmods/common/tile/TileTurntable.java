@@ -3,9 +3,9 @@ package betterwithmods.common.tile;
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.common.BWMRegistry;
 import betterwithmods.common.registry.TurntableRotationManager;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
+import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -174,7 +174,7 @@ public class TileTurntable extends TileBasic implements ITickable, IMechanicalPo
     }
 
     private void rotateCraftable(World world, BlockPos pos, IBlockState input) {
-        TurntableRecipe recipe = BWMRegistry.TURNTABLE.findRecipe(world, pos, input).orElse(null);
+        TurntableRecipe recipe = RecipeRegistry.TURNTABLE.findRecipe(world, pos, input).orElse(null);
         if (recipe != null) {
             this.potteryRotation++;
             spawnParticlesAndSound(input);

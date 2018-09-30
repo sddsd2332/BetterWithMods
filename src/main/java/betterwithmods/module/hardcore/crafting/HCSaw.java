@@ -2,6 +2,9 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.recipes.RecipeMatchers;
+import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Sets;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -53,7 +56,7 @@ public class HCSaw extends Feature {
                 Blocks.NOTEBLOCK.getRegistryName(),
                 Items.SIGN.getRegistryName()
         );
-        blocks.forEach(BWMRecipes::removeRecipe);
+        blocks.forEach(b -> RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, b)));
     }
 
 }

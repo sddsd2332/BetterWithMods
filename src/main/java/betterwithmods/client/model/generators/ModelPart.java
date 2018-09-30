@@ -38,7 +38,7 @@ public class ModelPart extends net.minecraft.client.model.ModelRenderer {
                 if (texture != null)
                     Minecraft.getMinecraft().getTextureManager().bindTexture(texture);
             } catch (Exception e) {
-                BetterWithMods.logger.error(e);
+                BetterWithMods.LOGGER.error(e);
             }
         }
 
