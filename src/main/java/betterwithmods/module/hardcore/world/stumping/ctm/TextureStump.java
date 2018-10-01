@@ -1,6 +1,7 @@
-package betterwithmods.module.hardcore.world.stumping;
+package betterwithmods.module.hardcore.world.stumping.ctm;
 
 
+import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import team.chisel.ctm.api.texture.ITextureContext;

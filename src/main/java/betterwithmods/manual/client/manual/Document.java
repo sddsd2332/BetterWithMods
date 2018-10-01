@@ -142,7 +142,7 @@ public final class Document {
         // were visible. Yeah. I know.
         GlStateManager.disableAlpha();
 
-        // Clear depth mask, then create masks in foreground above and below scroll area.
+        // Clear depth mask, then createBlock masks in foreground above and below scroll area.
         GlStateManager.color(1, 1, 1, 1);
         GlStateManager.clear(GL11.GL_DEPTH_BUFFER_BIT);
         GlStateManager.enableDepth();

@@ -23,17 +23,16 @@ public class CrucibleRecipes extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-
         RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.COBBLESTONE), new ItemStack(Blocks.STONE));
         RecipeRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromOre(9, "nuggetDiamond"), ItemMaterial.getStack(ItemMaterial.EnumMaterial.DIAMOND_INGOT));
         RecipeRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromOre(9, "nuggetSoulforgedSteel"), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT));
         RecipeRegistry.CRUCIBLE.addStokedRecipe(new OreIngredient("sand"), new ItemStack(Blocks.GLASS));
         RecipeRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.GLASS_PANE, 8)), new ItemStack(Blocks.GLASS));
 
-        RecipeRegistry.CRUCIBLE.addStokedRecipe(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE));
+        RecipeRegistry.CRUCIBLE.addStokedRecipe(BlockAesthetic.getStack(BlockAesthetic.Type.WHITECOBBLE), BlockAesthetic.getStack(BlockAesthetic.Type.WHITESTONE));
 
-        for (BlockCobble block : BlockCobble.BLOCKS.values()) {
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(block), block.type.getStone());
+        for(BlockCobble.Type type: BlockCobble.Type.VALUES) {
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(BlockCobble.getStack(type), type.getStack());
         }
     }
 

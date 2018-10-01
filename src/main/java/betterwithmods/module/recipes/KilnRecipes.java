@@ -66,23 +66,23 @@ public class KilnRecipes extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), new ItemStack(BWMBlocks.CRUCIBLE));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER), BlockPlanter.getStack(BlockPlanter.EnumType.EMPTY));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), new ItemStack(BWMBlocks.URN));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.VASE), BlockVase.getStack(EnumDyeColor.WHITE));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.BRICK), new ItemStack(Items.BRICK));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.NETHER_BRICK), ItemMaterial.getStack(ItemMaterial.EnumMaterial.NETHER_SLUDGE));
+        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.CRUCIBLE), new ItemStack(BWMBlocks.CRUCIBLE));
+        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.PLANTER), BlockPlanter.getStack(BlockPlanter.Type.EMPTY));
+        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.URN), new ItemStack(BWMBlocks.URN));
+        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.VASE), BlockVase.getStack(EnumDyeColor.WHITE));
+        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.BRICK), new ItemStack(Items.BRICK));
+        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.NETHER_BRICK), ItemMaterial.getStack(ItemMaterial.EnumMaterial.NETHER_SLUDGE));
 
         RecipeRegistry.KILN.addStokedRecipe(new ItemStack(Blocks.CLAY), new ItemStack(Blocks.HARDENED_CLAY));
-        RecipeRegistry.KILN.addStokedRecipe(new ItemStack(BWMBlocks.NETHER_CLAY), BlockAesthetic.getStack(BlockAesthetic.EnumType.NETHERCLAY));
+        RecipeRegistry.KILN.addStokedRecipe(new ItemStack(BWMBlocks.NETHER_CLAY), BlockAesthetic.getStack(BlockAesthetic.Type.NETHERCLAY));
 
         int foodModifier = BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCCooking.class) ? 1 : 2;
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.EnumType.CAKE), IntStream.range(0, foodModifier).mapToObj(i -> new ItemStack(Items.CAKE)).collect(Collectors.toList()));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD), new ItemStack(Items.BREAD, foodModifier));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.EnumType.COOKIE), new ItemStack(Items.COOKIE, 8 * foodModifier));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.EnumType.PUMPKIN), new ItemStack(Items.PUMPKIN_PIE, foodModifier));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.EnumType.APPLE), new ItemStack(BWMItems.APPLE_PIE, foodModifier));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.EnumType.MELON), new ItemStack(BWMItems.MELON_PIE, foodModifier));
+        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.CAKE), IntStream.range(0, foodModifier).mapToObj(i -> new ItemStack(Items.CAKE)).collect(Collectors.toList()));
+        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.BREAD), new ItemStack(Items.BREAD, foodModifier));
+        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.COOKIE), new ItemStack(Items.COOKIE, 8 * foodModifier));
+        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.PUMPKIN), new ItemStack(Items.PUMPKIN_PIE, foodModifier));
+        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.APPLE), new ItemStack(BWMItems.APPLE_PIE, foodModifier));
+        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.MELON), new ItemStack(BWMItems.MELON_PIE, foodModifier));
     }
 
 

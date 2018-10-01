@@ -1,6 +1,11 @@
 package betterwithmods.common.blocks;
 
-import com.google.common.collect.Maps;
+import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.BlockEntryBuilderGenerator;
+import betterwithmods.library.common.block.BlockTypeGenerator;
+import betterwithmods.library.common.block.IBlockType;
+import betterwithmods.library.utils.GlobalUtils;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.material.MapColor;
@@ -9,82 +14,94 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
+import java.util.Arrays;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 public class BlockCobble extends Block {
-    public static final HashMap<EnumType, BlockCobble> BLOCKS = Maps.newHashMap();
-    public final BlockCobble.EnumType type;
+    private final Type type;
 
-    public BlockCobble(BlockCobble.EnumType type) {
+    public BlockCobble(Type type) {
         super(Material.ROCK);
         this.setHardness(2.0F);
         this.setResistance(5.0F);
-        this.setTranslationKey("bwm:cobble");
-        this.setRegistryName("cobblestone_" + type.getName());
         this.type = type;
     }
 
-    public static void init() {
-        for (BlockCobble.EnumType type : EnumType.VALUES)
-            BLOCKS.put(type, new BlockCobble(type));
+    public static Block getBlock(Type type) {
+        return ForgeRegistries.BLOCKS.getValue(type.getRegistryName());
     }
 
-    public static ItemStack getStack(BlockCobble.EnumType type) {
-        return new ItemStack(BLOCKS.get(type));
+    public static ItemStack getStack(Type type) {
+        return new ItemStack(getBlock(type));
     }
 
-
+    public static Set<Block> getAll() {
+        return Arrays.stream(Type.VALUES).map(BlockCobble::getBlock).collect(Collectors.toSet());
+    }
     @Nonnull
     @SuppressWarnings("deprecation")
     @Override
     public MapColor getMapColor(IBlockState state, IBlockAccess worldIn, BlockPos pos) {
-        return type.getColor();
+        return type.getMapColor();
     }
 
-    public enum EnumType implements IStringSerializable {
-        GRANITE("granite", new ItemStack(Blocks.STONE, 1, 1), MapColor.DIRT),
-        DIORITE("diorite", new ItemStack(Blocks.STONE, 1, 3), MapColor.QUARTZ),
-        ANDESITE("andesite", new ItemStack(Blocks.STONE, 1, 5), MapColor.STONE);
+    public enum Type implements IBlockType {
+        GRANITE("cobblestone_granite", Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.GRANITE)),
+        DIORITE("cobblestone_diorite", Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.DIORITE)),
+        ANDESITE("cobblestone_andesite", Blocks.STONE.getDefaultState().withProperty(BlockStone.VARIANT, BlockStone.EnumType.ANDESITE));
 
-        private static final EnumType[] VALUES = values();
-        private final String name;
-        private final MapColor color;
-        private final ItemStack stone;
+        public static final Type[] VALUES = values();
+        private final ResourceLocation registryName;
+        private final IBlockState state;
 
-        EnumType(String name, ItemStack stone, MapColor color) {
-            this.name = name;
-            this.stone = stone;
-            this.color = color;
+        Type(String name, IBlockState state) {
+            this.registryName = new ResourceLocation(ModLib.MODID, name);
+            this.state = state;
         }
 
-        public ItemStack getStone() {
-            return stone;
+        public IBlockState getState() {
+            return this.state;
+        }
+
+        public ItemStack getStack() {
+            return GlobalUtils.getStackFromState(state);
         }
 
         @Nonnull
         @Override
+        public ResourceLocation getRegistryName() {
+            return registryName;
+        }
+
+        @Override
         public String getName() {
-            return name;
+            return getRegistryName().toString();
         }
 
-        public MapColor getColor() {
-            return color;
+
+        public static Type convert(BlockStone.EnumType type) {
+            return Type.valueOf(type.name());
         }
 
-        public static EnumType convert(BlockStone.EnumType type) {
-            switch (type) {
-                case GRANITE:
-                    return GRANITE;
-                case DIORITE:
-                    return DIORITE;
-                case ANDESITE:
-                    return ANDESITE;
-            }
-            return null;
+    }
+
+    public static class Generator extends BlockTypeGenerator<Type> {
+
+        public Generator() {
+            super(Type.VALUES);
+        }
+
+        @Override
+        public Block createBlock(Type variant) {
+            return new BlockCobble(variant);
         }
     }
+
 }

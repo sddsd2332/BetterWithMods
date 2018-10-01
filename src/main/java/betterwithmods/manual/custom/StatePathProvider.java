@@ -27,10 +27,10 @@ public class StatePathProvider implements PathProvider {
         addBlock(new BlockStateIngredientSet(BlockChime.BLOCKS), "wind_chime");
         addBlock(new BlockIngredient(BWMBlocks.WOODEN_BROKEN_GEARBOX), "wooden_gearbox");
 
-        addBlock(new BlockStateIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK), BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCKBLOOD)), "chopping_block");
+        addBlock(new BlockStateIngredient(BlockAesthetic.getStack(BlockAesthetic.Type.CHOPBLOCK), BlockAesthetic.getStack(BlockAesthetic.Type.CHOPBLOCKBLOOD)), "chopping_block");
 
-        addBlock(new BlockStateIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE)), "white_stone");
-        addItem(new BlockStateIngredient(BlockAesthetic.getStack(BlockAesthetic.EnumType.NETHERCOAL)), "nether_coal");
+        addBlock(new BlockStateIngredient(BlockAesthetic.getStack(BlockAesthetic.Type.WHITESTONE), BlockAesthetic.getStack(BlockAesthetic.Type.WHITECOBBLE)), "white_stone");
+        addItem(new BlockStateIngredient(BlockAesthetic.getStack(BlockAesthetic.Type.NETHERCOAL)), "nether_coal");
 
         addBlock(new BlockIngredient(BWMBlocks.TURNTABLE), "turntable");
         addBlock(new BlockIngredient(BWMBlocks.MILLSTONE), "millstone");

@@ -41,13 +41,13 @@ public class CraftingRecipes extends Feature {
         GameRegistry.addSmelting(BWMItems.BAT_WING, new ItemStack(BWMItems.COOKED_BAT_WING), 0.5f);
         GameRegistry.addSmelting(BWMItems.RAW_KEBAB, new ItemStack(BWMItems.COOKED_KEBAB), 0.1F);
         GameRegistry.addSmelting(ItemMaterial.getStack(ItemMaterial.EnumMaterial.NETHER_SLUDGE), new ItemStack(Items.NETHERBRICK), 0.2F);
-        GameRegistry.addSmelting(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITECOBBLE), BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE), 0.1F);
-        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.CAKE), new ItemStack(Items.CAKE), 0.1F);
-        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD), new ItemStack(Items.BREAD), 0.1F);
-        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.APPLE), new ItemStack(BWMItems.APPLE_PIE), 0.1F);
-        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.MELON), new ItemStack(BWMItems.MELON_PIE), 0.1F);
-        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.PUMPKIN), new ItemStack(Items.PUMPKIN_PIE), 0.1F);
-        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.EnumType.COOKIE), new ItemStack(Items.COOKIE, 16), 0.1F);
+        GameRegistry.addSmelting(BlockAesthetic.getStack(BlockAesthetic.Type.WHITECOBBLE), BlockAesthetic.getStack(BlockAesthetic.Type.WHITESTONE), 0.1F);
+        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.Type.CAKE), new ItemStack(Items.CAKE), 0.1F);
+        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.Type.BREAD), new ItemStack(Items.BREAD), 0.1F);
+        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.Type.APPLE), new ItemStack(BWMItems.APPLE_PIE), 0.1F);
+        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.Type.MELON), new ItemStack(BWMItems.MELON_PIE), 0.1F);
+        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.Type.PUMPKIN), new ItemStack(Items.PUMPKIN_PIE), 0.1F);
+        GameRegistry.addSmelting(BlockRawPastry.getStack(BlockRawPastry.Type.COOKIE), new ItemStack(Items.COOKIE, 16), 0.1F);
     }
 
     @Override

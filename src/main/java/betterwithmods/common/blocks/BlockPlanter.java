@@ -1,13 +1,15 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.registry.crafting.IngredientTool;
+import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.BlockTypeGenerator;
+import betterwithmods.library.common.block.IBlockType;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ListUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSand;
 import net.minecraft.block.BlockTallGrass;
@@ -19,15 +21,9 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.EnumDyeColor;
-import net.minecraft.item.ItemDye;
-import net.minecraft.item.ItemHoe;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.IStringSerializable;
-import net.minecraft.util.SoundCategory;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.IBlockAccess;
@@ -35,45 +31,46 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
 import net.minecraftforge.common.EnumPlantType;
 import net.minecraftforge.common.IPlantable;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Collectors;
 
-import static betterwithmods.common.blocks.BlockPlanter.EnumType.*;
+import static betterwithmods.common.blocks.BlockPlanter.Type.*;
 
 public class BlockPlanter extends BWMBlock implements IGrowable {
-    public static final HashMap<EnumType, Block> BLOCKS = Maps.newHashMap();
-    private final EnumType type;
+    private final Type type;
 
-    private BlockPlanter(EnumType type) {
+
+    private BlockPlanter(Type type) {
         super(Material.ROCK);
         this.setTickRandomly(true);
         this.setHardness(1.0F);
         this.setHarvestLevel("pickaxe", 0);
         this.type = type;
-        this.setRegistryName(String.format("planter_%s", type.getName()));
     }
 
-    public static void init() {
-        for (EnumType type : EnumType.VALUES) {
-            BLOCKS.put(type, new BlockPlanter(type));
-        }
+    public static Set<Block> getAll() {
+        return Arrays.stream(Type.VALUES).map(BlockPlanter::getBlock).collect(Collectors.toSet());
     }
 
-    public static ItemStack getStack(EnumType type) {
-        return new ItemStack(BLOCKS.get(type));
+    public static Block getBlock(Type type) {
+        return ForgeRegistries.BLOCKS.getValue(type.getRegistryName());
+    }
+
+    public static ItemStack getStack(Type type) {
+        return new ItemStack(getBlock(type));
     }
 
     public int colorMultiplier(IBlockAccess world, BlockPos pos, int tintIndex) {
         return (type == GRASS && tintIndex > -1) ? world != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(world, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D) : -1;
     }
 
-    private EnumType getTypeFromStack(ItemStack stack) {
-        for (EnumType type : EnumType.VALUES) {
+    private Type getTypeFromStack(ItemStack stack) {
+        for (Type type : Type.VALUES) {
             if (type.apply(stack)) {
                 return type;
             }
@@ -84,8 +81,8 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
         ItemStack heldItem = PlayerUtils.getHolding(player, hand);
-        EnumType itemType = getTypeFromStack(heldItem);
-        EnumType newType = type;
+        Type itemType = getTypeFromStack(heldItem);
+        Type newType = type;
         switch (type) {
             case EMPTY:
                 if (itemType != null && itemType != EMPTY && itemType != FARMLAND && itemType != FERTILE) {
@@ -148,7 +145,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
                 }
                 break;
         }
-        world.setBlockState(pos, BLOCKS.get(newType).getDefaultState());
+        world.setBlockState(pos, getBlock(newType).getDefaultState());
         return false;
     }
 
@@ -165,7 +162,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
                         int zP = rand.nextInt(3) - 1;
                         BlockPos checkPos = pos.add(xP, yP, zP);
                         if (world.getBlockState(checkPos).getBlock() == Blocks.GRASS) {
-                            world.setBlockState(pos, BLOCKS.get(GRASS).getDefaultState());
+                            world.setBlockState(pos, getBlock(GRASS).getDefaultState());
                         }
                     }
                     break;
@@ -215,7 +212,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
 
     @Override
     public boolean isFertile(@Nonnull World world, @Nonnull BlockPos pos) {
-        return type == EnumType.FERTILE;
+        return type == Type.FERTILE;
     }
 
     @Override
@@ -228,7 +225,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
     @Override
     public void onPlantGrow(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, BlockPos source) {
         if (type == GRASS && source.getY() == pos.getY() + 1)
-            world.setBlockState(pos, BLOCKS.get(DIRT).getDefaultState());
+            world.setBlockState(pos, getBlock(DIRT).getDefaultState());
     }
 
     @Nonnull
@@ -292,7 +289,7 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
         }
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum Type implements IBlockType {
         EMPTY("empty", new IngredientTool("shovel"), Blocks.AIR.getDefaultState(), new EnumPlantType[0]),
         FARMLAND("farmland", new IngredientTool(s -> s.getItem() instanceof ItemHoe, ItemStack.EMPTY), Blocks.DIRT.getDefaultState(), new EnumPlantType[]{EnumPlantType.Crop, EnumPlantType.Plains}),
         GRASS("grass", StackIngredient.fromStacks(new ItemStack(Blocks.GRASS)), Blocks.GRASS.getDefaultState(), new EnumPlantType[]{EnumPlantType.Plains}),
@@ -304,18 +301,20 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
         REDSAND("red_sand", StackIngredient.fromStacks(new ItemStack(Blocks.SAND, 1, BlockSand.EnumType.RED_SAND.getMetadata())), Blocks.SAND.getDefaultState().withProperty(BlockSand.VARIANT, BlockSand.EnumType.RED_SAND), new EnumPlantType[]{EnumPlantType.Desert, EnumPlantType.Beach}),
         DIRT("dirt", StackIngredient.fromStacks(new ItemStack(Blocks.DIRT)), Blocks.DIRT.getDefaultState(), new EnumPlantType[]{EnumPlantType.Plains});
 
-        private static final EnumType[] VALUES = values();
+        protected static final Type[] VALUES = values();
 
         private final String name;
         private final IBlockState state;
         private final EnumPlantType[] type;
         private final Ingredient ingredient;
+        private final ResourceLocation registryName;
 
-        EnumType(String name, Ingredient ingredient, IBlockState state, EnumPlantType[] type) {
+        Type(String name, Ingredient ingredient, IBlockState state, EnumPlantType[] type) {
             this.name = name;
             this.ingredient = ingredient;
             this.state = state;
             this.type = type;
+            this.registryName = new ResourceLocation(ModLib.MODID, "planter_" + getName());
         }
 
         @Nonnull
@@ -339,5 +338,24 @@ public class BlockPlanter extends BWMBlock implements IGrowable {
         public ItemStack getStack() {
             return Lists.newArrayList(ingredient.getMatchingStacks()).stream().findFirst().orElse(ItemStack.EMPTY);
         }
+
+        @Override
+        public ResourceLocation getRegistryName() {
+            return registryName;
+        }
     }
+
+    public static class Generator extends BlockTypeGenerator<Type> {
+
+        public Generator() {
+            super(Type.VALUES);
+        }
+
+        @Override
+        public Block createBlock(Type variant) {
+            return new BlockPlanter(variant);
+        }
+
+    }
+
 }

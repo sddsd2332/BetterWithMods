@@ -1,5 +1,7 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.ColoredGenerator;
 import betterwithmods.library.utils.colors.ColorUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
@@ -11,37 +13,49 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import static net.minecraft.util.EnumFacing.UP;
 
-public class BlockCandle extends BWMBlock {
+public class BlockCandle extends BlockColored {
 
-    public static final HashMap<EnumDyeColor, Block> BLOCKS = Maps.newHashMap();
+    public static final ResourceLocation NAME_BASE = new ResourceLocation(ModLib.MODID, "candle");
 
-    public BlockCandle(EnumDyeColor color) {
-        super(Material.GROUND);
-        setRegistryName("candle_" + color.getName());
+    public static ColoredGenerator GENERATOR = new ColoredGenerator(NAME_BASE) {
+        @Override
+        public Block createBlock(EnumDyeColor variant) {
+            return new BlockCandle(variant);
+        }
+    };
+
+    public static Block getBlock(EnumDyeColor color) {
+        return getBlock(NAME_BASE,color);
     }
 
-    public static void init() {
-        for (EnumDyeColor color : ColorUtils.DYES) {
-            BLOCKS.put(color, new BlockCandle(color));
-        }
+    public static Set<Block> getAll() {
+        return Arrays.stream(ColorUtils.DYES).map(BlockCandle::getBlock).collect(Collectors.toSet());
+    }
 
+    public BlockCandle(EnumDyeColor color) {
+        super(Material.GROUND, color);
     }
 
     public static ItemStack getStack(EnumDyeColor type) {
-        return new ItemStack(BLOCKS.get(type));
+        return new ItemStack(getBlock(type));
     }
 
     @SideOnly(Side.CLIENT)
@@ -92,7 +106,6 @@ public class BlockCandle extends BWMBlock {
     @Override
     public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess source, BlockPos pos) {
         return new AxisAlignedBB(7d / 16d, 0, 7d / 16d, 9d / 16d, 6d / 16d, 9d / 16d);
-
     }
 
     @SuppressWarnings("deprecation")

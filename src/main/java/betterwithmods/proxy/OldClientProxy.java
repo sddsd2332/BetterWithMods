@@ -111,12 +111,12 @@
 //        final BlockColors BLOCK_COLORS = Minecraft.getMinecraft().getBlockColors();
 //        final ItemColors ITEM_COLORS = Minecraft.getMinecraft().getItemColors();
 //
-//        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_PLANTER, BlockPlanter.BLOCKS.get(BlockPlanter.EnumType.GRASS));
+//        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_PLANTER, BlockPlanter.BLOCKS.get(BlockPlanter.Type.GRASS));
 //        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_FOLIAGE, BWMBlocks.VINE_TRAP);
 //        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_BLOOD_LEAF, BWMBlocks.BLOOD_LEAVES);
 //        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_GRASS, BWMBlocks.DIRT_SLAB);
 //
-//        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_PLANTER, BlockPlanter.BLOCKS.get(BlockPlanter.EnumType.GRASS));
+//        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_PLANTER, BlockPlanter.BLOCKS.get(BlockPlanter.Type.GRASS));
 //        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_FOLIAGE, BWMBlocks.VINE_TRAP);
 //        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_BLOOD_LEAF, BWMBlocks.BLOOD_LEAVES);
 //        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_GRASS, BWMBlocks.DIRT_SLAB);

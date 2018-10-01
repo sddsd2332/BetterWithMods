@@ -1,6 +1,10 @@
 package betterwithmods.common.blocks;
 
-import com.google.common.collect.Maps;
+import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.BlockEntryBuilderGenerator;
+import betterwithmods.library.common.block.BlockTypeGenerator;
+import betterwithmods.library.common.block.IBlockType;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -9,44 +13,40 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.HashMap;
 
-import static betterwithmods.common.blocks.BlockAesthetic.EnumType.HELLFIRE;
+import static betterwithmods.common.blocks.BlockAesthetic.Type.HELLFIRE;
 
 public class BlockAesthetic extends BWMBlock {
-    public static final HashMap<EnumType, Block> BLOCKS = Maps.newHashMap();
-    private final EnumType type;
+    private final Type type;
 
-    public BlockAesthetic(EnumType type) {
+    public BlockAesthetic(Type type) {
         super(Material.ROCK);
         this.type = type;
-        this.setRegistryName(type.getName());
     }
 
-    public static void init() {
-        for (EnumType type : EnumType.VALUES) {
-            BLOCKS.put(type, new BlockAesthetic(type));
-        }
+    public static Block getBlock(Type variant) {
+        return ForgeRegistries.BLOCKS.getValue(variant.getRegistryName());
     }
 
-    public static IBlockState getVariant(EnumType type) {
-        return BLOCKS.get(type).getDefaultState();
+    public static IBlockState getVariant(Type type) {
+        return getBlock(type).getDefaultState();
     }
 
-    public static ItemStack getStack(EnumType type) {
+    public static ItemStack getStack(Type type) {
         return getStack(type, 1);
     }
 
-    public static ItemStack getStack(EnumType type, int count) {
-        return new ItemStack(BLOCKS.get(type), count);
+    public static ItemStack getStack(Type type, int count) {
+        return new ItemStack(getBlock(type), count);
     }
 
     @SuppressWarnings("deprecation")
@@ -95,7 +95,7 @@ public class BlockAesthetic extends BWMBlock {
         return type == HELLFIRE;
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum Type implements IBlockType {
         CHOPBLOCK("chopping_block", MapColor.STONE),
         CHOPBLOCKBLOOD("bloody_chopping_block", MapColor.NETHERRACK),
         NETHERCLAY("hardened_nether_clay", MapColor.NETHERRACK),
@@ -111,7 +111,7 @@ public class BlockAesthetic extends BWMBlock {
         WICKER("wicker_block", MapColor.BROWN, Material.WOOD, SoundType.WOOD, 1F, 5F),
         NETHERCOAL("nethercoal_block", MapColor.RED, Material.REDSTONE_LIGHT, SoundType.STONE, 5.0F, 10.0F);
 
-        private static final BlockAesthetic.EnumType[] VALUES = values();
+        private static final Type[] VALUES = values();
 
         private final String name;
         private final MapColor color;
@@ -119,23 +119,20 @@ public class BlockAesthetic extends BWMBlock {
         private final SoundType soundType;
         private final float hardness;
         private final float resistance;
+        private final ResourceLocation registryName;
 
-        EnumType(String name, MapColor color) {
-            this.name = name;
-            this.color = color;
-            this.material = Material.ROCK;
-            this.soundType = SoundType.STONE;
-            this.hardness = 1.5F;
-            this.resistance = 10F;
+        Type(String name, MapColor color) {
+            this(name, color, Material.ROCK, SoundType.STONE, 1.5F, 10F);
         }
 
-        EnumType(String name, MapColor color, Material material, SoundType soundType, float hardness, float resistance) {
+        Type(String name, MapColor color, Material material, SoundType soundType, float hardness, float resistance) {
             this.name = name;
             this.color = color;
             this.material = material;
             this.soundType = soundType;
             this.hardness = hardness;
             this.resistance = resistance;
+            this.registryName = new ResourceLocation(ModLib.MODID, name);
         }
 
         @Nonnull
@@ -144,24 +141,46 @@ public class BlockAesthetic extends BWMBlock {
             return name;
         }
 
+        @Override
+        public ResourceLocation getRegistryName() {
+            return registryName;
+        }
+
+        @Override
         public MapColor getMapColor() {
             return color;
         }
 
+        @Override
         public Material getMaterial() {
             return material;
         }
 
+        @Override
         public SoundType getSoundType() {
             return soundType;
         }
 
+        @Override
         public float getHardness() {
             return hardness;
         }
 
+        @Override
         public float getResistance() {
             return resistance;
+        }
+    }
+
+    public static class Generator extends BlockTypeGenerator<Type> {
+
+        public Generator() {
+            super(Type.VALUES);
+        }
+
+        @Override
+        public Block createBlock(Type variant) {
+            return new BlockAesthetic(variant);
         }
     }
 }

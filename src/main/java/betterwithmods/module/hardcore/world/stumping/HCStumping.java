@@ -177,7 +177,7 @@ public class HCStumping extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        BLACKLIST_CONFIG = loadProperty("Stump Blacklist", new String[0]).setComment("Logs which do not create stumps").get();
+        BLACKLIST_CONFIG = loadProperty("Stump Blacklist", new String[0]).setComment("Logs which do not createBlock stumps").get();
         for (String block : BLACKLIST_CONFIG) {
             STUMP_BLACKLIST.add(Block.REGISTRY.getObject(new ResourceLocation(block)));
         }

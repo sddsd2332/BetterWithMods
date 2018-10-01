@@ -91,7 +91,7 @@ public class AnvilRecipes extends Feature {
         addSteelShapedRecipe("armor_plate", ItemMaterial.getStack(ItemMaterial.EnumMaterial.ARMOR_PLATE), "BSPB", 'B', ItemMaterial.getStack(ItemMaterial.EnumMaterial.LEATHER_STRAP), 'S', "ingotSoulforgedSteel", 'P', ItemMaterial.getStack(ItemMaterial.EnumMaterial.PADDING));
         addSteelShapedRecipe("broadhead", ItemMaterial.getStack(ItemMaterial.EnumMaterial.BROADHEAD, 6), " N ", " N ", "NNN", " N ", 'N', "nuggetSoulforgedSteel");
         addSteelShapedRecipe("steel_block", new ItemStack(BWMBlocks.STEEL_BLOCK), "XXXX", "XXXX", "XXXX", "XXXX", 'X', "ingotSoulforgedSteel");
-        addSteelShapedRecipe("chopping_block", BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK), "X  X", "XXXX", 'X', "stone");
+        addSteelShapedRecipe("chopping_block", BlockAesthetic.getStack(BlockAesthetic.Type.CHOPBLOCK), "X  X", "XXXX", 'X', "stone");
         addSteelShapedRecipe("chain_mail", ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHAIN_MAIL, 2), "N N ", " N N", "N N ", " N N", 'N', "nuggetIron");
         addSteelShapedRecipe("iron_wall", new ItemStack(BWMBlocks.IRON_WALL, 8, 0), "XXXX", "XXXX", "XXXX", "XXXX", 'X', new ItemStack(Blocks.IRON_BARS));
         addSteelShapedRecipe("steel_pressure_plate", new ItemStack(BWMBlocks.STEEL_PRESSURE_PLATE, 2), "IIII", " RR ", 'I', "ingotSoulforgedSteel", 'R', "dustRedstone");

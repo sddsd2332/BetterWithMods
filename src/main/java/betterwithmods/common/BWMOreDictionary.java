@@ -82,7 +82,7 @@ public class BWMOreDictionary {
         registerOre("dustSulfur", ItemMaterial.getStack(ItemMaterial.EnumMaterial.BRIMSTONE));
         registerOre("dustSaltpeter", ItemMaterial.getStack(ItemMaterial.EnumMaterial.NITER));
         registerOre("nuggetSoulforgedSteel", ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_NUGGET));
-        registerOre("foodFlour", BlockRawPastry.getStack(BlockRawPastry.EnumType.BREAD));
+        registerOre("foodFlour", BlockRawPastry.getStack(BlockRawPastry.Type.BREAD));
         registerOre("dustCharcoal", ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHARCOAL_DUST));
         registerOre("foodCocoapowder", ItemMaterial.getStack(ItemMaterial.EnumMaterial.COCOA_POWDER));
         registerOre("dustCarbon", ItemMaterial.getStack(ItemMaterial.EnumMaterial.COAL_DUST), ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHARCOAL_DUST));
@@ -94,10 +94,10 @@ public class BWMOreDictionary {
         registerOre("foodChocolatebar", new ItemStack(BWMItems.CHOCOLATE));
         registerOre("chainmail", ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHAIN_MAIL));
 
-        registerOre("blockHardenedNetherClay", BlockAesthetic.getStack(BlockAesthetic.EnumType.NETHERCLAY));
-        registerOre("blockConcentratedHellfire", BlockAesthetic.getStack(BlockAesthetic.EnumType.HELLFIRE));
-        registerOre("blockPadding", BlockAesthetic.getStack(BlockAesthetic.EnumType.PADDING));
-        registerOre("blockEnder", BlockAesthetic.getStack(BlockAesthetic.EnumType.ENDERBLOCK));
+        registerOre("blockHardenedNetherClay", BlockAesthetic.getStack(BlockAesthetic.Type.NETHERCLAY));
+        registerOre("blockConcentratedHellfire", BlockAesthetic.getStack(BlockAesthetic.Type.HELLFIRE));
+        registerOre("blockPadding", BlockAesthetic.getStack(BlockAesthetic.Type.PADDING));
+        registerOre("blockEnder", BlockAesthetic.getStack(BlockAesthetic.Type.ENDERBLOCK));
         registerOre("blockSoulforgedSteel", new ItemStack(BWMBlocks.STEEL_BLOCK, 1, 0));
         registerOre("blockBarrel", new ItemStack(BWMBlocks.BARREL));
         //Added bark subtype entries for Roots compatibility
@@ -147,10 +147,10 @@ public class BWMOreDictionary {
 
         registerOre("wicker", new ItemStack(BWMBlocks.WICKER));
 
-        registerOre("blockPlanter", BlockPlanter.BLOCKS.values());
-        registerOre("blockVase", BlockVase.BLOCKS.values());
-        registerOre("blockCandle", BlockCandle.BLOCKS.values());
-        registerOre("cobblestone", BlockCobble.BLOCKS.values());
+        registerOre("blockPlanter", BlockPlanter.getAll());
+        registerOre("blockVase", BlockVase.getAll());
+        registerOre("blockCandle", BlockCandle.getAll());
+        registerOre("cobblestone", BlockCobble.getAll());
 
         registerOre("stickWood", new ItemStack(BWMBlocks.SHAFT));
         registerOre("blockWindChime", BlockChime.BLOCKS);
@@ -179,7 +179,7 @@ public class BWMOreDictionary {
         registerOre("listAllExplosives", new ItemStack(Items.GUNPOWDER));
         registerOre("listAllExplosives", new ItemStack(BWMItems.DYNAMITE));
         registerOre("listAllExplosives", new ItemStack(BWMBlocks.MINING_CHARGE));
-        registerOre("listAllExplosives", BlockAesthetic.getStack(BlockAesthetic.EnumType.HELLFIRE));
+        registerOre("listAllExplosives", BlockAesthetic.getStack(BlockAesthetic.Type.HELLFIRE));
         registerOre("listAllExplosives", ItemMaterial.getStack(ItemMaterial.EnumMaterial.BLASTING_OIL));
         registerOre("listAllExplosives", ItemMaterial.getStack(ItemMaterial.EnumMaterial.HELLFIRE_DUST));
         registerOre("listAllExplosives", ItemMaterial.getStack(ItemMaterial.EnumMaterial.CONCENTRATED_HELLFIRE));

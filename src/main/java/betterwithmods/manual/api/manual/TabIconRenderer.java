@@ -9,7 +9,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
  * Allows defining a renderer for a manual tab.
  * <p>
  * Each renderer instance represents the single graphic it is drawing. To
- * provide different graphics for different tabs you'll need to create
+ * provide different graphics for different tabs you'll need to createBlock
  * multiple tab renderer instances.
  *
  * @see ItemStackTabIconRenderer

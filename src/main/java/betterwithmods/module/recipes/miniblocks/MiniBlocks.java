@@ -9,6 +9,7 @@ import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.BlockTypeGenerator;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.internal.BlockRegistry;
@@ -52,8 +53,6 @@ import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.EventPriority;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -193,6 +192,7 @@ public class MiniBlocks extends Feature {
 
         for (MiniType type : MiniType.VALUES) {
             for (BlockCamo mini : MINI_MATERIAL_BLOCKS.get(type).values()) {
+                //TODO change so a generator can be used
                 BlockRegistry.registerBlock(mini, mini.createItemBlock(mini).setRegistryName(mini.getRegistryName()));
             }
         }
@@ -257,7 +257,7 @@ public class MiniBlocks extends Feature {
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.QUARTZ_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GOLD_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.IRON_BLOCK)));
-            DEFAULT_CONFIG.add(JsonUtils.fromStack(BlockAesthetic.getStack(BlockAesthetic.EnumType.WHITESTONE)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(BlockAesthetic.getStack(BlockAesthetic.Type.WHITESTONE)));
             JsonUtils.writeFile(file, DEFAULT_CONFIG);
         }
         JsonObject[] objects = JsonUtils.readerFile(file);
@@ -404,4 +404,7 @@ public class MiniBlocks extends Feature {
         if(camo != null)
             camo.setState(parent);
     }
+
+
+
 }

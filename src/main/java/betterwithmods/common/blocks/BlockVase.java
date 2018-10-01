@@ -1,6 +1,8 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.tile.TileVase;
+import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.ColoredGenerator;
 import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.library.utils.colors.ColorUtils;
 import betterwithmods.library.utils.InventoryUtils;
@@ -20,40 +22,54 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nonnull;
+import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Random;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 /**
  * Created by Christian on 24.09.2016.
  */
-public class BlockVase extends BWMBlock {
-    public static final HashMap<EnumDyeColor, Block> BLOCKS = Maps.newHashMap();
+public class BlockVase extends BlockColored {
     private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125D, 0, 0.125D, 0.875D, 1.0D, 0.875D);
 
+    public static final ResourceLocation NAME_BASE = new ResourceLocation(ModLib.MODID, "vase");
+
+    public static ColoredGenerator GENERATOR = new ColoredGenerator(NAME_BASE) {
+        @Override
+        public Block createBlock(EnumDyeColor variant) {
+            return new BlockVase(variant);
+        }
+    };
+
+    public static Set<Block> getAll() {
+        return Arrays.stream(ColorUtils.DYES).map(BlockVase::getBlock).collect(Collectors.toSet());
+    }
+
+    public static Block getBlock(EnumDyeColor color) {
+        return getBlock(NAME_BASE, color);
+    }
+
     public BlockVase(EnumDyeColor color) {
-        super(Material.ROCK);
+        super(Material.ROCK, color);
         this.setHardness(2.0F);
         this.setHarvestLevel("pickaxe", -1);
         this.setSoundType(SoundType.GLASS);
-        this.setRegistryName("vase_" + color.getName());
-    }
-
-    public static void init() {
-        for (EnumDyeColor color : ColorUtils.DYES) {
-            BLOCKS.put(color, new BlockVase(color));
-        }
     }
 
     public static ItemStack getStack(EnumDyeColor type) {
-        return new ItemStack(BLOCKS.get(type));
+        return new ItemStack(getBlock(type));
     }
 
     @Override

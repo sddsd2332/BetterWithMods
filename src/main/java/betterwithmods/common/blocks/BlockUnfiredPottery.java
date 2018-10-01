@@ -1,6 +1,8 @@
 package betterwithmods.common.blocks;
 
-import com.google.common.collect.Maps;
+import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.BlockTypeGenerator;
+import betterwithmods.library.common.block.IBlockType;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -8,40 +10,37 @@ import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
 
 public class BlockUnfiredPottery extends BWMBlock {
 
-    public static final HashMap<EnumType, Block> BLOCKS = Maps.newHashMap();
+
     private static final AxisAlignedBB BLOCK_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, 1.0F, 1.0F);
     private static final AxisAlignedBB URN_AABB = new AxisAlignedBB(0.3125D, 0.0F, 0.3125D, 0.6875D, 0.625D, 0.6875D);
     private static final AxisAlignedBB VASE_AABB = new AxisAlignedBB(0.125D, 0, 0.125D, 0.875D, 1.0D, 0.875D);
     private static final AxisAlignedBB BRICK_AABB = new AxisAlignedBB(0.25D, 0.0D, 0.0625D, 0.75D, 0.375D, 0.9375D);
-    private final EnumType type;
+    private final Type type;
 
-    public BlockUnfiredPottery(EnumType type) {
+    public BlockUnfiredPottery(Type type) {
         super(Material.CLAY);
         this.setSoundType(SoundType.GROUND);
         this.setHardness(0.5F);
-        this.setRegistryName("unfired_" + type.getName());
         this.type = type;
     }
 
-    public static void init() {
-        for (EnumType type : EnumType.VALUES) {
-            BLOCKS.put(type, new BlockUnfiredPottery(type));
-        }
+    public static Block getBlock(Type type) {
+        return ForgeRegistries.BLOCKS.getValue(type.getRegistryName());
     }
 
-    public static ItemStack getStack(EnumType type) {
-        return new ItemStack(BLOCKS.get(type));
+    public static ItemStack getStack(Type type) {
+        return new ItemStack(getBlock(type));
     }
 
     @Override
@@ -84,23 +83,25 @@ public class BlockUnfiredPottery extends BWMBlock {
         return type.getBounds();
     }
 
-    public enum EnumType implements IStringSerializable {
+    public enum Type implements IBlockType {
         CRUCIBLE(0, "crucible", BLOCK_AABB),
         PLANTER(1, "planter", BLOCK_AABB),
         URN(2, "urn", URN_AABB),
         VASE(3, "vase", VASE_AABB),
         BRICK(4, "brick", BRICK_AABB),
         NETHER_BRICK(5, "nether_brick", BRICK_AABB);
-        private static final EnumType[] VALUES = values();
+        private static final Type[] VALUES = values();
 
         private final String name;
         private final int meta;
         private final AxisAlignedBB bounds;
+        private final ResourceLocation registryName;
 
-        EnumType(int meta, String name, AxisAlignedBB bounds) {
+        Type(int meta, String name, AxisAlignedBB bounds) {
             this.meta = meta;
             this.name = name;
             this.bounds = bounds;
+            this.registryName = new ResourceLocation(ModLib.MODID, "unfired_" + name);
         }
 
         public AxisAlignedBB getBounds() {
@@ -115,6 +116,23 @@ public class BlockUnfiredPottery extends BWMBlock {
         @Override
         public String getName() {
             return name;
+        }
+
+        @Nonnull
+        @Override
+        public ResourceLocation getRegistryName() {
+            return registryName;
+        }
+    }
+
+    public static class Generator extends BlockTypeGenerator<Type> {
+        public Generator() {
+            super(Type.VALUES);
+        }
+
+        @Override
+        public Block createBlock(Type variant) {
+            return new BlockUnfiredPottery(variant);
         }
     }
 }

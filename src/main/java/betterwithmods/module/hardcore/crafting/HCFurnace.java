@@ -1,7 +1,9 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.blocks.BlockFurnace;
+import betterwithmods.common.blocks.BlockIce;
 import betterwithmods.lib.TooltipLib;
+import betterwithmods.library.common.block.BlockEntryBuilderFactory;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.RecipeRegistry;
@@ -29,8 +31,7 @@ import java.util.OptionalInt;
 import static betterwithmods.lib.TooltipLib.FURNACE_TIME;
 
 public class HCFurnace extends Feature {
-    public static final Block FURNACE = new BlockFurnace(false).setRegistryName("minecraft:furnace");
-    public static final Block LIT_FURNACE = new BlockFurnace(true).setRegistryName("minecraft:lit_furnace");
+
     public static boolean CONSUME_FUEL_WHEN_IDLE, TOOLTIP;
     public static int DEFAULT_FURNACE_TIMING = 200;
     public static HashMap<Ingredient, Integer> FURNACE_TIMINGS = Maps.newHashMap();
@@ -80,15 +81,14 @@ public class HCFurnace extends Feature {
         DEFAULT_FURNACE_TIMING = loadProperty("Default Furnace Timing", 200).setMin(1).setComment("Default number of ticks for an item to smelt in the furnace (vanilla is 200)").get();
         TOOLTIP = loadProperty("Tooltip for modified cooking time", true).setComment("Shows a tooltip for items with modified cooking time").get();
 
-
-        BlockRegistry.registerBlock(FURNACE);
-        BlockRegistry.registerBlock(LIT_FURNACE, null);
+        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .builder().block(new BlockFurnace(false)).id("minecraft:furnace").build()
+                .builder().block(new BlockFurnace(true)).id("minecraft:lit_furnace").noItem().build()
+                .complete());
     }
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-
-
         RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.DIAMOND_ORE));
         RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.COAL_ORE));
         RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.EMERALD_ORE));

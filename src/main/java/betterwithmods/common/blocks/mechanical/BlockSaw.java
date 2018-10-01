@@ -171,7 +171,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
                     source = BWMDamageSource.getChoppingBlockDamage();
                     damage *= 3;
                     if (isChoppingBlock(blockState, false) && unobstructed)
-                        world.setBlockState(pos2, BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD));
+                        world.setBlockState(pos2, BlockAesthetic.getVariant(BlockAesthetic.Type.CHOPBLOCKBLOOD));
                     break;
                 } else if (!world.isAirBlock(pos2) && !(block instanceof BlockLiquid) && !(block instanceof IFluidBlock))
                     break;
@@ -186,7 +186,7 @@ public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
     }
 
     public boolean isChoppingBlock(IBlockState state, boolean dirty) {
-        return state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCK).getBlock() || (dirty && state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.EnumType.CHOPBLOCKBLOOD).getBlock());
+        return state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.Type.CHOPBLOCK).getBlock() || (dirty && state.getBlock() == BlockAesthetic.getVariant(BlockAesthetic.Type.CHOPBLOCKBLOOD).getBlock());
     }
 
     @Override

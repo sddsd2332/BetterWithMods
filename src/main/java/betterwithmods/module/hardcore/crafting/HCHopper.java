@@ -1,8 +1,8 @@
 package betterwithmods.module.hardcore.crafting;
 
+import betterwithmods.library.common.block.BlockEntryBuilderFactory;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
-import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
@@ -16,8 +16,6 @@ import javax.annotation.Nullable;
 
 public class HCHopper extends Feature {
 
-    private static Block HOPPER = new BlockHopper().setRegistryName("minecraft:hopper").setTranslationKey("hopper");
-
     @Override
     protected boolean isEnabledByDefault() {
         return false;
@@ -30,7 +28,9 @@ public class HCHopper extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BlockRegistry.registerBlock(HOPPER);
+        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .builder().block(new BlockHopper().setTranslationKey("hopper")).id("minecraft:hopper").build()
+                .complete());
     }
 
     public static class BlockHopper extends net.minecraft.block.BlockHopper {

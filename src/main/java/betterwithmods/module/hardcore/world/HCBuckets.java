@@ -3,6 +3,7 @@ package betterwithmods.module.hardcore.world;
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.BlockIce;
 import betterwithmods.common.blocks.behaviors.BehaviorFluidContainer;
+import betterwithmods.library.common.block.BlockEntryBuilderFactory;
 import betterwithmods.library.modularity.impl.Feature;
 import betterwithmods.module.general.General;
 import betterwithmods.module.internal.BlockRegistry;
@@ -50,7 +51,6 @@ public class HCBuckets extends Feature {
     private static List<String> fluidWhitelist;
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
-    private static Block ICE = new BlockIce().setRegistryName("minecraft:ice").setTranslationKey("ice");
 
     @Override
     public String getDescription() {
@@ -61,7 +61,7 @@ public class HCBuckets extends Feature {
     public void onPreInit(FMLPreInitializationEvent event) {
 
 
-        dimensionBlacklist = Ints.asList(loadProperty("Dimension Black List", new int[]{DimensionType.THE_END.getId()}).setComment("A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to create.").get());
+        dimensionBlacklist = Ints.asList(loadProperty("Dimension Black List", new int[]{DimensionType.THE_END.getId()}).setComment("A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to createBlock.").get());
 
         fluidWhitelist = Lists.newArrayList(loadProperty("Fluid Whitelist", new String[]{
                 FluidRegistry.WATER.getName(),
@@ -92,7 +92,11 @@ public class HCBuckets extends Feature {
         stopDispenserFillBehavior = loadProperty("Stop Dispenser Fill Behavior", false).setComment("Disallow the dispenser from using an empty bucket for anything.").get();
 
         if (fixIce) {
-            BlockRegistry.registerBlock(ICE);
+            BlockRegistry.registerBlocks(
+                    BlockEntryBuilderFactory.<Void>create()
+                            .builder().block(new BlockIce().setTranslationKey("ice")).id("minecraft:id").build()
+                            .complete()
+            );
         }
     }
 
@@ -203,7 +207,7 @@ public class HCBuckets extends Feature {
 
                     if (fluidStack != null) {
                         if (fluidStack.amount == Fluid.BUCKET_VOLUME) {
-                            //Try to place the fluid using our custom wrappers again, does not create a source block.
+                            //Try to place the fluid using our custom wrappers again, does not createBlock a source block.
                             FluidActionResult placeResult = FluidUtils.tryPlaceFluid(player, world, offset, container, fluidStack);
                             if (placeResult.isSuccess()) {
                                 event.setResult(Event.Result.ALLOW);

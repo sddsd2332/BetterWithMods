@@ -39,7 +39,7 @@ public class HCOres extends Feature {
 
     @Override
     public String getDescription() {
-        return "Makes Ores only smelt into a single nugget, making it much harder to create large amounts of metal";
+        return "Makes Ores only smelt into a single nugget, making it much harder to createBlock large amounts of metal";
     }
     @Override
     public void onInit(FMLInitializationEvent event) {

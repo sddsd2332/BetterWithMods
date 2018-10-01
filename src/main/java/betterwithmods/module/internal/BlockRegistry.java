@@ -17,16 +17,19 @@ import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.tile.*;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.BlockEntry;
-import betterwithmods.library.common.block.BlockEntryBuilder;
+import betterwithmods.library.common.block.BlockEntryBuilderFactory;
 import betterwithmods.library.modularity.impl.RequiredFeature;
 import betterwithmods.module.hardcore.beacons.TileBeacon;
 import betterwithmods.module.hardcore.beacons.TileEnderchest;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
+import net.minecraft.entity.item.EntityMinecartEmpty;
+import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemBlock;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
@@ -36,10 +39,10 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.List;
+import java.util.Objects;
+import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class BlockRegistry extends RequiredFeature {
@@ -48,98 +51,148 @@ public class BlockRegistry extends RequiredFeature {
 
     public static void registerTileEntities() {
         //TODO
-        GameRegistry.registerTileEntity(TileVase.class, new ResourceLocation(ModLib.MODID, "vase"));
         GameRegistry.registerTileEntity(TileBeacon.class, new ResourceLocation(ModLib.MODID, "beacon"));
         GameRegistry.registerTileEntity(TileEnderchest.class, new ResourceLocation(ModLib.MODID, "enderchest"));
         GameRegistry.registerTileEntity(TileFurnace.class, new ResourceLocation(ModLib.MODID, "furnace"));
     }
 
-    static {
-        BlockCandle.init();
-        BlockVase.init();
-        BlockPlanter.init();
-        BlockAesthetic.init();
-        BlockChime.init();
-        BlockCobble.init();
-        BlockUnfiredPottery.init();
-        BlockRawPastry.init();
-    }
-
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        registerBlocks(
-                BlockEntryBuilder.create().block(new BlockMillstone()).id("millstone").tile(TileMill.class).build(),
-                BlockEntryBuilder.create().block(new BlockAnchor()).id("anchor").build(),
-                BlockEntryBuilder.create().block(new BlockRope()).id("rope").build(),
-                BlockEntryBuilder.create().block(new BlockFilteredHopper()).id("filtered_hopper").tile(TileFilteredHopper.class).build(),
-                BlockEntryBuilder.create().block(new BlockPulley()).id("pulley").tile(TilePulley.class).build(),
-                BlockEntryBuilder.create().block(new BlockTurntable()).id("turntable").tile(TileTurntable.class).build(),
+        BlockEntryBuilderFactory<Void> factory = BlockEntryBuilderFactory.create();
 
-                BlockEntryBuilder.create().block(new BlockAxle(Material.WOOD, 1, 1, 3)).id("wooden_axle").tile(TileAxle.class).build(),
-                BlockEntryBuilder.create().block(new BlockGearbox(Material.WOOD, 1)).id("wooden_gearbox").tile(TileGearbox.class).build(),
-                BlockEntryBuilder.create().block(new BlockBrokenGearbox(Material.WOOD)).id("wooden_broken_gearbox").build(),
-                BlockEntryBuilder.create().block(new BlockHandCrank()).id("hand_crank").tile(TileHandCrank.class).build(),
-                BlockEntryBuilder.create().block(new BlockWicker()).id("wicker").build(),
-                BlockEntryBuilder.create().block(new BlockUrn(BlockUrn.EnumType.EMPTY)).id("urn").build(),
-                BlockEntryBuilder.create().block(new BlockUrn(BlockUrn.EnumType.SOUL)).id("soul_urn").itemblock(ItemBlockUrn::new).build(),
+        //noinspection unchecked
+        registerBlocks(factory
+                .builder().block(new BlockAnchor()).id("anchor").build()
+                .builder().block(new BlockRope()).id("rope").build()
+                .builder().block(new BlockBrokenGearbox(Material.WOOD)).id("wooden_broken_gearbox").build()
+                .builder().block(new BlockWicker()).id("wicker").build()
+                .builder().block(new BlockUrn(BlockUrn.EnumType.EMPTY)).id("urn").build()
+                .builder().block(new BlockUrn(BlockUrn.EnumType.SOUL)).id("soul_urn").itemblock(ItemBlockUrn::new).build()
+                .builder().block(new BlockFireStoked()).id("stoked_flame").noItem().build()
+                .builder().block(new BlockHibachi()).id("hibachi").build()
+                .builder().block(new BlockHemp()).id("hemp").itemblock(ItemHempSeed::new).build()
+                .builder().block(new BlockDetector()).id("detector").build()
+                .builder().block(new BlockLens()).id("lens").build()
+                .builder().block(new BlockInvisibleLight()).id("invisible_light").noItem().build()
+                .builder().block(new BlockWolf(new ResourceLocation("minecraft:wolf"))).id("companion_cube").build()
+                .builder().block(new BlockBUD()).id("buddy_block").build()
+                .builder().block(new BlockLight()).id("light").build()
+                .builder().block(new BlockPlatform()).id("platform").build()
+                .builder().block(new BlockMiningCharge()).id("mining_charge").build()
+                .builder().block(new BlockFertileFarmland()).id("fertile_farmland").build()
+                .builder().block(new BlockVineTrap()).id("vine_trap").build()
+                .builder().block(new BlockTemporaryWater()).id("temporary_water").noItem().build()
+                .builder().block(new BlockIronWall()).id("iron_wall").build()
+                .builder().block(new BlockStake()).id("stake").build()
+                .builder().block(new BlockStakeString()).id("stake_string").noItem().build()
+                .builder().block(new BlockNetherGrowth()).id("nether_growth").itemblock(ItemBlockSpore::new).build()
+                .builder().block(new BlockSteel()).id("steel_block").build()
+                .builder().block(new BlockBloodLog()).id("blood_log").build()
+                .builder().block(new BlockBloodLeaves()).id("blood_leaves").build()
+                .builder().block(new BlockBloodSapling()).id("blood_sapling").build()
+                .builder().block(new BlockNetherClay()).id("nether_clay").build()
+                .builder().block(new BlockSteelPressurePlate()).id("steel_pressure_plate").build()
+                .builder().block(new BlockShaft()).id("shaft").build()
+                .builder().block(new BlockDirtSlab()).id("dirt_slab").itemblock(b -> new ItemSimpleSlab(b, Blocks.DIRT)).build()
+                .builder().block(new BlockRailDetectorBase(cart -> !(cart instanceof EntityMinecartEmpty) || BlockRailDetectorBase.isRider(cart, Objects::nonNull))).id("detector_rail_stone").build()
+                .builder().block(new BlockRailDetectorBase(cart -> BlockRailDetectorBase.isRider(cart, rider -> rider instanceof EntityPlayer))).id("detector_rail_steel").build()
+                .complete());
 
-                BlockEntryBuilder.create().block(new BlockFireStoked()).id("stoked_flame").noItem().build(),
-                BlockEntryBuilder.create().block(new BlockHibachi()).id("hibachi").build(),
-                BlockEntryBuilder.create().block(new BlockBellows()).id("bellows").tile(TileBellows.class).build(),
-
-                BlockEntryBuilder.create().block(new BlockKiln(KilnStructureManager::getKilnBlocks)).id("kiln").noItem().tile(TileKiln.class).build(),
-                BlockEntryBuilder.create().block(new BlockHemp()).id("hemp").itemblock(ItemHempSeed::new).build(),
-                BlockEntryBuilder.create().block(new BlockDetector()).id("detector").build(),
-                BlockEntryBuilder.create().block(new BlockLens()).id("lens").build(),
-                BlockEntryBuilder.create().block(new BlockInvisibleLight()).id("invisible_light").noItem().build(),
-                BlockEntryBuilder.create().block(new BlockSaw()).id("saw").tile(TileSaw.class).build(),
-//                BlockEntryBuilder.create().block(new BlockGearBoostedRail()).id("booster").build(),
-
-                BlockEntryBuilder.create().block(new BlockWindmill(EnumFacing.Axis.X)).id("horizontal_windmill").itemblock(ItemHorizontalWindmill::new).tile(TileWindmillHorizontal.class).build(),
-                BlockEntryBuilder.create().block(new BlockWindmill(EnumFacing.Axis.Y)).id("vertical_windmill").itemblock(ItemHorizontalWindmill::new).tile(TileWindmillVertical.class).build(),
-                BlockEntryBuilder.create().block(new BlockWaterwheel()).id("waterwheel").itemblock(ItemWaterwheel::new).tile(TileWaterwheel.class).build(),
-                BlockEntryBuilder.create().block(new BlockWolf(new ResourceLocation("minecraft:wolf"))).id("companion_cube").build(),
-                BlockEntryBuilder.create().block(new BlockBDispenser()).id("block_dispenser").tile(TileBlockDispenser.class).build(),
-                BlockEntryBuilder.create().block(new BlockBUD()).id("buddy_block").build(),
-
-                BlockEntryBuilder.create().block(new BlockCreativeGenerator()).id("creative_generator").tile(TileCreativeGenerator.class).build(),
-                BlockEntryBuilder.create().block(new BlockLight()).id("light").build(),
-                BlockEntryBuilder.create().block(new BlockPlatform()).id("platform").build(),
-                BlockEntryBuilder.create().block(new BlockMiningCharge()).id("mining_charge").build(),
-                BlockEntryBuilder.create().block(new BlockFertileFarmland()).id("fertile_farmland").build(),
-                BlockEntryBuilder.create().block(new BlockScrewPump()).id("screw_pump").tile(TileScrewPump.class).build(),
-                BlockEntryBuilder.create().block(new BlockVineTrap()).id("vine_trap").build(),
-                BlockEntryBuilder.create().block(new BlockSteelAnvil()).id("steel_anvil").tile(TileSteelAnvil.class).build(),
-                BlockEntryBuilder.create().block(new BlockCauldron()).id("cauldron").tile(TileCauldron.class).build(),
-                BlockEntryBuilder.create().block(new BlockCrucible()).id("crucible").tile(TileCrucible.class).build(),
-                BlockEntryBuilder.create().block(new BlockDragonVessel()).id("dragon_vessel").itemblock(ItemBlockLimited::new).tile(TileDragonVessel.class).build(),
-
-                BlockEntryBuilder.create().block(new BlockTemporaryWater()).id("temporary_water").noItem().build(),
-                BlockEntryBuilder.create().block(new BlockIronWall()).id("iron_wall").build(),
-                BlockEntryBuilder.create().block(new BlockStake()).id("stake").build(),
-                BlockEntryBuilder.create().block(new BlockStakeString()).id("stake_string").build(),
-                BlockEntryBuilder.create().block(new BlockNetherGrowth()).id("nether_growth").itemblock(ItemBlockSpore::new).build(),
-                BlockEntryBuilder.create().block(new BlockSteel()).id("steel_block").build(),
-                BlockEntryBuilder.create().block(new BlockBloodLog()).id("blood_log").build(),
-                BlockEntryBuilder.create().block(new BlockBloodLeaves()).id("blood_leaves").build(),
-                BlockEntryBuilder.create().block(new BlockBloodSapling()).id("blood_sapling").build(),
-                BlockEntryBuilder.create().block(new BlockNetherClay()).id("nether_clay").build(),
-                BlockEntryBuilder.create().block(new BlockSteelPressurePlate()).id("steel_pressure_plate").build(),
-                BlockEntryBuilder.create().block(new BlockInfernalEnchanter()).id("infernal_enchanter").tile(TileInfernalEnchanter.class).build(),
-                BlockEntryBuilder.create().block(new BlockShaft()).id("shaft").build(),
-                BlockEntryBuilder.create().block(new BlockBucket()).id("bucket").tile(TileBucket.class).build(),
-                BlockEntryBuilder.create().block(new BlockDirtSlab()).id("dirt_slab").itemblock(b -> new ItemSimpleSlab(b, Blocks.DIRT)).build(),
-                BlockEntryBuilder.create().block(new BlockBarrel(Material.WOOD)).id("barrel").tile(TileBarrel.class).build()
-        );
-
-        registerBlocks(BlockPlanter.BLOCKS.values());
-        registerBlocks(BlockCandle.BLOCKS.values());
-        registerBlocks(BlockVase.BLOCKS.values());
-        registerBlocks(BlockAesthetic.BLOCKS.values());
-        registerBlocks(BlockChime.BLOCKS);
-        registerBlocks(BlockCobble.BLOCKS.values());
-        registerBlocks(BlockUnfiredPottery.BLOCKS.values());
-        registerBlocks(BlockRawPastry.BLOCKS.values());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileMill.class).id("millstone")
+                .builder().block(new BlockMillstone()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileFilteredHopper.class).id("filtered_hopper")
+                .builder().block(new BlockFilteredHopper()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TilePulley.class).id("pulley")
+                .builder().block(new BlockPulley()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileTurntable.class).id("turntable")
+                .builder().block(new BlockTurntable()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileAxle.class).id("wooden_axle")
+                .builder().block(new BlockAxle(Material.WOOD, 1, 1, 3)).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileGearbox.class).id("wooden_gearbox")
+                .builder().block(new BlockGearbox(Material.WOOD, 1)).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileHandCrank.class).id("hand_crank")
+                .builder().block(new BlockHandCrank()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileBellows.class).id("bellows")
+                .builder().block(new BlockBellows()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileKiln.class).id("kiln")
+                .builder().block(new BlockKiln(KilnStructureManager::getKilnBlocks)).noItem().build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileSaw.class).id("saw")
+                .builder().block(new BlockSaw()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileWindmillHorizontal.class).id("horizontal_windmill")
+                .builder().block(new BlockWindmill(EnumFacing.Axis.X)).itemblock(ItemHorizontalWindmill::new).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileWindmillVertical.class).id("vertical_windmill")
+                .builder().block(new BlockWindmill(EnumFacing.Axis.Y)).itemblock(ItemHorizontalWindmill::new).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileWaterwheel.class).id("waterwheel")
+                .builder().block(new BlockWaterwheel()).itemblock(ItemWaterwheel::new).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileBlockDispenser.class).id("block_dispenser")
+                .builder().block(new BlockBDispenser()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileCreativeGenerator.class).id("creative_generator")
+                .builder().block(new BlockCreativeGenerator()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileScrewPump.class).id("screw_pump")
+                .builder().block(new BlockScrewPump()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileSteelAnvil.class).id("steel_anvil")
+                .builder().block(new BlockSteelAnvil()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileCauldron.class).id("cauldron")
+                .builder().block(new BlockCauldron()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileCrucible.class).id("crucible")
+                .builder().block(new BlockCrucible()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileDragonVessel.class).id("dragon_vessel")
+                .builder().block(new BlockDragonVessel()).itemblock(ItemBlockLimited::new).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileInfernalEnchanter.class).id("infernal_enchanter")
+                .builder().block(new BlockInfernalEnchanter()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileBucket.class).id("bucket")
+                .builder().block(new BlockBucket()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileBarrel.class).id("barrel")
+                .builder().block(new BlockBarrel(Material.WOOD)).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<EnumDyeColor>create()
+                .blockGenerator(BlockCandle.GENERATOR)
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<EnumDyeColor>create()
+                .tile(TileVase.class).id("vase")
+                .blockGenerator(BlockVase.GENERATOR)
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create()
+                .blockGenerator(new BlockChime.Generator(Material.IRON))
+                .blockGenerator(new BlockChime.Generator(Material.WOOD))
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<BlockCobble.Type>create()
+                .blockGenerator(new BlockCobble.Generator())
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<BlockPlanter.Type>create()
+                .blockGenerator(new BlockPlanter.Generator())
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<BlockAesthetic.Type>create()
+                .blockGenerator(new BlockAesthetic.Generator())
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<BlockUnfiredPottery.Type>create()
+                .blockGenerator(new BlockUnfiredPottery.Generator())
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<BlockRawPastry.Type>create()
+                .blockGenerator(new BlockRawPastry.Generator())
+                .complete());
 
 
     }
@@ -166,19 +219,12 @@ public class BlockRegistry extends RequiredFeature {
         }
     }
 
-    public static Block registerBlock(@Nonnull Block block) {
-        registerBlock(block, new ItemBlock(block).setRegistryName(block.getRegistryName()));
-        return block;
-    }
 
-    public static void registerBlocks(Collection<? extends Block> blocks) {
-        blocks.forEach(BlockRegistry::registerBlock);
-    }
-
-    public static void registerBlocks(BlockEntry... entries) {
-        for (BlockEntry block : entries) {
-            registerBlock(block);
+    public static void registerBlocks(Set<BlockEntry> set) {
+        for (BlockEntry entry : set) {
+            registerBlock(entry);
         }
+
     }
 
 

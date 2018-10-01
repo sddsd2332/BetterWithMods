@@ -1,6 +1,9 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.BlockEntryBuilderGenerator;
 import betterwithmods.module.internal.SoundRegistry;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFence;
@@ -13,10 +16,8 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
+import net.minecraft.item.ItemBlock;
+import net.minecraft.util.*;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -27,6 +28,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Function;
 
 public class BlockChime extends BWMBlock {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
@@ -34,21 +36,14 @@ public class BlockChime extends BWMBlock {
     private static final AxisAlignedBB CHIME_AABB = new AxisAlignedBB(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.875D, 0.6875D);
     private SoundEvent chimeSound;
 
-    private BlockChime(BlockPlanks.EnumType type, Material material) {
+
+    private BlockChime(Material material) {
         super(material);
         this.setHardness(2.0F);
-
         this.setSoundType(SoundType.WOOD);
-        this.setRegistryName((material == Material.WOOD ? "bamboo" : "metal") + "_chime_" + type.getName());
-        this.setChimeSound(material == Material.IRON ? SoundRegistry.BLOCK_CHIME_METAL: SoundRegistry.BLOCK_CHIME_WOOD);
+        this.setChimeSound(material == Material.IRON ? SoundRegistry.BLOCK_CHIME_METAL : SoundRegistry.BLOCK_CHIME_WOOD);
     }
 
-    public static void init() {
-        for (BlockPlanks.EnumType type : BlockPlanks.EnumType.values()) {
-            BLOCKS.add(new BlockChime(type, Material.WOOD));
-            BLOCKS.add(new BlockChime(type, Material.IRON));
-        }
-    }
 
     private void setChimeSound(SoundEvent chimeSound) {
         this.chimeSound = chimeSound;
@@ -222,6 +217,26 @@ public class BlockChime extends BWMBlock {
     @Override
     public BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, ACTIVE);
+    }
+
+    public static class Generator extends BlockEntryBuilderGenerator<BlockPlanks.EnumType> {
+
+        private Material material;
+
+        public Generator(Material material) {
+            super(Lists.newArrayList(BlockPlanks.EnumType.values()));
+            this.material = material;
+        }
+
+        @Override
+        public Block createBlock(BlockPlanks.EnumType variant) {
+            return new BlockChime(material);
+        }
+
+        @Override
+        public ResourceLocation id(BlockPlanks.EnumType variant) {
+            return new ResourceLocation(ModLib.MODID, (material == Material.WOOD ? "bamboo" : "metal") + "_chime_" + variant.getName());
+        }
     }
 
 }

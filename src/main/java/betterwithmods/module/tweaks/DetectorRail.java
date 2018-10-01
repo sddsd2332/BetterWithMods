@@ -2,6 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.BetterWithMods;
 
+import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockRailDetectorBase;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.modularity.impl.Feature;
@@ -23,10 +24,10 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import java.util.Objects;
 
 
+
 public class DetectorRail extends Feature {
 
-    public static final Block DETECTOR_RAIL_STONE = new BlockRailDetectorBase(cart -> !(cart instanceof EntityMinecartEmpty) || BlockRailDetectorBase.isRider(cart, Objects::nonNull)).setRegistryName("detector_rail_stone");
-    public static final Block DETECTOR_RAIL_STEEL = new BlockRailDetectorBase(cart -> BlockRailDetectorBase.isRider(cart, rider -> rider instanceof EntityPlayer)).setRegistryName("detector_rail_steel");
+
 
     @Override
     public String getDescription() {
@@ -42,9 +43,6 @@ public class DetectorRail extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BlockRegistry.registerBlock(DETECTOR_RAIL_STEEL);
-        BlockRegistry.registerBlock(DETECTOR_RAIL_STONE);
-
         Blocks.DETECTOR_RAIL.setTranslationKey("detector_rail_wood");
 
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.DETECTOR_RAIL.getRegistryName()));
@@ -53,8 +51,8 @@ public class DetectorRail extends Feature {
     @Override
     public void onInit(FMLInitializationEvent event) {
         if (BetterWithMods.MODULE_LOADER.isFeatureEnabled(MetalReclaming.class)) {
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STONE, 6), new ItemStack(Items.IRON_INGOT, 6));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2)));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMBlocks.DETECTOR_RAIL_STONE, 6), new ItemStack(Items.IRON_INGOT, 6));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMBlocks.DETECTOR_RAIL_STEEL, 6), Lists.newArrayList(new ItemStack(Items.IRON_INGOT, 6), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2)));
         }
     }
 }

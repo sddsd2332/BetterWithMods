@@ -139,9 +139,9 @@ public class CauldronRecipes extends Feature {
                 cord),
                 ItemMaterial.getStack(ItemMaterial.EnumMaterial.FUSE));
         RecipeRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
-                StackIngredient.fromStacks(BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCKBLOOD, 4)),
+                StackIngredient.fromStacks(BlockAesthetic.getStack(BlockAesthetic.Type.CHOPBLOCKBLOOD, 4)),
                 new OreIngredient("soap")),
-                BlockAesthetic.getStack(BlockAesthetic.EnumType.CHOPBLOCK, 4));
+                BlockAesthetic.getStack(BlockAesthetic.Type.CHOPBLOCK, 4));
         RecipeRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
                 StackIngredient.fromStacks(new ItemStack(Blocks.STICKY_PISTON, 4)),
                 new OreIngredient("soap")),

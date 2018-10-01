@@ -27,11 +27,11 @@ public class TurntableRecipes extends Feature {
     @Override
     public void onInit(FMLInitializationEvent event) {
 
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(new ItemStack(Blocks.CLAY), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER));
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.VASE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.VASE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), Blocks.AIR.getDefaultState(), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(new ItemStack(Blocks.CLAY), BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.CRUCIBLE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.CRUCIBLE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.PLANTER));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.PLANTER), BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.VASE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.VASE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.URN), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.URN), Blocks.AIR.getDefaultState(), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
 
 
         TurntableRotationManager.addAttachment(b -> b instanceof BlockTorch);

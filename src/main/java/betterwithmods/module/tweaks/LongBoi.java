@@ -3,10 +3,12 @@ package betterwithmods.module.tweaks;
 import betterwithmods.client.render.RenderLongboi;
 import betterwithmods.common.blocks.BlockWolf;
 import betterwithmods.common.entity.EntityLongboi;
+import betterwithmods.library.common.block.BlockEntryBuilderFactory;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.module.hardcore.crafting.HCHopper;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.EntityRegistry;
 import betterwithmods.library.utils.EntityUtils;
@@ -35,9 +37,6 @@ import java.util.Optional;
 
 public class LongBoi extends Feature {
 
-
-    public static final Block LONG_FRIEND = new BlockWolf(new ResourceLocation(ModLib.MODID, "longboi")).setRegistryName("long_friend");
-
     private static Optional<EntityLivingBase> getEntity(World world, BlockPos pos) {
         return world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Entity::isEntityAlive).stream().findFirst();
     }
@@ -54,7 +53,10 @@ public class LongBoi extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BlockRegistry.registerBlock(LONG_FRIEND);
+        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .builder().block(new BlockWolf(new ResourceLocation(ModLib.MODID, "longboi"))).id("long_friend").build()
+                .complete());
+
         EntityRegistry.registerEntity(
                 EntityEntryBuilder.create()
                         .entity(EntityLongboi.class)

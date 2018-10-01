@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.world.stumping;
+package betterwithmods.module.hardcore.world.stumping.ctm;
 
 import team.chisel.ctm.api.texture.ITextureContext;
 

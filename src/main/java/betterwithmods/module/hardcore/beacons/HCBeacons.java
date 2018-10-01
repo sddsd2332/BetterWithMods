@@ -2,6 +2,8 @@ package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
+import betterwithmods.library.common.block.BlockEntryBuilder;
+import betterwithmods.library.common.block.BlockEntryBuilderFactory;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.ingredient.PredicateIngredient;
@@ -72,11 +74,13 @@ public class HCBeacons extends Feature {
         enderchestBeacon = loadProperty("Enderchest Beacon", true)
                 .setComment("Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Manual.").get();
 
-        BlockRegistry.registerBlock(new BlockBeacon().setRegistryName("minecraft:beacon"));
+        BlockEntryBuilderFactory<Void> factory = BlockEntryBuilderFactory.<Void>create()
+                .builder().block(new BlockBeacon()).id("minecraft:beacon").build();
         if (enderchestBeacon) {
-            BlockRegistry.registerBlock(new BlockEnderchest().setRegistryName("minecraft:ender_chest"));
+            factory.builder().block(new BlockEnderchest()).id("minecraft:ender_chest").build();
             CapabilityManager.INSTANCE.register(EnderchestCap.class, new EnderchestCap.Storage(), EnderchestCap::new);
         }
+        BlockRegistry.registerBlocks(factory.complete());
         CapabilityManager.INSTANCE.register(CapabilityBeacon.class, new CapabilityBeacon.Storage(), CapabilityBeacon::new);
     }
 

@@ -1,5 +1,6 @@
-package betterwithmods.module.hardcore.world.stumping;
+package betterwithmods.module.hardcore.world.stumping.ctm;
 
+import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.multiplayer.WorldClient;

@@ -23,7 +23,7 @@ public class MoreCobble extends Feature {
                     case DIORITE:
                     case ANDESITE:
                         event.getDrops().clear();
-                        event.getDrops().add(BlockCobble.getStack(BlockCobble.EnumType.convert(type)));
+                        event.getDrops().add(BlockCobble.getStack(BlockCobble.Type.convert(type)));
                 }
             }
         }
