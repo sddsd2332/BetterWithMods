@@ -5,7 +5,7 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.ICrankable;
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.api.util.IProgressSource;
+import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.common.blocks.mechanical.cookingpot.BlockCookingPot;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerBulk;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;

@@ -1,6 +1,6 @@
 package betterwithmods.common.container.bulk;
 
-import betterwithmods.common.container.ContainerProgress;
+import betterwithmods.library.common.container.ContainerProgress;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.tile.TileFilteredHopper;
 import betterwithmods.library.utils.CapabilityUtils;

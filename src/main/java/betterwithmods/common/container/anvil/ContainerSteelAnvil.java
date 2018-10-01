@@ -2,6 +2,7 @@ package betterwithmods.common.container.anvil;
 
 import betterwithmods.common.tile.TileSteelAnvil;
 import betterwithmods.module.internal.RecipeRegistry;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.InventoryPlayer;
 import net.minecraft.inventory.Container;
@@ -24,11 +25,11 @@ public class ContainerSteelAnvil extends Container {
     private final TileSteelAnvil te;
     private final IItemHandler handler;
 
-    public ContainerSteelAnvil(InventoryPlayer inventory, TileSteelAnvil te) {
+    public ContainerSteelAnvil(EntityPlayer player, TileSteelAnvil te) {
         this.te = te;
         this.handler = te.inventory;
-        this.inventoryPlayer = inventory;
-        this.player = inventory.player;
+        this.inventoryPlayer = player.inventory;
+        this.player = player;
         craftMatrix = new InventorySteelCrafting(this, te);
         craftResult = new InventorySteelCraftingResult(te);
         this.addSlotToContainer(new SlotSteelAnvilCrafting(player, craftMatrix, craftResult, 0, 124, 44));
@@ -39,11 +40,11 @@ public class ContainerSteelAnvil extends Container {
         }
         for (int i = 0; i < 3; ++i) {
             for (int j = 0; j < 9; ++j) {
-                this.addSlotToContainer(new Slot(inventory, j + i * 9 + 9, 8 + j * 18, 102 + i * 18));
+                this.addSlotToContainer(new Slot(this.inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 102 + i * 18));
             }
         }
         for (int i = 0; i < 9; ++i) {
-            this.addSlotToContainer(new Slot(inventory, i, 8 + i * 18, 160));
+            this.addSlotToContainer(new Slot(this.inventoryPlayer, i, 8 + i * 18, 160));
         }
         this.onCraftMatrixChanged(craftMatrix);
     }

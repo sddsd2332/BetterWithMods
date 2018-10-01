@@ -5,7 +5,7 @@ import betterwithmods.api.block.ISoulContainer;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IHopperFilter;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.api.util.IProgressSource;
+import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.client.model.filters.ModelWithResource;
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;

@@ -11,6 +11,7 @@ public class GuiBlockDispenser extends GuiBase {
     private static final String NAME = "inv.betterwithmods.dispenser.name";
     private final TileBlockDispenser tile;
 
+
     public GuiBlockDispenser(EntityPlayer player, TileBlockDispenser tile) {
         super(new ContainerBlockDispenser(player, tile), new ResourceLocation(ModLib.MODID, "textures/gui/dispenser.png"));
         this.tile = tile;

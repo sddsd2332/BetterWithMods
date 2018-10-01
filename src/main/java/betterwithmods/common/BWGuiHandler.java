@@ -44,7 +44,7 @@ public class BWGuiHandler implements IGuiHandler {
                 if (tile instanceof TileFilteredHopper)
                     return new ContainerFilteredHopper(player, (TileFilteredHopper) tile);
                 if (tile instanceof TileSteelAnvil)
-                    return new ContainerSteelAnvil(player.inventory, (TileSteelAnvil) tile);
+                    return new ContainerSteelAnvil(player, (TileSteelAnvil) tile);
                 if (tile instanceof TileInfernalEnchanter)
                     return new ContainerInfernalEnchanter(player, (TileInfernalEnchanter) tile);
                 return null;
@@ -73,7 +73,7 @@ public class BWGuiHandler implements IGuiHandler {
                 if (tile instanceof TileFilteredHopper)
                     return new GuiFilteredHopper(player, (TileFilteredHopper) tile);
                 if (tile instanceof TileSteelAnvil)
-                    return new GuiSteelAnvil((TileSteelAnvil) tile, new ContainerSteelAnvil(player.inventory, (TileSteelAnvil) tile));
+                    return new GuiSteelAnvil((TileSteelAnvil) tile, new ContainerSteelAnvil(player, (TileSteelAnvil) tile));
                 if (tile instanceof TileInfernalEnchanter)
                     return new GuiInfernalEnchanter(player, (TileInfernalEnchanter) tile);
                 return null;

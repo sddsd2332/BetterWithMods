@@ -1,6 +1,6 @@
 package betterwithmods.common.container.bulk;
 
-import betterwithmods.common.container.ContainerProgress;
+import betterwithmods.library.common.container.ContainerProgress;
 import betterwithmods.common.tile.TileMill;
 import betterwithmods.library.utils.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;

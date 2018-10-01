@@ -5,7 +5,7 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.api.tile.ICrankable;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.api.util.IProgressSource;
+import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.library.common.tile.TileBasicInventory;
 import betterwithmods.module.internal.RecipeRegistry;

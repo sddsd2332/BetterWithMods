@@ -5,7 +5,7 @@ import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.tile.IRopeConnector;
-import betterwithmods.api.util.IProgressSource;
+import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockRope;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
