@@ -1,6 +1,6 @@
 package betterwithmods.network.handler;
 
-import betterwithmods.library.network.MessageHandler;
+import betterwithmods.library.common.network.MessageHandler;
 import betterwithmods.network.messages.MessageRotate;
 import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.entity.Entity;

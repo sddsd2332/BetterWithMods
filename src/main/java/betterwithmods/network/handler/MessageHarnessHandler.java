@@ -1,6 +1,6 @@
 package betterwithmods.network.handler;
 
-import betterwithmods.library.network.MessageHandler;
+import betterwithmods.library.common.network.MessageHandler;
 import betterwithmods.module.recipes.animal_restraint.AnimalRestraint;
 import betterwithmods.module.recipes.animal_restraint.Harness;
 import betterwithmods.network.messages.MessageHarness;

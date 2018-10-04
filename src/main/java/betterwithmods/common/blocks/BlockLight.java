@@ -1,6 +1,7 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.util.item.ToolsManager;
+import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.utils.ToolUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -26,7 +27,7 @@ public class BlockLight extends BlockBase {
         this.setHardness(2.0F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, true));
         this.setSoundType(SoundType.GLASS);
-        ToolsManager.setPickaxesAsEffectiveAgainst(this);
+        ToolUtils.setPickaxesAsEffectiveAgainst(this);
     }
 
     @SuppressWarnings("deprecation")

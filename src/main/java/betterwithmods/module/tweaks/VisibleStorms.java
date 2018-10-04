@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.state.IBlockState;

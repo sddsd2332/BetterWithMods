@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.creatures.chicken;
 
 import betterwithmods.common.entity.EntityIngredientRelation;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.TimeUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLiving;

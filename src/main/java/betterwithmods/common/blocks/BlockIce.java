@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.util.FluidUtils;
-import betterwithmods.util.item.ToolsManager;
+import betterwithmods.library.utils.ToolUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -25,7 +25,7 @@ public class BlockIce extends net.minecraft.block.BlockIce {
         setLightOpacity(3);
         setSoundType(SoundType.GLASS);
         setTranslationKey("ice");
-        ToolsManager.setPickaxesAsEffectiveAgainst(this);
+        ToolUtils.setPickaxesAsEffectiveAgainst(this);
     }
 
     @Override

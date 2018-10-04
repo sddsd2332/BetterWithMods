@@ -3,26 +3,18 @@ package betterwithmods.module.tweaks;
 import betterwithmods.BetterWithMods;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.BlockRailDetectorBase;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.library.modularity.impl.Feature;
-import betterwithmods.library.recipes.RecipeMatchers;
-import betterwithmods.library.recipes.RecipeRemover;
-import betterwithmods.module.internal.BlockRegistry;
+import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.recipes.RecipeMatchers;
+import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.MetalReclaming;
 import com.google.common.collect.Lists;
-import net.minecraft.block.Block;
-import net.minecraft.entity.item.EntityMinecartEmpty;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-
-import java.util.Objects;
-
 
 
 public class DetectorRail extends Feature {

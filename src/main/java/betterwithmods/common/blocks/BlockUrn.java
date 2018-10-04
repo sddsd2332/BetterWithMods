@@ -4,6 +4,7 @@ import betterwithmods.api.block.ISoulContainer;
 import betterwithmods.api.block.IUrnConnector;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockFilteredHopper;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

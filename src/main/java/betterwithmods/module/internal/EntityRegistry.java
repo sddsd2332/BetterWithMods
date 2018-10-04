@@ -4,19 +4,15 @@ import betterwithmods.common.entity.*;
 import betterwithmods.common.entity.item.EntityFallingBlockCustom;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.RequiredFeature;
+import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import com.google.common.collect.Lists;
-import net.minecraft.entity.Entity;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
 import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.List;
 

@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.entity.ai.attributes.IAttributeInstance;

@@ -5,7 +5,7 @@ import betterwithmods.api.block.IAdvancedRotationPlacement;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.api.block.IRenderRotationPlacement;
 import betterwithmods.client.ClientEventHandler;
-import betterwithmods.common.blocks.BlockBase;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.common.tile.TileGearbox;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;

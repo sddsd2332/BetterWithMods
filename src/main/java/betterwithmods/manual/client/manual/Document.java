@@ -22,10 +22,10 @@ import java.util.regex.Pattern;
  * Primitive Markdown parser, only supports a very small subset. Used for
  * parsing documentation into segments, to be displayed in a GUI somewhere.
  * <p>
- * General usage is: parse a string using parse(), render it using render().
+ * General usage is: parse a string using parse(), baking it using baking().
  * <p>
  * The parser generates a list of segments, each segment representing a part
- * of the document, with a specific formatting / render type. For example,
+ * of the document, with a specific formatting / baking type. For example,
  * links are their own segments, a bold section in a link would be its own
  * section and so on.
  * The data structure is essentially a very flat multi-tree, where the segments
@@ -120,11 +120,11 @@ public final class Document {
      * Renders a list of segments and tooltips if a segment with a tooltip is hovered.
      * Returns the hovered interactive segment, if any.
      *
-     * @param document  the document to render.
-     * @param x         the x position to render at.
-     * @param y         the y position to render at.
-     * @param maxWidth  the width of the area to render the document in.
-     * @param maxHeight the height of the area to render the document in.
+     * @param document  the document to baking.
+     * @param x         the x position to baking at.
+     * @param y         the y position to baking at.
+     * @param maxWidth  the width of the area to baking the document in.
+     * @param maxHeight the height of the area to baking the document in.
      * @param yOffset   the vertical scroll offset of the document.
      * @param renderer  the font renderer to use.
      * @param mouseX    the x position of the mouse.

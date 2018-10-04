@@ -1,7 +1,8 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.BlockTypeGenerator;
+import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.common.block.creation.BlockTypeGenerator;
 import betterwithmods.library.common.block.IBlockType;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;

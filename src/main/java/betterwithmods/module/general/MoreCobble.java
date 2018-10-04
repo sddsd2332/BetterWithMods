@@ -1,7 +1,7 @@
 package betterwithmods.module.general;
 
 import betterwithmods.common.blocks.BlockCobble;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;

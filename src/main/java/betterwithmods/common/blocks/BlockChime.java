@@ -1,7 +1,8 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.BlockEntryBuilderGenerator;
+import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.common.block.creation.BlockEntryBuilderGenerator;
 import betterwithmods.module.internal.SoundRegistry;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;

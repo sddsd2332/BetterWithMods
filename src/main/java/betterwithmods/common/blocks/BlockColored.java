@@ -1,5 +1,6 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.library.common.block.BlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.item.EnumDyeColor;

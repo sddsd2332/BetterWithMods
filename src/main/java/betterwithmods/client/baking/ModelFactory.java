@@ -20,6 +20,7 @@
 package betterwithmods.client.baking;
 
 import betterwithmods.client.model.render.RenderUtils;
+import betterwithmods.library.client.baking.IStateParticleBakedModel;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;

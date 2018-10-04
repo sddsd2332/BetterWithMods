@@ -1,13 +1,12 @@
 package betterwithmods.module.hardcore.crafting;
 
 
-import betterwithmods.library.modularity.impl.Feature;
-import betterwithmods.library.recipes.RecipeMatchers;
-import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.recipes.RecipeMatchers;
+import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class PowderKegs extends Feature {

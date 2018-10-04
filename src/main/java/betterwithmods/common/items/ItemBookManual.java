@@ -1,6 +1,7 @@
 package betterwithmods.common.items;
 
 import betterwithmods.lib.TooltipLib;
+import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.manual.api.ManualAPI;
 import net.minecraft.client.util.ITooltipFlag;
 import net.minecraft.entity.player.EntityPlayer;
@@ -74,7 +75,7 @@ public final class ItemBookManual extends ItemBook {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(TooltipLib.getTooltip(TooltipLib.BOOK));
+        tooltip.add(TooltipUtils.getTooltip(TooltipLib.BOOK));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }

@@ -2,7 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.Explosion;

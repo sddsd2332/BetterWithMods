@@ -1,7 +1,7 @@
 package betterwithmods.common.penalties.attribute;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.Range;
 

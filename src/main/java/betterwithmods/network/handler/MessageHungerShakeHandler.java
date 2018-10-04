@@ -1,7 +1,7 @@
 package betterwithmods.network.handler;
 
 import betterwithmods.client.gui.GuiHunger;
-import betterwithmods.library.network.MessageHandler;
+import betterwithmods.library.common.network.MessageHandler;
 import betterwithmods.network.messages.MessageHungerShake;
 import net.minecraftforge.fml.common.network.simpleimpl.MessageContext;
 

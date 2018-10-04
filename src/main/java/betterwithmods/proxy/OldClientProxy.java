@@ -6,8 +6,8 @@
 //import betterwithmods.client.ColorHandlers;
 //import betterwithmods.client.ResourceProxy;
 //import betterwithmods.client.baking.BarkModel;
-//import betterwithmods.client.model.render.RenderUtils;
-//import betterwithmods.client.render.*;
+//import betterwithmods.client.model.baking.RenderUtils;
+//import betterwithmods.client.baking.*;
 //import betterwithmods.client.tesr.*;
 //import betterwithmods.common.BWMBlocks;
 //import betterwithmods.common.BWMItems;
@@ -15,7 +15,7 @@
 //import betterwithmods.common.entity.*;
 //import betterwithmods.common.tile.*;
 //import betterwithmods.lib.ModLib;
-//import betterwithmods.lib.ReflectionLib;
+//import betterwithmods.library.lib.ReflectionLib;
 //import betterwithmods.module.hardcore.beacons.TileBeacon;
 //import betterwithmods.module.hardcore.crafting.HCFurnace;
 //import betterwithmods.module.hardcore.creatures.EntityTentacle;

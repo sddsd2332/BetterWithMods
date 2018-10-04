@@ -1,7 +1,7 @@
 package betterwithmods.module.recipes;
 
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.CapabilityUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;

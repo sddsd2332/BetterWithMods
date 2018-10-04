@@ -16,7 +16,7 @@ import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
 import betterwithmods.common.registry.hopper.recipes.SoulUrnRecipe;
 import betterwithmods.common.tile.TileFilteredHopper;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;

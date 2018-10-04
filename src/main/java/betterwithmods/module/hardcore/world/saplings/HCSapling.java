@@ -1,9 +1,9 @@
 package betterwithmods.module.hardcore.world.saplings;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.BlockEntryBuilderFactory;
-import betterwithmods.library.common.block.BlockEntryBuilderGenerator;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
+import betterwithmods.library.common.block.creation.BlockEntryBuilderGenerator;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;

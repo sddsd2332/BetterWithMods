@@ -1,7 +1,7 @@
 package betterwithmods.module.recipes;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;

@@ -1,6 +1,6 @@
 package betterwithmods.module.general;
 
-import betterwithmods.library.modularity.impl.RequiredModule;
+import betterwithmods.library.common.modularity.impl.RequiredModule;
 import betterwithmods.module.internal.UnitTesting;
 import betterwithmods.module.internal.player.PlayerDataHandler;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;

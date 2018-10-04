@@ -2,6 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
+import betterwithmods.library.common.block.BlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.entity.passive.EntityChicken;
 import net.minecraft.entity.projectile.EntityEgg;

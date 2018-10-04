@@ -4,7 +4,7 @@ import betterwithmods.common.potion.BWPotion;
 import betterwithmods.common.potion.PotionSlowfall;
 import betterwithmods.common.potion.PotionTruesight;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.RequiredFeature;
+import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.Mod;

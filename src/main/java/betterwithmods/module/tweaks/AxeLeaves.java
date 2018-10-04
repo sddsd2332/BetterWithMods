@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 

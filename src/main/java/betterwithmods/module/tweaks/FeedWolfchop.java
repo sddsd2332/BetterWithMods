@@ -2,7 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;

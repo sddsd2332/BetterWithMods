@@ -5,7 +5,7 @@ import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageGloom;

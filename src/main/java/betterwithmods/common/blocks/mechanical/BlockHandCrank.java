@@ -2,9 +2,10 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.common.blocks.BlockBase;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.common.tile.TileHandCrank;
 import betterwithmods.lib.TooltipLib;
+import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.module.general.MechanicalPower;
 import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.Block;
@@ -83,7 +84,7 @@ public class BlockHandCrank extends BlockBase implements IOverpower {
             }
         } else if (world.isRemote) {
             if (hand == EnumHand.MAIN_HAND)
-                player.sendStatusMessage(TooltipLib.getMessageComponent(TooltipLib.HANDCRANK_EXHAUSTION), true);
+                player.sendStatusMessage(TooltipUtils.getMessageComponent(TooltipLib.HANDCRANK_EXHAUSTION), true);
             return false;
         }
         return true;

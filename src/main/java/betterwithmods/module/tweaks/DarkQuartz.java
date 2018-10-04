@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class DarkQuartz extends Feature {

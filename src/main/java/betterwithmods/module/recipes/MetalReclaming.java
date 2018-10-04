@@ -4,7 +4,7 @@ import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.tweaks.CheaperAxes;
 import com.google.common.collect.Lists;

@@ -1,11 +1,9 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.BlockEntryBuilderGenerator;
-import betterwithmods.library.common.block.BlockTypeGenerator;
+import betterwithmods.library.common.block.creation.BlockTypeGenerator;
 import betterwithmods.library.common.block.IBlockType;
 import betterwithmods.library.utils.GlobalUtils;
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.material.MapColor;
@@ -13,7 +11,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;

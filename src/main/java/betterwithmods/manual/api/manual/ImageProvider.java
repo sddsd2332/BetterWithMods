@@ -7,7 +7,7 @@ import javax.annotation.Nullable;
  * in manual pages. Each provider can be registered for one or more prefixes,
  * and will be selected based on the prefix it was registered with. It is
  * expected to return an image renderer, which essentially represents the
- * area it will render to.
+ * area it will baking to.
  */
 public interface ImageProvider {
     /**

@@ -2,7 +2,8 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.registry.crafting.IngredientTool;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.BlockTypeGenerator;
+import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.common.block.creation.BlockTypeGenerator;
 import betterwithmods.library.common.block.IBlockType;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.InventoryUtils;

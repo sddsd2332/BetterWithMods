@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.ai.EntityAIFlee;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;

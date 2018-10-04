@@ -26,7 +26,7 @@ public interface Segment {
     Segment root();
 
     /**
-     * Get the X coordinate at which to render the next segment.
+     * Get the X coordinate at which to baking the next segment.
      * <p>
      * For flowing/inline segments this will be to the right of the last line
      * this segment renders, for block segments it will be at the start of
@@ -42,7 +42,7 @@ public interface Segment {
     int nextX(int indent, int maxWidth, FontRenderer renderer);
 
     /**
-     * Get the Y coordinate at which to render the next segment.
+     * Get the Y coordinate at which to baking the next segment.
      * <p>
      * For flowing/inline segments this will be the same level as the last line
      * this segment renders, unless it's the last segment on its line. For block
@@ -61,8 +61,8 @@ public interface Segment {
      * Render the segment at the specified coordinates with the specified
      * properties.
      *
-     * @param x        the x position to render at.
-     * @param y        the y position to render at.
+     * @param x        the x position to baking at.
+     * @param y        the y position to baking at.
      * @param indent   the current indentation.
      * @param maxWidth the maximum width of the document.
      * @param renderer the font renderer to use.

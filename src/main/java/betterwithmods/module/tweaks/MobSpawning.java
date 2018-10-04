@@ -3,7 +3,7 @@ package betterwithmods.module.tweaks;
 import betterwithmods.common.entity.EntityJungleSpider;
 import betterwithmods.common.entity.SpawningWhitelist;
 import betterwithmods.library.utils.ingredient.blockstate.MaterialIngredient;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EnumCreatureType;

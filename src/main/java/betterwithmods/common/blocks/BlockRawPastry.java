@@ -1,9 +1,8 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.BlockTypeGenerator;
+import betterwithmods.library.common.block.creation.BlockTypeGenerator;
 import betterwithmods.library.common.block.IBlockType;
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;
@@ -20,7 +19,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
 
 /**
  * Created by blueyu2 on 11/19/16.

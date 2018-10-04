@@ -1,13 +1,7 @@
 package betterwithmods.lib;
 
-import net.minecraft.util.text.TextComponentTranslation;
-
 public class TooltipLib {
-
-
     public static final String BOOK = "book";
-
-    public static final String ROTATE_WITH_HAND = "rotate_with_hand";
 
     public static final String RANDOM_OUTPUT = "random_output";
 
@@ -33,24 +27,4 @@ public class TooltipLib {
     public static final String BEACON_SPAWN_SET = "beacon_spawn_set";
     public static final String BEACON_SPAWN_ALREDY_SET = "beacon_spawn_already_set";
 
-
-    public static TextComponentTranslation getInfoComponent(String prefix, String base, Object... format) {
-        return new TextComponentTranslation(String.format("%s.%s:%s", prefix, ModLib.MODID, base), format);
-    }
-
-    public static TextComponentTranslation getMessageComponent(String base, Object... format) {
-        return getInfoComponent("message", base, format);
-    }
-
-    public static TextComponentTranslation getTooltipComponent(String base, Object... format) {
-        return getInfoComponent("tooltip", base, format);
-    }
-
-    public static String getTooltip(String base, Object... format) {
-        return getTooltipComponent(base, format).getFormattedText();
-    }
-
-    public static String getMessage(String base, Object... format) {
-        return getMessageComponent(base, format).getFormattedText();
-    }
 }

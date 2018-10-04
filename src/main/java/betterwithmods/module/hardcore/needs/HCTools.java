@@ -2,17 +2,16 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMItems;
 
-import betterwithmods.lib.ReflectionLib;
-import betterwithmods.library.modularity.impl.Feature;
-import betterwithmods.library.recipes.RecipeMatchers;
-import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.library.lib.ReflectionLib;
+import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.recipes.RecipeMatchers;
+import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.*;
 import net.minecraft.util.math.BlockPos;
@@ -25,7 +24,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
-import net.minecraftforge.oredict.OreDictionary;
 
 import java.util.HashMap;
 import java.util.HashSet;

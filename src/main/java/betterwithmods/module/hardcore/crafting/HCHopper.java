@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
-import betterwithmods.library.common.block.BlockEntryBuilderFactory;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

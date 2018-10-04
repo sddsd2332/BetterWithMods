@@ -1,6 +1,6 @@
 package betterwithmods.util;
 
-import betterwithmods.lib.ReflectionLib;
+import betterwithmods.library.lib.ReflectionLib;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;

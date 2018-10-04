@@ -6,7 +6,7 @@ import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.items.ItemBark;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.miniblocks.MiniBlockIngredient;
 import betterwithmods.library.utils.ingredient.StackIngredient;

@@ -1,5 +1,6 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.library.common.block.BlockBase;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

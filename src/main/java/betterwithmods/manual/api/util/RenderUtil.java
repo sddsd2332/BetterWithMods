@@ -113,7 +113,7 @@ public final class RenderUtil {
      * <p>
      * The UV coordinates are relative to the sprite.
      *
-     * @param sprite the sprite to render.
+     * @param sprite the sprite to baking.
      * @param x      the x position of the quad.
      * @param y      the y position of the quad.
      * @param w      the width of the quad.
@@ -133,7 +133,7 @@ public final class RenderUtil {
      * <p>
      * The UV coordinates are relative to the sprite.
      *
-     * @param sprite the sprite to render.
+     * @param sprite the sprite to baking.
      * @param u0     lower u texture coordinate.
      * @param v0     lower v texture coordinate.
      * @param u1     upper u texture coordinate.
@@ -147,7 +147,7 @@ public final class RenderUtil {
     /**
      * Draw a full one-by-one quad with the specified sprite texture.
      *
-     * @param sprite the sprite to render.
+     * @param sprite the sprite to baking.
      */
     @SideOnly(Side.CLIENT)
     public static void drawQuad(final TextureAtlasSprite sprite) {

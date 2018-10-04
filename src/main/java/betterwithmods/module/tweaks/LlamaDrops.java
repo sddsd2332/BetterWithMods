@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;

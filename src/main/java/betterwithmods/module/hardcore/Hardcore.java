@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.client.gui.GuiStatus;
-import betterwithmods.library.modularity.impl.Module;
+import betterwithmods.library.common.modularity.impl.Module;
 import betterwithmods.module.general.MoreCobble;
 import betterwithmods.module.hardcore.beacons.HCBeacons;
 import betterwithmods.module.hardcore.crafting.*;

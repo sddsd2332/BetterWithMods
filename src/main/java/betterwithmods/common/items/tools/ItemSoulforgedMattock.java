@@ -3,7 +3,7 @@ package betterwithmods.common.items.tools;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
-import betterwithmods.util.item.ToolsManager;
+import betterwithmods.library.utils.ToolUtils;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 public class ItemSoulforgedMattock extends ItemTool {
-    private static final Set<Block> EFFECTIVE = Sets.union(ToolsManager.getEffectiveBlocks((ItemTool) BWMItems.STEEL_PICKAXE), ToolsManager.getEffectiveBlocks((ItemTool) BWMItems.STEEL_SHOVEL));
+    private static final Set<Block> EFFECTIVE = Sets.union(ToolUtils.getEffectiveBlocks((ItemTool) BWMItems.STEEL_PICKAXE), ToolUtils.getEffectiveBlocks((ItemTool) BWMItems.STEEL_SHOVEL));
 
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(Material.ROCK, Material.IRON, Material.ANVIL,
             Material.GROUND, Material.GRASS, Material.CLAY, Material.GLASS, Material.PISTON, Material.SNOW);

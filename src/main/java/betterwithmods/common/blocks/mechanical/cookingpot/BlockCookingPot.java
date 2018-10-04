@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical.cookingpot;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.common.blocks.BlockBase;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

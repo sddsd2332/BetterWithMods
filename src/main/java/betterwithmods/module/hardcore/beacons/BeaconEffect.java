@@ -3,7 +3,7 @@ package betterwithmods.module.hardcore.beacons;
 import betterwithmods.library.utils.ListUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;

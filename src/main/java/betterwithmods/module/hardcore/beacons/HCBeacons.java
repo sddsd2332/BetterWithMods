@@ -2,13 +2,12 @@ package betterwithmods.module.hardcore.beacons;
 
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
-import betterwithmods.library.common.block.BlockEntryBuilder;
-import betterwithmods.library.common.block.BlockEntryBuilderFactory;
+import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.ingredient.PredicateIngredient;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.PotionRegistry;
 import betterwithmods.util.player.PlayerUtils;

@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks.mechanical;
 
-import betterwithmods.common.blocks.BlockBase;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.common.tile.TileCreativeGenerator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

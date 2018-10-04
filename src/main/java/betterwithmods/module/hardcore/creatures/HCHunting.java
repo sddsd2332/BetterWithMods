@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.entity.ai.ShooterSpiderWeb;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntitySpider;

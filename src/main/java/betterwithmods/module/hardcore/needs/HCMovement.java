@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockDirtSlab;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.material.Material;
@@ -18,7 +18,6 @@ import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;

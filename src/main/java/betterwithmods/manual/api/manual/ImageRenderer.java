@@ -35,8 +35,8 @@ public interface ImageRenderer {
     /**
      * Render the image, with specified maximum width.
      * <p>
-     * This should render the image as is, the OpenGL state will be set up
-     * such that you can start drawing at (0,0,*), and render up to
+     * This should baking the image as is, the OpenGL state will be set up
+     * such that you can start drawing at (0,0,*), and baking up to
      * (getWidth,getHeight,*), i.e. translation and scaling are taken care
      * of for you.
      *

@@ -1,5 +1,6 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.util.DirUtils;
 import com.google.common.collect.Sets;

@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.world;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
 
 /**

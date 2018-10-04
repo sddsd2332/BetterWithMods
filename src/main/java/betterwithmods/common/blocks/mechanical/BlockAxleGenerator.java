@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.BlockBase;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;

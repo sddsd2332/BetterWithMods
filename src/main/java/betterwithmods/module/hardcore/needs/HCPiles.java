@@ -5,7 +5,7 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.registry.BrokenToolRegistry;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.Block;

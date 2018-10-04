@@ -1,6 +1,7 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
 import betterwithmods.common.entity.EntitySitMount;
+import betterwithmods.library.utils.HoldingUtils;
 import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -21,7 +22,7 @@ public interface ISittable {
     }
 
     default boolean attemptToSit(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (!playerIn.isRiding() && PlayerUtils.areHandsEmpty(playerIn) && worldIn.getEntitiesWithinAABB(EntitySitMount.class, getBoundingBox(state, worldIn, pos).offset(pos)).isEmpty()) {
+        if (!playerIn.isRiding() && HoldingUtils.areHandsEmpty(playerIn) && worldIn.getEntitiesWithinAABB(EntitySitMount.class, getBoundingBox(state, worldIn, pos).offset(pos)).isEmpty()) {
             EntitySitMount mount = new EntitySitMount(worldIn, getOffset());
             mount.setPosition(pos.getX() + 0.5, pos.getY() + 0.25, pos.getZ() + 0.5);
             worldIn.spawnEntity(mount);

@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.world;
 
-import betterwithmods.library.modularity.impl.Feature;
-import betterwithmods.util.item.ToolsManager;
+import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.utils.ToolUtils;
 import net.minecraft.init.Blocks;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
@@ -59,9 +59,9 @@ public class HCHardness extends Feature {
         Blocks.FIRE.setFireInfo(Blocks.LEAVES2, 60, 100);
         rebalanceVanillaHardness();
 
-        ToolsManager.setAxesAsEffectiveAgainst(Blocks.COCOA, Blocks.SKULL, Blocks.VINE, Blocks.WEB, Blocks.CACTUS);
+        ToolUtils.setAxesAsEffectiveAgainst(Blocks.COCOA, Blocks.SKULL, Blocks.VINE, Blocks.WEB, Blocks.CACTUS);
 
-        ToolsManager.setPickaxesAsEffectiveAgainst(Blocks.LEVER, Blocks.GLASS, Blocks.STAINED_GLASS, Blocks.GLASS_PANE, Blocks.STAINED_GLASS_PANE,
+        ToolUtils.setPickaxesAsEffectiveAgainst(Blocks.LEVER, Blocks.GLASS, Blocks.STAINED_GLASS, Blocks.GLASS_PANE, Blocks.STAINED_GLASS_PANE,
                 Blocks.STONE_BUTTON, Blocks.PISTON, Blocks.STICKY_PISTON, Blocks.PISTON_EXTENSION,
                 Blocks.GLOWSTONE, Blocks.BEACON, Blocks.MONSTER_EGG,
                 Blocks.REDSTONE_LAMP, Blocks.LIT_REDSTONE_LAMP

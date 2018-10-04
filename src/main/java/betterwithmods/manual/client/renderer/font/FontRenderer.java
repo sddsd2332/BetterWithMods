@@ -7,7 +7,7 @@ public interface FontRenderer {
     /**
      * Render the specified string.
      *
-     * @param value the string to render.
+     * @param value the string to baking.
      */
     void drawString(final CharSequence value);
 
@@ -17,8 +17,8 @@ public interface FontRenderer {
      * This is intended as a convenience method for clamped-width rendering,
      * avoiding additional string operations such as <tt>substring</tt>.
      *
-     * @param value    the string to render.
-     * @param maxChars the maximum number of characters to render.
+     * @param value    the string to baking.
+     * @param maxChars the maximum number of characters to baking.
      */
     void drawString(final CharSequence value, final int maxChars);
 

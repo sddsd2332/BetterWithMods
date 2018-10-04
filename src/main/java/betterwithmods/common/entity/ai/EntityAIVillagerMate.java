@@ -1,6 +1,6 @@
 package betterwithmods.common.entity.ai;
 
-import betterwithmods.lib.ReflectionLib;
+import betterwithmods.library.lib.ReflectionLib;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.item.EntityXPOrb;
 import net.minecraft.entity.passive.EntityVillager;

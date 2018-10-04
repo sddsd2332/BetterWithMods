@@ -1,9 +1,9 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.library.modularity.impl.Feature;
-import betterwithmods.library.recipes.RecipeMatchers;
-import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.recipes.RecipeMatchers;
+import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;

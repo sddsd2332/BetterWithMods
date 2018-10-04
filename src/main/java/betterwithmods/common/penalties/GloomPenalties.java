@@ -1,6 +1,6 @@
 package betterwithmods.common.penalties;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.hardcore.needs.HCGloom;
 import net.minecraft.entity.player.EntityPlayer;
 import org.apache.commons.lang3.Range;

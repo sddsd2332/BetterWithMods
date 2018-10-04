@@ -5,7 +5,7 @@ import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.crafting.RecipeArmorDye;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

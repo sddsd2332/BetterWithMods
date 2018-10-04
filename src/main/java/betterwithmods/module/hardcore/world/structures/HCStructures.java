@@ -2,11 +2,11 @@ package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
 
-import betterwithmods.library.recipes.RecipeMatchers;
-import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.library.common.recipes.RecipeMatchers;
+import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
-import betterwithmods.library.event.StructureSetBlockEvent;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.event.StructureSetBlockEvent;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockLadder;
@@ -15,7 +15,6 @@ import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;

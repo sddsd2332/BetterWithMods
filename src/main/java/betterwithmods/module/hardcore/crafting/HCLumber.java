@@ -4,9 +4,9 @@ import betterwithmods.api.util.IBlockVariants;
 import betterwithmods.common.BWMOreDictionary;
 
 import betterwithmods.common.registry.BrokenToolRegistry;
-import betterwithmods.library.modularity.impl.Feature;
-import betterwithmods.library.recipes.RecipeMatchers;
-import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.recipes.RecipeMatchers;
+import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;

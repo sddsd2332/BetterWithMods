@@ -1,8 +1,8 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
-import betterwithmods.library.event.StructureSetBlockEvent;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.event.StructureSetBlockEvent;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.hardcore.world.structures.IngredientChanger;
 import betterwithmods.module.hardcore.world.structures.StructureChanger;
 import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;

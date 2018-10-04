@@ -1,6 +1,6 @@
 package betterwithmods.module.internal;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.testing.BWMTests;
 import net.minecraftforge.fml.common.event.FMLServerStartedEvent;
 

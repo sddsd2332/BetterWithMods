@@ -3,6 +3,7 @@ package betterwithmods.common.blocks;
 import betterwithmods.api.tile.IRopeConnector;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;

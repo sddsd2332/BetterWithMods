@@ -4,9 +4,9 @@ import betterwithmods.common.BWMItems;
 
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.items.ItemFertilizer;
-import betterwithmods.library.modularity.impl.Feature;
-import betterwithmods.library.recipes.RecipeMatchers;
-import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.recipes.RecipeMatchers;
+import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.player.PlayerUtils;
@@ -26,7 +26,6 @@ import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
-import net.minecraftforge.oredict.OreDictionary;
 
 /**
  * Created by primetoxinz on 5/14/17.

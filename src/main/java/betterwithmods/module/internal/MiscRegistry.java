@@ -22,8 +22,8 @@ import betterwithmods.common.registry.BellowsManager;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.lib.ModLib;
-import betterwithmods.lib.ReflectionLib;
-import betterwithmods.library.modularity.impl.RequiredFeature;
+import betterwithmods.library.lib.ReflectionLib;
+import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ListUtils;
@@ -60,7 +60,6 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;
 

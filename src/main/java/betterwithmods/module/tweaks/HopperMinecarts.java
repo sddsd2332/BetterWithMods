@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityMinecartHopper;

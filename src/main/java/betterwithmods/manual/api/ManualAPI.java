@@ -30,7 +30,7 @@ public final class ManualAPI {
      * only register as many tabs as actually, technically *needed*. Which will
      * usually be one, for your main index page.
      *
-     * @param renderer the renderer used to render the icon on your tab.
+     * @param renderer the renderer used to baking the icon on your tab.
      * @param tooltip  the unlocalized tooltip of the tab, or <tt>null</tt>.
      * @param path     the path to the page to open when the tab is clicked.
      */
@@ -73,7 +73,7 @@ public final class ManualAPI {
     /**
      * Register an image provider.
      * <p>
-     * Image providers are used to render custom content in a page. These are
+     * Image providers are used to baking custom content in a page. These are
      * selected via the standard image tag of Markdown, based on the prefix of
      * the image URL, i.e. <tt>![tooltip](prefix:data)</tt> will select the
      * image provider registered for the prefix <tt>prefix</tt>, and pass to

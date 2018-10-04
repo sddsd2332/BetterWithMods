@@ -7,7 +7,7 @@ import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.hardcore.needs.HCTools;
 import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.network.BWMNetwork;

@@ -1,8 +1,8 @@
 package betterwithmods.module.general;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.library.modularity.impl.ConfigHelper;
-import betterwithmods.library.modularity.impl.RequiredFeature;
+import betterwithmods.library.common.modularity.impl.ConfigHelper;
+import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
 import net.minecraft.util.ResourceLocation;

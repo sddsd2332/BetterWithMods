@@ -1,8 +1,8 @@
 package betterwithmods;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.ModuleLoader;
-import betterwithmods.library.modularity.impl.proxy.Proxy;
+import betterwithmods.library.common.modularity.impl.ModuleLoader;
+import betterwithmods.library.common.modularity.impl.proxy.Proxy;
 import betterwithmods.module.general.General;
 import betterwithmods.module.hardcore.Hardcore;
 import betterwithmods.module.internal.InternalRegistries;
@@ -28,7 +28,7 @@ public class BetterWithMods {
     @Mod.Instance(ModLib.MODID)
     public static BetterWithMods instance;
 
-    public static final ModuleLoader MODULE_LOADER = new ModuleLoader(new File(ModLib.MODID)).addModules(
+    public static final ModuleLoader MODULE_LOADER = new ModuleLoader().addModules(
             new InternalRegistries(),
             new General(),
             new Recipes(),

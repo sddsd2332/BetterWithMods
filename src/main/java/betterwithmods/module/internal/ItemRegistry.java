@@ -4,7 +4,7 @@ import betterwithmods.client.baking.BarkModel;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMItems;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.RequiredFeature;
+import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;

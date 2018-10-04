@@ -1,8 +1,8 @@
 package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
-import betterwithmods.lib.TooltipLib;
 import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.TooltipUtils;
 import net.minecraft.item.ItemStack;
 
 import static betterwithmods.lib.TooltipLib.CHANCE_OUTPUT;
@@ -21,7 +21,7 @@ public class ChanceOutput extends StackOutput {
 
     @Override
     public String getTooltip() {
-        return TooltipLib.getTooltip(CHANCE_OUTPUT, weight * 100);
+        return TooltipUtils.getTooltip(CHANCE_OUTPUT, weight * 100);
     }
 
     @Override

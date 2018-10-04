@@ -1,6 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.util.DirUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;

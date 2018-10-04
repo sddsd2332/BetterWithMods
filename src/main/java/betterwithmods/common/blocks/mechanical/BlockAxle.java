@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.common.blocks.BlockBase;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.common.tile.TileAxle;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;

@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMDamageSource;
-import betterwithmods.common.blocks.BlockBase;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.tile.TileSaw;
 import betterwithmods.lib.ModLib;

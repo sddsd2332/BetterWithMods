@@ -2,14 +2,14 @@ package betterwithmods.module.general;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.lib.ModLib;
-import betterwithmods.lib.TooltipLib;
+import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.manual.api.API;
 import betterwithmods.manual.api.ManualAPI;
 import betterwithmods.manual.api.prefab.manual.TextureTabIconRenderer;
 import betterwithmods.manual.common.DirectoryDefaultProvider;
 import betterwithmods.manual.common.api.ManualDefinitionImpl;
 import betterwithmods.manual.custom.StatePathProvider;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.player.PlayerInfo;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.item.ItemStack;
@@ -56,7 +56,7 @@ public class Documentation extends Feature {
                 if (save != null && !save.givenManual) {
                     save.givenManual = true;
                     InventoryUtils.spawnStack(event.player.world, event.player.getPosition(), new ItemStack(BWMItems.MANUAL), 10);
-                    event.player.sendMessage(TooltipLib.getMessageComponent("give_manual"));
+                    event.player.sendMessage(TooltipUtils.getMessageComponent("give_manual"));
                 }
             }
         }

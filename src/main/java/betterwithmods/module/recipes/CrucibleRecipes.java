@@ -3,7 +3,7 @@ package betterwithmods.module.recipes;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockCobble;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Blocks;

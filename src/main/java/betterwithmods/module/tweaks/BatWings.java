@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;

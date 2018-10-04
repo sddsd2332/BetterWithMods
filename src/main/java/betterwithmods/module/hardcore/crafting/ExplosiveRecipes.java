@@ -5,7 +5,7 @@ import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.registry.bulk.recipes.BulkCraftEvent;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;

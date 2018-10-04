@@ -2,11 +2,10 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.tile.TileVase;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.ColoredGenerator;
+import betterwithmods.library.common.block.creation.ColoredGenerator;
 import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.library.utils.colors.ColorUtils;
 import betterwithmods.library.utils.InventoryUtils;
-import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -29,11 +28,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
 import javax.annotation.Nonnull;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
 import java.util.stream.Collectors;

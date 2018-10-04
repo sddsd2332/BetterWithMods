@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.world;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;

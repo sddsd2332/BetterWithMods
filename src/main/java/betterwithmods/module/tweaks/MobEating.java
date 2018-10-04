@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.ai.eat.EntityAIMonsterEat;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityCreature;

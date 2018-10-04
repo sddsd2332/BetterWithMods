@@ -1,5 +1,6 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ListUtils;
 import betterwithmods.util.DirUtils;

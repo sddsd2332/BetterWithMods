@@ -1,7 +1,7 @@
 package betterwithmods.common.registry.crafting;
 
 import betterwithmods.common.container.anvil.ContainerSteelAnvil;
-import betterwithmods.lib.ReflectionLib;
+import betterwithmods.library.lib.ReflectionLib;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Container;

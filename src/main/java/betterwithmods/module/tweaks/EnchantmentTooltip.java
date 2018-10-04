@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.items.ItemArcaneScroll;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemEnchantedBook;

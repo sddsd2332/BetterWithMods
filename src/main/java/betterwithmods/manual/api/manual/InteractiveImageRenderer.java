@@ -4,8 +4,8 @@ package betterwithmods.manual.api.manual;
  * Allows implementing advanced image renderers that react to mouse input and
  * specify customized tooltips.
  * <p>
- * This way you can e.g. disable the default tooltip and render a more advanced
- * one, or render a small GUI on a page.
+ * This way you can e.g. disable the default tooltip and baking a more advanced
+ * one, or baking a small GUI on a page.
  */
 public interface InteractiveImageRenderer extends ImageRenderer {
     /**

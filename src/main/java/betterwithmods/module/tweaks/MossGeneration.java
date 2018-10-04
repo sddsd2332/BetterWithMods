@@ -1,10 +1,10 @@
 package betterwithmods.module.tweaks;
 
 
-import betterwithmods.library.recipes.RecipeMatchers;
-import betterwithmods.library.recipes.RecipeRemover;
+import betterwithmods.library.common.recipes.RecipeMatchers;
+import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.state.IBlockState;

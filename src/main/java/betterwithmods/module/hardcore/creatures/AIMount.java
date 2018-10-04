@@ -1,6 +1,5 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.library.network.NetworkHandler;
 import betterwithmods.network.BWMNetwork;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;

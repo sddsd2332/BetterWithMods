@@ -5,7 +5,7 @@ import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.common.BWGuiHandler;
 import betterwithmods.common.tile.TileAxleGenerator;
-import betterwithmods.library.modularity.impl.RequiredFeature;
+import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -17,7 +17,7 @@ public class Client extends RequiredFeature {
     public void onPreInit(FMLPreInitializationEvent event) {
 
         TileAxleGenerator.generatorRenderDistance = loadProperty("Generator Render Distance", 256)
-                .setComment("Distance away that a Windmill or Waterwheel will render")
+                .setComment("Distance away that a Windmill or Waterwheel will baking")
                 .setCategoryComment(getDescription()).get();
 
     }

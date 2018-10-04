@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.needs;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;

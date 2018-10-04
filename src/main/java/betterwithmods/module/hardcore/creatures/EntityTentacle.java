@@ -85,7 +85,7 @@ public class EntityTentacle extends Entity implements IEntityAdditionalSpawnData
     }
 
     /**
-     * Checks if the entity is in range to render.
+     * Checks if the entity is in range to baking.
      */
     @SideOnly(Side.CLIENT)
     public boolean isInRangeToRenderDist(double distance) {

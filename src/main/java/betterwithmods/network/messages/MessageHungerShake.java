@@ -1,6 +1,6 @@
 package betterwithmods.network.messages;
 
-import betterwithmods.library.network.Message;
+import betterwithmods.library.common.network.Message;
 
 public class MessageHungerShake extends Message {
 }

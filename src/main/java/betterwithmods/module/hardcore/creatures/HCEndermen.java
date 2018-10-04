@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
 import net.minecraft.entity.monster.EntityEnderman;

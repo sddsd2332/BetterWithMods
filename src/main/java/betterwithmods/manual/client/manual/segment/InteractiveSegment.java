@@ -5,8 +5,8 @@ import java.util.Optional;
 /**
  * Segments that can react to mouse presence and input.
  * <p>
- * The currently hovered interactive segment is picked in the render process
- * and returned there. Calling code can then decide whether to render the
+ * The currently hovered interactive segment is picked in the baking process
+ * and returned there. Calling code can then decide whether to baking the
  * segment's tooltip, for example. It should also notice the currently hovered
  * segment when a left-click occurs.
  */
@@ -33,7 +33,7 @@ public interface InteractiveSegment extends Segment {
      */
     boolean onMouseClick(final int mouseX, final int mouseY);
 
-    // Called during the render call on the currently hovered interactive segment.
+    // Called during the baking call on the currently hovered interactive segment.
     // Useful to track hover state, e.g. for link highlighting.
     void notifyHover();
 

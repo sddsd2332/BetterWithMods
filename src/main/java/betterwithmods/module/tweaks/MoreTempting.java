@@ -4,7 +4,7 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityIngredientRelationRegistry;
 import betterwithmods.common.entity.ai.eat.EntityAITempt;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.passive.*;

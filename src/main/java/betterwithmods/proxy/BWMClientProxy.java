@@ -1,7 +1,7 @@
 package betterwithmods.proxy;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.proxy.ClientProxy;
+import betterwithmods.library.common.modularity.impl.proxy.ClientProxy;
 import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;

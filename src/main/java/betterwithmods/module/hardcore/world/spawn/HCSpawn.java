@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.world.spawn;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.TimeUtils;
 import betterwithmods.library.utils.WeatherUtils;
 import betterwithmods.module.general.General;

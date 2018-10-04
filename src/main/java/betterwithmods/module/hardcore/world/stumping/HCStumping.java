@@ -5,11 +5,11 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.hardcore.world.HCBonemeal;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessagePlaced;
-import betterwithmods.util.item.ToolsManager;
+import betterwithmods.library.utils.ToolUtils;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -127,11 +127,11 @@ public class HCStumping extends Feature {
     public static void getHarvest(BreakSpeed event) {
         World world = event.getEntityPlayer().getEntityWorld();
         if (isStump(world, event.getPos())) {
-            float scale = SPEED_UP_WITH_TOOLS ? ToolsManager.getSpeed(event.getEntityPlayer().getHeldItemMainhand(), event.getState()) : 1;
+            float scale = SPEED_UP_WITH_TOOLS ? ToolUtils.getSpeed(event.getEntityPlayer().getHeldItemMainhand(), event.getState()) : 1;
             event.setNewSpeed(STUMP_BREAK_SPEED * scale);
         }
         if (isRoots(world, event.getPos())) {
-            float scale = SPEED_UP_WITH_TOOLS ? ToolsManager.getSpeed(event.getEntityPlayer().getHeldItemMainhand(), event.getState()) : 1;
+            float scale = SPEED_UP_WITH_TOOLS ? ToolUtils.getSpeed(event.getEntityPlayer().getHeldItemMainhand(), event.getState()) : 1;
             event.setNewSpeed(ROOT_BREAK_SPEED * scale);
         }
     }
