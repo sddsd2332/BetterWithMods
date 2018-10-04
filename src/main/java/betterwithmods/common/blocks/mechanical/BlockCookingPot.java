@@ -5,9 +5,11 @@ import betterwithmods.api.block.IMultiVariants;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityCauldron;
+import betterwithmods.common.blocks.mechanical.tile.TileEntityCookingPot;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityCrucible;
 import betterwithmods.common.blocks.tile.TileEntityDragonVessel;
 import betterwithmods.util.DirUtils;
+import betterwithmods.util.InvUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyEnum;
@@ -37,6 +39,7 @@ import javax.annotation.Nullable;
  */
 public class BlockCookingPot extends BWMBlock implements IMultiVariants {
     public static final PropertyEnum<EnumType> TYPE = PropertyEnum.create("type", EnumType.class);
+
     public BlockCookingPot() {
         super(Material.ROCK);
         this.setHardness(3.5F);
@@ -105,7 +108,7 @@ public class BlockCookingPot extends BWMBlock implements IMultiVariants {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if(player.isSneaking())
+        if (player.isSneaking())
             return false;
         if (world.isRemote) {
             return true;
@@ -149,6 +152,27 @@ public class BlockCookingPot extends BWMBlock implements IMultiVariants {
                 "facing=up,type=cauldron",
                 "facing=up,type=dragonvessel",
         };
+    }
+
+    @Override
+    public boolean hasComparatorInputOverride(IBlockState state) {
+        return true;
+    }
+
+    @Override
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+        switch (blockState.getValue(TYPE)) {
+            case CRUCIBLE:
+            case CAULDRON:
+                TileEntityCookingPot tile = (TileEntityCookingPot) worldIn.getTileEntity(pos);
+                if (tile != null)
+                    return InvUtils.calculateComparatorLevel(tile.inventory);
+            case DRAGONVESSEL:
+                TileEntityDragonVessel vessel = (TileEntityDragonVessel) worldIn.getTileEntity(pos);
+                if (vessel != null)
+                    return (int) (((double) vessel.getExperience() / (double) vessel.getMaxExperience()) * 15);
+        }
+        return super.getComparatorInputOverride(blockState, worldIn, pos);
     }
 
     @Override

@@ -66,7 +66,7 @@ public class Hardcore extends CompatModule {
         registerFeature(new HCSaw());
         registerFeature(new HCSheep());
         registerFeature(new HCSpawn());
-        registerFeature(new HCStructures());
+        registerFeature(new HCStructures().recipes());
         registerFeature(new HCStumping());
         registerFeature(new HCTools());
         registerFeature(new HCTorches());

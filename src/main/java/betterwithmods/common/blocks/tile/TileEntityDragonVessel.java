@@ -38,6 +38,14 @@ public class TileEntityDragonVessel extends TileBasic implements ITickable, IMec
     public TileEntityDragonVessel() {
     }
 
+    public int getExperience() {
+        return experience;
+    }
+
+    public int getMaxExperience() {
+        return MAX_EXPERIENCE;
+    }
+
     private int addExperience(int xp)  {
         if(this.experience >= MAX_EXPERIENCE)
             return xp;
