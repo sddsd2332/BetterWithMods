@@ -9,7 +9,6 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 public class BlockColored extends BWMBlock {
     protected EnumDyeColor color;
 
-
     public static Block getBlock(ResourceLocation base, EnumDyeColor color) {
         return ForgeRegistries.BLOCKS.getValue(new ResourceLocation(base.getNamespace(), base.getPath() + "_" + color.getName()));
     }
