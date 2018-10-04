@@ -1,6 +1,5 @@
 package betterwithmods.module.internal;
 
-import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.registry.anvil.CraftingManagerAnvil;
 import betterwithmods.common.registry.block.managers.CrafingManagerKiln;
@@ -11,6 +10,7 @@ import betterwithmods.common.registry.bulk.manager.CraftingManagerPot;
 import betterwithmods.common.registry.hopper.filters.HopperFilters;
 import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
+import betterwithmods.library.common.recipes.RecipeAction;
 import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Lists;
@@ -35,14 +35,14 @@ public class RecipeRegistry extends RequiredFeature {
     public static final CraftingManagerAnvil ANVIL = new CraftingManagerAnvil();
     public static final HopperFilters HOPPER_FILTERS = new HopperFilters();
 
-    private static final List<RecipeRemover<?>> RECIPE_REMOVERS = Lists.newArrayList();
+    private static final List<RecipeAction<?>> RECIPE_ACTIONS = Lists.newArrayList();
 
 
     private static final List<IRecipe> RECIPE_ADDITIONS = Lists.newArrayList();
 
     /**
      * @param recipe recipe to be registered
-     * Must be called during preinit phase
+     *               Must be called during preinit phase
      */
     public static void addRecipe(IRecipe recipe) {
         RECIPE_ADDITIONS.add(recipe);
@@ -51,10 +51,10 @@ public class RecipeRegistry extends RequiredFeature {
 
     /**
      * @param remover recipe remove to match the IRecipes that should be removed
-     * Must be called during preinit phase
+     *                Must be called during preinit phase
      */
     public static <T> void removeRecipe(RecipeRemover<T> remover) {
-        RECIPE_REMOVERS.add(remover);
+        RECIPE_ACTIONS.add(remover);
     }
 
     public static void removeFurnaceRecipe(Item input) {
@@ -73,16 +73,13 @@ public class RecipeRegistry extends RequiredFeature {
         BWMOreDictionary.registerOres();
         BWMOreDictionary.oreGathering();
 
-        ForgeRegistry<IRecipe> reg = (ForgeRegistry<IRecipe>) event.getRegistry();
-        for (IRecipe recipe : reg) {
-            for (RecipeRemover remover : RECIPE_REMOVERS) {
-                if (remover.apply(recipe)) {
-                    reg.remove(recipe.getRegistryName());
-                    BetterWithMods.LOGGER.info("Removing Recipe: {}", recipe.getRegistryName());
-                }
+        ForgeRegistry<IRecipe> registry = (ForgeRegistry<IRecipe>) event.getRegistry();
+        for (IRecipe recipe : registry) {
+            for (RecipeAction action : RECIPE_ACTIONS) {
+                action.apply(registry, recipe);
             }
         }
-        reg.registerAll(RECIPE_ADDITIONS.toArray(new IRecipe[0]));
+        registry.registerAll(RECIPE_ADDITIONS.toArray(new IRecipe[0]));
     }
 }
 
