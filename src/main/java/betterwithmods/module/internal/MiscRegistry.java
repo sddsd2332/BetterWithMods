@@ -8,7 +8,7 @@ import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.advancements.BWAdvancements;
+import betterwithmods.common.advancements.BWMAdvancements;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.BlockBUD;
 import betterwithmods.common.blocks.BlockDetector;
@@ -83,7 +83,7 @@ public class MiscRegistry extends RequiredFeature {
 
         FluidRegistry.registerFluid(MILK);
         //FIXME migrate
-        BWAdvancements.registerAdvancements();
+        BWMAdvancements.registerAdvancements();
         MiscRegistry.registerBlockDispenserBehavior();
     }
 

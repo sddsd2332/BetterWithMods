@@ -7,7 +7,7 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.world.World;
 
-public class BWAdvancements {
+public class BWMAdvancements {
 
     public static final ConstructLibraryTrigger CONSTRUCT_LIBRARY = CriteriaTriggers.register(new ConstructLibraryTrigger());
     public static final InfernalEnchantedTrigger INFERNAL_ENCHANTED = CriteriaTriggers.register(new InfernalEnchantedTrigger());

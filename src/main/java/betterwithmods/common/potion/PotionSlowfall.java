@@ -8,7 +8,7 @@ Copyright (c) 2014-2016 Samson Bassett (Lothrazar)
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
 
-public class PotionSlowfall extends BWPotion {
+public class PotionSlowfall extends BWMPotion {
     public static final float slowfallSpeed = 0.41F;
 
     public PotionSlowfall(String name, boolean b, int potionColor) {

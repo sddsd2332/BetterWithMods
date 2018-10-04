@@ -9,11 +9,11 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 
 
-public class BWPotion extends Potion {
+public class BWMPotion extends Potion {
     private final boolean beneficial;
     private ResourceLocation icon;
 
-    public BWPotion(String name, boolean b, int potionColor) {
+    public BWMPotion(String name, boolean b, int potionColor) {
         super(false, potionColor);
         this.beneficial = b;
         setRegistryName(name);

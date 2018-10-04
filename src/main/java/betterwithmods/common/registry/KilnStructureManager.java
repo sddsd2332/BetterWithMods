@@ -2,7 +2,7 @@ package betterwithmods.common.registry;
 
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.advancements.BWAdvancements;
+import betterwithmods.common.advancements.BWMAdvancements;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.common.tile.TileKiln;
@@ -48,7 +48,7 @@ public class KilnStructureManager {
                 ((TileKiln) tile).setState(state);
                 world.notifyBlockUpdate(pos, kiln, kiln, 8);
                 //TRIGGER ADVANCEMENT
-                BWAdvancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), BWAdvancements.CONSTRUCT_KILN);
+                BWMAdvancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), BWMAdvancements.CONSTRUCT_KILN);
             }
             return true;
         }

@@ -7,7 +7,7 @@ import betterwithmods.api.tile.IHopperFilter;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.client.model.filters.ModelWithResource;
-import betterwithmods.common.advancements.BWAdvancements;
+import betterwithmods.common.advancements.BWMAdvancements;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
@@ -270,7 +270,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
         if (this.soulsRetained > 7) {
             this.getBlockWorld().playSound(null, this.pos, SoundEvents.ENTITY_GHAST_SCREAM, SoundCategory.BLOCKS, 1.0F, getBlockWorld().rand.nextFloat() * 0.1F + 0.8F);
             if (WorldUtils.spawnGhast(world, pos)) {
-                BWAdvancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), BWAdvancements.SPAWN_HOPPER_FRIEND);
+                BWMAdvancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), BWMAdvancements.SPAWN_HOPPER_FRIEND);
             }
         }
 

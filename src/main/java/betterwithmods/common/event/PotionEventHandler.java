@@ -2,7 +2,7 @@ package betterwithmods.common.event;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.items.ItemEnderSpectacles;
-import betterwithmods.common.potion.BWPotion;
+import betterwithmods.common.potion.BWMPotion;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.internal.PotionRegistry;
 import net.minecraft.client.Minecraft;
@@ -126,8 +126,8 @@ public class PotionEventHandler {
 
         EntityPlayer player = e.player;
         for (PotionEffect potion : player.getActivePotionEffects()) {
-            if (potion.getPotion() instanceof BWPotion) {
-                ((BWPotion) potion.getPotion()).tick(player);
+            if (potion.getPotion() instanceof BWMPotion) {
+                ((BWMPotion) potion.getPotion()).tick(player);
             }
         }
     }

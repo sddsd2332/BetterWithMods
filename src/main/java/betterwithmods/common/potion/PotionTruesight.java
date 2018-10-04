@@ -13,7 +13,7 @@ import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
 
-public class PotionTruesight extends BWPotion {
+public class PotionTruesight extends BWMPotion {
     public PotionTruesight(String name, boolean b, int potionColor) {
         super(name, b, potionColor);
     }

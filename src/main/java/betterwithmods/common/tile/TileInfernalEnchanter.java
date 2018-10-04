@@ -1,6 +1,6 @@
 package betterwithmods.common.tile;
 
-import betterwithmods.common.advancements.BWAdvancements;
+import betterwithmods.common.advancements.BWMAdvancements;
 import betterwithmods.common.blocks.BlockInfernalEnchanter;
 import betterwithmods.library.common.tile.TileBasic;
 import net.minecraft.block.state.IBlockState;
@@ -74,7 +74,7 @@ public class TileInfernalEnchanter extends TileBasic implements ITickable {
                 getWorld().spawnParticle(EnumParticleTypes.FLAME, x + .875, y + .9, z + .875, 0, 0, 0);
                 getWorld().spawnParticle(EnumParticleTypes.FLAME, x + .125, y + .9, z + .875, 0, 0, 0);
 
-                playerList.stream().filter(p -> p instanceof EntityPlayerMP).map(p -> (EntityPlayerMP) p).forEach(player -> BWAdvancements.CONSTRUCT_LIBRARY.trigger(player, getBookcaseCount()));
+                playerList.stream().filter(p -> p instanceof EntityPlayerMP).map(p -> (EntityPlayerMP) p).forEach(player -> BWMAdvancements.CONSTRUCT_LIBRARY.trigger(player, getBookcaseCount()));
 
             } else {
                 world.setBlockState(pos, state.withProperty(BlockInfernalEnchanter.ACTIVE, false));

@@ -1,6 +1,6 @@
 package betterwithmods.module.internal;
 
-import betterwithmods.common.potion.BWPotion;
+import betterwithmods.common.potion.BWMPotion;
 import betterwithmods.common.potion.PotionSlowfall;
 import betterwithmods.common.potion.PotionTruesight;
 import betterwithmods.lib.ModLib;
@@ -26,8 +26,8 @@ public class PotionRegistry extends RequiredFeature {
     @SubscribeEvent
     public static void registerPotions(RegistryEvent.Register<Potion> event) {
         event.getRegistry().register(registerPotion(new PotionTruesight("true_sight", true, 14270531).setIconIndex(4, 1)));
-        event.getRegistry().register(registerPotion(new BWPotion("fortune", true, 14270531).setIconIndex(5, 2)));
-        event.getRegistry().register(registerPotion(new BWPotion("looting", true, 14270531).setIconIndex(6, 2)));
+        event.getRegistry().register(registerPotion(new BWMPotion("fortune", true, 14270531).setIconIndex(5, 2)));
+        event.getRegistry().register(registerPotion(new BWMPotion("looting", true, 14270531).setIconIndex(6, 2)));
         event.getRegistry().register(registerPotion(new PotionSlowfall("slow_fall", true, 0xF46F20).setIconIndex(4, 1)));
     }
 
