@@ -28,7 +28,7 @@ import java.util.Random;
 
 import static net.minecraft.util.EnumFacing.UP;
 
-public class BlockUrn extends BWMBlock implements ISoulContainer {
+public class BlockUrn extends BlockBase implements ISoulContainer {
     public static final PropertyBool UNDERHOPPER = PropertyBool.create("underhopper");
     private static final double OFFSET = 0.375D;
     private static final AxisAlignedBB URN_AABB = new AxisAlignedBB(0.3125D, 0, 0.3125D, 0.6875D, 0.625D, 0.6875D);

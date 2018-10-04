@@ -6,7 +6,7 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 
-public class BlockColored extends BWMBlock {
+public class BlockColored extends BlockBase {
     protected EnumDyeColor color;
 
     public static Block getBlock(ResourceLocation base, EnumDyeColor color) {

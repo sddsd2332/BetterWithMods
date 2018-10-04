@@ -3,7 +3,7 @@ package betterwithmods.network.handler;
 import betterwithmods.BetterWithMods;
 import betterwithmods.client.BWParticleDigging;
 import betterwithmods.client.baking.IStateParticleBakedModel;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.library.network.MessageHandler;
 import betterwithmods.network.messages.MessageCustomDust;
 import net.minecraft.block.state.IBlockState;
@@ -34,8 +34,8 @@ public class MessageCustomDustHandler extends MessageHandler<MessageCustomDust> 
         int tintIndex = -1;
 
         IBlockState state = world.getBlockState(pos);
-        if (state.getBlock() instanceof BWMBlock) {
-            tintIndex = ((BWMBlock) state.getBlock()).getParticleTintIndex();
+        if (state.getBlock() instanceof BlockBase) {
+            tintIndex = ((BlockBase) state.getBlock()).getParticleTintIndex();
         }
 
         IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getModelForState(state);

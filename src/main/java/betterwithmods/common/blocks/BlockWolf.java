@@ -22,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockWolf extends BWMBlock {
+public class BlockWolf extends BlockBase {
 
     private final ResourceLocation entityName;
 

@@ -22,7 +22,7 @@ import java.util.List;
  * @author mrebhan
  */
 
-public class BlockPlatform extends BWMBlock {
+public class BlockPlatform extends BlockBase {
 
     public BlockPlatform() {
         super(Material.WOOD);

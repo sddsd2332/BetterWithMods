@@ -28,7 +28,7 @@ import javax.annotation.Nonnull;
 import static betterwithmods.util.DirUtils.FACING;
 
 @SuppressWarnings("SuspiciousNameCombination")
-public class BlockAnchor extends BWMBlock implements IRopeConnector {
+public class BlockAnchor extends BlockBase implements IRopeConnector {
     public static final PropertyBool LINKED = PropertyBool.create("linked");
     private static final float HEIGHT = 0.375F;
 

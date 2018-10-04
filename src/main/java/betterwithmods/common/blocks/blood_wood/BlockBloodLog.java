@@ -1,4 +1,4 @@
-package betterwithmods.common.blocks;
+package betterwithmods.common.blocks.blood_wood;
 
 import betterwithmods.common.worldgen.WorldGenBloodTree;
 import betterwithmods.util.DirUtils;

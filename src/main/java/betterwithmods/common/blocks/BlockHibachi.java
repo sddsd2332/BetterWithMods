@@ -17,7 +17,7 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockHibachi extends BWMBlock {
+public class BlockHibachi extends BlockBase {
     public static final PropertyBool LIT = PropertyBool.create("lit");
 
     public BlockHibachi() {

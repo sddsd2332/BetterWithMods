@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.common.tile.TileAxle;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;
@@ -34,7 +34,7 @@ import java.util.Random;
 import static betterwithmods.util.DirUtils.AXIS;
 import static net.minecraft.util.EnumFacing.Axis.Y;
 
-public class BlockAxle extends BWMBlock implements IOverpower, IBlockActive {
+public class BlockAxle extends BlockBase implements IOverpower, IBlockActive {
 
     private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.0F, 0.375F, 0.375F, 1.0F, 0.625F, 0.625F);
     private static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);

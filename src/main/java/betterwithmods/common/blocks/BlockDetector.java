@@ -27,7 +27,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class BlockDetector extends BWMBlock {
+public class BlockDetector extends BlockBase {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
     public static Set<IDetection> DETECTION_HANDLERS = Sets.newHashSet();

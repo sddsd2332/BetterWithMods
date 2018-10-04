@@ -41,7 +41,7 @@ import java.util.stream.Collectors;
 
 import static betterwithmods.common.blocks.BlockPlanter.Type.*;
 
-public class BlockPlanter extends BWMBlock implements IGrowable {
+public class BlockPlanter extends BlockBase implements IGrowable {
     private final Type type;
 
 

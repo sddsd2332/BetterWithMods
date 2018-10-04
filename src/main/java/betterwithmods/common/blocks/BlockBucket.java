@@ -24,7 +24,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockBucket extends BWMBlock implements IRopeConnector {
+public class BlockBucket extends BlockBase implements IRopeConnector {
 
     public static final PropertyBool CONNECTED = PropertyBool.create("connected");
     public static final PropertyBool IN_WATER = PropertyBool.create("in_water");

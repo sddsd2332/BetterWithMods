@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMDamageSource;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.tile.TileSaw;
 import betterwithmods.lib.ModLib;
@@ -37,7 +37,7 @@ import java.util.Optional;
 import java.util.Random;
 
 @SuppressWarnings("SuspiciousNameCombination")
-public class BlockSaw extends BWMBlock implements IBlockActive, IOverpower {
+public class BlockSaw extends BlockBase implements IBlockActive, IOverpower {
     private static final float HEIGHT = 0.75f;
     private static final AxisAlignedBB D_AABB = new AxisAlignedBB(0.0F, 1.0F - HEIGHT, 0.0F, 1.0F, 1.0F, 1.0F);
     private static final AxisAlignedBB U_AABB = new AxisAlignedBB(0.0F, 0.0F, 0.0F, 1.0F, HEIGHT, 1.0F);

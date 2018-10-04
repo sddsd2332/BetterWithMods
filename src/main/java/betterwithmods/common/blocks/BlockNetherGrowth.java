@@ -39,7 +39,7 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 6/25/17.
  */
-public class BlockNetherGrowth extends BWMBlock {
+public class BlockNetherGrowth extends BlockBase {
     public static final PropertyInteger AGE = PropertyInteger.create("age", 0, 7);
     private final Ingredient urn = new OreIngredient("blockSoulUrn");
 

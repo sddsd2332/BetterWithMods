@@ -27,7 +27,7 @@ import java.util.Map;
 /**
  * Created by primetoxinz on 6/27/17.
  */
-public class BlockPane extends BWMBlock {
+public class BlockPane extends BlockBase {
     private final Map<PropertyBool, AxisAlignedBB> bounds = new HashMap<PropertyBool, AxisAlignedBB>() {{
         put(DirUtils.NORTH, new AxisAlignedBB(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 0.5625F));
         put(DirUtils.SOUTH, new AxisAlignedBB(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 1.0F));

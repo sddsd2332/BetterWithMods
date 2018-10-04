@@ -26,7 +26,7 @@ import javax.annotation.Nullable;
 /**
  * Created by primetoxinz on 9/11/16.
  */
-public class BlockInfernalEnchanter extends BWMBlock {
+public class BlockInfernalEnchanter extends BlockBase {
 
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
 

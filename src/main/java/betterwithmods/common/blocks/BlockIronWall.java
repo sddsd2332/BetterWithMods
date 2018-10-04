@@ -15,7 +15,7 @@ import javax.annotation.Nonnull;
 /**
  * Created by primetoxinz on 5/16/17.
  */
-public class BlockIronWall extends BWMBlock {
+public class BlockIronWall extends BlockBase {
     public BlockIronWall() {
         super(Material.IRON);
         setHardness(5.0F);

@@ -1,7 +1,7 @@
 package betterwithmods.common.worldgen;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.BlockBloodLog;
+import betterwithmods.common.blocks.blood_wood.BlockBloodLog;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
 import net.minecraft.block.Block;

@@ -21,7 +21,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BlockRope extends BWMBlock {
+public class BlockRope extends BlockBase {
     private static final AxisAlignedBB ROPE_AABB = new AxisAlignedBB(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
 
     public BlockRope() {

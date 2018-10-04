@@ -29,7 +29,7 @@ import static net.minecraft.util.EnumFacing.Axis.*;
 /**
  * Created by primetoxinz on 5/17/17.
  */
-public class BlockStake extends BWMBlock {
+public class BlockStake extends BlockBase {
 
 
     public static final PropertyBool[] Z_ROTATE = new PropertyBool[]{DirUtils.SOUTH, DirUtils.NORTH, DirUtils.DOWN, DirUtils.UP, DirUtils.EAST, DirUtils.WEST};

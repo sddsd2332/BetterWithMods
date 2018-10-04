@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -21,7 +21,7 @@ import static betterwithmods.util.DirUtils.AXIS;
 import static net.minecraft.util.EnumFacing.Axis.Y;
 
 
-public abstract class BlockAxleGenerator extends BWMBlock implements IBlockActive {
+public abstract class BlockAxleGenerator extends BlockBase implements IBlockActive {
 
     private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.0F, 0.375F, 0.375F, 1.0F, 0.625F, 0.625F);
     private static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);

@@ -25,7 +25,7 @@ import javax.annotation.Nullable;
 /**
  * Created by Christian on 21.10.2016.
  */
-public class BlockVineTrap extends BWMBlock {
+public class BlockVineTrap extends BlockBase {
     private static final PropertyEnum<BlockSlab.EnumBlockHalf> HALF = PropertyEnum.create("half", BlockSlab.EnumBlockHalf.class);
     private static final AxisAlignedBB VINETRAP_AABB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.0625D, 1.0D);
     private static final AxisAlignedBB VINETRAP_TOP_AABB = new AxisAlignedBB(0.0D, 0.9375D, 0.0D, 1.0D, 1.0D, 1.0D);

@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.common.registry.BellowsManager;
 import betterwithmods.common.tile.TileBellows;
 import betterwithmods.module.internal.SoundRegistry;
@@ -34,7 +34,7 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class BlockBellows extends BWMBlock implements IBlockActive, IOverpower {
+public class BlockBellows extends BlockBase implements IBlockActive, IOverpower {
 
     private final float scale = 1 / 4f;
     private final AxisAlignedBB lift = new AxisAlignedBB(0, 0.6875F, 0, 1, 1, 1);

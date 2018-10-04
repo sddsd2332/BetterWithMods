@@ -20,7 +20,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public abstract class BlockStickBase extends BWMBlock {
+public abstract class BlockStickBase extends BlockBase {
     public static final PropertyEnum<Connection> CONNECTION = PropertyEnum.create("connection", Connection.class);
     public static final PropertyBool GROUND = PropertyBool.create("ground");
 

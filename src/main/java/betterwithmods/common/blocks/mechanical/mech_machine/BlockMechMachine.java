@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.mechanical.mech_machine;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.common.blocks.mechanical.IBlockActive;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.material.Material;
@@ -20,7 +20,7 @@ import net.minecraftforge.items.CapabilityItemHandler;
 import javax.annotation.Nonnull;
 import java.util.Arrays;
 
-public abstract class BlockMechMachine extends BWMBlock implements IBlockActive, IOverpower {
+public abstract class BlockMechMachine extends BlockBase implements IBlockActive, IOverpower {
 
 
     private final ResourceLocation overpowerDrops;

@@ -18,7 +18,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockLight extends BWMBlock {
+public class BlockLight extends BlockBase {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
     public BlockLight() {

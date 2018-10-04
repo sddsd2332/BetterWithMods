@@ -23,7 +23,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Random;
 
-public class BlockInvisibleLight extends BWMBlock {
+public class BlockInvisibleLight extends BlockBase {
     public static final PropertyBool SUNLIGHT = PropertyBool.create("sunlight");
 
     public BlockInvisibleLight() {

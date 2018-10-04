@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.camo;
 
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.BWMCreativeTabs;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.recipes.miniblocks.ItemCamo;
 import betterwithmods.module.recipes.miniblocks.MiniBlocks;
@@ -39,7 +39,7 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
-public abstract class BlockCamo extends BWMBlock {
+public abstract class BlockCamo extends BlockBase {
 
     public static final IUnlistedProperty<CamoInfo> CAMO_INFO = new UnlistedPropertyGeneric<>("camo", CamoInfo.class);
     private final Function<Material, Collection<IBlockState>> subtypes;

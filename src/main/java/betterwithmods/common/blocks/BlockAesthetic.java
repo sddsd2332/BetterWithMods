@@ -1,10 +1,8 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.BlockEntryBuilderGenerator;
 import betterwithmods.library.common.block.BlockTypeGenerator;
 import betterwithmods.library.common.block.IBlockType;
-import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
@@ -25,7 +23,7 @@ import javax.annotation.Nullable;
 
 import static betterwithmods.common.blocks.BlockAesthetic.Type.HELLFIRE;
 
-public class BlockAesthetic extends BWMBlock {
+public class BlockAesthetic extends BlockBase {
     private final Type type;
 
     public BlockAesthetic(Type type) {

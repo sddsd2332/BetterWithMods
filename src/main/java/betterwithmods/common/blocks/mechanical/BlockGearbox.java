@@ -5,7 +5,7 @@ import betterwithmods.api.block.IAdvancedRotationPlacement;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.api.block.IRenderRotationPlacement;
 import betterwithmods.client.ClientEventHandler;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.common.tile.TileGearbox;
 import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.DirUtils;
@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.Optional;
 import java.util.Random;
 
-public class BlockGearbox extends BWMBlock implements IBlockActive, IOverpower, IAdvancedRotationPlacement, IRenderRotationPlacement {
+public class BlockGearbox extends BlockBase implements IBlockActive, IOverpower, IAdvancedRotationPlacement, IRenderRotationPlacement {
     private final int maxPower;
 
     public BlockGearbox(Material material, int maxPower) {

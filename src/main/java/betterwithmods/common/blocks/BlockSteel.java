@@ -14,7 +14,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BlockSteel extends BWMBlock {
+public class BlockSteel extends BlockBase {
 
     public BlockSteel() {
         super(Material.IRON);

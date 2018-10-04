@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.mechanical.cookingpot;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
  * @author primetoxinz
  * @version 3/3/17
  */
-public class BlockCookingPot extends BWMBlock {
+public class BlockCookingPot extends BlockBase {
 
     public BlockCookingPot() {
         super(Material.ROCK);

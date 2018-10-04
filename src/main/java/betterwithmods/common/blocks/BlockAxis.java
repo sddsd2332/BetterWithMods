@@ -12,12 +12,12 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class BWMBlockAxis extends BWMBlock {
+public class BlockAxis extends BlockBase {
 
     public static final PropertyEnum<EnumFacing.Axis> AXIS = PropertyEnum.create("axis", EnumFacing.Axis.class);
     public static final EnumFacing.Axis[] VALUES = EnumFacing.Axis.values();
 
-    public BWMBlockAxis(Material material) {
+    public BlockAxis(Material material) {
         super(material);
     }
 

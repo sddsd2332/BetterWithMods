@@ -25,7 +25,7 @@ import javax.annotation.Nonnull;
 /**
  * Created by primetoxinz on 7/21/17.
  */
-public class BlockBrokenGearbox extends BWMBlock {
+public class BlockBrokenGearbox extends BlockBase {
     private Ingredient repairIngredient;
     private Block repairedBlock;
     private int repairCost;

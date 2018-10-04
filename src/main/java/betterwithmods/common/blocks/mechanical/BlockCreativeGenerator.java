@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks.mechanical;
 
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.common.tile.TileCreativeGenerator;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 /**
  * Created by primetoxinz on 8/5/16.
  */
-public class BlockCreativeGenerator extends BWMBlock {
+public class BlockCreativeGenerator extends BlockBase {
     public BlockCreativeGenerator() {
         super(Material.WOOD);
 

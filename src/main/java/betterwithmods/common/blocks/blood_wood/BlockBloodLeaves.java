@@ -1,4 +1,4 @@
-package betterwithmods.common.blocks;
+package betterwithmods.common.blocks.blood_wood;
 
 import betterwithmods.common.BWMBlocks;
 import net.minecraft.block.BlockLeaves;

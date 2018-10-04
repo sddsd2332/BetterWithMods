@@ -2,7 +2,7 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.BWMBlock;
+import betterwithmods.common.blocks.BlockBase;
 import betterwithmods.common.tile.TileScrewPump;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.Block;
@@ -30,7 +30,7 @@ import java.util.Random;
  * @author mrebhan
  */
 
-public class BlockScrewPump extends BWMBlock implements IBlockActive, IOverpower {
+public class BlockScrewPump extends BlockBase implements IBlockActive, IOverpower {
 
     public BlockScrewPump() {
         super(Material.WOOD);

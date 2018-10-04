@@ -17,7 +17,7 @@ import net.minecraftforge.fluids.FluidUtil;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class BlockBarrel extends BWMBlockAxis {
+public class BlockBarrel extends BlockAxis {
     public BlockBarrel(Material material) {
         super(material);
         setHardness(2F);

@@ -37,9 +37,9 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.List;
 
-public abstract class BWMBlock extends Block implements IRotate {
+public abstract class BlockBase extends Block implements IRotate {
 
-    public BWMBlock(Material material) {
+    public BlockBase(Material material) {
         super(material);
 
         if (material == Material.WOOD) {
@@ -195,7 +195,7 @@ public abstract class BWMBlock extends Block implements IRotate {
             TextureAtlasSprite sprite = ((IStateParticleBakedModel) model).getParticleTexture(state, EnumFacing.UP);
 
             Particle particle = new BWParticleDigging(world, entity.posX + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width, entity.getEntityBoundingBox().minY + 0.1D, entity.posZ + ((double) world.rand.nextFloat() - 0.5D) * (double) entity.width, -entity.motionX * 4.0D, 1.5D, -entity.motionZ * 4.0D,
-                    state, pos, sprite, ((BWMBlock) state.getBlock()).getParticleTintIndex());
+                    state, pos, sprite, ((BlockBase) state.getBlock()).getParticleTintIndex());
             Minecraft.getMinecraft().effectRenderer.addEffect(particle);
 
             return true;

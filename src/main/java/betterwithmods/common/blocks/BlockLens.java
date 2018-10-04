@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class BlockLens extends BWMBlock {
+public class BlockLens extends BlockBase {
     public static final PropertyBool LIT = PropertyBool.create("lit");
     public static final int RANGE = 256;
 

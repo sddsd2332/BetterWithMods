@@ -24,7 +24,7 @@ import javax.annotation.Nonnull;
 /**
  * Created by blueyu2 on 11/21/16.
  */
-public class BlockSteelAnvil extends BWMBlock {
+public class BlockSteelAnvil extends BlockBase {
 
     public BlockSteelAnvil() {
         super(Material.IRON);
