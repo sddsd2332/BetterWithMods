@@ -1,11 +1,11 @@
 package betterwithmods.module.hardcore.world.stumping;
 
-import betterwithmods.api.util.IBlockVariants;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.module.hardcore.world.HCBonemeal;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessagePlaced;
@@ -69,7 +69,7 @@ public class HCStumping extends Feature {
             }
             return true;
         }
-        return BWMOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG, state) != null;
+        return VariantUtils.getVariantFromState(IBlockVariants.EnumBlock.LOG, state) != null;
     }
 
     public static boolean isSoil(IBlockState state, World world, BlockPos pos) {
@@ -139,14 +139,14 @@ public class HCStumping extends Feature {
     @SubscribeEvent(priority = EventPriority.HIGH)
     public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
         if (isStump(event.getWorld(), event.getPos())) {
-            IBlockVariants wood = BWMOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG, event.getState());
+            IBlockVariants wood = VariantUtils.getVariantFromState(IBlockVariants.EnumBlock.LOG, event.getState());
             if (wood != null) {
                 event.getDrops().clear();
                 event.getDrops().addAll(Lists.newArrayList(wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, 1), wood.getVariant(IBlockVariants.EnumBlock.BARK, 1)));
             }
         }
         if (isRoots(event.getWorld(), event.getPos())) {
-            IBlockVariants wood = BWMOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.LOG, event.getWorld().getBlockState(event.getPos().up()));
+            IBlockVariants wood = VariantUtils.getVariantFromState(IBlockVariants.EnumBlock.LOG, event.getWorld().getBlockState(event.getPos().up()));
             if (wood != null) {
                 event.setResult(Event.Result.DENY);
                 event.getDrops().clear();

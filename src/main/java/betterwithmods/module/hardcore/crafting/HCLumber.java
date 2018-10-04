@@ -1,12 +1,13 @@
 package betterwithmods.module.hardcore.crafting;
 
-import betterwithmods.api.util.IBlockVariants;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.common.BWMOreDictionary;
 
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
+import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
@@ -20,7 +21,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
+import static betterwithmods.library.common.variants.IBlockVariants.EnumBlock.*;
 
 /**
  * Created by primetoxinz on 4/20/17.
@@ -57,7 +58,7 @@ public class HCLumber extends Feature {
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void harvestLog(BlockEvent.HarvestDropsEvent event) {
         if (!event.getWorld().isRemote) {
-            IBlockVariants wood = BWMOreDictionary.getVariantFromState(LOG, event.getState());
+            IBlockVariants wood = VariantUtils.getVariantFromState(LOG, event.getState());
             if (wood != null) {
                 if (event.isSilkTouching() || hasAxe(event.getHarvester(), event.getPos(), event.getState()))
                     return;

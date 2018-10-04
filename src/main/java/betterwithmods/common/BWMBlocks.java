@@ -1,14 +1,9 @@
 package betterwithmods.common;
 
-import betterwithmods.common.blocks.BlockRailDetectorBase;
 import betterwithmods.lib.ModLib;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
-import net.minecraft.entity.item.EntityMinecartEmpty;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import java.util.Objects;
 
 
 @GameRegistry.ObjectHolder(ModLib.MODID)
@@ -72,6 +67,4 @@ public final class BWMBlocks {
     public static final Block BARREL = null;
     public static final Block DETECTOR_RAIL_STONE = null;
     public static final Block DETECTOR_RAIL_STEEL = null;
-
-
 }

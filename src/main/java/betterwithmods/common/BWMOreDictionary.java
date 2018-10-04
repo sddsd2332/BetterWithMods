@@ -1,19 +1,17 @@
 package betterwithmods.common;
 
-import betterwithmods.api.util.IBlockVariants;
-import betterwithmods.api.util.IVariantProvider;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.common.blocks.*;
 import betterwithmods.common.items.ItemBark;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.common.registry.variants.BlockVariant;
+import betterwithmods.library.common.variants.BlockVariant;
 import betterwithmods.common.registry.variants.WoodVariant;
-import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.VariantUtils;
 import com.google.common.collect.HashMultimap;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.Item;
@@ -30,8 +28,8 @@ import java.util.*;
 import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
-import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
-import static betterwithmods.api.util.IBlockVariants.EnumBlock.LOG;
+import static betterwithmods.library.common.variants.IBlockVariants.EnumBlock.*;
+import static betterwithmods.library.common.variants.IBlockVariants.EnumBlock.LOG;
 import static net.minecraft.init.Blocks.*;
 
 /**
@@ -39,8 +37,6 @@ import static net.minecraft.init.Blocks.*;
  */
 public class BWMOreDictionary {
 
-    public static final List<IBlockVariants> blockVariants = new ArrayList<>();
-    public static final List<IVariantProvider> variantProviders = new ArrayList<>();
     public static final Set<IRecipe> logRecipes = Sets.newHashSet();
     public static final HashMultimap<String, String> toolEffectiveOre = HashMultimap.create();
     public static List<Ore> nuggetNames;
@@ -241,7 +237,7 @@ public class BWMOreDictionary {
         oreNames = getOreIngredients("ore");
         ingotNames = getOreIngredients("ingot");
 
-        blockVariants.addAll(Lists.newArrayList(
+        VariantUtils.BLOCK_VARIANTS.addAll(Lists.newArrayList(
                 BlockVariant.builder()
                         .addVariant(BLOCK, new ItemStack(Blocks.COBBLESTONE))
                         .addVariant(STAIR, new ItemStack(Blocks.STONE_STAIRS))
@@ -322,7 +318,7 @@ public class BWMOreDictionary {
                         if (!plank.isEmpty()) {
                             logRecipes.add(recipe);
                             if (!isWoodRegistered(log)) {
-                                blockVariants.add(WoodVariant.builder().addVariant(LOG, subLog).addVariant(BLOCK, plank));
+                                VariantUtils.BLOCK_VARIANTS.add(WoodVariant.builder().addVariant(LOG, subLog).addVariant(BLOCK, plank));
                             }
                         }
                     }
@@ -332,7 +328,7 @@ public class BWMOreDictionary {
     }
 
     public static boolean isWoodRegistered(ItemStack stack) {
-        return blockVariants.stream().anyMatch(wood -> wood.getVariant(LOG, 1).isItemEqual(stack));
+        return VariantUtils.BLOCK_VARIANTS.stream().anyMatch(wood -> wood.getVariant(LOG, 1).isItemEqual(stack));
     }
 
     public static List<ItemStack> getOreNames(String prefix) {
@@ -369,23 +365,6 @@ public class BWMOreDictionary {
 
     public static boolean isToolForOre(String tool, ItemStack stack) {
         return toolEffectiveOre.get(tool).stream().anyMatch(getOres(stack)::contains);
-    }
-
-    public static IBlockVariants getVariantFromState(IBlockVariants.EnumBlock variant, IBlockState state) {
-        ItemStack stack = GlobalUtils.getStackFromState(state);
-        IBlockVariants blockVariant = null;
-        if (!stack.isEmpty()) {
-            blockVariant = blockVariants.stream().filter(w -> InventoryUtils.matches(w.getVariant(variant, 1), stack)).findFirst().orElse(null);
-        }
-        if (blockVariant == null) {
-            for (IVariantProvider provider : variantProviders) {
-                if (provider.match(state)) {
-                    blockVariant = provider.getVariant(variant, state);
-                    break;
-                }
-            }
-        }
-        return blockVariant;
     }
 
     public static List<Ingredient> fromOres(String... ores) {

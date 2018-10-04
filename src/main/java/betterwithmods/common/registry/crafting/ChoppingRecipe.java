@@ -1,6 +1,6 @@
 package betterwithmods.common.registry.crafting;
 
-import betterwithmods.api.util.IBlockVariants;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.hardcore.crafting.HCLumber;
 import betterwithmods.library.utils.ingredient.StackIngredient;

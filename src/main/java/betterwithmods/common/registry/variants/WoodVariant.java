@@ -3,9 +3,10 @@ package betterwithmods.common.registry.variants;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemBark;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.library.common.variants.BlockVariant;
 import net.minecraft.item.ItemStack;
 
-import static betterwithmods.api.util.IBlockVariants.EnumBlock.*;
+import static betterwithmods.library.common.variants.IBlockVariants.EnumBlock.*;
 
 public class WoodVariant extends BlockVariant {
 

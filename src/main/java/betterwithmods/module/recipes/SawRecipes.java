@@ -2,10 +2,11 @@ package betterwithmods.module.recipes;
 
 import betterwithmods.api.recipe.output.impl.RandomCountOutputs;
 import betterwithmods.api.recipe.output.impl.RandomOutput;
-import betterwithmods.api.util.IBlockVariants;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMOreDictionary;
 
+import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
@@ -60,7 +61,7 @@ public class SawRecipes extends Feature {
 
 
         if (!Loader.isModLoaded("primal")) {
-            for (IBlockVariants variant : BWMOreDictionary.blockVariants) {
+            for (IBlockVariants variant : VariantUtils.BLOCK_VARIANTS) {
                 ItemStack log = variant.getVariant(IBlockVariants.EnumBlock.LOG, 1);
                 if (!log.isEmpty()) {
                     ResourceLocation location = new ResourceLocation(ModLib.MODID, log.getItem().getRegistryName().getPath() + "_" + log.getMetadata());
@@ -75,7 +76,7 @@ public class SawRecipes extends Feature {
         int plankCount = loadProperty("Saw Plank Output", 4).setComment("Plank count that is output when a log is chopped by a Saw.").get();
         int barkCount = loadProperty("Saw Bark Output", 1).setComment("Bark count that is output when a log is chopped by a Saw.").get();
         int sawDustCount = loadProperty("Saw sawdust Output", 2).setComment("Sawdust count that is output when a log is chopped by a Saw.").get();
-        for (IBlockVariants wood : BWMOreDictionary.blockVariants) {
+        for (IBlockVariants wood : VariantUtils.BLOCK_VARIANTS) {
             RecipeRegistry.WOOD_SAW.addRecipe(new BlockDropIngredient(wood.getVariant(IBlockVariants.EnumBlock.LOG, 1)), Lists.newArrayList(wood.getVariant(IBlockVariants.EnumBlock.BLOCK, plankCount), wood.getVariant(IBlockVariants.EnumBlock.BARK, barkCount), wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, sawDustCount)));
         }
     }

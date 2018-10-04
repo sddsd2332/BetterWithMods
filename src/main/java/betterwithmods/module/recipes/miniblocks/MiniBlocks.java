@@ -1,7 +1,7 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.api.util.IBlockVariants;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.blocks.BlockAesthetic;
@@ -11,6 +11,7 @@ import betterwithmods.common.tile.TileCamo;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
+import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;
@@ -349,7 +350,7 @@ public class MiniBlocks extends Feature {
             event.getRegistry().register(new ShapedOreRecipe(tableStack.getItem().getRegistryName(), tableStack, "SSS", " M ", " M ", 'S', siding, 'M', moulding).setRegistryName(getRecipeRegistry(tableStack, parentStack)));
             event.getRegistry().register(new ShapedOreRecipe(benchStack.getItem().getRegistryName(), benchStack, "SSS", " M ", 'S', siding, 'M', moulding).setRegistryName(getRecipeRegistry(benchStack, parentStack)));
 
-            IBlockVariants blockVariants = BWMOreDictionary.getVariantFromState(IBlockVariants.EnumBlock.BLOCK, parent);
+            IBlockVariants blockVariants = VariantUtils.getVariantFromState(IBlockVariants.EnumBlock.BLOCK, parent);
             if (blockVariants != null) {
                 ItemStack fence = blockVariants.getVariant(IBlockVariants.EnumBlock.FENCE, 2);
                 ItemStack fencegate = blockVariants.getVariant(IBlockVariants.EnumBlock.FENCE_GATE, 1);
