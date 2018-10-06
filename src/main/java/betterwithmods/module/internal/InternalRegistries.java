@@ -17,6 +17,7 @@ public class InternalRegistries extends RequiredModule {
                 new EntityRegistry(),
                 new RecipeRegistry(),
                 new MiscRegistry(),
+                new AdvancementRegistry(),
                 BWMNetwork.INSTANCE
         );
     }

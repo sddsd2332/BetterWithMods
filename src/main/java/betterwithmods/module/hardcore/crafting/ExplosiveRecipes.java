@@ -2,10 +2,11 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.advancements.BWMAdvancements;
 import betterwithmods.common.registry.bulk.recipes.BulkCraftEvent;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
+import betterwithmods.library.common.advancements.Advancements;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.module.internal.AdvancementRegistry;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -50,7 +51,7 @@ public class ExplosiveRecipes extends Feature {
 
         expSize = blockAmt == 0 ? Math.max(expSize, 2.0f) : Math.max(expSize, 4.0f) + blockAmt;
 
-        BWMAdvancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), BWMAdvancements.EXPLOSIVE_RECIPE);
+        Advancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), AdvancementRegistry.EXPLOSIVE_RECIPE);
 
         world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, expSize, true);
 

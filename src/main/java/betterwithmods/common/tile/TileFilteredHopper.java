@@ -5,15 +5,16 @@ import betterwithmods.api.block.ISoulContainer;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IHopperFilter;
 import betterwithmods.api.tile.IMechanicalPower;
+import betterwithmods.library.common.advancements.Advancements;
 import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.client.model.filters.ModelWithResource;
-import betterwithmods.common.advancements.BWMAdvancements;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.registry.hopper.recipes.HopperRecipe;
 import betterwithmods.library.common.inventory.SimpleStackHandler;
 import betterwithmods.library.common.tile.TileVisibleInventory;
 import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
@@ -270,7 +271,7 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
         if (this.soulsRetained > 7) {
             this.getBlockWorld().playSound(null, this.pos, SoundEvents.ENTITY_GHAST_SCREAM, SoundCategory.BLOCKS, 1.0F, getBlockWorld().rand.nextFloat() * 0.1F + 0.8F);
             if (WorldUtils.spawnGhast(world, pos)) {
-                BWMAdvancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), BWMAdvancements.SPAWN_HOPPER_FRIEND);
+                Advancements.triggerNearby(world, new AxisAlignedBB(pos, pos.add(1, 1, 1)).grow(10.0D, 5.0D, 10.0D), AdvancementRegistry.SPAWN_HOPPER_FRIEND);
             }
         }
 
