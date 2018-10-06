@@ -44,6 +44,23 @@ public class ReflectionLib {
 
     public static final String[] MINECART_DISPENSER_BEHAVIOR = new String[]{"MINECART_DISPENSER_BEHAVIOR", "field_96602_b"};
 
-    public static final String[] ENUMDYEECOLOR_COLORVALUE = new String[]{"field_193351_w","colorValue"};
+    public static final String[] ENUMDYEECOLOR_COLORVALUE = new String[]{"field_193351_w", "colorValue"};
+
+    public static final String[] MIXPREDICATE_INPUT = new String[]{"field_185198_a", "input"};
+
+    public static final String[] MIXPREDICATE_OUTPUT = new String[]{"field_185200_c", "output"};
+
+    public static final String[] MIXPREDICATE_REAGENT = new String[]{"reagent", "field_185199_b"};
+
+    public static Class<Object> CLAZZ_MIXPREDICATE;
+
+    static {
+        try {
+            CLAZZ_MIXPREDICATE = (Class<Object>) Class.forName("net.minecraft.potion.PotionHelper$MixPredicate");
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
 
 }

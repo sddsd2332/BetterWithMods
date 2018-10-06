@@ -5,6 +5,7 @@ import betterwithmods.module.CompatModule;
 import betterwithmods.module.ModuleLoader;
 import betterwithmods.module.hardcore.beacons.HCBeacons;
 import betterwithmods.module.hardcore.crafting.*;
+import betterwithmods.module.hardcore.crafting.brewing.HCBrewing;
 import betterwithmods.module.hardcore.creatures.*;
 import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.module.hardcore.needs.*;

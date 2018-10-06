@@ -97,5 +97,8 @@ public class SetIngredient extends Ingredient implements Set<Ingredient> {
         ingredients.clear();
     }
 
-
+    @Override
+    public ItemStack[] getMatchingStacks() {
+        return ingredients.stream().map(Ingredient::getMatchingStacks).flatMap(Arrays::stream).toArray(ItemStack[]::new);
+    }
 }
