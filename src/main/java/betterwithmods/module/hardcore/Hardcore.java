@@ -6,6 +6,7 @@ import betterwithmods.library.common.modularity.impl.Module;
 import betterwithmods.module.general.MoreCobble;
 import betterwithmods.module.hardcore.beacons.HCBeacons;
 import betterwithmods.module.hardcore.crafting.*;
+import betterwithmods.module.hardcore.crafting.brewing.HCBrewing;
 import betterwithmods.module.hardcore.creatures.*;
 import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.module.hardcore.needs.*;
@@ -45,6 +46,7 @@ public class Hardcore extends Module {
         addFeature(new HCFishing().recipes());
         addFeature(new HCTorches().recipes());
         addFeature(new PowderKegs().recipes());
+        addFeature(new HCStructures().recipes());
 
         addFeature(new HCArmor());
         addFeature(new HCBeacons());
@@ -71,7 +73,6 @@ public class Hardcore extends Module {
         addFeature(new HCSaw());
         addFeature(new HCSheep());
         addFeature(new HCSpawn());
-        addFeature(new HCStructures());
         addFeature(new HCStumping());
         addFeature(new HCTools());
 

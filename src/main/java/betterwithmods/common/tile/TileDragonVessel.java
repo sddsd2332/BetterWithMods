@@ -108,6 +108,14 @@ public class TileDragonVessel extends TileBasic implements ITickable, IMechanica
         return data.hasKey(PREVENT_REMOTE_MOVEMENT);
     }
 
+    public int getExperience() {
+        return experience;
+    }
+
+    public int getMaxExperience() {
+        return MAX_EXPERIENCE;
+    }
+
     private int addExperience(int xp) {
         if (this.experience >= MAX_EXPERIENCE)
             return xp;
