@@ -66,20 +66,22 @@ public class RecipeRegistry extends RequiredFeature {
         return FurnaceRecipes.instance().getSmeltingList().entrySet().removeIf(next -> InventoryUtils.matches(next.getKey(), input));
     }
 
-    @Override
-    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        //Gather oredictionary
-        //TODO should be obsolute in 1.13
-        BWMOreDictionary.registerOres();
-        BWMOreDictionary.oreGathering();
-
-        ForgeRegistry<IRecipe> registry = (ForgeRegistry<IRecipe>) event.getRegistry();
+    private void applyRecipeActions(ForgeRegistry<IRecipe> registry) {
         for (IRecipe recipe : registry) {
             for (RecipeAction action : RECIPE_ACTIONS) {
                 action.apply(registry, recipe);
             }
         }
         registry.registerAll(RECIPE_ADDITIONS.toArray(new IRecipe[0]));
+    }
+
+    @Override
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        //Gather oredictionary
+        //TODO should be obsolute in 1.13
+        BWMOreDictionary.registerOres();
+        BWMOreDictionary.oreGathering();
+        applyRecipeActions((ForgeRegistry<IRecipe>) event.getRegistry());
     }
 }
 

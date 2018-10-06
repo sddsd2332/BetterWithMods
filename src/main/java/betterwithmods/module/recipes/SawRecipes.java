@@ -41,8 +41,6 @@ public class SawRecipes extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-
-
         RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.PUMPKIN, 0, OreDictionary.WILDCARD_VALUE));
         RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.VINE));
         RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.YELLOW_FLOWER));
@@ -55,18 +53,12 @@ public class SawRecipes extends Feature {
         RecipeRegistry.WOOD_SAW.addRecipe(new SawRecipe(new BlockStateIngredient(new ItemStack(Blocks.MELON_BLOCK)), new RandomCountOutputs(new RandomOutput(new ItemStack(Items.MELON), 3, 8))));
 
         BWMOreDictionary.findLogRecipes();
-        //TODO configure this
 
-
-
-
-        if (!Loader.isModLoaded("primal")) {
-            for (IBlockVariants variant : VariantUtils.BLOCK_VARIANTS) {
-                ItemStack log = variant.getVariant(IBlockVariants.EnumBlock.LOG, 1);
-                if (!log.isEmpty()) {
-                    ResourceLocation location = new ResourceLocation(ModLib.MODID, log.getItem().getRegistryName().getPath() + "_" + log.getMetadata());
-                    RecipeRegistry.addRecipe(new ChoppingRecipe(variant).setRegistryName(location));
-                }
+        for (IBlockVariants variant : VariantUtils.BLOCK_VARIANTS) {
+            ItemStack log = variant.getVariant(IBlockVariants.EnumBlock.LOG, 1);
+            if (!log.isEmpty()) {
+                ResourceLocation location = new ResourceLocation(ModLib.MODID, log.getItem().getRegistryName().getPath() + "_" + log.getMetadata());
+                RecipeRegistry.addRecipe(new ChoppingRecipe(variant).setRegistryName(location));
             }
         }
     }

@@ -24,9 +24,9 @@ public class HCDeadweight extends Feature {
     }
 
     @SubscribeEvent
-    public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
-        if (!PlayerUtils.isSurvival(event.getEntityPlayer()))
-            return;
+        public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
+            if (!PlayerUtils.isSurvival(event.getEntityPlayer()))
+                return;
 
         if (event.getWorld().getBlockState(event.getPos()).getBlock().equals(Blocks.ANVIL)) {
             event.setCanceled(true);
