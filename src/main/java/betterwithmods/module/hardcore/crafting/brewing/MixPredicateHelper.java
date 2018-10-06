@@ -7,7 +7,6 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class MixPredicateHelper {
 
-
     public static void setReagent(Object mixPredicate, Ingredient ingredient) {
         ReflectionHelper.setPrivateValue(ReflectionLib.CLAZZ_MIXPREDICATE, mixPredicate, ingredient, ReflectionLib.MIXPREDICATE_REAGENT);
     }
@@ -23,7 +22,5 @@ public class MixPredicateHelper {
     public static PotionType getOutputPotionType(Object mixPredicate) {
         return ReflectionHelper.getPrivateValue(ReflectionLib.CLAZZ_MIXPREDICATE, mixPredicate, ReflectionLib.MIXPREDICATE_OUTPUT);
     }
-
-
 
 }
