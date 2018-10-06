@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.crafting.brewing;
 
-import betterwithmods.util.ReflectionLib;
+import betterwithmods.library.lib.ReflectionLib;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.PotionType;
 import net.minecraftforge.fml.relauncher.ReflectionHelper;

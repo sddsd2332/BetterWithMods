@@ -2,13 +2,9 @@ package betterwithmods.module.hardcore.crafting.brewing;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.library.lib.ReflectionLib;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.library.utils.ingredient.StackIngredient;
-import net.minecraft.block.Block;
-import betterwithmods.module.Feature;
-import betterwithmods.module.hardcore.crafting.brewing.MixPredicateHelper;
-import betterwithmods.util.ReflectionLib;
+import betterwithmods.library.lib.ReflectionLib;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityWitch;
@@ -25,12 +21,13 @@ import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
 import net.minecraft.potion.PotionType;
 import net.minecraft.potion.PotionUtils;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.common.brewing.*;
+import net.minecraftforge.common.brewing.AbstractBrewingRecipe;
+import net.minecraftforge.common.brewing.BrewingRecipe;
+import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
+import net.minecraftforge.common.brewing.IBrewingRecipe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.Mod;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -42,7 +39,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber(modid=ModLib.MODID)
+@Mod.EventBusSubscriber(modid= ModLib.MODID)
 public class HCBrewing extends Feature {
     private static boolean removeMovementPotions;
     private static boolean waterBreathingAnyFish;
@@ -236,13 +233,13 @@ public class HCBrewing extends Feature {
                     AbstractBrewingRecipe abstractRecipe = (AbstractBrewingRecipe) recipe;
                     if (abstractRecipe.isIngredient(extenderToReplace) && isExtended(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                         iterator.remove();
-                        iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.WITCH_WART), abstractRecipe.getOutput()));
+                        iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getStack(ItemMaterial.EnumMaterial.WITCH_WART), abstractRecipe.getOutput()));
                     } else if (abstractRecipe.isIngredient(strengthenerToReplace) && isStrong(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                         iterator.remove();
-                        iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BRIMSTONE), abstractRecipe.getOutput()));
+                        iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getStack(ItemMaterial.EnumMaterial.BRIMSTONE), abstractRecipe.getOutput()));
                     } else if (abstractRecipe.isIngredient(inverterToReplace) && isInverted(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                         iterator.remove();
-                        iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.POISON_SAC), abstractRecipe.getOutput()));
+                        iterator.add(new BrewingRecipe(abstractRecipe.getInput(), ItemMaterial.getStack(ItemMaterial.EnumMaterial.POISON_SAC), abstractRecipe.getOutput()));
                     } else if (abstractRecipe.isIngredient(splashToReplace) && isSplash(abstractRecipe.getInput(), abstractRecipe.getOutput())) {
                         iterator.remove();
                         iterator.add(new BrewingRecipe(abstractRecipe.getInput(), new ItemStack(BWMItems.CREEPER_OYSTER), abstractRecipe.getOutput()));

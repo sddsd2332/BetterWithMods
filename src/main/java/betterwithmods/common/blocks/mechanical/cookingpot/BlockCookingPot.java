@@ -2,12 +2,16 @@ package betterwithmods.common.blocks.mechanical.cookingpot;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.common.tile.TileVisibleInventory;
+import betterwithmods.library.utils.CapabilityUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.util.DirUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -84,5 +88,23 @@ public class BlockCookingPot extends BlockBase {
     @Override
     public IBlockState getStateFromMeta(int meta) {
         return getDefaultState();
+    }
+
+    @Override
+    public boolean hasComparatorInputOverride(IBlockState state) {
+        return true;
+    }
+
+    protected int getComparatorFromTile(TileEntity tile) {
+        if (tile instanceof TileVisibleInventory) {
+            return (int) (((TileVisibleInventory) tile).getPercentage() * 15);
+        }
+        return 0;
+    }
+
+    @Override
+    public int getComparatorInputOverride(IBlockState blockState, World worldIn, BlockPos pos) {
+        TileEntity tile = worldIn.getTileEntity(pos);
+        return getComparatorFromTile(tile);
     }
 }

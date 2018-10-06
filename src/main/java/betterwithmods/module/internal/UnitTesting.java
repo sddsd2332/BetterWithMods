@@ -2,7 +2,6 @@ package betterwithmods.module.internal;
 
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.testing.BaseTest;
-import betterwithmods.testing.BWMTests;
 import betterwithmods.testing.BulkRecipeTests;
 import betterwithmods.testing.CookingPotTests;
 import betterwithmods.testing.SawRecipesTest;
