@@ -11,6 +11,7 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 public class BWMCreativeTabs {
+
     public static final CreativeTabs ITEMS = new CreativeTabs(ModLib.MODID + ":items") {
         @Override
         @SideOnly(Side.CLIENT)

@@ -1,8 +1,8 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
+import betterwithmods.module.internal.ItemRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -17,8 +17,7 @@ import javax.annotation.Nonnull;
 
 public class ItemSoulforgedBattleAxe extends ItemAxe {
     public ItemSoulforgedBattleAxe() {
-        super(BWMItems.SOULFORGED_STEEL, 9F, -2.4f);
-
+        super(ItemRegistry.SOULFORGED_STEEL, 9F, -2.4f);
     }
 
     @Override

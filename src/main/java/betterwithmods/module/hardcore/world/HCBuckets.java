@@ -93,7 +93,7 @@ public class HCBuckets extends Feature {
         if (fixIce) {
             BlockRegistry.registerBlocks(
                     BlockEntryBuilderFactory.<Void>create()
-                            .builder().block(new BlockIce().setTranslationKey("ice")).id("minecraft:id").build()
+                            .builder().block(new BlockIce().setTranslationKey("ice")).id("minecraft:ice").build()
                             .complete()
             );
         }

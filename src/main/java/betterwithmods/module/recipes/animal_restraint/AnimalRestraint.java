@@ -1,10 +1,12 @@
 package betterwithmods.module.recipes.animal_restraint;
 
 import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemAnimalHarness;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.item.creation.BasicItemBuilder;
+import betterwithmods.library.common.item.creation.ItemFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.module.internal.ItemRegistry;
 import betterwithmods.module.recipes.breeding_harness.models.ModelCowHarness;
 import betterwithmods.module.recipes.breeding_harness.models.ModelSheepHarness;
 import betterwithmods.network.BWMNetwork;
@@ -48,7 +50,7 @@ import java.util.Set;
 @Mod.EventBusSubscriber
 public class AnimalRestraint extends Feature {
 
-    public static final Item ANIMAL_RESTRAINT = new ItemAnimalHarness().setRegistryName("animal_restraint");
+
     public static final Set<Class<? extends EntityAnimal>> HARNESS_ANIMALS = Sets.newHashSet();
     private static final ResourceLocation CAPABILITY = new ResourceLocation(ModLib.MODID, "harness");
     private static final Object2BooleanMap<Class<? extends Entity>> HARNESS_CACHE = new Object2BooleanOpenHashMap<>();
@@ -107,7 +109,7 @@ public class AnimalRestraint extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BWMItems.registerItem(ANIMAL_RESTRAINT);
+        ItemRegistry.registerItems(ItemFactory.create().builder(new BasicItemBuilder(ItemAnimalHarness::new).id("animal_restraint")).complete());
         CapabilityManager.INSTANCE.register(Harness.class, new Harness.Storage(), Harness::new);
     }
 

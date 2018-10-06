@@ -7,8 +7,11 @@ import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
+import betterwithmods.library.common.item.creation.BasicItemBuilder;
+import betterwithmods.library.common.item.creation.ItemFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.hardcore.needs.HCTools;
+import betterwithmods.module.internal.ItemRegistry;
 import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageHungerShake;
@@ -42,6 +45,7 @@ import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.registry.GameRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import squeek.applecore.api.AppleCoreAPI;
@@ -59,9 +63,13 @@ import squeek.applecore.api.hunger.StarvationEvent;
 
 @Mod.EventBusSubscriber
 public class HCHunger extends Feature {
-    public static final Item PUMPKIN_SEEDS = new ItemEdibleSeeds(Blocks.PUMPKIN_STEM, Blocks.FARMLAND, 1, 0).setRegistryName("minecraft:pumpkin_seeds").setTranslationKey("seeds_pumpkin");
-    public static final Item BROWN_MUSHROOM = new ItemBlockEdible(Blocks.BROWN_MUSHROOM, 1, 0, false).setRegistryName("minecraft:brown_mushroom").setTranslationKey("brown_mushroom");
-    public static final Item RED_MUSHROOM = new ItemBlockEdible(Blocks.RED_MUSHROOM, 1, 0, false).setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1).setRegistryName("minecraft:red_mushroom").setTranslationKey("red_mushroom");
+
+    @GameRegistry.ObjectHolder("minecraft:pumpkin_seeds")
+    public static final Item PUMPKIN_SEEDS = null;
+    @GameRegistry.ObjectHolder("minecraft:brown_mushroom")
+    public static final Item BROWN_MUSHROOM = null;
+    @GameRegistry.ObjectHolder("minecraft:red_mushroom")
+    public static final Item RED_MUSHROOM = null;
 
     private static final DataParameter<Integer> EXHAUSTION_TICK = EntityDataManager.createKey(EntityPlayer.class, DataSerializers.VARINT);
     public static float blockBreakExhaustion;
@@ -83,12 +91,25 @@ public class HCHunger extends Feature {
         overrideMushrooms = loadProperty("Edible Mushrooms", true).setComment("Override Mushrooms to be edible, be careful with the red one ;)").get();
         overridePumpkinSeeds = loadProperty("Edible Pumpkin Seeds", true).setComment("Override Pumpkin Seeds to be edible").get();
 
-        if (overridePumpkinSeeds)
-            BWMItems.registerItem(PUMPKIN_SEEDS);
-        if (overrideMushrooms) {
-            BWMItems.registerItem(BROWN_MUSHROOM);
-            BWMItems.registerItem(RED_MUSHROOM);
+        ItemFactory factory = ItemFactory.create();
+        if (overridePumpkinSeeds) {
+            factory.builder(new BasicItemBuilder(
+                    new ItemEdibleSeeds(Blocks.PUMPKIN_STEM, Blocks.FARMLAND, 1, 0).setTranslationKey("seeds_pumpkin")
+            ).id("minecraft:pumpkin_seeds"));
         }
+
+        if (overrideMushrooms) {
+            factory
+                    .builder(new BasicItemBuilder(
+                            new ItemBlockEdible(Blocks.BROWN_MUSHROOM, 1, 0, false).setTranslationKey("brown_mushroom")
+                    ).id("minecraft:brown_mushroom"))
+                    .builder(new BasicItemBuilder(
+                            new ItemBlockEdible(Blocks.RED_MUSHROOM, 1, 0, false)
+                                    .setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1)
+                                    .setTranslationKey("red_mushroom")
+                    ).id("minecraft:red_mushroom"));
+        }
+        ItemRegistry.registerItems(factory.complete());
     }
 
     //Adds Exhaustion when Jumping and cancels Jump if too exhausted

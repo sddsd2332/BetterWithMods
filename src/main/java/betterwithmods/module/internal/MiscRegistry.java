@@ -8,7 +8,6 @@ import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.advancements.BWMAdvancements;
 import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.BlockBUD;
 import betterwithmods.common.blocks.BlockDetector;
@@ -82,14 +81,13 @@ public class MiscRegistry extends RequiredFeature {
         KilnStructureManager.registerKilnBlock(Blocks.NETHER_BRICK.getDefaultState());
 
         FluidRegistry.registerFluid(MILK);
-        //FIXME migrate
-        BWMAdvancements.registerAdvancements();
-        MiscRegistry.registerBlockDispenserBehavior();
+
     }
 
 
     @Override
     public void onInit(FMLInitializationEvent event) {
+        MiscRegistry.registerBlockDispenserBehavior();
         registerHeatSources();
         registerBUDBlacklist();
         registerDetectorHandlers();

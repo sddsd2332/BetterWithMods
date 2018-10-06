@@ -4,6 +4,7 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.library.utils.ToolUtils;
+import betterwithmods.module.internal.ItemRegistry;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
@@ -21,14 +22,12 @@ import javax.annotation.Nullable;
 import java.util.Set;
 
 public class ItemSoulforgedMattock extends ItemTool {
-    private static final Set<Block> EFFECTIVE = Sets.union(ToolUtils.getEffectiveBlocks((ItemTool) BWMItems.STEEL_PICKAXE), ToolUtils.getEffectiveBlocks((ItemTool) BWMItems.STEEL_SHOVEL));
 
     private static final Set<Material> EFFECTIVE_MATERIALS = Sets.newHashSet(Material.ROCK, Material.IRON, Material.ANVIL,
             Material.GROUND, Material.GRASS, Material.CLAY, Material.GLASS, Material.PISTON, Material.SNOW);
 
     public ItemSoulforgedMattock() {
-        super(BWMItems.SOULFORGED_STEEL, EFFECTIVE);
-
+        super(ItemRegistry.SOULFORGED_STEEL, Sets.newHashSet());
     }
 
     @Override
@@ -36,11 +35,12 @@ public class ItemSoulforgedMattock extends ItemTool {
         return BWMOreDictionary.listContains(repair, OreDictionary.getOres("ingotSoulforgedSteel")) || super.getIsRepairable(toRepair, repair);
     }
 
+
     @Override
     public float getDestroySpeed(@Nonnull ItemStack stack, IBlockState state) {
         if (PlayerUtils.isCurrentToolEffectiveOnBlock(stack, state, EFFECTIVE_MATERIALS))
             return efficiency;
-        return EFFECTIVE.contains(state.getBlock()) ? this.efficiency : 1.0F;
+        return ToolUtils.getMaxDestorySpeed(stack, state, (ItemTool) BWMItems.STEEL_PICKAXE, (ItemTool) BWMItems.STEEL_SHOVEL);
     }
 
     @Nonnull

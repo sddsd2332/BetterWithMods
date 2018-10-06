@@ -1,8 +1,8 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
+import betterwithmods.module.internal.ItemRegistry;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.Enchantment;
@@ -17,7 +17,7 @@ import java.util.Set;
 
 public class ItemSoulforgedPickaxe extends ItemPickaxe {
     public ItemSoulforgedPickaxe() {
-        super(BWMItems.SOULFORGED_STEEL);
+        super(ItemRegistry.SOULFORGED_STEEL);
 
     }
 

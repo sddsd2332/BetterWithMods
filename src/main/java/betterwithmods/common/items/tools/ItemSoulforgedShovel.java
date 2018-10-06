@@ -1,8 +1,8 @@
 package betterwithmods.common.items.tools;
 
-import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
+import betterwithmods.module.internal.ItemRegistry;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.item.ItemSpade;
 import net.minecraft.item.ItemStack;
@@ -12,7 +12,7 @@ import javax.annotation.Nonnull;
 
 public class ItemSoulforgedShovel extends ItemSpade {
     public ItemSoulforgedShovel() {
-        super(BWMItems.SOULFORGED_STEEL);
+        super(ItemRegistry.SOULFORGED_STEEL);
 
     }
 

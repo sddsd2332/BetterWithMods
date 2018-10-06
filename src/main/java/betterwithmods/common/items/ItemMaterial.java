@@ -1,27 +1,34 @@
 package betterwithmods.common.items;
 
+import betterwithmods.library.common.item.IItemType;
+import betterwithmods.library.common.item.creation.ItemBuilder;
+import betterwithmods.library.common.item.creation.ItemTypeBuilder;
+import betterwithmods.library.common.item.creation.ItemTypeBuilderGenerator;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.registries.GameData;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
+import java.util.List;
 
 public class ItemMaterial extends Item {
-    public static final HashMap<EnumMaterial, ItemMaterial> MATERIALS = Maps.newHashMap();
+
     private final EnumMaterial material;
 
     public ItemMaterial(EnumMaterial material) {
         super();
-        MATERIALS.put(material, this);
         this.material = material;
-        this.setRegistryName(material.getName());
-
     }
 
     public static Ingredient getIngredient(EnumMaterial material) {
@@ -37,7 +44,7 @@ public class ItemMaterial extends Item {
     }
 
     public static Item getItem(EnumMaterial material) {
-        return MATERIALS.get(material);
+        return ForgeRegistries.ITEMS.getValue(material.getRegistryName());
     }
 
     public static void init() {
@@ -77,7 +84,7 @@ public class ItemMaterial extends Item {
     }
 
 
-    public enum EnumMaterial {
+    public enum EnumMaterial implements IItemType {
         WOOD_GEAR,
         NETHERCOAL,
         HEMP_LEAF,
@@ -134,8 +141,39 @@ public class ItemMaterial extends Item {
 
         public final static EnumMaterial[] VALUES = values();
 
-        String getName() {
-            return this.name().toLowerCase();
+        @Nonnull
+        @Override
+        public ResourceLocation getRegistryName() {
+            return GameData.checkPrefix(name().toLowerCase());
         }
+
+        @Override
+        public IItemType maxStack(int stack) {
+            return this;
+        }
+
+        @Override
+        public int getMaxStack() {
+            return 64;
+        }
+    }
+
+
+    public static class Generator extends ItemTypeBuilderGenerator<EnumMaterial, ItemMaterial> {
+
+        public Generator() {
+            super(Lists.newArrayList(EnumMaterial.VALUES));
+        }
+
+        @Override
+        public ItemBuilder<EnumMaterial, ItemMaterial> create(EnumMaterial variant) {
+            return new ItemTypeBuilder<EnumMaterial, ItemMaterial>(variant) {
+                @Override
+                protected ItemMaterial create() {
+                    return new ItemMaterial(variant);
+                }
+            };
+        }
+
     }
 }

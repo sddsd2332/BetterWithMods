@@ -6,6 +6,7 @@ import betterwithmods.library.lib.ReflectionLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
+import betterwithmods.module.internal.ItemRegistry;
 import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -83,7 +84,7 @@ public class HCTools extends Feature {
         OVERRIDES.put(Item.ToolMaterial.IRON, new ToolMaterialOverride(this, "iron", 500, 6.0F, 14));
         OVERRIDES.put(Item.ToolMaterial.DIAMOND, new ToolMaterialOverride(this, "diamond", 1561, 8.0F, 14));
         OVERRIDES.put(Item.ToolMaterial.GOLD, new ToolMaterialOverride(this, "gold", 32, 12.0F, 22));
-        OVERRIDES.put(BWMItems.SOULFORGED_STEEL, new ToolMaterialOverride(this, BWMItems.SOULFORGED_STEEL));
+        OVERRIDES.put(ItemRegistry.SOULFORGED_STEEL, new ToolMaterialOverride(this, ItemRegistry.SOULFORGED_STEEL));
 
         TOOLS.forEach(this::loadToolMaterialOverride);
     }

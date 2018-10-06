@@ -1,7 +1,6 @@
 package betterwithmods.module.internal;
 
 import betterwithmods.common.BWMCreativeTabs;
-import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.*;
 import betterwithmods.common.blocks.blood_wood.BlockBloodLeaves;
 import betterwithmods.common.blocks.blood_wood.BlockBloodLog;
@@ -43,6 +42,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import javax.annotation.Nullable;
+import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -217,13 +217,13 @@ public class BlockRegistry extends RequiredFeature {
                 block.setTranslationKey(block.getRegistryName().toString());
             REGISTRY.add(block);
             if (item != null) {
-                BWMItems.registerItem(item);
+                ItemRegistry.addItem(item);
             }
         }
     }
 
 
-    public static void registerBlocks(Set<BlockEntry> set) {
+    public static void registerBlocks(Collection<BlockEntry> set) {
         for (BlockEntry entry : set) {
             registerBlock(entry);
         }
