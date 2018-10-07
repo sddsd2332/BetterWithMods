@@ -77,6 +77,6 @@ public class BWMArmor extends ItemArmor implements IColorable {
 
     @Override
     public IItemColor getColorHandler() {
-        return ColorHandlers.armor;
+        return ColorHandlers.ARMOR;
     }
 }
