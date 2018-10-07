@@ -49,15 +49,10 @@ dependencies {
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"
 
     if (!project.hasProperty("singleproject")) {
-        deobfCompile "betterwithmods.core:BetterWithLib:1.12-1.5"
+        deobfCompile "betterwithmods.core:BetterWithLib:1.12-2.0.00"
     } else {
         compile project(':BetterWithLib')
     }
-
-
-
-    compile "MCMultiPart2:MCMultiPart:2.4.1"
-    runtime "MCMultiPart2:MCMultiPart:2.4.1"
 
     compile 'org.easytesting:fest-assert:1.4'
     compile 'org.easytesting:fest-util:1.1.6'
