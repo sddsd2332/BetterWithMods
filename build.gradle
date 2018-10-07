@@ -62,7 +62,7 @@ dependencies {
 sourceSets {
     main {
         java {
-//            exclude '**/Thaumcraft.java'
+            exclude '**/Thaumcraft.java'
         }
         resources {
             exclude 'assets/betterwithmods/docs/en_us/assets/**'
