@@ -66,10 +66,6 @@ public class BlockPlanter extends BlockBase implements IGrowable {
         return new ItemStack(getBlock(type));
     }
 
-    public int colorMultiplier(IBlockAccess world, BlockPos pos, int tintIndex) {
-        return (type == GRASS && tintIndex > -1) ? world != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(world, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D) : -1;
-    }
-
     private Type getTypeFromStack(ItemStack stack) {
         for (Type type : Type.VALUES) {
             if (type.apply(stack)) {

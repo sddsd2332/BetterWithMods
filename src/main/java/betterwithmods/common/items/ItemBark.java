@@ -23,7 +23,6 @@ public class ItemBark extends Item {
 
     public ItemBark() {
         super();
-
         this.setHasSubtypes(true);
     }
 

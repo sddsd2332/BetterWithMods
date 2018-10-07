@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.crafting;
 
+import betterwithmods.client.tesr.TESRFurnaceContent;
 import betterwithmods.common.blocks.BlockFurnace;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
@@ -12,10 +13,12 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.furnace.FurnaceFuelBurnTimeEvent;
+import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -85,6 +88,12 @@ public class HCFurnace extends Feature {
                 .complete());
     }
 
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFurnace.class, new TESRFurnaceContent());
+    }
+
     @Override
     public void onInit(FMLInitializationEvent event) {
         RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.DIAMOND_ORE));
@@ -95,7 +104,6 @@ public class HCFurnace extends Feature {
         RecipeRegistry.removeFurnaceRecipe(new ItemStack(Blocks.QUARTZ_BLOCK));
 
         //Remove Furnace Recycling
-
         RecipeRegistry.removeFurnaceRecipe(Items.CHAINMAIL_HELMET);
         RecipeRegistry.removeFurnaceRecipe(Items.CHAINMAIL_CHESTPLATE);
         RecipeRegistry.removeFurnaceRecipe(Items.CHAINMAIL_LEGGINGS);

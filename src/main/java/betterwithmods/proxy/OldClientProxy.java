@@ -87,59 +87,10 @@
 //        BetterWithMods.MODULE_LOADER.onPostInitClient(event);
 //    }
 //
-//    private void registerRenderInformation() {
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileWindmillHorizontal.class, new TESRWindmill());
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileWindmillVertical.class, new TESRVerticalWindmill());
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileWaterwheel.class, new TESRWaterwheel());
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileFilteredHopper.class, new TESRFilteredHopper());
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileCauldron.class, new TESRCookingPot());
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileCrucible.class, new TESRCookingPot());
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileBeacon.class, new TESRBeacon());
-//        ClientRegistry.bindTileEntitySpecialRenderer(TileBucket.class, new TESRBucket());
-//        if (BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCFurnace.class)) {
-//            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFurnace.class, new TESRFurnaceContent());
-//        }
-//    }
 //
-//    private void registerColor(ItemColors registry, Item item) {
-//        if (item instanceof IColorable) {
-//            registry.registerItemColorHandler(((IColorable) item).getColorHandler(), item);
-//        }
-//    }
 //
-//    private void registerColors() {
-//        final BlockColors BLOCK_COLORS = Minecraft.getMinecraft().getBlockColors();
-//        final ItemColors ITEM_COLORS = Minecraft.getMinecraft().getItemColors();
 //
-//        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_PLANTER, BlockPlanter.BLOCKS.get(BlockPlanter.Type.GRASS));
-//        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_FOLIAGE, BWMBlocks.VINE_TRAP);
-//        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_BLOOD_LEAF, BWMBlocks.BLOOD_LEAVES);
-//        BLOCK_COLORS.registerBlockColorHandler(ColorHandlers.BLOCK_GRASS, BWMBlocks.DIRT_SLAB);
-//
-//        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_PLANTER, BlockPlanter.BLOCKS.get(BlockPlanter.Type.GRASS));
-//        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_FOLIAGE, BWMBlocks.VINE_TRAP);
-//        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_BLOOD_LEAF, BWMBlocks.BLOOD_LEAVES);
-//        ITEM_COLORS.registerItemColorHandler(ColorHandlers.ITEM_GRASS, BWMBlocks.DIRT_SLAB);
-//        BWMItems.getItems().forEach(item -> registerColor(ITEM_COLORS, item));
-//        BLOCK_COLORS.registerBlockColorHandler((state, worldIn, pos, tintIndex) -> worldIn != null && pos != null ? BiomeColorHelper.getGrassColorAtPos(worldIn, pos) : ColorizerGrass.getGrassColor(0.5D, 1.0D), BWMBlocks.DIRT_SLAB);
-//        ITEM_COLORS.registerItemColorHandler((stack, tintIndex) -> {
-//            IBlockState iblockstate = ((ItemBlock) stack.getItem()).getBlock().getStateFromMeta(stack.getMetadata());
-//            return BLOCK_COLORS.colorMultiplier(iblockstate, null, null, tintIndex);
-//        }, BWMBlocks.DIRT_SLAB);
-//    }
-//
-//    private void initRenderers() {
-//        RenderingRegistry.registerEntityRenderingHandler(EntityDynamite.class, manager -> new RenderSnowball<>(manager, BWMItems.DYNAMITE, Minecraft.getMinecraft().getRenderItem()));
-//        RenderingRegistry.registerEntityRenderingHandler(EntityUrn.class, RenderUrn::new);
-//        RenderingRegistry.registerEntityRenderingHandler(EntityMiningCharge.class, RenderMiningCharge::new);
-//        RenderingRegistry.registerEntityRenderingHandler(EntityExtendingRope.class, RenderExtendingRope::new);
-//        RenderingRegistry.registerEntityRenderingHandler(EntityShearedCreeper.class, RenderShearedCreeper::new);
-//        RenderingRegistry.registerEntityRenderingHandler(EntityBroadheadArrow.class, RenderBroadheadArrow::new);
-//        RenderingRegistry.registerEntityRenderingHandler(EntitySpiderWeb.class, manager -> new RenderSnowball<>(manager, Item.getItemFromBlock(Blocks.WEB), Minecraft.getMinecraft().getRenderItem()));
-//        RenderingRegistry.registerEntityRenderingHandler(EntityJungleSpider.class, RenderJungleSpider::new);
-//        RenderingRegistry.registerEntityRenderingHandler(EntityTentacle.class, RenderTentacle::new);
-//        RenderingRegistry.registerEntityRenderingHandler(EntitySitMount.class, RenderInvisible::new);
-//    }
+
 //    @Override
 //    public String getName() {
 //        return "ClientProxy";
