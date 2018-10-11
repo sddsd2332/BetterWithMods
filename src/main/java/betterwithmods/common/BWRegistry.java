@@ -9,6 +9,7 @@ import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import betterwithmods.common.advancements.BWAdvancements;
 import betterwithmods.common.blocks.BlockBDispenser;
+import betterwithmods.common.blocks.BlockUnfiredPottery;
 import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.entity.*;
@@ -41,10 +42,7 @@ import betterwithmods.module.hardcore.creatures.EntityTentacle;
 import betterwithmods.module.hardcore.needs.HCTools;
 import betterwithmods.module.hardcore.world.HCTorches;
 import betterwithmods.network.BWNetwork;
-import betterwithmods.util.DispenserBehaviorDynamite;
-import betterwithmods.util.InvUtils;
-import betterwithmods.util.MechanicalUtil;
-import betterwithmods.util.ReflectionLib;
+import betterwithmods.util.*;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDispenser;
@@ -211,6 +209,8 @@ public class BWRegistry {
         BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(BWMItems.DYNAMITE, new DispenserBehaviorDynamite());
         BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Items.REPEATER, new BehaviorDiodeDispense());
         BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Items.COMPARATOR, new BehaviorDiodeDispense());
+        BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Items.CLAY_BALL, new DispenserBlockOverride(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.BRICK)));
+        BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Items.CLAY_BALL, new DispenserBlockOverride(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.BRICK)));
         BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Item.getItemFromBlock(BWMBlocks.MINING_CHARGE),
                 (source, stack) -> {
                     World worldIn = source.getWorld();
