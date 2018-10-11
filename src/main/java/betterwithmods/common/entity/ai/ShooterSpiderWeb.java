@@ -72,12 +72,11 @@ public class ShooterSpiderWeb extends EntityAIBase {
 
     private void shootWeb() {
 	    EntitySpiderWeb web = new EntitySpiderWeb(spider.getEntityWorld(), spider);
-	    double d0 = target.posY;
-	    double d1 = target.posX - spider.posX;
-	    double d2 = d0 - web.posY;
-	    double d3 = target.posZ - spider.posZ;
-	    float f = MathHelper.sqrt(d1 * d1 + d3 * d3) * 0.2F;
-	    web.shoot(d1, d2 + (double)f, d3, 1.0F, 2);
+        double vecX = target.posX - web.posX;
+        double vecY = target.posY - web.posY;
+        double vecZ = target.posZ - web.posZ;
+        double dist = MathHelper.sqrt(vecX * vecX + vecY * vecY + vecZ * vecZ);
+        web.shoot(vecX, vecY + (dist * 0.2F), vecZ, 1.0F, 0);
 	    spider.playSound(SoundEvents.ENTITY_SLIME_SQUISH, 1.0F, 1.0F / (spider.getRNG().nextFloat() * 0.4F + 0.8F));
 	    spider.world.spawnEntity(web);
     }
