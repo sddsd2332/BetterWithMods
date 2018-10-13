@@ -5,6 +5,7 @@ import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -99,8 +100,10 @@ public class TileFurnace extends TileEntityFurnace {
     private void burnFuel(ItemStack fuel, boolean burnedThisTick) {
         currentItemBurnTime = (furnaceBurnTime = getItemBurnTime(fuel));
         if (this.isBurning()) {
+            Item item = fuel.getItem();
             fuel.shrink(1);
-            if (fuel.isEmpty()) furnaceItemStacks.set(FUEL, fuel.getItem().getContainerItem(fuel));
+            if (fuel.isEmpty())
+                furnaceItemStacks.set(FUEL, item.getContainerItem(fuel));
             if (!burnedThisTick)
                 world.setBlockState(pos, Blocks.LIT_FURNACE.getDefaultState().withProperty(BlockFurnace.FACING, world.getBlockState(pos).getValue(BlockFurnace.FACING)));
         }

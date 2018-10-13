@@ -8,6 +8,7 @@ import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntitySpider;
 import net.minecraft.entity.monster.EntityZombie;
+import net.minecraft.entity.passive.EntityWolf;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
@@ -25,11 +26,11 @@ public class MobEating extends Feature {
     public static void addEntityAI(EntityJoinWorldEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof EntitySpider) {
-            if (!EntityUtils.hasAI((EntityLiving) entity, EntityAIMonsterEat.class))
-                ((EntitySpider) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("meatChicken"), radius));
+            ((EntitySpider) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("meatChicken"), radius));
         } else if (entity instanceof EntityZombie) {
-            if (!EntityUtils.hasAI((EntityLiving) entity, EntityAIMonsterEat.class))
-                ((EntityZombie) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("listAllmeat"), radius));
+            ((EntityZombie) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("listAllmeat"), radius));
+        } else if (entity instanceof EntityWolf) {
+            ((EntityWolf) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("listAllmeat"), radius));
         }
     }
 }

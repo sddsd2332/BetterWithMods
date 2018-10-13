@@ -26,12 +26,19 @@ import net.minecraftforge.common.util.FakePlayerFactory;
 import javax.annotation.Nonnull;
 
 public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
+
+    public ItemStack getInputStack(IBlockSource source, ItemStack stackIn) {
+        return stackIn;
+    }
+
     @Nonnull
     @Override
-    protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+    protected ItemStack dispenseStack(IBlockSource source, ItemStack stackIn) {
         EnumFacing facing = source.getBlockState().getValue(BlockBDispenser.FACING);
         IPosition pos = BlockBDispenser.getDispensePosition(source);
         BlockPos check = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
+
+        ItemStack stack = getInputStack(source,stackIn);
 
         World world = source.getWorld();
 
