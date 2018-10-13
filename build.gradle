@@ -8,7 +8,6 @@ buildscript {
     }
 }
 
-
 apply plugin: "maven"
 apply plugin: 'net.minecraftforge.gradle.forge'
 
@@ -26,7 +25,7 @@ if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2768"
+    version = "1.12.2-14.23.5.2770"
     runDir = "run"
     mappings = "stable_39"
     replace "%VERSION%": "${project.version}"
@@ -53,8 +52,6 @@ dependencies {
     } else {
         compile project(':BetterWithLib')
     }
-
-
 
     compile "MCMultiPart2:MCMultiPart:2.4.1"
     runtime "MCMultiPart2:MCMultiPart:2.4.1"
@@ -107,7 +104,6 @@ uploadArchives {
         }
     }
 }
-
 
 processResources {
     inputs.property "version", project.version
