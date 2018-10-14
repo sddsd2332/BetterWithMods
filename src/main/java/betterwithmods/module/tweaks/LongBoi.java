@@ -4,6 +4,7 @@ import betterwithmods.client.render.RenderLongboi;
 import betterwithmods.common.blocks.BlockWolf;
 import betterwithmods.common.entity.EntityLongboi;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
+import betterwithmods.library.utils.ingredient.EntityIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import betterwithmods.lib.ModLib;
@@ -35,10 +36,6 @@ import java.util.Optional;
 
 public class LongBoi extends Feature {
 
-    private static Optional<EntityLivingBase> getEntity(World world, BlockPos pos) {
-        return world.getEntitiesWithinAABB(EntityLivingBase.class, new AxisAlignedBB(pos, pos.add(1, 1, 1)), Entity::isEntityAlive).stream().findFirst();
-    }
-
     @Override
     public String getDescription() {
         return "Long Bois!";
@@ -67,22 +64,6 @@ public class LongBoi extends Feature {
         RecipeRegistry.TURNTABLE.addRecipe(new LongRecipe());
     }
 
-    private static class EntityIngredient extends BlockStateIngredient {
-
-        private final ResourceLocation name;
-
-        public EntityIngredient(ResourceLocation name) {
-            this.name = name;
-        }
-
-        @Override
-        public boolean apply(World world, BlockPos pos, @Nullable IBlockState state) {
-            Optional<EntityLivingBase> entity = getEntity(world, pos);
-            return entity.filter(entity1 -> EntityList.isMatchingName(entity1, name)).isPresent();
-        }
-
-    }
-
     private static class LongRecipe extends TurntableRecipe {
 
         public LongRecipe() {
@@ -93,7 +74,7 @@ public class LongBoi extends Feature {
         @Override
         public NonNullList<ItemStack> onCraft(World world, BlockPos pos) {
 
-            Optional<EntityLivingBase> entity = getEntity(world, pos);
+            Optional<EntityLivingBase> entity = EntityIngredient.getEntity(world, pos);
             if (entity.isPresent()) {
                 EntityLongboi longboi = new EntityLongboi(world);
                 EntityUtils.copyEntityInfo(entity.get(), longboi);

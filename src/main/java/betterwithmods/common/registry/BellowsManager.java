@@ -3,6 +3,7 @@ package betterwithmods.common.registry;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.library.utils.ingredient.collections.BaseIngredientMap;
 import betterwithmods.library.utils.ingredient.collections.IngredientMap;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;

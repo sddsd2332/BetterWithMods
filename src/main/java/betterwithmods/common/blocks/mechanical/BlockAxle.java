@@ -3,8 +3,9 @@ package betterwithmods.common.blocks.mechanical;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.common.tile.TileAxle;
+import betterwithmods.library.common.block.IBlockActive;
 import betterwithmods.module.internal.SoundRegistry;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
@@ -31,7 +32,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.Random;
 
-import static betterwithmods.util.DirUtils.AXIS;
+import static betterwithmods.library.utils.DirUtils.AXIS;
 import static net.minecraft.util.EnumFacing.Axis.Y;
 
 public class BlockAxle extends BlockBase implements IOverpower, IBlockActive {

@@ -1,10 +1,14 @@
 package betterwithmods.client.gui.bulk;
 
-import betterwithmods.common.tile.TileCrucible;
-import net.minecraft.entity.player.EntityPlayer;
+import betterwithmods.common.container.bulk.ContainerCrucible;
 
-public class GuiCrucible extends GuiCookingPot {
-    public GuiCrucible(EntityPlayer player, TileCrucible crucible) {
-        super(player, crucible);
+public class GuiCrucible extends GuiCookingPot<ContainerCrucible> {
+    public GuiCrucible(ContainerCrucible container) {
+        super(container);
+    }
+
+    @Override
+    public String getTitle() {
+        return "inv.crucible.name";
     }
 }

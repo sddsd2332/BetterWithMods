@@ -1,8 +1,9 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.library.common.block.BlockActiveFacing;
 import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -28,9 +29,7 @@ import java.util.Random;
 import java.util.Set;
 import java.util.function.Predicate;
 
-public class BlockDetector extends BlockBase {
-    public static final PropertyBool ACTIVE = PropertyBool.create("active");
-
+public class BlockDetector extends BlockActiveFacing {
     public static Set<IDetection> DETECTION_HANDLERS = Sets.newHashSet();
 
     public BlockDetector() {
@@ -51,28 +50,13 @@ public class BlockDetector extends BlockBase {
 
     @Override
     public int tickRate(World world) {
-        return 4;
+        return 1;
     }
 
     @Nonnull
     @Override
     public IBlockState getStateForPlacement(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull EnumFacing side, float flX, float flY, float flZ, int meta, @Nonnull EntityLivingBase entity, EnumHand hand) {
-        IBlockState state = super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, entity, hand);
-        return setFacingInBlock(state, DirUtils.convertEntityOrientationToFacing(entity, side));
-    }
-
-
-    @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack, @Nullable EnumFacing face, float hitX, float hitY, float hitZ) {
-        super.onBlockPlacedBy(world, pos, state, placer, stack, face, hitX, hitY, hitZ);
-    }
-
-    @Override
-    public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase entity, ItemStack stack) {
-        super.onBlockPlacedBy(world, pos, state, entity, stack);
-        EnumFacing facing = DirUtils.convertEntityOrientationToFacing(entity, EnumFacing.NORTH);
-        setFacingInBlock(state, facing);
-
+        return withFacing(super.getStateForPlacement(world, pos, side, flX, flY, flZ, meta, entity, hand), EnumFacing.getDirectionFromEntityLiving(pos, entity));
     }
 
     @Override
@@ -110,13 +94,6 @@ public class BlockDetector extends BlockBase {
         return isBlockOn(world, pos) ? 15 : 0;
     }
 
-    public EnumFacing getFacing(IBlockState state) {
-        return state.getValue(DirUtils.FACING);
-    }
-
-    public IBlockState setFacingInBlock(IBlockState state, EnumFacing facing) {
-        return state.withProperty(DirUtils.FACING, facing);
-    }
 
     public boolean isBlockOn(IBlockAccess world, BlockPos pos) {
         return world.getBlockState(pos).getValue(ACTIVE);
@@ -149,29 +126,6 @@ public class BlockDetector extends BlockBase {
         return false;
     }
 
-    @Nonnull
-    @SuppressWarnings("deprecation")
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        boolean isActive = false;
-        if (meta > 7) {
-            isActive = true;
-            meta -= 8;
-        }
-        return this.getDefaultState().withProperty(ACTIVE, isActive).withProperty(DirUtils.FACING, EnumFacing.byIndex(meta));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        int meta = state.getValue(ACTIVE) ? 8 : 0;
-        return meta + state.getValue(DirUtils.FACING).getIndex();
-    }
-
-    @Nonnull
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.FACING, ACTIVE);
-    }
 
     @Override
     public void nextState(World world, BlockPos pos, IBlockState state) {

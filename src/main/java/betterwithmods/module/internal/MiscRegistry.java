@@ -5,27 +5,18 @@ import betterwithmods.api.capabilities.CapabilityAxle;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IAxle;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.BlockBUD;
 import betterwithmods.common.blocks.BlockDetector;
 import betterwithmods.common.blocks.BlockHemp;
-import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
-import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.blocks.behaviors.DispenserBehaviorDynamite;
-import betterwithmods.common.entity.EntityMiningCharge;
 import betterwithmods.common.penalties.PenaltyHandlerRegistry;
 import betterwithmods.common.registry.BellowsManager;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.lib.ReflectionLib;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
-import betterwithmods.library.utils.GlobalUtils;
-import betterwithmods.library.utils.InventoryUtils;
-import betterwithmods.library.utils.ListUtils;
 import betterwithmods.library.utils.WeatherUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
@@ -37,30 +28,17 @@ import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.dispenser.IBehaviorDispenseItem;
-import net.minecraft.entity.EntityAgeable;
-import net.minecraft.entity.item.EntityMinecart;
-import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
-import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryHelper;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemMinecart;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
-import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
-import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.fluids.Fluid;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.relauncher.ReflectionHelper;
 
 public class MiscRegistry extends RequiredFeature {
 
@@ -82,12 +60,13 @@ public class MiscRegistry extends RequiredFeature {
 
         FluidRegistry.registerFluid(MILK);
 
+
     }
 
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        MiscRegistry.registerBlockDispenserBehavior();
+        MiscRegistry.registerVanillaDispenserBehavior();
         registerHeatSources();
         registerBUDBlacklist();
         registerDetectorHandlers();
@@ -96,84 +75,8 @@ public class MiscRegistry extends RequiredFeature {
     }
 
 
-    public static void registerBlockDispenserBehavior() {
+    public static void registerVanillaDispenserBehavior() {
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(BWMItems.DYNAMITE, new DispenserBehaviorDynamite());
-        BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(BWMItems.DYNAMITE, new DispenserBehaviorDynamite());
-        BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Items.REPEATER, new BehaviorDiodeDispense());
-        BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Items.COMPARATOR, new BehaviorDiodeDispense());
-        BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Item.getItemFromBlock(BWMBlocks.MINING_CHARGE),
-                (source, stack) -> {
-                    World worldIn = source.getWorld();
-                    EnumFacing facing = source.getBlockState().getValue(BlockDispenser.FACING);
-                    BlockPos pos = source.getBlockPos().offset(facing);
-                    EntityMiningCharge miningCharge = new EntityMiningCharge(worldIn, pos.getX() + 0.5F, pos.getY(),
-                            pos.getZ() + 0.5F, null, facing);
-                    miningCharge.setNoGravity(false);
-                    worldIn.spawnEntity(miningCharge);
-                    worldIn.playSound(null, miningCharge.posX, miningCharge.posY, miningCharge.posZ,
-                            SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
-                    return stack;
-                });
-        BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.STONE, new BehaviorSilkTouch());
-        BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.LOG, new BehaviorSilkTouch());
-        BlockBDispenser.BLOCK_COLLECT_REGISTRY.putObject(Blocks.LOG2, new BehaviorSilkTouch());
-
-        //Dispenser Minecarts
-        IBehaviorDispenseItem MINECART_DISPENSER_BEHAVIOR = ReflectionHelper.getPrivateValue(ItemMinecart.class, null, ReflectionLib.MINECART_DISPENSER_BEHAVIOR);
-        for (Item minecart : Sets.newHashSet(Items.MINECART, Items.CHEST_MINECART, Items.FURNACE_MINECART, Items.HOPPER_MINECART, Items.TNT_MINECART, Items.COMMAND_BLOCK_MINECART)) {
-            BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(minecart, MINECART_DISPENSER_BEHAVIOR);
-        }
-
-        IBehaviorEntity MINECART_COLLECT_BEHAVIOR = (world, pos, entity, stack) -> {
-            EntityMinecart minecart = (EntityMinecart) entity;
-
-            if (minecart instanceof IInventory) {
-                InventoryHelper.dropInventoryItems(world, minecart, (IInventory) minecart);
-            }
-
-            IBlockState state = minecart.getDisplayTile();
-            if (state == Blocks.LIT_FURNACE.getDefaultState())
-                state = Blocks.FURNACE.getDefaultState();
-            ItemStack tile = GlobalUtils.getStackFromState(state);
-            minecart.setDead();
-
-            return ListUtils.asNonnullList(new ItemStack(Items.MINECART), tile);
-        };
-
-        for (String name : Sets.newHashSet("commandblock_minecart", "minecart", "chest_minecart", "furnace_minecart", "tnt_minecart", "hopper_minecart", "spawner_minecart")) {
-            ResourceLocation loc = new ResourceLocation(name);
-            BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(loc, MINECART_COLLECT_BEHAVIOR);
-        }
-
-
-        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:sheep"), (world, pos, entity, stack) -> {
-            EntitySheep sheep = (EntitySheep) entity;
-            if (sheep.isShearable(new ItemStack(Items.SHEARS), world, pos)) {
-                return ListUtils.asNonnullList(sheep.onSheared(new ItemStack(Items.SHEARS), world, pos, 0));
-            }
-            return NonNullList.create();
-        });
-        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:chicken"), (world, pos, entity, stack) -> {
-            if (((EntityAgeable) entity).isChild())
-                return NonNullList.create();
-            InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.FEATHER, 1 + world.rand.nextInt(2)));
-            world.playSound(null, pos, SoundEvents.ENTITY_CHICKEN_HURT, SoundCategory.NEUTRAL, 0.75F, 1.0F);
-            entity.setDead();
-            return ListUtils.asNonnullList(new ItemStack(Items.EGG));
-        });
-        BlockBDispenser.ENTITY_COLLECT_REGISTRY.putObject(new ResourceLocation("minecraft:cow"), (world, pos, entity, stack) -> {
-            if (((EntityAgeable) entity).isChild())
-                return NonNullList.create();
-            if (stack.isItemEqual(new ItemStack(Items.BUCKET))) {
-                stack.shrink(1);
-                world.playSound(null, pos, SoundEvents.ENTITY_COW_MILK, SoundCategory.BLOCKS, 1.0F, 1.0F);
-
-                InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(Items.MILK_BUCKET));
-            }
-            return NonNullList.create();
-        });
-
-
     }
 
     private static void registerBUDBlacklist() {

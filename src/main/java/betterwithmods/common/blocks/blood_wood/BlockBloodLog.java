@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.blood_wood;
 
 import betterwithmods.common.worldgen.WorldGenBloodTree;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.BlockLog;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.properties.PropertyBool;

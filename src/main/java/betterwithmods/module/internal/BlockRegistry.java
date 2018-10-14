@@ -14,6 +14,10 @@ import betterwithmods.common.blocks.mechanical.mech_machine.BlockFilteredHopper;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMillstone;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockTurntable;
+import betterwithmods.common.container.bulk.ContainerCauldron;
+import betterwithmods.common.container.bulk.ContainerCookingPot;
+import betterwithmods.common.container.bulk.ContainerCrucible;
+import betterwithmods.common.container.bulk.ContainerMill;
 import betterwithmods.common.items.itemblocks.*;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.tile.*;
@@ -23,6 +27,7 @@ import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import betterwithmods.module.hardcore.beacons.TileBeacon;
 import betterwithmods.module.hardcore.beacons.TileEnderchest;
+import betterwithmods.network.BWMNetwork;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockPlanks;
@@ -45,7 +50,6 @@ import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class BlockRegistry extends RequiredFeature {
@@ -101,7 +105,7 @@ public class BlockRegistry extends RequiredFeature {
                 .builder().block(new BlockRailDetectorBase(cart -> BlockRailDetectorBase.isRider(cart, rider -> rider instanceof EntityPlayer))).id("detector_rail_steel").build()
                 .complete());
 
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileMill.class).id("millstone")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerMill.class).tile(TileMill.class).id("millstone")
                 .builder().block(new BlockMillstone()).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileFilteredHopper.class).id("filtered_hopper")
@@ -140,8 +144,8 @@ public class BlockRegistry extends RequiredFeature {
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileWaterwheel.class).id("waterwheel")
                 .builder().block(new BlockWaterwheel()).itemblock(ItemWaterwheel::new).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileBlockDispenser.class).id("block_dispenser")
-                .builder().block(new BlockBDispenser()).build()
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileAdvancedDispenser.class).id("block_dispenser")
+                .builder().block(new BlockAdvancedDispenser()).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileCreativeGenerator.class).id("creative_generator")
                 .builder().block(new BlockCreativeGenerator()).build()
@@ -152,10 +156,10 @@ public class BlockRegistry extends RequiredFeature {
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileSteelAnvil.class).id("steel_anvil")
                 .builder().block(new BlockSteelAnvil()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileCauldron.class).id("cauldron")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCauldron.class).tile(TileCauldron.class).id("cauldron")
                 .builder().block(new BlockCauldron()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileCrucible.class).id("crucible")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCrucible.class).tile(TileCrucible.class).id("crucible")
                 .builder().block(new BlockCrucible()).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileDragonVessel.class).id("dragon_vessel")

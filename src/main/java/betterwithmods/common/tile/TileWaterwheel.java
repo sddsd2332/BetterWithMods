@@ -2,7 +2,7 @@ package betterwithmods.common.tile;
 
 import betterwithmods.api.block.IWaterCurrent;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;

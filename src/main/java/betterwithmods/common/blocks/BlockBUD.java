@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.library.common.block.BlockBase;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;

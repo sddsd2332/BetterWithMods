@@ -1,49 +1,49 @@
 package betterwithmods.common.container.other;
 
-import betterwithmods.common.BWMBlocks;
-import betterwithmods.library.common.container.ContainerProgress;
 import betterwithmods.common.tile.TilePulley;
+import betterwithmods.library.common.container.ContainerTile;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.Slot;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.CapabilityItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class ContainerPulley extends ContainerProgress {
+public class ContainerPulley extends ContainerTile<TilePulley> {
     private static final int ROPE_SLOTS_END = 4;
-    private final TilePulley tile;
 
-    public ContainerPulley(EntityPlayer player, TilePulley tile) {
-        super(tile);
-        this.tile = tile;
-
-        for (int i = 0; i < ROPE_SLOTS_END; i++) {
-            addSlotToContainer(new SlotItemHandler(tile.inventory, i, 53 + i * 18, 52) {
-                @Override
-                public boolean isItemValid(@Nonnull ItemStack stack) {
-                    return super.isItemValid(stack) && stack.getItem() == Item.getItemFromBlock(BWMBlocks.ROPE);
-                }
-            });
-        }
-
-
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), j + i * 9 + 9, 8 + j * 18, 93 + i * 18));
-            }
-        }
-
-        for (int i = 0; i < 9; i++) {
-            addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, 8 + i * 18, 151));
-        }
+    public ContainerPulley(TilePulley tile, EntityPlayer player) {
+        super(tile, player);
     }
 
+//    public ContainerPulley(EntityPlayer player, TilePulley tile) {
+//        super(tile);
+//        this.tile = tile;
+//
+//        for (int i = 0; i < ROPE_SLOTS_END; i++) {
+//            addSlotToContainer(new SlotItemHandler(tile.inventory, i, 53 + i * 18, 52) {
+//                @Override
+//                public boolean isItemValid(@Nonnull ItemStack stack) {
+//                    return super.isItemValid(stack) && stack.getItem() == Item.getItemFromBlock(BWMBlocks.ROPE);
+//                }
+//            });
+//        }
+//
+//
+//        for (int i = 0; i < 3; i++) {
+//            for (int j = 0; j < 9; j++) {
+//                addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), j + i * 9 + 9, 8 + j * 18, 93 + i * 18));
+//            }
+//        }
+//
+//        for (int i = 0; i < 9; i++) {
+//            addSlotToContainer(new SlotItemHandler(player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null), i, 8 + i * 18, 151));
+//        }
+//    }
+
     @Override
-    public boolean canInteractWith(@Nonnull EntityPlayer player) {
-        return tile.isUseableByPlayer(player);
+    public GuiContainer createGui() {
+        return null;
     }
 
     @Nonnull

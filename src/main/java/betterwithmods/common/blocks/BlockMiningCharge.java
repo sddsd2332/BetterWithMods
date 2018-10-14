@@ -1,17 +1,20 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.entity.EntityMiningCharge;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.Block;
+import net.minecraft.block.BlockDispenser;
 import net.minecraft.block.BlockTNT;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -181,5 +184,18 @@ public class BlockMiningCharge extends BlockTNT {
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face != getFacing(state).getOpposite() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
     }
+
+    @Nonnull
+    public static ItemStack dispenser(@Nonnull IBlockSource source, @Nonnull ItemStack stack) {
+        World worldIn = source.getWorld();
+        EnumFacing facing = source.getBlockState().getValue(BlockDispenser.FACING);
+        BlockPos pos = source.getBlockPos().offset(facing);
+        EntityMiningCharge miningCharge = new EntityMiningCharge(worldIn, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, null, facing);
+        miningCharge.setNoGravity(false);
+        worldIn.spawnEntity(miningCharge);
+        worldIn.playSound(null, miningCharge.posX, miningCharge.posY, miningCharge.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        return stack;
+    }
+
 
 }

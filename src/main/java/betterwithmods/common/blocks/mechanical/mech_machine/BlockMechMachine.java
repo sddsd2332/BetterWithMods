@@ -3,7 +3,7 @@ package betterwithmods.common.blocks.mechanical.mech_machine;
 import betterwithmods.BetterWithMods;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.library.common.block.BlockBase;
-import betterwithmods.common.blocks.mechanical.IBlockActive;
+import betterwithmods.library.common.block.IBlockActive;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;

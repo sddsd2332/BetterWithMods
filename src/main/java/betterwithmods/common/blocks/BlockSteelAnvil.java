@@ -3,7 +3,7 @@ package betterwithmods.common.blocks;
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.tile.TileSteelAnvil;
 import betterwithmods.library.common.block.BlockBase;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;

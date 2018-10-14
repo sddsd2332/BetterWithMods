@@ -2,7 +2,7 @@ package betterwithmods.client.render;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.entity.EntityMiningCharge;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BlockRendererDispatcher;

@@ -2,7 +2,8 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.library.common.block.BlockBase;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.common.block.IBlockActive;
+import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -17,7 +18,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-import static betterwithmods.util.DirUtils.AXIS;
+import static betterwithmods.library.utils.DirUtils.AXIS;
 import static net.minecraft.util.EnumFacing.Axis.Y;
 
 

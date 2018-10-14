@@ -57,7 +57,7 @@ public abstract class ToolDamageRecipe extends ToolBaseRecipe {
         if (container instanceof ContainerPlayer)
             player = ReflectionHelper.getPrivateValue(ContainerPlayer.class, (ContainerPlayer) container, ReflectionLib.CONTAINER_PLAYER_PLAYER);
         if (container instanceof ContainerSteelAnvil)
-            player = ((ContainerSteelAnvil) container).player;
+            player = ((ContainerSteelAnvil) container).getPlayer();
 
         if (player != null) {
             player.world.playSound(null, player.getPosition(), getSound(), SoundCategory.BLOCKS, getSoundValues().getLeft(), getSoundValues().getRight());

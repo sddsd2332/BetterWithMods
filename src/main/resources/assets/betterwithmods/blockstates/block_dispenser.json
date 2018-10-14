@@ -25,7 +25,7 @@
         "transform": "forge:default-block"
       }
     ],
-    "triggered": {
+    "active": {
       "false": {},
       "true": {}
     },

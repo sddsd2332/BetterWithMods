@@ -4,7 +4,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.InventoryUtils;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.Block;

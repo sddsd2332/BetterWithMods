@@ -1,13 +1,10 @@
 package betterwithmods.module.general;
 
-import betterwithmods.BetterWithMods;
 import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.gui.GuiStatus;
-import betterwithmods.common.BWGuiHandler;
 import betterwithmods.common.tile.TileAxleGenerator;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.network.NetworkRegistry;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -25,7 +22,6 @@ public class Client extends RequiredFeature {
     @SideOnly(Side.CLIENT)
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
-        NetworkRegistry.INSTANCE.registerGuiHandler(BetterWithMods.instance, new BWGuiHandler());
 
         GuiStatus.offsetY = loadProperty("Y offset", 0).subCategory("status gui").get();
         GuiStatus.offsetX = loadProperty("X offset", 0).subCategory("status gui").setCategoryComment("Set offset for Status HUD for effects such as hunger and gloom").get();

@@ -1,24 +1,30 @@
 package betterwithmods.common.container.other;
 
-import betterwithmods.common.tile.TileBlockDispenser;
+import betterwithmods.client.gui.GuiBlockDispenser;
+import betterwithmods.common.tile.TileAdvancedDispenser;
+import betterwithmods.library.common.container.ContainerTile;
 import betterwithmods.library.utils.CapabilityUtils;
+import net.minecraft.client.gui.inventory.GuiContainer;
+import net.minecraft.client.gui.inventory.GuiDispenser;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
 import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 
-public class ContainerBlockDispenser extends Container {
-    private final TileBlockDispenser tile;
+public class ContainerBlockDispenser extends ContainerTile<TileAdvancedDispenser> {
+
     private int nextSlot;
 
-    public ContainerBlockDispenser(EntityPlayer player, TileBlockDispenser tile) {
-        this.tile = tile;
+    public ContainerBlockDispenser(TileAdvancedDispenser tile, EntityPlayer player) {
+        super(tile, player);
 
         IItemHandler playerInv = CapabilityUtils.getEntityInventory(player);
         for (int i = 0; i < 4; i++) {
@@ -38,9 +44,15 @@ public class ContainerBlockDispenser extends Container {
         }
     }
 
+    @SideOnly(Side.CLIENT)
+    @Override
+    public GuiContainer createGui() {
+        return new GuiBlockDispenser(this);
+    }
+
     @Override
     public boolean canInteractWith(@Nonnull EntityPlayer player) {
-        return tile.isUseableByPlayer(player);
+        return getTile().isUseableByPlayer(player);
     }
 
     @Nonnull
@@ -70,8 +82,9 @@ public class ContainerBlockDispenser extends Container {
     @Nonnull
     @Override
     public ItemStack slotClick(int x, int dragType, ClickType type, EntityPlayer player) {
-        if (x < 16)
-            this.tile.nextIndex = 0;
+        if (x < 16) {
+            getTile().setNextIndex(0);
+        }
 
         return super.slotClick(x, dragType, type, player);
     }
@@ -79,7 +92,7 @@ public class ContainerBlockDispenser extends Container {
     @Override
     public void addListener(IContainerListener listener) {
         super.addListener(listener);
-        listener.sendWindowProperty(this, 0, this.tile.nextIndex);
+        listener.sendWindowProperty(this, 0, getTile().getNextIndex());
     }
 
     @Override
@@ -87,17 +100,17 @@ public class ContainerBlockDispenser extends Container {
         super.detectAndSendChanges();
 
         for (IContainerListener craft : this.listeners) {
-            if (this.nextSlot != this.tile.nextIndex)
-                craft.sendWindowProperty(this, 0, this.tile.nextIndex);
+            if (this.nextSlot != getTile().getNextIndex())
+                craft.sendWindowProperty(this, 0, getTile().getNextIndex());
         }
 
-        this.nextSlot = this.tile.nextIndex;
+        this.nextSlot = getTile().getNextIndex();
     }
 
     @Override
     public void updateProgressBar(int index, int value) {
         if (index == 0) {
-            this.tile.nextIndex = value;
+            getTile().setNextIndex(value);
         }
     }
 

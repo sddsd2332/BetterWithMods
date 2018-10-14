@@ -1,6 +1,8 @@
 package betterwithmods.common.container.other;
 
+import betterwithmods.client.gui.GuiInfernalEnchanter;
 import betterwithmods.common.items.ItemArcaneScroll;
+import betterwithmods.library.common.container.ContainerTile;
 import betterwithmods.library.common.inventory.FilteredStackHandler;
 import betterwithmods.library.common.inventory.SimpleStackHandler;
 import betterwithmods.common.tile.TileInfernalEnchanter;
@@ -8,6 +10,7 @@ import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.util.InfernalEnchantment;
 import betterwithmods.library.utils.InventoryUtils;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -31,17 +34,16 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 9/11/16.
  */
-public class ContainerInfernalEnchanter extends Container {
+public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchanter> {
     public static final int INV_LAST = 1;
     public final int[] enchantLevels;
-    private final TileInfernalEnchanter tile;
     private final SimpleStackHandler handler;
     public int xpSeed;
     public int bookcaseCount;
 
 
     public ContainerInfernalEnchanter(EntityPlayer player, TileInfernalEnchanter tile) {
-        this.tile = tile;
+        super(tile, player);
         this.enchantLevels = new int[5];
         Arrays.fill(enchantLevels, -1);
         this.bookcaseCount = tile.getBookcaseCount();
@@ -103,7 +105,7 @@ public class ContainerInfernalEnchanter extends Container {
             listener.sendWindowProperty(this, i, this.enchantLevels[i]);
         }
         listener.sendWindowProperty(this, 3, this.xpSeed & -16);
-        listener.sendWindowProperty(this, 4, this.tile.getBookcaseCount());
+        listener.sendWindowProperty(this, 4,  getTile().getBookcaseCount());
     }
 
     public boolean areValidItems(ItemStack scroll, ItemStack item) {
@@ -190,6 +192,11 @@ public class ContainerInfernalEnchanter extends Container {
     }
 
     @Override
+    public GuiContainer createGui() {
+        return new GuiInfernalEnchanter(this);
+    }
+
+    @Override
     public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
         return true;
     }
@@ -210,7 +217,7 @@ public class ContainerInfernalEnchanter extends Container {
     }
 
     public boolean hasBooks(int levelIndex) {
-        return tile.getBookcaseCount() >= this.enchantLevels[levelIndex];
+        return getTile().getBookcaseCount() >= this.enchantLevels[levelIndex];
     }
 
     @Override
@@ -226,7 +233,7 @@ public class ContainerInfernalEnchanter extends Container {
                         item.addEnchantment(enchantment, levelIndex + 1);
                         player.onEnchant(item, this.enchantLevels[levelIndex]);
                         AdvancementRegistry.INFERNAL_ENCHANTED.trigger((EntityPlayerMP) player, item, this.enchantLevels[levelIndex]);
-                        tile.getWorld().playSound(null, tile.getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F, tile.getWorld().rand.nextFloat() * 0.1F + 0.9F);
+                        getTile().getWorld().playSound(null,  getTile().getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F,  getTile().getWorld().rand.nextFloat() * 0.1F + 0.9F);
                         onContextChanged(this.handler);
                     }
                 }

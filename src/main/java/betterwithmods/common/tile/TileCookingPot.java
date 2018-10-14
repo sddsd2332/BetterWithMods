@@ -11,7 +11,7 @@ import betterwithmods.common.registry.bulk.manager.CraftingManagerBulk;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.library.common.tile.TileVisibleInventory;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -38,7 +38,7 @@ import java.util.List;
 import java.util.Random;
 
 
-public abstract class TileCookingPot extends TileVisibleInventory implements IMechanicalPower, IHeated, ICrankable, IProgressSource {
+public abstract class TileCookingPot extends TileVisibleInventory implements IMechanicalPower, IHeated, ICrankable {
     private static final int MAX_TIME = 1000;
     protected final CraftingManagerBulk<CookingPotRecipe> manager;
     private final HashMap<BlockPos, BWMHeatRegistry.HeatSource> heatCache = new HashMap<>();
@@ -171,7 +171,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
     public int getHeat(World world, BlockPos pos) {
         return heat;
     }
-
+    
     private int findHeat(BlockPos pos) {
         return getHeatCached(pos.down());
     }
@@ -273,9 +273,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
         }
     }
 
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.getBlockWorld().getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
-    }
+
 
     @Override
     public int getMaxVisibleSlots() {
@@ -317,12 +315,10 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
         return getBlockType();
     }
 
-    @Override
     public int getProgress() {
         return cookProgress;
     }
 
-    @Override
     public int getMax() {
         return cookTime;
     }

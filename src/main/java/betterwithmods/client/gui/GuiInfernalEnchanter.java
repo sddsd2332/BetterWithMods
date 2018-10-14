@@ -3,6 +3,7 @@ package betterwithmods.client.gui;
 import betterwithmods.common.container.other.ContainerInfernalEnchanter;
 import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.client.gui.GuiBase;
 import com.google.common.collect.Maps;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
@@ -17,7 +18,7 @@ import java.util.Map;
 /**
  * Created by primetoxinz on 9/11/16.
  */
-public class GuiInfernalEnchanter extends GuiBase {
+public class GuiInfernalEnchanter extends GuiBase<ContainerInfernalEnchanter> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/infernal_enchanter.png");
     private static final HashMap<Integer, String> numerals = Maps.newHashMap();
 
@@ -30,16 +31,10 @@ public class GuiInfernalEnchanter extends GuiBase {
     }
 
     private FontRenderer fontGalactic;
-    private TileInfernalEnchanter tile;
-    private ContainerInfernalEnchanter container;
-    private EntityPlayer player;
 
-    public GuiInfernalEnchanter(EntityPlayer player, TileInfernalEnchanter tile) {
-        super(new ContainerInfernalEnchanter(player, tile), TEXTURE);
-        this.container = (ContainerInfernalEnchanter) inventorySlots;
-        this.player = player;
-        this.tile = tile;
-        ySize = 211;
+    public GuiInfernalEnchanter(ContainerInfernalEnchanter container) {
+        super(container, TEXTURE);
+        this.ySize = 211;
     }
 
     @Override
@@ -55,17 +50,17 @@ public class GuiInfernalEnchanter extends GuiBase {
             drawTexturedModalRect(centerX + 17, centerY + 37, 176, 0, 16, 16);
         if (!inventorySlots.getSlot(1).getHasStack())
             drawTexturedModalRect(centerX + 17, centerY + 75, 192, 0, 16, 16);
-        EnchantmentNameParts.getInstance().reseedRandomGenerator((long) this.container.xpSeed);
+        EnchantmentNameParts.getInstance().reseedRandomGenerator((long) getContainer().xpSeed);
 
         int x, y;
-        for (int levelIndex = 0; levelIndex < container.enchantLevels.length; levelIndex++) {
+        for (int levelIndex = 0; levelIndex < getContainer().enchantLevels.length; levelIndex++) {
             this.mc.renderEngine.bindTexture(background);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-            int level = container.enchantLevels[levelIndex];
+            int level = getContainer().enchantLevels[levelIndex];
             if (level > 0) {
                 String levelString = String.valueOf(level);
-                if (container.hasLevels(player, levelIndex) && container.hasBooks(levelIndex)) {
+                if (getContainer().hasLevels(getContainer().getPlayer(), levelIndex) && getContainer().hasBooks(levelIndex)) {
                     y = centerY + 17 + (19 * levelIndex);
                     x = centerX + 60;
                     if (mouseX >= x && mouseX <= x + 108 && mouseY >= y && mouseY <= y + 19) {
@@ -91,7 +86,7 @@ public class GuiInfernalEnchanter extends GuiBase {
 
     @Override
     public String getTitle() {
-        return tile.getName();
+        return getContainer().getTile().getName();
     }
 
     @Override
@@ -106,13 +101,13 @@ public class GuiInfernalEnchanter extends GuiBase {
         int xPos = (this.width - this.xSize) / 2;
         int yPos = (this.height - this.ySize) / 2;
         int x, y;
-        for (int levelIndex = 0; levelIndex < container.enchantLevels.length; levelIndex++) {
-            if (container.enchantLevels[levelIndex] > -1 && container.hasLevels(player, levelIndex) && container.hasBooks(levelIndex)) {
+        for (int levelIndex = 0; levelIndex < getContainer().enchantLevels.length; levelIndex++) {
+            if (getContainer().enchantLevels[levelIndex] > -1 && getContainer().hasLevels(getContainer().getPlayer(), levelIndex) && getContainer().hasBooks(levelIndex)) {
                 y = yPos + 17 + (19 * levelIndex);
                 x = xPos + 60;
                 if (mouseX >= x && mouseX <= x + 108 && mouseY >= y && mouseY <= y + 19) {
-                    if (container.enchantItem(player, levelIndex)) {
-                        this.mc.playerController.sendEnchantPacket(this.container.windowId, levelIndex);
+                    if (getContainer().enchantItem(getContainer().getPlayer(), levelIndex)) {
+                        this.mc.playerController.sendEnchantPacket(getContainer().windowId, levelIndex);
                     }
                 }
             }

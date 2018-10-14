@@ -1,8 +1,9 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.library.common.block.BlockActiveFacing;
 import betterwithmods.library.common.block.BlockBase;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
@@ -26,15 +27,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Random;
 
-public class BlockLens extends BlockBase {
-    public static final PropertyBool LIT = PropertyBool.create("lit");
+public class BlockLens extends BlockActiveFacing {
+
     public static final int RANGE = 256;
 
     public BlockLens() {
         super(Material.IRON);
         this.setHardness(3.5F);
         this.setTickRandomly(true);
-        this.setDefaultState(this.getDefaultState().withProperty(DirUtils.FACING, EnumFacing.NORTH).withProperty(LIT, false));
+        this.setDefaultState(this.getDefaultState().withProperty(DirUtils.FACING, EnumFacing.NORTH).withProperty(ACTIVE, false));
         this.setHarvestLevel("pickaxe", 0);
     }
 
@@ -186,14 +187,14 @@ public class BlockLens extends BlockBase {
     }
 
     public boolean isLit(IBlockAccess world, BlockPos pos) {
-        return world.getBlockState(pos).getValue(LIT);
+        return world.getBlockState(pos).getValue(ACTIVE);
     }
 
     public void setLit(World world, BlockPos pos, boolean isOn) {
-        boolean oldLit = world.getBlockState(pos).getValue(LIT);
+        boolean oldLit = world.getBlockState(pos).getValue(ACTIVE);
 
         if (isOn != oldLit) {
-            world.setBlockState(pos, world.getBlockState(pos).withProperty(LIT, isOn));
+            world.setBlockState(pos, world.getBlockState(pos).withProperty(ACTIVE, isOn));
             world.neighborChanged(pos, this, pos);
         }
     }
@@ -259,33 +260,10 @@ public class BlockLens extends BlockBase {
         }
     }
 
-    @SuppressWarnings("deprecation")
-    @Nonnull
-    @Override
-    public IBlockState getStateFromMeta(int meta) {
-        boolean lit = false;
-        if (meta > 7) {
-            lit = true;
-            meta -= 8;
-        }
-        return this.getDefaultState().withProperty(LIT, lit).withProperty(DirUtils.FACING, EnumFacing.byIndex(meta));
-    }
-
-    @Override
-    public int getMetaFromState(IBlockState state) {
-        int meta = state.getValue(LIT) ? 8 : 0;
-        return meta + state.getValue(DirUtils.FACING).getIndex();
-    }
-
-    @Nonnull
-    @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.FACING, LIT);
-    }
 
     @Override
     public void nextState(World world, BlockPos pos, IBlockState state) {
-        world.setBlockState(pos, state.withProperty(LIT, false).cycleProperty(DirUtils.FACING));
+        world.setBlockState(pos, state.withProperty(ACTIVE, false).cycleProperty(DirUtils.FACING));
     }
 
     @Override

@@ -26,7 +26,7 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-import static betterwithmods.util.DirUtils.FACING;
+import static betterwithmods.library.utils.DirUtils.FACING;
 
 @SuppressWarnings("SuspiciousNameCombination")
 public class BlockAnchor extends BlockBase implements IRopeConnector {

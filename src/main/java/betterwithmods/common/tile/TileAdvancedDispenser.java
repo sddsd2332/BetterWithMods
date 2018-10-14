@@ -11,10 +11,10 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 
-public class TileBlockDispenser extends TileBasicInventory {
+public class TileAdvancedDispenser extends TileBasicInventory {
     public int nextIndex;
 
-    public TileBlockDispenser() {
+    public TileAdvancedDispenser() {
         this.nextIndex = 0;
     }
 
@@ -124,6 +124,14 @@ public class TileBlockDispenser extends TileBasicInventory {
 
     public boolean isUseableByPlayer(EntityPlayer player) {
         return this.getWorld().getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
+    }
+
+    public int getNextIndex() {
+        return nextIndex;
+    }
+
+    public void setNextIndex(int i) {
+        this.nextIndex = i;
     }
 
 }

@@ -1,46 +1,35 @@
 package betterwithmods.common.container.bulk;
 
-import betterwithmods.library.common.container.ContainerProgress;
+import betterwithmods.client.gui.bulk.GuiMill;
+import betterwithmods.common.container.ProgressSource;
 import betterwithmods.common.tile.TileMill;
-import betterwithmods.library.utils.CapabilityUtils;
+import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.container.ContainerTile;
+import betterwithmods.library.utils.GuiUtils;
+import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.IContainerListener;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
-public class ContainerMill extends ContainerProgress {
-    private final TileMill tile;
-    public boolean blocked;
+public class ContainerMill extends ContainerTile<TileMill> {
 
-    public ContainerMill(EntityPlayer player, TileMill tile) {
-        super(tile);
-        this.tile = tile;
+        public static ResourceLocation BLOCKED = new ResourceLocation(ModLib.MODID, "mill_blocked");
 
-        for (int j = 0; j < 3; j++) {
-            addSlotToContainer(new SlotItemHandler(tile.inventory, j, 62 + j * 18, 43));
-        }
+    public ContainerMill(TileMill tile, EntityPlayer player) {
+        super(tile, player);
 
-        IItemHandler playerInv = CapabilityUtils.getEntityInventory(player);
+        addBooleanProperty(BLOCKED, tile::isBlocked);
+        addBooleanProperty(GuiUtils.PROPERTY_SHOW_PROGRESS, () -> tile.getProgress() > 0);
+        addIntProperty(GuiUtils.PROPERTY_PROGRESS, tile::getProgress);
+        addIntProperty(GuiUtils.PROPERTY_MAX_PROGRESS, tile::getMax);
 
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                addSlotToContainer(new SlotItemHandler(playerInv, j + i * 9 + 9, 8 + j * 18, 76 + i * 18));
-            }
-        }
-
-        for (int i = 0; i < 9; i++) {
-            addSlotToContainer(new SlotItemHandler(playerInv, i, 8 + i * 18, 134));
-        }
+        GuiUtils.addPlayerInventory(player, this, 8, 76, 8, 134);
+        GuiUtils.createSlots(this, tile.inventory, 3, 1, 0, 62, 43);
     }
 
-    @Override
-    public boolean canInteractWith(@Nonnull EntityPlayer player) {
-        return tile.isUseableByPlayer(player);
-    }
 
     @Nonnull
     @Override
@@ -67,31 +56,9 @@ public class ContainerMill extends ContainerProgress {
 
 
     @Override
-    public void addListener(IContainerListener listener) {
-        super.addListener(listener);
-        listener.sendWindowProperty(this, 2, this.tile.blocked ? 1 : 0);
+    public GuiContainer createGui() {
+        return new GuiMill(this);
     }
 
-    @Override
-    public void detectAndSendChanges() {
-        super.detectAndSendChanges();
-        boolean b = tile.blocked;
-        if (blocked != b) {
-            blocked = b;
-            for (IContainerListener craft : this.listeners) {
-                craft.sendWindowProperty(this, 2, blocked ? 1 : 0);
-            }
-        }
-    }
-
-    @Override
-    public void updateProgressBar(int index, int value) {
-        super.updateProgressBar(index, value);
-        switch (index) {
-            case 2:
-                blocked = value == 1;
-                break;
-        }
-    }
 
 }

@@ -39,7 +39,7 @@ import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
 
-public class TileFilteredHopper extends TileVisibleInventory implements IMechanicalPower, IProgressSource {
+public class TileFilteredHopper extends TileVisibleInventory implements IMechanicalPower {
 
     public final SimpleStackHandler filter;
     private final int STACK_SIZE = 8;
@@ -378,12 +378,11 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
         return maxExperienceCount;
     }
 
-    @Override
+
     public int getMax() {
         return 1;
     }
 
-    @Override
     public int getProgress() {
         return Math.min(power, 1);
     }

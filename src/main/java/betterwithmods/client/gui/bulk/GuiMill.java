@@ -1,25 +1,21 @@
 package betterwithmods.client.gui.bulk;
 
-import betterwithmods.client.gui.GuiProgress;
 import betterwithmods.common.container.bulk.ContainerMill;
-import betterwithmods.common.tile.TileMill;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.client.gui.GuiProgress;
 import betterwithmods.library.utils.TooltipUtils;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.ResourceLocation;
 
 import static betterwithmods.lib.TooltipLib.MILLSTONE_BLOCKED;
 
-public class GuiMill extends GuiProgress {
+public class GuiMill extends GuiProgress<ContainerMill> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/mill.png");
     private static final String NAME = "inv.mill.name";
-    private final ContainerMill container;
 
-    public GuiMill(EntityPlayer player, TileMill mill) {
-        super(new ContainerMill(player, mill), TEXTURE);
-        this.container = (ContainerMill) inventorySlots;
+    public GuiMill(ContainerMill container) {
+        super(container, TEXTURE, 80, 18,176, 14, 14, 14);
         this.ySize = 158;
     }
 
@@ -43,8 +39,8 @@ public class GuiMill extends GuiProgress {
     @Override
     protected void drawExtras(float partialTicks, int mouseX, int mouseY, int centerX, int centerY) {
         super.drawExtras(partialTicks, mouseX, mouseY, centerX, centerY);
-        if (container.blocked) {
-            String str = TooltipUtils.getMessage(MILLSTONE_BLOCKED);
+        if(getContainer().getPropertyValue(ContainerMill.BLOCKED)) {
+                        String str = TooltipUtils.getMessage(MILLSTONE_BLOCKED);
             int width = fontRenderer.getStringWidth(str) / 2;
             drawString(fontRenderer, str, centerX + this.xSize / 2 - width, centerY + 32, EnumDyeColor.RED.getColorValue());
             drawToolTip(mouseX, mouseY, centerX + this.xSize / 2 - width, centerY + 32, 32, 32,
@@ -58,39 +54,4 @@ public class GuiMill extends GuiProgress {
         }
     }
 
-
-    @Override
-    public int getX() {
-        return 80;
-    }
-
-    @Override
-    public int getY() {
-        return 18;
-    }
-
-    @Override
-    public int getTextureX() {
-        return 176;
-    }
-
-    @Override
-    public int getTextureY() {
-        return 14;
-    }
-
-    @Override
-    public int getHeight() {
-        return 14;
-    }
-
-    @Override
-    public int getWidth() {
-        return 14;
-    }
-
-    @Override
-    protected int toPixels() {
-        return (int) (getHeight() * getPercentage());
-    }
 }

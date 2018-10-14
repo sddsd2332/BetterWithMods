@@ -40,7 +40,7 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 
-public class TilePulley extends TileVisibleInventory implements IMechanicalPower, IProgressSource {
+public class TilePulley extends TileVisibleInventory implements IMechanicalPower {
 
     private EntityExtendingRope rope;
     private NBTTagCompound ropeTag = null;
@@ -411,12 +411,11 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
         return getBlockType();
     }
 
-    @Override
+
     public int getMax() {
         return 1;
     }
 
-    @Override
     public int getProgress() {
         return Math.min(power, 1);
     }

@@ -1,7 +1,7 @@
 package betterwithmods.common.tile;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.util.EnumFacing;

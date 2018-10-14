@@ -7,6 +7,7 @@ import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.RecipeRegistry;
+import betterwithmods.network.BWMNetwork;
 import com.google.common.collect.Maps;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

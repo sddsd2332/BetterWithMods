@@ -6,7 +6,7 @@ import betterwithmods.api.tile.ICrankable;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.blocks.mechanical.cookingpot.BlockCookingPot;
 import betterwithmods.library.common.tile.TileBasic;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;

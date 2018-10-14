@@ -1,10 +1,14 @@
 package betterwithmods.client.gui.bulk;
 
-import betterwithmods.common.tile.TileCauldron;
-import net.minecraft.entity.player.EntityPlayer;
+import betterwithmods.common.container.bulk.ContainerCauldron;
 
-public class GuiCauldron extends GuiCookingPot {
-    public GuiCauldron(EntityPlayer player, TileCauldron cauldron) {
-        super(player, cauldron);
+public class GuiCauldron extends GuiCookingPot<ContainerCauldron> {
+    public GuiCauldron(ContainerCauldron container) {
+        super(container);
+    }
+
+    @Override
+    public String getTitle() {
+        return  "inv.cauldron.name";
     }
 }

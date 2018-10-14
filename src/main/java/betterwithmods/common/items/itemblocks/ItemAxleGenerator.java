@@ -5,7 +5,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
 import betterwithmods.library.utils.TooltipUtils;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

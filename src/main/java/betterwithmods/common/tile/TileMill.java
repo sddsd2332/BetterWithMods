@@ -9,7 +9,7 @@ import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.library.common.tile.TileBasicInventory;
 import betterwithmods.module.internal.RecipeRegistry;
-import betterwithmods.util.DirUtils;
+import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.StackEjector;
 import betterwithmods.library.utils.VectorBuilder;
 import com.google.common.collect.Lists;
@@ -31,7 +31,7 @@ import javax.annotation.Nonnull;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class TileMill extends TileBasicInventory implements ITickable, IMechanicalPower, ICrankable, IBulkTile, IProgressSource {
+public class TileMill extends TileBasicInventory implements ITickable, IMechanicalPower, ICrankable, IBulkTile {
     public boolean blocked;
     public int power;
     public int grindCounter;
@@ -216,16 +216,10 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
         return getPos();
     }
 
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        return this.getBlockWorld().getTileEntity(this.pos) == this && player.getDistanceSq(this.pos.getX() + 0.5D, this.pos.getY() + 0.5D, this.pos.getZ() + 0.5D) <= 64.0D;
-    }
-
-    @Override
     public int getMax() {
         return grindMax;
     }
 
-    @Override
     public int getProgress() {
         return this.grindCounter;
     }
