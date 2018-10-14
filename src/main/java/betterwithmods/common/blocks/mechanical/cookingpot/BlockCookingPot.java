@@ -3,6 +3,7 @@ package betterwithmods.common.blocks.mechanical.cookingpot;
 import betterwithmods.BetterWithMods;
 import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.common.tile.TileVisibleInventory;
+import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -10,6 +11,7 @@ import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityNote;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
@@ -60,16 +62,13 @@ public class BlockCookingPot extends BlockBase {
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (player.isSneaking())
-            return false;
-        if (world.isRemote) {
-            return true;
-        } else {
-            if (world.getTileEntity(pos) != null && world.getTileEntity(pos).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null)) {
+        if (!player.isSneaking() && !world.isRemote) {
+            TileEntity tile = world.getTileEntity(pos);
+            if (tile != null && CapabilityUtils.hasInventory(tile, null)) {
                 player.openGui(BetterWithMods.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
             }
-            return true;
         }
+        return true;
     }
 
     @Override

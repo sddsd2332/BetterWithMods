@@ -46,10 +46,11 @@ public class BlockAdvancedDispenser extends BlockActiveFacing {
 
     @Override
     public boolean onBlockActivated(World world, @Nonnull BlockPos pos, IBlockState state, @Nonnull EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (world.isRemote)
-            return true;
-        if (world.getTileEntity(pos) != null) {
-            player.openGui(BetterWithMods.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+        if (!player.isSneaking() && !world.isRemote) {
+            TileEntity tile = world.getTileEntity(pos);
+            if (tile != null && CapabilityUtils.hasInventory(tile, null)) {
+                player.openGui(BetterWithMods.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+            }
         }
         return true;
     }
@@ -75,6 +76,11 @@ public class BlockAdvancedDispenser extends BlockActiveFacing {
             world.updateComparatorOutputLevel(pos, this);
         }
         super.breakBlock(world, pos, state);
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
+        return true;
     }
 
     @Nullable
@@ -120,15 +126,15 @@ public class BlockAdvancedDispenser extends BlockActiveFacing {
         } else {
 
             BlockPos check = pos.offset(impl.getBlockState().getValue(DirUtils.FACING));
-            IBlockState state =  world.getBlockState(check);
+            IBlockState state = world.getBlockState(check);
             Block block = state.getBlock();
 
 
             if (world.getBlockState(check).getBlockHardness(world, check) < 0)
                 return;
 
-            IBehaviorEntity behaviorEntity = AdvancedDispenserRegistry.ENTITY_COLLECT_REGISTRY.findValue(world,check, null);
-            if(behaviorEntity != null) {
+            IBehaviorEntity behaviorEntity = AdvancedDispenserRegistry.ENTITY_COLLECT_REGISTRY.findValue(world, check, null);
+            if (behaviorEntity != null) {
                 Entity entity = EntityIngredient.getEntity(world, check).orElse(null);
                 NonNullList<ItemStack> stacks = behaviorEntity.collect(world, check, entity, tile.getCurrentSlot());
                 InventoryUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
@@ -136,7 +142,7 @@ public class BlockAdvancedDispenser extends BlockActiveFacing {
             }
 
 
-            IBehaviorCollect behaviorCollect = AdvancedDispenserRegistry.BLOCK_COLLECT_REGISTRY.findValue(world,check, state);
+            IBehaviorCollect behaviorCollect = AdvancedDispenserRegistry.BLOCK_COLLECT_REGISTRY.findValue(world, check, state);
             if (!world.isAirBlock(check) || !block.isReplaceable(world, check)) {
                 NonNullList<ItemStack> stacks = behaviorCollect.collect(new BlockSourceImpl(world, check));
                 InventoryUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);

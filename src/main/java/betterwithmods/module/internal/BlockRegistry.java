@@ -15,9 +15,10 @@ import betterwithmods.common.blocks.mechanical.mech_machine.BlockMillstone;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockTurntable;
 import betterwithmods.common.container.bulk.ContainerCauldron;
-import betterwithmods.common.container.bulk.ContainerCookingPot;
 import betterwithmods.common.container.bulk.ContainerCrucible;
+import betterwithmods.common.container.bulk.ContainerFilteredHopper;
 import betterwithmods.common.container.bulk.ContainerMill;
+import betterwithmods.common.container.other.ContainerAdvancedDispenser;
 import betterwithmods.common.items.itemblocks.*;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.tile.*;
@@ -108,7 +109,7 @@ public class BlockRegistry extends RequiredFeature {
         registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerMill.class).tile(TileMill.class).id("millstone")
                 .builder().block(new BlockMillstone()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileFilteredHopper.class).id("filtered_hopper")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerFilteredHopper.class).tile(TileFilteredHopper.class).id("filtered_hopper")
                 .builder().block(new BlockFilteredHopper()).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TilePulley.class).id("pulley")
@@ -144,7 +145,7 @@ public class BlockRegistry extends RequiredFeature {
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileWaterwheel.class).id("waterwheel")
                 .builder().block(new BlockWaterwheel()).itemblock(ItemWaterwheel::new).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileAdvancedDispenser.class).id("block_dispenser")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerAdvancedDispenser.class).tile(TileAdvancedDispenser.class).id("block_dispenser")
                 .builder().block(new BlockAdvancedDispenser()).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileCreativeGenerator.class).id("creative_generator")

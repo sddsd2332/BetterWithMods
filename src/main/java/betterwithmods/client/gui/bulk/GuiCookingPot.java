@@ -28,7 +28,7 @@ public class GuiCookingPot<C extends ContainerBase> extends GuiProgress<C> {
 
     @Override
     public String getTitle() {
-        return null;
+        return "inv.crucible.name";
     }
 
     @Override

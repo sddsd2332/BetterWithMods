@@ -4,11 +4,13 @@ import betterwithmods.BetterWithMods;
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.common.block.IBlockActive;
+import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.IStringSerializable;
@@ -46,12 +48,11 @@ public abstract class BlockMechMachine extends BlockBase implements IBlockActive
 
     @Override
     public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing side, float hitX, float hitY, float hitZ) {
-        if (!world.isRemote) {
-            boolean isInventory = Arrays.stream(EnumFacing.VALUES).anyMatch(f -> world.getTileEntity(pos).hasCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, f));
-            if (!player.isSneaking() && world.getTileEntity(pos) != null && isInventory) {
+        if (!player.isSneaking() && !world.isRemote) {
+            TileEntity tile = world.getTileEntity(pos);
+            if (tile != null && CapabilityUtils.hasInventory(tile, null)) {
                 player.openGui(BetterWithMods.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
             }
-            return true;
         }
         return true;
     }
