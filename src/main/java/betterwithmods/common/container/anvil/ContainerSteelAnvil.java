@@ -1,135 +1,35 @@
 package betterwithmods.common.container.anvil;
 
+import betterwithmods.client.gui.GuiSteelAnvil;
 import betterwithmods.common.tile.TileSteelAnvil;
 import betterwithmods.library.common.container.ContainerTile;
-import betterwithmods.module.internal.RecipeRegistry;
+import betterwithmods.library.mod.BetterWithLib;
+import betterwithmods.library.utils.GuiUtils;
 import net.minecraft.client.gui.inventory.GuiContainer;
-import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.entity.player.InventoryPlayer;
-import net.minecraft.inventory.Container;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryCrafting;
-import net.minecraft.inventory.Slot;
-import net.minecraft.item.ItemStack;
-import net.minecraftforge.items.IItemHandler;
-
-import javax.annotation.Nonnull;
+import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.items.ItemStackHandler;
 
 public class ContainerSteelAnvil extends ContainerTile<TileSteelAnvil> {
+
+    public static final ResourceLocation SLOTS_RESULT = new ResourceLocation(BetterWithLib.MODID, "result");
+
+    private ItemStackHandler results;
+
     public ContainerSteelAnvil(TileSteelAnvil tile, EntityPlayer player) {
         super(tile, player);
+
+        results = new ItemStackHandler(1);
+
+        GuiUtils.createPlayerSlots(player, this, 8, 102, 8, 160);
+        GuiUtils.createContainerSlots(GuiUtils.SLOTS_CONTAINER_INVENTORY, this, tile.inventory, 16, 4, 0, 12, 17);
+        GuiUtils.createContainerSlots(SLOTS_RESULT, this, null, 1, 1, 0, 124, 44, (inventory, i, x, y) -> new SlotCrafting( )   );
     }
+
 
     @Override
     public GuiContainer createGui() {
-        return null;
+        return new GuiSteelAnvil(this);
     }
-//    public final InventoryCrafting craftMatrix;
-//    public final IInventory craftResult;
-//    public final InventoryPlayer inventoryPlayer;
-//    public final EntityPlayer player;
-//    private final int INV_FIRST = 17;
-//    private final int INV_LAST = 44;
-//    private final int HOT_LAST = 53;
-//
-//    private final IItemHandler handler;
 
-//
-//
-//    public ContainerSteelAnvil(EntityPlayer player, TileSteelAnvil te) {
-//        this.te = te;
-//        this.handler = te.inventory;
-//        this.inventoryPlayer = player.inventory;
-//        this.player = player;
-//        craftMatrix = new InventorySteelCrafting(this, te);
-//        craftResult = new InventorySteelCraftingResult(te);
-//        this.addSlotToContainer(new SlotSteelAnvilCrafting(player, craftMatrix, craftResult, 0, 124, 44));
-//        for (int i = 0; i < 4; ++i) {
-//            for (int j = 0; j < 4; ++j) {
-//                this.addSlotToContainer(new Slot(craftMatrix, j + i * 4, 12 + j * 18, 17 + i * 18));
-//            }
-//        }
-//        for (int i = 0; i < 3; ++i) {
-//            for (int j = 0; j < 9; ++j) {
-//                this.addSlotToContainer(new Slot(this.inventoryPlayer, j + i * 9 + 9, 8 + j * 18, 102 + i * 18));
-//            }
-//        }
-//        for (int i = 0; i < 9; ++i) {
-//            this.addSlotToContainer(new Slot(this.inventoryPlayer, i, 8 + i * 18, 160));
-//        }
-//        this.onCraftMatrixChanged(craftMatrix);
-//    }
-
-//    /**
-//     * Callback for when the crafting matrix is changed.
-//     */
-//    public void onCraftMatrixChanged(IInventory matrix) {
-//        this.craftResult.setInventorySlotContents(0, RecipeRegistry.ANVIL.findMatchingResult(this.craftMatrix, te.getWorld()));
-//    }
-//
-//    /**
-//     * Called when the container is closed.
-//     */
-//    public void onContainerClosed(EntityPlayer player) {
-//        super.onContainerClosed(player);
-//
-//    }
-//
-//    @Override
-//    public GuiContainer createGui() {
-//        return null;
-//    }
-//
-//    @Override
-//    public boolean canInteractWith(@Nonnull EntityPlayer player) {
-//        return te.isUseableByPlayer(player);
-//    }
-//
-//    /**
-//     * Called when a player shift-clicks on a slot. You must override this or you will crash when someone does that.
-//     */
-//
-//    @Nonnull
-//    @Override
-//    public ItemStack transferStackInSlot(EntityPlayer player, int index) {
-//        ItemStack itemstack = ItemStack.EMPTY;
-//        Slot slot = this.inventorySlots.get(index);
-//
-//        if (slot != null && slot.getHasStack()) {
-//            ItemStack itemstack1 = slot.getStack();
-//            itemstack = itemstack1.copy();
-//
-//            if (index == 0) {
-//                if (!this.mergeItemStack(itemstack1, INV_FIRST, HOT_LAST, true)) {
-//                    return ItemStack.EMPTY;
-//                }
-//                slot.onSlotChange(itemstack1, itemstack);
-//            } else if (index >= INV_FIRST && index < INV_LAST) {
-//                if (!this.mergeItemStack(itemstack1, INV_LAST, HOT_LAST, false)) {
-//                    return ItemStack.EMPTY;
-//                }
-//            } else if (index >= INV_LAST && index < HOT_LAST) {
-//                if (!this.mergeItemStack(itemstack1, INV_FIRST, INV_LAST, false)) {
-//                    return ItemStack.EMPTY;
-//                }
-//            } else if (!this.mergeItemStack(itemstack1, INV_FIRST, HOT_LAST, false)) {
-//                return ItemStack.EMPTY;
-//            }
-//
-//            if (itemstack1.getCount() == 0) {
-//                slot.putStack(ItemStack.EMPTY);
-//            } else {
-//                slot.onSlotChanged();
-//            }
-//
-//            if (itemstack1.getCount() == itemstack.getCount()) {
-//                return ItemStack.EMPTY;
-//            }
-//
-//            slot.onTake(player, itemstack1);
-//        }
-//
-//        return itemstack;
-//    }
 }

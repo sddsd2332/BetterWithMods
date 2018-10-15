@@ -3,6 +3,7 @@ package betterwithmods.common.blocks;
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.tile.TileSteelAnvil;
 import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -99,11 +100,18 @@ public class BlockSteelAnvil extends BlockBase {
     }
 
     @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-        if (worldIn.isRemote)
-            return true;
-        else
-            playerIn.openGui(BetterWithMods.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
+    public boolean onBlockActivated(World world, BlockPos pos, IBlockState state, EntityPlayer player, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if (!player.isSneaking() && !world.isRemote) {
+            TileEntity tile = world.getTileEntity(pos);
+            if (tile != null && CapabilityUtils.hasInventory(tile, null)) {
+                player.openGui(BetterWithMods.instance, 0, world, pos.getX(), pos.getY(), pos.getZ());
+            }
+        }
+        return true;
+    }
+
+    @Override
+    public boolean hasTileEntity(IBlockState state) {
         return true;
     }
 

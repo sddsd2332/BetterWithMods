@@ -1,5 +1,6 @@
 package betterwithmods.common.container.bulk;
 
+import betterwithmods.client.gui.bulk.GuiFilteredHopper;
 import betterwithmods.common.registry.hopper.filters.HopperFilter;
 import betterwithmods.common.tile.TileFilteredHopper;
 import betterwithmods.lib.ModLib;
@@ -20,8 +21,11 @@ public class ContainerFilteredHopper extends ContainerTile<TileFilteredHopper> {
     public ContainerFilteredHopper(TileFilteredHopper tile, EntityPlayer player) {
         super(tile, player);
 
-        GuiUtils.createPlayerSlots(player, this, 8, 111, 8, 169);
+        addBooleanProperty(GuiUtils.PROPERTY_SHOW_PROGRESS, () -> tile.getProgress() > 0);
+        addIntProperty(GuiUtils.PROPERTY_PROGRESS, tile::getProgress);
+        addIntProperty(GuiUtils.PROPERTY_MAX_PROGRESS, tile::getMax);
 
+        GuiUtils.createPlayerSlots(player, this, 8, 111, 8, 169);
         GuiUtils.createContainerSlots(GuiUtils.SLOTS_CONTAINER_INVENTORY, this, tile.inventory, 18, 2, 0, 8, 60);
         GuiUtils.createContainerSlots(SLOTS_FILTER, this, tile.filter, 1, 1, 0, 80, 37);
         addSlotTransformations(new SlotTransformation(GuiUtils.SLOTS_FULL_PLAYER_INVENTORY, SLOTS_FILTER, new PredicateIngredient(this::isItemFilter)));
@@ -33,6 +37,6 @@ public class ContainerFilteredHopper extends ContainerTile<TileFilteredHopper> {
 
     @Override
     public GuiContainer createGui() {
-        return null;
+        return new GuiFilteredHopper(this);
     }
 }

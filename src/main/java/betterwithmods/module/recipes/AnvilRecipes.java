@@ -53,7 +53,7 @@ public class AnvilRecipes extends Feature {
     private static IRecipe addAnvilRecipe(IRecipe recipe) {
         RecipeRegistry.ANVIL.addRecipe(recipe);
         if (recipe.getRecipeOutput().isEmpty()) {
-            BetterWithMods.LOGGER.warn("Recipe is missing output " + recipe.getGroup());
+            BetterWithMods.LOGGER.warn("Recipe is missing output " + recipe.getRegistryName());
         }
         return recipe;
     }

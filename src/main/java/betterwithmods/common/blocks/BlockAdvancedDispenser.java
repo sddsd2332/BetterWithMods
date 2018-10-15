@@ -134,8 +134,8 @@ public class BlockAdvancedDispenser extends BlockActiveFacing {
                 return;
 
             IBehaviorEntity behaviorEntity = AdvancedDispenserRegistry.ENTITY_COLLECT_REGISTRY.findValue(world, check, null);
-            if (behaviorEntity != null) {
-                Entity entity = EntityIngredient.getEntity(world, check).orElse(null);
+            Entity entity = EntityIngredient.getEntity(world, check).orElse(null);
+            if (behaviorEntity != null && entity != null) {
                 NonNullList<ItemStack> stacks = behaviorEntity.collect(world, check, entity, tile.getCurrentSlot());
                 InventoryUtils.insert(tile.getWorld(), check, tile.inventory, stacks, false);
                 return;

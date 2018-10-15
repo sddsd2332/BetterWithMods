@@ -1,11 +1,17 @@
 package betterwithmods.common.container.other;
 
 import betterwithmods.client.gui.GuiInfernalEnchanter;
+import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemArcaneScroll;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.container.ContainerTile;
+import betterwithmods.library.common.container.SlotItemHandlerFiltered;
+import betterwithmods.library.common.container.SlotTransformation;
 import betterwithmods.library.common.inventory.FilteredStackHandler;
 import betterwithmods.library.common.inventory.SimpleStackHandler;
 import betterwithmods.common.tile.TileInfernalEnchanter;
+import betterwithmods.library.utils.GuiUtils;
+import betterwithmods.library.utils.ingredient.PredicateIngredient;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.util.InfernalEnchantment;
@@ -16,99 +22,73 @@ import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.Container;
 import net.minecraft.inventory.IContainerListener;
+import net.minecraft.inventory.IInventory;
+import net.minecraft.inventory.InventoryBasic;
 import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
+import net.minecraftforge.items.ItemStackHandler;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Set;
+import java.util.function.Predicate;
 
 /**
  * Created by primetoxinz on 9/11/16.
  */
 public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchanter> {
-    public static final int INV_LAST = 1;
-    public final int[] enchantLevels;
-    private final SimpleStackHandler handler;
-    public int xpSeed;
-    public int bookcaseCount;
 
+    private int[] enchantLevels;
 
-    public ContainerInfernalEnchanter(EntityPlayer player, TileInfernalEnchanter tile) {
+    private static final ResourceLocation PROPERTY_BOOKCASES = new ResourceLocation(ModLib.MODID, "bookcases");
+
+    private static final ResourceLocation SLOT_SCROLLS = new ResourceLocation(ModLib.MODID, "scrolls");
+    private static final ResourceLocation SLOT_ENCHANT = new ResourceLocation(ModLib.MODID, "enchant");
+
+    private static Ingredient SCROLLS = Ingredient.fromItem(BWMItems.ARCANE_SCROLL);
+
+    private static ResourceLocation getLevelName(int i) {
+        return new ResourceLocation(ModLib.MODID, "enchant_level_" + i);
+    }
+
+    public void onContentsChanged(IItemHandler handler) {
+
+    }
+
+    public ContainerInfernalEnchanter(TileInfernalEnchanter tile, EntityPlayer player) {
         super(tile, player);
+
         this.enchantLevels = new int[5];
         Arrays.fill(enchantLevels, -1);
-        this.bookcaseCount = tile.getBookcaseCount();
-        handler = new FilteredStackHandler(2, tile, stack -> stack.getItem() instanceof ItemArcaneScroll, stack -> true) {
-            @Override
-            public void onContentsChanged(int slot) {
-                super.onContentsChanged(slot);
-                onContextChanged(this);
-            }
-        };
-        this.xpSeed = player.getXPSeed();
-        IItemHandler playerInv = player.getCapability(CapabilityItemHandler.ITEM_HANDLER_CAPABILITY, null);
-        addSlotToContainer(new SlotItemHandler(handler, 0, 17, 37));
-        addSlotToContainer(new SlotItemHandler(handler, 1, 17, 75));
-        for (int i = 0; i < 3; i++) {
-            for (int j = 0; j < 9; j++) {
-                addSlotToContainer(new SlotItemHandler(playerInv, j + i * 9 + 9, 8 + j * 18, 129 + i * 18));
-            }
-        }
-        for (int i = 0; i < 9; i++) {
-            addSlotToContainer(new SlotItemHandler(playerInv, i, 8 + i * 18, 187));
-        }
-    }
 
-    @Override
-    @SideOnly(Side.CLIENT)
-    public void updateProgressBar(int id, int data) {
-        switch (id) {
-            default:
-                if (id < this.enchantLevels.length) {
-                    enchantLevels[id] = data;
-                }
-                break;
-            case 3:
-                xpSeed = data;
-                break;
-            case 4:
-                bookcaseCount = data;
-                break;
-        }
-    }
-
-    @Override
-    public void detectAndSendChanges() {
-        super.detectAndSendChanges();
-        for (IContainerListener listener : this.listeners) {
-            this.broadcastData(listener);
-        }
-    }
-
-    @Override
-    public void addListener(IContainerListener listener) {
-        super.addListener(listener);
-        broadcastData(listener);
-    }
-
-    public void broadcastData(IContainerListener listener) {
+        addIntProperty(PROPERTY_BOOKCASES, tile::getBookcaseCount);
         for (int i = 0; i < this.enchantLevels.length; i++) {
-            listener.sendWindowProperty(this, i, this.enchantLevels[i]);
+            int finalI = i;
+            addIntProperty(getLevelName(i), () -> this.enchantLevels[finalI]);
         }
-        listener.sendWindowProperty(this, 3, this.xpSeed & -16);
-        listener.sendWindowProperty(this, 4,  getTile().getBookcaseCount());
+
+        GuiUtils.createPlayerSlots(player, this, 8, 129, 8, 187);
+        GuiUtils.createContainerSlots(SLOT_SCROLLS, this, tile.inventory, 1, 1, 0, 17, 37, (inv, i, x, y) -> new SlotItemHandlerFiltered(inv, i, x, y, SCROLLS));
+        GuiUtils.createContainerSlots(SLOT_ENCHANT, this, tile.inventory, 1, 1, 1, 17, 75);
+
+        addSlotTransformations(new SlotTransformation(GuiUtils.SLOTS_FULL_PLAYER_INVENTORY, SLOT_ENCHANT));
+        addSlotTransformations(new SlotTransformation(GuiUtils.SLOTS_FULL_PLAYER_INVENTORY, SLOT_SCROLLS, SCROLLS));
     }
 
-    public boolean areValidItems(ItemStack scroll, ItemStack item) {
+    public int getEnchantLevel(int i) {
+        return getPropertyValue(getLevelName(i));
+    }
+
+    private boolean areValidItems(ItemStack scroll, ItemStack item) {
         if (!scroll.isEmpty() && !item.isEmpty()) {
 
             Enchantment enchantment = ItemArcaneScroll.getEnchantment(scroll);
@@ -128,7 +108,7 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
         return false;
     }
 
-    public void onContextChanged(IItemHandler handler) {
+    private void onContextChanged(IItemHandler handler) {
         ItemStack scroll = handler.getStackInSlot(0);
         ItemStack item = handler.getStackInSlot(1);
         if (areValidItems(scroll, item)) {
@@ -153,64 +133,10 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
         }
     }
 
-    @Nonnull
-    @Override
-    public ItemStack transferStackInSlot(EntityPlayer player, int index) {
-        ItemStack itemstack = ItemStack.EMPTY;
-        Slot slot = this.inventorySlots.get(index);
-
-        if (slot != null && slot.getHasStack()) {
-            ItemStack itemstack1 = slot.getStack();
-            itemstack = itemstack1.copy();
-            if (index > INV_LAST) {
-                if (itemstack1.getItem() instanceof ItemArcaneScroll) {
-                    if (!mergeItemStack(itemstack1, 0, 1, true))
-                        return ItemStack.EMPTY;
-                } else {
-                    if (!mergeItemStack(itemstack1, 1, 2, true))
-                        return ItemStack.EMPTY;
-                }
-            } else {
-                if (!mergeItemStack(itemstack1, 2, 37, true))
-                    return ItemStack.EMPTY;
-            }
-
-            if (itemstack1.getCount() == 0) {
-                slot.putStack(ItemStack.EMPTY);
-            } else {
-                slot.onSlotChanged();
-            }
-
-            if (itemstack1.getCount() == itemstack.getCount()) {
-                return ItemStack.EMPTY;
-            }
-
-            slot.onTake(player, itemstack1);
-        }
-        handler.onContentsChanged(index);
-        return itemstack;
-    }
-
     @Override
     public GuiContainer createGui() {
         return new GuiInfernalEnchanter(this);
     }
-
-    @Override
-    public boolean canInteractWith(@Nonnull EntityPlayer playerIn) {
-        return true;
-    }
-
-    @Override
-    public void onContainerClosed(EntityPlayer playerIn) {
-        for (int i = 0; i < handler.getSlots(); i++) {
-            ItemStack stack = handler.getStackInSlot(i);
-
-            if (!stack.isEmpty() && !playerIn.getEntityWorld().isRemote)
-                InventoryUtils.ejectStack(playerIn.getEntityWorld(), playerIn.posX, playerIn.posY, playerIn.posZ, stack);
-        }
-    }
-
 
     public boolean hasLevels(EntityPlayer player, int levelIndex) {
         return player.capabilities.isCreativeMode || player.experienceLevel >= this.enchantLevels[levelIndex];
@@ -224,8 +150,8 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
     public boolean enchantItem(EntityPlayer player, int levelIndex) {
         if (hasLevels(player, levelIndex) && hasBooks(levelIndex)) {
             if (!player.world.isRemote) {
-                ItemStack item = this.handler.getStackInSlot(1);
-                ItemStack scroll = this.handler.getStackInSlot(0);
+                ItemStack item = getTile().inventory.getStackInSlot(1);
+                ItemStack scroll = getTile().inventory.getStackInSlot(0);
                 Enchantment enchantment = ItemArcaneScroll.getEnchantment(scroll);
                 if (enchantment != null) {
                     if (!EnchantmentHelper.getEnchantments(item).containsKey(enchantment)) {
@@ -233,8 +159,8 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
                         item.addEnchantment(enchantment, levelIndex + 1);
                         player.onEnchant(item, this.enchantLevels[levelIndex]);
                         AdvancementRegistry.INFERNAL_ENCHANTED.trigger((EntityPlayerMP) player, item, this.enchantLevels[levelIndex]);
-                        getTile().getWorld().playSound(null,  getTile().getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F,  getTile().getWorld().rand.nextFloat() * 0.1F + 0.9F);
-                        onContextChanged(this.handler);
+                        getTile().getWorld().playSound(null, getTile().getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F, getTile().getWorld().rand.nextFloat() * 0.1F + 0.9F);
+                        onContextChanged(getTile().inventory);
                     }
                 }
             }
@@ -242,4 +168,6 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
         }
         return false;
     }
+
+
 }

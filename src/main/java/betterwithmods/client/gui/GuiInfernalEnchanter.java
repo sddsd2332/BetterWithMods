@@ -50,14 +50,16 @@ public class GuiInfernalEnchanter extends GuiBase<ContainerInfernalEnchanter> {
             drawTexturedModalRect(centerX + 17, centerY + 37, 176, 0, 16, 16);
         if (!inventorySlots.getSlot(1).getHasStack())
             drawTexturedModalRect(centerX + 17, centerY + 75, 192, 0, 16, 16);
-        EnchantmentNameParts.getInstance().reseedRandomGenerator((long) getContainer().xpSeed);
+        EnchantmentNameParts.getInstance().reseedRandomGenerator((long) getContainer().getPlayer().getXPSeed());
 
         int x, y;
-        for (int levelIndex = 0; levelIndex < getContainer().enchantLevels.length; levelIndex++) {
+
+
+        for (int levelIndex = 0; levelIndex < 5; levelIndex++) {
             this.mc.renderEngine.bindTexture(background);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);
 
-            int level = getContainer().enchantLevels[levelIndex];
+            int level = getContainer().getEnchantLevel(levelIndex);
             if (level > 0) {
                 String levelString = String.valueOf(level);
                 if (getContainer().hasLevels(getContainer().getPlayer(), levelIndex) && getContainer().hasBooks(levelIndex)) {
@@ -101,8 +103,8 @@ public class GuiInfernalEnchanter extends GuiBase<ContainerInfernalEnchanter> {
         int xPos = (this.width - this.xSize) / 2;
         int yPos = (this.height - this.ySize) / 2;
         int x, y;
-        for (int levelIndex = 0; levelIndex < getContainer().enchantLevels.length; levelIndex++) {
-            if (getContainer().enchantLevels[levelIndex] > -1 && getContainer().hasLevels(getContainer().getPlayer(), levelIndex) && getContainer().hasBooks(levelIndex)) {
+        for (int levelIndex = 0; levelIndex < 5; levelIndex++) {
+            if (getContainer().getEnchantLevel(levelIndex) > -1 && getContainer().hasLevels(getContainer().getPlayer(), levelIndex) && getContainer().hasBooks(levelIndex)) {
                 y = yPos + 17 + (19 * levelIndex);
                 x = xPos + 60;
                 if (mouseX >= x && mouseX <= x + 108 && mouseY >= y && mouseY <= y + 19) {

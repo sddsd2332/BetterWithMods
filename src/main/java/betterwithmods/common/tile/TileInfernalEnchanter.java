@@ -1,13 +1,19 @@
 package betterwithmods.common.tile;
 
+import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.BlockInfernalEnchanter;
+import betterwithmods.library.common.inventory.FilteredStackHandler;
+import betterwithmods.library.common.inventory.SimpleStackHandler;
 import betterwithmods.library.common.tile.TileBasic;
+import betterwithmods.library.common.tile.TileBasicInventory;
 import betterwithmods.module.internal.AdvancementRegistry;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ITickable;
@@ -23,9 +29,9 @@ import java.util.List;
 /**
  * Created by primetoxinz on 9/11/16.
  */
-public class TileInfernalEnchanter extends TileBasic implements ITickable {
+public class TileInfernalEnchanter extends TileBasicInventory implements ITickable {
     private final static int RADIUS = 8;
-    public int bookcaseCount;
+    private int bookcaseCount;
     private boolean active;
 
     private static float getPower(World world, BlockPos pos) {
@@ -86,6 +92,11 @@ public class TileInfernalEnchanter extends TileBasic implements ITickable {
         return bookcaseCount;
     }
 
+    @Override
+    public int getInventorySize() {
+        return 2;
+    }
+
     @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
@@ -108,5 +119,16 @@ public class TileInfernalEnchanter extends TileBasic implements ITickable {
 
     public boolean isActive() {
         return active;
+    }
+
+    @Override
+    public SimpleStackHandler createItemStackHandler() {
+        return new InfernalEnchanterHandler(this);
+    }
+
+    private class InfernalEnchanterHandler extends FilteredStackHandler {
+        InfernalEnchanterHandler(TileEntity tile) {
+            super(2, tile, Ingredient.fromItem(BWMItems.ARCANE_SCROLL));
+        }
     }
 }

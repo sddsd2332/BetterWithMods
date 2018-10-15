@@ -10,10 +10,10 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiSteelAnvil extends GuiBase<ContainerSteelAnvil> {
 
-    private static final ResourceLocation tex = new ResourceLocation(ModLib.MODID, "textures/gui/steel_anvil.png");
+    private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/steel_anvil.png");
 
-    public GuiSteelAnvil(ContainerSteelAnvil container, ResourceLocation background) {
-        super(container, background);
+    public GuiSteelAnvil(ContainerSteelAnvil container) {
+        super(container, TEXTURE);
         this.ySize = 183;
     }
 
@@ -21,12 +21,6 @@ public class GuiSteelAnvil extends GuiBase<ContainerSteelAnvil> {
     public String getTitle() {
         return getContainer().getTile().getName();
     }
-//
-//    public GuiSteelAnvil(TileSteelAnvil tileEntity, ContainerSteelAnvil container) {
-//        super(container, tex);
-//        this.ySize = 183;
-//        tile = tileEntity;
-//    }
 
     @Override
     public int getTitleY() {

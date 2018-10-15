@@ -14,11 +14,14 @@ import betterwithmods.common.blocks.mechanical.mech_machine.BlockFilteredHopper;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMillstone;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockTurntable;
+import betterwithmods.common.container.anvil.ContainerSteelAnvil;
 import betterwithmods.common.container.bulk.ContainerCauldron;
 import betterwithmods.common.container.bulk.ContainerCrucible;
 import betterwithmods.common.container.bulk.ContainerFilteredHopper;
 import betterwithmods.common.container.bulk.ContainerMill;
 import betterwithmods.common.container.other.ContainerAdvancedDispenser;
+import betterwithmods.common.container.other.ContainerInfernalEnchanter;
+import betterwithmods.common.container.other.ContainerPulley;
 import betterwithmods.common.items.itemblocks.*;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.tile.*;
@@ -106,14 +109,30 @@ public class BlockRegistry extends RequiredFeature {
                 .builder().block(new BlockRailDetectorBase(cart -> BlockRailDetectorBase.isRider(cart, rider -> rider instanceof EntityPlayer))).id("detector_rail_steel").build()
                 .complete());
 
+
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerSteelAnvil.class).tile(TileSteelAnvil.class).id("steel_anvil")
+                .builder().block(new BlockSteelAnvil()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCauldron.class).tile(TileCauldron.class).id("cauldron")
+                .builder().block(new BlockCauldron()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCrucible.class).tile(TileCrucible.class).id("crucible")
+                .builder().block(new BlockCrucible()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerInfernalEnchanter.class).tile(TileInfernalEnchanter.class).id("infernal_enchanter")
+                .builder().block(new BlockInfernalEnchanter()).build()
+                .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerMill.class).tile(TileMill.class).id("millstone")
                 .builder().block(new BlockMillstone()).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerFilteredHopper.class).tile(TileFilteredHopper.class).id("filtered_hopper")
                 .builder().block(new BlockFilteredHopper()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TilePulley.class).id("pulley")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerPulley.class).tile(TilePulley.class).id("pulley")
                 .builder().block(new BlockPulley()).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerAdvancedDispenser.class).tile(TileAdvancedDispenser.class).id("block_dispenser")
+                .builder().block(new BlockAdvancedDispenser()).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileTurntable.class).id("turntable")
                 .builder().block(new BlockTurntable()).build()
@@ -145,29 +164,14 @@ public class BlockRegistry extends RequiredFeature {
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileWaterwheel.class).id("waterwheel")
                 .builder().block(new BlockWaterwheel()).itemblock(ItemWaterwheel::new).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerAdvancedDispenser.class).tile(TileAdvancedDispenser.class).id("block_dispenser")
-                .builder().block(new BlockAdvancedDispenser()).build()
-                .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileCreativeGenerator.class).id("creative_generator")
                 .builder().block(new BlockCreativeGenerator()).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileScrewPump.class).id("screw_pump")
                 .builder().block(new BlockScrewPump()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileSteelAnvil.class).id("steel_anvil")
-                .builder().block(new BlockSteelAnvil()).build()
-                .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCauldron.class).tile(TileCauldron.class).id("cauldron")
-                .builder().block(new BlockCauldron()).build()
-                .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCrucible.class).tile(TileCrucible.class).id("crucible")
-                .builder().block(new BlockCrucible()).build()
-                .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileDragonVessel.class).id("dragon_vessel")
                 .builder().block(new BlockDragonVessel()).itemblock(ItemBlockLimited::new).build()
-                .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileInfernalEnchanter.class).id("infernal_enchanter")
-                .builder().block(new BlockInfernalEnchanter()).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileBucket.class).id("bucket")
                 .builder().block(new BlockBucket()).build()
