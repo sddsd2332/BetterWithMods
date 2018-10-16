@@ -33,7 +33,6 @@ public class ContainerSteelAnvil extends ContainerTile<TileSteelAnvil> {
         GuiUtils.createContainerSlots(SLOTS_RESULT, this, this.craftingResults, 1, 1, 0, 124, 44, (inventory, i, x, y) -> new SlotAnvilCrafting(player, craftingMatrix, craftingResults, i, x, y));
         GuiUtils.createContainerSlots(GuiUtils.SLOTS_CONTAINER_INVENTORY, this, craftingMatrix, 16, 4, 0, 12, 17, ((inventory, i, x, y) -> new Slot((InventoryAnvilCrafting) inventory, i, x, y)));
 
-
         addSlotTransformations(new SlotTransformation(SLOTS_RESULT, GuiUtils.SLOTS_FULL_PLAYER_INVENTORY) {
             @Override
             public void onPostTransfer(Slot slot, ItemStack start, ItemStack end) {
