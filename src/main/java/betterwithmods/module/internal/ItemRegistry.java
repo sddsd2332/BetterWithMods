@@ -4,7 +4,6 @@ import betterwithmods.client.baking.BarkModel;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.items.*;
-import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.items.tools.*;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.item.armor.ArmorBuilderGenerator;
@@ -19,11 +18,7 @@ import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import com.google.common.collect.Lists;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.ItemArmor;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemSoup;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.ModelBakeEvent;
@@ -158,8 +153,13 @@ public class ItemRegistry extends RequiredFeature {
         );
 
         registerItems(ItemFactory.create()
+                .tab(BWMCreativeTabs.FOODS)
                 .builderGenerator(new FoodBuilderGenerator(foods))
                 .builderGenerator(new SoupBuilderGenerator(soups))
+                .complete());
+
+        registerItems(ItemFactory.create()
+                .tab(BWMCreativeTabs.ITEMS)
                 .builderGenerator(new ArmorBuilderGenerator<>(ItemWoolArmor.class, new ResourceLocation(ModLib.MODID, "wool")))
                 .builderGenerator(new ArmorBuilderGenerator<>(ItemSoulforgeArmor.class, new ResourceLocation(ModLib.MODID, "steel")))
                 .builderGenerator(new ArmorBuilderGenerator<>(ItemLeatherTannedArmor.class, new ResourceLocation(ModLib.MODID, "leather_tanned")))

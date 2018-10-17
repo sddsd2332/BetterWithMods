@@ -4,7 +4,6 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.BlockInfernalEnchanter;
 import betterwithmods.library.common.inventory.FilteredStackHandler;
 import betterwithmods.library.common.inventory.SimpleStackHandler;
-import betterwithmods.library.common.tile.TileBasic;
 import betterwithmods.library.common.tile.TileBasicInventory;
 import betterwithmods.module.internal.AdvancementRegistry;
 import net.minecraft.block.state.IBlockState;
@@ -47,7 +46,6 @@ public class TileInfernalEnchanter extends TileBasicInventory implements ITickab
 
     @Override
     public void update() {
-
         if (getWorld().getTotalWorldTime() % 20 == 0) {
             bookcaseCount = 0;
             for (int x = -RADIUS; x <= RADIUS; x++) {
@@ -130,5 +128,10 @@ public class TileInfernalEnchanter extends TileBasicInventory implements ITickab
         InfernalEnchanterHandler(TileEntity tile) {
             super(2, tile, Ingredient.fromItem(BWMItems.ARCANE_SCROLL));
         }
+    }
+
+    @Override
+    public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
+        return oldState.getBlock() != newState.getBlock();
     }
 }

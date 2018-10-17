@@ -1,8 +1,8 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.client.model.render.RenderUtils;
+import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.camo.BlockCamo;
@@ -10,6 +10,7 @@ import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.module.internal.BlockRegistry;
@@ -193,7 +194,7 @@ public class MiniBlocks extends Feature {
         for (MiniType type : MiniType.VALUES) {
             for (BlockCamo mini : MINI_MATERIAL_BLOCKS.get(type).values()) {
                 //TODO change so a generator can be used
-                BlockRegistry.registerBlock(mini, mini.createItemBlock(mini).setRegistryName(mini.getRegistryName()));
+                BlockRegistry.registerBlock(mini.setCreativeTab(BWMCreativeTabs.MINI_BLOCKS), mini.createItemBlock(mini).setRegistryName(mini.getRegistryName()));
             }
         }
     }

@@ -1,13 +1,10 @@
 package betterwithmods.client.gui;
 
 import betterwithmods.common.container.other.ContainerInfernalEnchanter;
-import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.client.gui.GuiBase;
 import com.google.common.collect.Maps;
-import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.renderer.GlStateManager;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnchantmentNameParts;
 import net.minecraft.util.ResourceLocation;
 
@@ -30,7 +27,6 @@ public class GuiInfernalEnchanter extends GuiBase<ContainerInfernalEnchanter> {
         numerals.put(98, "V");
     }
 
-    private FontRenderer fontGalactic;
 
     public GuiInfernalEnchanter(ContainerInfernalEnchanter container) {
         super(container, TEXTURE);
@@ -38,23 +34,14 @@ public class GuiInfernalEnchanter extends GuiBase<ContainerInfernalEnchanter> {
     }
 
     @Override
-    public void drawScreen(int mouseX, int mouseY, float partialTicks) {
-        super.drawScreen(mouseX, mouseY, partialTicks);
-        if (fontGalactic == null)
-            fontGalactic = this.mc.standardGalacticFontRenderer;
-    }
-
-    @Override
     protected void drawExtras(float partialTicks, int mouseX, int mouseY, int centerX, int centerY) {
-        if (!inventorySlots.getSlot(0).getHasStack())
+        if (!inventorySlots.getSlot(36).getHasStack())
             drawTexturedModalRect(centerX + 17, centerY + 37, 176, 0, 16, 16);
-        if (!inventorySlots.getSlot(1).getHasStack())
+        if (!inventorySlots.getSlot(37).getHasStack())
             drawTexturedModalRect(centerX + 17, centerY + 75, 192, 0, 16, 16);
         EnchantmentNameParts.getInstance().reseedRandomGenerator((long) getContainer().getPlayer().getXPSeed());
 
         int x, y;
-
-
         for (int levelIndex = 0; levelIndex < 5; levelIndex++) {
             this.mc.renderEngine.bindTexture(background);
             GlStateManager.color(1.0F, 1.0F, 1.0F, 1.0F);

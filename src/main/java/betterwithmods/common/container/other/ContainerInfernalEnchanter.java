@@ -3,48 +3,35 @@ package betterwithmods.common.container.other;
 import betterwithmods.client.gui.GuiInfernalEnchanter;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemArcaneScroll;
+import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.container.ContainerTile;
 import betterwithmods.library.common.container.SlotItemHandlerFiltered;
 import betterwithmods.library.common.container.SlotTransformation;
-import betterwithmods.library.common.inventory.FilteredStackHandler;
 import betterwithmods.library.common.inventory.SimpleStackHandler;
-import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.library.utils.GuiUtils;
-import betterwithmods.library.utils.ingredient.PredicateIngredient;
 import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.util.InfernalEnchantment;
-import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.inventory.IContainerListener;
-import net.minecraft.inventory.IInventory;
-import net.minecraft.inventory.InventoryBasic;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraftforge.fml.relauncher.Side;
-import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.ItemStackHandler;
 
-import javax.annotation.Nonnull;
-import javax.annotation.Resource;
 import java.util.Arrays;
 import java.util.Set;
-import java.util.function.Predicate;
 
 /**
  * Created by primetoxinz on 9/11/16.
  */
+//TODO
 public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchanter> {
 
     private int[] enchantLevels;
@@ -60,9 +47,6 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
         return new ResourceLocation(ModLib.MODID, "enchant_level_" + i);
     }
 
-    public void onContentsChanged(IItemHandler handler) {
-
-    }
 
     public ContainerInfernalEnchanter(TileInfernalEnchanter tile, EntityPlayer player) {
         super(tile, player);
@@ -76,12 +60,18 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
             addIntProperty(getLevelName(i), () -> this.enchantLevels[finalI]);
         }
 
+        SimpleStackHandler inventory = tile.inventory.listener((handler, slot) -> onContextChanged(handler));
+
         GuiUtils.createPlayerSlots(player, this, 8, 129, 8, 187);
-        GuiUtils.createContainerSlots(SLOT_SCROLLS, this, tile.inventory, 1, 1, 0, 17, 37, (inv, i, x, y) -> new SlotItemHandlerFiltered(inv, i, x, y, SCROLLS));
-        GuiUtils.createContainerSlots(SLOT_ENCHANT, this, tile.inventory, 1, 1, 1, 17, 75);
+        GuiUtils.createContainerSlots(SLOT_SCROLLS, this, inventory, 1, 1, 0, 17, 37, (inv, i, x, y) -> new SlotItemHandlerFiltered(inv, i, x, y, SCROLLS));
+        GuiUtils.createContainerSlots(SLOT_ENCHANT, this, inventory, 1, 1, 1, 17, 75);
 
         addSlotTransformations(new SlotTransformation(GuiUtils.SLOTS_FULL_PLAYER_INVENTORY, SLOT_ENCHANT));
         addSlotTransformations(new SlotTransformation(GuiUtils.SLOTS_FULL_PLAYER_INVENTORY, SLOT_SCROLLS, SCROLLS));
+        addSlotTransformations(new SlotTransformation(SLOT_ENCHANT, GuiUtils.SLOTS_FULL_PLAYER_INVENTORY));
+        addSlotTransformations(new SlotTransformation(SLOT_SCROLLS, GuiUtils.SLOTS_FULL_PLAYER_INVENTORY));
+
+        onContextChanged(inventory);
     }
 
     public int getEnchantLevel(int i) {

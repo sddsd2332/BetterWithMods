@@ -5,7 +5,6 @@ import betterwithmods.common.blocks.*;
 import betterwithmods.common.blocks.blood_wood.BlockBloodLeaves;
 import betterwithmods.common.blocks.blood_wood.BlockBloodLog;
 import betterwithmods.common.blocks.blood_wood.BlockBloodSapling;
-import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.blocks.mechanical.*;
 import betterwithmods.common.blocks.mechanical.cookingpot.BlockCauldron;
 import betterwithmods.common.blocks.mechanical.cookingpot.BlockCrucible;
@@ -73,6 +72,7 @@ public class BlockRegistry extends RequiredFeature {
 
         //noinspection unchecked
         registerBlocks(factory
+                .tab(BWMCreativeTabs.BLOCKS)
                 .builder().block(new BlockAnchor()).id("anchor").build()
                 .builder().block(new BlockRope()).id("rope").build()
                 .builder().block(new BlockBrokenGearbox(Material.WOOD)).id("wooden_broken_gearbox").build()
@@ -110,99 +110,160 @@ public class BlockRegistry extends RequiredFeature {
                 .complete());
 
 
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerSteelAnvil.class).tile(TileSteelAnvil.class).id("steel_anvil")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerSteelAnvil.class)
+                .tile(TileSteelAnvil.class).id("steel_anvil")
                 .builder().block(new BlockSteelAnvil()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCauldron.class).tile(TileCauldron.class).id("cauldron")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCauldron.class)
+                .tile(TileCauldron.class).id("cauldron")
                 .builder().block(new BlockCauldron()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCrucible.class).tile(TileCrucible.class).id("crucible")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerCrucible.class)
+                .tile(TileCrucible.class).id("crucible")
                 .builder().block(new BlockCrucible()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerInfernalEnchanter.class).tile(TileInfernalEnchanter.class).id("infernal_enchanter")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerInfernalEnchanter.class)
+                .tile(TileInfernalEnchanter.class).id("infernal_enchanter")
                 .builder().block(new BlockInfernalEnchanter()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerMill.class).tile(TileMill.class).id("millstone")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerMill.class)
+                .tile(TileMill.class).id("millstone")
                 .builder().block(new BlockMillstone()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerFilteredHopper.class).tile(TileFilteredHopper.class).id("filtered_hopper")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create().tab(BWMCreativeTabs.BLOCKS)
+                .guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerFilteredHopper.class)
+                .tile(TileFilteredHopper.class).id("filtered_hopper")
                 .builder().block(new BlockFilteredHopper()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerPulley.class).tile(TilePulley.class).id("pulley")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerPulley.class)
+                .tile(TilePulley.class).id("pulley")
                 .builder().block(new BlockPulley()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerAdvancedDispenser.class).tile(TileAdvancedDispenser.class).id("block_dispenser")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .guiHandler(BWMNetwork.GUI_HANDLER).container(ContainerAdvancedDispenser.class)
+                .tile(TileAdvancedDispenser.class).id("block_dispenser")
                 .builder().block(new BlockAdvancedDispenser()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileTurntable.class).id("turntable")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileTurntable.class).id("turntable")
                 .builder().block(new BlockTurntable()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileAxle.class).id("wooden_axle")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileAxle.class).id("wooden_axle")
                 .builder().block(new BlockAxle(Material.WOOD, 1, 1, 3)).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileGearbox.class).id("wooden_gearbox")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileGearbox.class).id("wooden_gearbox")
                 .builder().block(new BlockGearbox(Material.WOOD, 1)).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileHandCrank.class).id("hand_crank")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileHandCrank.class).id("hand_crank")
                 .builder().block(new BlockHandCrank()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileBellows.class).id("bellows")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileBellows.class).id("bellows")
                 .builder().block(new BlockBellows()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileKiln.class).id("kiln")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileKiln.class).id("kiln")
                 .builder().block(new BlockKiln(KilnStructureManager::getKilnBlocks)).noItem().build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileSaw.class).id("saw")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileSaw.class).id("saw")
                 .builder().block(new BlockSaw()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileWindmillHorizontal.class).id("horizontal_windmill")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileWindmillHorizontal.class).id("horizontal_windmill")
                 .builder().block(new BlockWindmill(EnumFacing.Axis.X)).itemblock(ItemHorizontalWindmill::new).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileWindmillVertical.class).id("vertical_windmill")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileWindmillVertical.class).id("vertical_windmill")
                 .builder().block(new BlockWindmill(EnumFacing.Axis.Y)).itemblock(ItemHorizontalWindmill::new).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileWaterwheel.class).id("waterwheel")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileWaterwheel.class).id("waterwheel")
                 .builder().block(new BlockWaterwheel()).itemblock(ItemWaterwheel::new).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileCreativeGenerator.class).id("creative_generator")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileCreativeGenerator.class).id("creative_generator")
                 .builder().block(new BlockCreativeGenerator()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileScrewPump.class).id("screw_pump")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileScrewPump.class).id("screw_pump")
                 .builder().block(new BlockScrewPump()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileDragonVessel.class).id("dragon_vessel")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileDragonVessel.class).id("dragon_vessel")
                 .builder().block(new BlockDragonVessel()).itemblock(ItemBlockLimited::new).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileBucket.class).id("bucket")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileBucket.class).id("bucket")
                 .builder().block(new BlockBucket()).build()
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<Void>create().tile(TileBarrel.class).id("barrel")
+        registerBlocks(BlockEntryBuilderFactory.<Void>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileBarrel.class).id("barrel")
                 .builder().block(new BlockBarrel(Material.WOOD)).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<EnumDyeColor>create()
+                .tab(BWMCreativeTabs.BLOCKS)
                 .blockGenerator(BlockCandle.GENERATOR)
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<EnumDyeColor>create()
+                .tab(BWMCreativeTabs.BLOCKS)
                 .tile(TileVase.class).id("vase")
                 .blockGenerator(BlockVase.GENERATOR)
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create()
+                .tab(BWMCreativeTabs.BLOCKS)
                 .blockGenerator(new BlockChime.Generator(Material.IRON))
                 .blockGenerator(new BlockChime.Generator(Material.WOOD))
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockCobble.Type>create()
+                .tab(BWMCreativeTabs.BLOCKS)
                 .blockGenerator(new BlockCobble.Generator())
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockPlanter.Type>create()
+                .tab(BWMCreativeTabs.BLOCKS)
                 .blockGenerator(new BlockPlanter.Generator())
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockAesthetic.Type>create()
+                .tab(BWMCreativeTabs.BLOCKS)
                 .blockGenerator(new BlockAesthetic.Generator())
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockUnfiredPottery.Type>create()
+                .tab(BWMCreativeTabs.BLOCKS)
                 .blockGenerator(new BlockUnfiredPottery.Generator())
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockRawPastry.Type>create()
+                .tab(BWMCreativeTabs.BLOCKS)
                 .blockGenerator(new BlockRawPastry.Generator())
                 .complete());
 
@@ -215,12 +276,6 @@ public class BlockRegistry extends RequiredFeature {
 
     public static void registerBlock(Block block, @Nullable Item item) {
         if (block.getRegistryName() != null) {
-
-            if (block instanceof BlockCamo) {
-                block.setCreativeTab(BWMCreativeTabs.MINI_BLOCKS);
-            } else {
-                block.setCreativeTab(BWMCreativeTabs.BLOCKS);
-            }
             //TODO remove this in 1.13, it is done automatically
             if (block.getTranslationKey().equals("tile.null"))
                 block.setTranslationKey(block.getRegistryName().toString());
