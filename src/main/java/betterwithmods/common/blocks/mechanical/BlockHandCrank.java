@@ -2,9 +2,11 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.BWMAPI;
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.common.tile.TileHandCrank;
+import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
+import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.module.general.MechanicalPower;
 import betterwithmods.util.player.PlayerUtils;
@@ -20,17 +22,21 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Random;
 
 public class BlockHandCrank extends BlockBase implements IOverpower {
+    public static final ResourceLocation CRANK = LootTableList.register(new ResourceLocation(ModLib.MODID, "block/crank"));
+
     public static final PropertyInteger STAGE = PropertyInteger.create("stage", 0, 7);
     public static final float BASE_HEIGHT = 0.25F;
     private static final int TICK_RATE = 3;
@@ -190,7 +196,7 @@ public class BlockHandCrank extends BlockBase implements IOverpower {
     @Override
     public void overpower(World world, BlockPos pos) {
         if (doesOverpower()) {
-            //TODO add loot table
+            InventoryUtils.ejectBrokenItems(world, pos.offset(EnumFacing.random(world.rand)), CRANK);
             world.setBlockToAir(pos);
         }
     }

@@ -2,9 +2,9 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.common.block.IBlockActive;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -18,14 +18,13 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockHibachi extends BlockBase {
-    public static final PropertyBool LIT = PropertyBool.create("lit");
+public class BlockHibachi extends BlockBase implements IBlockActive, IFireSource {
 
     public BlockHibachi() {
         super(Material.ROCK);
         this.setTickRandomly(true);
         this.setHardness(3.5F);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(LIT, false));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
         this.setHarvestLevel("pickaxe", 0);
     }
 
@@ -42,13 +41,12 @@ public class BlockHibachi extends BlockBase {
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
         boolean powered = world.getRedstonePowerFromNeighbors(pos) > 0;
-
+        Block above = world.getBlockState(pos.up()).getBlock();
         if (powered) {
             if (!isLit(world, pos))
                 ignite(world, pos);
             else {
-                Block above = world.getBlockState(pos.up()).getBlock();
-                if (above != Blocks.FIRE && above != BWMBlocks.STOKED_FLAME) {
+                if (isFire(above)) {
                     if (shouldIgnite(world, pos.up())) {
                         world.playSound(null, pos, SoundEvents.ENTITY_GHAST_SHOOT, SoundCategory.BLOCKS, 1.0F, world.rand.nextFloat() * 0.4F + 0.8F);
                         world.setBlockState(pos.up(), Blocks.FIRE.getDefaultState());
@@ -58,11 +56,17 @@ public class BlockHibachi extends BlockBase {
         } else if (isLit(world, pos))
             extinguish(world, pos);
         else {
-            Block above = world.getBlockState(pos.up()).getBlock();
-
-            if (above == Blocks.FIRE || above == BWMBlocks.STOKED_FLAME)
+            if (isFire(above))
                 world.setBlockToAir(pos.up());
         }
+    }
+
+    private boolean isFire(World world, BlockPos pos) {
+        return isFire(world.getBlockState(pos).getBlock());
+    }
+
+    private boolean isFire(Block block) {
+        return block == Blocks.FIRE || block == BWMBlocks.STOKED_FLAME;
     }
 
     @SuppressWarnings("deprecation")
@@ -74,7 +78,7 @@ public class BlockHibachi extends BlockBase {
 
     @Override
     public boolean isFireSource(@Nonnull World world, BlockPos pos, EnumFacing side) {
-        return world.getBlockState(pos).getValue(LIT) && side == EnumFacing.UP;
+        return world.getBlockState(pos).getValue(ACTIVE) && side == EnumFacing.UP;
     }
 
     public boolean isCurrentlyValid(World world, BlockPos pos) {
@@ -92,7 +96,7 @@ public class BlockHibachi extends BlockBase {
     }
 
     public boolean isLit(IBlockAccess world, BlockPos pos) {
-        return world.getBlockState(pos).getValue(LIT);
+        return world.getBlockState(pos).getValue(ACTIVE);
     }
 
     private boolean shouldIgnite(World world, BlockPos pos) {
@@ -112,20 +116,19 @@ public class BlockHibachi extends BlockBase {
 
         world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXTINGUISH_FIRE, SoundCategory.BLOCKS, 0.5F, 2.6F + (world.rand.nextFloat() - world.rand.nextFloat()) * 0.8F);
 
-        boolean isFire = world.getBlockState(pos.up()).getBlock() == Blocks.FIRE || world.getBlockState(pos.up()).getBlock() == BWMBlocks.STOKED_FLAME;
-
-        if (isFire)
+        if (isFire(world, pos)) {
             world.setBlockToAir(pos.up());
+        }
     }
 
     private void setLit(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
-        world.setBlockState(pos, state.withProperty(LIT, true));
+        world.setBlockState(pos, state.withProperty(ACTIVE, true));
     }
 
     private void clearLit(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
-        world.setBlockState(pos, state.withProperty(LIT, false));
+        world.setBlockState(pos, state.withProperty(ACTIVE, false));
     }
 
     @Nonnull
@@ -133,17 +136,27 @@ public class BlockHibachi extends BlockBase {
     @Override
     public IBlockState getStateFromMeta(int meta) {
         boolean isLit = meta == 1;
-        return this.getDefaultState().withProperty(LIT, isLit);
+        return this.getDefaultState().withProperty(ACTIVE, isLit);
     }
 
     @Override
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(LIT) ? 1 : 0;
+        return state.getValue(ACTIVE) ? 1 : 0;
     }
 
     @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, LIT);
+        return new BlockStateContainer(this, ACTIVE);
+    }
+
+    @Override
+    public boolean isSource(IBlockAccess world, BlockPos pos, IBlockState state) {
+        return true;
+    }
+
+    @Override
+    public boolean isLit(IBlockAccess world, BlockPos pos, IBlockState state) {
+        return isActive(state);
     }
 }

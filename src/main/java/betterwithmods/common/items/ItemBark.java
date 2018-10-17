@@ -64,7 +64,7 @@ public class ItemBark extends Item {
     public String getItemStackDisplayName(@Nonnull ItemStack stack) {
         NBTTagCompound tag = stack.getSubCompound("texture");
         ITextComponent type = new TextComponentTranslation("betterwithmods.unknown_bark.name");
-        //TODO .entityName is not longer in 1.13
+        //TODO .name is not longer in 1.13
         ITextComponent bark = new TextComponentTranslation(this.getTranslationKey(stack) + ".name");
         if (tag != null) {
             try {

@@ -1,13 +1,12 @@
 package betterwithmods.common.blocks.mechanical;
 
-import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.common.registry.BellowsManager;
 import betterwithmods.common.tile.TileBellows;
-import betterwithmods.library.common.block.IBlockActive;
-import betterwithmods.module.internal.SoundRegistry;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.DirUtils;
+import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -23,11 +22,13 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.storage.loot.LootTableList;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -35,13 +36,16 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
-public class BlockBellows extends BlockBase implements IBlockActive, IOverpower {
+public class BlockBellows extends BlockMechMachine {
+
+    public static final ResourceLocation BELLOWS = LootTableList.register(new ResourceLocation(ModLib.MODID, "block/bellows"));
 
     private final float scale = 1 / 4f;
     private final AxisAlignedBB lift = new AxisAlignedBB(0, 0.6875F, 0, 1, 1, 1);
 
+
     public BlockBellows() {
-        super(Material.WOOD);
+        super(Material.WOOD, BELLOWS);
         this.setTickRandomly(true);
         this.setHardness(2.0F);
         this.setDefaultState(getDefaultState().withProperty(DirUtils.HORIZONTAL, EnumFacing.SOUTH).withProperty(ACTIVE, true));
@@ -113,10 +117,8 @@ public class BlockBellows extends BlockBase implements IBlockActive, IOverpower 
     @Override
     public void overpower(World world, BlockPos pos) {
         if (doesOverpower()) {
-            //TODO replace with loot table
-//        InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(Blocks.WOODEN_SLAB, 2, 0));
-//        InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 1, 0));
-//        InventoryUtils.ejectStackWithOffset(world, pos, new ItemStack(BWMItems.MATERIAL, 2, 6));
+
+
             world.playSound(null, pos, SoundEvents.ENTITY_GENERIC_EXPLODE, SoundCategory.BLOCKS, 0.3F,
                     world.rand.nextFloat() * 0.1F + 0.45F);
             world.setBlockToAir(pos);
@@ -156,6 +158,7 @@ public class BlockBellows extends BlockBase implements IBlockActive, IOverpower 
         item.addVelocity(x * scale, 0, z * scale);
     }
 
+    //TODO clean this up
     private void stokeFlames(World world, BlockPos pos) {
         EnumFacing dir = getFacing(world.getBlockState(pos));
         EnumFacing dirLeft = DirUtils.rotateFacingAroundY(getFacing(world.getBlockState(pos)), false);
@@ -185,8 +188,10 @@ public class BlockBellows extends BlockBase implements IBlockActive, IOverpower 
         }
     }
 
+    //TODO clean this up too
     private void stokeFire(World world, BlockPos pos) {
         BlockPos down = pos.down();
+
         if (world.getBlockState(down).getBlock() == BWMBlocks.HIBACHI) {
             int flag = (world.getBlockState(pos).getBlock() == BWMBlocks.STOKED_FLAME) ? 4 : 3;
             world.setBlockState(pos, BWMBlocks.STOKED_FLAME.getDefaultState(), flag);

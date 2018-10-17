@@ -18,10 +18,6 @@ public class PotionTruesight extends BWMPotion {
         super(name, b, potionColor);
     }
 
-
-    //TODO caching of mob spawning
-
-
     @Override
     public void tick(EntityLivingBase entity) {
         World world = entity.getEntityWorld();

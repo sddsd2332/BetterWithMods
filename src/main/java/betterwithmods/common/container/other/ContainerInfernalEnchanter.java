@@ -31,7 +31,7 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 9/11/16.
  */
-//TODO
+
 public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchanter> {
 
     private int[] enchantLevels;

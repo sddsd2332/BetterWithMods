@@ -15,8 +15,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.Set;
 
-//TODO Guava
-@SuppressWarnings("Guava")
 public class BlockRailDetectorBase extends BlockRailDetector {
 
     private final Predicate<Entity> filter;
