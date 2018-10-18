@@ -2,7 +2,6 @@ package betterwithmods.common.items.tools;
 
 import betterwithmods.client.BWCreativeTabs;
 import betterwithmods.common.BWOreDictionary;
-import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -22,8 +21,4 @@ public class ItemLeatherTannedArmor extends BWMArmor {
         return BWOreDictionary.listContains(repair, OreDictionary.getOres("hideTanned")) || super.getIsRepairable(toRepair, repair);
     }
 
-    @Override
-    public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return true;
-    }
 }
