@@ -33,6 +33,7 @@ import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.item.crafting.ShapelessRecipes;
 import net.minecraft.nbt.NBTTagCompound;
@@ -46,7 +47,6 @@ import net.minecraft.util.registry.IRegistry;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -246,8 +246,8 @@ public class MiniBlocks extends Feature {
         CORNERS.values().forEach(b -> BWMBlocks.registerBlock(b, new ItemMini(b)));
     }
 
-    @Override
-    public void init(FMLInitializationEvent event) {
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public void beforeRecipes(RegistryEvent.Register<IRecipe> event) {
         final NonNullList<ItemStack> list = NonNullList.create();
         for (Item item : ForgeRegistries.ITEMS) {
             if (!(item instanceof ItemBlock))
@@ -274,6 +274,7 @@ public class MiniBlocks extends Feature {
             }
         }
     }
+
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
