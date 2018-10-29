@@ -200,7 +200,9 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
 
     @Override
     public EnumFacing.Axis getAxis() {
-        return ((BlockAxle) getBlockType()).getAxis(world.getBlockState(pos));
+        if (getBlock() instanceof BlockAxle)
+            return ((BlockAxle) getBlock()).getAxis(world.getBlockState(pos));
+        return EnumFacing.Axis.Y;
     }
 
     public void setSignal(byte signal) {
