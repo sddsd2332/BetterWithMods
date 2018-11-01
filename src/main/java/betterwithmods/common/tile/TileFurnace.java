@@ -68,7 +68,7 @@ public class TileFurnace extends TileEntityFurnace {
         ItemStack fuel = ItemStack.EMPTY;
         boolean canSmelt = canSmelt();
 
-        if (!this.isBurning() && !(fuel = furnaceItemStacks.get(FUEL)).isEmpty()) {
+        if ((HCFurnace.CONSUME_FUEL_WHEN_IDLE || canSmelt ) && !this.isBurning() && !(fuel = furnaceItemStacks.get(FUEL)).isEmpty()) {
             burnFuel(fuel, false);
         }
 
@@ -80,7 +80,7 @@ public class TileFurnace extends TileEntityFurnace {
             else cookTime = 0;
         }
 
-        if (!this.isBurning() && !(fuel = furnaceItemStacks.get(FUEL)).isEmpty()) {
+        if ((HCFurnace.CONSUME_FUEL_WHEN_IDLE || canSmelt()) && !this.isBurning() && !(fuel = furnaceItemStacks.get(FUEL)).isEmpty()) {
             burnFuel(fuel, wasBurning);
         }
 
