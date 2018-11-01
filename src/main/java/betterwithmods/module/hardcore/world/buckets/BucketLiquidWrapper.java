@@ -1,6 +1,5 @@
-package betterwithmods.util.fluid;
+package betterwithmods.module.hardcore.world.buckets;
 
-import betterwithmods.util.FluidUtils;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -17,12 +16,12 @@ import net.minecraftforge.fluids.capability.IFluidTankProperties;
 
 import javax.annotation.Nullable;
 
-public class BlockLiquidWrapper implements IFluidHandler {
+public class BucketLiquidWrapper implements IFluidHandler {
     protected final BlockLiquid blockLiquid;
     protected final World world;
     protected final BlockPos blockPos;
 
-    public BlockLiquidWrapper(BlockLiquid blockLiquid, World world, BlockPos blockPos) {
+    public BucketLiquidWrapper(BlockLiquid blockLiquid, World world, BlockPos blockPos) {
         this.blockLiquid = blockLiquid;
         this.world = world;
         this.blockPos = blockPos;
@@ -50,10 +49,10 @@ public class BlockLiquidWrapper implements IFluidHandler {
             Material material = blockLiquid.getDefaultState().getMaterial();
             BlockLiquid block = BlockLiquid.getFlowingBlock(material);
             if (!world.isRemote) {
-                FluidUtils.setLiquid(world, blockPos, block, 2);
+                BucketsUtils.setLiquid(world, blockPos, block, 2);
                 for (EnumFacing facing : EnumFacing.HORIZONTALS) {
                     BlockPos p2 = blockPos.offset(facing);
-                    FluidUtils.setLiquid(world, p2, block, 5);
+                    BucketsUtils.setLiquid(world, p2, block, 5);
                 }
             }
         }

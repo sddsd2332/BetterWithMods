@@ -1,13 +1,11 @@
-package betterwithmods.module.hardcore.world;
+package betterwithmods.module.hardcore.world.buckets;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.BlockIce;
-import betterwithmods.common.registry.advanceddispenser.BehaviorFluidContainer;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.general.General;
 import betterwithmods.module.internal.BlockRegistry;
-import betterwithmods.util.FluidUtils;
 import betterwithmods.util.player.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
@@ -91,10 +89,7 @@ public class HCBuckets extends Feature {
         stopDispenserFillBehavior = loadProperty("Stop Dispenser Fill Behavior", false).setComment("Disallow the dispenser from using an empty bucket for anything.").get();
 
         if (fixIce) {
-            BlockRegistry.registerBlocks(
-                    BlockEntryBuilderFactory.<Void>create()
-                            .builder().block(new BlockIce().setTranslationKey("ice")).id("minecraft:ice").build()
-                            .complete()
+            BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create().builder().block(new BlockIce().setTranslationKey("ice")).id("minecraft:ice").build().complete()
             );
         }
     }
@@ -176,7 +171,7 @@ public class HCBuckets extends Feature {
             }
 
             //Attempt to pick up a BlockFluidBase or BlockLiquidBase using our custom wrappers.
-            FluidActionResult result = FluidUtils.tryPickUpFluid(container, player, world, pos, raytraceresult.sideHit);
+            FluidActionResult result = BucketsUtils.tryPickUpFluid(container, player, world, pos, raytraceresult.sideHit);
 
 
             if (result.isSuccess()) {
@@ -207,7 +202,7 @@ public class HCBuckets extends Feature {
                     if (fluidStack != null) {
                         if (fluidStack.amount == Fluid.BUCKET_VOLUME) {
                             //Try to place the fluid using our custom wrappers again, does not createBlock a source block.
-                            FluidActionResult placeResult = FluidUtils.tryPlaceFluid(player, world, offset, container, fluidStack);
+                            FluidActionResult placeResult = BucketsUtils.tryPlaceFluid(player, world, offset, container, fluidStack);
                             if (placeResult.isSuccess()) {
                                 event.setResult(Event.Result.ALLOW);
                                 event.setFilledBucket(placeResult.getResult());

@@ -1,7 +1,5 @@
-package betterwithmods.common.registry.advanceddispenser;
+package betterwithmods.module.hardcore.world.buckets;
 
-import betterwithmods.module.hardcore.world.HCBuckets;
-import betterwithmods.util.FluidUtils;
 import net.minecraft.block.BlockDispenser;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
@@ -56,7 +54,7 @@ public class BehaviorFluidContainer extends BehaviorDefaultDispenseItem {
         EnumFacing dispenserFacing = source.getBlockState().getValue(BlockDispenser.FACING);
         BlockPos blockpos = source.getBlockPos().offset(dispenserFacing);
 
-        FluidActionResult actionResult = FluidUtils.tryPickUpFluid(stack, null, world, blockpos, dispenserFacing.getOpposite());
+        FluidActionResult actionResult = BucketsUtils.tryPickUpFluid(stack, null, world, blockpos, dispenserFacing.getOpposite());
         ItemStack resultStack = actionResult.getResult();
 
         if (!actionResult.isSuccess() || resultStack.isEmpty()) {
@@ -89,7 +87,7 @@ public class BehaviorFluidContainer extends BehaviorDefaultDispenseItem {
         FluidStack fluidStack = fluidHandler.drain(Fluid.BUCKET_VOLUME, false);
         EnumFacing dispenserFacing = source.getBlockState().getValue(BlockDispenser.FACING);
         BlockPos blockpos = source.getBlockPos().offset(dispenserFacing);
-        FluidActionResult result = fluidStack != null ? FluidUtils.tryPlaceFluid(null, source.getWorld(), blockpos, stack, fluidStack) : FluidActionResult.FAILURE;
+        FluidActionResult result = fluidStack != null ? BucketsUtils.tryPlaceFluid(null, source.getWorld(), blockpos, stack, fluidStack) : FluidActionResult.FAILURE;
 
         if (result.isSuccess()) {
             ItemStack drainedStack = result.getResult();

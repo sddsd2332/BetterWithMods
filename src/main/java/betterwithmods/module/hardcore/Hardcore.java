@@ -12,6 +12,7 @@ import betterwithmods.module.hardcore.creatures.chicken.HCChickens;
 import betterwithmods.module.hardcore.needs.*;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
 import betterwithmods.module.hardcore.world.*;
+import betterwithmods.module.hardcore.world.buckets.HCBuckets;
 import betterwithmods.module.hardcore.world.saplings.HCSapling;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;
 import betterwithmods.module.hardcore.world.strata.HCStrata;

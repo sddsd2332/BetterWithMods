@@ -1,4 +1,4 @@
-package betterwithmods.util.fluid;
+package betterwithmods.module.hardcore.world.buckets;
 
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -14,12 +14,12 @@ import javax.annotation.Nullable;
 /**
  * Wrapper to handle {@link IFluidBlock} as an IFluidHandler
  */
-public class FluidBlockWrapper implements IFluidHandler {
+public class BucketFluidBlockWrapper implements IFluidHandler {
     protected final IFluidBlock fluidBlock;
     protected final World world;
     protected final BlockPos blockPos;
 
-    public FluidBlockWrapper(IFluidBlock fluidBlock, World world, BlockPos blockPos) {
+    public BucketFluidBlockWrapper(IFluidBlock fluidBlock, World world, BlockPos blockPos) {
         this.fluidBlock = fluidBlock;
         this.world = world;
         this.blockPos = blockPos;

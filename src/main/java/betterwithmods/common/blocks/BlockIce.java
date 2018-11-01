@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.util.FluidUtils;
 import betterwithmods.library.utils.ToolUtils;
+import betterwithmods.module.hardcore.world.buckets.BucketsUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -70,9 +70,9 @@ public class BlockIce extends net.minecraft.block.BlockIce {
 
     private void setWater(World world, BlockPos pos) {
 
-        FluidUtils.setLiquid(world, pos, Blocks.WATER, 14, true);
+        BucketsUtils.setLiquid(world, pos, Blocks.WATER, 14, true);
         for (EnumFacing facing : EnumFacing.HORIZONTALS) {
-            FluidUtils.setLiquid(world, pos.offset(facing), Blocks.WATER, 10, false);
+            BucketsUtils.setLiquid(world, pos.offset(facing), Blocks.WATER, 10, false);
         }
         world.neighborChanged(pos, Blocks.WATER, pos);
     }
