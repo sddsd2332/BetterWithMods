@@ -9,13 +9,12 @@ import betterwithmods.module.internal.InternalRegistries;
 import betterwithmods.module.recipes.Recipes;
 import betterwithmods.module.tweaks.Tweaks;
 import net.minecraftforge.common.ForgeModContainer;
+import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.SidedProxy;
 import net.minecraftforge.fml.common.event.*;
 import org.apache.logging.log4j.Logger;
-
-import java.io.File;
 
 
 @Mod(modid = ModLib.MODID, name = ModLib.NAME, version = ModLib.VERSION, dependencies = ModLib.DEPENDENCIES, guiFactory = ModLib.GUI_FACTORY, acceptedMinecraftVersions = ModLib.MINECRAFT_VERISONS)
@@ -27,6 +26,8 @@ public class BetterWithMods {
 
     @Mod.Instance(ModLib.MODID)
     public static BetterWithMods instance;
+
+    public static JsonContext JSON_CONTEXT = new JsonContext(ModLib.MODID);
 
     public static final ModuleLoader MODULE_LOADER = new ModuleLoader().addModules(
             new InternalRegistries(),

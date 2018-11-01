@@ -263,7 +263,7 @@ public class MiniBlocks extends Feature {
         }
         JsonObject[] objects = JsonUtils.readerFile(file);
         if (objects != null)
-            return Arrays.stream(objects).map(object -> CraftingHelper.getIngredient(object, JsonUtils.BWM_CONTEXT)).collect(Collectors.toSet());
+            return Arrays.stream(objects).map(object -> CraftingHelper.getIngredient(object, BetterWithMods.JSON_CONTEXT)).collect(Collectors.toSet());
         return Sets.newHashSet();
     }
 
