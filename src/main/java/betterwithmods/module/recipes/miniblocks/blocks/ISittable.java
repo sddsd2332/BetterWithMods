@@ -2,7 +2,6 @@ package betterwithmods.module.recipes.miniblocks.blocks;
 
 import betterwithmods.common.entity.EntitySitMount;
 import betterwithmods.library.utils.HoldingUtils;
-import betterwithmods.util.player.PlayerUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumFacing;

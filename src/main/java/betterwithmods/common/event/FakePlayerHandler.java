@@ -2,7 +2,6 @@ package betterwithmods.common.event;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.lib.ModLib;
-import betterwithmods.util.player.Profiles;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -40,14 +39,14 @@ public class FakePlayerHandler {
     public static void onWorldLoad(WorldEvent.Load evt) {
         if (evt.getWorld() instanceof WorldServer) {
             //Use for the saw
-            sword = FakePlayerFactory.get((WorldServer) evt.getWorld(), Profiles.BWMSAW);
+            sword = FakePlayerFactory.get((WorldServer) evt.getWorld(), ModLib.SAW_PLAYER);
             ItemStack sword = new ItemStack(Items.DIAMOND_SWORD);
             sword.addEnchantment(looting, 2);
             FakePlayerHandler.sword.setHeldItem(EnumHand.MAIN_HAND, sword);
 
 
             //Used by mining charges to overcome HCPiles
-            shovel = FakePlayerFactory.get((WorldServer) evt.getWorld(), Profiles.BWMSSHOVELER);
+            shovel = FakePlayerFactory.get((WorldServer) evt.getWorld(), ModLib.MINING_CHARGE);
             ItemStack shovel = new ItemStack(BWMItems.STEEL_MATTOCK);
             FakePlayerHandler.shovel.setHeldItem(EnumHand.MAIN_HAND, shovel);
         }

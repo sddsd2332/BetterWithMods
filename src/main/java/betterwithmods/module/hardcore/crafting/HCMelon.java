@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.entity.EntityFallingGourd;
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.BlockMelon;

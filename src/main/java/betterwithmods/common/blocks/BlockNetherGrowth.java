@@ -3,7 +3,7 @@ package betterwithmods.common.blocks;
 import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
 import betterwithmods.library.common.block.BlockBase;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;

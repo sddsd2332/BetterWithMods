@@ -2,7 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Sets;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;

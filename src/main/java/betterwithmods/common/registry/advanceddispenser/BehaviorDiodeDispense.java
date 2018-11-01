@@ -1,9 +1,9 @@
 package betterwithmods.common.registry.advanceddispenser;
 
 import betterwithmods.BetterWithMods;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.DirUtils;
 import betterwithmods.module.general.General;
-import betterwithmods.util.player.Profiles;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.inventory.EntityEquipmentSlot;
@@ -28,7 +28,7 @@ public class BehaviorDiodeDispense extends BehaviorDefaultDispenseItem {
         BlockPos check = source.getBlockPos().offset(facing);
 
         if (facing != EnumFacing.DOWN && facing != EnumFacing.UP && stack.getItem() instanceof ItemBlockSpecial) {
-            FakePlayer fake = FakePlayerFactory.get((WorldServer) source.getWorld(), Profiles.BWMDISP);
+            FakePlayer fake = FakePlayerFactory.get((WorldServer) source.getWorld(), ModLib.ADVANCED_DISPENSER);
             fake.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
             DirUtils.setEntityOrientationFacing(fake, facing);
             if (General.isDebug())

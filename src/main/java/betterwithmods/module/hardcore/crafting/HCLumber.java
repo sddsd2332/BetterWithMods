@@ -1,15 +1,14 @@
 package betterwithmods.module.hardcore.crafting;
 
-import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.common.BWMOreDictionary;
-
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.module.internal.RecipeRegistry;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;

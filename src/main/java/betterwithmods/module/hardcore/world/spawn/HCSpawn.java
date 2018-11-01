@@ -7,7 +7,7 @@ import betterwithmods.library.utils.TimeUtils;
 import betterwithmods.library.utils.WeatherUtils;
 import betterwithmods.module.general.General;
 import betterwithmods.module.internal.player.PlayerInfo;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;

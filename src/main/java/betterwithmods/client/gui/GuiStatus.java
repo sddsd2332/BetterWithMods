@@ -5,7 +5,7 @@ import betterwithmods.common.penalties.PenaltyHandler;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.module.internal.MiscRegistry;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.gui.ScaledResolution;

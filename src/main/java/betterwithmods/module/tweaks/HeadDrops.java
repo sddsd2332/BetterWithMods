@@ -3,7 +3,7 @@ package betterwithmods.module.tweaks;
 import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.BWMItems;
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;

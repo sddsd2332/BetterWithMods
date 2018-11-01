@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.world;
 
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.TooltipUtils;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;

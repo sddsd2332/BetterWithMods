@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Multimap;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.SharedMonsterAttributes;

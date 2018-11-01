@@ -1,4 +1,4 @@
-package betterwithmods.util.player;
+package betterwithmods.util;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMOreDictionary;

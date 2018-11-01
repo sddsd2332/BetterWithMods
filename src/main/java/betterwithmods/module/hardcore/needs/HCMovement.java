@@ -3,7 +3,7 @@ package betterwithmods.module.hardcore.needs;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockDirtSlab;
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

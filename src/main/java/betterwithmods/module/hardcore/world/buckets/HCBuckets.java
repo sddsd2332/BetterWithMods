@@ -6,7 +6,7 @@ import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.general.General;
 import betterwithmods.module.internal.BlockRegistry;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
 import net.minecraft.block.BlockDispenser;

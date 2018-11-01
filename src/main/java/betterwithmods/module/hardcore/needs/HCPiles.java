@@ -7,7 +7,7 @@ import betterwithmods.common.registry.advanceddispenser.BehaviorSilkTouch;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.internal.AdvancedDispenserRegistry;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;

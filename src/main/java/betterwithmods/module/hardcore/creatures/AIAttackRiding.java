@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
 import net.minecraft.entity.player.EntityPlayer;

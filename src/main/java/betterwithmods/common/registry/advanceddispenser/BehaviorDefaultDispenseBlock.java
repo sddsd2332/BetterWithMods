@@ -1,9 +1,9 @@
 package betterwithmods.common.registry.advanceddispenser;
 
 import betterwithmods.BetterWithMods;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.DirUtils;
 import betterwithmods.module.general.General;
-import betterwithmods.util.player.Profiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
@@ -39,7 +39,7 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
 
         World world = source.getWorld();
 
-        FakePlayer fake = FakePlayerFactory.get((WorldServer) world, Profiles.BWMDISP);
+        FakePlayer fake = FakePlayerFactory.get((WorldServer) world, ModLib.ADVANCED_DISPENSER);
         fake.setHeldItem(EnumHand.MAIN_HAND, stack);
         DirUtils.setEntityOrientationFacing(fake, facing.getOpposite());
 

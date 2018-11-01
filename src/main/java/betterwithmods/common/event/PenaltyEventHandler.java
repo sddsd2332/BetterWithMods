@@ -3,7 +3,7 @@ package betterwithmods.common.event;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.module.internal.SoundRegistry;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import it.unimi.dsi.fastutil.objects.Object2IntMap;
 import it.unimi.dsi.fastutil.objects.Object2IntOpenHashMap;
 import net.minecraft.entity.SharedMonsterAttributes;

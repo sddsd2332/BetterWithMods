@@ -1,7 +1,6 @@
 package betterwithmods.module.hardcore.world;
 
 import betterwithmods.common.BWMItems;
-
 import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.items.ItemFertilizer;
 import betterwithmods.library.common.modularity.impl.Feature;
@@ -9,7 +8,7 @@ import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockGrass;

@@ -15,7 +15,7 @@ import betterwithmods.module.internal.ItemRegistry;
 import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageHungerShake;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;

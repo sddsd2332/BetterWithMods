@@ -9,7 +9,7 @@ import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.module.general.MechanicalPower;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;

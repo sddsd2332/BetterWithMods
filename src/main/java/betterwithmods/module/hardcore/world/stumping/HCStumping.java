@@ -1,16 +1,16 @@
 package betterwithmods.module.hardcore.world.stumping;
 
-import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.variants.IBlockVariants;
+import betterwithmods.library.utils.ToolUtils;
 import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.module.hardcore.world.HCBonemeal;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessagePlaced;
-import betterwithmods.library.utils.ToolUtils;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;

@@ -2,10 +2,10 @@ package betterwithmods.common.items.tools;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.library.utils.ToolUtils;
+import betterwithmods.module.hardcore.creatures.HCEnchanting;
 import betterwithmods.module.internal.ItemRegistry;
-import betterwithmods.util.player.PlayerUtils;
+import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.ImmutableSet;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
