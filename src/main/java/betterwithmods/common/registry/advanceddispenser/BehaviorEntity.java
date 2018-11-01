@@ -1,4 +1,4 @@
-package betterwithmods.common.blocks.behaviors;
+package betterwithmods.common.registry.advanceddispenser;
 
 import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import net.minecraft.entity.Entity;

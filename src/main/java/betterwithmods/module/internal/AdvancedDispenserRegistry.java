@@ -5,15 +5,15 @@ import betterwithmods.api.tile.dispenser.IBehaviorEntity;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.BlockMiningCharge;
-import betterwithmods.common.blocks.behaviors.*;
+import betterwithmods.common.blocks.BlockUnfiredPottery;
+import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.advanceddispenser.*;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import betterwithmods.library.lib.ReflectionLib;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ListUtils;
 import betterwithmods.library.utils.ingredient.EntityIngredient;
-import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
-import betterwithmods.library.utils.ingredient.collections.BaseIngredientMap;
 import betterwithmods.library.utils.ingredient.collections.BlockIngredientMap;
 import betterwithmods.library.utils.ingredient.collections.EntityIngredientMap;
 import betterwithmods.library.utils.ingredient.collections.IngredientMap;
@@ -50,6 +50,9 @@ public class AdvancedDispenserRegistry extends RequiredFeature {
         BLOCK_DISPENSER_REGISTRY.put(Items.COMPARATOR, new BehaviorDiodeDispense());
         BLOCK_DISPENSER_REGISTRY.put(BWMItems.DYNAMITE, new DispenserBehaviorDynamite());
         BLOCK_DISPENSER_REGISTRY.put(BWMBlocks.MINING_CHARGE, BlockMiningCharge::dispenser);
+        BLOCK_DISPENSER_REGISTRY.put(Items.CLAY_BALL, new DispenserBlockOverride(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.BRICK)));
+        BLOCK_DISPENSER_REGISTRY.put(ItemMaterial.getItem(ItemMaterial.EnumMaterial.NETHER_SLUDGE), new DispenserBlockOverride(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.NETHER_BRICK)));
+
         BLOCK_COLLECT_REGISTRY.put(Blocks.STONE, new BehaviorSilkTouch());
         BLOCK_COLLECT_REGISTRY.put(Blocks.LOG, new BehaviorSilkTouch());
         BLOCK_COLLECT_REGISTRY.put(Blocks.LOG2, new BehaviorSilkTouch());

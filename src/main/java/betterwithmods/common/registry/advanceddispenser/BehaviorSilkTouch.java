@@ -1,4 +1,4 @@
-package betterwithmods.common.blocks.behaviors;
+package betterwithmods.common.registry.advanceddispenser;
 
 import betterwithmods.api.tile.dispenser.IBehaviorCollect;
 import betterwithmods.library.lib.ReflectionLib;

@@ -2,8 +2,8 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.registry.BrokenToolRegistry;
+import betterwithmods.common.registry.advanceddispenser.BehaviorSilkTouch;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.internal.AdvancedDispenserRegistry;

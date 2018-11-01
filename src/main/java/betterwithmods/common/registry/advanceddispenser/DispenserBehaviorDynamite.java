@@ -1,4 +1,4 @@
-package betterwithmods.common.blocks.behaviors;
+package betterwithmods.common.registry.advanceddispenser;
 
 import betterwithmods.common.entity.EntityDynamite;
 import net.minecraft.dispenser.BehaviorProjectileDispense;

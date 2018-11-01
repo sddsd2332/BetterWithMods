@@ -1,6 +1,5 @@
-package betterwithmods.util;
+package betterwithmods.common.registry.advanceddispenser;
 
-import betterwithmods.common.blocks.behaviors.BehaviorDefaultDispenseBlock;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.item.ItemStack;
 

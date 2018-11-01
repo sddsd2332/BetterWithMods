@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.world;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.BlockIce;
-import betterwithmods.common.blocks.behaviors.BehaviorFluidContainer;
+import betterwithmods.common.registry.advanceddispenser.BehaviorFluidContainer;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.general.General;
