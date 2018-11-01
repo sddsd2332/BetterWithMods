@@ -1,13 +1,11 @@
 package betterwithmods.common.blocks.behaviors;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.common.blocks.OldBlockBDispenser;
-import betterwithmods.module.general.General;
 import betterwithmods.library.utils.DirUtils;
+import betterwithmods.module.general.General;
 import betterwithmods.util.player.Profiles;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.dispenser.IPosition;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemBlockSpecial;
 import net.minecraft.item.ItemStack;
@@ -25,9 +23,10 @@ public class BehaviorDiodeDispense extends BehaviorDefaultDispenseItem {
     @Nonnull
     @Override
     protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
-        EnumFacing facing = source.getBlockState().getValue(OldBlockBDispenser.FACING);
-        IPosition pos = OldBlockBDispenser.getDispensePosition(source);
-        BlockPos check = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
+        EnumFacing facing = source.getBlockState().getValue(DirUtils.FACING);
+
+        BlockPos check = source.getBlockPos().offset(facing);
+
         if (facing != EnumFacing.DOWN && facing != EnumFacing.UP && stack.getItem() instanceof ItemBlockSpecial) {
             FakePlayer fake = FakePlayerFactory.get((WorldServer) source.getWorld(), Profiles.BWMDISP);
             fake.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stack);
@@ -38,11 +37,9 @@ public class BehaviorDiodeDispense extends BehaviorDefaultDispenseItem {
                 stack.shrink(1);
                 return stack.isEmpty() ? ItemStack.EMPTY : stack;
             } else {
-                //stack.grow(1);
                 return stack;
             }
         } else {
-            //stack.grow(1);
             return stack;
         }
     }

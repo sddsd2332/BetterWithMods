@@ -1,15 +1,13 @@
 package betterwithmods.common.blocks.behaviors;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.common.blocks.OldBlockBDispenser;
-import betterwithmods.module.general.General;
 import betterwithmods.library.utils.DirUtils;
+import betterwithmods.module.general.General;
 import betterwithmods.util.player.Profiles;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
-import net.minecraft.dispenser.IPosition;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.*;
@@ -34,11 +32,10 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
     @Nonnull
     @Override
     protected ItemStack dispenseStack(IBlockSource source, ItemStack stackIn) {
-        EnumFacing facing = source.getBlockState().getValue(OldBlockBDispenser.FACING);
-        IPosition pos = OldBlockBDispenser.getDispensePosition(source);
-        BlockPos check = new BlockPos(pos.getX(), pos.getY(), pos.getZ());
+        EnumFacing facing = source.getBlockState().getValue(DirUtils.FACING);
 
-        ItemStack stack = getInputStack(source,stackIn);
+        BlockPos check = source.getBlockPos().offset(facing);
+        ItemStack stack = getInputStack(source, stackIn);
 
         World world = source.getWorld();
 
