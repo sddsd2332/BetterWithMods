@@ -49,7 +49,7 @@ public class Tweaks extends Module {
         addFeature(new AnimalBirth());
         addFeature(new HopperMinecarts());
         addFeature(new FeedWolfchop());
-
+        addFeature(new NetherFortressSpawns());
     }
 
 }
