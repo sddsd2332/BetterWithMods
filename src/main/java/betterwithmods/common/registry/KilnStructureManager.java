@@ -8,7 +8,6 @@ import betterwithmods.common.tile.TileKiln;
 import betterwithmods.library.common.advancements.Advancements;
 import betterwithmods.module.internal.AdvancementRegistry;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.init.Blocks;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -31,15 +30,16 @@ public class KilnStructureManager {
         KILN_BLOCKS.add(state);
     }
 
-    public static boolean isKilnBlock(IBlockState state) {
-        if (state == Blocks.AIR.getDefaultState())
+    public static boolean isKilnBlock(IBlockAccess world, BlockPos pos) {
+        IBlockState state = world.getBlockState(pos);
+        if (state.getBlock().isAir(state, world, pos))
             return false;
         return KILN_BLOCKS.contains(state);
     }
 
     public static boolean createKiln(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
-        if (!isKilnBlock(state))
+        if (!isKilnBlock(world, pos))
             return false;
         if (isValidKiln(world, pos)) {
             IBlockState kiln = BWMBlocks.KILN.getDefaultState();
@@ -65,8 +65,7 @@ public class KilnStructureManager {
         BlockPos center = pos.up();
         for (EnumFacing face : EnumFacing.VALUES) {
             if (face == EnumFacing.DOWN) continue;
-            IBlockState state = world.getBlockState(center.offset(face));
-            if (isKilnBlock(state))
+            if (isKilnBlock(world, center.offset(face)))
                 numBrick++;
         }
         return numBrick > 2;
