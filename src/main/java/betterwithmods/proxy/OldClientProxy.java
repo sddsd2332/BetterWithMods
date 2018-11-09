@@ -4,7 +4,7 @@
 //import betterwithmods.api.client.IColorable;
 //import betterwithmods.client.ClientEventHandler;
 //import betterwithmods.client.ColorHandlers;
-//import betterwithmods.client.ResourceProxy;
+//import betterwithmods.client.ResourcePackProxy;
 //import betterwithmods.client.baking.BarkModel;
 //import betterwithmods.client.model.baking.RenderUtils;
 //import betterwithmods.client.baking.*;
@@ -52,15 +52,7 @@
 //@Mod.EventBusSubscriber(modid = ModLib.MODID, value = Side.CLIENT)
 //public class ClientProxy implements IProxy {
 //
-//    private static ResourceProxy resourceProxy;
 //
-//    static {
-//        List<IResourcePack> packs = ReflectionHelper.getPrivateValue(Minecraft.class, Minecraft.getMinecraft(), ReflectionLib.DEFAULT_RESOURCE_PACKS);
-//        resourceProxy = new ResourceProxy();
-//        packs.add(resourceProxy);
-//    }
-//
-
 //
 //    @SubscribeEvent
 //    public static void registerModels(ModelRegistryEvent event) {
@@ -90,7 +82,6 @@
 //
 //
 //
-
 //    @Override
 //    public String getName() {
 //        return "ClientProxy";

@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.BetterWithMods;
-
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.library.common.modularity.impl.Feature;
@@ -19,8 +18,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 public class DetectorRail extends Feature {
 
-
-
     @Override
     public String getDescription() {
         return "Change what detector rails detect; Wooden:all minecarts; Stone: carts containing something, SFS: carts with players.";
@@ -28,15 +25,13 @@ public class DetectorRail extends Feature {
 
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
-        //TODO
-//        config().overrideBlock("rail_detector");
-//        config().overrideBlock("rail_detector_powered");
+        config().overrideBlockResource("rail_detector");
+        config().overrideBlockResource("rail_detector_powered");
     }
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         Blocks.DETECTOR_RAIL.setTranslationKey("detector_rail_wood");
-
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.DETECTOR_RAIL.getRegistryName()));
     }
 

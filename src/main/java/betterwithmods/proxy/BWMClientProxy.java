@@ -1,5 +1,6 @@
 package betterwithmods.proxy;
 
+import betterwithmods.BetterWithMods;
 import betterwithmods.client.ColorHandlers;
 import betterwithmods.client.render.*;
 import betterwithmods.client.tesr.*;
@@ -8,11 +9,10 @@ import betterwithmods.common.blocks.BlockPlanter;
 import betterwithmods.common.entity.*;
 import betterwithmods.common.tile.*;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.client.resourceproxy.ResourcePackProxy;
+import betterwithmods.library.common.modularity.impl.ModuleLoader;
 import betterwithmods.library.common.modularity.impl.proxy.ClientProxy;
 import betterwithmods.module.hardcore.beacons.TileBeacon;
-import betterwithmods.module.hardcore.creatures.EntityTentacle;
-import net.minecraft.block.BlockPlanks;
-import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
@@ -27,11 +27,14 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BWMClientProxy extends ClientProxy {
 
     @SideOnly(Side.CLIENT)
+    private static final ResourcePackProxy RESOURCE_PACK_PROXY = ResourcePackProxy.registerResourceProxy(() -> BetterWithMods.LOGGER, ModLib.MODID);
+    @SideOnly(Side.CLIENT)
     public static final BannerTextures.Cache WINDMILLS = new BannerTextures.Cache("betterwithmods:W", new ResourceLocation(ModLib.MODID, "textures/blocks/windmills/banner.png"), "betterwithmods:textures/blocks/windmills/");
-
 
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
+        super.onPreInitClient(event);
+
         ClientRegistry.bindTileEntitySpecialRenderer(TileWindmillHorizontal.class, new TESRWindmill());
         ClientRegistry.bindTileEntitySpecialRenderer(TileWindmillVertical.class, new TESRVerticalWindmill());
         ClientRegistry.bindTileEntitySpecialRenderer(TileWaterwheel.class, new TESRWaterwheel());
@@ -66,9 +69,11 @@ public class BWMClientProxy extends ClientProxy {
         itemColors.registerItemColorHandler(ColorHandlers.ITEM_FOLIAGE, BWMBlocks.VINE_TRAP);
         itemColors.registerItemColorHandler(ColorHandlers.ITEM_BLOOD_LEAF, BWMBlocks.BLOOD_LEAVES);
         itemColors.registerItemColorHandler(ColorHandlers.ITEM_GRASS, BWMBlocks.DIRT_SLAB);
+    }
 
-
-
-
+    @Override
+    public void setLoader(ModuleLoader loader) {
+        super.setLoader(loader);
+        this.loader.setResourcePackProxy(RESOURCE_PACK_PROXY);
     }
 }

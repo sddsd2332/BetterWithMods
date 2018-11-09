@@ -18,11 +18,10 @@ public class PowderKegs extends Feature {
 
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
-        //TODO
-//        config().overrideBlock("tnt_bottom");
-//        config().overrideBlock("tnt_top");
-//        config().overrideBlock("tnt_side");
-//        config().overrideItem("minecart_tnt");
+        config().overrideBlockResource("tnt_bottom");
+        config().overrideBlockResource("tnt_top");
+        config().overrideBlockResource("tnt_side");
+        config().overrideItemResource("minecart_tnt");
     }
 
     @Override

@@ -19,7 +19,6 @@ import betterwithmods.module.hardcore.world.strata.HCStrata;
 import betterwithmods.module.hardcore.world.structures.HCStructures;
 import betterwithmods.module.hardcore.world.structures.HCVillages;
 import betterwithmods.module.hardcore.world.stumping.HCStumping;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
@@ -95,13 +94,8 @@ public class Hardcore extends Module {
     }
 
     @Override
-    public void onInit(FMLInitializationEvent event) {
-        super.onInit(event);
-    }
-
-
-    @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
+        super.onPreInitClient(event);
         GuiStatus.isGloomLoaded = BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCGloom.class);
         GuiStatus.isHungerLoaded = BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCHunger.class);
         GuiStatus.isInjuryLoaded = BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCInjury.class);

@@ -37,9 +37,10 @@ public class BetterWithMods {
             new Hardcore()
     );
 
-
-    static {  //TODO move
+    static {
+        //Enable Universal Buckets
         FluidRegistry.enableUniversalBucket();
+        //Enable Full BB Ladders - Allows the Platform to work
         ForgeModContainer.fullBoundingBoxLadders = true;
     }
 

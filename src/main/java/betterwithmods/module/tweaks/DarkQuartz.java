@@ -13,15 +13,15 @@ public class DarkQuartz extends Feature {
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
         //TODO
-//        config().overrideBlock("quartz_ore");
-//        config().overrideBlock("quartz_block_bottom");
-//        config().overrideBlock("quartz_block_top");
-//        config().overrideBlock("quartz_block_side");
-//        config().overrideBlock("quartz_block_chiseled_top");
-//        config().overrideBlock("quartz_block_chiseled");
-//        config().overrideBlock("quartz_block_lines_top");
-//        config().overrideBlock("quartz_block_lines");
-//        config().overrideItem("quartz");
+        config().overrideBlockResource("quartz_ore");
+        config().overrideBlockResource("quartz_block_bottom");
+        config().overrideBlockResource("quartz_block_top");
+        config().overrideBlockResource("quartz_block_side");
+        config().overrideBlockResource("quartz_block_chiseled_top");
+        config().overrideBlockResource("quartz_block_chiseled");
+        config().overrideBlockResource("quartz_block_lines_top");
+        config().overrideBlockResource("quartz_block_lines");
+        config().overrideItemResource("quartz");
     }
 
 }
