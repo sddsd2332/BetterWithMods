@@ -62,7 +62,7 @@ public class TileInfernalEnchanter extends TileBasicInventory implements ITickab
         }
 
         if (getWorld().getTotalWorldTime() % 5 == 0) {
-            List<EntityPlayer> playerList = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos).grow(3));
+            List<EntityPlayer> playerList = world.getEntitiesWithinAABB(EntityPlayer.class, new AxisAlignedBB(pos).grow(8));
             boolean players = !playerList.isEmpty();
             if (active != players) {
                 active = players;
