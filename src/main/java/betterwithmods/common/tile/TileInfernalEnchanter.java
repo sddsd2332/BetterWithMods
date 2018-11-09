@@ -68,7 +68,10 @@ public class TileInfernalEnchanter extends TileBasicInventory implements ITickab
             if (active != players) {
                 active = players;
                 if (active)
-                    world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 1, 1);
+                    world.playSound(null, pos, SoundEvents.ITEM_FIRECHARGE_USE, SoundCategory.BLOCKS, 0.75f, 1);
+                else {
+                    world.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.1f, 1);
+                }
             }
             IBlockState state = world.getBlockState(pos);
             if (active) {
@@ -80,9 +83,9 @@ public class TileInfernalEnchanter extends TileBasicInventory implements ITickab
                 getWorld().spawnParticle(EnumParticleTypes.FLAME, x + .125, y + .9, z + .875, 0, 0, 0);
 
                 playerList.stream().filter(p -> p instanceof EntityPlayerMP).map(p -> (EntityPlayerMP) p).forEach(player -> AdvancementRegistry.CONSTRUCT_LIBRARY.trigger(player, getBookcaseCount()));
-
             } else {
                 world.setBlockState(pos, state.withProperty(BlockInfernalEnchanter.ACTIVE, false));
+
             }
         }
     }

@@ -16,11 +16,13 @@ import betterwithmods.util.InfernalEnchantment;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
+import net.minecraft.entity.effect.EntityLightningBolt;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.items.IItemHandler;
@@ -149,7 +151,9 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
                         item.addEnchantment(enchantment, levelIndex + 1);
                         player.onEnchant(item, this.enchantLevels[levelIndex]);
                         AdvancementRegistry.INFERNAL_ENCHANTED.trigger((EntityPlayerMP) player, item, this.enchantLevels[levelIndex]);
-                        getTile().getWorld().playSound(null, getTile().getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F, getTile().getWorld().rand.nextFloat() * 0.1F + 0.9F);
+                        TileEntity tile = getTile();
+                        tile.getWorld().addWeatherEffect(new EntityLightningBolt(tile.getWorld(), tile.getPos().getX(), tile.getPos().getY(), tile.getPos().getZ(), true));
+                        tile.getWorld().playSound(null, getTile().getPos(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.BLOCKS, 1.0F, getTile().getWorld().rand.nextFloat() * 0.1F + 0.9F);
                         onContextChanged(getTile().inventory);
                     }
                 }
