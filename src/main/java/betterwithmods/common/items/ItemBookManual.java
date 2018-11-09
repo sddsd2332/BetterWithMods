@@ -75,7 +75,7 @@ public final class ItemBookManual extends ItemBook {
 
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(TooltipUtils.getTooltip(TooltipLib.BOOK));
+        tooltip.add(TooltipUtils.getTooltip(this.getRegistryName().getNamespace(), TooltipLib.BOOK));
         super.addInformation(stack, worldIn, tooltip, flagIn);
     }
 }

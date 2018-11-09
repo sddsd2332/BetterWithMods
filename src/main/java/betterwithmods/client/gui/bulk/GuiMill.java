@@ -40,11 +40,11 @@ public class GuiMill extends GuiProgress<ContainerMill> {
     protected void drawExtras(float partialTicks, int mouseX, int mouseY, int centerX, int centerY) {
         super.drawExtras(partialTicks, mouseX, mouseY, centerX, centerY);
         if(getContainer().getPropertyValue(ContainerMill.BLOCKED)) {
-                        String str = TooltipUtils.getMessage(MILLSTONE_BLOCKED);
+            String str = TooltipUtils.getMessage(ModLib.MODID, MILLSTONE_BLOCKED);
             int width = fontRenderer.getStringWidth(str) / 2;
             drawString(fontRenderer, str, centerX + this.xSize / 2 - width, centerY + 32, EnumDyeColor.RED.getColorValue());
             drawToolTip(mouseX, mouseY, centerX + this.xSize / 2 - width, centerY + 32, 32, 32,
-                    TooltipUtils.getTooltip(MILLSTONE_BLOCKED));
+                    TooltipUtils.getTooltip(ModLib.MODID, MILLSTONE_BLOCKED));
         }
     }
 

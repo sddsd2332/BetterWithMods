@@ -50,7 +50,7 @@ public class GuiStatus {
                     continue;
                 Penalty p = handler.getPenalty(mc.player);
                 if (p != null) {
-                    String status = TooltipUtils.getTooltip(p.getName());
+                    String status = TooltipUtils.getTooltip(ModLib.MODID, p.getName());
                     if (status.isEmpty())
                         continue;
                     int width = fontRenderer.getStringWidth(status);

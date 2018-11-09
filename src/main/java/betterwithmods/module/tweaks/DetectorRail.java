@@ -3,6 +3,7 @@ package betterwithmods.module.tweaks;
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -31,7 +32,7 @@ public class DetectorRail extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        Blocks.DETECTOR_RAIL.setTranslationKey("detector_rail_wood");
+        Blocks.DETECTOR_RAIL.setTranslationKey(ModLib.MODID + ":detector_rail_wood");
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.DETECTOR_RAIL.getRegistryName()));
     }
 

@@ -48,7 +48,7 @@ public class BetterWithMods {
         return LOGGER;
     }
 
-    @Mod.EventHandler
+    @Mod.EventHandler()
     public void onPreInit(FMLPreInitializationEvent event) {
         LOGGER = event.getModLog();
         MODULE_LOADER.setLogger(LOGGER);

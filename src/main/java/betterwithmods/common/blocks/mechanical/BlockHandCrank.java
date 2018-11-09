@@ -90,7 +90,7 @@ public class BlockHandCrank extends BlockBase implements IOverpower {
             }
         } else if (world.isRemote) {
             if (hand == EnumHand.MAIN_HAND)
-                player.sendStatusMessage(TooltipUtils.getMessageComponent(TooltipLib.HANDCRANK_EXHAUSTION), true);
+                player.sendStatusMessage(TooltipUtils.getMessageComponent(this.getRegistryName().getNamespace(), TooltipLib.HANDCRANK_EXHAUSTION), true);
             return false;
         }
         return true;

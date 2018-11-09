@@ -97,6 +97,7 @@ tile.betterwithmods:vine_trap.name=Vine Trap
 tile.betterwithmods:booster.name=Mechanical Booster Rail
 tile.betterwithmods:detector_rail_stone.name=Stone Detector Rail
 tile.betterwithmods:detector_rail_steel.name=Soulforged Steel Detector Rail
+tile.betterwithmods:detector_rail_wood.name=Wooden Detector Rail
 tile.betterwithmods:siding_rock.name=%s Siding
 tile.betterwithmods:siding_wood.name=%s Siding
 tile.betterwithmods:siding_iron.name=%s Siding
@@ -175,7 +176,7 @@ tile.betterwithmods:deadweight.intact.name=Deadweight
 tile.betterwithmods:deadweight.slightlyDamaged.name=Slightly Damaged Deadweight
 tile.betterwithmods:deadweight.veryDamaged.name=Very Damaged Deadweight
 tile.betterwithmods:bucket.name=Well Bucket
-tile.betterwithmods:detector_rail_wood.name=Wooden Detector Rail
+
 
 item.betterwithmods:wood_gear.name=Wooden Gear
 item.betterwithmods:nethercoal.name=Nethercoal
@@ -425,6 +426,9 @@ tooltip.betterwithmods:health_penalty.injured=Injured
 tooltip.betterwithmods:health_penalty.wounded=Wounded
 tooltip.betterwithmods:health_penalty.crippled=Crippled
 tooltip.betterwithmods:health_penalty.dying=Dying
+
+tooltip.betterwithmods:fishing_rod_unbaited=Not Baited
+tooltip.betterwithmods:fishing_rod_baited=Baited
 
 betterwithmods.effect.slow_fall=Slow Fall
 betterwithmods.effect.true_sight=True Sight
