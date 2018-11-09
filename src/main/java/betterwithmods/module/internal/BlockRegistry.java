@@ -199,7 +199,7 @@ public class BlockRegistry extends RequiredFeature {
         registerBlocks(BlockEntryBuilderFactory.<Void>create()
                 .tab(BWMCreativeTabs.BLOCKS)
                 .tile(TileWindmillVertical.class).id("vertical_windmill")
-                .builder().block(new BlockWindmill(EnumFacing.Axis.Y)).itemblock(ItemHorizontalWindmill::new).build()
+                .builder().block(new BlockWindmill(EnumFacing.Axis.Y)).itemblock(ItemVerticalWindmill::new).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create()
                 .tab(BWMCreativeTabs.BLOCKS)

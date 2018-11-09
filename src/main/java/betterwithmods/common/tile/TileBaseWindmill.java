@@ -76,6 +76,7 @@ public abstract class TileBaseWindmill extends TileAxleGenerator implements IBan
     @Override
     public void setBannerData(int selected, BannerUtils.BannerData data) {
         banners[selected] = data;
+        markDirty();
     }
 
     @Override
