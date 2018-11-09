@@ -3,6 +3,7 @@ package betterwithmods;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.ModuleLoader;
 import betterwithmods.library.common.modularity.impl.proxy.Proxy;
+import betterwithmods.module.exploration.Exploration;
 import betterwithmods.module.general.General;
 import betterwithmods.module.hardcore.Hardcore;
 import betterwithmods.module.internal.InternalRegistries;
@@ -34,7 +35,8 @@ public class BetterWithMods {
             new General(),
             new Recipes(),
             new Tweaks(),
-            new Hardcore()
+            new Hardcore(),
+            new Exploration()
     );
 
     static {
