@@ -177,4 +177,13 @@ public class BlockInfernalEnchanter extends BlockBase {
             }
         }
     }
+
+    @Override
+    public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
+        super.breakBlock(worldIn, pos, state);
+
+        if(state.getProperties().get(ACTIVE).equals(true)) {
+            worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.1f, 1);
+        }
+    }
 }
