@@ -10,6 +10,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
+import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
@@ -133,5 +134,9 @@ public class TileInfernalEnchanter extends TileBasicInventory implements ITickab
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
+    }
+
+    public ItemStack getActiveItem() {
+        return this.inventory.getStackInSlot(1);
     }
 }

@@ -43,6 +43,8 @@ public class BWMClientProxy extends ClientProxy {
         ClientRegistry.bindTileEntitySpecialRenderer(TileCrucible.class, new TESRCookingPot());
         ClientRegistry.bindTileEntitySpecialRenderer(TileBeacon.class, new TESRBeacon());
         ClientRegistry.bindTileEntitySpecialRenderer(TileBucket.class, new TESRBucket());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileInfernalEnchanter.class, new TESRInfernalEnchanter());
+
     }
 
     @Override
