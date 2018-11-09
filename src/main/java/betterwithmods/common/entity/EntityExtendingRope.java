@@ -6,6 +6,7 @@ import betterwithmods.lib.ModLib;
 import betterwithmods.module.general.General;
 import betterwithmods.util.AABBArray;
 import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import io.netty.buffer.ByteBuf;
@@ -399,9 +400,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                 else
                     pos = pos.down();
 
-                Block b = getEntityWorld().getBlockState(pos).getBlock();
-
-                if (!(b == Blocks.AIR || b.isReplaceable(getEntityWorld(), pos))) {
+                if (!(WorldUtils.isAir(getEntityWorld(), pos) || WorldUtils.isReplaceable(world, pos))) {
                     blocked.add(pos);
                 }
             }

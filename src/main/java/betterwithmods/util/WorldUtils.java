@@ -240,5 +240,13 @@ public final class WorldUtils {
         evt.getDrops().add(item);
     }
 
+    public static boolean isAir(World world, BlockPos pos) {
+        IBlockState state = world.getBlockState(pos);
+        return state.getBlock().isAir(state, world,pos);
+    }
 
+    public static boolean isReplaceable(World world, BlockPos pos) {
+        IBlockState state = world.getBlockState(pos);
+        return state.getBlock().isReplaceable(world,pos);
+    }
 }
