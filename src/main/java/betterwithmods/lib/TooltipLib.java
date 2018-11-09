@@ -25,6 +25,6 @@ public class TooltipLib {
 
 
     public static final String BEACON_SPAWN_SET = "beacon_spawn_set";
-    public static final String BEACON_SPAWN_ALREDY_SET = "beacon_spawn_already_set";
+    public static final String BEACON_SPAWN_ALREADY_SET = "beacon_spawn_already_set";
 
 }

@@ -109,7 +109,7 @@ public class SpawnBeaconEffect extends BeaconEffect {
             addPoint(pos, point);
             player.sendStatusMessage(TooltipUtils.getMessageComponent(ModLib.MODID, TooltipLib.BEACON_SPAWN_SET), true);
         } else {
-            player.sendStatusMessage(TooltipUtils.getMessageComponent(ModLib.MODID, TooltipLib.BEACON_SPAWN_ALREDY_SET), true);
+            player.sendStatusMessage(TooltipUtils.getMessageComponent(ModLib.MODID, TooltipLib.BEACON_SPAWN_ALREADY_SET), true);
         }
 
         return true;
