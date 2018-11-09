@@ -29,7 +29,7 @@ public class NetherFortressSpawns extends Feature {
             new Biome.SpawnListEntry(EntityPigZombie.class, 5, 4, 4),
             new Biome.SpawnListEntry(EntityWitherSkeleton.class, 8, 5, 5),
             new Biome.SpawnListEntry(EntitySkeleton.class, 2, 5, 5),
-            new Biome.SpawnListEntry(EntityMagmaCube.class, 3, 4, 4)
+            new Biome.SpawnListEntry(EntityMagmaCube.class, 1, 4, 4)
     };
 
     @SubscribeEvent
@@ -38,7 +38,6 @@ public class NetherFortressSpawns extends Feature {
         if (world.isRemote)
             return;
         if (event.getWorld().provider.getDimensionType() == DimensionType.NETHER) {
-
             IChunkProvider provider = world.getChunkProvider();
             if (provider instanceof ChunkProviderServer) {
                 IChunkGenerator generator = ((ChunkProviderServer) provider).chunkGenerator;
