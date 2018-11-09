@@ -1,6 +1,7 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.creation.ColoredGenerator;
 import betterwithmods.library.utils.ToolUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
@@ -8,8 +9,10 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.item.EnumDyeColor;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -19,11 +22,20 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import javax.annotation.Nonnull;
 import java.util.Random;
 
-public class BlockLight extends BlockBase {
+public class BlockLight extends BlockColored {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
-    public BlockLight() {
-        super(Material.GLASS);
+    public static final ResourceLocation NAME_BASE = new ResourceLocation(ModLib.MODID, "light");
+
+    public static ColoredGenerator GENERATOR = new ColoredGenerator(NAME_BASE) {
+        @Override
+        public Block createBlock(EnumDyeColor variant) {
+            return new BlockLight(variant);
+        }
+    };
+
+    public BlockLight(EnumDyeColor color) {
+        super(Material.GLASS, color);
         this.setHardness(2.0F);
         this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, true));
         this.setSoundType(SoundType.GLASS);

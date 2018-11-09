@@ -2,13 +2,11 @@ package betterwithmods.client;
 
 import betterwithmods.api.block.IRenderRotationPlacement;
 import net.minecraft.block.Block;
-import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderGlobal;
 import net.minecraft.client.renderer.Tessellator;
-import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.client.renderer.vertex.DefaultVertexFormats;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.Item;
@@ -34,15 +32,6 @@ public class ClientEventHandler {
     public static final Minecraft mc = Minecraft.getMinecraft();
     public static boolean blockPlacementHighlight;
 
-    public static void renderBlock(IBlockState state, BlockPos pos, World world) {
-        Tessellator tessellator = Tessellator.getInstance();
-        BufferBuilder buffer = tessellator.getBuffer();
-
-        mc.getTextureManager().bindTexture(TextureMap.LOCATION_BLOCKS_TEXTURE);
-        buffer.begin(GL11.GL_QUADS, DefaultVertexFormats.BLOCK);
-        mc.getBlockRendererDispatcher().renderBlock(state, pos, world, buffer);
-        tessellator.draw();
-    }
 
     public static void renderBasicGrid(World world, Block block, BlockPos pos, ItemStack stack, EntityPlayer player, EnumFacing side, RayTraceResult target, double partial) {
         double dx = (player.lastTickPosX + (player.posX - player.lastTickPosX) * partial);

@@ -1,11 +1,12 @@
 package betterwithmods.module.hardcore.world.structures;
 
-import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
-import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
-import betterwithmods.library.utils.ingredient.blockstate.PredicateBlockStateIngredient;
-import betterwithmods.library.utils.ingredient.blockstate.MaterialIngredient;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.event.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.MaterialIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.PredicateBlockStateIngredient;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
@@ -26,7 +27,7 @@ import java.util.Set;
  * Created by primetoxinz on 5/21/17.
  */
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCVillages extends Feature {
 
     public static boolean disableAllComplexBlocks;
@@ -40,7 +41,7 @@ public class HCVillages extends Feature {
         return "Makes it so villages with in the reaches of the spawn zone are abandoned and gradually gain more resources the further out. What this means to be gained by the player.";
     }
 
-    private Set<StructureChanger> VILLAGE = Sets.newHashSet();
+    private static Set<StructureChanger> VILLAGE = Sets.newHashSet();
 
     private StructureChanger ABANDONED, SEMIABANDONED, NORMAL;
 
@@ -70,7 +71,7 @@ public class HCVillages extends Feature {
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.DIRT.getDefaultState()))
                 .addChanger(new IngredientChanger(new PredicateBlockStateIngredient((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockDoor), Blocks.AIR.getDefaultState()));
 
-        SEMIABANDONED = NORMAL = ABANDONED;
+        SEMIABANDONED = ABANDONED;
 //                .addChanger(tableChanger)
 //                .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.AIR.getDefaultState()))
 //                .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()));
@@ -86,9 +87,8 @@ public class HCVillages extends Feature {
     }
 
     @SubscribeEvent
-    public void onStructureSetBlock(StructureSetBlockEvent event) {
+    public static void onStructureSetBlock(StructureSetBlockEvent event) {
         if (event.getComponent() instanceof StructureVillagePieces.Village) {
-//            System.out.printf("/tp %s ~ %s\n", event.getPos().getX(), event.getPos().getZ());
             StructureChanger.convert(VILLAGE, event);
         }
     }

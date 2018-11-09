@@ -87,7 +87,6 @@ public class BlockRegistry extends RequiredFeature {
                 .builder().block(new BlockInvisibleLight()).id("invisible_light").noItem().build()
                 .builder().block(new BlockWolf(new ResourceLocation("minecraft:wolf"))).id("companion_cube").build()
                 .builder().block(new BlockBUD()).id("buddy_block").build()
-                .builder().block(new BlockLight()).id("light").build()
                 .builder().block(new BlockPlatform()).id("platform").build()
                 .builder().block(new BlockMiningCharge()).id("mining_charge").build()
                 .builder().block(new BlockFertileFarmland()).id("fertile_farmland").build()
@@ -240,6 +239,11 @@ public class BlockRegistry extends RequiredFeature {
                 .tab(BWMCreativeTabs.BLOCKS)
                 .tile(TileVase.class).id("vase")
                 .blockGenerator(BlockVase.GENERATOR)
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<EnumDyeColor>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .id("light")
+                .blockGenerator(BlockLight.GENERATOR)
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create()
                 .tab(BWMCreativeTabs.BLOCKS)

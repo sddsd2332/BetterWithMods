@@ -3,6 +3,7 @@ package betterwithmods.module.hardcore.world.stumping;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.event.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.library.utils.ToolUtils;
@@ -44,7 +45,7 @@ import static net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCStumping extends Feature {
     public static final Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
     private static final ResourceLocation PLACED_LOG = new ResourceLocation(ModLib.MODID, "placed_log");
@@ -83,11 +84,11 @@ public class HCStumping extends Feature {
         return null;
     }
 
-    public static boolean addPlacedLog(World world, EntityPlayerMP player, BlockPos pos) {
+    public static boolean addPlacedLog(World world, BlockPos pos) {
         PlacedCapability capability = getCapability(world);
         if (capability != null) {
             if (capability.addPlaced(pos)) {
-                BWMNetwork.INSTANCE.sendTo(new MessagePlaced(pos), player);
+                BWMNetwork.INSTANCE.sendToAllAround(new MessagePlaced(pos), world, pos);
                 return true;
             }
         }
@@ -119,7 +120,7 @@ public class HCStumping extends Feature {
             return;
 
         if (isLog(event.getState())) {
-            addPlacedLog(world, (EntityPlayerMP) event.getPlayer(), event.getPos());
+            addPlacedLog(world, event.getPos());
         }
     }
 
@@ -195,6 +196,15 @@ public class HCStumping extends Feature {
         PlacedCapability capability = HCStumping.getCapability(world);
         if (capability != null) {
             capability.addAll(pos);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onStructureSetBlock(StructureSetBlockEvent event) {
+        if (event.getWorld().isRemote)
+            return;
+        if (event.getState().getBlock() instanceof BlockLog) {
+            addPlacedLog(event.getWorld(), event.getPos());
         }
     }
 }

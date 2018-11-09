@@ -1,6 +1,6 @@
 {
   "result": {
-    "item": "betterwithmods:light"
+    "item": "betterwithmods:light_yellow"
   },
   "pattern": [
     " P ",
@@ -10,7 +10,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "ore": "paneGlass",
+      "ore": "paneGlassYellow",
       "type": "forge:ore_dict"
     },
     "R": {

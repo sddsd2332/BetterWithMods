@@ -35,7 +35,7 @@ import java.util.stream.IntStream;
 /**
  * Created by primetoxinz on 5/16/17.
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class KilnRecipes extends Feature {
 
     @Override
@@ -52,7 +52,7 @@ public class KilnRecipes extends Feature {
     public static void formKiln(BlockEvent.NeighborNotifyEvent event) {
         BlockPos up = event.getPos().up();
         World world = event.getWorld();
-        if (KilnStructureManager.isKilnBlock(world.getBlockState(up)) && BWMHeatRegistry.getHeat(world, event.getPos()) > 0) {
+        if (KilnStructureManager.isKilnBlock(world, up) && BWMHeatRegistry.getHeat(world, event.getPos()) > 0) {
             KilnStructureManager.createKiln(world, up);
         }
     }
