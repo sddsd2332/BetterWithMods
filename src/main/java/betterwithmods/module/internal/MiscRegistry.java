@@ -59,8 +59,6 @@ public class MiscRegistry extends RequiredFeature {
         KilnStructureManager.registerKilnBlock(Blocks.NETHER_BRICK.getDefaultState());
 
         FluidRegistry.registerFluid(MILK);
-
-
     }
 
 

@@ -1,7 +1,6 @@
 package betterwithmods.client.render;
 
-import betterwithmods.client.model.render.RenderUtils;
-import net.minecraft.block.Block;
+import net.minecraft.client.renderer.culling.ICamera;
 import net.minecraft.client.renderer.entity.Render;
 import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.entity.Entity;
@@ -18,8 +17,12 @@ public class RenderInvisible extends Render<Entity> {
 
     @Override
     public void doRender(@Nonnull Entity entity, double x, double y, double z, float entityYaw, float partialTicks) {
-        super.doRender(entity, x, y, z, entityYaw, partialTicks);
-        RenderUtils.renderDebugBoundingBox(x, y, z, Block.FULL_BLOCK_AABB.offset(entity.getPosition()));
+
+    }
+
+    @Override
+    public boolean shouldRender(Entity livingEntity, ICamera camera, double camX, double camY, double camZ) {
+        return false;
     }
 
     @Nullable

@@ -20,6 +20,11 @@ public class EntitySitMount extends Entity {
     }
 
     @Override
+    public boolean isInvisible() {
+        return true;
+    }
+
+    @Override
     public double getMountedYOffset() {
         return offset;
     }
@@ -46,4 +51,5 @@ public class EntitySitMount extends Entity {
         super.removePassenger(passenger);
         setDead();
     }
+
 }

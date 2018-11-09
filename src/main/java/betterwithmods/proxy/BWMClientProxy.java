@@ -46,7 +46,7 @@ public class BWMClientProxy extends ClientProxy {
     }
 
     @Override
-    public void onInitClient(FMLInitializationEvent event) {
+    public void registerEntityRenders() {
         RenderingRegistry.registerEntityRenderingHandler(EntityDynamite.class, RenderDynamite::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityUrn.class, RenderUrn::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMiningCharge.class, RenderMiningCharge::new);
@@ -56,7 +56,11 @@ public class BWMClientProxy extends ClientProxy {
         RenderingRegistry.registerEntityRenderingHandler(EntitySpiderWeb.class, RenderWeb::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityJungleSpider.class, RenderJungleSpider::new);
         RenderingRegistry.registerEntityRenderingHandler(EntitySitMount.class, RenderInvisible::new);
+    }
 
+    @Override
+    public void onInitClient(FMLInitializationEvent event) {
+        super.onInitClient(event);
         final BlockColors blockColors = mc().getBlockColors();
         final ItemColors itemColors = mc().getItemColors();
 
