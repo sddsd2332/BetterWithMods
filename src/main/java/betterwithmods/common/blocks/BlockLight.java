@@ -26,20 +26,18 @@ public class BlockLight extends BlockColored {
     public static final PropertyBool ACTIVE = PropertyBool.create("active");
 
     public static final ResourceLocation NAME_BASE = new ResourceLocation(ModLib.MODID, "light");
+    public static final ResourceLocation INVERTED_NAME_BASE = new ResourceLocation(ModLib.MODID, "light_inverted");
 
-    public static ColoredGenerator GENERATOR = new ColoredGenerator(NAME_BASE) {
-        @Override
-        public Block createBlock(EnumDyeColor variant) {
-            return new BlockLight(variant);
-        }
-    };
+    public static LightGenerator GENERATOR = new LightGenerator(NAME_BASE, false), INVERTED_GENERATOR = new LightGenerator(INVERTED_NAME_BASE, true);
 
-    public BlockLight(EnumDyeColor color) {
+    private final boolean inverted;
+    public BlockLight(EnumDyeColor color, boolean inverted) {
         super(Material.GLASS, color);
         this.setHardness(2.0F);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, true));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, inverted));
         this.setSoundType(SoundType.GLASS);
         ToolUtils.setPickaxesAsEffectiveAgainst(this);
+        this.inverted = inverted;
     }
 
     @SuppressWarnings("deprecation")
@@ -111,7 +109,8 @@ public class BlockLight extends BlockColored {
     }
 
     private boolean isPowered(World world, BlockPos pos) {
-        return world.isBlockPowered(pos);
+        boolean power = world.isBlockPowered(pos);
+        return inverted != power;
     }
     
     @Override
@@ -126,6 +125,21 @@ public class BlockLight extends BlockColored {
             if (active != powered) {
                 world.scheduleUpdate(pos, this, 4);
             }
+        }
+    }
+
+    public static class LightGenerator extends ColoredGenerator {
+
+        private boolean inverted;
+
+        public LightGenerator(ResourceLocation nameBase, boolean inverted) {
+            super(nameBase);
+            this.inverted = inverted;
+        }
+
+        @Override
+        public Block createBlock(EnumDyeColor variant) {
+            return new BlockLight(variant,inverted);
         }
     }
 }

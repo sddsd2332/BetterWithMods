@@ -245,6 +245,11 @@ public class BlockRegistry extends RequiredFeature {
                 .id("light")
                 .blockGenerator(BlockLight.GENERATOR)
                 .complete());
+        registerBlocks(BlockEntryBuilderFactory.<EnumDyeColor>create()
+                .tab(BWMCreativeTabs.BLOCKS)
+                .id("light_inverted")
+                .blockGenerator(BlockLight.INVERTED_GENERATOR)
+                .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create()
                 .tab(BWMCreativeTabs.BLOCKS)
                 .blockGenerator(new BlockChime.Generator(Material.IRON))
