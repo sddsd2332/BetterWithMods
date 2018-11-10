@@ -14,7 +14,7 @@ public class Exploration extends Module {
     @Override
     public void setup() {
 
-        addFeature(new Crypts());
+        //addFeature(new Crypts());
     }
 
 

@@ -30,8 +30,8 @@ public class CryptGenerator implements IWorldGenerator {
         if (world.provider.getDimensionType() != DimensionType.OVERWORLD)
             return;
 
-        int x = (chunkX * CHUNK_SIZE) + 8 + random.nextInt(16);
-        int z = (chunkZ * CHUNK_SIZE) + 8 + random.nextInt(16);
+        int x = (chunkX * CHUNK_SIZE);
+        int z = (chunkZ * CHUNK_SIZE);
 
         final BlockPos basePos = new BlockPos(x, 100, z);
         placementSettings = new PlacementSettings().setRotation(Rotation.values()[random.nextInt(Rotation.values().length)]);
