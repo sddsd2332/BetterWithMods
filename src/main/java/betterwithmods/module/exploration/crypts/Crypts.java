@@ -2,7 +2,6 @@ package betterwithmods.module.exploration.crypts;
 
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
-import net.minecraftforge.fml.common.registry.GameRegistry;
 
 public class Crypts extends Feature {
 
@@ -30,6 +29,6 @@ public class Crypts extends Feature {
         spawnMiniboss = loadProperty("Spawn Miniboss", true).setComment("Replaces the mob spawners with a hard to kill miniboss. This miniboss is effected by other config options").get();
         minibossDropsSpecialLoot = loadProperty("Miniboss Special Loot", true).setComment("On death a miniboss will drop special loot with enchantments and lore").get();
 
-        GameRegistry.registerWorldGenerator(new CryptGenerator(), 0);
+//        GameRegistry.registerWorldGenerator(new CryptGenerator(), 0);
     }
 }

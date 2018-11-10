@@ -1,6 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.library.common.event.EntitySetEquipmentEvent;
+import betterwithmods.library.common.event.entity.EntitySetEquipmentEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityList;
