@@ -6,6 +6,7 @@ import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.utils.TimeUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.network.BWMNetwork;
@@ -34,6 +35,7 @@ import net.minecraftforge.common.capabilities.CapabilityInject;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.fml.common.Loader;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -136,6 +138,11 @@ public class HCGloom extends Feature {
             if (!world.isRemote) {
                 BlockPos head = playermp.getPosition().up();
                 int light = world.getLight(head, true);
+
+                if (Loader.isModLoaded("hardcoredarkness") && TimeUtils.isMoonPhase(world, TimeUtils.MoonPhase.New)) {
+                    light -= 4;
+                }
+
                 int tick = getGloomTime(playermp);
                 if (PlayerUtils.isHolding(playermp, gloomOverrideItems))
                     light = 15;
