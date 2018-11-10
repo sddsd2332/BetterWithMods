@@ -1,12 +1,11 @@
 package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
-
+import betterwithmods.library.common.event.StructureSetBlockEvent;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
-import betterwithmods.library.common.event.StructureSetBlockEvent;
-import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockLadder;
@@ -50,7 +49,7 @@ public class HCStructures extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        HARDCORE_STRUCTURE_RADIUS = loadProperty("Hardcore Structure Radius", 2000).setComment("Radius from original spawn which structures will be abandoned in").get();
+        HARDCORE_STRUCTURE_RADIUS = loadProperty("Hardcore EnumStructure Radius", 2000).setComment("Radius from original spawn which structures will be abandoned in").get();
         disableRecipes = loadProperty("Disable Recipes", true).setComment("Disable Recipes for blocks that generate only in structures, including Enchanting Tables and Brewing Stands").get();
         ABANDONED_DESERT_TEMPLE = StructureChanger.create(DESERT_TEMPLE, (w, p) -> p.distanceSq(w.getSpawnPoint()) < HARDCORE_STRUCTURE_RADIUS * HARDCORE_STRUCTURE_RADIUS);
         NORMAL_DESERT_TEMPLE = StructureChanger.create(DESERT_TEMPLE, (w, p) -> p.distanceSq(w.getSpawnPoint()) >= HARDCORE_STRUCTURE_RADIUS * HARDCORE_STRUCTURE_RADIUS);

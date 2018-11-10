@@ -2,15 +2,18 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.network.BWMNetwork;
+import betterwithmods.network.messages.MessageStructureReply;
+import betterwithmods.network.messages.MessageStructureRequest;
 import com.google.common.collect.Lists;
-import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
-import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
+import com.google.common.collect.Maps;
 import it.unimi.dsi.fastutil.objects.ObjectIterator;
 import net.minecraft.entity.monster.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.ChunkPos;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.biome.Biome;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.ChunkGeneratorHell;
@@ -25,15 +28,16 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Iterator;
+import java.util.Map;
 
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class NetherFortressSpawns extends Feature {
 
-    private static final Object2BooleanMap<ChunkPos> NETHERFORTRESSES = new Object2BooleanOpenHashMap<>();
+    public static transient final Map<ChunkPos, Boolean> FORTRESSES = Maps.newConcurrentMap();
 
     @Override
     public String getDescription() {
-        return "Improvements to the spawn requirements for NetherFortress Mob Spawning. Change it so all NetherFortress Mobs can spawn on any block in a chunk that contains a piece of Nether Fortress";
+        return "Improvements to the spawn requirements for NetherFortress Mob Spawning. Change it so all NetherFortress Mobs can spawn on any block in a pos that contains a piece of Nether Fortress";
     }
 
     public static final Biome.SpawnListEntry[] SPAWNS = new Biome.SpawnListEntry[]{
@@ -41,7 +45,7 @@ public class NetherFortressSpawns extends Feature {
             new Biome.SpawnListEntry(EntityPigZombie.class, 5, 4, 4),
             new Biome.SpawnListEntry(EntityWitherSkeleton.class, 8, 5, 5),
             new Biome.SpawnListEntry(EntitySkeleton.class, 2, 5, 5),
-            new Biome.SpawnListEntry(EntityMagmaCube.class, 1, 4, 4)
+            new Biome.SpawnListEntry(EntityMagmaCube.class, 3, 4, 4)
     };
 
     @SubscribeEvent
@@ -49,27 +53,47 @@ public class NetherFortressSpawns extends Feature {
         World world = event.getWorld();
         if (world.isRemote)
             return;
-        if (event.getWorld().provider.getDimensionType() == DimensionType.NETHER) {
-            IChunkProvider provider = world.getChunkProvider();
-            if (provider instanceof ChunkProviderServer) {
-                IChunkGenerator generator = ((ChunkProviderServer) provider).chunkGenerator;
-                if (generator instanceof ChunkGeneratorHell) {
-                    ChunkGeneratorHell hell = (ChunkGeneratorHell) generator;
-                    if (hasNetherFortress(hell.genNetherBridge, event.getPos())) {
-                        event.getList().clear();
-                        event.getList().addAll(Lists.newArrayList(SPAWNS));
-                    }
-                }
-            }
+
+        if (hasNetherFortress(world, event.getPos())) {
+            event.getList().clear();
+            event.getList().addAll(Lists.newArrayList(SPAWNS));
         }
     }
 
-    public static boolean hasNetherFortress(MapGenStructure structure, BlockPos pos) {
+    public static MapGenStructure getNetherFortress(World world) {
+        if (world instanceof WorldServer) {
+            if (world.provider.getDimensionType() == DimensionType.NETHER) {
+                IChunkProvider provider = world.getChunkProvider();
+                if (provider instanceof ChunkProviderServer) {
+                    IChunkGenerator generator = ((ChunkProviderServer) provider).chunkGenerator;
+                    if (generator instanceof ChunkGeneratorHell) {
+                        ChunkGeneratorHell hell = (ChunkGeneratorHell) generator;
+                        return hell.genNetherBridge;
+                    }
+                }
+
+            }
+        }
+        return null;
+    }
+
+    public static boolean hasNetherFortress(World world, BlockPos pos) {
         ChunkPos chunkPos = new ChunkPos(pos);
-        if (NETHERFORTRESSES.containsKey(chunkPos))
-            return NETHERFORTRESSES.get(chunkPos);
-        boolean value = isStructureInChunk(structure, pos);
-        NETHERFORTRESSES.put(chunkPos, value);
+        if (FORTRESSES.containsKey(chunkPos))
+            return FORTRESSES.get(chunkPos);
+
+        if (world.isRemote) {
+
+            BWMNetwork.INSTANCE.sendToServer(new MessageStructureRequest(MessageStructureReply.EnumStructure.NETHER_FORTRESS, pos));
+            return false;
+        }
+
+        MapGenStructure netherFortress = getNetherFortress(world);
+        if (netherFortress == null)
+            return false;
+        boolean value = isStructureInChunk(netherFortress, pos);
+//        BWMNetwork.INSTANCE.sendToAllAround(new MessageStructureReply(MessageStructureReply.EnumStructure.NETHER_FORTRESS, chunkPos, value), world, pos, 10);
+        FORTRESSES.put(chunkPos, value);
         return value;
     }
 

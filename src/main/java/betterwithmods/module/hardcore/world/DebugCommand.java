@@ -32,7 +32,7 @@ public class DebugCommand extends CommandBase {
         new Thread(() -> {
             try {
                 FileWriter writer = new FileWriter(new File("/home/tyler/hcspawn.csv"));
-                writer.write("pos,chunk\n");
+                writer.write("pos,pos\n");
                 World world = sender.getEntityWorld();
                 for (int i = 0; i < 2000; i++) {
                     BlockPos pos = HCSpawn.getRandomPoint(world, world.getSpawnPoint(), 0, 2000);

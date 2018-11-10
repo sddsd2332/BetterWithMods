@@ -4,9 +4,6 @@ import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.container.GuiHandler;
 import betterwithmods.library.common.network.NetworkHandler;
-import betterwithmods.library.common.network.handler.MessageCustomDustHandler;
-import betterwithmods.library.common.network.message.MessageCustomParticle;
-import betterwithmods.library.mod.BetterWithLib;
 import betterwithmods.network.handler.*;
 import betterwithmods.network.messages.*;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
@@ -33,6 +30,9 @@ public class BWMNetwork extends NetworkHandler {
         registerMessage(MessageRotateHandler.class, MessageRotate.class, Side.CLIENT);
         registerMessage(MessageGloomHandler.class, MessageGloom.class, Side.CLIENT);
         registerMessage(MessagePlacedHandler.class, MessagePlaced.class, Side.CLIENT);
+
+        registerMessage(MessageStructureRequestHandler.class, MessageStructureRequest.class, Side.SERVER);
+        registerMessage(MessageStructureReplyHandler.class, MessageStructureReply.class, Side.CLIENT);
     }
 
     @Override

@@ -1,5 +1,6 @@
 package betterwithmods.common.potion;
 
+import betterwithmods.module.tweaks.NetherFortressSpawns;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.entity.EntityLiving;
@@ -9,6 +10,7 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
+import net.minecraft.world.DimensionType;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
@@ -26,7 +28,7 @@ public class PotionTruesight extends BWMPotion {
             if (entity != mc.player)
                 return;
             int var3 = mc.gameSettings.particleSetting;
-            if (!mc.isGamePaused() && (world.provider.getDimension() == 0 || world.provider.getDimension() == 1)) {
+            if (!mc.isGamePaused()) {
 
                 int entityX = MathHelper.floor(entity.posX);
                 int var5 = MathHelper.floor(entity.posY);
@@ -36,7 +38,6 @@ public class PotionTruesight extends BWMPotion {
                     for (int y = var5 - radius; y <= var5 + radius; ++y) {
                         for (int z = var6 - radius; z <= var6 + radius; ++z) {
                             if (canSpawnMobsHere(world, new BlockPos(x, y, z)) && (var3 == 0 || world.rand.nextInt(12) <= 2 - var3 << 1)) {
-
                                 double i = (double) x + world.rand.nextDouble();
                                 double j = (double) y + world.rand.nextDouble() * 0.25D;
                                 double k = (double) z + world.rand.nextDouble();
@@ -52,18 +53,22 @@ public class PotionTruesight extends BWMPotion {
 
     //Borrowed from MoreOverlays
     private static boolean canSpawnMobsHere(World world, BlockPos pos) {
-        if (world.getLightFor(EnumSkyBlock.BLOCK, pos) >= 8)
-            return false;
+        DimensionType type = world.provider.getDimensionType();
+        if (type == DimensionType.OVERWORLD || type == DimensionType.THE_END) {
+            if (world.getLightFor(EnumSkyBlock.BLOCK, pos) >= 8)
+                return false;
+        } else if (type == DimensionType.NETHER) {
+            if (!NetherFortressSpawns.hasNetherFortress(world, pos))
+                return false;
+        }
 
         if (world.getBiome(pos).getSpawnableList(EnumCreatureType.MONSTER).isEmpty())
             return false;
 
-        if(!WorldEntitySpawner.canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, world,pos))
+        if (!WorldEntitySpawner.canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, world, pos))
             return false;
 
-        if (!checkCollision(pos, world))
-            return false;
-        return true;
+        return checkCollision(pos, world);
     }
 
 
