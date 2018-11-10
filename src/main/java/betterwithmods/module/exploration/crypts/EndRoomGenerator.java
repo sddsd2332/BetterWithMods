@@ -1,6 +1,11 @@
 package betterwithmods.module.exploration.crypts;
 
+import betterwithmods.library.utils.SpawnerBuilder;
+import net.minecraft.init.Items;
+import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.potion.Potion;
+import net.minecraft.potion.PotionEffect;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.ResourceLocation;
@@ -63,23 +68,20 @@ public class EndRoomGenerator {
     }
 
     private void generateSpawnerMain(Random random, World world, BlockPos dataPos) {
-        if(Crypts.spawnMiniboss) {
 
-        } else {
             TileEntity mainSpawner = world.getTileEntity(dataPos.down());
 
             if(mainSpawner instanceof TileEntityMobSpawner) {
                 TileEntityMobSpawner spawner = (TileEntityMobSpawner) mainSpawner;
 
-                NBTTagCompound spawnerData = new NBTTagCompound();
-                NBTTagCompound entityData = new NBTTagCompound();
+                NBTTagCompound spawnerData = SpawnerBuilder.create(new ResourceLocation("skeleton"))
+                        .withHealth(20)
+                        .withStackInSlot(new ItemStack(Items.DIAMOND_BOOTS, 1, 0), 0, 100)
+                        .build();
 
-                entityData.setString("id", "minecraft:skeleton");
-
-                spawnerData.setTag("SpawnPotentials", new NBTTagCompound());
-
+                spawner.deserializeNBT(spawnerData);
+                world.notifyBlockUpdate(spawner.getPos(), world.getBlockState(spawner.getPos()), world.getBlockState(spawner.getPos()), 0);
             }
-        }
     }
 
     private void generateSpawnerFirst(Random random, World world, BlockPos dataPos) {
