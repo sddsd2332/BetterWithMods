@@ -16,9 +16,12 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.util.ResourceLocation;
+import net.minecraft.util.SoundCategory;
+import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.List;
@@ -44,6 +47,20 @@ public class HCSapling extends Feature {
     }
 
     @SubscribeEvent
+    public static void onBlockPlace(PlayerInteractEvent.RightClickBlock e) {
+        if (e.getWorld().isRemote) {
+            if (e.getItemStack().getItem() instanceof ItemBlock) {
+                ItemBlock ib = (ItemBlock) e.getItemStack().getItem();
+                Block block = ib.getBlock();
+                if (block instanceof BlockSapling) {
+                    e.setResult(Event.Result.DENY);
+                    e.setCanceled(true);
+                    e.getEntityPlayer().swingArm(e.getHand());
+                }
+            }
+        }
+    }
+    @SubscribeEvent
     public static void onBlockPlaced(BlockEvent.PlaceEvent event) {
         if (event.getPlacedBlock().getBlock() instanceof BlockSapling) {
             IBlockState state = event.getPlacedBlock();
@@ -52,6 +69,7 @@ public class HCSapling extends Feature {
                 for (SaplingConversion conversion : SAPLING_CONVERSIONS) {
                     if (conversion.ingredient.apply(event.getWorld(), event.getPos(), state)) {
                         event.getWorld().setBlockState(event.getPos(), conversion.getReplacement().getDefaultState());
+                        event.getWorld().playSound(null, event.getPos(), state.getBlock().getSoundType(state, event.getWorld(), event.getPos(), event.getPlayer()).getPlaceSound(), SoundCategory.BLOCKS, 0.7F, 1.0F);
                     }
                 }
             }
