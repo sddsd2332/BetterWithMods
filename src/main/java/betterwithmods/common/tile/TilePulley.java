@@ -257,8 +257,10 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     }
 
     private boolean addToList(HashSet<BlockPos> set, BlockPos p, boolean up) {
-        if (set.size() > Pulley.MAX_BLOCKS)
+        if (set.size() > Pulley.MAX_BLOCKS) {
+            BetterWithMods.LOGGER.warn("Pulley at {} is too large ({} Blocks)", p, set.size());
             return false;
+        }
         if (!isPlatform(p)) {
             return true;
         }
