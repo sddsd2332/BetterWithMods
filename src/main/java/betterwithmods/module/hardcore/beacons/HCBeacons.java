@@ -73,7 +73,7 @@ public class HCBeacons extends Feature {
         enderchestBeacon = loadProperty("Enderchest Beacon", true)
                 .setComment("Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Manual.").get();
 
-        BlockEntryBuilderFactory<Void> factory = BlockEntryBuilderFactory.<Void>create()
+        BlockEntryBuilderFactory<Void> factory = BlockEntryBuilderFactory.<Void>create(getLogger())
                 .builder().block(new BlockBeacon()).id("minecraft:beacon").build();
         if (enderchestBeacon) {
             factory.builder().block(new BlockEnderchest()).id("minecraft:ender_chest").build();

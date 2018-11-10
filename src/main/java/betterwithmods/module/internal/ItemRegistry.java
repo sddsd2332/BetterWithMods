@@ -60,30 +60,6 @@ public class ItemRegistry extends RequiredFeature {
         ITEMS.add(item);
     }
 
-//
-//    public static Item registerItem(Item item, String unlocalizedName) {
-//        if (item.getTranslationKey().equals("item.null")) {
-//            //TODO remove this in 1.13, it is done automatically
-//            item.setTranslationKey(unlocalizedName);
-//        }
-//
-//        if (item instanceof ItemFood || item instanceof ItemBlockEdible) {
-//            item.setCreativeTab(BWMCreativeTabs.FOODS);
-//        } else {
-//            item.setCreativeTab(BWMCreativeTabs.ITEMS);
-//        }
-//
-//        ITEMS.add(item);
-//        return item;
-//    }
-
-//    public static Item registerItem(Item item) {
-//        if (item.getRegistryName() != null) {
-//            return registerItem(item, item.getRegistryName().toString());
-//        }
-//        return item;
-//    }
-
     @SideOnly(Side.CLIENT)
     private static void setModelLocation(Item item, int meta, String variantSettings) {
         setModelLocation(item, meta, item.getRegistryName(), variantSettings);

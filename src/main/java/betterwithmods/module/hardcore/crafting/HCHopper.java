@@ -28,7 +28,7 @@ public class HCHopper extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create()
+        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger())
                 .builder().block(new BlockHopper().setTranslationKey("hopper")).id("minecraft:hopper").build()
                 .complete());
     }

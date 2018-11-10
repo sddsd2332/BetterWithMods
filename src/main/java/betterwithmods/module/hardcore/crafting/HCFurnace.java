@@ -7,7 +7,6 @@ import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.RecipeRegistry;
-import betterwithmods.network.BWMNetwork;
 import com.google.common.collect.Maps;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
@@ -83,7 +82,7 @@ public class HCFurnace extends Feature {
         DEFAULT_FURNACE_TIMING = loadProperty("Default Furnace Timing", 200).setMin(1).setComment("Default number of ticks for an item to smelt in the furnace (vanilla is 200)").get();
         TOOLTIP = loadProperty("Tooltip for modified cooking time", true).setComment("Shows a tooltip for items with modified cooking time").get();
 
-        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create()
+        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger())
                 .builder().block(new BlockFurnace(false)).id("minecraft:furnace").build()
                 .builder().block(new BlockFurnace(true)).id("minecraft:lit_furnace").noItem().build()
                 .complete());

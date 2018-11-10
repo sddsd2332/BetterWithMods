@@ -43,7 +43,7 @@ public class HCSapling extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-       BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create().blockGenerator(new Generator()).complete());
+        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create(getLogger()).blockGenerator(new Generator()).complete());
     }
 
     @SubscribeEvent
