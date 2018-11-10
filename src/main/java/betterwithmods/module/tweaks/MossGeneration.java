@@ -1,10 +1,10 @@
 package betterwithmods.module.tweaks;
 
 
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
-import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.block.BlockStoneBrick;
 import net.minecraft.block.state.IBlockState;
@@ -49,7 +49,7 @@ public class MossGeneration extends Feature {
     }
 
     public static IBlockState getMossyVariant(World world, BlockPos pos, IBlockState state) {
-        return CONVERTED_BLOCKS.keySet().stream().filter(i -> i.apply(world, pos, state)).map(CONVERTED_BLOCKS::get).findFirst().orElse(null);
+        return CONVERTED_BLOCKS.keySet().stream().filter(i -> i.test(world, pos, state)).map(CONVERTED_BLOCKS::get).findFirst().orElse(null);
     }
 
     public static int randomRange(int start, int end) {

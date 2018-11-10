@@ -5,8 +5,8 @@ import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.BlockChime;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
-import betterwithmods.manual.api.manual.PathProvider;
 import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
+import betterwithmods.manual.api.manual.PathProvider;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -96,7 +96,7 @@ public class StatePathProvider implements PathProvider {
         }
 
         public boolean apply(World world, BlockPos pos, IBlockState state) {
-            return ingredient.apply(world, pos, state);
+            return ingredient.test(world, pos, state);
         }
     }
 }

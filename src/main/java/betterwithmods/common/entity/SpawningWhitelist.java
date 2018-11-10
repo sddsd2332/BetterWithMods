@@ -28,6 +28,6 @@ public class SpawningWhitelist {
     }
 
     public boolean isBlacklisted(World world, BlockPos pos, IBlockState state) {
-        return whitelist.stream().noneMatch(i -> i.apply(world, pos, state));
+        return whitelist.stream().noneMatch(i -> i.test(world, pos, state));
     }
 }

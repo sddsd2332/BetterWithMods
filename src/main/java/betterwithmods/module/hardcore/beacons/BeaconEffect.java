@@ -1,9 +1,9 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.library.utils.ListUtils;
-import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.utils.ListUtils;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
@@ -125,7 +125,7 @@ public abstract class BeaconEffect {
     }
 
     public boolean isBlockStateValid(World world, BlockPos pos, IBlockState blockState) {
-        return structureBlock.apply(world, pos, blockState);
+        return structureBlock.test(world, pos, blockState);
     }
 
     public NonNullList<EntityLivingBase> getEntitiesInRange(World world, BlockPos pos, int beaconLevel) {

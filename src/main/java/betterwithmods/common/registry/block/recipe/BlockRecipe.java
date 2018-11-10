@@ -68,7 +68,7 @@ public abstract class BlockRecipe {
     }
 
     public boolean matches(World world, BlockPos pos, IBlockState state) {
-        return getInput().apply(world, pos, state);
+        return getInput().test(world, pos, state);
     }
 
     public boolean isHidden() {

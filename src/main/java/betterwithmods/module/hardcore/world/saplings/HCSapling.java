@@ -67,7 +67,7 @@ public class HCSapling extends Feature {
             IBlockState replaced = event.getBlockSnapshot().getReplacedBlock();
             if (replaced.getBlock().isReplaceable(event.getWorld(), event.getBlockSnapshot().getPos())) {
                 for (SaplingConversion conversion : SAPLING_CONVERSIONS) {
-                    if (conversion.ingredient.apply(event.getWorld(), event.getPos(), state)) {
+                    if (conversion.ingredient.test(event.getWorld(), event.getPos(), state)) {
                         event.getWorld().setBlockState(event.getPos(), conversion.getReplacement().getDefaultState());
                         event.getWorld().playSound(null, event.getPos(), state.getBlock().getSoundType(state, event.getWorld(), event.getPos(), event.getPlayer()).getPlaceSound(), SoundCategory.BLOCKS, 0.7F, 1.0F);
                     }

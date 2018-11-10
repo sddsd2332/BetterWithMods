@@ -5,10 +5,9 @@ import betterwithmods.api.BWMAPI;
 import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.api.tile.IRopeConnector;
-import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockRope;
-import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
+import betterwithmods.common.blocks.mechanical.mech_machine.BlockPulley;
 import betterwithmods.common.entity.EntityExtendingRope;
 import betterwithmods.common.registry.PulleyStructureManager;
 import betterwithmods.library.common.tile.TileVisibleInventory;
@@ -20,7 +19,6 @@ import net.minecraft.block.BlockRailBase.EnumRailDirection;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -42,10 +40,12 @@ import java.util.List;
 
 public class TilePulley extends TileVisibleInventory implements IMechanicalPower {
 
+    private static final int MAX_COOLDOWN = 5;
+
     private EntityExtendingRope rope;
     private NBTTagCompound ropeTag = null;
     private int power;
-
+    private int cooldown;
 
     public boolean isPowered() {
         return power > 0;
@@ -79,24 +79,21 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
         return 4;
     }
 
-    public boolean isUseableByPlayer(EntityPlayer player) {
-        int x = pos.getX();
-        int y = pos.getY();
-        int z = pos.getZ();
-        return player.getDistanceSq(x + 0.5D, y + 0.5D, z + 0.5D) <= 64.0D;
-    }
-
     @Override
     public void update() {
         if (this.getBlockWorld().isRemote)
             return;
-        tryNextOperation();
+        if (cooldown > MAX_COOLDOWN) {
+            tryNextOperation();
+            cooldown = 0;
+        }
+        cooldown++;
     }
 
     private void tryNextOperation() {
         this.power = calculateInput();
 
-        if (!activeOperation() && this.getBlockWorld().getBlockState(this.pos).getBlock() instanceof BlockMechMachine) {
+        if (!activeOperation() && this.getBlockWorld().getBlockState(this.pos).getBlock() instanceof BlockPulley) {
             if (canGoDown(false)) {
                 goDown();
             } else if (canGoUp()) {
@@ -219,8 +216,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     }
 
     public boolean isPlatform(BlockPos pos) {
-        IBlockState state = world.getBlockState(pos);
-        return PulleyStructureManager.isPulleyBlock(state);
+        return PulleyStructureManager.isPulleyBlock(world, pos, world.getBlockState(pos));
     }
 
     @SuppressWarnings("unchecked")
@@ -335,8 +331,8 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
         if (rope != null)
             rope.writeToNBTAtomically(ropetag);
         tag.setTag("Rope", ropetag);
-
         tag.setInteger("power", power);
+        tag.setInteger("cooldown", cooldown);
         return super.writeToNBT(tag);
     }
 
@@ -345,6 +341,7 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
         super.readFromNBT(tag);
         this.ropeTag = (NBTTagCompound) tag.getTag("Rope");
         this.power = tag.getInteger("power");
+        this.cooldown = tag.getInteger("cooldown");
     }
 
     @Override

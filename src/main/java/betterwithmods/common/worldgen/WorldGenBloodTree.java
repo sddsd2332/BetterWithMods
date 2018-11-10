@@ -2,8 +2,8 @@ package betterwithmods.common.worldgen;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.blood_wood.BlockBloodLog;
-import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLeaves;
 import net.minecraft.block.BlockLog;
@@ -122,7 +122,7 @@ public class WorldGenBloodTree extends WorldGenAbstractTree {
             for (int i = 1; i <= range; i++) {
                 BlockPos offset = pos.offset(facing, i);
                 IBlockState state = world.getBlockState(offset);
-                if (match.apply(world, offset, state))
+                if (match.test(world, offset, state))
                     j++;
             }
         }

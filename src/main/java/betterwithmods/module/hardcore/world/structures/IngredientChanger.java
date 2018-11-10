@@ -19,7 +19,7 @@ public class IngredientChanger implements IChanger {
 
     @Override
     public boolean canChange(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
-        return ingredient.apply(world, pos, original);
+        return ingredient.test(world, pos, original);
     }
 
     @Override

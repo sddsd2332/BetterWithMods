@@ -1,20 +1,16 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.library.common.block.BlockActiveFacing;
-import betterwithmods.library.common.block.BlockBase;
-import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.DirUtils;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
@@ -24,7 +20,6 @@ import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.Random;
 import java.util.Set;
 import java.util.function.Predicate;
@@ -169,7 +164,7 @@ public class BlockDetector extends BlockActiveFacing {
 
         public boolean apply(EnumFacing direction, World world, BlockPos pos, BlockPos offset) {
             if (this.direction.test(direction)) {
-                return ingredients.apply(world, offset, world.getBlockState(offset));
+                return ingredients.test(world, offset, world.getBlockState(offset));
             }
             return false;
         }

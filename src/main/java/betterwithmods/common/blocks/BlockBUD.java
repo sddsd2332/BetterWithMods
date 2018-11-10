@@ -95,7 +95,7 @@ public class BlockBUD extends BlockBase {
 
 
     private boolean isBlacklisted(World world, BlockPos pos) {
-        return BLACKLIST.apply(world, pos, world.getBlockState(pos));
+        return BLACKLIST.test(world, pos, world.getBlockState(pos));
     }
 
     @SuppressWarnings("deprecation")

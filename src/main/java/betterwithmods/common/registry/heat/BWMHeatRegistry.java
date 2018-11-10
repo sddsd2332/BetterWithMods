@@ -57,7 +57,7 @@ public class BWMHeatRegistry {
         }
 
         public boolean matches(World world, BlockPos pos) {
-            return ingredient.apply(world, pos, world.getBlockState(pos));
+            return ingredient.test(world, pos, world.getBlockState(pos));
         }
     }
 }

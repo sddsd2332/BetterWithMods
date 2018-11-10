@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.beacons;
 
-import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.colors.ColorUtils;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
@@ -185,7 +185,7 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
             for (int x = -r; x <= r; x++) {
                 for (int z = -r; z <= r; z++) {
                     stateAtPos = world.getBlockState(pos.add(x, -r, z));
-                    if (!structureBlock.apply(world, pos, stateAtPos)) {
+                    if (!structureBlock.test(world, pos, stateAtPos)) {
                         return r - 1;
                     }
                 }

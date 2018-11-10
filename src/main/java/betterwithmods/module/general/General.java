@@ -24,7 +24,8 @@ public class General extends RequiredModule {
                 new Hemp(),
                 new MoreCobble(),
                 new FluidBottles(),
-                new UnitTesting()
+                new UnitTesting(),
+                new Pulley()
         );
     }
 

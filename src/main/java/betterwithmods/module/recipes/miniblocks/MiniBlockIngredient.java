@@ -3,8 +3,8 @@ package betterwithmods.module.recipes.miniblocks;
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.library.utils.GlobalUtils;
-import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import com.google.gson.JsonObject;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -52,7 +52,7 @@ public class MiniBlockIngredient extends BlockStateIngredient {
     }
 
     @Override
-    public boolean apply(World world, BlockPos pos, @Nullable IBlockState state) {
+    public boolean test(World world, BlockPos pos, @Nullable IBlockState state) {
         if(state != null) {
             RayTraceResult rayTraceResult = new RayTraceResult(new Vec3d(pos).add(0.5,0.5,0.5), EnumFacing.UP, pos);
             try {
