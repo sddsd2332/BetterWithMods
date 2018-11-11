@@ -4,15 +4,14 @@ import betterwithmods.lib.TooltipLib;
 import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.manual.api.ManualAPI;
 import net.minecraft.client.util.ITooltipFlag;
+import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBook;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ActionResult;
-import net.minecraft.util.EnumActionResult;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
+import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Loader;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
@@ -24,6 +23,13 @@ import java.util.List;
 public final class ItemBookManual extends ItemBook {
     public ItemBookManual() {
         setMaxStackSize(2);
+    }
+
+    @Override
+    public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
+        if (!Loader.isModLoaded("patchouli")) {
+            super.getSubItems(tab, items);
+        }
     }
 
     public static boolean tryOpenManual(final World world, final EntityPlayer player, @Nullable final String path) {
