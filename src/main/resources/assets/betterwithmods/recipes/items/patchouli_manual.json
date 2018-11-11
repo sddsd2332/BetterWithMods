@@ -1,15 +1,15 @@
 {
   "conditions": [
     {
-      "type": "forge:not",
-      "value": {
-        "type": "minecraft:item_exists",
-        "item": "patchouli:guide_book"
-      }
+      "type": "minecraft:item_exists",
+      "item": "patchouli:guide_book"
     }
   ],
   "result": {
-    "item": "betterwithmods:manual"
+    "item": "patchouli:guide_book",
+    "nbt": {
+      "patchouli:book": "betterwithmods:betterwithmods"
+    }
   },
   "ingredients": [
     {
