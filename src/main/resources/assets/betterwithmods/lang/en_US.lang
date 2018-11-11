@@ -301,7 +301,7 @@ item.betterwithmods:gravel_pile.name=Pile of Gravel
 item.betterwithmods:dirt_pile.name=Pile of Dirt
 item.betterwithmods:sand_pile.name=Pile of Sand
 item.betterwithmods:red_sand_pile.name=Pile of Red Sand
-item.betterwithmods:manual=Mechanist's Journal
+item.betterwithmods:manual.name=Mechanist's Journal
 
 enchantment.level.-1=
 betterwithmods.infernalenchanter=Infernal Enchanter
