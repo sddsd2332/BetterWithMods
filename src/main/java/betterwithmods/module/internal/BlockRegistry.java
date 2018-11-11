@@ -103,6 +103,7 @@ public class BlockRegistry extends RequiredFeature {
                 .builder().block(new BlockNetherClay()).id("nether_clay").build()
                 .builder().block(new BlockSteelPressurePlate()).id("steel_pressure_plate").build()
                 .builder().block(new BlockShaft()).id("shaft").build()
+                .builder().block(new BlockCandleHolder()).id("candle_holder").build()
                 .builder().block(new BlockDirtSlab()).id("dirt_slab").itemblock(b -> new ItemSimpleSlab(b, Blocks.DIRT)).build()
                 .builder().block(new BlockRailDetectorBase(cart -> !(cart instanceof EntityMinecartEmpty) || BlockRailDetectorBase.isRider(cart, Objects::nonNull))).id("detector_rail_stone").build()
                 .builder().block(new BlockRailDetectorBase(cart -> BlockRailDetectorBase.isRider(cart, rider -> rider instanceof EntityPlayer))).id("detector_rail_steel").build()

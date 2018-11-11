@@ -37,7 +37,7 @@ public class ItemBark extends Item {
     }
 
     public static List<ItemStack> getBarks(int count) {
-        return VariantUtils.BLOCK_VARIANTS.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.BARK, count)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        return VariantUtils.BLOCK_VARIANTS.stream().map(b -> b.getStack(IBlockVariants.EnumBlock.BARK, count)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 
     @Override
@@ -46,7 +46,7 @@ public class ItemBark extends Item {
     }
 
     public List<ItemStack> getLogs() {
-        return VariantUtils.BLOCK_VARIANTS.stream().map(b -> b.getVariant(IBlockVariants.EnumBlock.LOG, 1)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
+        return VariantUtils.BLOCK_VARIANTS.stream().map(b -> b.getStack(IBlockVariants.EnumBlock.LOG, 1)).filter(s -> !s.isEmpty()).collect(Collectors.toList());
     }
 
     @Override

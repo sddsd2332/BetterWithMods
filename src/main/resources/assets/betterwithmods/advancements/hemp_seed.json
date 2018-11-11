@@ -21,11 +21,18 @@
           }
         ]
       }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "minecraft:iron_hoe"
+      }
     }
   },
   "requirements": [
     [
-      "has_items"
+      "has_items",
+      "has_the_recipe"
     ]
   ]
 }

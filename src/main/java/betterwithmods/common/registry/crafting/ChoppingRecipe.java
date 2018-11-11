@@ -1,9 +1,9 @@
 package betterwithmods.common.registry.crafting;
 
-import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.hardcore.crafting.HCLumber;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.hardcore.crafting.HCLumber;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
@@ -26,7 +26,7 @@ public class ChoppingRecipe extends ToolDamageRecipe {
     private final IBlockVariants wood;
 
     public ChoppingRecipe(IBlockVariants wood) {
-        super(new ResourceLocation(ModLib.MODID, "chopping"), wood.getVariant(IBlockVariants.EnumBlock.BLOCK, HCLumber.axePlankAmount), StackIngredient.fromStacks(wood.getVariant(IBlockVariants.EnumBlock.LOG, 1)), ChoppingRecipe::isAxe);
+        super(new ResourceLocation(ModLib.MODID, "chopping"), wood.getStack(IBlockVariants.EnumBlock.BLOCK, HCLumber.axePlankAmount), StackIngredient.fromStacks(wood.getStack(IBlockVariants.EnumBlock.LOG, 1)), ChoppingRecipe::isAxe);
         this.wood = wood;
         MinecraftForge.EVENT_BUS.register(this);
     }
@@ -73,8 +73,8 @@ public class ChoppingRecipe extends ToolDamageRecipe {
             return;
         if (isMatch(event.craftMatrix, event.player.world)) {
             if (!event.player.getEntityWorld().isRemote) {
-                event.player.entityDropItem(wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, HCLumber.axeSawDustAmount), 0);
-                event.player.entityDropItem(wood.getVariant(IBlockVariants.EnumBlock.BARK, HCLumber.axeBarkAmount), 0);
+                event.player.entityDropItem(wood.getStack(IBlockVariants.EnumBlock.SAWDUST, HCLumber.axeSawDustAmount), 0);
+                event.player.entityDropItem(wood.getStack(IBlockVariants.EnumBlock.BARK, HCLumber.axeBarkAmount), 0);
             }
         }
     }

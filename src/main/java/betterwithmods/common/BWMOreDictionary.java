@@ -1,11 +1,11 @@
 package betterwithmods.common;
 
-import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.common.blocks.*;
 import betterwithmods.common.items.ItemBark;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.library.common.variants.BlockVariant;
 import betterwithmods.common.registry.variants.WoodVariant;
+import betterwithmods.library.common.variants.BlockVariant;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.VariantUtils;
 import com.google.common.collect.HashMultimap;
@@ -261,7 +261,7 @@ public class BWMOreDictionary {
                         .addVariant(BLOCK, new ItemStack(Blocks.NETHER_BRICK))
                         .addVariant(STAIR, new ItemStack(Blocks.NETHER_BRICK_STAIRS))
                         .addVariant(FENCE, new ItemStack(Blocks.NETHER_BRICK_FENCE)),
-                BlockVariant.builder()
+                WoodVariant.builder()
                         .addVariant(LOG, new ItemStack(Blocks.LOG, 1, 0))
                         .addVariant(BLOCK, new ItemStack(Blocks.PLANKS, 1, 0))
                         .addVariant(FENCE, new ItemStack(Blocks.OAK_FENCE))
@@ -328,7 +328,7 @@ public class BWMOreDictionary {
     }
 
     public static boolean isWoodRegistered(ItemStack stack) {
-        return VariantUtils.BLOCK_VARIANTS.stream().anyMatch(wood -> wood.getVariant(LOG, 1).isItemEqual(stack));
+        return VariantUtils.BLOCK_VARIANTS.stream().anyMatch(wood -> wood.getStack(LOG, 1).isItemEqual(stack));
     }
 
     public static List<ItemStack> getOreNames(String prefix) {

@@ -143,7 +143,7 @@ public class HCStumping extends Feature {
             IBlockVariants wood = VariantUtils.getVariantFromState(IBlockVariants.EnumBlock.LOG, event.getState());
             if (wood != null) {
                 event.getDrops().clear();
-                event.getDrops().addAll(Lists.newArrayList(wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, 1), wood.getVariant(IBlockVariants.EnumBlock.BARK, 1)));
+                event.getDrops().addAll(Lists.newArrayList(wood.getStack(IBlockVariants.EnumBlock.SAWDUST, 1), wood.getStack(IBlockVariants.EnumBlock.BARK, 1)));
             }
         }
         if (isRoots(event.getWorld(), event.getPos())) {
@@ -151,7 +151,7 @@ public class HCStumping extends Feature {
             if (wood != null) {
                 event.setResult(Event.Result.DENY);
                 event.getDrops().clear();
-                event.getDrops().addAll(Lists.newArrayList(new ItemStack(BWMItems.DIRT_PILE, 2), wood.getVariant(IBlockVariants.EnumBlock.SAWDUST, 1), wood.getVariant(IBlockVariants.EnumBlock.BARK, 1)));
+                event.getDrops().addAll(Lists.newArrayList(new ItemStack(BWMItems.DIRT_PILE, 2), wood.getStack(IBlockVariants.EnumBlock.SAWDUST, 1), wood.getStack(IBlockVariants.EnumBlock.BARK, 1)));
             }
         }
     }

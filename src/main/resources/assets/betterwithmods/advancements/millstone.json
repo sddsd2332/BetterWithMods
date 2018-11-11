@@ -21,11 +21,18 @@
           }
         ]
       }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "betterwithmods:items/material/wood_gear"
+      }
     }
   },
   "requirements": [
     [
-      "has_item"
+      "has_item",
+      "has_the_recipe"
     ]
   ]
 }

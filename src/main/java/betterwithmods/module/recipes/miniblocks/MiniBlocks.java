@@ -353,10 +353,10 @@ public class MiniBlocks extends Feature {
 
             IBlockVariants blockVariants = VariantUtils.getVariantFromState(IBlockVariants.EnumBlock.BLOCK, parent);
             if (blockVariants != null) {
-                ItemStack fence = blockVariants.getVariant(IBlockVariants.EnumBlock.FENCE, 2);
-                ItemStack fencegate = blockVariants.getVariant(IBlockVariants.EnumBlock.FENCE_GATE, 1);
-                ItemStack stairs = blockVariants.getVariant(IBlockVariants.EnumBlock.STAIR, 1);
-                ItemStack wall = blockVariants.getVariant(IBlockVariants.EnumBlock.WALL, 3);
+                ItemStack fence = blockVariants.getStack(IBlockVariants.EnumBlock.FENCE, 2);
+                ItemStack fencegate = blockVariants.getStack(IBlockVariants.EnumBlock.FENCE_GATE, 1);
+                ItemStack stairs = blockVariants.getStack(IBlockVariants.EnumBlock.STAIR, 1);
+                ItemStack wall = blockVariants.getStack(IBlockVariants.EnumBlock.WALL, 3);
                 if (!wall.isEmpty())
                     event.getRegistry().register(new ShapedOreRecipe(wall.getItem().getRegistryName(), wall, "SSS", 'S', siding).setRegistryName(getRecipeRegistry(wall, parentStack)));
                 if (!stairs.isEmpty())

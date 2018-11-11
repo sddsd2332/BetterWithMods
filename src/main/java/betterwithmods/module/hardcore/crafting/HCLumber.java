@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -15,6 +16,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -25,6 +27,7 @@ import static betterwithmods.library.common.variants.IBlockVariants.EnumBlock.*;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCLumber extends Feature {
     private static int plankAmount, barkAmount, sawDustAmount;
 
@@ -63,7 +66,7 @@ public class HCLumber extends Feature {
                     return;
                 event.setDropChance(1);
                 event.getDrops().clear();
-                event.getDrops().addAll(Lists.newArrayList(wood.getVariant(BLOCK, plankAmount), wood.getVariant(SAWDUST, sawDustAmount), wood.getVariant(BARK, barkAmount)));
+                event.getDrops().addAll(Lists.newArrayList(wood.getStack(BLOCK, plankAmount), wood.getStack(SAWDUST, sawDustAmount), wood.getStack(BARK, barkAmount)));
             }
         }
     }
