@@ -156,6 +156,7 @@ public class ItemRegistry extends RequiredFeature {
                 .builder(new BasicItemBuilder(ItemSoulforgedPickaxe::new).id("steel_pickaxe"))
                 .builder(new BasicItemBuilder(ItemSoulforgedHoe::new).id("steel_hoe"))
                 .builder(new BasicItemBuilder(ItemSoulforgedAxe::new).id("steel_axe"))
+                .builder(new BasicItemBuilder(Item::new).id("betterwithboi"))
 
                 .complete());
 

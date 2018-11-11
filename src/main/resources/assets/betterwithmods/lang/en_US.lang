@@ -302,6 +302,7 @@ item.betterwithmods:dirt_pile.name=Pile of Dirt
 item.betterwithmods:sand_pile.name=Pile of Sand
 item.betterwithmods:red_sand_pile.name=Pile of Red Sand
 item.betterwithmods:manual.name=Mechanist's Journal
+item.betterwithmods:betterwithboi.name=Better With Mods
 
 enchantment.level.-1=
 betterwithmods.infernalenchanter=Infernal Enchanter
@@ -330,6 +331,7 @@ inv.hopper.outputs=Outputs
 inv.hopper.place=Place underneath the Hopper
 inv.hopper.soul_urn.name=Hopper Soul Urn Recipes
 
+advancements.betterwithmods:title=Better With Mods
 itemGroup.betterwithmods:blocks=BWM Blocks
 itemGroup.betterwithmods:items=BWM Items
 itemGroup.betterwithmods:foods=BWM Foods

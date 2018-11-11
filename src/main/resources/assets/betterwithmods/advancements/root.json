@@ -1,10 +1,10 @@
 {
   "display": {
     "icon": {
-      "item": "betterwithmods:manual"
+      "item": "betterwithmods:betterwithboi"
     },
     "title": {
-      "translate": "itemGroup.betterwithmods:creative_tab"
+      "translate": "advancements.betterwithmods:title"
     },
     "description": {
       "translate": "advancement.betterwithmods.desc"
