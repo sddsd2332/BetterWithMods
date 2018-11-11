@@ -142,7 +142,6 @@ public class ItemRegistry extends RequiredFeature {
                 .builderGenerator(new StringItemBuilderGenerator("sand_pile", "dirt_pile", "gravel_pile", "red_sand_pile"))
                 .builderGenerator(new ItemMaterial.Generator())
                 .builder(new BasicItemBuilder(ItemArcaneScroll::new).id("arcane_scroll"))
-                .builder(new BasicItemBuilder(ItemBookManual::new).id("manual"))
                 .builder(new BasicItemBuilder(ItemStumpRemover::new).id("stump_remover"))
                 .builder(new BasicItemBuilder(ItemFertilizer::new).id("fertilizer"))
                 .builder(new BasicItemBuilder(ItemDynamite::new).id("dynamite"))

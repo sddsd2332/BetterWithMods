@@ -303,6 +303,8 @@ item.betterwithmods:dirt_pile.name=Pile of Dirt
 item.betterwithmods:sand_pile.name=Pile of Sand
 item.betterwithmods:red_sand_pile.name=Pile of Red Sand
 
+item.betterwithmods:manual=Mechanist's Journal
+
 enchantment.level.-1=
 betterwithmods.infernalenchanter=Infernal Enchanter
 
@@ -387,7 +389,6 @@ message.betterwithmods:vertical_windmill.axle=Too few vertical axles in column t
 
 message.betterwithmods:generator.conflict=There is another generator in the way of this one.
 
-message.betterwithmods:give_manual=You have been given a Better With Mods Manual. This mod might be different than what you are expecting. Please read the Crash Course section.
 message.betterwithmods:handcrank_exhaustion=You are too exhausted to turn it.
 message.betterwithmods:millstone_blocked=Blocked
 message.betterwithmods:barrel_info=%s : %d/%d
@@ -397,7 +398,6 @@ message.betterwithmods:spawn_beacon_already_set=Spawn already set
 
 tooltip.betterwithmods:random_output=Count: %s-%s
 tooltip.betterwithmods:chance_output=Chance: %d%%
-tooltip.betterwithmods:book=The Book of Single
 tooltip.betterwithmods:rotate_with_hand=Rotate by Shift Right-Clicking with both hands empty.
 tooltip.betterwithmods:furnace_fuel=Cook Time: %s ticks
 tooltip.betterwithmods:millstone_blocked=The Millstone has too many solid blocks around it.
@@ -434,15 +434,6 @@ betterwithmods.effect.slow_fall=Slow Fall
 betterwithmods.effect.true_sight=True Sight
 betterwithmods.effect.fortune=Fortune
 betterwithmods.effect.looting=Looting
-
-betterwithmods.manual.warning.missing.block=Image is missing: %s
-betterwithmods.manual.home=Home
-betterwithmods.manual.blocks=Block
-betterwithmods.manual.items=Items
-betterwithmods.manual.mechanical=Mechanical Power
-betterwithmods.manual.error.0=Document not found:
-betterwithmods.manual.error.1=Please report this %s
-betterwithmods.manual.error.2=In the mean time, try the %s
 
 betterwithmods.got.feverdream=You never could get to sleep, in your insomnia you scribbled some notes. What do they mean?
 
