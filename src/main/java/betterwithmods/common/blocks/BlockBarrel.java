@@ -1,6 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.tile.TileBarrel;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.BlockAxis;
 import betterwithmods.library.utils.TooltipUtils;
 import net.minecraft.block.material.Material;
@@ -39,7 +40,7 @@ public class BlockBarrel extends BlockAxis {
             FluidStack fluid = handler.getFluid();
             if (fluid != null) {
                 int f = handler.getFluidAmount(), c = handler.getCapacity();
-                playerIn.sendStatusMessage(TooltipUtils.getMessageComponent("barrel_info", fluid.getLocalizedName(), f, c), false);
+                playerIn.sendStatusMessage(TooltipUtils.getMessageComponent(ModLib.MODID, "barrel_info", fluid.getLocalizedName(), f, c), false);
             }
         }
         return true;

@@ -389,7 +389,7 @@ message.betterwithmods:generator.conflict=There is another generator in the way 
 
 message.betterwithmods:handcrank_exhaustion=You are too exhausted to turn it.
 message.betterwithmods:millstone_blocked=Blocked
-message.betterwithmods:barrel_info=%s : %d/%d
+message.betterwithmods:barrel_info=%s : %d/%d mb
 
 message.betterwithmods:beacon_spawn_set=Spawn set at this beacon
 message.betterwithmods:spawn_beacon_already_set=Spawn already set
