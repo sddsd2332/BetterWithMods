@@ -268,7 +268,6 @@ item.betterwithmods:bat_wing.name=Bat Wing
 item.betterwithmods:cooked_bat_wing.name=Cooked Bat Wing
 item.betterwithmods:cooked_beetroot.name=Cooked Beetroot
 item.betterwithmods:cooked_carrot.name=Cooked Carrot
-item.betterwithmods:manual.name=Better With Mods Manual
 item.betterwithmods:axle_generator.windmill.name=Windmill
 item.betterwithmods:axle_generator.waterwheel.name=Water Wheel
 item.betterwithmods:axle_generator.windmill_vertical.name=Vertical Windmill
@@ -302,7 +301,6 @@ item.betterwithmods:gravel_pile.name=Pile of Gravel
 item.betterwithmods:dirt_pile.name=Pile of Dirt
 item.betterwithmods:sand_pile.name=Pile of Sand
 item.betterwithmods:red_sand_pile.name=Pile of Red Sand
-
 item.betterwithmods:manual=Mechanist's Journal
 
 enchantment.level.-1=
