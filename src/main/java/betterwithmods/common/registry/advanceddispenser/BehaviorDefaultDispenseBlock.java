@@ -29,6 +29,7 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
         return stackIn;
     }
 
+
     @Nonnull
     @Override
     protected ItemStack dispenseStack(IBlockSource source, ItemStack stackIn) {
@@ -59,7 +60,7 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
             if (block.canPlaceBlockAt(world, check)) {
                 if (itemblock.placeBlockAt(stack, fake, world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), state)) {
                     world.playSound(null, check, state.getBlock().getSoundType(state, world, check, fake).getPlaceSound(), SoundCategory.BLOCKS, 0.7F, 1.0F);
-                    stack.shrink(1);
+                    stackIn.shrink(1);
                     return stack.isEmpty() ? ItemStack.EMPTY : stack;
                 }
             }
