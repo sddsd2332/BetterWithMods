@@ -9,7 +9,8 @@
     },
     "description": {
       "translate": "advancement.betterwithmods.wood_gear.desc"
-    }
+    },
+    "hidden": true
   },
   "criteria": {
     "has_item": {
@@ -25,14 +26,13 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "minecraft:stick"
+        "recipe": "betterwithmods:items/material/wood_gear"
       }
     }
   },
-  "requirements": [
-    [
-      "has_item",
-      "has_the_recipe"
+  "rewards": {
+    "recipes": [
+      "betterwithmods:blocks/mech/hand_crank"
     ]
-  ]
+  }
 }

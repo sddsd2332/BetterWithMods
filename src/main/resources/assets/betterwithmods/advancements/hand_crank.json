@@ -9,7 +9,8 @@
     },
     "description": {
       "translate": "advancement.betterwithmods.hand_crank.desc"
-    }
+    },
+    "hidden": true
   },
   "criteria": {
     "has_item": {
@@ -21,11 +22,18 @@
           }
         ]
       }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "betterwithmods:blocks/mech/hand_crank"
+      }
     }
   },
   "requirements": [
     [
-      "has_item"
+      "has_item",
+      "has_the_recipe"
     ]
   ]
 }

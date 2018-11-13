@@ -9,8 +9,10 @@
     },
     "description": {
       "translate": "advancement.betterwithmods.cauldron.desc"
-    }
+    },
+    "hidden": true
   },
+
   "criteria": {
     "has_items": {
       "trigger": "minecraft:inventory_changed",
@@ -21,11 +23,12 @@
           }
         ]
       }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "betterwithmods:blocks/mech/cauldron"
+      }
     }
-  },
-  "requirements": [
-    [
-      "has_items"
-    ]
-  ]
+  }
 }

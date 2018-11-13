@@ -9,7 +9,8 @@
     },
     "description": {
       "translate": "advancement.betterwithmods.millstone.desc"
-    }
+    },
+    "hidden": true
   },
   "criteria": {
     "has_item": {
