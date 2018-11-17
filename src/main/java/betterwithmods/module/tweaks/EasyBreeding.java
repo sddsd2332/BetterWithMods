@@ -100,7 +100,7 @@ public class EasyBreeding extends Feature {
 
     @Override
     public String[] getIncompatibleMods() {
-        return new String[]{"easybreeding"};
+        return new String[]{"easybreeding", "animania"};
     }
 
 }
