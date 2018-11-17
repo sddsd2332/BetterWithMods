@@ -20,4 +20,10 @@ public class CactusSkeleton extends Feature {
     public String getDescription() {
         return "Skeletons are no longer damaged by Cacti. Intended to make killing mobs in mob traps harder.";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

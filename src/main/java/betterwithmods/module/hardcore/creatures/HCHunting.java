@@ -78,4 +78,8 @@ public class HCHunting extends Feature {
         return "Makes it so Mobs hunt other animals too. Zombies attack herd animals, Spiders eat Chickens, Wolves will eat anything";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

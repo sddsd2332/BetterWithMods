@@ -268,4 +268,9 @@ public class HCGloom extends Feature {
             this.gloom = gloom;
         }
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

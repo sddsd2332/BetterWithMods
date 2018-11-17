@@ -246,4 +246,9 @@ public class HCSheep extends Feature {
             color = EnumDyeColor.byMetadata(nbt.getInteger("NaturalColor"));
         }
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

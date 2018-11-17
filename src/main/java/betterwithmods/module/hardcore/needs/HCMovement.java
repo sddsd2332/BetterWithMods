@@ -139,4 +139,9 @@ public class HCMovement extends Feature {
 
         dirtpathQuality = loadProperty("Dirt Paths Require Quality Shovel", true).setComment("Dirt Paths require a shovel greater than stone to be created").get();
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

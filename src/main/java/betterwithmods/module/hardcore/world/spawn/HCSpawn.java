@@ -199,5 +199,10 @@ public class HCSpawn extends Feature {
     public String getDescription() {
         return "Makes it so death is an actual issue as you will spawn randomly within a 2000 block radius of your original spawn. Compasses still point to original spawn.";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }
 

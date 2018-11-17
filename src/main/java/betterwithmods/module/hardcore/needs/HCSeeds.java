@@ -100,4 +100,8 @@ public class HCSeeds extends Feature {
         SEED_BLACKLIST = Sets.newHashSet(config().loadItemStackList("Seed Blacklist", getCategory(), "Blacklist seeds from being dropped when tilling grass. Defaulted to Wheat seeds for HCVillages.", new ItemStack[]{new ItemStack(Items.WHEAT_SEEDS)}));
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

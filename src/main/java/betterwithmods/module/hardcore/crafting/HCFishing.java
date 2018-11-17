@@ -352,4 +352,9 @@ public class HCFishing extends Feature {
             duskModifier = loadProperty("Dusk Modifier", 0.5).setComment("Scale the baseTime by this when it is dusk").get();
         }
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

@@ -31,4 +31,9 @@ public class BatWings extends Feature {
     public String[] getIncompatibleMods() {
         return new String[]{"actuallyadditions"};
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

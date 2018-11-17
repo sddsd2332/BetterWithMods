@@ -23,6 +23,10 @@ public class SoundRegistry extends RequiredFeature {
             BLOCK_MECHANICAL_OVERPOWER = null,
             ENTITY_PLAYER_OOF = null;
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 
     @SubscribeEvent
     public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {

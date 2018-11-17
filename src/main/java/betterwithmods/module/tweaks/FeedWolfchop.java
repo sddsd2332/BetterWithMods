@@ -47,4 +47,8 @@ public class FeedWolfchop extends Feature {
         return "Feeding a Wolf a Wolf chop? Might not be the best idea";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

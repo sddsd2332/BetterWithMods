@@ -39,4 +39,9 @@ public class RenewableEndstone extends Feature {
         return "Endermen spawn with endstone in the End";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

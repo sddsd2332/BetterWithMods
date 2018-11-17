@@ -50,4 +50,9 @@ public class Notes extends Feature {
     public String getDescription() {
         return "Add some notes to the Note Block. Try a companion cube under one";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

@@ -80,4 +80,9 @@ public class CreeperShearing extends Feature {
     public String getDescription() {
         return "Shearing a Creeper will removes its ability to explode, making him very sad";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

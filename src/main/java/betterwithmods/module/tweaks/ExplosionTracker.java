@@ -61,4 +61,9 @@ public class ExplosionTracker extends Feature {
             return world;
         }
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

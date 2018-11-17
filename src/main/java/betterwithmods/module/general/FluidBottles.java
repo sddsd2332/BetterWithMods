@@ -169,4 +169,9 @@ public class FluidBottles extends RequiredFeature {
         }
 
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

@@ -32,4 +32,10 @@ public class HCNames extends Feature {
     public String getDescription() {
         return "Disables Player Name Tags";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

@@ -43,4 +43,8 @@ public class HCFighting extends Feature {
         return "Disable knockback when no weapon is used";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

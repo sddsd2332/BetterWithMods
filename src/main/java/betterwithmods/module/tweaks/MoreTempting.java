@@ -60,4 +60,9 @@ public class MoreTempting extends Feature {
         return new String[]{"easybreeding"};
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

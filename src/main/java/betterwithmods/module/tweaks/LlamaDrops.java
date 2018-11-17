@@ -26,4 +26,10 @@ public class LlamaDrops extends Feature {
     public String getDescription() {
         return "Add mutton to Llama drops";
     }
+
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

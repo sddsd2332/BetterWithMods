@@ -100,6 +100,16 @@ public class HCVillages extends Feature {
         }
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
+    @Override
+    public boolean hasTerrainGen() {
+        return true;
+    }
 }
+
 
 

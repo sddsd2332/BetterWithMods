@@ -67,4 +67,9 @@ public class HCSquid extends Feature {
     public String getDescription() {
         return "Fear the squid...";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

@@ -38,4 +38,9 @@ public class HCDeadweight extends Feature {
         return "Disables the vanilla Anvil";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

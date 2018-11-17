@@ -125,4 +125,10 @@ public class NetherFortressSpawns extends Feature {
         return "Improvements to the spawn requirements for NetherFortress Mob Spawning. Change it so all NetherFortress Mobs can spawn on any block in a pos that contains a piece of Nether Fortress";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
+
 }

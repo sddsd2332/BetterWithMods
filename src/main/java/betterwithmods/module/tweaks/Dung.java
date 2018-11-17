@@ -149,4 +149,10 @@ public class Dung extends Feature {
             nextPoop = nbt.getInteger("NextPoop");
         }
     }
+
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

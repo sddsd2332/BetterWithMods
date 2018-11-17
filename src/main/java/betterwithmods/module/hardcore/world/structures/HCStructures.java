@@ -113,4 +113,13 @@ public class HCStructures extends Feature {
         }
     }
 
+    @Override
+    public boolean hasTerrainGen() {
+        return true;
+    }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

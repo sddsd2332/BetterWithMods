@@ -59,4 +59,9 @@ public class PlayerDataHandler extends RequiredFeature {
         return "Internal handler for PlayerInfo capability";
     }
 
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

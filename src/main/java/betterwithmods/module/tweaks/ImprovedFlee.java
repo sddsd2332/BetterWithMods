@@ -110,4 +110,9 @@ public class ImprovedFlee extends Feature {
         return "Improve fleeing AI for attacked animals";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

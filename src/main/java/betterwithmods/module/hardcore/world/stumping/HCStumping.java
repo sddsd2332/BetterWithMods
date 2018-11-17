@@ -205,4 +205,9 @@ public class HCStumping extends Feature {
         ROOT_BREAK_SPEED = loadProperty("Root Break speed", 0.01f).setComment("Base break speed of roots, scaled by tool speed option").get();
         CTM = loadProperty("CTM Support", true).setComment("Use ConnectedTextureMod to show the stumps").get();
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

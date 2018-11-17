@@ -104,4 +104,8 @@ public class HCPiles extends Feature {
         return "Makes soils drop 75% of their content if not broken with a shovel to incentivize the use of shovels";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

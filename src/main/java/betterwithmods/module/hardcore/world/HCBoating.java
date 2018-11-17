@@ -93,4 +93,9 @@ public class HCBoating extends Feature {
         BOAT_ENTRIES = config().loadResouceLocations("Boat List", getCategory(), "Registry name for entities which are considered boats", new String[]{"minecraft:boat"});
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

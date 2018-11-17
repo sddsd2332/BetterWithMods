@@ -100,4 +100,9 @@ public class EasyBreeding extends Feature {
         return new String[]{"easybreeding"};
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

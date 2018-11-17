@@ -32,6 +32,11 @@ public class MobEating extends Feature {
     public String getDescription() {
         return "Mobs are hungry too, if they see some food on the ground that they like they might just eat!";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }
 
 

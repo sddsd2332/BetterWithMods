@@ -98,4 +98,9 @@ public class GrassPath extends Feature {
         SHOVEL_BLACKLIST = config().loadItemStackList("Shovel Blacklist", getCategory(), "Blacklist an item for being able to make grass paths", new String[]{"psi:cad"});
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

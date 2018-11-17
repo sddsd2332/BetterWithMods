@@ -68,4 +68,10 @@ public class EggDrops extends Feature {
     public String getDescription() {
         return "When an Egg does not spawn a Baby Chicken it drops a Raw Egg, which can be used for multiple different foods.";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

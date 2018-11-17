@@ -59,6 +59,11 @@ public class ItemRegistry extends RequiredFeature {
         ITEMS.add(item);
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
     @SideOnly(Side.CLIENT)
     private static void setModelLocation(Item item, int meta, String variantSettings) {
         setModelLocation(item, meta, item.getRegistryName(), variantSettings);

@@ -76,4 +76,8 @@ public class HCLumber extends Feature {
         }
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

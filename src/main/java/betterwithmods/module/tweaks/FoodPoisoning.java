@@ -42,4 +42,10 @@ public class FoodPoisoning extends Feature {
                         BWMItems.RAW_KEBAB, Items.FISH, BWMItems.WOLF_CHOP, Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.CHICKEN, Items.MUTTON, BWMItems.MYSTERY_MEAT);
         RAW_FOOD.stream().map(i -> (ItemFood) i).forEach(i -> i.setPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 1), (float) chanceForPoison));
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

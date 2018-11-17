@@ -62,4 +62,9 @@ public class MineshaftGeneration extends Feature {
             return (structure instanceof StructureMineshaftPieces.Peice && ((StructureMineshaftPieces.Peice) structure).mineShaftType == this.type) && super.canChange(structure, world, pos, relativePos, original);
         }
     }
+
+    @Override
+    public boolean hasTerrainGen() {
+        return true;
+    }
 }

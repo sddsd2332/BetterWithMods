@@ -58,4 +58,9 @@ public class ExplosiveRecipes extends Feature {
     public String getDescription() {
         return "Some recipes can't get too hot or they might explode.";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

@@ -118,4 +118,9 @@ public class HCSapling extends Feature {
             return new ResourceLocation(ModLib.MODID, String.format("sapling_crop_%s", variant.getName()));
         }
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

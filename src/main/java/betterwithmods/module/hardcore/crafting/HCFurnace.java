@@ -155,5 +155,10 @@ public class HCFurnace extends Feature {
         });
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }
 

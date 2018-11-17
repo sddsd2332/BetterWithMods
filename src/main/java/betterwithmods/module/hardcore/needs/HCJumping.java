@@ -33,4 +33,8 @@ public class HCJumping extends Feature {
     }
 
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

@@ -187,4 +187,9 @@ public class HCEnchanting extends Feature {
             return dropChance;
         }
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

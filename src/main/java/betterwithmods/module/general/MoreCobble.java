@@ -32,4 +32,10 @@ public class MoreCobble extends Feature {
     public String getDescription() {
         return "Makes stone variants drop into cobblestone.";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

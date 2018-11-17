@@ -97,4 +97,9 @@ public class BlastingOil extends Feature {
                 "outOfWorld"
         }).setComment("Disallow these damage sources from disturbing blasting oil").get());
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

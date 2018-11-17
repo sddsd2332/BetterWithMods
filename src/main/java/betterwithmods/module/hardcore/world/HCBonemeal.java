@@ -129,4 +129,8 @@ public class HCBonemeal extends Feature {
         registerFertilizer(new ItemStack(BWMItems.FERTILIZER));
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

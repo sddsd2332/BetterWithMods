@@ -195,4 +195,9 @@ public class AnimalRestraint extends Feature {
         addLayer(EntitySheep.class, new ModelSheepHarness(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/sheep_harness.png"));
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

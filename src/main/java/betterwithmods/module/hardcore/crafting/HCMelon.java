@@ -92,4 +92,8 @@ public class HCMelon extends Feature {
         Blocks.PUMPKIN.setHarvestLevel("axe", 1);
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

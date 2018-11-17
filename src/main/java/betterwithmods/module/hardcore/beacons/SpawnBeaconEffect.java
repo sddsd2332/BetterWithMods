@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.beacons;
 
+import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
 import betterwithmods.library.utils.TooltipUtils;
@@ -90,6 +91,9 @@ public class SpawnBeaconEffect extends BeaconEffect {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void findSpawn(LivingDeathEvent event) {
+        if (!BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCBeacons.class))
+            return;
+
         if (!(event.getEntity() instanceof EntityPlayerMP))
             return;
         EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
@@ -211,4 +215,5 @@ public class SpawnBeaconEffect extends BeaconEffect {
             this.uuid = UUID.fromString(nbt.getString("uuid"));
         }
     }
+
 }

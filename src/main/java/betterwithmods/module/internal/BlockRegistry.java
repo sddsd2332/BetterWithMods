@@ -58,6 +58,11 @@ public class BlockRegistry extends RequiredFeature {
 
     private static List<Block> REGISTRY = Lists.newArrayList();
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
     public static void registerTileEntities() {
         //TODO
         GameRegistry.registerTileEntity(TileBeacon.class, new ResourceLocation(ModLib.MODID, "beacon"));

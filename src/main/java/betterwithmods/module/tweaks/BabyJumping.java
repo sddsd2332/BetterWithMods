@@ -31,4 +31,9 @@ public class BabyJumping extends Feature {
         return "Make it so babies can no longer jump. Adds some possibilities for automation";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

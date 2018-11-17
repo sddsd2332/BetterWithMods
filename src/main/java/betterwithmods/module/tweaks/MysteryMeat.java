@@ -34,4 +34,9 @@ public class MysteryMeat extends Feature {
         return "You don't want to know where it comes from...";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

@@ -46,4 +46,9 @@ public class HCBeds extends Feature {
         return "Disables the ability to sleep in a bed and can no longer set spawn";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

@@ -230,4 +230,8 @@ public class HCTools extends Feature {
 
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

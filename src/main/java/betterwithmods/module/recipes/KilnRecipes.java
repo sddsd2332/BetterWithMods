@@ -54,6 +54,11 @@ public class KilnRecipes extends Feature {
     }
 
     @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
+    @Override
     public String getDescription() {
         return "";
     }

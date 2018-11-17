@@ -27,4 +27,9 @@ public class AnimalBirth extends Feature {
         return "Make born animals spawn between their parents for easier automation.";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

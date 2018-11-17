@@ -64,4 +64,8 @@ public class HCGunpowder extends Feature {
         return "Makes a raw resource drop that must be crafted to make useful gunpowder";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

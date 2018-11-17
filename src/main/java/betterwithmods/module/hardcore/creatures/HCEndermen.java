@@ -37,4 +37,8 @@ public class HCEndermen extends Feature {
         return "Makes Endermen agro in groups and make a thunder noise when they teleport";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

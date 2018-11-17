@@ -34,6 +34,11 @@ public class EntityRegistry extends RequiredFeature {
         return ModLib.MODID + ":" + name;
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
     @SubscribeEvent
     public static void onEntityRegister(RegistryEvent.Register<EntityEntry> event) {
         event.getRegistry().registerAll(REGISTRY.toArray(new EntityEntry[0]));

@@ -107,4 +107,9 @@ public class HCMobEquipment extends Feature {
     private interface Equipment {
         void equip(EntityLivingBase entity);
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

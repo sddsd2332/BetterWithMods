@@ -107,5 +107,9 @@ public class MobSpawning extends Feature {
         return "Nether Mobs can only spawn on nether blocks and Slimes can only spawn on natural blocks. Also adjusts whether witches only spawn in swamps and if jungle spiders spawn in jungles.";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 
 }

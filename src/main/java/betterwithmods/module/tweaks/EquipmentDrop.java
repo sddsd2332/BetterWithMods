@@ -30,4 +30,9 @@ public class EquipmentDrop extends Feature {
     public String getDescription() {
         return "Zombies have a 100% chance to drop any equipment";
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

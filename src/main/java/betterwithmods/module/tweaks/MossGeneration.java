@@ -115,5 +115,8 @@ public class MossGeneration extends Feature {
         return "Cobblestone or Stonebrick within the spawning radius of a Mob Spawner will randomly grow into the Mossy version.";
     }
 
-
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

@@ -40,4 +40,8 @@ public class HCBabyZombies extends Feature {
         return "Change baby zombies to be a more reasonable addition; Slightly slower and do less damage than adults";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 }

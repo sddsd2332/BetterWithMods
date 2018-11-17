@@ -21,6 +21,11 @@ public class PotionRegistry extends RequiredFeature {
     @GameRegistry.ObjectHolder("betterwithmods:slow_fall")
     public static final Potion POTION_SLOWFALL = null;
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
     @SubscribeEvent
     public static void registerPotions(RegistryEvent.Register<Potion> event) {
         event.getRegistry().register(registerPotion(new PotionTruesight("true_sight", true, 14270531).setIconIndex(4, 1)));

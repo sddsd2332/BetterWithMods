@@ -193,4 +193,10 @@ public class HCBeacons extends Feature {
             }
         }
     }
+
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

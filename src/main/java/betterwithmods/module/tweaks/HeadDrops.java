@@ -84,4 +84,9 @@ public class HeadDrops extends Feature {
         return "Heads and Skulls can drop from death by Saw or BattleAxe";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
+
 }

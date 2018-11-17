@@ -381,6 +381,10 @@ public class HCHunger extends Feature {
 
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
+    }
 
 }
 
