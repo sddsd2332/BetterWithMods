@@ -1,6 +1,5 @@
 package betterwithmods.module.hardcore.creatures;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -9,14 +8,13 @@ import net.minecraft.init.SoundEvents;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.EnderTeleportEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCEndermen extends Feature {
     @SubscribeEvent
     public static void onTeleport(EnderTeleportEvent evt) {

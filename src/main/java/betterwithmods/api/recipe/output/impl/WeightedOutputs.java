@@ -2,8 +2,8 @@ package betterwithmods.api.recipe.output.impl;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
-import betterwithmods.library.utils.ListUtils;
 import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.ListUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;

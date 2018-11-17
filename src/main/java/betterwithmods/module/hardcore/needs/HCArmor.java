@@ -3,7 +3,6 @@ package betterwithmods.module.hardcore.needs;
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.penalties.ArmorPenalties;
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.library.utils.ingredient.collections.BaseIngredientMap;
 import betterwithmods.library.utils.ingredient.collections.IngredientMap;
 import betterwithmods.module.internal.MiscRegistry;
 import net.minecraft.init.Items;

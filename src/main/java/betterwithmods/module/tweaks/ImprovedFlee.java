@@ -22,6 +22,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Created by primetoxinz on 4/20/17.
  */
+
 public class ImprovedFlee extends Feature {
 
     private static boolean blockPlace, blockBreak, groupFlee;

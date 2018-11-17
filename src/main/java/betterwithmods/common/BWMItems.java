@@ -1,21 +1,8 @@
 package betterwithmods.common;
 
-import betterwithmods.common.items.*;
-import betterwithmods.common.items.tools.*;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.internal.ItemRegistry;
-import net.minecraft.init.MobEffects;
-import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.Item;
-import net.minecraft.item.Item.ToolMaterial;
-import net.minecraft.item.ItemFood;
-import net.minecraft.item.ItemSoup;
-import net.minecraft.potion.PotionEffect;
-import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.fml.common.registry.GameRegistry;
-
-import java.lang.reflect.Field;
-import java.lang.reflect.Modifier;
 
 @SuppressWarnings("unused")
 @GameRegistry.ObjectHolder(ModLib.MODID)

@@ -30,6 +30,7 @@ import static betterwithmods.module.hardcore.creatures.chicken.EggLayer.EGG_LAYE
 /**
  * Created by primetoxinz on 5/13/17.
  */
+
 public class HCChickens extends Feature {
 
     private static final ResourceLocation EGG_LAYER = new ResourceLocation(ModLib.MODID, "egglayer");

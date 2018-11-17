@@ -4,7 +4,6 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.common.registry.advanceddispenser.BehaviorSilkTouch;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.internal.AdvancedDispenserRegistry;
@@ -16,7 +15,6 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -31,7 +29,7 @@ import java.util.stream.Collectors;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCPiles extends Feature {
     public static final Map<IBlockState, ItemStack> blockStateToPile = new HashMap<>();
     public static boolean keepSoilDrops;

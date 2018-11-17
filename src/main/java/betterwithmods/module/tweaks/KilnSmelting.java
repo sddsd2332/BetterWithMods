@@ -1,14 +1,12 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
 import java.util.Arrays;
@@ -17,7 +15,7 @@ import java.util.Arrays;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class KilnSmelting extends Feature {
     private static int oreProductionCount;
 

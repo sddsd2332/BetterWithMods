@@ -36,7 +36,6 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -55,7 +54,7 @@ import java.util.Set;
  * Created by primetoxinz on 5/13/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCGloom extends Feature {
     private static final List<SoundEvent> sounds = Lists.newArrayList(SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundEvents.ENTITY_ENDERMEN_SCREAM, SoundEvents.ENTITY_SILVERFISH_AMBIENT, SoundEvents.ENTITY_WOLF_GROWL);
     private static final ResourceLocation PLAYER_GLOOM = new ResourceLocation(ModLib.MODID, "gloom");

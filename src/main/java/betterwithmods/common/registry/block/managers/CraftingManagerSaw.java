@@ -1,8 +1,8 @@
 package betterwithmods.common.registry.block.managers;
 
+import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.library.utils.ingredient.blockstate.BlockDropIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
-import betterwithmods.common.registry.block.recipe.SawRecipe;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 

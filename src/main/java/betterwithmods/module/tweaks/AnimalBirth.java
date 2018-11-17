@@ -1,16 +1,14 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.ai.EntityAIMate;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class AnimalBirth extends Feature {
 
     @SubscribeEvent

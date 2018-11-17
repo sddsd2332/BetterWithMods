@@ -3,18 +3,13 @@ package betterwithmods.common.container.other;
 import betterwithmods.client.gui.GuiPulley;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.tile.TilePulley;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.container.ContainerTile;
 import betterwithmods.library.common.container.SlotItemHandlerFiltered;
 import betterwithmods.library.utils.GuiUtils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
-
-import javax.annotation.Nonnull;
 
 public class ContainerPulley extends ContainerTile<TilePulley> {
 

@@ -5,7 +5,6 @@ import betterwithmods.library.common.item.creation.ItemBuilder;
 import betterwithmods.library.common.item.creation.ItemTypeBuilder;
 import betterwithmods.library.common.item.creation.ItemTypeBuilderGenerator;
 import com.google.common.collect.Lists;
-import com.google.common.collect.Maps;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
@@ -19,8 +18,6 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.registries.GameData;
 
 import javax.annotation.Nonnull;
-import java.util.HashMap;
-import java.util.List;
 
 public class ItemMaterial extends Item {
 

@@ -1,7 +1,6 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.entity.EntityFallingGourd;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.Block;
@@ -15,7 +14,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -24,7 +22,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCMelon extends Feature {
     @SubscribeEvent
     public static void onHarvest(BlockEvent.HarvestDropsEvent event) {

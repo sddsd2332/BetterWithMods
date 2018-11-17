@@ -2,8 +2,8 @@ package betterwithmods.common.registry.hopper.recipes;
 
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
-import betterwithmods.library.common.inventory.SimpleStackHandler;
 import betterwithmods.common.tile.TileFilteredHopper;
+import betterwithmods.library.common.inventory.SimpleStackHandler;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;

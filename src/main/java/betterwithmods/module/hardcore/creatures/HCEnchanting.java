@@ -1,7 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.items.ItemArcaneScroll;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.InfernalEnchantment;
 import betterwithmods.util.WorldUtils;
@@ -18,7 +17,6 @@ import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -26,7 +24,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCEnchanting extends Feature {
     private static final HashMap<Class<? extends EntityLivingBase>, ScrollDrop> SCROLL_DROPS = Maps.newHashMap();
 

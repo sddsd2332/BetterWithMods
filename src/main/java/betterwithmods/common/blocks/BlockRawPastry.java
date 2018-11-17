@@ -1,8 +1,8 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.creation.BlockTypeGenerator;
 import betterwithmods.library.common.block.IBlockType;
+import betterwithmods.library.common.block.creation.BlockTypeGenerator;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.EnumPushReaction;

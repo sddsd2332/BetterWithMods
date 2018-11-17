@@ -1,6 +1,5 @@
 package betterwithmods.module.hardcore.world.structures;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.event.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
@@ -17,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.terraingen.BiomeEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -27,7 +25,7 @@ import java.util.Set;
  * Created by primetoxinz on 5/21/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCVillages extends Feature {
 
     public static boolean disableAllComplexBlocks;

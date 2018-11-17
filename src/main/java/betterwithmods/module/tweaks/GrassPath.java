@@ -1,6 +1,5 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
@@ -16,7 +15,6 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -26,7 +24,7 @@ import java.util.List;
 
 import static betterwithmods.module.hardcore.needs.HCMovement.dirtpathQuality;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class GrassPath extends Feature {
     public static List<ItemStack> SHOVEL_BLACKLIST = Lists.newArrayList();
 

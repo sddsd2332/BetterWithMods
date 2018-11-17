@@ -11,6 +11,7 @@ import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
 
+
 public class MobEating extends Feature {
     private static final int radius = 4;
 

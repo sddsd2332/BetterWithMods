@@ -28,7 +28,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -45,7 +44,7 @@ import static net.minecraftforge.event.entity.player.PlayerEvent.BreakSpeed;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCStumping extends Feature {
     public static final Set<Block> STUMP_BLACKLIST = Sets.newHashSet(BWMBlocks.BLOOD_LOG);
     private static final ResourceLocation PLACED_LOG = new ResourceLocation(ModLib.MODID, "placed_log");

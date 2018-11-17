@@ -1,15 +1,13 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.MobEffects;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class BabyJumping extends Feature {
 
     @SubscribeEvent

@@ -31,6 +31,7 @@ import java.util.OptionalInt;
 
 import static betterwithmods.lib.TooltipLib.FURNACE_TIME;
 
+
 public class HCFurnace extends Feature {
 
     public static boolean CONSUME_FUEL_WHEN_IDLE, TOOLTIP;

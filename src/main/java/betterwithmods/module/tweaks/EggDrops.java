@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.entity.passive.EntityChicken;
@@ -14,7 +13,6 @@ import net.minecraft.util.DamageSource;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraftforge.event.entity.ProjectileImpactEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Random;
@@ -23,7 +21,7 @@ import java.util.Random;
  * Created by primetoxinz on 5/3/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class EggDrops extends Feature {
 
     @SubscribeEvent

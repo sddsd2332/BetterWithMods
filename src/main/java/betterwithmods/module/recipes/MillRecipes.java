@@ -1,17 +1,16 @@
 package betterwithmods.module.recipes;
 
 import betterwithmods.common.BWMBlocks;
-
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
-import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
-import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.module.internal.RecipeRegistry;
-import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.library.utils.colors.ColorUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
+import betterwithmods.module.internal.RecipeRegistry;
+import betterwithmods.module.internal.SoundRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;

@@ -19,7 +19,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -27,7 +26,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.List;
 import java.util.function.Function;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCSapling extends Feature {
 
     public static List<SaplingConversion> SAPLING_CONVERSIONS = Lists.newArrayList();

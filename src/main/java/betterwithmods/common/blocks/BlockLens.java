@@ -2,14 +2,11 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.library.common.block.BlockActiveFacing;
-import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.DirUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.PropertyBool;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;

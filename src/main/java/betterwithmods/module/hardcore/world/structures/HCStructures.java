@@ -1,7 +1,6 @@
 package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.event.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
@@ -18,7 +17,6 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.gen.structure.ComponentScatteredFeaturePieces;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -29,7 +27,7 @@ import java.util.Set;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCStructures extends Feature {
     public static int HARDCORE_STRUCTURE_RADIUS;
     public static Set<StructureChanger> DESERT_TEMPLE = Sets.newHashSet();

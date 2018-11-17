@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.util.math.Vec3d;
@@ -9,13 +8,12 @@ import net.minecraft.world.Explosion;
 import net.minecraft.world.World;
 import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.world.ExplosionEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Optional;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class ExplosionTracker extends Feature {
 
     @SubscribeEvent

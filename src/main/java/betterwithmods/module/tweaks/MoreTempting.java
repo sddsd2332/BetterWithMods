@@ -18,6 +18,7 @@ import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
 
+
 public class MoreTempting extends Feature {
 
     public static EntityIngredientRelationRegistry REGISTRY = new EntityIngredientRelationRegistry();

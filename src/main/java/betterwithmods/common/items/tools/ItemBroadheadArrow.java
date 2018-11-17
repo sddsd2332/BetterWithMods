@@ -1,7 +1,6 @@
 package betterwithmods.common.items.tools;
 
 import betterwithmods.common.entity.EntityBroadheadArrow;
-import betterwithmods.lib.ModLib;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.projectile.EntityArrow;
 import net.minecraft.item.Item;
@@ -10,7 +9,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.ArrowLooseEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
 import net.minecraftforge.items.IItemHandler;
@@ -23,7 +21,7 @@ import javax.annotation.Nonnull;
  * @author primetoxinz
  * @version 11/18/16
  */
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class ItemBroadheadArrow extends ItemArrow {
 
     @SubscribeEvent

@@ -36,7 +36,6 @@ import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -46,7 +45,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.Set;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class AnimalRestraint extends Feature {
 
 

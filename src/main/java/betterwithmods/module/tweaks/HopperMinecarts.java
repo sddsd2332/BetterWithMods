@@ -19,7 +19,6 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.minecart.MinecartUpdateEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.items.CapabilityItemHandler;
@@ -30,7 +29,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HopperMinecarts extends Feature {
 
     private static final ResourceLocation COUNTER = new ResourceLocation(ModLib.MODID, "counter");

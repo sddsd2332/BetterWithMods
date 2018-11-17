@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.world.strata;
 
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import com.google.common.collect.Maps;
@@ -16,7 +15,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.NoiseGeneratorPerlin;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerLoggedInEvent;
@@ -26,7 +24,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCStrata extends Feature {
     private static final Pattern PATTERN = Pattern.compile("^([\\-]?\\d+)=(\\d{1,255}),(\\d{1,255}).*");
     public static boolean CTM;

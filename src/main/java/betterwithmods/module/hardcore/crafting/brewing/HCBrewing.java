@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.crafting.brewing;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.lib.ReflectionLib;
 import net.minecraft.entity.Entity;
@@ -27,7 +26,6 @@ import net.minecraftforge.common.brewing.BrewingRecipe;
 import net.minecraftforge.common.brewing.BrewingRecipeRegistry;
 import net.minecraftforge.common.brewing.IBrewingRecipe;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -39,7 +37,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCBrewing extends Feature {
     private static boolean removeMovementPotions;
     private static boolean waterBreathingAnyFish;

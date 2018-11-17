@@ -22,7 +22,6 @@ import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.common.capabilities.ICapabilitySerializable;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
@@ -35,7 +34,7 @@ import java.util.Random;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class Dung extends Feature {
     public static final ResourceLocation DUNG_PRODUCER = new ResourceLocation(ModLib.MODID, "dung_producer");
     @CapabilityInject(DungProducer.class)

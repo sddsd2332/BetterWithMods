@@ -27,6 +27,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 
+
 public class HCSheep extends Feature {
     public static final ResourceLocation NATURAL_COLOR = new ResourceLocation(ModLib.MODID, "natural_color");
     private static final HashMap<NaturalColorMix, EnumDyeColor> COLOR_MIX_TABLE = new HashMap<>();

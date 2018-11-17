@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.world.buckets;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.BlockIce;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.general.General;
@@ -31,7 +30,6 @@ import net.minecraftforge.event.entity.player.FillBucketEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
 import net.minecraftforge.fluids.*;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -44,7 +42,7 @@ import java.util.List;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCBuckets extends Feature {
     public static boolean modifyDispenserBehavior, stopDispenserFillBehavior;
     private static List<String> fluidWhitelist;

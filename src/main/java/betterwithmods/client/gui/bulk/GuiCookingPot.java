@@ -1,7 +1,6 @@
 package betterwithmods.client.gui.bulk;
 
 import betterwithmods.common.container.bulk.ContainerCookingPot;
-import betterwithmods.common.tile.TileCookingPot;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.client.gui.GuiProgress;
 import betterwithmods.library.common.container.ContainerBase;

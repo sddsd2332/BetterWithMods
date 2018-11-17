@@ -1,6 +1,5 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
@@ -17,7 +16,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import net.minecraftforge.common.BiomeDictionary;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -27,7 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.awt.*;
 import java.util.Random;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class VisibleStorms extends Feature {
     private static boolean DUST_STORMS;
     private static boolean SAND_STORMS;

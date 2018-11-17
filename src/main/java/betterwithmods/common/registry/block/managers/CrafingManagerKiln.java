@@ -1,8 +1,8 @@
 package betterwithmods.common.registry.block.managers;
 
-import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 

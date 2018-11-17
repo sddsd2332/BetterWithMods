@@ -40,7 +40,6 @@ import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.event.entity.player.ItemFishedEvent;
 import net.minecraftforge.event.entity.player.ItemTooltipEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
@@ -57,7 +56,7 @@ import java.util.Random;
  * Created by primetoxinz on 7/23/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCFishing extends Feature {
     public static final ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(ModLib.MODID, "gameplay/fishing"));
     private static final ResourceLocation BAITED_FISHING_ROD = new ResourceLocation(ModLib.MODID, "baited_fishing_rod");

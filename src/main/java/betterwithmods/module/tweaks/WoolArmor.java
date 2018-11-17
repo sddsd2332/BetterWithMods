@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-
 import betterwithmods.common.registry.crafting.RecipeArmorDye;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;

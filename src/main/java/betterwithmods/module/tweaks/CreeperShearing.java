@@ -2,7 +2,6 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityShearedCreeper;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import betterwithmods.library.utils.InventoryUtils;
@@ -18,7 +17,6 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -27,7 +25,7 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class CreeperShearing extends Feature {
 
     public static Set<ResourceLocation> CREEPERS;

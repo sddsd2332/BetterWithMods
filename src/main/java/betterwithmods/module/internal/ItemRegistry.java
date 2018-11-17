@@ -26,7 +26,6 @@ import net.minecraftforge.client.event.ModelRegistryEvent;
 import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -37,7 +36,7 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class ItemRegistry extends RequiredFeature {
 
     public static final Item.ToolMaterial SOULFORGED_STEEL = EnumHelper.addToolMaterial("SOULFORGED_STEEL", 4, 2250, 10f, 3, 22);

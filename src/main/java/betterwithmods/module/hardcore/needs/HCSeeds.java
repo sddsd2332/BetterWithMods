@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Sets;
@@ -19,7 +18,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -33,7 +31,7 @@ import java.util.function.Predicate;
  * Created by primetoxinz on 5/21/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCSeeds extends Feature {
     private static final Random RANDOM = new Random();
     public static Set<ItemStack> SEED_BLACKLIST;

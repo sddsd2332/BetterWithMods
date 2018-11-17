@@ -1,8 +1,8 @@
 package betterwithmods.common.entity;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.blocks.blood_wood.BlockBloodSapling;
 import betterwithmods.common.blocks.BlockNetherGrowth;
+import betterwithmods.common.blocks.blood_wood.BlockBloodSapling;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

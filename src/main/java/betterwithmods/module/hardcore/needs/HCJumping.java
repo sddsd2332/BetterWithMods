@@ -1,11 +1,9 @@
 package betterwithmods.module.hardcore.needs;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.item.ItemBlock;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -13,7 +11,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Created by primetoxinz on 5/3/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCJumping extends Feature {
     public HCJumping() {
         this.enabled = false;

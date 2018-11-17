@@ -1,19 +1,17 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class EquipmentDrop extends Feature {
 
     @SubscribeEvent

@@ -1,6 +1,5 @@
 package betterwithmods.module.hardcore.world;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.entity.Entity;
@@ -13,7 +12,6 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.Loader;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -24,7 +22,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCBoating extends Feature {
 
     //Quark Boat Sail Compat

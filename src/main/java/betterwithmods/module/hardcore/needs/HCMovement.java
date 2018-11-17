@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockDirtSlab;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Maps;
@@ -17,7 +16,6 @@ import net.minecraft.init.Items;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
 import net.minecraftforge.client.event.FOVUpdateEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
@@ -27,7 +25,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCMovement extends Feature {
     public final static UUID HCMOVEMENT_SPEED_UUID = UUID.fromString("aece6a05-d163-4871-aaf3-ebab43b0fcfa");
 

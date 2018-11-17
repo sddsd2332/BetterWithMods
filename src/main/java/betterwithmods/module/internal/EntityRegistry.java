@@ -7,7 +7,6 @@ import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import com.google.common.collect.Lists;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.EntityEntry;
@@ -16,7 +15,7 @@ import net.minecraftforge.fml.common.registry.EntityEntryBuilder;
 import java.util.Arrays;
 import java.util.List;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class EntityRegistry extends RequiredFeature {
 
     public static int TOTAL_ENTITY_IDS;

@@ -1,6 +1,5 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.event.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
@@ -17,13 +16,12 @@ import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.MapGenMineshaft;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureMineshaftPieces;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Set;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class MineshaftGeneration extends Feature {
     public static Set<StructureChanger> MINESHAFT = Sets.newHashSet();
     public static StructureChanger MINESHAFT_CHANGER = StructureChanger.create(MINESHAFT, (w, p) -> true);

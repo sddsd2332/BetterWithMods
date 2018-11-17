@@ -52,7 +52,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
@@ -64,7 +63,7 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class MiniBlocks extends Feature {
     public static final HashMap<MiniType, HashMap<Material, BlockCamo>> MINI_MATERIAL_BLOCKS = Maps.newHashMap();
     public static final Multimap<Material, IBlockState> MATERIALS = HashMultimap.create();

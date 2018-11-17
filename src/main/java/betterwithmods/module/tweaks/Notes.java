@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -11,10 +10,9 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.world.NoteBlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class Notes extends Feature {
 
     @SubscribeEvent

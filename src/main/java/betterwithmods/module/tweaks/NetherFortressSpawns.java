@@ -1,6 +1,5 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageStructureReply;
@@ -24,13 +23,12 @@ import net.minecraft.world.gen.structure.StructureBoundingBox;
 import net.minecraft.world.gen.structure.StructureComponent;
 import net.minecraft.world.gen.structure.StructureStart;
 import net.minecraftforge.event.world.WorldEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Iterator;
 import java.util.Map;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class NetherFortressSpawns extends Feature {
 
     public static transient final Map<ChunkPos, Boolean> FORTRESSES = Maps.newConcurrentMap();

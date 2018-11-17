@@ -1,24 +1,16 @@
 package betterwithmods.client.tesr;
 
-import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.blocks.BlockFurnace;
 import betterwithmods.common.blocks.BlockInfernalEnchanter;
 import betterwithmods.common.tile.TileInfernalEnchanter;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.RenderHelper;
-import net.minecraft.client.renderer.RenderItem;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ItemCameraTransforms;
-import net.minecraft.client.renderer.entity.RenderManager;
 import net.minecraft.client.renderer.texture.TextureMap;
-import net.minecraft.client.renderer.tileentity.TileEntityItemStackRenderer;
 import net.minecraft.client.renderer.tileentity.TileEntitySpecialRenderer;
-import net.minecraft.entity.item.EntityItem;
 import net.minecraft.item.ItemStack;
-import net.minecraft.tileentity.TileEntityFurnace;
-import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.ForgeHooksClient;
 import org.lwjgl.opengl.GL11;
 

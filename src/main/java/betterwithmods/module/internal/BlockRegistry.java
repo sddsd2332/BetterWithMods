@@ -43,7 +43,6 @@ import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -54,7 +53,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.Objects;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class BlockRegistry extends RequiredFeature {
 
     private static List<Block> REGISTRY = Lists.newArrayList();

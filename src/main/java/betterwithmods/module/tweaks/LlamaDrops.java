@@ -6,10 +6,9 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.storage.loot.LootTable;
 import net.minecraft.world.storage.loot.LootTableList;
 import net.minecraftforge.event.LootTableLoadEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class LlamaDrops extends Feature {
 
     public static final ResourceLocation LLAMA_LOOT = new ResourceLocation(ModLib.MODID, "entity/llama");

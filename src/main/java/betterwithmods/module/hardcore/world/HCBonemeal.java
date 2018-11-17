@@ -3,7 +3,6 @@ package betterwithmods.module.hardcore.world;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.BlockPlanter;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.event.block.EntityCollidedEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
@@ -28,7 +27,6 @@ import net.minecraft.world.World;
 import net.minecraftforge.common.IPlantable;
 import net.minecraftforge.event.entity.player.BonemealEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -39,7 +37,7 @@ import javax.annotation.Nullable;
  * Created by primetoxinz on 5/14/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCBonemeal extends Feature {
 
     public static IngredientSet FERTILIZERS = new IngredientSet();

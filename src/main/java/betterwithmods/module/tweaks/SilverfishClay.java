@@ -1,6 +1,5 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.EntityLivingBase;
@@ -9,10 +8,9 @@ import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class SilverfishClay extends Feature {
 
     @SubscribeEvent

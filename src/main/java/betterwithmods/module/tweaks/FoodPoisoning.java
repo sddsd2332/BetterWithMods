@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Sets;
@@ -12,13 +11,12 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemFood;
 import net.minecraft.potion.PotionEffect;
 import net.minecraftforge.event.entity.living.LivingEntityUseItemEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Set;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class FoodPoisoning extends Feature {
     public static double chanceForPoison;
 

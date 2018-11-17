@@ -1,14 +1,12 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -20,7 +18,7 @@ import java.util.stream.Collectors;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCGunpowder extends Feature {
     public static List<Class> disableGunpowder = Lists.newArrayList();
 

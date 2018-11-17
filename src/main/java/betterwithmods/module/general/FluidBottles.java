@@ -16,13 +16,12 @@ import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
 import net.minecraftforge.fluids.capability.IFluidHandlerItem;
 import net.minecraftforge.fluids.capability.IFluidTankProperties;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class FluidBottles extends RequiredFeature {
 
     private static final ResourceLocation KEY = new ResourceLocation(ModLib.MODID, "bottle");

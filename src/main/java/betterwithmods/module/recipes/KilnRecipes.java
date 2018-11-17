@@ -23,7 +23,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
@@ -35,7 +34,7 @@ import java.util.stream.IntStream;
 /**
  * Created by primetoxinz on 5/16/17.
  */
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class KilnRecipes extends Feature {
 
     @SubscribeEvent

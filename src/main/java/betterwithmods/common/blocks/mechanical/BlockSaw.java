@@ -2,14 +2,14 @@ package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
 import betterwithmods.common.BWMDamageSource;
-import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.tile.TileSaw;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.common.block.IBlockActive;
+import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.internal.SoundRegistry;
-import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;

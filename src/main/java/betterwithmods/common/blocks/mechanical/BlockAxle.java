@@ -1,12 +1,12 @@
 package betterwithmods.common.blocks.mechanical;
 
 import betterwithmods.api.block.IOverpower;
-import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.common.tile.TileAxle;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.common.block.IBlockActive;
-import betterwithmods.module.internal.SoundRegistry;
 import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.module.internal.SoundRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;

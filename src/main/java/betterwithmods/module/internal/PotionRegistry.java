@@ -3,15 +3,13 @@ package betterwithmods.module.internal;
 import betterwithmods.common.potion.BWMPotion;
 import betterwithmods.common.potion.PotionSlowfall;
 import betterwithmods.common.potion.PotionTruesight;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import net.minecraft.potion.Potion;
 import net.minecraftforge.event.RegistryEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class PotionRegistry extends RequiredFeature {
 
     @GameRegistry.ObjectHolder("betterwithmods:true_sight")

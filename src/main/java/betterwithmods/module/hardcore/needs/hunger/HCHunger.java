@@ -7,7 +7,6 @@ import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.item.creation.BasicItemBuilder;
 import betterwithmods.library.common.item.creation.ItemFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
@@ -39,7 +38,6 @@ import net.minecraftforge.common.MinecraftForge;
 import net.minecraftforge.event.entity.EntityEvent;
 import net.minecraftforge.event.entity.living.LivingEvent;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
@@ -62,7 +60,7 @@ import squeek.applecore.api.hunger.StarvationEvent;
  * Created by primetoxinz on 6/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class HCHunger extends Feature {
 
     @GameRegistry.ObjectHolder("minecraft:pumpkin_seeds")

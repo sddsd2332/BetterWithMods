@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.passive.EntityWolf;
 import net.minecraft.init.SoundEvents;
@@ -9,14 +8,13 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Random;
 
 import static betterwithmods.util.WorldUtils.addDrop;
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class FeedWolfchop extends Feature {
     @SubscribeEvent
     public static void feedDog(PlayerInteractEvent.EntityInteractSpecific event) {

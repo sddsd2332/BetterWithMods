@@ -2,7 +2,6 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.entity.EntityJungleSpider;
 import betterwithmods.common.entity.SpawningWhitelist;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.blockstate.MaterialIngredient;
 import net.minecraft.block.material.Material;
@@ -18,7 +17,6 @@ import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.common.BiomeDictionary;
 import net.minecraftforge.event.entity.living.LivingSpawnEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -28,7 +26,7 @@ import net.minecraftforge.fml.common.registry.EntityRegistry;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class MobSpawning extends Feature {
     public static final SpawningWhitelist NETHER = new SpawningWhitelist();
     public static final SpawningWhitelist SLIME = new SpawningWhitelist();

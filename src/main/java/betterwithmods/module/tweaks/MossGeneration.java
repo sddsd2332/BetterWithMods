@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -15,7 +14,6 @@ import net.minecraft.tileentity.TileEntity;
 import net.minecraft.tileentity.TileEntityMobSpawner;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -32,7 +30,7 @@ import java.util.stream.Collectors;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class MossGeneration extends Feature {
     private static final HashMap<BlockStateIngredient, IBlockState> CONVERTED_BLOCKS = new HashMap<>();
     public static int RADIUS;

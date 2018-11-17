@@ -1,7 +1,6 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
-import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.AbstractIllager;
@@ -9,14 +8,13 @@ import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
-import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
  * Created by primetoxinz on 6/25/17.
  */
 
-@Mod.EventBusSubscriber(modid = ModLib.MODID)
+
 public class MysteryMeat extends Feature {
     @SubscribeEvent
     public static void dropMysteryMeat(LivingDropsEvent event) {
