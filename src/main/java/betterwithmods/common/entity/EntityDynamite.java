@@ -68,7 +68,7 @@ public class EntityDynamite extends Entity implements IProjectile {
     @SideOnly(Side.CLIENT)
     @Override
     public void handleStatusUpdate(byte id) {
-        if(id == 100) {
+        if (id == 100) {
             this.fuse = 100;
         }
     }

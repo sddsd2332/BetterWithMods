@@ -1,11 +1,10 @@
 package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMItems;
-
-import betterwithmods.library.lib.ReflectionLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
+import betterwithmods.library.lib.ReflectionLib;
 import betterwithmods.module.internal.ItemRegistry;
 import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Maps;
@@ -48,6 +47,53 @@ public class HCTools extends Feature {
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.ITEM_OUTPUT, Items.WOODEN_SWORD));
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.ITEM_OUTPUT, Items.STONE_HOE));
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.ITEM_OUTPUT, Items.STONE_SWORD));
+    }
+
+    @SubscribeEvent
+    public static void onHitEntity(LivingAttackEvent event) {
+        if (event.getEntityLiving() instanceof EntityPlayer) {
+            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
+            ItemStack stack = player.getHeldItemMainhand();
+            breakTool(stack, player);
+        }
+    }
+
+    @SubscribeEvent
+    public static void onUseHoe(UseHoeEvent event) {
+        breakTool(event.getCurrent(), event.getEntityPlayer());
+    }
+
+    @SubscribeEvent
+    public static void onBreaking(BlockEvent.BreakEvent event) {
+        EntityPlayer player = event.getPlayer();
+        ItemStack stack = player.getHeldItemMainhand();
+        breakTool(stack, player);
+    }
+
+    private static void breakTool(ItemStack stack, EntityPlayer player) {
+        if (stack.isEmpty()) return;
+        if (stack.getMaxDamage() == 1) {
+            destroyItem(stack, player);
+        }
+    }
+
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public static void harvestGarbage(BlockEvent.BreakEvent event) {
+        EntityPlayer player = event.getPlayer();
+        if (event.isCanceled() || player == null || player.isCreative())
+            return;
+        World world = event.getWorld();
+        BlockPos pos = event.getPos();
+        IBlockState state = world.getBlockState(pos);
+        ItemStack stack = player.getHeldItemMainhand();
+        String tooltype = state.getBlock().getHarvestTool(state);
+        if (tooltype != null && state.getBlockHardness(world, pos) <= 0 && stack.getItem().getHarvestLevel(stack, tooltype, player, state) < noDamageThreshold)
+            stack.damageItem(1, player); //Make 0 hardness blocks damage tools that are not over some harvest level
+    }
+
+    private static void destroyItem(ItemStack stack, EntityLivingBase entity) {
+        int damage = stack.getMaxDamage();
+        stack.damageItem(damage, entity);
     }
 
     @Override
@@ -100,7 +146,6 @@ public class HCTools extends Feature {
         return null;
     }
 
-
     private Set<String> getToolClass(ItemStack stack) {
         Item item = stack.getItem();
         Set<String> classes = Sets.newHashSet();
@@ -135,54 +180,6 @@ public class HCTools extends Feature {
         }
 
     }
-
-    @SubscribeEvent
-    public static void onHitEntity(LivingAttackEvent event) {
-        if (event.getEntityLiving() instanceof EntityPlayer) {
-            EntityPlayer player = (EntityPlayer) event.getEntityLiving();
-            ItemStack stack = player.getHeldItemMainhand();
-            breakTool(stack, player);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onUseHoe(UseHoeEvent event) {
-        breakTool(event.getCurrent(), event.getEntityPlayer());
-    }
-
-    @SubscribeEvent
-    public static void onBreaking(BlockEvent.BreakEvent event) {
-        EntityPlayer player = event.getPlayer();
-        ItemStack stack = player.getHeldItemMainhand();
-        breakTool(stack, player);
-    }
-
-    private static void breakTool(ItemStack stack, EntityPlayer player) {
-        if (stack.isEmpty()) return;
-        if (stack.getMaxDamage() == 1) {
-            destroyItem(stack, player);
-        }
-    }
-
-    @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void harvestGarbage(BlockEvent.BreakEvent event) {
-        EntityPlayer player = event.getPlayer();
-        if (event.isCanceled() || player == null || player.isCreative())
-            return;
-        World world = event.getWorld();
-        BlockPos pos = event.getPos();
-        IBlockState state = world.getBlockState(pos);
-        ItemStack stack = player.getHeldItemMainhand();
-        String tooltype = state.getBlock().getHarvestTool(state);
-        if (tooltype != null && state.getBlockHardness(world, pos) <= 0 && stack.getItem().getHarvestLevel(stack, tooltype, player, state) < noDamageThreshold)
-            stack.damageItem(1, player); //Make 0 hardness blocks damage tools that are not over some harvest level
-    }
-
-    private static void destroyItem(ItemStack stack, EntityLivingBase entity) {
-        int damage = stack.getMaxDamage();
-        stack.damageItem(damage, entity);
-    }
-
 
     public class ToolMaterialOverride {
         private final String name;

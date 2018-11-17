@@ -32,7 +32,12 @@ public class EntityRegistry extends RequiredFeature {
     }
 
     public static String entityName(String name) {
-      return ModLib.MODID + ":" + name;
+        return ModLib.MODID + ":" + name;
+    }
+
+    @SubscribeEvent
+    public static void onEntityRegister(RegistryEvent.Register<EntityEntry> event) {
+        event.getRegistry().registerAll(REGISTRY.toArray(new EntityEntry[0]));
     }
 
     @Override
@@ -59,8 +64,8 @@ public class EntityRegistry extends RequiredFeature {
                         .entity(EntitySitMount.class)
                         .name(entityName("sit_mount"))
                         .id(entityName("sit_mount"), TOTAL_ENTITY_IDS++)
-                .tracker(64, 20, false)
-                .build(),
+                        .tracker(64, 20, false)
+                        .build(),
 
                 EntityEntryBuilder.create()
                         .entity(EntitySpiderWeb.class)
@@ -125,10 +130,5 @@ public class EntityRegistry extends RequiredFeature {
                         .tracker(64, 20, true)
                         .build()
         );
-    }
-
-    @SubscribeEvent
-    public static void onEntityRegister(RegistryEvent.Register<EntityEntry> event) {
-        event.getRegistry().registerAll(REGISTRY.toArray(new EntityEntry[0]));
     }
 }

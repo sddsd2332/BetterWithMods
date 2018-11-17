@@ -36,20 +36,20 @@ public class HCOres extends Feature {
     }
 
 
-
     @Override
     public String getDescription() {
         return "Makes Ores only smelt into a single nugget, making it much harder to createBlock large amounts of metal";
     }
+
     @Override
     public void onInit(FMLInitializationEvent event) {
 
         oreNuggetSmelting = loadProperty("Ore to Nugget Smelting", true).setComment("Make Ores (oredict ore.* )smelt into nuggets instead of ingots").get();
 
-        oreExclude = Arrays.stream(loadProperty("Ore Exclude", new String[0]).setComment(  "Oredictionary entries to exclude from ore to nugget smelting. Remove the prefix of the oredictionary. example 'oreIron' would be just 'iron' ").get()).collect(Collectors.toSet());
-        dustExclude = Arrays.stream(loadProperty("Dust Exclude",new String[0]).setComment("Oredictionary entries to exclude from dust to nugget smelting  Remove the prefix of the oredictionary. example 'dustIron' would be just 'iron'").get()).collect(Collectors.toSet());
+        oreExclude = Arrays.stream(loadProperty("Ore Exclude", new String[0]).setComment("Oredictionary entries to exclude from ore to nugget smelting. Remove the prefix of the oredictionary. example 'oreIron' would be just 'iron' ").get()).collect(Collectors.toSet());
+        dustExclude = Arrays.stream(loadProperty("Dust Exclude", new String[0]).setComment("Oredictionary entries to exclude from dust to nugget smelting  Remove the prefix of the oredictionary. example 'dustIron' would be just 'iron'").get()).collect(Collectors.toSet());
 
-        dustNuggetSmelting = loadProperty("Dust to Nugget Smelting", true).setComment( "Make Dusts ( oredict dust.* ) smelt into nuggets instead of ingots").get();
+        dustNuggetSmelting = loadProperty("Dust to Nugget Smelting", true).setComment("Make Dusts ( oredict dust.* ) smelt into nuggets instead of ingots").get();
         boolean fixVanillaRecipes = loadProperty("Fix Vanilla Recipes", true).setComment("Make certain recipes cheaper to be more reasonable with nugget smelting, including Compass, Clock, and Bucket").get();
 
         oreProductionCount = loadProperty("Ore Production Count", 1).setComment("Number of Materials returned from Smelting an Ore").get();

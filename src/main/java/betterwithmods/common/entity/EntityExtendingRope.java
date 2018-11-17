@@ -3,9 +3,9 @@ package betterwithmods.common.entity;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.tile.TilePulley;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.general.General;
 import betterwithmods.util.AABBArray;
-import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
@@ -17,7 +17,6 @@ import net.minecraft.block.BlockRedstoneWire;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Blocks;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTTagList;
 import net.minecraft.tileentity.TileEntity;
@@ -64,6 +63,14 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         this.blockBB = null;
         this.setSize(0.1F, 1F);
         this.ignoreFrustumCheck = true;
+    }
+
+    // Handle collision for players only on the client side
+    @SubscribeEvent
+    public static void getCollisionBoxes(GetCollisionBoxesEvent e) {
+        if (e.getEntity() instanceof EntityPlayer && !e.getEntity().world.isRemote) {
+//            e.getCollisionBoxesList().removeIf(it -> it instanceof AABBArray);
+        }
     }
 
     @Override
@@ -437,20 +444,11 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
         super.setEntityBoundingBox(blockBB != null ? blockBB.offset(this.posX, this.posY, this.posZ) : bb);
     }
 
-
     @Override
     public AxisAlignedBB getCollisionBoundingBox() {
         return (this.getEntityBoundingBox() instanceof AABBArray
                 ? ((AABBArray) this.getEntityBoundingBox()).forEach(i -> i.setMaxY(i.maxY - 0.125))
                 : this.getEntityBoundingBox());
-    }
-
-    // Handle collision for players only on the client side
-    @SubscribeEvent
-    public static void getCollisionBoxes(GetCollisionBoxesEvent e) {
-        if (e.getEntity() instanceof EntityPlayer && !e.getEntity().world.isRemote) {
-//            e.getCollisionBoxesList().removeIf(it -> it instanceof AABBArray);
-        }
     }
 
 }

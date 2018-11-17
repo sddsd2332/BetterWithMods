@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMOreDictionary;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Sets;
@@ -32,7 +33,7 @@ import java.util.function.Predicate;
  * Created by primetoxinz on 5/21/17.
  */
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCSeeds extends Feature {
     private static final Random RANDOM = new Random();
     public static Set<ItemStack> SEED_BLACKLIST;
@@ -43,12 +44,6 @@ public class HCSeeds extends Feature {
         Block block = state.getBlock();
         return BLOCKS_TO_STOP.contains(state) || block instanceof BlockTallGrass || (block instanceof BlockDoublePlant && (state.getValue(BlockDoublePlant.VARIANT) == BlockDoublePlant.EnumPlantType.GRASS || state.getValue(BlockDoublePlant.VARIANT) == BlockDoublePlant.EnumPlantType.FERN));
     };
-
-    @Override
-    public String getDescription() {
-        return "Requires Tilling the ground with a hoe to get seeds.";
-    }
-
 
     @SubscribeEvent
     public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
@@ -94,6 +89,11 @@ public class HCSeeds extends Feature {
                 iter.remove();
         }
 
+    }
+
+    @Override
+    public String getDescription() {
+        return "Requires Tilling the ground with a hoe to get seeds.";
     }
 
     @Override

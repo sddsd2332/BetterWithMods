@@ -1,6 +1,7 @@
 package betterwithmods.module.tweaks;
 
 
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -30,7 +31,8 @@ import java.util.stream.Collectors;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class MossGeneration extends Feature {
     private static final HashMap<BlockStateIngredient, IBlockState> CONVERTED_BLOCKS = new HashMap<>();
     public static int RADIUS;
@@ -93,8 +95,8 @@ public class MossGeneration extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
 
-        RADIUS = loadProperty("Moss radius from the mob spawner",5).get();
-        RATE = loadProperty("Moss grow rate",100).setComment("1 out of this rate will cause a moss to try to generate").get();
+        RADIUS = loadProperty("Moss radius from the mob spawner", 5).get();
+        RATE = loadProperty("Moss grow rate", 100).setComment("1 out of this rate will cause a moss to try to generate").get();
         DISABLE_VINE_RECIPES = loadProperty("Disable Vine Recipes", true).setComment("Disables the mossy cobblestone and mossy brick recipes involving vines.").get();
 
         if (DISABLE_VINE_RECIPES) {
@@ -108,7 +110,6 @@ public class MossGeneration extends Feature {
         addBlockConversion(new BlockStateIngredient(new ItemStack(Blocks.COBBLESTONE)), Blocks.MOSSY_COBBLESTONE.getDefaultState());
         addBlockConversion(new BlockStateIngredient(new ItemStack(Blocks.STONEBRICK)), Blocks.STONEBRICK.getDefaultState().withProperty(BlockStoneBrick.VARIANT, BlockStoneBrick.EnumType.MOSSY));
     }
-
 
 
     @Override

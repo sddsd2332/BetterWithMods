@@ -1,11 +1,12 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.event.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
+import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
 import betterwithmods.module.hardcore.world.structures.IngredientChanger;
 import betterwithmods.module.hardcore.world.structures.StructureChanger;
-import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockNewLog;
 import net.minecraft.block.BlockPlanks;
@@ -22,7 +23,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Set;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class MineshaftGeneration extends Feature {
     public static Set<StructureChanger> MINESHAFT = Sets.newHashSet();
     public static StructureChanger MINESHAFT_CHANGER = StructureChanger.create(MINESHAFT, (w, p) -> true);

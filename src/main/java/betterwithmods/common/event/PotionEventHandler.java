@@ -110,7 +110,7 @@ public class PotionEventHandler {
     public static void onLivingDeath(LootingLevelEvent event) {
         if (event.getEntityLiving() != null) {
             PotionEffect effect = event.getEntityLiving().getActivePotionEffect(PotionRegistry.POTION_LOOTING);
-            if(effect != null) {
+            if (effect != null) {
                 int level = effect.getAmplifier() + 1;
                 if (event.getLootingLevel() < level) {
                     event.setLootingLevel(level);

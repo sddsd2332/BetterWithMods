@@ -1,6 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -13,13 +14,8 @@ import net.minecraftforge.event.world.NoteBlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class Notes extends Feature {
-
-    @Override
-    public String getDescription() {
-        return "Add some notes to the Note Block. Try a companion cube under one";
-    }
 
     @SubscribeEvent
     public static void onNotePlay(NoteBlockEvent.Play event) {
@@ -50,5 +46,10 @@ public class Notes extends Feature {
         if (down.getBlock() == BWMBlocks.WOLF)
             return 1;
         return 0;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Add some notes to the Note Block. Try a companion cube under one";
     }
 }

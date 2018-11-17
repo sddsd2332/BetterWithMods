@@ -30,6 +30,14 @@ public class GuiStatus {
     private final Minecraft mc = Minecraft.getMinecraft();
 
     @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void renderStatus(RenderGameOverlayEvent.Post event) {
+        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
+            GuiStatus.INSTANCE.draw();
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
     public void draw() {
         if (!PlayerUtils.isSurvival(mc.player))
             return;
@@ -38,7 +46,6 @@ public class GuiStatus {
         int top = scale.getScaledHeight() - GuiIngameForge.right_height - 10 + offsetY;
         drawPenaltyText(left, top);
     }
-
 
     @SideOnly(Side.CLIENT)
     private void drawPenaltyText(int left, int top) {
@@ -60,14 +67,6 @@ public class GuiStatus {
                 }
             }
             GuiIngameForge.right_height += y;
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public static void renderStatus(RenderGameOverlayEvent.Post event) {
-        if (event.getType() == RenderGameOverlayEvent.ElementType.TEXT) {
-            GuiStatus.INSTANCE.draw();
         }
     }
 

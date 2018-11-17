@@ -12,7 +12,6 @@
     },
     "hidden": true
   },
-
   "criteria": {
     "has_items": {
       "trigger": "minecraft:inventory_changed",

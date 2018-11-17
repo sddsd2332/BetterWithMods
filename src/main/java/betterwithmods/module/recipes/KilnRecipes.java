@@ -38,16 +38,6 @@ import java.util.stream.IntStream;
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class KilnRecipes extends Feature {
 
-    @Override
-    public String getDescription() {
-        return "";
-    }
-
-    @Override
-    protected boolean canEnable() {
-        return true;
-    }
-
     @SubscribeEvent
     public static void formKiln(BlockEvent.NeighborNotifyEvent event) {
         BlockPos up = event.getPos().up();
@@ -62,6 +52,16 @@ public class KilnRecipes extends Feature {
         if (event.getPlacedBlock().getBlock().isAir(event.getPlacedBlock(), event.getWorld(), event.getPos())) {
             KilnStructureManager.createKiln(event.getWorld(), event.getPos());
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "";
+    }
+
+    @Override
+    protected boolean canEnable() {
+        return true;
     }
 
     @Override

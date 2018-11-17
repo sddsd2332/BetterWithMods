@@ -45,34 +45,6 @@ public class MiscRegistry extends RequiredFeature {
     public static final Fluid MILK = new Fluid("milk", new ResourceLocation(ModLib.MODID, "blocks/milk_still"), new ResourceLocation(ModLib.MODID, "blocks/milk_flowing"));
     public static final PenaltyHandlerRegistry PENALTY_HANDLERS = new PenaltyHandlerRegistry();
 
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        //FIXME Initialize api
-        BWMAPI.IMPLEMENTATION = new MechanicalUtil();
-
-        //FIXME Registry capabilities
-        CapabilityManager.INSTANCE.register(IMechanicalPower.class, new CapabilityMechanicalPower.Impl(), CapabilityMechanicalPower.Default::new);
-        CapabilityManager.INSTANCE.register(IAxle.class, new CapabilityAxle.Impl(), CapabilityAxle.Default::new);
-
-        //FIXME Registry kiln blocks
-        KilnStructureManager.registerKilnBlock(Blocks.BRICK_BLOCK.getDefaultState());
-        KilnStructureManager.registerKilnBlock(Blocks.NETHER_BRICK.getDefaultState());
-
-        FluidRegistry.registerFluid(MILK);
-    }
-
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        MiscRegistry.registerVanillaDispenserBehavior();
-        registerHeatSources();
-        registerBUDBlacklist();
-        registerDetectorHandlers();
-        registerFireInfo();
-        BellowsManager.init();
-    }
-
-
     public static void registerVanillaDispenserBehavior() {
         BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(BWMItems.DYNAMITE, new DispenserBehaviorDynamite());
     }
@@ -133,11 +105,36 @@ public class MiscRegistry extends RequiredFeature {
         registerFireInfo(new BlockStateIngredient("grates"), 5, 20);
     }
 
-
     public static void registerFireInfo(BlockStateIngredient ingredient, int encouragement, int flammability) {
         for (IBlockState state : ingredient.getStates()) {
             Blocks.FIRE.setFireInfo(state.getBlock(), encouragement, flammability);
         }
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        //FIXME Initialize api
+        BWMAPI.IMPLEMENTATION = new MechanicalUtil();
+
+        //FIXME Registry capabilities
+        CapabilityManager.INSTANCE.register(IMechanicalPower.class, new CapabilityMechanicalPower.Impl(), CapabilityMechanicalPower.Default::new);
+        CapabilityManager.INSTANCE.register(IAxle.class, new CapabilityAxle.Impl(), CapabilityAxle.Default::new);
+
+        //FIXME Registry kiln blocks
+        KilnStructureManager.registerKilnBlock(Blocks.BRICK_BLOCK.getDefaultState());
+        KilnStructureManager.registerKilnBlock(Blocks.NETHER_BRICK.getDefaultState());
+
+        FluidRegistry.registerFluid(MILK);
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        MiscRegistry.registerVanillaDispenserBehavior();
+        registerHeatSources();
+        registerBUDBlacklist();
+        registerDetectorHandlers();
+        registerFireInfo();
+        BellowsManager.init();
     }
 
 }

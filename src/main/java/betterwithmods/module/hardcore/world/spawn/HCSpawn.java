@@ -39,7 +39,8 @@ import static net.minecraft.world.WorldType.FLAT;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCSpawn extends Feature {
 
     public static final Random RANDOM = new Random();
@@ -70,22 +71,6 @@ public class HCSpawn extends Feature {
         ret = world.getTopSolidOrLiquidBlock(ret);
         return ret;
     }
-
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(SpawnSaving.class, new SpawnSaving.Storage(), SpawnSaving::new);
-        HARDCORE_SPAWN_RADIUS = loadProperty("Hardcore Spawn Radius", 2000).setComment("Radius from original spawn which you will be randomly spawned").get();
-        HARDCORE_SPAWN_COOLDOWN_RADIUS = loadProperty("Hardcore Spawn Cooldown Radius", 100).setComment("Radius from your previous spawn you will spawn if you die during a cooldown period").get();
-        HARDCORE_SPAWN_COOLDOWN = loadProperty("Hardcore Spawn Cooldown Ticks", 12000).setComment("Amount of time after a HCSpawn which you will continue to spawn in the same area").get();
-        HARDCORE_SPAWN_INTERNAL_RADIUS = loadProperty("Hardcore Spawn Internal Radius", 125).setComment("This internal radius will stop the player from spawning too close to the original spawn").get();
-    }
-
-
-    @Override
-    public String getDescription() {
-        return "Makes it so death is an actual issue as you will spawn randomly within a 2000 block radius of your original spawn. Compasses still point to original spawn.";
-    }
-
 
     /**
      * Random Respawn. Less intense when there is a short time since death.
@@ -200,6 +185,20 @@ public class HCSpawn extends Feature {
             PlayerInfo info = PlayerInfo.getPlayerInfo(event.player);
             info.incrementTicksSinceDeath(1);
         }
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        CapabilityManager.INSTANCE.register(SpawnSaving.class, new SpawnSaving.Storage(), SpawnSaving::new);
+        HARDCORE_SPAWN_RADIUS = loadProperty("Hardcore Spawn Radius", 2000).setComment("Radius from original spawn which you will be randomly spawned").get();
+        HARDCORE_SPAWN_COOLDOWN_RADIUS = loadProperty("Hardcore Spawn Cooldown Radius", 100).setComment("Radius from your previous spawn you will spawn if you die during a cooldown period").get();
+        HARDCORE_SPAWN_COOLDOWN = loadProperty("Hardcore Spawn Cooldown Ticks", 12000).setComment("Amount of time after a HCSpawn which you will continue to spawn in the same area").get();
+        HARDCORE_SPAWN_INTERNAL_RADIUS = loadProperty("Hardcore Spawn Internal Radius", 125).setComment("This internal radius will stop the player from spawning too close to the original spawn").get();
+    }
+
+    @Override
+    public String getDescription() {
+        return "Makes it so death is an actual issue as you will spawn randomly within a 2000 block radius of your original spawn. Compasses still point to original spawn.";
     }
 }
 

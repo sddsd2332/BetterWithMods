@@ -1,11 +1,8 @@
 package betterwithmods.client.gui;
 
 import betterwithmods.common.container.other.ContainerPulley;
-import betterwithmods.common.tile.TilePulley;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.client.gui.GuiBase;
 import betterwithmods.library.client.gui.GuiProgress;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.ResourceLocation;
 
 public class GuiPulley extends GuiProgress<ContainerPulley> {
@@ -13,7 +10,7 @@ public class GuiPulley extends GuiProgress<ContainerPulley> {
     private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/pulley.png");
 
     public GuiPulley(ContainerPulley container) {
-        super(container, TEXTURE, 81, 30, 176, 14,14,14);
+        super(container, TEXTURE, 81, 30, 176, 14, 14, 14);
         this.ySize = 193;
     }
 

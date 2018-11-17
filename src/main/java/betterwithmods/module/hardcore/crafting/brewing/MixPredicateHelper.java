@@ -18,7 +18,7 @@ public class MixPredicateHelper {
 
     public static PotionType getInputPotionType(Object mixPredicate) {
         Object value = ReflectionHelper.getPrivateValue(ReflectionLib.CLAZZ_MIXPREDICATE, mixPredicate, ReflectionLib.MIXPREDICATE_INPUT);
-        if(value instanceof IRegistryDelegate) {
+        if (value instanceof IRegistryDelegate) {
             return ((IRegistryDelegate<PotionType>) value).get();
         } else {
             return (PotionType) value;
@@ -28,7 +28,7 @@ public class MixPredicateHelper {
     public static PotionType getOutputPotionType(Object mixPredicate) {
 
         Object value = ReflectionHelper.getPrivateValue(ReflectionLib.CLAZZ_MIXPREDICATE, mixPredicate, ReflectionLib.MIXPREDICATE_OUTPUT);
-        if(value instanceof IRegistryDelegate) {
+        if (value instanceof IRegistryDelegate) {
             return ((IRegistryDelegate<PotionType>) value).get();
         } else {
             return (PotionType) value;

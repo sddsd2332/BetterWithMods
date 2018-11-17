@@ -27,9 +27,9 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 public class BWMClientProxy extends ClientProxy {
 
     @SideOnly(Side.CLIENT)
-    private static final ResourcePackProxy RESOURCE_PACK_PROXY = ResourcePackProxy.registerResourceProxy(() -> BetterWithMods.LOGGER, ModLib.MODID);
-    @SideOnly(Side.CLIENT)
     public static final BannerTextures.Cache WINDMILLS = new BannerTextures.Cache("betterwithmods:W", new ResourceLocation(ModLib.MODID, "textures/blocks/windmills/banner.png"), "betterwithmods:textures/blocks/windmills/");
+    @SideOnly(Side.CLIENT)
+    private static final ResourcePackProxy RESOURCE_PACK_PROXY = ResourcePackProxy.registerResourceProxy(() -> BetterWithMods.LOGGER, ModLib.MODID);
 
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {

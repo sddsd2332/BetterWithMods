@@ -39,16 +39,16 @@ public class BlockCandle extends BlockColored {
         }
     };
 
+    public BlockCandle(EnumDyeColor color) {
+        super(Material.GROUND, color);
+    }
+
     public static Block getBlock(EnumDyeColor color) {
-        return getBlock(NAME_BASE,color);
+        return getBlock(NAME_BASE, color);
     }
 
     public static Set<Block> getAll() {
         return Arrays.stream(ColorUtils.DYES).map(BlockCandle::getBlock).collect(Collectors.toSet());
-    }
-
-    public BlockCandle(EnumDyeColor color) {
-        super(Material.GROUND, color);
     }
 
     public static ItemStack getStack(EnumDyeColor type) {

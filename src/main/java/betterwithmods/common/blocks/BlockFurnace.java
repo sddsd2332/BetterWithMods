@@ -14,6 +14,8 @@ import net.minecraft.world.World;
 import java.util.Random;
 
 public class BlockFurnace extends net.minecraft.block.BlockFurnace {
+    static Item furnace;
+
     public BlockFurnace(boolean isBurning) {
         super(isBurning);
         if (isBurning) {
@@ -25,8 +27,6 @@ public class BlockFurnace extends net.minecraft.block.BlockFurnace {
         setSoundType(SoundType.STONE);
         setCreativeTab(CreativeTabs.DECORATIONS);
     }
-
-    static Item furnace;
 
     @Override
     public Item getItemDropped(IBlockState state, Random rand, int fortune) {

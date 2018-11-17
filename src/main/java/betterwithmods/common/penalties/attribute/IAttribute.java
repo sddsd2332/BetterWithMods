@@ -8,5 +8,5 @@ public interface IAttribute<V> {
 
     ResourceLocation getRegistryName();
 
-    IAttributeInstance<V> fromConfig(Feature feature, String name, V defaultValue) ;
+    IAttributeInstance<V> fromConfig(Feature feature, String name, V defaultValue);
 }

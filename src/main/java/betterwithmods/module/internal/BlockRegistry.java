@@ -66,6 +66,35 @@ public class BlockRegistry extends RequiredFeature {
         GameRegistry.registerTileEntity(TileFurnace.class, new ResourceLocation(ModLib.MODID, "furnace"));
     }
 
+    public static void registerBlock(BlockEntry entry) {
+        registerBlock(entry.getBlock(), entry.getItemBlock());
+    }
+
+    public static void registerBlock(Block block, @Nullable Item item) {
+        if (block.getRegistryName() != null) {
+            //TODO remove this in 1.13, it is done automatically
+            if (block.getTranslationKey().equals("tile.null"))
+                block.setTranslationKey(block.getRegistryName().toString());
+            REGISTRY.add(block);
+            if (item != null) {
+                ItemRegistry.addItem(item);
+            }
+        }
+    }
+
+    public static void registerBlocks(Collection<BlockEntry> set) {
+        for (BlockEntry entry : set) {
+            registerBlock(entry);
+        }
+
+    }
+
+    @SubscribeEvent(priority = EventPriority.NORMAL)
+    public static void onBlockRegister(RegistryEvent.Register<Block> event) {
+        REGISTRY.forEach(block -> event.getRegistry().register(block));
+        registerTileEntities();
+    }
+
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         BlockEntryBuilderFactory<Void> factory = BlockEntryBuilderFactory.create(getLogger());
@@ -278,37 +307,6 @@ public class BlockRegistry extends RequiredFeature {
                 .complete());
 
 
-    }
-
-    public static void registerBlock(BlockEntry entry) {
-        registerBlock(entry.getBlock(), entry.getItemBlock());
-    }
-
-    public static void registerBlock(Block block, @Nullable Item item) {
-        if (block.getRegistryName() != null) {
-            //TODO remove this in 1.13, it is done automatically
-            if (block.getTranslationKey().equals("tile.null"))
-                block.setTranslationKey(block.getRegistryName().toString());
-            REGISTRY.add(block);
-            if (item != null) {
-                ItemRegistry.addItem(item);
-            }
-        }
-    }
-
-
-    public static void registerBlocks(Collection<BlockEntry> set) {
-        for (BlockEntry entry : set) {
-            registerBlock(entry);
-        }
-
-    }
-
-
-    @SubscribeEvent(priority = EventPriority.NORMAL)
-    public static void onBlockRegister(RegistryEvent.Register<Block> event) {
-        REGISTRY.forEach(block -> event.getRegistry().register(block));
-        registerTileEntities();
     }
 
     @Override

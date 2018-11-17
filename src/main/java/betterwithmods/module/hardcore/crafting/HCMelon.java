@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.entity.EntityFallingGourd;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.Block;
@@ -23,22 +24,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCMelon extends Feature {
-    @Override
-    public String getDescription() {
-        return "Makes Melons have gravity, makes for cool automation abilities";
-    }
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        Blocks.MELON_STEM.setHardness(0.2F);
-        Blocks.PUMPKIN_STEM.setHardness(0.2F);
-
-        Blocks.MELON_BLOCK.setHarvestLevel("axe", 1);
-        Blocks.PUMPKIN.setHarvestLevel("axe", 1);
-    }
-
     @SubscribeEvent
     public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
         Block block = event.getState().getBlock();
@@ -91,6 +78,20 @@ public class HCMelon extends Feature {
                 }
             }
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Makes Melons have gravity, makes for cool automation abilities";
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        Blocks.MELON_STEM.setHardness(0.2F);
+        Blocks.PUMPKIN_STEM.setHardness(0.2F);
+
+        Blocks.MELON_BLOCK.setHarvestLevel("axe", 1);
+        Blocks.PUMPKIN.setHarvestLevel("axe", 1);
     }
 
 }

@@ -1,8 +1,8 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.block.creation.BlockTypeGenerator;
 import betterwithmods.library.common.block.IBlockType;
+import betterwithmods.library.common.block.creation.BlockTypeGenerator;
 import betterwithmods.library.utils.GlobalUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockStone;
@@ -42,6 +42,7 @@ public class BlockCobble extends Block {
     public static Set<Block> getAll() {
         return Arrays.stream(Type.VALUES).map(BlockCobble::getBlock).collect(Collectors.toSet());
     }
+
     @Nonnull
     @SuppressWarnings("deprecation")
     @Override
@@ -63,6 +64,10 @@ public class BlockCobble extends Block {
             this.state = state;
         }
 
+        public static Type convert(BlockStone.EnumType type) {
+            return Type.valueOf(type.name());
+        }
+
         public IBlockState getState() {
             return this.state;
         }
@@ -80,11 +85,6 @@ public class BlockCobble extends Block {
         @Override
         public String getName() {
             return getRegistryName().toString();
-        }
-
-
-        public static Type convert(BlockStone.EnumType type) {
-            return Type.valueOf(type.name());
         }
 
     }

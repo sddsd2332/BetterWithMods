@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.world.buckets;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.blocks.BlockIce;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.general.General;
@@ -42,79 +43,13 @@ import java.util.List;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCBuckets extends Feature {
     public static boolean modifyDispenserBehavior, stopDispenserFillBehavior;
     private static List<String> fluidWhitelist;
     private static List<ResourceLocation> fluidcontainerBacklist;
     private static List<Integer> dimensionBlacklist;
-
-    @Override
-    public String getDescription() {
-        return "Makes it so water buckets cannot move an entire source block, making water a more valuable resource";
-    }
-
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-
-
-        dimensionBlacklist = Ints.asList(loadProperty("Dimension Black List", new int[]{DimensionType.THE_END.getId()}).setComment("A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to createBlock.").get());
-
-        fluidWhitelist = Lists.newArrayList(loadProperty("Fluid Whitelist", new String[]{
-                FluidRegistry.WATER.getName(),
-                FluidRegistry.LAVA.getName(),
-                "swamp_water",
-                "milk",
-                "stagnant_water",
-                "acid",
-                "sludge",
-                "ale",
-                "alewort",
-                "applejuice",
-                "cider",
-                "grapejuice",
-                "honey",
-                "ironberryjuice",
-                "ironwine",
-                "mead",
-                "oliveoil",
-                "wildberryjuice",
-                "wildberrywine",
-                "wine",
-                "blood",
-                "purpleslime",
-        }).setComment("List of fluids that will be handled by HCBuckets.").get());
-        boolean fixIce = loadProperty("Fix ice", true).setComment("Replace ice block so that it does not place water sources when it melts or is broken.").get();
-        modifyDispenserBehavior = loadProperty("Modify dispenser behavior", true).setComment("Change how the Dispenser handles buckets when activated.").get();
-        stopDispenserFillBehavior = loadProperty("Stop Dispenser Fill Behavior", false).setComment("Disallow the dispenser from using an empty bucket for anything.").get();
-
-        if (fixIce) {
-            BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger()).builder().block(new BlockIce().setTranslationKey("ice")).id("minecraft:ice").build().complete()
-            );
-        }
-    }
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        //TODO dispenser behavior; for water and lava bucket
-
-        fluidcontainerBacklist = config().loadResouceLocations("Fluid container blacklist", getCategory(), "Blacklist itemstacks from being effected by HCBuckets", new String[]{
-                "thermalcultivation:watering_can"
-        });
-
-        if (modifyDispenserBehavior) {
-            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.BUCKET, BehaviorFluidContainer.getInstance());
-            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.LAVA_BUCKET, BehaviorFluidContainer.getInstance());
-            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.WATER_BUCKET, BehaviorFluidContainer.getInstance());
-            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.MILK_BUCKET, BehaviorFluidContainer.getInstance());
-
-            if (FluidRegistry.isUniversalBucketEnabled()) {
-                Item item = ForgeModContainer.getInstance().universalBucket;
-                BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(item, BehaviorFluidContainer.getInstance());
-            }
-        }
-    }
-
 
     @SubscribeEvent
     public static void onInteractFluidHandlerItem(PlayerInteractEvent.RightClickItem event) {
@@ -141,7 +76,6 @@ public class HCBuckets extends Feature {
             }
         }
     }
-
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onUseFluidContainer(FillBucketEvent event) {
@@ -220,6 +154,72 @@ public class HCBuckets extends Feature {
                 BetterWithMods.getLog().info("FillBucketEvent: {}, {}, {}", event.getTarget(), event.getEmptyBucket(), event.getFilledBucket());
             }
 
+        }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Makes it so water buckets cannot move an entire source block, making water a more valuable resource";
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+
+
+        dimensionBlacklist = Ints.asList(loadProperty("Dimension Black List", new int[]{DimensionType.THE_END.getId()}).setComment("A List of dimension ids in which water buckets will work normally. This is done in the End by default to make Enderman Farms actually reasonable to createBlock.").get());
+
+        fluidWhitelist = Lists.newArrayList(loadProperty("Fluid Whitelist", new String[]{
+                FluidRegistry.WATER.getName(),
+                FluidRegistry.LAVA.getName(),
+                "swamp_water",
+                "milk",
+                "stagnant_water",
+                "acid",
+                "sludge",
+                "ale",
+                "alewort",
+                "applejuice",
+                "cider",
+                "grapejuice",
+                "honey",
+                "ironberryjuice",
+                "ironwine",
+                "mead",
+                "oliveoil",
+                "wildberryjuice",
+                "wildberrywine",
+                "wine",
+                "blood",
+                "purpleslime",
+        }).setComment("List of fluids that will be handled by HCBuckets.").get());
+        boolean fixIce = loadProperty("Fix ice", true).setComment("Replace ice block so that it does not place water sources when it melts or is broken.").get();
+        modifyDispenserBehavior = loadProperty("Modify dispenser behavior", true).setComment("Change how the Dispenser handles buckets when activated.").get();
+        stopDispenserFillBehavior = loadProperty("Stop Dispenser Fill Behavior", false).setComment("Disallow the dispenser from using an empty bucket for anything.").get();
+
+        if (fixIce) {
+            BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger()).builder().block(new BlockIce().setTranslationKey("ice")).id("minecraft:ice").build().complete()
+            );
+        }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        //TODO dispenser behavior; for water and lava bucket
+
+        fluidcontainerBacklist = config().loadResouceLocations("Fluid container blacklist", getCategory(), "Blacklist itemstacks from being effected by HCBuckets", new String[]{
+                "thermalcultivation:watering_can"
+        });
+
+        if (modifyDispenserBehavior) {
+            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.BUCKET, BehaviorFluidContainer.getInstance());
+            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.LAVA_BUCKET, BehaviorFluidContainer.getInstance());
+            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.WATER_BUCKET, BehaviorFluidContainer.getInstance());
+            BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(Items.MILK_BUCKET, BehaviorFluidContainer.getInstance());
+
+            if (FluidRegistry.isUniversalBucketEnabled()) {
+                Item item = ForgeModContainer.getInstance().universalBucket;
+                BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(item, BehaviorFluidContainer.getInstance());
+            }
         }
     }
 

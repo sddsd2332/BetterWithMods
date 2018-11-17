@@ -26,13 +26,6 @@ import javax.annotation.Nonnull;
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class ItemBroadheadArrow extends ItemArrow {
 
-    @Override
-    public EntityArrow createArrow(@Nonnull World worldIn, ItemStack stack, EntityLivingBase shooter) {
-        if (!stack.isEmpty() && stack.getItem() == this)
-            return new EntityBroadheadArrow(worldIn, shooter);
-        return super.createArrow(worldIn, stack, shooter);
-    }
-
     @SubscribeEvent
     public static void onArrowLoose(ArrowLooseEvent event) {
         if (!(event.getBow().getItem() instanceof ItemCompositeBow)) {
@@ -49,5 +42,12 @@ public class ItemBroadheadArrow extends ItemArrow {
                 }
             }
         }
+    }
+
+    @Override
+    public EntityArrow createArrow(@Nonnull World worldIn, ItemStack stack, EntityLivingBase shooter) {
+        if (!stack.isEmpty() && stack.getItem() == this)
+            return new EntityBroadheadArrow(worldIn, shooter);
+        return super.createArrow(worldIn, stack, shooter);
     }
 }

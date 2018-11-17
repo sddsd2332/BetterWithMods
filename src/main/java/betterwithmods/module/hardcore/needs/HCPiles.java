@@ -4,6 +4,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.common.registry.advanceddispenser.BehaviorSilkTouch;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.internal.AdvancedDispenserRegistry;
@@ -29,7 +30,8 @@ import java.util.stream.Collectors;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCPiles extends Feature {
     public static final Map<IBlockState, ItemStack> blockStateToPile = new HashMap<>();
     public static boolean keepSoilDrops;
@@ -51,27 +53,6 @@ public class HCPiles extends Feature {
     public static void registerPile(IBlockState block, ItemStack stack) {
         blockStateToPile.put(block, stack);
     }
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        keepSoilDrops = loadProperty("Soil Blocks Keep Their Drops", true).setComment("Blocks affected by HC Piles that drop things other than themselves will keep those drops.").get();
-
-        BrokenToolRegistry.init();
-        registerPile(Blocks.DIRT, new ItemStack(BWMItems.DIRT_PILE, 3));
-        registerPile(Blocks.DIRT, 1, new ItemStack(BWMItems.DIRT_PILE, 3));
-        registerPile(Blocks.DIRT, 2, new ItemStack(BWMItems.DIRT_PILE, 3));
-        registerPile(Blocks.FARMLAND, new ItemStack(BWMItems.DIRT_PILE, 3));
-        registerPile(BWMBlocks.FERTILE_FARMLAND, new ItemStack(BWMItems.DIRT_PILE, 3));
-        registerPile(Blocks.GRASS, new ItemStack(BWMItems.DIRT_PILE, 3));
-        registerPile(Blocks.MYCELIUM, new ItemStack(BWMItems.DIRT_PILE, 3));
-        registerPile(Blocks.GRASS_PATH, new ItemStack(BWMItems.DIRT_PILE, 3));
-        registerPile(Blocks.GRAVEL, new ItemStack(BWMItems.GRAVEL_PILE, 3));
-        registerPile(Blocks.SAND, new ItemStack(BWMItems.SAND_PILE, 3));
-        registerPile(Blocks.SAND, 1, new ItemStack(BWMItems.RED_SAND_PILE, 3));
-        registerPile(BWMBlocks.DIRT_SLAB, new ItemStack(BWMItems.DIRT_PILE, 1));
-        registerPile(Blocks.CLAY, new ItemStack(Items.CLAY_BALL, 3));
-    }
-
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
@@ -98,6 +79,26 @@ public class HCPiles extends Feature {
 
     private static boolean isBlockDrop(ItemStack stack) {
         return !stack.isEmpty() && stack.getItem() instanceof ItemBlock;
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        keepSoilDrops = loadProperty("Soil Blocks Keep Their Drops", true).setComment("Blocks affected by HC Piles that drop things other than themselves will keep those drops.").get();
+
+        BrokenToolRegistry.init();
+        registerPile(Blocks.DIRT, new ItemStack(BWMItems.DIRT_PILE, 3));
+        registerPile(Blocks.DIRT, 1, new ItemStack(BWMItems.DIRT_PILE, 3));
+        registerPile(Blocks.DIRT, 2, new ItemStack(BWMItems.DIRT_PILE, 3));
+        registerPile(Blocks.FARMLAND, new ItemStack(BWMItems.DIRT_PILE, 3));
+        registerPile(BWMBlocks.FERTILE_FARMLAND, new ItemStack(BWMItems.DIRT_PILE, 3));
+        registerPile(Blocks.GRASS, new ItemStack(BWMItems.DIRT_PILE, 3));
+        registerPile(Blocks.MYCELIUM, new ItemStack(BWMItems.DIRT_PILE, 3));
+        registerPile(Blocks.GRASS_PATH, new ItemStack(BWMItems.DIRT_PILE, 3));
+        registerPile(Blocks.GRAVEL, new ItemStack(BWMItems.GRAVEL_PILE, 3));
+        registerPile(Blocks.SAND, new ItemStack(BWMItems.SAND_PILE, 3));
+        registerPile(Blocks.SAND, 1, new ItemStack(BWMItems.RED_SAND_PILE, 3));
+        registerPile(BWMBlocks.DIRT_SLAB, new ItemStack(BWMItems.DIRT_PILE, 1));
+        registerPile(Blocks.CLAY, new ItemStack(Items.CLAY_BALL, 3));
     }
 
     @Override

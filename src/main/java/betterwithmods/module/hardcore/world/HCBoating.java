@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.world;
 
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.entity.Entity;
@@ -23,7 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCBoating extends Feature {
 
     //Quark Boat Sail Compat
@@ -31,26 +32,6 @@ public class HCBoating extends Feature {
     public static HashMap<Ingredient, Integer> SPEED_ITEMS;
     public static List<ResourceLocation> BOAT_ENTRIES;
     public static int defaultSpeed;
-
-    @Override
-    public String getDescription() {
-        return "Boats are much slower as simple oars are not very good for speed. To go faster you must hold a Wind Sail.";
-    }
-
-    @Override
-    public void onPreInitClient(FMLPreInitializationEvent event) {
-        config().loadRecipeCondition("boatshovel", getCategory(), "Boat Requires Oar", "Make boat recipe require a wooden shovel for the oars", true);
-    }
-
-    @Override
-    public void onPostInit(FMLPostInitializationEvent event) {
-        SPEED_ITEMS = config().loadItemStackIntMap("Speed Items", getCategory(), "Items which speed up a boat when held, value is a percentage of the vanilla speed", new String[]{
-                "betterwithmods:wind_sail=100",
-                "minecraft:banner:*=100"
-        });
-        defaultSpeed = loadProperty("Default Speed modifier", 50).setComment("Speed modifier when not holding any sail type item").get();
-        BOAT_ENTRIES = config().loadResouceLocations("Boat List", getCategory(), "Registry name for entities which are considered boats", new String[]{"minecraft:boat"});
-    }
 
     @SubscribeEvent
     public static void onTick(TickEvent.PlayerTickEvent event) {
@@ -92,6 +73,26 @@ public class HCBoating extends Feature {
             }
         }
         return 0;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Boats are much slower as simple oars are not very good for speed. To go faster you must hold a Wind Sail.";
+    }
+
+    @Override
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        config().loadRecipeCondition("boatshovel", getCategory(), "Boat Requires Oar", "Make boat recipe require a wooden shovel for the oars", true);
+    }
+
+    @Override
+    public void onPostInit(FMLPostInitializationEvent event) {
+        SPEED_ITEMS = config().loadItemStackIntMap("Speed Items", getCategory(), "Items which speed up a boat when held, value is a percentage of the vanilla speed", new String[]{
+                "betterwithmods:wind_sail=100",
+                "minecraft:banner:*=100"
+        });
+        defaultSpeed = loadProperty("Default Speed modifier", 50).setComment("Speed modifier when not holding any sail type item").get();
+        BOAT_ENTRIES = config().loadResouceLocations("Boat List", getCategory(), "Registry name for entities which are considered boats", new String[]{"minecraft:boat"});
     }
 
 }

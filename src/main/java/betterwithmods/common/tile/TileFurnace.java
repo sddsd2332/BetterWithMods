@@ -25,14 +25,11 @@ public class TileFurnace extends TileEntityFurnace {
     public static final int INPUT = 0;
     public static final int FUEL = 1;
     public static final int OUTPUT = 2;
-
+    @ItemStackHolder(value = "minecraft:sponge", meta = 1)
+    public static final ItemStack WET_SPONGE = ItemStack.EMPTY;
     protected ItemStack recipeKey = ItemStack.EMPTY;
     protected ItemStack recipeOutput = ItemStack.EMPTY;
     protected ItemStack failedMatch = ItemStack.EMPTY;
-
-
-    @ItemStackHolder(value = "minecraft:sponge", meta = 1)
-    public static final ItemStack WET_SPONGE = ItemStack.EMPTY;
 
     public TileFurnace() {
         this.totalCookTime = 200;
@@ -68,7 +65,7 @@ public class TileFurnace extends TileEntityFurnace {
         ItemStack fuel = ItemStack.EMPTY;
         boolean canSmelt = canSmelt();
 
-        if ((HCFurnace.CONSUME_FUEL_WHEN_IDLE || canSmelt ) && !this.isBurning() && !(fuel = furnaceItemStacks.get(FUEL)).isEmpty()) {
+        if ((HCFurnace.CONSUME_FUEL_WHEN_IDLE || canSmelt) && !this.isBurning() && !(fuel = furnaceItemStacks.get(FUEL)).isEmpty()) {
             burnFuel(fuel, false);
         }
 

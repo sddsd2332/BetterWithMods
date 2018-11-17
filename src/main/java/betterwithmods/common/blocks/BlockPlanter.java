@@ -51,8 +51,8 @@ import java.util.stream.Collectors;
 import static betterwithmods.common.blocks.BlockPlanter.Type.*;
 
 public class BlockPlanter extends BlockBase implements IGrowable {
+    protected static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D);
     private final Type type;
-
 
     private BlockPlanter(Type type) {
         super(Material.ROCK);
@@ -82,8 +82,6 @@ public class BlockPlanter extends BlockBase implements IGrowable {
         }
         return null;
     }
-
-    protected static final AxisAlignedBB AXIS_ALIGNED_BB = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.875D, 1.0D);
 
     @Nullable
     @Override

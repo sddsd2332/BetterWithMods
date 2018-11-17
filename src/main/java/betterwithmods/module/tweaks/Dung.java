@@ -34,17 +34,13 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class Dung extends Feature {
     public static final ResourceLocation DUNG_PRODUCER = new ResourceLocation(ModLib.MODID, "dung_producer");
     @CapabilityInject(DungProducer.class)
     public static Capability<DungProducer> DUNG_PRODUCER_CAP;
     private static boolean wolvesOnly;
-
-    @Override
-    public String getDescription() {
-        return "Animals will launch dung depending on their conditions, a useful material";
-    }
 
     @SubscribeEvent
     public static void mobDungProduction(LivingEvent.LivingUpdateEvent evt) {
@@ -101,6 +97,11 @@ public class Dung extends Feature {
                 return;
             event.addCapability(DUNG_PRODUCER, new DungProducer());
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Animals will launch dung depending on their conditions, a useful material";
     }
 
     @Override

@@ -155,7 +155,7 @@ public class BlockUrn extends BlockBase implements ISoulContainer {
     public enum EnumType {
         EMPTY(8),
         SOUL(0);
-        
+
         final int souls;
 
         EnumType(int souls) {

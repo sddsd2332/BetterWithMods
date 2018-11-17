@@ -1,5 +1,6 @@
 package betterwithmods.module.tweaks;
 
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.block.BlockFalling;
 import net.minecraft.block.state.IBlockState;
@@ -14,7 +15,8 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 /**
  * Created by primetoxinz on 5/6/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class Sinkholes extends Feature {
     @SubscribeEvent
     public static void playerTick(TickEvent.PlayerTickEvent event) {

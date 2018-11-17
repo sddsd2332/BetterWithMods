@@ -11,7 +11,6 @@ public class Crypts extends Feature {
     public static boolean armoredMobs;
 
 
-
     public static boolean spawnMiniboss;
     public static boolean minibossDropsSpecialLoot;
 

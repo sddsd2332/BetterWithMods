@@ -5,7 +5,6 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.ICrankable;
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.common.blocks.mechanical.cookingpot.BlockCookingPot;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerBulk;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
@@ -16,7 +15,6 @@ import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.ItemStack;
@@ -171,7 +169,7 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
     public int getHeat(World world, BlockPos pos) {
         return heat;
     }
-    
+
     private int findHeat(BlockPos pos) {
         return getHeatCached(pos.down());
     }
@@ -272,7 +270,6 @@ public abstract class TileCookingPot extends TileVisibleInventory implements IMe
             getBlockWorld().notifyBlockUpdate(pos, state, state, 3);
         }
     }
-
 
 
     @Override

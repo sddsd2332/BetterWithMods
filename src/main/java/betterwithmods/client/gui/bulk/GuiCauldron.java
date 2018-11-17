@@ -9,6 +9,6 @@ public class GuiCauldron extends GuiCookingPot<ContainerCauldron> {
 
     @Override
     public String getTitle() {
-        return  "inv.cauldron.name";
+        return "inv.cauldron.name";
     }
 }

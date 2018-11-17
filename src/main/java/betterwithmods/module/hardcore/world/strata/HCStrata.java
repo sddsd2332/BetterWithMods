@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.world.strata;
 
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.registry.BrokenToolRegistry;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import com.google.common.collect.Maps;
@@ -25,7 +26,7 @@ import java.util.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCStrata extends Feature {
     private static final Pattern PATTERN = Pattern.compile("^([\\-]?\\d+)=(\\d{1,255}),(\\d{1,255}).*");
     public static boolean CTM;
@@ -95,12 +96,6 @@ public class HCStrata extends Feature {
         getNoise(event.player.world, 0);
     }
 
-
-    @Override
-    public String getDescription() {
-        return "Divides the underground into three strata. Each strata requires the next tool tier to properly mine";
-    }
-
     @SubscribeEvent
     public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
         World world = event.getWorld();
@@ -139,6 +134,11 @@ public class HCStrata extends Feature {
             float speed = scale * event.getOriginalSpeed();
             event.setNewSpeed(speed);
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Divides the underground into three strata. Each strata requires the next tool tier to properly mine";
     }
 
     @Override

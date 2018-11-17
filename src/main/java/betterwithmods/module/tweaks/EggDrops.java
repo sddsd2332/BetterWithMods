@@ -1,6 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.entity.passive.EntityChicken;
@@ -21,7 +22,8 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 5/3/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class EggDrops extends Feature {
 
     @SubscribeEvent

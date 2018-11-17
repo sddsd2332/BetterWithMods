@@ -52,6 +52,7 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
     private final Cache<ModelKey<T>, IBakedModel> cache;
     private final IUnlistedProperty<T> property;
     private final ResourceLocation particle;
+
     protected ModelFactory(IUnlistedProperty<T> property, ResourceLocation particle) {
         super();
         FACTORIES.add(this);

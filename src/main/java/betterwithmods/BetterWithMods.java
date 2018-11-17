@@ -20,16 +20,6 @@ import org.apache.logging.log4j.Logger;
 
 @Mod(modid = ModLib.MODID, name = ModLib.NAME, version = ModLib.VERSION, dependencies = ModLib.DEPENDENCIES, guiFactory = ModLib.GUI_FACTORY, acceptedMinecraftVersions = ModLib.MINECRAFT_VERISONS)
 public class BetterWithMods {
-    public static Logger LOGGER;
-
-    @SidedProxy(serverSide = ModLib.SERVER_PROXY, clientSide = ModLib.CLIENT_PROXY, modId = ModLib.MODID)
-    public static Proxy PROXY;
-
-    @Mod.Instance(ModLib.MODID)
-    public static BetterWithMods instance;
-
-    public static JsonContext JSON_CONTEXT = new JsonContext(ModLib.MODID);
-
     public static final ModuleLoader MODULE_LOADER = new ModuleLoader().addModules(
             new InternalRegistries(),
             new General(),
@@ -38,6 +28,12 @@ public class BetterWithMods {
             new Hardcore(),
             new Exploration()
     );
+    public static Logger LOGGER;
+    @SidedProxy(serverSide = ModLib.SERVER_PROXY, clientSide = ModLib.CLIENT_PROXY, modId = ModLib.MODID)
+    public static Proxy PROXY;
+    @Mod.Instance(ModLib.MODID)
+    public static BetterWithMods instance;
+    public static JsonContext JSON_CONTEXT = new JsonContext(ModLib.MODID);
 
     static {
         //Enable Universal Buckets
@@ -82,7 +78,6 @@ public class BetterWithMods {
     public void onServerStopping(FMLServerStoppingEvent event) {
         PROXY.onServerStopping(event);
     }
-
 
 
 }

@@ -33,22 +33,26 @@ public class HCVillages extends Feature {
     public static boolean disableAllComplexBlocks;
     public static boolean disableVillagerSpawning;
     public static boolean disableIronGolems;
-
+    private static Set<StructureChanger> VILLAGE = Sets.newHashSet();
     private int normalRadius, semiabandonedRadius;
+    private StructureChanger ABANDONED, SEMIABANDONED, NORMAL;
+
+    @SubscribeEvent
+    public static void onStructureSetBlock(StructureSetBlockEvent event) {
+        if (event.getComponent() instanceof StructureVillagePieces.Village) {
+            StructureChanger.convert(VILLAGE, event);
+        }
+    }
 
     @Override
     public String getDescription() {
         return "Makes it so villages with in the reaches of the spawn zone are abandoned and gradually gain more resources the further out. What this means to be gained by the player.";
     }
 
-    private static Set<StructureChanger> VILLAGE = Sets.newHashSet();
-
-    private StructureChanger ABANDONED, SEMIABANDONED, NORMAL;
-
     @Override
     public void onInit(FMLInitializationEvent event) {
 
-        semiabandonedRadius = loadProperty("Semi-Abandoned Village Radius",  2000).setComment("Block radius from 0,0 at which villages are now semi-abandoned, all villages inside this radius are abandoned").get();
+        semiabandonedRadius = loadProperty("Semi-Abandoned Village Radius", 2000).setComment("Block radius from 0,0 at which villages are now semi-abandoned, all villages inside this radius are abandoned").get();
         normalRadius = loadProperty("Normal Village Radius", 3000).setComment("Block radius from 0,0 at which villages are now normal, all villages in between this and semi-abandoned are semi-abandoned").get();
         //TODO out of the scope of this Feature
         disableVillagerSpawning = loadProperty("Replace Villager Spawning with Nitwits", true).setComment("Replaces all villager spawns with Nitwits, which have no trades").get();
@@ -80,17 +84,9 @@ public class HCVillages extends Feature {
 
     }
 
-
     @SubscribeEvent
     public void biomeSpecificVillage(BiomeEvent.GetVillageBlockID event) {
 
-    }
-
-    @SubscribeEvent
-    public static void onStructureSetBlock(StructureSetBlockEvent event) {
-        if (event.getComponent() instanceof StructureVillagePieces.Village) {
-            StructureChanger.convert(VILLAGE, event);
-        }
     }
 
     //hack to stop iron golem spawning in villages, also will stop any other spawning

@@ -34,12 +34,6 @@ import java.util.Map;
 public class NetherFortressSpawns extends Feature {
 
     public static transient final Map<ChunkPos, Boolean> FORTRESSES = Maps.newConcurrentMap();
-
-    @Override
-    public String getDescription() {
-        return "Improvements to the spawn requirements for NetherFortress Mob Spawning. Change it so all NetherFortress Mobs can spawn on any block in a pos that contains a piece of Nether Fortress";
-    }
-
     public static final Biome.SpawnListEntry[] SPAWNS = new Biome.SpawnListEntry[]{
             new Biome.SpawnListEntry(EntityBlaze.class, 10, 2, 3),
             new Biome.SpawnListEntry(EntityPigZombie.class, 5, 4, 4),
@@ -126,6 +120,11 @@ public class NetherFortressSpawns extends Feature {
             }
         }
         return false;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Improvements to the spawn requirements for NetherFortress Mob Spawning. Change it so all NetherFortress Mobs can spawn on any block in a pos that contains a piece of Nether Fortress";
     }
 
 }

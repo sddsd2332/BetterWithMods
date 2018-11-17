@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.ai.EntityAIHurtByTarget;
@@ -14,13 +15,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
-public class HCEndermen extends Feature {
-    @Override
-    public String getDescription() {
-        return "Makes Endermen agro in groups and make a thunder noise when they teleport";
-    }
 
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
+public class HCEndermen extends Feature {
     @SubscribeEvent
     public static void onTeleport(EnderTeleportEvent evt) {
         evt.getEntityLiving().getEntityWorld().playSound(null, evt.getEntityLiving().getPosition(), SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundCategory.HOSTILE, 1, 1);
@@ -35,6 +32,11 @@ public class HCEndermen extends Feature {
                 entity.targetTasks.addTask(2, new EntityAIHurtByTarget(entity, true));
             }
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Makes Endermen agro in groups and make a thunder noise when they teleport";
     }
 
 }

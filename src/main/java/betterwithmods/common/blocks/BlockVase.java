@@ -4,8 +4,8 @@ import betterwithmods.common.tile.TileVase;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.creation.ColoredGenerator;
 import betterwithmods.library.utils.CapabilityUtils;
-import betterwithmods.library.utils.colors.ColorUtils;
 import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.library.utils.colors.ColorUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -39,10 +39,8 @@ import java.util.stream.Collectors;
  * Created by Christian on 24.09.2016.
  */
 public class BlockVase extends BlockColored {
-    private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125D, 0, 0.125D, 0.875D, 1.0D, 0.875D);
-
     public static final ResourceLocation NAME_BASE = new ResourceLocation(ModLib.MODID, "vase");
-
+    private static final AxisAlignedBB AABB = new AxisAlignedBB(0.125D, 0, 0.125D, 0.875D, 1.0D, 0.875D);
     public static ColoredGenerator GENERATOR = new ColoredGenerator(NAME_BASE) {
         @Override
         public Block createBlock(EnumDyeColor variant) {
@@ -50,19 +48,19 @@ public class BlockVase extends BlockColored {
         }
     };
 
+    public BlockVase(EnumDyeColor color) {
+        super(Material.ROCK, color);
+        this.setHardness(2.0F);
+        this.setHarvestLevel("pickaxe", -1);
+        this.setSoundType(SoundType.GLASS);
+    }
+
     public static Set<Block> getAll() {
         return Arrays.stream(ColorUtils.DYES).map(BlockVase::getBlock).collect(Collectors.toSet());
     }
 
     public static Block getBlock(EnumDyeColor color) {
         return getBlock(NAME_BASE, color);
-    }
-
-    public BlockVase(EnumDyeColor color) {
-        super(Material.ROCK, color);
-        this.setHardness(2.0F);
-        this.setHarvestLevel("pickaxe", -1);
-        this.setSoundType(SoundType.GLASS);
     }
 
     public static ItemStack getStack(EnumDyeColor type) {

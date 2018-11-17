@@ -1,6 +1,7 @@
 package betterwithmods.module.general;
 
 import betterwithmods.common.blocks.BlockCobble;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.block.BlockStone;
 import net.minecraft.block.state.IBlockState;
@@ -9,7 +10,7 @@ import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class MoreCobble extends Feature {
 
     @SubscribeEvent

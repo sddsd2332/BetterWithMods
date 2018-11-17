@@ -25,17 +25,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class HeadDrops extends Feature {
     private static int sawHeadDropChance, battleAxeHeadDropChance;
 
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        sawHeadDropChance = loadProperty("Saw Drop Chance",3).setComment("Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely").get();
-        battleAxeHeadDropChance = loadProperty("BattleAxe Drop Chance", 3).setComment("Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely").get();
-    }
-
-    @Override
-    public String getDescription() {
-        return "Heads and Skulls can drop from death by Saw or BattleAxe";
-    }
-
     @SubscribeEvent
     public static void onLivingDrop(LivingDropsEvent event) {
         if (isChoppingBlock(event.getSource()))
@@ -80,6 +69,17 @@ public class HeadDrops extends Feature {
         else if (evt.getEntityLiving() instanceof EntityPlayer) {
             addDrop(evt, PlayerUtils.getPlayerHead((EntityPlayer) evt.getEntityLiving()));
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        sawHeadDropChance = loadProperty("Saw Drop Chance", 3).setComment("Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely").get();
+        battleAxeHeadDropChance = loadProperty("BattleAxe Drop Chance", 3).setComment("Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely").get();
+    }
+
+    @Override
+    public String getDescription() {
+        return "Heads and Skulls can drop from death by Saw or BattleAxe";
     }
 
 }

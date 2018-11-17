@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.creatures;
 
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.event.entity.EntitySetEquipmentEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import com.google.common.collect.Maps;
@@ -15,7 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Map;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCMobEquipment extends Feature {
     public static final EntityEquipmentSlot[] ARMOR_SLOTS = new EntityEquipmentSlot[]{EntityEquipmentSlot.HEAD, EntityEquipmentSlot.CHEST, EntityEquipmentSlot.LEGS, EntityEquipmentSlot.FEET};
     public static final ItemStack[] IRON_ARMOR = new ItemStack[]{new ItemStack(Items.IRON_HELMET), new ItemStack(Items.IRON_CHESTPLATE), new ItemStack(Items.IRON_LEGGINGS), new ItemStack(Items.IRON_BOOTS)};
@@ -70,6 +71,18 @@ public class HCMobEquipment extends Feature {
         }
     }
 
+    @SubscribeEvent
+    public static void onSetEquipment(EntitySetEquipmentEvent event) {
+        EntityLivingBase entity = (EntityLivingBase) event.getEntity();
+        ResourceLocation key = EntityList.getKey(entity);
+
+        Equipment equipment = entityMap.get(key);
+        if (equipment != null) {
+            event.setCanceled(true);
+            equipment.equip(entity);
+        }
+    }
+
     @Override
     public void onInit(FMLInitializationEvent event) {
         addEquipmentOverride(new ResourceLocation("minecraft:zombie"), HCMobEquipment::zombie);
@@ -83,18 +96,6 @@ public class HCMobEquipment extends Feature {
     public void addEquipmentOverride(ResourceLocation mob, Equipment equipment) {
         if (loadProperty(String.format("Override Equipment for %s", mob.toString()), true).get()) {
             entityMap.put(mob, equipment);
-        }
-    }
-
-    @SubscribeEvent
-    public static void onSetEquipment(EntitySetEquipmentEvent event) {
-        EntityLivingBase entity = (EntityLivingBase) event.getEntity();
-        ResourceLocation key = EntityList.getKey(entity);
-
-        Equipment equipment = entityMap.get(key);
-        if (equipment != null) {
-            event.setCanceled(true);
-            equipment.equip(entity);
         }
     }
 

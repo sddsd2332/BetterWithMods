@@ -6,12 +6,12 @@ import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.item.creation.BasicItemBuilder;
 import betterwithmods.library.common.item.creation.ItemFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.internal.ItemRegistry;
 import betterwithmods.module.recipes.breeding_harness.models.ModelCowHarness;
 import betterwithmods.module.recipes.breeding_harness.models.ModelSheepHarness;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageHarness;
-import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Sets;
 import it.unimi.dsi.fastutil.objects.Object2BooleanMap;
 import it.unimi.dsi.fastutil.objects.Object2BooleanOpenHashMap;
@@ -27,7 +27,6 @@ import net.minecraft.entity.passive.EntityCow;
 import net.minecraft.entity.passive.EntityPig;
 import net.minecraft.entity.passive.EntitySheep;
 import net.minecraft.init.SoundEvents;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumHand;
 import net.minecraft.util.ResourceLocation;
@@ -47,7 +46,7 @@ import net.minecraftforge.items.ItemHandlerHelper;
 
 import java.util.Set;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class AnimalRestraint extends Feature {
 
 
@@ -102,31 +101,11 @@ public class AnimalRestraint extends Feature {
         return HARNESS_CACHE.put(c, canHarness);
     }
 
-    @Override
-    public String getDescription() {
-        return "Add the Animal Restraint, which can be put on most domesticated animals and making their legs immobile, they are still able to eat food and breed while restrained.";
-    }
-
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        ItemRegistry.registerItems(ItemFactory.create().builder(new BasicItemBuilder(ItemAnimalHarness::new).id("animal_restraint")).complete());
-        CapabilityManager.INSTANCE.register(Harness.class, new Harness.Storage(), Harness::new);
-    }
-
-
     @SideOnly(Side.CLIENT)
     private static <T extends EntityLiving> void addLayer(Class<T> entity, ModelBase model, ResourceLocation texture) {
         RenderLiving<T> render = RenderUtils.getRender(entity);
         LayerHarness<T> layer = new LayerHarness<>(model, render, texture);
         render.addLayer(layer);
-    }
-
-    @SideOnly(Side.CLIENT)
-    @Override
-    public void onPostInitClient(FMLPostInitializationEvent event) {
-        addLayer(EntityCow.class, new ModelCowHarness(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/cow_harness.png"));
-        addLayer(EntityPig.class, new ModelPig(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/pig_harness.png"));
-        addLayer(EntitySheep.class, new ModelSheepHarness(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/sheep_harness.png"));
     }
 
     @SubscribeEvent
@@ -196,6 +175,25 @@ public class AnimalRestraint extends Feature {
                 entity.getEntityAttribute(SharedMonsterAttributes.MOVEMENT_SPEED).setBaseValue(0.25);
             }
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Add the Animal Restraint, which can be put on most domesticated animals and making their legs immobile, they are still able to eat food and breed while restrained.";
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        ItemRegistry.registerItems(ItemFactory.create().builder(new BasicItemBuilder(ItemAnimalHarness::new).id("animal_restraint")).complete());
+        CapabilityManager.INSTANCE.register(Harness.class, new Harness.Storage(), Harness::new);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void onPostInitClient(FMLPostInitializationEvent event) {
+        addLayer(EntityCow.class, new ModelCowHarness(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/cow_harness.png"));
+        addLayer(EntityPig.class, new ModelPig(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/pig_harness.png"));
+        addLayer(EntitySheep.class, new ModelSheepHarness(0.5f), new ResourceLocation(ModLib.MODID, "textures/entity/sheep_harness.png"));
     }
 
 }

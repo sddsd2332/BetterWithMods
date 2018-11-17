@@ -163,6 +163,6 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
 
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-        return getTile(worldIn,pos).map(TileMini::getOrientation).map(o -> o.getFaceShape(face)).orElse(BlockFaceShape.UNDEFINED);
+        return getTile(worldIn, pos).map(TileMini::getOrientation).map(o -> o.getFaceShape(face)).orElse(BlockFaceShape.UNDEFINED);
     }
 }

@@ -19,7 +19,7 @@ public abstract class ContainerCookingPot<T extends TileCookingPot> extends Cont
         addIntProperty(GuiUtils.PROPERTY_MAX_PROGRESS, tile::getMax);
         addIntProperty(HEAT, () -> tile.getHeat(tile.getWorld(), tile.getPos()));
         GuiUtils.createPlayerSlots(player, this, 8, 111, 8, 169);
-        GuiUtils.createContainerSlots(GuiUtils.SLOTS_CONTAINER_INVENTORY,this, tile.inventory, 27, 3, 0, 8, 43);
+        GuiUtils.createContainerSlots(GuiUtils.SLOTS_CONTAINER_INVENTORY, this, tile.inventory, 27, 3, 0, 8, 43);
     }
 
 }

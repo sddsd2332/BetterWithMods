@@ -16,11 +16,6 @@ public class RenewableEndstone extends Feature {
 
     private static int chance;
 
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        chance = loadProperty("Chance of Endstone spawning", 300).setComment("1/x chance of spawning with Endstone.").get();
-    }
-
     @SubscribeEvent
     public static void giveEndermenEndStone(LivingSpawnEvent evt) {
         EntityLivingBase entity = evt.getEntityLiving();
@@ -30,6 +25,11 @@ public class RenewableEndstone extends Feature {
                     ((EntityEnderman) entity).setHeldBlockState(Blocks.END_STONE.getDefaultState());
             }
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        chance = loadProperty("Chance of Endstone spawning", 300).setComment("1/x chance of spawning with Endstone.").get();
     }
 
     @Override

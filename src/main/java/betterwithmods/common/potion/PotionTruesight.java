@@ -16,8 +16,51 @@ import net.minecraft.world.World;
 import net.minecraft.world.WorldEntitySpawner;
 
 public class PotionTruesight extends BWMPotion {
+    private final static AxisAlignedBB TEST_BB = new AxisAlignedBB(0.6D / 2D, 0, 0.6D / 2D, 1D - 0.6D / 2D, 1D, 1D - 0.6D / 2D);
+    public static boolean ignoreLayer = false;
+
     public PotionTruesight(String name, boolean b, int potionColor) {
         super(name, b, potionColor);
+    }
+
+    //Borrowed from MoreOverlays
+    private static boolean canSpawnMobsHere(World world, BlockPos pos) {
+        DimensionType type = world.provider.getDimensionType();
+        if (type == DimensionType.OVERWORLD || type == DimensionType.THE_END) {
+            if (world.getLightFor(EnumSkyBlock.BLOCK, pos) >= 8)
+                return false;
+        } else if (type == DimensionType.NETHER) {
+            if (!NetherFortressSpawns.hasNetherFortress(world, pos))
+                return false;
+        }
+
+        if (world.getBiome(pos).getSpawnableList(EnumCreatureType.MONSTER).isEmpty())
+            return false;
+
+        if (!WorldEntitySpawner.canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, world, pos))
+            return false;
+
+        return checkCollision(pos, world);
+    }
+
+    private static boolean checkCollision(BlockPos pos, World world) {
+        IBlockState block1 = world.getBlockState(pos);
+
+        if (block1.isNormalCube() || (!ignoreLayer && world.getBlockState(pos.up()).isNormalCube())) //Don't check because a check on normal Cubes will/should return false ( 99% collide ).
+            return false;
+        else if (world.isAirBlock(pos) && (ignoreLayer || world.isAirBlock(pos.up())))  //Don't check because Air has no Collision Box
+            return true;
+
+        AxisAlignedBB bb = TEST_BB.offset(pos.getX(), pos.getY(), pos.getZ());
+        if (world.getCollisionBoxes(null, bb).isEmpty() && !world.containsAnyLiquid(bb)) {
+            if (ignoreLayer)
+                return true;
+            else {
+                AxisAlignedBB bb2 = bb.offset(0, 1, 0);
+                return world.getCollisionBoxes(null, bb2).isEmpty() && !world.containsAnyLiquid(bb2);
+            }
+        }
+        return false;
     }
 
     @Override
@@ -49,51 +92,6 @@ public class PotionTruesight extends BWMPotion {
             }
         }
 
-    }
-
-    //Borrowed from MoreOverlays
-    private static boolean canSpawnMobsHere(World world, BlockPos pos) {
-        DimensionType type = world.provider.getDimensionType();
-        if (type == DimensionType.OVERWORLD || type == DimensionType.THE_END) {
-            if (world.getLightFor(EnumSkyBlock.BLOCK, pos) >= 8)
-                return false;
-        } else if (type == DimensionType.NETHER) {
-            if (!NetherFortressSpawns.hasNetherFortress(world, pos))
-                return false;
-        }
-
-        if (world.getBiome(pos).getSpawnableList(EnumCreatureType.MONSTER).isEmpty())
-            return false;
-
-        if (!WorldEntitySpawner.canCreatureTypeSpawnAtLocation(EntityLiving.SpawnPlacementType.ON_GROUND, world, pos))
-            return false;
-
-        return checkCollision(pos, world);
-    }
-
-
-    public static boolean ignoreLayer = false;
-
-    private final static AxisAlignedBB TEST_BB = new AxisAlignedBB(0.6D / 2D, 0, 0.6D / 2D, 1D - 0.6D / 2D, 1D, 1D - 0.6D / 2D);
-
-    private static boolean checkCollision(BlockPos pos, World world) {
-        IBlockState block1 = world.getBlockState(pos);
-
-        if (block1.isNormalCube() || (!ignoreLayer && world.getBlockState(pos.up()).isNormalCube())) //Don't check because a check on normal Cubes will/should return false ( 99% collide ).
-            return false;
-        else if (world.isAirBlock(pos) && (ignoreLayer || world.isAirBlock(pos.up())))  //Don't check because Air has no Collision Box
-            return true;
-
-        AxisAlignedBB bb = TEST_BB.offset(pos.getX(), pos.getY(), pos.getZ());
-        if (world.getCollisionBoxes(null, bb).isEmpty() && !world.containsAnyLiquid(bb)) {
-            if (ignoreLayer)
-                return true;
-            else {
-                AxisAlignedBB bb2 = bb.offset(0, 1, 0);
-                return world.getCollisionBoxes(null, bb2).isEmpty() && !world.containsAnyLiquid(bb2);
-            }
-        }
-        return false;
     }
 
 

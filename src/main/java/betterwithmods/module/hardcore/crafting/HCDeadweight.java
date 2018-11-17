@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
 
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -14,24 +15,24 @@ import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCDeadweight extends Feature {
 
-    @Override
-    public void onPostInit(FMLPostInitializationEvent event) {
-        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Blocks.ANVIL)));
-        Blocks.ANVIL.setTranslationKey("betterwithmods:deadweight");
-    }
-
     @SubscribeEvent
-        public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
-            if (!PlayerUtils.isSurvival(event.getEntityPlayer()))
-                return;
+    public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
+        if (!PlayerUtils.isSurvival(event.getEntityPlayer()))
+            return;
 
         if (event.getWorld().getBlockState(event.getPos()).getBlock().equals(Blocks.ANVIL)) {
             event.setCanceled(true);
             event.setCancellationResult(EnumActionResult.FAIL);
         }
+    }
+
+    @Override
+    public void onPostInit(FMLPostInitializationEvent event) {
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Blocks.ANVIL)));
+        Blocks.ANVIL.setTranslationKey("betterwithmods:deadweight");
     }
 
     @Override

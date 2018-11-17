@@ -24,13 +24,8 @@ import java.util.stream.Collectors;
 
 public class BlastingOil extends Feature {
 
-    private static HashMap<EntityItem, Double> highestPoint = Maps.newHashMap();
     public static List<String> blacklistDamageSources;
-
-    @Override
-    public String getDescription() {
-        return "Make blasting oil very dangerous";
-    }
+    private static HashMap<EntityItem, Double> highestPoint = Maps.newHashMap();
 
     @SubscribeEvent
     public static void onPlayerTakeDamage(LivingHurtEvent e) {
@@ -83,6 +78,11 @@ public class BlastingOil extends Feature {
                 highestPoint.put(item, item.posY);
         });
         toRemove.forEach(highestPoint::remove);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Make blasting oil very dangerous";
     }
 
     @Override

@@ -31,6 +31,7 @@ public class BlockLight extends BlockColored {
     public static LightGenerator GENERATOR = new LightGenerator(NAME_BASE, false), INVERTED_GENERATOR = new LightGenerator(INVERTED_NAME_BASE, true);
 
     private final boolean inverted;
+
     public BlockLight(EnumDyeColor color, boolean inverted) {
         super(Material.GLASS, color);
         this.setHardness(2.0F);
@@ -78,7 +79,7 @@ public class BlockLight extends BlockColored {
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
         if (!world.isRemote) {
-            world.setBlockState(pos, state.withProperty(ACTIVE, isPowered(world,pos)));
+            world.setBlockState(pos, state.withProperty(ACTIVE, isPowered(world, pos)));
         }
     }
 
@@ -112,7 +113,7 @@ public class BlockLight extends BlockColored {
         boolean power = world.isBlockPowered(pos);
         return inverted != power;
     }
-    
+
     @Override
     public boolean shouldCheckWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing side) {
         return true;
@@ -121,7 +122,7 @@ public class BlockLight extends BlockColored {
     private void onChanged(World world, BlockPos pos, IBlockState state) {
         if (!world.isRemote) {
             boolean active = state.getValue(ACTIVE);
-            boolean powered = isPowered(world,pos);
+            boolean powered = isPowered(world, pos);
             if (active != powered) {
                 world.scheduleUpdate(pos, this, 4);
             }
@@ -139,7 +140,7 @@ public class BlockLight extends BlockColored {
 
         @Override
         public Block createBlock(EnumDyeColor variant) {
-            return new BlockLight(variant,inverted);
+            return new BlockLight(variant, inverted);
         }
     }
 }

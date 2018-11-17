@@ -117,7 +117,7 @@ public class TileDragonVessel extends TileBasic implements ITickable, IMechanica
     }
 
     public double getPercent() {
-        return (double)getExperience()/(double)getMaxExperience();
+        return (double) getExperience() / (double) getMaxExperience();
     }
 
     private int addExperience(int xp) {

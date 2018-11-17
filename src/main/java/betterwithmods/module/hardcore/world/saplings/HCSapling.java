@@ -27,23 +27,13 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.util.List;
 import java.util.function.Function;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCSapling extends Feature {
 
     public static List<SaplingConversion> SAPLING_CONVERSIONS = Lists.newArrayList();
 
     public static IBlockState getSapling(BlockPlanks.EnumType type) {
         return Blocks.SAPLING.getDefaultState().withProperty(BlockSapling.TYPE, type);
-    }
-
-    @Override
-    public String getDescription() {
-        return "Change saplings to grow in stages before becoming a tree";
-    }
-
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create(getLogger()).blockGenerator(new Generator()).complete());
     }
 
     @SubscribeEvent
@@ -60,6 +50,7 @@ public class HCSapling extends Feature {
             }
         }
     }
+
     @SubscribeEvent
     public static void onBlockPlaced(BlockEvent.PlaceEvent event) {
         if (event.getPlacedBlock().getBlock() instanceof BlockSapling) {
@@ -74,6 +65,16 @@ public class HCSapling extends Feature {
                 }
             }
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Change saplings to grow in stages before becoming a tree";
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create(getLogger()).blockGenerator(new Generator()).complete());
     }
 
     public static class SaplingConversion {

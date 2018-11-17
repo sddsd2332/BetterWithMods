@@ -3,7 +3,6 @@ package betterwithmods.common.blocks;
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.library.common.block.BlockBase;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
@@ -87,19 +86,19 @@ public class BlockInfernalEnchanter extends BlockBase {
             return true;
         } else {
             if (worldIn.getTileEntity(pos) != null) {
-                if(playerIn.isCreative() && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(Blocks.BOOKSHELF, 1 , 0))) {
+                if (playerIn.isCreative() && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(Blocks.BOOKSHELF, 1, 0))) {
                     //TODO - Just make this a structure .-.
-                    for(int x = -8; x < 8; x++) {
-                        for(int z = -8; z < 8; z++) {
-                            for(int y = 0; y < 17; y++) {
+                    for (int x = -8; x < 8; x++) {
+                        for (int z = -8; z < 8; z++) {
+                            for (int y = 0; y < 17; y++) {
                                 worldIn.setBlockState(new BlockPos(x + pos.getX(), y + pos.getY(), z + pos.getZ()), Blocks.BOOKSHELF.getDefaultState());
                             }
                         }
                     }
 
-                    for(int x = -7; x < 7; x++) {
-                        for(int z = -7; z < 7; z++) {
-                            for(int y = 0; y < 17; y++) {
+                    for (int x = -7; x < 7; x++) {
+                        for (int z = -7; z < 7; z++) {
+                            for (int y = 0; y < 17; y++) {
                                 worldIn.setBlockState(new BlockPos(x + pos.getX(), y + pos.getY(), z + pos.getZ()), Blocks.AIR.getDefaultState());
                             }
                         }
@@ -182,7 +181,7 @@ public class BlockInfernalEnchanter extends BlockBase {
     public void breakBlock(@Nonnull World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
         super.breakBlock(worldIn, pos, state);
 
-        if(state.getProperties().get(ACTIVE).equals(true)) {
+        if (state.getProperties().get(ACTIVE).equals(true)) {
             worldIn.playSound(null, pos, SoundEvents.BLOCK_FIRE_EXTINGUISH, SoundCategory.BLOCKS, 0.1f, 1);
         }
     }

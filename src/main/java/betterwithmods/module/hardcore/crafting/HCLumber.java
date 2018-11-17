@@ -29,14 +29,27 @@ import static betterwithmods.library.common.variants.IBlockVariants.EnumBlock.*;
  */
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCLumber extends Feature {
-    private static int plankAmount, barkAmount, sawDustAmount;
-
     public static int axePlankAmount = 4, axeBarkAmount = 1, axeSawDustAmount = 2;
+    private static int plankAmount, barkAmount, sawDustAmount;
 
     private static boolean hasAxe(EntityPlayer harvester, BlockPos pos, IBlockState state) {
         if (harvester == null)
             return false;
         return PlayerUtils.isCurrentToolEffectiveOnBlock(harvester, pos, state);
+    }
+
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
+    public static void harvestLog(BlockEvent.HarvestDropsEvent event) {
+        if (!event.getWorld().isRemote) {
+            IBlockVariants wood = VariantUtils.getVariantFromState(LOG, event.getState());
+            if (wood != null) {
+                if (event.isSilkTouching() || hasAxe(event.getHarvester(), event.getPos(), event.getState()))
+                    return;
+                event.setDropChance(1);
+                event.getDrops().clear();
+                event.getDrops().addAll(Lists.newArrayList(wood.getStack(BLOCK, plankAmount), wood.getStack(SAWDUST, sawDustAmount), wood.getStack(BARK, barkAmount)));
+            }
+        }
     }
 
     @Override
@@ -55,20 +68,6 @@ public class HCLumber extends Feature {
         axeSawDustAmount = loadProperty("Axe Sawdust Amount", 2).setComment("Amount of Sawdust dropped when crafted with an axe").get();
 
 
-    }
-
-    @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void harvestLog(BlockEvent.HarvestDropsEvent event) {
-        if (!event.getWorld().isRemote) {
-            IBlockVariants wood = VariantUtils.getVariantFromState(LOG, event.getState());
-            if (wood != null) {
-                if (event.isSilkTouching() || hasAxe(event.getHarvester(), event.getPos(), event.getState()))
-                    return;
-                event.setDropChance(1);
-                event.getDrops().clear();
-                event.getDrops().addAll(Lists.newArrayList(wood.getStack(BLOCK, plankAmount), wood.getStack(SAWDUST, sawDustAmount), wood.getStack(BARK, barkAmount)));
-            }
-        }
     }
 
     @Override

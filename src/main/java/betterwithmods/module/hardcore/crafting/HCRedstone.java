@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -19,7 +20,7 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
  * Created by primetoxinz on 4/20/17.
  */
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCRedstone extends Feature {
 
     @Override

@@ -83,7 +83,7 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
     }
 
     public void feed(EntityLiving entity, ItemStack stack) {
-        if(!isValidLayer(entity))
+        if (!isValidLayer(entity))
             return;
 
         if (!isFeed()) {
@@ -97,7 +97,7 @@ public class EggLayer implements ICapabilitySerializable<NBTTagCompound> {
     }
 
     public void lay(EntityLivingBase entityLiving) {
-        if(!isValidLayer(entityLiving))
+        if (!isValidLayer(entityLiving))
             return;
 
         entityLiving.playSound(SoundEvents.ENTITY_CHICKEN_EGG, 1.0F, (entityLiving.getRNG().nextFloat() - entityLiving.getRNG().nextFloat()) * 0.2F + 1.0F);

@@ -28,9 +28,9 @@ public class EntityIngredientRelationRegistry {
     }
 
     public Ingredient findIngredient(Entity entity) {
-        for(EntityIngredientRelation e: REGISTRY) {
+        for (EntityIngredientRelation e : REGISTRY) {
             Ingredient i = e.getIngredient(entity);
-            if(i != null)
+            if (i != null)
                 return i;
         }
         return null;

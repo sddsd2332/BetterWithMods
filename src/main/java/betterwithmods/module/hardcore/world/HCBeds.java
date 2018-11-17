@@ -16,21 +16,12 @@ import static betterwithmods.lib.TooltipLib.BED_TOO_RESTLESS;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCBeds extends Feature {
     public static final EntityPlayer.SleepResult TOO_RESTLESS = EnumHelper.addEnum(EntityPlayer.SleepResult.class, "TOO_RESTLESS", new Class[0]);
 
     public static boolean stillSetSpawn;
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        stillSetSpawn = loadProperty("Still Set Spawn", false).get();
-    }
-
-    @Override
-    public String getDescription() {
-        return "Disables the ability to sleep in a bed and can no longer set spawn";
-    }
 
     /**
      * Disable Beds
@@ -44,6 +35,16 @@ public class HCBeds extends Feature {
                 event.getEntityPlayer().setSpawnPoint(event.getPos(), true);
             }
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        stillSetSpawn = loadProperty("Still Set Spawn", false).get();
+    }
+
+    @Override
+    public String getDescription() {
+        return "Disables the ability to sleep in a bed and can no longer set spawn";
     }
 
 }

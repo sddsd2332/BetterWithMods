@@ -17,11 +17,6 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class HCSquid extends Feature {
 
 
-    @Override
-    public String getDescription() {
-        return "Fear the squid...";
-    }
-
     @SuppressWarnings("unchecked")
     @SubscribeEvent
     public static void addEntityAI(EntityJoinWorldEvent event) {
@@ -65,5 +60,10 @@ public class HCSquid extends Feature {
             event.setResult(Event.Result.DENY);
             event.setCanceled(true);
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Fear the squid...";
     }
 }

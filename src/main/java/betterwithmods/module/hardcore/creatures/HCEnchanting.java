@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.items.ItemArcaneScroll;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.InfernalEnchantment;
 import betterwithmods.util.WorldUtils;
@@ -25,7 +26,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 import java.util.HashMap;
 import java.util.Map;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCEnchanting extends Feature {
     private static final HashMap<Class<? extends EntityLivingBase>, ScrollDrop> SCROLL_DROPS = Maps.newHashMap();
 
@@ -58,6 +59,32 @@ public class HCEnchanting extends Feature {
         SCROLL_DROPS.put(clazz, scroll);
     }
 
+    @SubscribeEvent
+    public static void onDeath(LivingDropsEvent event) {
+        for (Class<? extends EntityLivingBase> entity : SCROLL_DROPS.keySet()) {
+            if (entity.isAssignableFrom(event.getEntityLiving().getClass())) {
+                ScrollDrop drop = SCROLL_DROPS.get(entity);
+                if (drop.getScroll(event.getEntityLiving()) != null) {
+                    double chance = event.getEntityLiving().getRNG().nextDouble() + (lootingDropBonus * event.getLootingLevel());
+                    if (chance <= drop.getChance()) {
+                        WorldUtils.addDrop(event, drop.getScroll(event.getEntityLiving()));
+                    }
+                }
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onTick(TickEvent.PlayerTickEvent event) {
+        if (event.phase == TickEvent.Phase.START)
+            return;
+        if (!event.player.getEntityWorld().isRemote) {
+            int mod = EnchantmentHelper.getRespirationModifier(event.player);
+            if (mod >= 5) {
+                event.player.setAir(300);
+            }
+        }
+    }
 
     @Override
     public String getDescription() {
@@ -151,34 +178,6 @@ public class HCEnchanting extends Feature {
         MENDING REMOVE
         VANISHING_CURSE illager
          */
-    }
-
-
-    @SubscribeEvent
-    public static void onDeath(LivingDropsEvent event) {
-        for (Class<? extends EntityLivingBase> entity : SCROLL_DROPS.keySet()) {
-            if (entity.isAssignableFrom(event.getEntityLiving().getClass())) {
-                ScrollDrop drop = SCROLL_DROPS.get(entity);
-                if (drop.getScroll(event.getEntityLiving()) != null) {
-                    double chance = event.getEntityLiving().getRNG().nextDouble() + (lootingDropBonus * event.getLootingLevel());
-                    if (chance <= drop.getChance()) {
-                        WorldUtils.addDrop(event, drop.getScroll(event.getEntityLiving()));
-                    }
-                }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onTick(TickEvent.PlayerTickEvent event) {
-        if (event.phase == TickEvent.Phase.START)
-            return;
-        if(!event.player.getEntityWorld().isRemote) {
-            int mod = EnchantmentHelper.getRespirationModifier(event.player);
-            if (mod >= 5) {
-                event.player.setAir(300);
-            }
-        }
     }
 
 

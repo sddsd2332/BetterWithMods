@@ -18,11 +18,6 @@ import static betterwithmods.util.WorldUtils.addDrop;
 
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class FeedWolfchop extends Feature {
-    @Override
-    public String getDescription() {
-        return "Feeding a Wolf a Wolf chop? Might not be the best idea";
-    }
-
     @SubscribeEvent
     public static void feedDog(PlayerInteractEvent.EntityInteractSpecific event) {
         ItemStack stack = event.getItemStack();
@@ -47,6 +42,11 @@ public class FeedWolfchop extends Feature {
         if (event.getEntityLiving() instanceof EntityWolf) {
             addDrop(event, new ItemStack(BWMItems.WOLF_CHOP, world.rand.nextInt(2)));
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Feeding a Wolf a Wolf chop? Might not be the best idea";
     }
 
 }

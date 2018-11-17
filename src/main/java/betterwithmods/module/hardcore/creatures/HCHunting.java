@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.entity.ai.ShooterSpiderWeb;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
@@ -21,13 +22,35 @@ import java.util.stream.Collectors;
 /**
  * Created by primetoxinz on 4/22/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCHunting extends Feature {
 
     private static final Predicate<ItemStack> isMeat = stack -> BWMOreDictionary.isOre(stack, "listAllmeat");
     public static boolean spidersShootWebs;
 
     public static List<Class> zombiesAttack, spiderAttack;
+
+    @SuppressWarnings("unchecked")
+    @SubscribeEvent
+    public static void addEntityAI(EntityJoinWorldEvent evt) {
+        if (evt.getEntity() instanceof EntityCreature) {
+            EntityCreature entity = (EntityCreature) evt.getEntity();
+            if (entity instanceof EntityZombie) {
+                for (Class clazz : zombiesAttack) {
+                    ((EntityZombie) entity).targetTasks.addTask(3, new EntityAINearestAttackableTarget(entity, clazz, true));
+                }
+            }
+            if (entity instanceof EntitySpider) {
+                for (Class clazz : spiderAttack) {
+                    ((EntitySpider) entity).targetTasks.addTask(3, new EntityAINearestAttackableTarget(entity, clazz, false));
+                }
+                if (spidersShootWebs) {
+                    ((EntitySpider) entity).tasks.addTask(3, new ShooterSpiderWeb((EntitySpider) entity, 200, 15.0F));
+                }
+            }
+        }
+    }
 
     @Override
     public void onInit(FMLInitializationEvent event) {
@@ -51,29 +74,6 @@ public class HCHunting extends Feature {
             return null;
         }).collect(Collectors.toList());
     }
-
-
-    @SuppressWarnings("unchecked")
-    @SubscribeEvent
-    public static void addEntityAI(EntityJoinWorldEvent evt) {
-        if (evt.getEntity() instanceof EntityCreature) {
-            EntityCreature entity = (EntityCreature) evt.getEntity();
-            if (entity instanceof EntityZombie) {
-                for (Class clazz : zombiesAttack) {
-                    ((EntityZombie) entity).targetTasks.addTask(3, new EntityAINearestAttackableTarget(entity, clazz, true));
-                }
-            }
-            if (entity instanceof EntitySpider) {
-                for (Class clazz : spiderAttack) {
-                    ((EntitySpider) entity).targetTasks.addTask(3, new EntityAINearestAttackableTarget(entity, clazz, false));
-                }
-                if (spidersShootWebs) {
-                    ((EntitySpider) entity).tasks.addTask(3, new ShooterSpiderWeb((EntitySpider) entity, 200, 15.0F));
-                }
-            }
-        }
-    }
-
 
     @Override
     public String getDescription() {

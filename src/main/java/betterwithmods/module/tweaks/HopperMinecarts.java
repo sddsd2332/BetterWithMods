@@ -30,7 +30,7 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 import java.util.function.Predicate;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HopperMinecarts extends Feature {
 
     private static final ResourceLocation COUNTER = new ResourceLocation(ModLib.MODID, "counter");
@@ -38,16 +38,6 @@ public class HopperMinecarts extends Feature {
     private static final Predicate<TileEntity> IGNORE_INVENTORIES_THAT_PULL = tile -> !(tile instanceof TileEntityHopper);
     @CapabilityInject(Counter.class)
     private static Capability<Counter> CAPABILITY_COUNTER;
-
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(Counter.class, new Counter.Storage(), Counter::new);
-    }
-
-    @Override
-    public String getDescription() {
-        return "Allow Hopper Minecarts to output to inventories below them";
-    }
 
     @SubscribeEvent
     public static void onCapabilityAttach(AttachCapabilitiesEvent<Entity> event) {
@@ -91,6 +81,16 @@ public class HopperMinecarts extends Feature {
                 }
             }
         }
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        CapabilityManager.INSTANCE.register(Counter.class, new Counter.Storage(), Counter::new);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Allow Hopper Minecarts to output to inventories below them";
     }
 
     public static class Counter implements ICapabilitySerializable<NBTTagCompound> {

@@ -39,7 +39,7 @@ import java.util.List;
 import java.util.ListIterator;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber(modid= ModLib.MODID)
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCBrewing extends Feature {
     private static boolean removeMovementPotions;
     private static boolean waterBreathingAnyFish;
@@ -51,11 +51,6 @@ public class HCBrewing extends Feature {
     private static boolean isWitchDropBlacklisted(ItemStack stack) {
         Item item = stack.getItem();
         return item == Items.GLOWSTONE_DUST || item == Items.SUGAR || item == Items.SPIDER_EYE || item == Items.GUNPOWDER;
-    }
-
-    @Override
-    public String getDescription() {
-        return "Modifies and rebalances vanilla brewing recipes and makes potions stack up to 8.";
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -80,6 +75,11 @@ public class HCBrewing extends Feature {
                 entity.entityDropItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.MYSTERY_GLAND), 0);
             }
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Modifies and rebalances vanilla brewing recipes and makes potions stack up to 8.";
     }
 
     @Override

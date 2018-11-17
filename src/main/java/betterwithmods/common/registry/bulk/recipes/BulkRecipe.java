@@ -46,7 +46,7 @@ public class BulkRecipe implements Comparable<BulkRecipe> {
 
     public NonNullList<ItemStack> onCraft(@Nullable World world, IBulkTile tile) {
         IRecipeOutputs containers = recipeInputs.consume(tile);
-        if(containers != null) {
+        if (containers != null) {
             NonNullList<ItemStack> items = NonNullList.create();
             items.addAll(containers.getOutputs());
             items.addAll(getOutputs());

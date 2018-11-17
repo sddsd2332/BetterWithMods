@@ -17,13 +17,11 @@ import java.util.Random;
 
 public class CryptGenerator implements IWorldGenerator {
 
+    public static final int CHUNK_SIZE = 16;
+    private static final StoneProcessor stoneProcessor = new StoneProcessor();
     private EndRoomGenerator endRoomGenerator;
     private PlacementSettings placementSettings;
     private BlockPos endEntrancePos;
-
-    private static final StoneProcessor stoneProcessor = new StoneProcessor();
-
-    public static final int CHUNK_SIZE = 16;
 
     @Override
     public void generate(Random random, int chunkX, int chunkZ, World world, IChunkGenerator chunkGenerator, IChunkProvider chunkProvider) {

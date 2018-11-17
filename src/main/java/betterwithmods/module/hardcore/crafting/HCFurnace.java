@@ -91,7 +91,7 @@ public class HCFurnace extends Feature {
     @SideOnly(Side.CLIENT)
     @Override
     public void onPreInitClient(FMLPreInitializationEvent event) {
-            ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFurnace.class, new TESRFurnaceContent());
+        ClientRegistry.bindTileEntitySpecialRenderer(TileEntityFurnace.class, new TESRFurnaceContent());
     }
 
     @Override

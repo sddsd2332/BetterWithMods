@@ -17,8 +17,8 @@ public class TooltipLib {
     public static final String FISHING_NEEDS_BAIT = "fishing_needs_bait";
     public static final String FISHING_NEEDS_DEEP_WATER = "fishing_needs_deep_water";
 
-    public static final String FISHING_ROD_BAITED ="fishing_rod_baited";
-    public static final String FISHING_ROD_UNBAITED ="fishing_rod_unbaited";
+    public static final String FISHING_ROD_BAITED = "fishing_rod_baited";
+    public static final String FISHING_ROD_UNBAITED = "fishing_rod_unbaited";
 
     public static final String BED_TOO_RESTLESS = "bed_too_restless";
 

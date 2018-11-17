@@ -104,12 +104,6 @@ public class HCStumping extends Feature {
         return false;
     }
 
-
-    @Override
-    public String getDescription() {
-        return "Makes the bottom block of trees into stumps which cannot be removed by hand, making your mark on the world more obvious";
-    }
-
     @SubscribeEvent
     public static void onBlockPlaced(BlockEvent.PlaceEvent event) {
         World world = event.getWorld();
@@ -171,23 +165,6 @@ public class HCStumping extends Feature {
         }
     }
 
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        CapabilityManager.INSTANCE.register(PlacedCapability.class, new PlacedCapability.Storage(), PlacedCapability::new);
-    }
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        BLACKLIST_CONFIG = loadProperty("Stump Blacklist", new String[0]).setComment("Logs which do not createBlock stumps").get();
-        for (String block : BLACKLIST_CONFIG) {
-            STUMP_BLACKLIST.add(Block.REGISTRY.getObject(new ResourceLocation(block)));
-        }
-        SPEED_UP_WITH_TOOLS = loadProperty("Speed up with tool", true).setComment("Speed up Stump mining with tools").get();
-        STUMP_BREAK_SPEED = loadProperty("Stump Break speed", 0.3f).setComment("Base break speed of stumps, scaled by tool speed option").get();
-        ROOT_BREAK_SPEED = loadProperty("Root Break speed", 0.01f).setComment("Base break speed of roots, scaled by tool speed option").get();
-        CTM = loadProperty("CTM Support", true).setComment("Use ConnectedTextureMod to show the stumps").get();
-    }
-
     @SideOnly(Side.CLIENT)
     public static void syncPlaced(BlockPos[] pos) {
         World world = Minecraft.getMinecraft().world;
@@ -206,5 +183,27 @@ public class HCStumping extends Feature {
         if (event.getState().getBlock() instanceof BlockLog) {
             addPlacedLog(event.getWorld(), event.getPos());
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Makes the bottom block of trees into stumps which cannot be removed by hand, making your mark on the world more obvious";
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        CapabilityManager.INSTANCE.register(PlacedCapability.class, new PlacedCapability.Storage(), PlacedCapability::new);
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        BLACKLIST_CONFIG = loadProperty("Stump Blacklist", new String[0]).setComment("Logs which do not createBlock stumps").get();
+        for (String block : BLACKLIST_CONFIG) {
+            STUMP_BLACKLIST.add(Block.REGISTRY.getObject(new ResourceLocation(block)));
+        }
+        SPEED_UP_WITH_TOOLS = loadProperty("Speed up with tool", true).setComment("Speed up Stump mining with tools").get();
+        STUMP_BREAK_SPEED = loadProperty("Stump Break speed", 0.3f).setComment("Base break speed of stumps, scaled by tool speed option").get();
+        ROOT_BREAK_SPEED = loadProperty("Root Break speed", 0.01f).setComment("Base break speed of roots, scaled by tool speed option").get();
+        CTM = loadProperty("CTM Support", true).setComment("Use ConnectedTextureMod to show the stumps").get();
     }
 }

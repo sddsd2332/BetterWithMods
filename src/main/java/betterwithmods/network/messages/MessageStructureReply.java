@@ -41,6 +41,7 @@ public class MessageStructureReply extends Message {
     public enum EnumStructure {
         NETHER_FORTRESS(DimensionType.NETHER);
 
+        public static EnumStructure[] VALUES = values();
         private DimensionType dimension;
 
         EnumStructure(DimensionType dimension) {
@@ -50,8 +51,6 @@ public class MessageStructureReply extends Message {
         public DimensionType getDimension() {
             return dimension;
         }
-
-        public static EnumStructure[] VALUES = values();
 
     }
 

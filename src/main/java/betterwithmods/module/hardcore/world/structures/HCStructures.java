@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.event.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
@@ -27,19 +28,17 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCStructures extends Feature {
     public static int HARDCORE_STRUCTURE_RADIUS;
-    private boolean disableRecipes;
-
     public static Set<StructureChanger> DESERT_TEMPLE = Sets.newHashSet();
     public static StructureChanger ABANDONED_DESERT_TEMPLE, NORMAL_DESERT_TEMPLE;
-
     public static Set<StructureChanger> JUNGLE_TEMPLE = Sets.newHashSet();
     public static StructureChanger ABANDONED_JUNGLE_TEMPLE, NORMAL_JUNGLE_TEMPLE;
-
     public static Set<StructureChanger> WITCH_HUT = Sets.newHashSet();
     public static StructureChanger WITCH_HUT_CHANGER = StructureChanger.create(WITCH_HUT, (w, p) -> true);
+    private boolean disableRecipes;
 
     @Override
     public String getDescription() {

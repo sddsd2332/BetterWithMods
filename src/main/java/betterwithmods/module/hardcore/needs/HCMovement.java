@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockDirtSlab;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Maps;
@@ -26,7 +27,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.HashMap;
 import java.util.UUID;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCMovement extends Feature {
     public final static UUID HCMOVEMENT_SPEED_UUID = UUID.fromString("aece6a05-d163-4871-aaf3-ebab43b0fcfa");
 
@@ -37,45 +38,11 @@ public class HCMovement extends Feature {
     public static final HashMap<UUID, Float> PREVIOUS_SPEED = Maps.newHashMap();
     public static boolean dirtpathQuality;
 
-
-    @Override
-    public String getDescription() {
-        return "Change walking speed depending on the block";
-    }
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        MATERIAL_MOVEMENT.put(Material.ROCK, FAST);
-        MATERIAL_MOVEMENT.put(Material.WOOD, FAST);
-        MATERIAL_MOVEMENT.put(Material.IRON, FAST);
-        MATERIAL_MOVEMENT.put(Material.CLOTH, FAST);
-        MATERIAL_MOVEMENT.put(Material.CARPET, FAST);
-        MATERIAL_MOVEMENT.put(Material.CIRCUITS, FAST);
-
-        MATERIAL_MOVEMENT.put(Material.GRASS, 1.0f);
-        MATERIAL_MOVEMENT.put(Material.GLASS, 1.0f);
-        MATERIAL_MOVEMENT.put(Material.GROUND, 1.0f);
-        MATERIAL_MOVEMENT.put(Material.CLAY, 1.0f);
-
-        MATERIAL_MOVEMENT.put(Material.SAND, 0.75f);
-        MATERIAL_MOVEMENT.put(Material.SNOW, 0.75f);
-        MATERIAL_MOVEMENT.put(Material.LEAVES, 0.70f);
-        MATERIAL_MOVEMENT.put(Material.PLANTS, 0.70f);
-        MATERIAL_MOVEMENT.put(Material.VINE, 0.70f);
-
-        BLOCK_OVERRIDE_MOVEMENT.put(Blocks.SOUL_SAND.getDefaultState(), 0.70f);
-        BLOCK_OVERRIDE_MOVEMENT.put(Blocks.GRAVEL.getDefaultState(), FAST);
-        BLOCK_OVERRIDE_MOVEMENT.put(Blocks.GRASS_PATH.getDefaultState(), FAST);
-        BLOCK_OVERRIDE_MOVEMENT.put(BWMBlocks.DIRT_SLAB.getDefaultState().withProperty(BlockDirtSlab.VARIANT, BlockDirtSlab.DirtSlabType.PATH), FAST);
-
-        dirtpathQuality = loadProperty("Dirt Paths Require Quality Shovel",true).setComment("Dirt Paths require a shovel greater than stone to be created").get();
-    }
-
     @SubscribeEvent
     public static void onWalk(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             EntityPlayer player = event.player;
-            if(player.isRiding())
+            if (player.isRiding())
                 return;
             float speed = 0;
 
@@ -103,7 +70,6 @@ public class HCMovement extends Feature {
             PlayerUtils.changeSpeed(player, "HCMovement", speed, HCMOVEMENT_SPEED_UUID);
         }
     }
-
 
     //Should cancel out the FOV change from HCMovement entirely
     @SideOnly(Side.CLIENT)
@@ -141,5 +107,38 @@ public class HCMovement extends Feature {
         }
 
         event.setNewfov(f);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Change walking speed depending on the block";
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        MATERIAL_MOVEMENT.put(Material.ROCK, FAST);
+        MATERIAL_MOVEMENT.put(Material.WOOD, FAST);
+        MATERIAL_MOVEMENT.put(Material.IRON, FAST);
+        MATERIAL_MOVEMENT.put(Material.CLOTH, FAST);
+        MATERIAL_MOVEMENT.put(Material.CARPET, FAST);
+        MATERIAL_MOVEMENT.put(Material.CIRCUITS, FAST);
+
+        MATERIAL_MOVEMENT.put(Material.GRASS, 1.0f);
+        MATERIAL_MOVEMENT.put(Material.GLASS, 1.0f);
+        MATERIAL_MOVEMENT.put(Material.GROUND, 1.0f);
+        MATERIAL_MOVEMENT.put(Material.CLAY, 1.0f);
+
+        MATERIAL_MOVEMENT.put(Material.SAND, 0.75f);
+        MATERIAL_MOVEMENT.put(Material.SNOW, 0.75f);
+        MATERIAL_MOVEMENT.put(Material.LEAVES, 0.70f);
+        MATERIAL_MOVEMENT.put(Material.PLANTS, 0.70f);
+        MATERIAL_MOVEMENT.put(Material.VINE, 0.70f);
+
+        BLOCK_OVERRIDE_MOVEMENT.put(Blocks.SOUL_SAND.getDefaultState(), 0.70f);
+        BLOCK_OVERRIDE_MOVEMENT.put(Blocks.GRAVEL.getDefaultState(), FAST);
+        BLOCK_OVERRIDE_MOVEMENT.put(Blocks.GRASS_PATH.getDefaultState(), FAST);
+        BLOCK_OVERRIDE_MOVEMENT.put(BWMBlocks.DIRT_SLAB.getDefaultState().withProperty(BlockDirtSlab.VARIANT, BlockDirtSlab.DirtSlabType.PATH), FAST);
+
+        dirtpathQuality = loadProperty("Dirt Paths Require Quality Shovel", true).setComment("Dirt Paths require a shovel greater than stone to be created").get();
     }
 }

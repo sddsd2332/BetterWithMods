@@ -36,19 +36,11 @@ import java.util.Set;
 
 public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchanter> {
 
-    private int[] enchantLevels;
-
     private static final ResourceLocation PROPERTY_BOOKCASES = new ResourceLocation(ModLib.MODID, "bookcases");
-
     private static final ResourceLocation SLOT_SCROLLS = new ResourceLocation(ModLib.MODID, "scrolls");
     private static final ResourceLocation SLOT_ENCHANT = new ResourceLocation(ModLib.MODID, "enchant");
-
     private static Ingredient SCROLLS = Ingredient.fromItem(BWMItems.ARCANE_SCROLL);
-
-    private static ResourceLocation getLevelName(int i) {
-        return new ResourceLocation(ModLib.MODID, "enchant_level_" + i);
-    }
-
+    private int[] enchantLevels;
 
     public ContainerInfernalEnchanter(TileInfernalEnchanter tile, EntityPlayer player) {
         super(tile, player);
@@ -74,6 +66,10 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
         addSlotTransformations(new SlotTransformation(SLOT_SCROLLS, GuiUtils.SLOTS_FULL_PLAYER_INVENTORY));
 
         onContextChanged(inventory);
+    }
+
+    private static ResourceLocation getLevelName(int i) {
+        return new ResourceLocation(ModLib.MODID, "enchant_level_" + i);
     }
 
     public int getEnchantLevel(int i) {

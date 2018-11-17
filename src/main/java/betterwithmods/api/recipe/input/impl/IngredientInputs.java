@@ -39,7 +39,7 @@ public class IngredientInputs implements IRecipeInputs {
     @Override
     public boolean match(IRecipeContext context) {
         for (Ingredient ingredient : ingredients) {
-            if (InventoryUtils.getFirstOccupiedStackOfItem(context.getInventory(), ingredient)== -1)
+            if (InventoryUtils.getFirstOccupiedStackOfItem(context.getInventory(), ingredient) == -1)
                 return false;
         }
         return true;
@@ -54,7 +54,7 @@ public class IngredientInputs implements IRecipeInputs {
                 return null;
         }
         //this is dumb :P
-        if(handleContainers())
+        if (handleContainers())
             return new ListOutputs(containItems);
         return new ListOutputs();
     }

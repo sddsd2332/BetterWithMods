@@ -52,7 +52,7 @@ public class ItemRegistry extends RequiredFeature {
         ITEMS.addAll(items);
     }
 
-    public static void registerItem(ItemBuilder<?,?> builder) {
+    public static void registerItem(ItemBuilder<?, ?> builder) {
         addItem(builder.build());
     }
 
@@ -75,6 +75,19 @@ public class ItemRegistry extends RequiredFeature {
         setModelLocation(item, 0, "inventory");
     }
 
+    @SubscribeEvent
+    public static void registerItems(RegistryEvent.Register<Item> event) {
+        //TODO migrate
+        for (Item item : ITEMS) {
+            event.getRegistry().register(item);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    @SubscribeEvent
+    public static void registerModels(ModelRegistryEvent event) {
+        getItems().forEach(ItemRegistry::setInventoryModel);
+    }
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
@@ -162,21 +175,6 @@ public class ItemRegistry extends RequiredFeature {
 
         //FIXME this
         ItemMaterial.init();
-    }
-
-
-    @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
-        //TODO migrate
-        for(Item item: ITEMS) {
-            event.getRegistry().register(item);
-        }
-    }
-
-    @SideOnly(Side.CLIENT)
-    @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent event) {
-        getItems().forEach(ItemRegistry::setInventoryModel);
     }
 
     @SideOnly(Side.CLIENT)

@@ -17,10 +17,8 @@ import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nonnull;
-import java.util.Arrays;
 
 public abstract class BlockMechMachine extends BlockBase implements IBlockActive, IOverpower {
 
@@ -87,7 +85,6 @@ public abstract class BlockMechMachine extends BlockBase implements IBlockActive
             world.setBlockToAir(pos);
         }
     }
-
 
 
     public enum EnumType implements IStringSerializable {

@@ -43,6 +43,18 @@ public class BlockMiningCharge extends BlockTNT {
         setSoundType(SoundType.PLANT);
     }
 
+    @Nonnull
+    public static ItemStack dispenser(@Nonnull IBlockSource source, @Nonnull ItemStack stack) {
+        World worldIn = source.getWorld();
+        EnumFacing facing = source.getBlockState().getValue(BlockDispenser.FACING);
+        BlockPos pos = source.getBlockPos().offset(facing);
+        EntityMiningCharge miningCharge = new EntityMiningCharge(worldIn, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, null, facing);
+        miningCharge.setNoGravity(false);
+        worldIn.spawnEntity(miningCharge);
+        worldIn.playSound(null, miningCharge.posX, miningCharge.posY, miningCharge.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
+        return stack;
+    }
+
     @SuppressWarnings("deprecation")
     @Override
     public boolean isOpaqueCube(IBlockState state) {
@@ -183,18 +195,6 @@ public class BlockMiningCharge extends BlockTNT {
     @Override
     public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
         return face != getFacing(state).getOpposite() ? BlockFaceShape.UNDEFINED : BlockFaceShape.SOLID;
-    }
-
-    @Nonnull
-    public static ItemStack dispenser(@Nonnull IBlockSource source, @Nonnull ItemStack stack) {
-        World worldIn = source.getWorld();
-        EnumFacing facing = source.getBlockState().getValue(BlockDispenser.FACING);
-        BlockPos pos = source.getBlockPos().offset(facing);
-        EntityMiningCharge miningCharge = new EntityMiningCharge(worldIn, pos.getX() + 0.5F, pos.getY(), pos.getZ() + 0.5F, null, facing);
-        miningCharge.setNoGravity(false);
-        worldIn.spawnEntity(miningCharge);
-        worldIn.playSound(null, miningCharge.posX, miningCharge.posY, miningCharge.posZ, SoundEvents.ENTITY_TNT_PRIMED, SoundCategory.BLOCKS, 1.0F, 1.0F);
-        return stack;
     }
 
 

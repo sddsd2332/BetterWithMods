@@ -26,26 +26,11 @@ import net.minecraftforge.oredict.OreIngredient;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class EasyBreeding extends Feature {
 
     public static EntityIngredientRelationRegistry REGISTRY = new EntityIngredientRelationRegistry();
-
-    @Override
-    public String getDescription() {
-        return "Animals will pick up breeding items off of the ground as necessary, some animals will also breed with more items.";
-    }
-
-
-    @Override
-    public void onPostInit(FMLPostInitializationEvent event) {
-        REGISTRY.addBreedingEntry(new HCChickens.LayerIngredientRelation());
-        //only called if the layer entry fails
-        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "chicken"), e -> e instanceof EntityChicken).addIngredient(new OreIngredient("seed"));
-
-        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "pig"), e -> e instanceof EntityPig).addIngredient(Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT, BWMItems.KIBBLE));
-        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "herd"), e -> e instanceof EntitySheep || e instanceof EntityCow).addIngredient(Ingredient.fromStacks(new ItemStack(Items.WHEAT)));
-    }
 
     @SubscribeEvent
     public static void addEntityAI(EntityJoinWorldEvent event) {
@@ -94,6 +79,21 @@ public class EasyBreeding extends Feature {
                 }
             }
         }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Animals will pick up breeding items off of the ground as necessary, some animals will also breed with more items.";
+    }
+
+    @Override
+    public void onPostInit(FMLPostInitializationEvent event) {
+        REGISTRY.addBreedingEntry(new HCChickens.LayerIngredientRelation());
+        //only called if the layer entry fails
+        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "chicken"), e -> e instanceof EntityChicken).addIngredient(new OreIngredient("seed"));
+
+        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "pig"), e -> e instanceof EntityPig).addIngredient(Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT, BWMItems.KIBBLE));
+        REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "herd"), e -> e instanceof EntitySheep || e instanceof EntityCow).addIngredient(Ingredient.fromStacks(new ItemStack(Items.WHEAT)));
     }
 
     @Override

@@ -7,6 +7,7 @@ import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
 import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.item.creation.BasicItemBuilder;
 import betterwithmods.library.common.item.creation.ItemFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
@@ -61,7 +62,7 @@ import squeek.applecore.api.hunger.StarvationEvent;
  * Created by primetoxinz on 6/20/17.
  */
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCHunger extends Feature {
 
     @GameRegistry.ObjectHolder("minecraft:pumpkin_seeds")
@@ -81,37 +82,6 @@ public class HCHunger extends Feature {
     public static HungerPenalties hungerPenalties;
     public static FatPenalties fatPenalties;
 
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-
-        blockBreakExhaustion = loadProperty("Block Breaking Exhaustion", 0.1f).setComment("Set Exhaustion from breaking a block").get();
-        passiveExhaustion = loadProperty("Passive Exhaustion", 3f).setComment("Passive Exhaustion value").get();
-        passiveExhaustionTick = loadProperty("Passive Exhaustion Tick", 900).setComment("Passive exhaustion tick time").get();
-
-        overrideMushrooms = loadProperty("Edible Mushrooms", true).setComment("Override Mushrooms to be edible, be careful with the red one ;)").get();
-        overridePumpkinSeeds = loadProperty("Edible Pumpkin Seeds", true).setComment("Override Pumpkin Seeds to be edible").get();
-
-        ItemFactory factory = ItemFactory.create();
-        if (overridePumpkinSeeds) {
-            factory.builder(new BasicItemBuilder(
-                    new ItemEdibleSeeds(Blocks.PUMPKIN_STEM, Blocks.FARMLAND, 1, 0).setTranslationKey("seeds_pumpkin")
-            ).id("minecraft:pumpkin_seeds"));
-        }
-
-        if (overrideMushrooms) {
-            factory
-                    .builder(new BasicItemBuilder(
-                            new ItemBlockEdible(Blocks.BROWN_MUSHROOM, 1, 0, false).setTranslationKey("brown_mushroom")
-                    ).id("minecraft:brown_mushroom"))
-                    .builder(new BasicItemBuilder(
-                            new ItemBlockEdible(Blocks.RED_MUSHROOM, 1, 0, false)
-                                    .setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1)
-                                    .setTranslationKey("red_mushroom")
-                    ).id("minecraft:red_mushroom"));
-        }
-        ItemRegistry.registerItems(factory.complete());
-    }
-
     //Adds Exhaustion when Jumping and cancels Jump if too exhausted
     @SubscribeEvent
     public static void onJump(LivingEvent.LivingJumpEvent event) {
@@ -119,12 +89,6 @@ public class HCHunger extends Feature {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             player.addExhaustion(0.5f);
         }
-    }
-
-
-    @Override
-    public void onPreInitClient(FMLPreInitializationEvent event) {
-        MinecraftForge.EVENT_BUS.register(ClientSide.class);
     }
 
     @SubscribeEvent
@@ -194,19 +158,49 @@ public class HCHunger extends Feature {
         event.foodValues = FoodHelper.getFoodValue(event.food).orElseGet(() -> new FoodValues(Math.min(event.foodValues.hunger * 3, 60), 0));
     }
 
+    @SubscribeEvent
+    public static void onFoodStatsAdd(FoodEvent.FoodStatsAddition event) {
+        event.setCanceled(true);
 
-    @SideOnly(Side.CLIENT)
-    public static class ClientSide {
+        int maxHunger = AppleCoreAPI.accessor.getMaxHunger(event.player);
+        int newHunger = Math.min(event.player.getFoodStats().getFoodLevel() + event.foodValuesToBeAdded.hunger, maxHunger);
+        AppleCoreAPI.mutator.setHunger(event.player, newHunger);
 
-        //Replaces Hunger Gui with HCHunger
-        @SubscribeEvent
-        public static void replaceHungerGui(RenderGameOverlayEvent.Pre event) {
-            if (event.getType() == RenderGameOverlayEvent.ElementType.FOOD) {
-                event.setCanceled(true);
-                GuiHunger.INSTANCE.draw();
-            }
+        float saturationIncrement = event.foodValuesToBeAdded.saturationModifier;
+        float newSaturation = Math.min(event.player.getFoodStats().getSaturationLevel() + saturationIncrement, newHunger);
+        AppleCoreAPI.mutator.setSaturation(event.player, newSaturation);
+    }
+
+    @SubscribeEvent
+    public static void getPlayerFoodValue(FoodEvent.GetPlayerFoodValues event) {
+        if (event.player == null)
+            return;
+        FoodStats stats = event.player.getFoodStats();
+        int playerFoodLevel = stats.getFoodLevel();
+        int foodLevel = event.foodValues.hunger;
+        int max = AppleCoreAPI.accessor.getMaxHunger(event.player);
+        int newFood = (foodLevel + playerFoodLevel);
+        if (newFood <= max) {
+            event.foodValues = new FoodValues(foodLevel, event.foodValues.saturationModifier);
+        } else {
+            float fat = event.foodValues.saturationModifier == 0 ? (newFood - max) : event.foodValues.saturationModifier;
+            event.foodValues = new FoodValues(foodLevel, fat);
         }
+    }
 
+    //Changes exhaustion to reduce food first, then fat.
+    @SubscribeEvent
+    public static void exhaust(ExhaustionEvent.Exhausted event) {
+        FoodStats stats = event.player.getFoodStats();
+        int saturation = (int) ((stats.getSaturationLevel() - 1) / 6);
+        int hunger = stats.getFoodLevel() / 6;
+        if (hunger >= saturation) {
+            event.deltaSaturation = 0;
+            event.deltaHunger = -1;
+        } else {
+            event.deltaSaturation = -1;
+            event.deltaHunger = 0;
+        }
     }
 
 
@@ -215,6 +209,83 @@ public class HCHunger extends Feature {
     /* Apple core code                                  /*
     /*--------------------------------------------------*/
 
+    @SubscribeEvent
+    public static void setMaxFood(HungerEvent.GetMaxHunger event) {
+        event.maxHunger = 60;
+    }
+
+    //Change Health Regen speed to take 30 seconds
+    @SubscribeEvent
+    public static void healthRegenSpeed(HealthRegenEvent.GetRegenTickPeriod event) {
+        event.regenTickPeriod = 600;
+    }
+
+    //Stop regen from Fat value.
+    @SubscribeEvent
+    public static void denyFatRegen(HealthRegenEvent.AllowSaturatedRegen event) {
+        event.setResult(Event.Result.DENY);
+    }
+
+    //Shake Hunger bar whenever any exhaustion is given?
+    @SubscribeEvent
+    public static void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
+        if (PlayerUtils.isSurvival(event.player)) {
+            if (event.deltaExhaustion >= HCHunger.blockBreakExhaustion) {
+                if (event.player instanceof EntityPlayerMP)
+                    BWMNetwork.INSTANCE.sendTo(new MessageHungerShake(), (EntityPlayerMP) event.player);
+                else
+                    GuiHunger.INSTANCE.shake();
+            }
+        }
+    }
+
+    @SubscribeEvent
+    public static void onStarve(StarvationEvent.AllowStarvation event) {
+        if (event.player.getFoodStats().getFoodLevel() <= 0 && event.player.getFoodStats().getSaturationLevel() <= 0)
+            event.setResult(Event.Result.ALLOW);
+    }
+
+    @SubscribeEvent
+    public static void onStarve(StarvationEvent.Starve event) {
+        event.setCanceled(true);
+        event.player.attackEntityFrom(DamageSource.STARVE, 1);
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+
+        blockBreakExhaustion = loadProperty("Block Breaking Exhaustion", 0.1f).setComment("Set Exhaustion from breaking a block").get();
+        passiveExhaustion = loadProperty("Passive Exhaustion", 3f).setComment("Passive Exhaustion value").get();
+        passiveExhaustionTick = loadProperty("Passive Exhaustion Tick", 900).setComment("Passive exhaustion tick time").get();
+
+        overrideMushrooms = loadProperty("Edible Mushrooms", true).setComment("Override Mushrooms to be edible, be careful with the red one ;)").get();
+        overridePumpkinSeeds = loadProperty("Edible Pumpkin Seeds", true).setComment("Override Pumpkin Seeds to be edible").get();
+
+        ItemFactory factory = ItemFactory.create();
+        if (overridePumpkinSeeds) {
+            factory.builder(new BasicItemBuilder(
+                    new ItemEdibleSeeds(Blocks.PUMPKIN_STEM, Blocks.FARMLAND, 1, 0).setTranslationKey("seeds_pumpkin")
+            ).id("minecraft:pumpkin_seeds"));
+        }
+
+        if (overrideMushrooms) {
+            factory
+                    .builder(new BasicItemBuilder(
+                            new ItemBlockEdible(Blocks.BROWN_MUSHROOM, 1, 0, false).setTranslationKey("brown_mushroom")
+                    ).id("minecraft:brown_mushroom"))
+                    .builder(new BasicItemBuilder(
+                            new ItemBlockEdible(Blocks.RED_MUSHROOM, 1, 0, false)
+                                    .setPotionEffect(new PotionEffect(MobEffects.POISON, 100, 0), 1)
+                                    .setTranslationKey("red_mushroom")
+                    ).id("minecraft:red_mushroom"));
+        }
+        ItemRegistry.registerItems(factory.complete());
+    }
+
+    @Override
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        MinecraftForge.EVENT_BUS.register(ClientSide.class);
+    }
 
     public void registerFoods() {
         FoodHelper.registerFood(new ItemStack(Items.BEEF), 12);
@@ -284,93 +355,6 @@ public class HCHunger extends Feature {
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
     }
 
-    @SubscribeEvent
-    public static void onFoodStatsAdd(FoodEvent.FoodStatsAddition event) {
-        event.setCanceled(true);
-
-        int maxHunger = AppleCoreAPI.accessor.getMaxHunger(event.player);
-        int newHunger = Math.min(event.player.getFoodStats().getFoodLevel() + event.foodValuesToBeAdded.hunger, maxHunger);
-        AppleCoreAPI.mutator.setHunger(event.player, newHunger);
-
-        float saturationIncrement = event.foodValuesToBeAdded.saturationModifier;
-        float newSaturation = Math.min(event.player.getFoodStats().getSaturationLevel() + saturationIncrement, newHunger);
-        AppleCoreAPI.mutator.setSaturation(event.player, newSaturation);
-    }
-
-    @SubscribeEvent
-    public static void getPlayerFoodValue(FoodEvent.GetPlayerFoodValues event) {
-        if (event.player == null)
-            return;
-        FoodStats stats = event.player.getFoodStats();
-        int playerFoodLevel = stats.getFoodLevel();
-        int foodLevel = event.foodValues.hunger;
-        int max = AppleCoreAPI.accessor.getMaxHunger(event.player);
-        int newFood = (foodLevel + playerFoodLevel);
-        if (newFood <= max) {
-            event.foodValues = new FoodValues(foodLevel, event.foodValues.saturationModifier);
-        } else {
-            float fat = event.foodValues.saturationModifier == 0 ? (newFood - max) : event.foodValues.saturationModifier;
-            event.foodValues = new FoodValues(foodLevel, fat);
-        }
-    }
-
-    //Changes exhaustion to reduce food first, then fat.
-    @SubscribeEvent
-    public static void exhaust(ExhaustionEvent.Exhausted event) {
-        FoodStats stats = event.player.getFoodStats();
-        int saturation = (int) ((stats.getSaturationLevel() - 1) / 6);
-        int hunger = stats.getFoodLevel() / 6;
-        if (hunger >= saturation) {
-            event.deltaSaturation = 0;
-            event.deltaHunger = -1;
-        } else {
-            event.deltaSaturation = -1;
-            event.deltaHunger = 0;
-        }
-    }
-
-    @SubscribeEvent
-    public static void setMaxFood(HungerEvent.GetMaxHunger event) {
-        event.maxHunger = 60;
-    }
-
-    //Change Health Regen speed to take 30 seconds
-    @SubscribeEvent
-    public static void healthRegenSpeed(HealthRegenEvent.GetRegenTickPeriod event) {
-        event.regenTickPeriod = 600;
-    }
-
-    //Stop regen from Fat value.
-    @SubscribeEvent
-    public static void denyFatRegen(HealthRegenEvent.AllowSaturatedRegen event) {
-        event.setResult(Event.Result.DENY);
-    }
-
-    //Shake Hunger bar whenever any exhaustion is given?
-    @SubscribeEvent
-    public static void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
-        if (PlayerUtils.isSurvival(event.player)) {
-            if (event.deltaExhaustion >= HCHunger.blockBreakExhaustion) {
-                if (event.player instanceof EntityPlayerMP)
-                    BWMNetwork.INSTANCE.sendTo(new MessageHungerShake(), (EntityPlayerMP) event.player);
-                else
-                    GuiHunger.INSTANCE.shake();
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public static void onStarve(StarvationEvent.AllowStarvation event) {
-        if (event.player.getFoodStats().getFoodLevel() <= 0 && event.player.getFoodStats().getSaturationLevel() <= 0)
-            event.setResult(Event.Result.ALLOW);
-    }
-
-    @SubscribeEvent
-    public static void onStarve(StarvationEvent.Starve event) {
-        event.setCanceled(true);
-        event.player.attackEntityFrom(DamageSource.STARVE, 1);
-    }
-
     @Override
     public void onInit(FMLInitializationEvent event) {
 
@@ -383,6 +367,20 @@ public class HCHunger extends Feature {
 
     public String getDescription() {
         return "Revamps the hunger system.";
+    }
+
+    @SideOnly(Side.CLIENT)
+    public static class ClientSide {
+
+        //Replaces Hunger Gui with HCHunger
+        @SubscribeEvent
+        public static void replaceHungerGui(RenderGameOverlayEvent.Pre event) {
+            if (event.getType() == RenderGameOverlayEvent.ElementType.FOOD) {
+                event.setCanceled(true);
+                GuiHunger.INSTANCE.draw();
+            }
+        }
+
     }
 
 

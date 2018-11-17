@@ -56,7 +56,8 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 7/23/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCFishing extends Feature {
     public static final ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(ModLib.MODID, "gameplay/fishing"));
     private static final ResourceLocation BAITED_FISHING_ROD = new ResourceLocation(ModLib.MODID, "baited_fishing_rod");
@@ -66,6 +67,7 @@ public class HCFishing extends Feature {
     @SuppressWarnings("CanBeFinal")
     @CapabilityInject(FishingBait.class)
     public static Capability<FishingBait> FISHING_ROD_CAP = null;
+    public static FishingTimes configuration;
 
     private static ActionResult<ItemStack> throwLine(Item item, EntityPlayer player, EnumHand hand, World world, Random rand) {
         ItemStack itemstack = player.getHeldItem(hand);
@@ -102,11 +104,11 @@ public class HCFishing extends Feature {
         return new ActionResult<>(EnumActionResult.SUCCESS, itemstack);
     }
 
+    //Override loottables
+
     public static boolean isFishingRod(ItemStack stack) {
         return stack.getItem() instanceof ItemFishingRod;
     }
-
-    //Override loottables
 
     public static ItemStack getMostRelevantFishingRod(EntityPlayer player) {
         ItemStack itemMain = player.getHeldItemMainhand();
@@ -160,35 +162,6 @@ public class HCFishing extends Feature {
         return (world.getBlockState(pos).getBlock() == Blocks.AIR);
     }
 
-
-    public static FishingTimes configuration;
-
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        requireBait = loadProperty("Require Bait", true).setComment("Change Fishing Rods to require being Baited with certain items to entice fish, they won't nibble without it!").get();
-        restrictToOpenWater = loadProperty("Restrict to Open Water", true).setComment("Fishing on underground locations won't work, hook must be placed on a water block with line of sight to the sky.").get();
-        minimumWaterDepth = loadProperty("Minimum Water Depth", 3).setComment("If higher than 1, requires bodies of water to have a minimum depth for fishing to be successful.").get();
-
-        configuration = new FishingTimes();
-
-        CapabilityManager.INSTANCE.register(FishingBait.class, new CapabilityFishingRod(), FishingBait::new);
-        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:fishing_rod"));
-
-    }
-
-    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        BAIT = StackIngredient.fromStacks(config().loadItemStackArray("Bait", getCategory(), "Add items as valid fishing bait", new ItemStack[]{
-                new ItemStack(Items.SPIDER_EYE),
-                new ItemStack(BWMItems.CREEPER_OYSTER),
-                new ItemStack(Items.FISH, 1, 2),
-                new ItemStack(Items.FISH, 1, 3),
-                new ItemStack(BWMItems.BAT_WING, 1),
-                new ItemStack(BWMItems.COOKED_BAT_WING, 1),
-                new ItemStack(Items.ROTTEN_FLESH)
-        }));
-        event.getRegistry().register(new BaitingRecipe());
-    }
-
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public static void onLootTableLoad(LootTableLoadEvent event) {
         if (event.getName().equals(LootTableList.GAMEPLAY_FISHING)) {
@@ -197,11 +170,6 @@ public class HCFishing extends Feature {
             ReflectionHelper.setPrivateValue(LootTable.class, table, false, "isFrozen");
             event.setTable(table);
         }
-    }
-
-    @Override
-    public String getDescription() {
-        return "Change Fishing Rods to require bait and a large enough water source exposed to the sky.";
     }
 
     @SubscribeEvent
@@ -287,6 +255,36 @@ public class HCFishing extends Feature {
         }
     }
 
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        requireBait = loadProperty("Require Bait", true).setComment("Change Fishing Rods to require being Baited with certain items to entice fish, they won't nibble without it!").get();
+        restrictToOpenWater = loadProperty("Restrict to Open Water", true).setComment("Fishing on underground locations won't work, hook must be placed on a water block with line of sight to the sky.").get();
+        minimumWaterDepth = loadProperty("Minimum Water Depth", 3).setComment("If higher than 1, requires bodies of water to have a minimum depth for fishing to be successful.").get();
+
+        configuration = new FishingTimes();
+
+        CapabilityManager.INSTANCE.register(FishingBait.class, new CapabilityFishingRod(), FishingBait::new);
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:fishing_rod"));
+
+    }
+
+    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+        BAIT = StackIngredient.fromStacks(config().loadItemStackArray("Bait", getCategory(), "Add items as valid fishing bait", new ItemStack[]{
+                new ItemStack(Items.SPIDER_EYE),
+                new ItemStack(BWMItems.CREEPER_OYSTER),
+                new ItemStack(Items.FISH, 1, 2),
+                new ItemStack(Items.FISH, 1, 3),
+                new ItemStack(BWMItems.BAT_WING, 1),
+                new ItemStack(BWMItems.COOKED_BAT_WING, 1),
+                new ItemStack(Items.ROTTEN_FLESH)
+        }));
+        event.getRegistry().register(new BaitingRecipe());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Change Fishing Rods to require bait and a large enough water source exposed to the sky.";
+    }
 
     public static class CapabilityFishingRod implements Capability.IStorage<FishingBait> {
 

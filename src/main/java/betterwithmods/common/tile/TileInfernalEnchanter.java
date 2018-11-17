@@ -128,12 +128,6 @@ public class TileInfernalEnchanter extends TileBasicInventory implements ITickab
         return new InfernalEnchanterHandler(this);
     }
 
-    private class InfernalEnchanterHandler extends FilteredStackHandler {
-        InfernalEnchanterHandler(TileEntity tile) {
-            super(2, tile, Ingredient.fromItem(BWMItems.ARCANE_SCROLL));
-        }
-    }
-
     @Override
     public boolean shouldRefresh(World world, BlockPos pos, @Nonnull IBlockState oldState, @Nonnull IBlockState newState) {
         return oldState.getBlock() != newState.getBlock();
@@ -141,5 +135,11 @@ public class TileInfernalEnchanter extends TileBasicInventory implements ITickab
 
     public ItemStack getActiveItem() {
         return this.inventory.getStackInSlot(1);
+    }
+
+    private class InfernalEnchanterHandler extends FilteredStackHandler {
+        InfernalEnchanterHandler(TileEntity tile) {
+            super(2, tile, Ingredient.fromItem(BWMItems.ARCANE_SCROLL));
+        }
     }
 }

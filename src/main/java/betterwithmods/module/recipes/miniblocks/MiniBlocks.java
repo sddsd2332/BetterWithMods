@@ -64,7 +64,7 @@ import java.nio.file.Files;
 import java.util.*;
 import java.util.stream.Collectors;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class MiniBlocks extends Feature {
     public static final HashMap<MiniType, HashMap<Material, BlockCamo>> MINI_MATERIAL_BLOCKS = Maps.newHashMap();
     public static final Multimap<Material, IBlockState> MATERIALS = HashMultimap.create();
@@ -176,6 +176,20 @@ public class MiniBlocks extends Feature {
         }
     }
 
+    private static ResourceLocation getRecipeRegistry(ItemStack output, ItemStack parent) {
+        if (parent.getMetadata() > 0)
+            return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath() + "_" + parent.getMetadata());
+        return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath());
+    }
+
+    public static void placeMini(World world, BlockPos pos, MiniType type, IBlockState parent) {
+        Material material = parent.getMaterial();
+        Block block = MINI_MATERIAL_BLOCKS.get(type).get(material);
+        world.setBlockState(pos, block.getDefaultState());
+        TileCamo camo = (TileCamo) world.getTileEntity(pos);
+        if (camo != null)
+            camo.setState(parent);
+    }
 
     public void createBlocks() {
         for (Material material : names.keySet()) {
@@ -197,12 +211,6 @@ public class MiniBlocks extends Feature {
                 BlockRegistry.registerBlock(mini.setCreativeTab(BWMCreativeTabs.MINI_BLOCKS), mini.createItemBlock(mini).setRegistryName(mini.getRegistryName()));
             }
         }
-    }
-
-    private static ResourceLocation getRecipeRegistry(ItemStack output, ItemStack parent) {
-        if (parent.getMetadata() > 0)
-            return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath() + "_" + parent.getMetadata());
-        return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath());
     }
 
     @SideOnly(Side.CLIENT)
@@ -395,17 +403,6 @@ public class MiniBlocks extends Feature {
     public String getDescription() {
         return "Dynamically generate Siding, Mouldings and Corners for many of the blocks in the game.";
     }
-
-
-    public static void placeMini(World world, BlockPos pos, MiniType type, IBlockState parent) {
-        Material material = parent.getMaterial();
-        Block block = MINI_MATERIAL_BLOCKS.get(type).get(material);
-        world.setBlockState(pos, block.getDefaultState());
-        TileCamo camo = (TileCamo) world.getTileEntity(pos);
-        if(camo != null)
-            camo.setState(parent);
-    }
-
 
 
 }

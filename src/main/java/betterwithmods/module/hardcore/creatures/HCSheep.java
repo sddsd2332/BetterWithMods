@@ -48,57 +48,6 @@ public class HCSheep extends Feature {
         COLOR_MIX_TABLE.put(new NaturalColorMix(colorB, colorA), result);
     }
 
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        mutationChance = loadProperty("Mutation Chance", 500).setComment("How likely a sheep is to mutate into a weird natural color. Chance is 1 in n. Default mirrors vanilla chance to obtain pink sheep.").get();
-
-        CapabilityManager.INSTANCE.register(NaturalColor.class, new Capability.IStorage<NaturalColor>() {
-            @Nullable
-            @Override
-            public NBTBase writeNBT(Capability<NaturalColor> capability, NaturalColor instance, EnumFacing side) {
-                return instance.serializeNBT();
-            }
-
-            @Override
-            public void readNBT(Capability<NaturalColor> capability, NaturalColor instance, EnumFacing side, NBTBase nbt) {
-                instance.deserializeNBT((NBTTagCompound) nbt);
-            }
-        }, NaturalColor::new);
-
-        addMutation(EnumDyeColor.BLACK);
-        addMutation(EnumDyeColor.LIME);
-        addMutation(EnumDyeColor.LIGHT_BLUE);
-        addMutation(EnumDyeColor.PINK);
-
-        //Looks like it's this way in BTW
-        addShapedColorMixing(EnumDyeColor.BLACK, EnumDyeColor.WHITE, EnumDyeColor.SILVER);
-        addShapedColorMixing(EnumDyeColor.WHITE, EnumDyeColor.BLACK, EnumDyeColor.GRAY);
-        //Darkening colors
-        addShapelessColorMixing(EnumDyeColor.BLACK, EnumDyeColor.SILVER, EnumDyeColor.GRAY);
-        addShapelessColorMixing(EnumDyeColor.BLACK, EnumDyeColor.LIGHT_BLUE, EnumDyeColor.BLUE);
-        addShapelessColorMixing(EnumDyeColor.BLACK, EnumDyeColor.LIME, EnumDyeColor.GREEN);
-        addShapelessColorMixing(EnumDyeColor.BLACK, EnumDyeColor.PINK, EnumDyeColor.RED);
-        //Lighting colors
-        addShapelessColorMixing(EnumDyeColor.WHITE, EnumDyeColor.GRAY, EnumDyeColor.SILVER);
-        addShapelessColorMixing(EnumDyeColor.WHITE, EnumDyeColor.BLUE, EnumDyeColor.LIGHT_BLUE);
-        addShapelessColorMixing(EnumDyeColor.WHITE, EnumDyeColor.GREEN, EnumDyeColor.LIME);
-        addShapelessColorMixing(EnumDyeColor.WHITE, EnumDyeColor.RED, EnumDyeColor.PINK);
-        //Primary color combinations
-        addShapelessColorMixing(EnumDyeColor.RED, EnumDyeColor.BLUE, EnumDyeColor.PURPLE);
-        addShapelessColorMixing(EnumDyeColor.BLUE, EnumDyeColor.GREEN, EnumDyeColor.CYAN);
-        addShapelessColorMixing(EnumDyeColor.GREEN, EnumDyeColor.RED, EnumDyeColor.YELLOW);
-        //Secondary color combinations
-        addShapelessColorMixing(EnumDyeColor.RED, EnumDyeColor.YELLOW, EnumDyeColor.ORANGE);
-        addShapelessColorMixing(EnumDyeColor.PURPLE, EnumDyeColor.WHITE, EnumDyeColor.MAGENTA);
-        addShapelessColorMixing(EnumDyeColor.RED, EnumDyeColor.LIGHT_BLUE, EnumDyeColor.MAGENTA);
-        addShapelessColorMixing(EnumDyeColor.CYAN, EnumDyeColor.RED, EnumDyeColor.BROWN);
-    }
-
-    @Override
-    public String getDescription() {
-        return "Sheep can mutate, shearing them resets their wool color to their natural color, breeding them can produce all colors";
-    }
-
     @SubscribeEvent
     public static void sheepCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
@@ -192,6 +141,57 @@ public class HCSheep extends Feature {
                 }
             }
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        mutationChance = loadProperty("Mutation Chance", 500).setComment("How likely a sheep is to mutate into a weird natural color. Chance is 1 in n. Default mirrors vanilla chance to obtain pink sheep.").get();
+
+        CapabilityManager.INSTANCE.register(NaturalColor.class, new Capability.IStorage<NaturalColor>() {
+            @Nullable
+            @Override
+            public NBTBase writeNBT(Capability<NaturalColor> capability, NaturalColor instance, EnumFacing side) {
+                return instance.serializeNBT();
+            }
+
+            @Override
+            public void readNBT(Capability<NaturalColor> capability, NaturalColor instance, EnumFacing side, NBTBase nbt) {
+                instance.deserializeNBT((NBTTagCompound) nbt);
+            }
+        }, NaturalColor::new);
+
+        addMutation(EnumDyeColor.BLACK);
+        addMutation(EnumDyeColor.LIME);
+        addMutation(EnumDyeColor.LIGHT_BLUE);
+        addMutation(EnumDyeColor.PINK);
+
+        //Looks like it's this way in BTW
+        addShapedColorMixing(EnumDyeColor.BLACK, EnumDyeColor.WHITE, EnumDyeColor.SILVER);
+        addShapedColorMixing(EnumDyeColor.WHITE, EnumDyeColor.BLACK, EnumDyeColor.GRAY);
+        //Darkening colors
+        addShapelessColorMixing(EnumDyeColor.BLACK, EnumDyeColor.SILVER, EnumDyeColor.GRAY);
+        addShapelessColorMixing(EnumDyeColor.BLACK, EnumDyeColor.LIGHT_BLUE, EnumDyeColor.BLUE);
+        addShapelessColorMixing(EnumDyeColor.BLACK, EnumDyeColor.LIME, EnumDyeColor.GREEN);
+        addShapelessColorMixing(EnumDyeColor.BLACK, EnumDyeColor.PINK, EnumDyeColor.RED);
+        //Lighting colors
+        addShapelessColorMixing(EnumDyeColor.WHITE, EnumDyeColor.GRAY, EnumDyeColor.SILVER);
+        addShapelessColorMixing(EnumDyeColor.WHITE, EnumDyeColor.BLUE, EnumDyeColor.LIGHT_BLUE);
+        addShapelessColorMixing(EnumDyeColor.WHITE, EnumDyeColor.GREEN, EnumDyeColor.LIME);
+        addShapelessColorMixing(EnumDyeColor.WHITE, EnumDyeColor.RED, EnumDyeColor.PINK);
+        //Primary color combinations
+        addShapelessColorMixing(EnumDyeColor.RED, EnumDyeColor.BLUE, EnumDyeColor.PURPLE);
+        addShapelessColorMixing(EnumDyeColor.BLUE, EnumDyeColor.GREEN, EnumDyeColor.CYAN);
+        addShapelessColorMixing(EnumDyeColor.GREEN, EnumDyeColor.RED, EnumDyeColor.YELLOW);
+        //Secondary color combinations
+        addShapelessColorMixing(EnumDyeColor.RED, EnumDyeColor.YELLOW, EnumDyeColor.ORANGE);
+        addShapelessColorMixing(EnumDyeColor.PURPLE, EnumDyeColor.WHITE, EnumDyeColor.MAGENTA);
+        addShapelessColorMixing(EnumDyeColor.RED, EnumDyeColor.LIGHT_BLUE, EnumDyeColor.MAGENTA);
+        addShapelessColorMixing(EnumDyeColor.CYAN, EnumDyeColor.RED, EnumDyeColor.BROWN);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Sheep can mutate, shearing them resets their wool color to their natural color, breeding them can produce all colors";
     }
 
     private static class NaturalColorMix {

@@ -5,17 +5,15 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.api.tile.ICrankable;
 import betterwithmods.api.tile.IMechanicalPower;
-import betterwithmods.library.common.container.IProgressSource;
 import betterwithmods.common.blocks.mechanical.mech_machine.BlockMechMachine;
 import betterwithmods.library.common.tile.TileBasicInventory;
-import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.StackEjector;
 import betterwithmods.library.utils.VectorBuilder;
+import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
@@ -32,13 +30,12 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class TileMill extends TileBasicInventory implements ITickable, IMechanicalPower, ICrankable, IBulkTile {
+    public static final StackEjector EJECTOR = new StackEjector(new VectorBuilder().rand(0.5f).offset(0.25f), new VectorBuilder().setGaussian(0.05f, 0, 0.05f));
     public boolean blocked;
     public int power;
     public int grindCounter;
     public int grindMax;
-
     private int increment;
-
 
     public TileMill() {
         this.grindCounter = 0;
@@ -139,8 +136,6 @@ public class TileMill extends TileBasicInventory implements ITickable, IMechanic
             return true;
         return !world.isBlockFullCube(pos.offset(facing)) && !world.isSideSolid(pos.offset(facing), facing.getOpposite());
     }
-
-    public static final StackEjector EJECTOR = new StackEjector(new VectorBuilder().rand(0.5f).offset(0.25f), new VectorBuilder().setGaussian(0.05f, 0, 0.05f));
 
     private void ejectStack(ItemStack stack) {
         List<EnumFacing> validDirections = Lists.newArrayList(EnumFacing.HORIZONTALS).stream().filter(this::canEject).collect(Collectors.toList());

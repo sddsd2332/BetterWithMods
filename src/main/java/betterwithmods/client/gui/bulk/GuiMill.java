@@ -15,7 +15,7 @@ public class GuiMill extends GuiProgress<ContainerMill> {
     private static final String NAME = "inv.mill.name";
 
     public GuiMill(ContainerMill container) {
-        super(container, TEXTURE, 80, 18,176, 14, 14, 14);
+        super(container, TEXTURE, 80, 18, 176, 14, 14, 14);
         this.ySize = 158;
     }
 
@@ -39,7 +39,7 @@ public class GuiMill extends GuiProgress<ContainerMill> {
     @Override
     protected void drawExtras(float partialTicks, int mouseX, int mouseY, int centerX, int centerY) {
         super.drawExtras(partialTicks, mouseX, mouseY, centerX, centerY);
-        if(getContainer().getPropertyValue(ContainerMill.BLOCKED)) {
+        if (getContainer().getPropertyValue(ContainerMill.BLOCKED)) {
             String str = TooltipUtils.getMessage(ModLib.MODID, MILLSTONE_BLOCKED);
             int width = fontRenderer.getStringWidth(str) / 2;
             drawString(fontRenderer, str, centerX + this.xSize / 2 - width, centerY + 32, EnumDyeColor.RED.getColorValue());

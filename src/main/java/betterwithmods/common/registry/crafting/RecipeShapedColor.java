@@ -1,8 +1,8 @@
 package betterwithmods.common.registry.crafting;
 
-import betterwithmods.library.utils.colors.IColorProvider;
 import betterwithmods.library.utils.colors.BlockColorProvider;
 import betterwithmods.library.utils.colors.ColorUtils;
+import betterwithmods.library.utils.colors.IColorProvider;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
@@ -43,6 +43,7 @@ public class RecipeShapedColor extends ShapedOreRecipe {
     public RecipeShapedColor(ResourceLocation group, @Nonnull ItemStack result, Object... recipe) {
         super(group, result, recipe);
     }
+
     public RecipeShapedColor(ResourceLocation group, @Nonnull ItemStack result, CraftingHelper.ShapedPrimer primer) {
         super(group, result, primer);
     }

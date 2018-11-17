@@ -25,10 +25,8 @@ import javax.annotation.Nullable;
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class FluidBottles extends RequiredFeature {
 
-    private static int waterBottleAmount = 300;
-
     private static final ResourceLocation KEY = new ResourceLocation(ModLib.MODID, "bottle");
-
+    private static int waterBottleAmount = 300;
 
     @SubscribeEvent
     public static void attachCapabilities(@Nonnull AttachCapabilitiesEvent<ItemStack> evt) {
@@ -45,6 +43,10 @@ public class FluidBottles extends RequiredFeature {
         }
     }
 
+    @Override
+    public String getDescription() {
+        return "";
+    }
 
     /*
     Borrowed from Enderio https://github.com/SleepyTrousers/EnderCore/blob/1.12/src/main/java/com/enderio/core/common/tweaks/BottleFluidCapability.java
@@ -167,11 +169,5 @@ public class FluidBottles extends RequiredFeature {
             return hasCapability(capability, facing) ? CapabilityFluidHandler.FLUID_HANDLER_ITEM_CAPABILITY.cast(this) : null;
         }
 
-    }
-
-
-    @Override
-    public String getDescription() {
-        return "";
     }
 }

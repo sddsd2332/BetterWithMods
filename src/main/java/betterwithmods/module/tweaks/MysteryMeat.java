@@ -1,6 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.AbstractIllager;
@@ -15,13 +16,8 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
  * Created by primetoxinz on 6/25/17.
  */
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class MysteryMeat extends Feature {
-    @Override
-    public String getDescription() {
-        return "You don't want to know where it comes from...";
-    }
-
     @SubscribeEvent
     public static void dropMysteryMeat(LivingDropsEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer || event.getEntityLiving() instanceof EntityVillager || event.getEntityLiving() instanceof AbstractIllager) {
@@ -33,6 +29,11 @@ public class MysteryMeat extends Feature {
         EntityItem item = new EntityItem(evt.getEntityLiving().getEntityWorld(), evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, drop);
         item.setDefaultPickupDelay();
         evt.getDrops().add(item);
+    }
+
+    @Override
+    public String getDescription() {
+        return "You don't want to know where it comes from...";
     }
 
 }

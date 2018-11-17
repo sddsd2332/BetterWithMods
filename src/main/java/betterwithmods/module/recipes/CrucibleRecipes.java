@@ -31,7 +31,7 @@ public class CrucibleRecipes extends Feature {
 
         RecipeRegistry.CRUCIBLE.addStokedRecipe(BlockAesthetic.getStack(BlockAesthetic.Type.WHITECOBBLE), BlockAesthetic.getStack(BlockAesthetic.Type.WHITESTONE));
 
-        for(BlockCobble.Type type: BlockCobble.Type.VALUES) {
+        for (BlockCobble.Type type : BlockCobble.Type.VALUES) {
             RecipeRegistry.CRUCIBLE.addStokedRecipe(BlockCobble.getStack(type), type.getStack());
         }
     }

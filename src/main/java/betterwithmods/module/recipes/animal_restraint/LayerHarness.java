@@ -23,7 +23,7 @@ public class LayerHarness<T extends EntityLiving> implements LayerRenderer<T> {
 
     @Override
     public void doRenderLayer(T entity, float limbSwing, float limbSwingAmount, float partialTicks, float ageInTicks, float netHeadYaw, float headPitch, float scale) {
-        if(entity instanceof EntitySheep)
+        if (entity instanceof EntitySheep)
             model = new ModelSheepHarness(0.5f);
         if (AnimalRestraint.hasHarness(entity)) {
             GlStateManager.pushMatrix();

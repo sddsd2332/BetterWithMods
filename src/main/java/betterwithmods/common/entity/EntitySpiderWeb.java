@@ -30,7 +30,7 @@ public class EntitySpiderWeb extends EntityThrowable {
     @Override
     protected void onImpact(@Nonnull RayTraceResult result) {
         BlockPos pos = result.getBlockPos();
-        if(pos != null && (pos.getY() < 0 || pos.getY() >= 256))
+        if (pos != null && (pos.getY() < 0 || pos.getY() >= 256))
             return;
 
         IBlockState state;
@@ -41,7 +41,7 @@ public class EntitySpiderWeb extends EntityThrowable {
                     return;
                 }
                 BlockPos offset = pos.offset(result.sideHit);
-                if(world.getBlockState(offset).getMaterial().isReplaceable()) {
+                if (world.getBlockState(offset).getMaterial().isReplaceable()) {
                     world.setBlockState(offset, Blocks.WEB.getDefaultState());
                 }
                 setDead();

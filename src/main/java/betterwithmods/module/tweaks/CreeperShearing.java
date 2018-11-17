@@ -4,8 +4,8 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.entity.EntityShearedCreeper;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.EntityUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
@@ -31,11 +31,6 @@ import java.util.Set;
 public class CreeperShearing extends Feature {
 
     public static Set<ResourceLocation> CREEPERS;
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        CREEPERS = config().loadResourceLocations("Creepers", getCategory(), "List of valid creepers", new String[]{"minecraft:creeper"});
-    }
 
     private static boolean isMatching(EntityLivingBase entity) {
         return CREEPERS.stream().anyMatch(r -> EntityList.isMatchingName(entity, r));
@@ -76,6 +71,11 @@ public class CreeperShearing extends Feature {
                 }
             }
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        CREEPERS = config().loadResourceLocations("Creepers", getCategory(), "List of valid creepers", new String[]{"minecraft:creeper"});
     }
 
     @Override

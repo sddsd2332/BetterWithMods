@@ -22,6 +22,8 @@ import java.util.UUID;
 @Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class PenaltyEventHandler {
 
+    private static Object2IntMap<UUID> painTimers = new Object2IntOpenHashMap<>();
+
     @SubscribeEvent
     public static void onJump(LivingEvent.LivingJumpEvent event) {
         //This has to run on clientside and serverside
@@ -62,14 +64,11 @@ public class PenaltyEventHandler {
         }
     }
 
-
-    private static Object2IntMap<UUID> painTimers = new Object2IntOpenHashMap<>();
-
     private static boolean inPain(EntityPlayer player) {
         UUID uuid = player.getUniqueID();
-        if(uuid == null)
+        if (uuid == null)
             return false;
-        if(painTimers.getOrDefault(uuid,0) > 60) {
+        if (painTimers.getOrDefault(uuid, 0) > 60) {
             painTimers.put(uuid, 0);
             return true;
         }

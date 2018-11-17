@@ -48,25 +48,6 @@ public class HCBonemeal extends Feature {
         FERTILIZERS.add(StackIngredient.fromStacks(stack));
     }
 
-    @Override
-    public String getDescription() {
-        return "Removes the ability to instant-grow crops and trees with bonemeal";
-    }
-
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        boolean removeBonemealRecipe = loadProperty("Remove Bonemeal Crafting Recipe", true).get();
-        if (removeBonemealRecipe) {
-            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT_SIZE, new ItemStack(Items.DYE, 3, EnumDyeColor.WHITE.getDyeDamage())));
-        }
-    }
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-        registerFertilizer(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()));
-        registerFertilizer(new ItemStack(BWMItems.FERTILIZER));
-    }
-
     @SubscribeEvent
     public static void onBonemeal(BonemealEvent e) {
         if (!PlayerUtils.isSurvival(e.getEntityPlayer()))
@@ -92,7 +73,6 @@ public class HCBonemeal extends Feature {
         }
     }
 
-
     @SubscribeEvent
     public static void onItemUse(PlayerInteractEvent.RightClickBlock e) {
         ItemStack stack = e.getItemStack();
@@ -102,7 +82,6 @@ public class HCBonemeal extends Feature {
         BlockPos pos = e.getPos();
         fertilizerBlock(world, pos, stack, e.getEntityPlayer());
     }
-
 
     private static void fertilizerBlock(World world, BlockPos pos, ItemStack stack, @Nullable EntityPlayer player) {
         IBlockState state = world.getBlockState(pos);
@@ -131,6 +110,25 @@ public class HCBonemeal extends Feature {
             return true;
         }
         return false;
+    }
+
+    @Override
+    public String getDescription() {
+        return "Removes the ability to instant-grow crops and trees with bonemeal";
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        boolean removeBonemealRecipe = loadProperty("Remove Bonemeal Crafting Recipe", true).get();
+        if (removeBonemealRecipe) {
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT_SIZE, new ItemStack(Items.DYE, 3, EnumDyeColor.WHITE.getDyeDamage())));
+        }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        registerFertilizer(new ItemStack(Items.DYE, 1, EnumDyeColor.WHITE.getDyeDamage()));
+        registerFertilizer(new ItemStack(BWMItems.FERTILIZER));
     }
 
 }

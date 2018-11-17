@@ -17,11 +17,6 @@ import net.minecraftforge.items.ItemStackHandler;
 
 public class ExplosiveRecipes extends Feature {
 
-    @Override
-    public String getDescription() {
-        return "Some recipes can't get too hot or they might explode.";
-    }
-
     @SubscribeEvent
     public static void onBulkCraft(BulkCraftEvent event) {
         if (event.getTile() instanceof IHeated && event.getRecipe() instanceof CookingPotRecipe) {
@@ -56,5 +51,10 @@ public class ExplosiveRecipes extends Feature {
         world.createExplosion(null, pos.getX() + 0.5, pos.getY() + 0.5, pos.getZ() + 0.5, expSize, true);
 
 
+    }
+
+    @Override
+    public String getDescription() {
+        return "Some recipes can't get too hot or they might explode.";
     }
 }

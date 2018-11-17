@@ -148,7 +148,7 @@ public class BlockStake extends BlockBase {
 
         for (int i = 0; i < EnumFacing.VALUES.length; i++) {
             EnumFacing front = EnumFacing.byIndex(i);
-            if(inverted && ((axis != Y && front.getAxis() != Y) || (axis == Y && front.getAxis() != X))) //Dude idk why but it needs this.
+            if (inverted && ((axis != Y && front.getAxis() != Y) || (axis == Y && front.getAxis() != X))) //Dude idk why but it needs this.
                 front = front.getOpposite();
             newState = newState.withProperty(transform[i], getDirection(worldIn, pos, front));
         }

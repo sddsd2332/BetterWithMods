@@ -22,6 +22,21 @@ public class MoreTempting extends Feature {
 
     public static EntityIngredientRelationRegistry REGISTRY = new EntityIngredientRelationRegistry();
 
+    @SubscribeEvent
+    public static void addEntityAI(EntityJoinWorldEvent event) {
+        if (event.getEntity() instanceof EntityLivingBase) {
+            EntityLivingBase entity = (EntityLivingBase) event.getEntity();
+            if (entity instanceof EntityAnimal) {
+                EntityAnimal animal = ((EntityAnimal) entity);
+                Ingredient ingredient = REGISTRY.findIngredient(animal);
+                if (ingredient != null) {
+                    EntityUtils.removeTask(animal, net.minecraft.entity.ai.EntityAITempt.class);
+                    animal.tasks.addTask(3, new EntityAITempt(animal, 1.5, false, ingredient));
+                }
+            }
+        }
+    }
+
     @Override
     public String getDescription() {
         return "Add more valid items for tempting animals to follow. Sheep and cows follow Tall Grass or Wheat." +
@@ -37,21 +52,6 @@ public class MoreTempting extends Feature {
                 .addIngredient(Ingredient.fromItems(BWMItems.CHOCOLATE, Items.CARROT, Items.POTATO, Items.BEETROOT, Items.WHEAT));
         REGISTRY.addPredicateEntry(new ResourceLocation(ModLib.MODID, "herd"), e -> e instanceof EntitySheep || e instanceof EntityCow)
                 .addIngredient(Ingredient.fromStacks(new ItemStack(Items.WHEAT), new ItemStack(Blocks.TALLGRASS)));
-    }
-
-    @SubscribeEvent
-    public static void addEntityAI(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof EntityLivingBase) {
-            EntityLivingBase entity = (EntityLivingBase) event.getEntity();
-            if (entity instanceof EntityAnimal) {
-                EntityAnimal animal = ((EntityAnimal) entity);
-                Ingredient ingredient = REGISTRY.findIngredient(animal);
-                if (ingredient != null) {
-                    EntityUtils.removeTask(animal, net.minecraft.entity.ai.EntityAITempt.class);
-                    animal.tasks.addTask(3, new EntityAITempt(animal, 1.5, false, ingredient));
-                }
-            }
-        }
     }
 
     @Override

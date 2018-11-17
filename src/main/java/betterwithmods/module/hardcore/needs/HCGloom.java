@@ -54,7 +54,8 @@ import java.util.Set;
 /**
  * Created by primetoxinz on 5/13/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCGloom extends Feature {
     private static final List<SoundEvent> sounds = Lists.newArrayList(SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundEvents.ENTITY_ENDERMEN_SCREAM, SoundEvents.ENTITY_SILVERFISH_AMBIENT, SoundEvents.ENTITY_WOLF_GROWL);
     private static final ResourceLocation PLAYER_GLOOM = new ResourceLocation(ModLib.MODID, "gloom");
@@ -98,12 +99,6 @@ public class HCGloom extends Feature {
         if (o != null && n != null) {
             n.deserializeNBT(o.serializeNBT());
         }
-    }
-
-    @Override
-    public void onPostInit(FMLPostInitializationEvent event) {
-        dimensionWhitelist = Sets.newHashSet(ArrayUtils.toObject(loadProperty("Gloom Dimension Whitelist", new int[]{0}).setComment("Gloom is only available in these dimensions").get()));
-        gloomOverrideItems = StackIngredient.fromStacks(config().loadItemStackArray("Gloom Override Items", getCategory(), "Items in this list will override the gloom effect while held in your hand, this allows support for Dynamic Lightning and similar. Add one item per line  (ex minecraft:torch:0)", new ItemStack[0]));
     }
 
     @SubscribeEvent
@@ -192,6 +187,23 @@ public class HCGloom extends Feature {
         }
     }
 
+    @SideOnly(Side.CLIENT)
+    public static void syncGloom(String entityId, int gloom) {
+        EntityPlayer e = PlayerUtils.getPlayerById(entityId);
+        if (e != null) {
+            HCGloom.Gloom g = HCGloom.getGloom(e);
+            if (g != null) {
+                g.setGloom(gloom);
+            }
+        }
+    }
+
+    @Override
+    public void onPostInit(FMLPostInitializationEvent event) {
+        dimensionWhitelist = Sets.newHashSet(ArrayUtils.toObject(loadProperty("Gloom Dimension Whitelist", new int[]{0}).setComment("Gloom is only available in these dimensions").get()));
+        gloomOverrideItems = StackIngredient.fromStacks(config().loadItemStackArray("Gloom Override Items", getCategory(), "Items in this list will override the gloom effect while held in your hand, this allows support for Dynamic Lightning and similar. Add one item per line  (ex minecraft:torch:0)", new ItemStack[0]));
+    }
+
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         MiscRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties(this));
@@ -203,7 +215,6 @@ public class HCGloom extends Feature {
     public String getDescription() {
         return "Be afraid of the dark...";
     }
-
 
     public static class CapabilityGloom implements Capability.IStorage<Gloom> {
 
@@ -256,18 +267,6 @@ public class HCGloom extends Feature {
 
         public void setGloom(int gloom) {
             this.gloom = gloom;
-        }
-    }
-
-
-    @SideOnly(Side.CLIENT)
-    public static void syncGloom(String entityId, int gloom) {
-        EntityPlayer e = PlayerUtils.getPlayerById(entityId);
-        if (e != null) {
-            HCGloom.Gloom g = HCGloom.getGloom(e);
-            if (g != null) {
-                g.setGloom(gloom);
-            }
         }
     }
 }

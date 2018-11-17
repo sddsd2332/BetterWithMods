@@ -6,19 +6,15 @@ import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.container.ContainerBase;
 import betterwithmods.library.common.container.ContainerTile;
 import betterwithmods.library.common.container.property.IntProperty;
-import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.library.utils.GuiUtils;
 import net.minecraft.client.gui.inventory.GuiContainer;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.inventory.ClickType;
 import net.minecraft.inventory.IContainerListener;
-import net.minecraft.inventory.Slot;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.items.IItemHandler;
-import net.minecraftforge.items.SlotItemHandler;
 
 import javax.annotation.Nonnull;
 import java.util.function.Supplier;
@@ -32,8 +28,8 @@ public class ContainerAdvancedDispenser extends ContainerTile<TileAdvancedDispen
         super(tile, player);
         addIntProperty(SLOT, tile::getNextIndex);
         addProperty(SLOT, new SlotProperty(this, tile::getNextIndex));
-        GuiUtils.createPlayerSlots(player, this, 8, 102, 8,160);
-        GuiUtils.createContainerSlots(GuiUtils.SLOTS_CONTAINER_INVENTORY,this, tile.inventory, 16, 4, 0, 53, 17);
+        GuiUtils.createPlayerSlots(player, this, 8, 102, 8, 160);
+        GuiUtils.createContainerSlots(GuiUtils.SLOTS_CONTAINER_INVENTORY, this, tile.inventory, 16, 4, 0, 53, 17);
     }
 
     @SideOnly(Side.CLIENT)
@@ -66,7 +62,7 @@ public class ContainerAdvancedDispenser extends ContainerTile<TileAdvancedDispen
         @Override
         public void updateValue(Integer value) {
             super.updateValue(value);
-            if(container instanceof ContainerAdvancedDispenser) {
+            if (container instanceof ContainerAdvancedDispenser) {
                 ((ContainerAdvancedDispenser) container).getTile().setNextIndex(this.getValue());
             }
         }

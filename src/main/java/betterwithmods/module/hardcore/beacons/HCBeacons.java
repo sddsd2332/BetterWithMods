@@ -41,7 +41,7 @@ import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CA
 /**
  * Created by primetoxinz on 7/17/17.
  */
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCBeacons extends Feature {
 
 
@@ -66,33 +66,11 @@ public class HCBeacons extends Feature {
         return getEffect(null, null, blockState) != null;
     }
 
-    @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
-        enableBeaconCustomization = loadProperty("Enable Beacon Customization", true)
-                .setComment("Allows you to customize parts of beacons, and disable specific ones. Requires restart to generate additional configs").get();
-        enderchestBeacon = loadProperty("Enderchest Beacon", true)
-                .setComment("Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Manual.").get();
-
-        BlockEntryBuilderFactory<Void> factory = BlockEntryBuilderFactory.<Void>create(getLogger())
-                .builder().block(new BlockBeacon()).id("minecraft:beacon").build();
-        if (enderchestBeacon) {
-            factory.builder().block(new BlockEnderchest()).id("minecraft:ender_chest").build();
-            CapabilityManager.INSTANCE.register(EnderchestCap.class, new EnderchestCap.Storage(), EnderchestCap::new);
-        }
-        BlockRegistry.registerBlocks(factory.complete());
-        CapabilityManager.INSTANCE.register(CapabilityBeacon.class, new CapabilityBeacon.Storage(), CapabilityBeacon::new);
-    }
-
     @SubscribeEvent
     public static void attachTileCapability(AttachCapabilitiesEvent<TileEntity> event) {
         if (event.getObject() instanceof TileEnderchest && !event.getObject().hasCapability(ENDERCHEST_CAPABILITY, EnumFacing.UP)) {
             event.addCapability(new ResourceLocation(ModLib.MODID, "enderchest"), new EnderchestCap(EnumFacing.UP));
         }
-    }
-
-    @Override
-    public String getDescription() {
-        return "Overhauls the function of Beacons. Beacons have extended range, no longer have a GUI, and require the same material throughout the pyramid. The pyramid material determines the beacon effect, and additional tiers increase the range and strength of the effects. Some beacon types may also cause side effects to occur while a beacon is active.";
     }
 
     @SubscribeEvent
@@ -114,6 +92,28 @@ public class HCBeacons extends Feature {
         if (!world.hasCapability(ENDERCHEST_CAPABILITY, EnumFacing.NORTH)) {
             event.addCapability(WORLD2, new EnderchestCap(EnumFacing.NORTH));
         }
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        enableBeaconCustomization = loadProperty("Enable Beacon Customization", true)
+                .setComment("Allows you to customize parts of beacons, and disable specific ones. Requires restart to generate additional configs").get();
+        enderchestBeacon = loadProperty("Enderchest Beacon", true)
+                .setComment("Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Manual.").get();
+
+        BlockEntryBuilderFactory<Void> factory = BlockEntryBuilderFactory.<Void>create(getLogger())
+                .builder().block(new BlockBeacon()).id("minecraft:beacon").build();
+        if (enderchestBeacon) {
+            factory.builder().block(new BlockEnderchest()).id("minecraft:ender_chest").build();
+            CapabilityManager.INSTANCE.register(EnderchestCap.class, new EnderchestCap.Storage(), EnderchestCap::new);
+        }
+        BlockRegistry.registerBlocks(factory.complete());
+        CapabilityManager.INSTANCE.register(CapabilityBeacon.class, new CapabilityBeacon.Storage(), CapabilityBeacon::new);
+    }
+
+    @Override
+    public String getDescription() {
+        return "Overhauls the function of Beacons. Beacons have extended range, no longer have a GUI, and require the same material throughout the pyramid. The pyramid material determines the beacon effect, and additional tiers increase the range and strength of the effects. Some beacon types may also cause side effects to occur while a beacon is active.";
     }
 
     @Override

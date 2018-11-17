@@ -35,42 +35,6 @@ public class MobSpawning extends Feature {
 
     private static boolean slime, nether, witches, jungleSpiders;
 
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-
-        slime = loadProperty("Limit Slime Spawning", true).setComment("Slimes can only spawn on natural blocks").get();
-        nether = loadProperty("Limit Nether Spawning", true).setComment("Nether Mobs can only spawn on nether blocks").get();
-        witches = loadProperty("Limit Witch Spawning", true).setComment("Witches can only spawn in swamps").get();
-        jungleSpiders = loadProperty("Jungle Spider Spawning", true).setComment("Jungle Spiders can spawn in jungles").get();
-
-        if (nether) {
-            NETHER.addBlock(Blocks.NETHERRACK);
-            NETHER.addBlock(Blocks.NETHER_BRICK);
-            NETHER.addBlock(Blocks.SOUL_SAND);
-            NETHER.addBlock(Blocks.GRAVEL);
-            NETHER.addBlock(Blocks.QUARTZ_BLOCK);
-        }
-
-        if (slime) {
-            SLIME.addIngredient(new MaterialIngredient(Material.GRASS, Material.ROCK, Material.GROUND));
-        }
-
-        for (Biome biome : Biome.REGISTRY) {
-            if (jungleSpiders && BiomeDictionary.hasType(biome, BiomeDictionary.Type.JUNGLE)) {
-                EntityRegistry.addSpawn(EntityJungleSpider.class, 100, 1, 3, EnumCreatureType.MONSTER, biome);
-            }
-            if (witches && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SWAMP)) {
-                EntityRegistry.removeSpawn(EntityWitch.class, EnumCreatureType.MONSTER, biome);
-            }
-        }
-    }
-
-    @Override
-    public String getDescription() {
-        return "Nether Mobs can only spawn on nether blocks and Slimes can only spawn on natural blocks. Also adjusts whether witches only spawn in swamps and if jungle spiders spawn in jungles.";
-    }
-
-
     @SubscribeEvent
     public static void denySlimeSpawns(LivingSpawnEvent.CheckSpawn event) {
         if (event.getResult() == Event.Result.ALLOW)
@@ -110,6 +74,40 @@ public class MobSpawning extends Feature {
         }
     }
 
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+
+        slime = loadProperty("Limit Slime Spawning", true).setComment("Slimes can only spawn on natural blocks").get();
+        nether = loadProperty("Limit Nether Spawning", true).setComment("Nether Mobs can only spawn on nether blocks").get();
+        witches = loadProperty("Limit Witch Spawning", true).setComment("Witches can only spawn in swamps").get();
+        jungleSpiders = loadProperty("Jungle Spider Spawning", true).setComment("Jungle Spiders can spawn in jungles").get();
+
+        if (nether) {
+            NETHER.addBlock(Blocks.NETHERRACK);
+            NETHER.addBlock(Blocks.NETHER_BRICK);
+            NETHER.addBlock(Blocks.SOUL_SAND);
+            NETHER.addBlock(Blocks.GRAVEL);
+            NETHER.addBlock(Blocks.QUARTZ_BLOCK);
+        }
+
+        if (slime) {
+            SLIME.addIngredient(new MaterialIngredient(Material.GRASS, Material.ROCK, Material.GROUND));
+        }
+
+        for (Biome biome : Biome.REGISTRY) {
+            if (jungleSpiders && BiomeDictionary.hasType(biome, BiomeDictionary.Type.JUNGLE)) {
+                EntityRegistry.addSpawn(EntityJungleSpider.class, 100, 1, 3, EnumCreatureType.MONSTER, biome);
+            }
+            if (witches && !BiomeDictionary.hasType(biome, BiomeDictionary.Type.SWAMP)) {
+                EntityRegistry.removeSpawn(EntityWitch.class, EnumCreatureType.MONSTER, biome);
+            }
+        }
+    }
+
+    @Override
+    public String getDescription() {
+        return "Nether Mobs can only spawn on nether blocks and Slimes can only spawn on natural blocks. Also adjusts whether witches only spawn in swamps and if jungle spiders spawn in jungles.";
+    }
 
 
 }

@@ -1,7 +1,6 @@
 package betterwithmods.util;
 
 import com.google.common.collect.Sets;
-import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -75,7 +74,7 @@ public final class WorldUtils {
 
 
     public static Iterable<BlockPos> getPosInBox(AxisAlignedBB box) {
-        return BlockPos.getAllInBox(new BlockPos(box.minX, box.minY, box.minZ), new BlockPos(box.maxX-0.1, box.maxY-0.1, box.maxZ-0.1));
+        return BlockPos.getAllInBox(new BlockPos(box.minX, box.minY, box.minZ), new BlockPos(box.maxX - 0.1, box.maxY - 0.1, box.maxZ - 0.1));
     }
 
     public static boolean isSolid(World world, BlockPos pos, EnumFacing facing, IBlockState state) {
@@ -242,11 +241,11 @@ public final class WorldUtils {
 
     public static boolean isAir(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
-        return state.getBlock().isAir(state, world,pos);
+        return state.getBlock().isAir(state, world, pos);
     }
 
     public static boolean isReplaceable(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
-        return state.getBlock().isReplaceable(world,pos);
+        return state.getBlock().isReplaceable(world, pos);
     }
 }

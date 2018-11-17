@@ -27,7 +27,7 @@ public abstract class BlockAxleGenerator extends BlockBase implements IBlockActi
     private static final AxisAlignedBB X_AABB = new AxisAlignedBB(0.0F, 0.375F, 0.375F, 1.0F, 0.625F, 0.625F);
     private static final AxisAlignedBB Y_AABB = new AxisAlignedBB(0.375F, 0.0F, 0.375F, 0.625F, 1.0F, 0.625F);
     private static final AxisAlignedBB Z_AABB = new AxisAlignedBB(0.375F, 0.375F, 0.0F, 0.625F, 0.625F, 1.0F);
-    private static final AxisAlignedBB[] BOXES = new AxisAlignedBB[]{X_AABB, Y_AABB,Z_AABB};
+    private static final AxisAlignedBB[] BOXES = new AxisAlignedBB[]{X_AABB, Y_AABB, Z_AABB};
 
     public BlockAxleGenerator(Material material) {
         super(material);

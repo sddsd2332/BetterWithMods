@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItem;
@@ -18,32 +19,10 @@ import java.util.stream.Collectors;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-@Mod.EventBusSubscriber
+
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class HCGunpowder extends Feature {
     public static List<Class> disableGunpowder = Lists.newArrayList();
-
-    @Override
-    public void onInit(FMLInitializationEvent event) {
-
-        String[] array = loadProperty("Disable Gunpowder Drop",  new String[]{
-                "net.minecraft.entity.monster.EntityCreeper",
-                "net.minecraft.entity.monster.EntityGhast",
-                "net.minecraft.entity.monster.EntityWitch",
-                "betterwithmods.common.entity.EntityShearedCreeper"
-        }).setComment("List of entity classes which gunpowder will be replaced with niter").get();
-        disableGunpowder = Arrays.stream(array).map(clazz -> {
-            try {
-                return Class.forName(clazz);
-            } catch (ClassNotFoundException ignore) {
-            }
-            return null;
-        }).collect(Collectors.toList());
-    }
-
-    @Override
-    public String getDescription() {
-        return "Makes a raw resource drop that must be crafted to make useful gunpowder";
-    }
 
     @SubscribeEvent
     public static void mobDrops(LivingDropsEvent evt) {
@@ -62,6 +41,29 @@ public class HCGunpowder extends Feature {
                 }
             }
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+
+        String[] array = loadProperty("Disable Gunpowder Drop", new String[]{
+                "net.minecraft.entity.monster.EntityCreeper",
+                "net.minecraft.entity.monster.EntityGhast",
+                "net.minecraft.entity.monster.EntityWitch",
+                "betterwithmods.common.entity.EntityShearedCreeper"
+        }).setComment("List of entity classes which gunpowder will be replaced with niter").get();
+        disableGunpowder = Arrays.stream(array).map(clazz -> {
+            try {
+                return Class.forName(clazz);
+            } catch (ClassNotFoundException ignore) {
+            }
+            return null;
+        }).collect(Collectors.toList());
+    }
+
+    @Override
+    public String getDescription() {
+        return "Makes a raw resource drop that must be crafted to make useful gunpowder";
     }
 
 }

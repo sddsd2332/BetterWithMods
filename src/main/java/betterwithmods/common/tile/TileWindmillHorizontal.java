@@ -45,5 +45,4 @@ public class TileWindmillHorizontal extends TileBaseWindmill {
     }
 
 
-
 }

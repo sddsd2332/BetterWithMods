@@ -1,6 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.Sets;
@@ -17,9 +18,19 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Set;
 
-@Mod.EventBusSubscriber
+@Mod.EventBusSubscriber(modid = ModLib.MODID)
 public class FoodPoisoning extends Feature {
     public static double chanceForPoison;
+
+    //Stops Eating if Hunger Effect is active
+    @SubscribeEvent
+    public static void onFood(LivingEntityUseItemEvent.Start event) {
+        if (event.getItem().getItem() instanceof ItemFood && event.getEntityLiving() instanceof EntityPlayer && PlayerUtils.isSurvival((EntityPlayer) event.getEntityLiving())) {
+            if (event.getEntityLiving().isPotionActive(MobEffects.HUNGER)) {
+                event.setCanceled(true);
+            }
+        }
+    }
 
     @Override
     public String getDescription() {
@@ -32,15 +43,5 @@ public class FoodPoisoning extends Feature {
                 Sets.newHashSet(BWMItems.RAW_SCRAMBLED_EGG, BWMItems.RAW_EGG, BWMItems.RAW_OMELET,
                         BWMItems.RAW_KEBAB, Items.FISH, BWMItems.WOLF_CHOP, Items.BEEF, Items.PORKCHOP, Items.RABBIT, Items.CHICKEN, Items.MUTTON, BWMItems.MYSTERY_MEAT);
         RAW_FOOD.stream().map(i -> (ItemFood) i).forEach(i -> i.setPotionEffect(new PotionEffect(MobEffects.HUNGER, 600, 1), (float) chanceForPoison));
-    }
-
-    //Stops Eating if Hunger Effect is active
-    @SubscribeEvent
-    public static void onFood(LivingEntityUseItemEvent.Start event) {
-        if (event.getItem().getItem() instanceof ItemFood && event.getEntityLiving() instanceof EntityPlayer && PlayerUtils.isSurvival((EntityPlayer) event.getEntityLiving())) {
-            if (event.getEntityLiving().isPotionActive(MobEffects.HUNGER)) {
-                event.setCanceled(true);
-            }
-        }
     }
 }

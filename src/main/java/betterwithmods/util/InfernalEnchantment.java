@@ -30,6 +30,11 @@ public class InfernalEnchantment extends Enchantment {
         return maxLevel;
     }
 
+    public InfernalEnchantment setMaxLevel(int maxLevel) {
+        this.maxLevel = maxLevel;
+        return this;
+    }
+
     @Override
     public int getMinLevel() {
         return minLevel;
@@ -37,11 +42,6 @@ public class InfernalEnchantment extends Enchantment {
 
     public InfernalEnchantment setMinLevel(int minLevel) {
         this.minLevel = minLevel;
-        return this;
-    }
-
-    public InfernalEnchantment setMaxLevel(int maxLevel) {
-        this.maxLevel = maxLevel;
         return this;
     }
 

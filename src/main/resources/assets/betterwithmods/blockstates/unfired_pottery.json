@@ -38,8 +38,8 @@
       "nether_brick": {
         "model": "betterwithmods:brick",
         "textures": {
-          "all":  "betterwithmods:blocks/nether_sludge"
-		}
+          "all": "betterwithmods:blocks/nether_sludge"
+        }
       }
     }
   }
