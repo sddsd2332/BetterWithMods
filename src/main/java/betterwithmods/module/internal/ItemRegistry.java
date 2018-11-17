@@ -59,11 +59,6 @@ public class ItemRegistry extends RequiredFeature {
         ITEMS.add(item);
     }
 
-    @Override
-    public boolean hasEvent() {
-        return true;
-    }
-
     @SideOnly(Side.CLIENT)
     private static void setModelLocation(Item item, int meta, String variantSettings) {
         setModelLocation(item, meta, item.getRegistryName(), variantSettings);
@@ -80,7 +75,7 @@ public class ItemRegistry extends RequiredFeature {
     }
 
     @SubscribeEvent
-    public static void registerItems(RegistryEvent.Register<Item> event) {
+    public void registerItems(RegistryEvent.Register<Item> event) {
         //TODO migrate
         for (Item item : ITEMS) {
             event.getRegistry().register(item);
@@ -89,7 +84,7 @@ public class ItemRegistry extends RequiredFeature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void registerModels(ModelRegistryEvent event) {
+    public void registerModels(ModelRegistryEvent event) {
         getItems().forEach(ItemRegistry::setInventoryModel);
     }
 

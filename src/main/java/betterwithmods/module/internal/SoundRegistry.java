@@ -23,13 +23,8 @@ public class SoundRegistry extends RequiredFeature {
             BLOCK_MECHANICAL_OVERPOWER = null,
             ENTITY_PLAYER_OOF = null;
 
-    @Override
-    public boolean hasEvent() {
-        return true;
-    }
-
     @SubscribeEvent
-    public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
+    public void registerSounds(RegistryEvent.Register<SoundEvent> event) {
         event.getRegistry().register(registerSound("BLOCK_WOOD_CREAK"));
         event.getRegistry().register(registerSound("BLOCK_GRIND_NORMAL"));
         event.getRegistry().register(registerSound("BLOCK_WOOD_BELLOW"));
@@ -39,7 +34,6 @@ public class SoundRegistry extends RequiredFeature {
         event.getRegistry().register(registerSound("BLOCK_SAW_CUT"));
         event.getRegistry().register(registerSound("BLOCK_MECHANICAL_OVERPOWER"));
         event.getRegistry().register(registerSound("ENTITY_PLAYER_OOF"));
-
     }
 
 

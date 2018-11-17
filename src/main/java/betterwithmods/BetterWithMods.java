@@ -47,10 +47,15 @@ public class BetterWithMods {
     }
 
     @Mod.EventHandler()
+    public void onConstructed(FMLConstructionEvent event) {
+        PROXY.setLoader(MODULE_LOADER);
+        PROXY.onConstructed(event);
+    }
+
+    @Mod.EventHandler()
     public void onPreInit(FMLPreInitializationEvent event) {
         LOGGER = event.getModLog();
         MODULE_LOADER.setLogger(LOGGER);
-        PROXY.setLoader(MODULE_LOADER);
         PROXY.onPreInit(event);
     }
 

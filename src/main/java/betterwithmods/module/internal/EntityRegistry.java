@@ -40,7 +40,7 @@ public class EntityRegistry extends RequiredFeature {
     }
 
     @SubscribeEvent
-    public static void onEntityRegister(RegistryEvent.Register<EntityEntry> event) {
+    public void onEntityRegister(RegistryEvent.Register<EntityEntry> event) {
         event.getRegistry().registerAll(REGISTRY.toArray(new EntityEntry[0]));
     }
 
