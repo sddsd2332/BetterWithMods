@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.gameevent.TickEvent;
 
 public class Sinkholes extends Feature {
     @SubscribeEvent
-    public static void playerTick(TickEvent.PlayerTickEvent event) {
+    public void playerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.START)
             return;
         EntityPlayer player = event.player;

@@ -14,7 +14,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class SilverfishClay extends Feature {
 
     @SubscribeEvent
-    public static void onDeath(LivingDropsEvent event) {
+    public void onDeath(LivingDropsEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
         if (entity instanceof EntitySilverfish) {
             if (entity.world.provider.getDimensionType() == DimensionType.THE_END)

@@ -34,7 +34,7 @@ public class MobSpawning extends Feature {
     private static boolean slime, nether, witches, jungleSpiders;
 
     @SubscribeEvent
-    public static void denySlimeSpawns(LivingSpawnEvent.CheckSpawn event) {
+    public void denySlimeSpawns(LivingSpawnEvent.CheckSpawn event) {
         if (event.getResult() == Event.Result.ALLOW)
             return;
         if (!slime)
@@ -50,7 +50,7 @@ public class MobSpawning extends Feature {
     }
 
     @SubscribeEvent
-    public static void denyNetherSpawns(LivingSpawnEvent.CheckSpawn event) {
+    public void denyNetherSpawns(LivingSpawnEvent.CheckSpawn event) {
         if (event.getResult() == Event.Result.ALLOW)
             return;
         if (!nether)

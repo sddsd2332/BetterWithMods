@@ -25,7 +25,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class HCMelon extends Feature {
     @SubscribeEvent
-    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         Block block = event.getState().getBlock();
 
         //Require an axe for melons and pumpkins
@@ -55,7 +55,7 @@ public class HCMelon extends Feature {
     }
 
     @SubscribeEvent
-    public static void onNeighborNotify(BlockEvent.NeighborNotifyEvent event) {
+    public void onNeighborNotify(BlockEvent.NeighborNotifyEvent event) {
         World world = event.getWorld();
         makeGourdFall(world, event.getPos());
         makeGourdFall(world, event.getPos().up());

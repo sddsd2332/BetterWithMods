@@ -15,7 +15,6 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
 import net.minecraft.world.gen.structure.StructureVillagePieces;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
-import net.minecraftforge.event.terraingen.BiomeEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -36,7 +35,7 @@ public class HCVillages extends Feature {
     private StructureChanger ABANDONED, SEMIABANDONED, NORMAL;
 
     @SubscribeEvent
-    public static void onStructureSetBlock(StructureSetBlockEvent event) {
+    public void onStructureSetBlock(StructureSetBlockEvent event) {
         if (event.getComponent() instanceof StructureVillagePieces.Village) {
             StructureChanger.convert(VILLAGE, event);
         }
@@ -79,11 +78,6 @@ public class HCVillages extends Feature {
 //                .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()));
 
         NORMAL.addChanger(tableChanger);
-
-    }
-
-    @SubscribeEvent
-    public void biomeSpecificVillage(BiomeEvent.GetVillageBlockID event) {
 
     }
 

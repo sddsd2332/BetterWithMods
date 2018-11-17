@@ -58,7 +58,7 @@ public class HCEnchanting extends Feature {
     }
 
     @SubscribeEvent
-    public static void onDeath(LivingDropsEvent event) {
+    public void onDeath(LivingDropsEvent event) {
         for (Class<? extends EntityLivingBase> entity : SCROLL_DROPS.keySet()) {
             if (entity.isAssignableFrom(event.getEntityLiving().getClass())) {
                 ScrollDrop drop = SCROLL_DROPS.get(entity);
@@ -73,7 +73,7 @@ public class HCEnchanting extends Feature {
     }
 
     @SubscribeEvent
-    public static void onTick(TickEvent.PlayerTickEvent event) {
+    public void onTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.START)
             return;
         if (!event.player.getEntityWorld().isRemote) {

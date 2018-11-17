@@ -17,7 +17,7 @@ public class MobEating extends Feature {
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
-    public static void addEntityAI(EntityJoinWorldEvent event) {
+    public void addEntityAI(EntityJoinWorldEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof EntitySpider) {
             ((EntitySpider) entity).tasks.addTask(0, new EntityAIMonsterEat((EntityCreature) entity, new OreIngredient("meatChicken"), radius));

@@ -75,7 +75,7 @@ public class HCSpawn extends Feature {
      * Random Respawn. Less intense when there is a short time since death.
      */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void randomRespawn(LivingDeathEvent event) {
+    public void randomRespawn(LivingDeathEvent event) {
         if (!(event.getEntity() instanceof EntityPlayerMP)) return;
         if (event.getEntity().getEntityWorld().getWorldType() == FLAT)
             return;
@@ -133,14 +133,14 @@ public class HCSpawn extends Feature {
     }
 
     @SubscribeEvent
-    public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer) {
             event.addCapability(PLAYER_SPAWN_POSITION, new SpawnSaving((EntityPlayer) event.getObject()));
         }
     }
 
     @SubscribeEvent
-    public static void clone(PlayerEvent.Clone event) {
+    public void clone(PlayerEvent.Clone event) {
         if (event.isWasDeath()) {
             setSpawn(event.getEntityPlayer(), getSpawn(event.getOriginal()));
         } else {
@@ -149,12 +149,12 @@ public class HCSpawn extends Feature {
     }
 
     @SubscribeEvent
-    public static void onWorldLoad(WorldEvent.Load event) {
+    public void onWorldLoad(WorldEvent.Load event) {
         event.getWorld().getGameRules().addGameRule(GAMERULE_CHANGETIME, "false", GameRules.ValueType.BOOLEAN_VALUE);
     }
 
     @SubscribeEvent
-    public static void onPlayerRespawn(PlayerRespawnEvent event) {
+    public void onPlayerRespawn(PlayerRespawnEvent event) {
         EntityPlayer player = event.player;
         World world = player.getEntityWorld();
         if (!world.getGameRules().getBoolean(GAMERULE_CHANGETIME))
@@ -177,7 +177,7 @@ public class HCSpawn extends Feature {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.START)
             return;
         if (event.player instanceof EntityPlayerMP) {

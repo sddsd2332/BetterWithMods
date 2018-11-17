@@ -39,7 +39,7 @@ public class HopperMinecarts extends Feature {
     private static Capability<Counter> CAPABILITY_COUNTER;
 
     @SubscribeEvent
-    public static void onCapabilityAttach(AttachCapabilitiesEvent<Entity> event) {
+    public void onCapabilityAttach(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityMinecartHopper)
             event.addCapability(COUNTER, new Counter());
     }
@@ -49,7 +49,7 @@ public class HopperMinecarts extends Feature {
     }
 
     @SubscribeEvent
-    public static void onTick(MinecartUpdateEvent event) {
+    public void onTick(MinecartUpdateEvent event) {
         Entity entity = event.getEntity();
         if (entity instanceof EntityMinecartHopper) {
             EntityMinecartHopper cart = (EntityMinecartHopper) event.getEntity();

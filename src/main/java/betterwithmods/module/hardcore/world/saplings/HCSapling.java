@@ -36,7 +36,7 @@ public class HCSapling extends Feature {
     }
 
     @SubscribeEvent
-    public static void onBlockPlace(PlayerInteractEvent.RightClickBlock e) {
+    public void onBlockPlace(PlayerInteractEvent.RightClickBlock e) {
         if (e.getWorld().isRemote) {
             if (e.getItemStack().getItem() instanceof ItemBlock) {
                 ItemBlock ib = (ItemBlock) e.getItemStack().getItem();
@@ -51,7 +51,7 @@ public class HCSapling extends Feature {
     }
 
     @SubscribeEvent
-    public static void onBlockPlaced(BlockEvent.PlaceEvent event) {
+    public void onBlockPlaced(BlockEvent.PlaceEvent event) {
         if (event.getPlacedBlock().getBlock() instanceof BlockSapling) {
             IBlockState state = event.getPlacedBlock();
             IBlockState replaced = event.getBlockSnapshot().getReplacedBlock();

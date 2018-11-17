@@ -92,7 +92,7 @@ public class HCGloom extends Feature {
     }
 
     @SubscribeEvent
-    public static void clone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
+    public void clone(net.minecraftforge.event.entity.player.PlayerEvent.Clone event) {
         Gloom o = getGloom(event.getOriginal());
         Gloom n = getGloom(event.getEntityPlayer());
         if (o != null && n != null) {
@@ -101,20 +101,20 @@ public class HCGloom extends Feature {
     }
 
     @SubscribeEvent
-    public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer && !event.getCapabilities().containsKey(PLAYER_GLOOM)) {
             event.addCapability(PLAYER_GLOOM, new Gloom());
         }
     }
 
     @SubscribeEvent
-    public static void onRespawn(PlayerEvent.PlayerRespawnEvent e) {
+    public void onRespawn(PlayerEvent.PlayerRespawnEvent e) {
         if (e.player instanceof EntityPlayerMP)
             setGloomTick((EntityPlayerMP) e.player, 0);
     }
 
     @SubscribeEvent
-    public static void inDarkness(TickEvent.PlayerTickEvent e) {
+    public void inDarkness(TickEvent.PlayerTickEvent e) {
         if (e.phase == TickEvent.Phase.START)
             return;
 

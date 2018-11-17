@@ -44,7 +44,7 @@ public class HCSeeds extends Feature {
     };
 
     @SubscribeEvent
-    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         if (STOP_SEEDS.test(event.getState()))
             event.getDrops().clear();
     }
@@ -59,7 +59,7 @@ public class HCSeeds extends Feature {
     }
 
     @SubscribeEvent
-    public static void onHoe(UseHoeEvent e) {
+    public void onHoe(UseHoeEvent e) {
         if (e.getResult() == Event.Result.DENY)
             return;
         World world = e.getWorld();
@@ -75,7 +75,7 @@ public class HCSeeds extends Feature {
     }
 
     @SubscribeEvent
-    public static void mobDrop(LivingDropsEvent e) {
+    public void mobDrop(LivingDropsEvent e) {
         if (!stopZombieCropLoot || !(e.getEntityLiving() instanceof EntityZombie))
             return;
         Iterator<EntityItem> iter = e.getDrops().iterator();

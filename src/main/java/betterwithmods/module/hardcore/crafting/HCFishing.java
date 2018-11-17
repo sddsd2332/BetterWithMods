@@ -172,14 +172,14 @@ public class HCFishing extends Feature {
     }
 
     @SubscribeEvent
-    public static void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
+    public void attachCapability(AttachCapabilitiesEvent<ItemStack> event) {
         if (event.getObject().getItem() instanceof ItemFishingRod) {
             event.addCapability(BAITED_FISHING_ROD, new FishingBait());
         }
     }
 
     @SubscribeEvent
-    public static void onFished(ItemFishedEvent event) {
+    public void onFished(ItemFishedEvent event) {
         BlockPos hookPos = getHookSurfacePos(event.getHookEntity());
         if (restrictToOpenWater) {
             if (event.getHookEntity().getEntityWorld().getHeight(hookPos.getX(), hookPos.getZ()) > hookPos.getY() || !isAirBlock(event.getHookEntity().getEntityWorld(), hookPos)) {
@@ -214,7 +214,7 @@ public class HCFishing extends Feature {
     }
 
     @SubscribeEvent
-    public static void useFishingRod(PlayerInteractEvent.RightClickItem event) {
+    public void useFishingRod(PlayerInteractEvent.RightClickItem event) {
         if (requireBait) {
             if (isFishingRod(event.getItemStack())) {
                 FishingBait cap = event.getItemStack().getCapability(FISHING_ROD_CAP, EnumFacing.UP);
@@ -233,7 +233,7 @@ public class HCFishing extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void onTooltip(ItemTooltipEvent event) {
+    public void onTooltip(ItemTooltipEvent event) {
         if (requireBait) {
             ItemStack stack = event.getItemStack();
             if (isFishingRod(stack)) {

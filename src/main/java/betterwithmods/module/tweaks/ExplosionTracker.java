@@ -17,7 +17,7 @@ import java.util.Optional;
 public class ExplosionTracker extends Feature {
 
     @SubscribeEvent
-    public static void onExplodeTrack(ExplosionTrackingEvent event) {
+    public void onExplodeTrack(ExplosionTrackingEvent event) {
         Optional<EntityLivingBase> entity = Optional.ofNullable(event.getExploder());
         BetterWithMods.getLog().warn("[EXPLOSION] -  position: {}, cause: {}", event.getSource(), entity.map(EntityLivingBase::getName).orElse("No Placer"));
     }

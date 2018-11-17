@@ -10,7 +10,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class CactusSkeleton extends Feature {
 
     @SubscribeEvent
-    public static void onDamage(LivingHurtEvent event) {
+    public void onDamage(LivingHurtEvent event) {
         if (event.getEntityLiving() instanceof AbstractSkeleton && event.getSource().damageType.equals(DamageSource.CACTUS.damageType)) {
             event.setCanceled(true);
         }

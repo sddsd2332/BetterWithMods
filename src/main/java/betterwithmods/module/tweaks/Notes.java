@@ -16,7 +16,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class Notes extends Feature {
 
     @SubscribeEvent
-    public static void onNotePlay(NoteBlockEvent.Play event) {
+    public void onNotePlay(NoteBlockEvent.Play event) {
         BlockPos pos = event.getPos();
         if (event.getWorld().getBlockState(pos).getBlock() != Blocks.NOTEBLOCK)
             return;

@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class AnimalBirth extends Feature {
 
     @SubscribeEvent
-    public static void addEntityAI(EntityJoinWorldEvent evt) {
+    public void addEntityAI(EntityJoinWorldEvent evt) {
         if (evt.getEntity() instanceof EntityLiving) {
             EntityLiving entity = (EntityLiving) evt.getEntity();
             if (entity instanceof EntityAnimal && EntityUtils.hasAI(entity, net.minecraft.entity.ai.EntityAIMate.class)) {

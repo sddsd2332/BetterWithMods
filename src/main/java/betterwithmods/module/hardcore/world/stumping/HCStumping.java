@@ -104,7 +104,7 @@ public class HCStumping extends Feature {
     }
 
     @SubscribeEvent
-    public static void onBlockPlaced(BlockEvent.PlaceEvent event) {
+    public void onBlockPlaced(BlockEvent.PlaceEvent event) {
         World world = event.getWorld();
         if (world.isRemote || !(event.getPlayer() instanceof EntityPlayerMP))
             return;
@@ -118,7 +118,7 @@ public class HCStumping extends Feature {
     }
 
     @SubscribeEvent
-    public static void getHarvest(BreakSpeed event) {
+    public void getHarvest(BreakSpeed event) {
         World world = event.getEntityPlayer().getEntityWorld();
         if (isStump(world, event.getPos())) {
             float scale = SPEED_UP_WITH_TOOLS ? ToolUtils.getSpeed(event.getEntityPlayer().getHeldItemMainhand(), event.getState()) : 1;
@@ -131,7 +131,7 @@ public class HCStumping extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         if (isStump(event.getWorld(), event.getPos())) {
             IBlockVariants wood = VariantUtils.getVariantFromState(IBlockVariants.EnumBlock.LOG, event.getState());
             if (wood != null) {
@@ -150,12 +150,12 @@ public class HCStumping extends Feature {
     }
 
     @SubscribeEvent
-    public static void attachWorldCapability(AttachCapabilitiesEvent<World> evt) {
+    public void attachWorldCapability(AttachCapabilitiesEvent<World> evt) {
         evt.addCapability(PLACED_LOG, new PlacedCapability());
     }
 
     @SubscribeEvent
-    public static void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
+    public void onPlayerJoin(PlayerEvent.PlayerLoggedInEvent event) {
         if (event.player instanceof EntityPlayerMP) {
             PlacedCapability capability = getCapability(event.player.world);
             if (capability != null) {
@@ -165,7 +165,7 @@ public class HCStumping extends Feature {
     }
 
     @SideOnly(Side.CLIENT)
-    public static void syncPlaced(BlockPos[] pos) {
+    public void syncPlaced(BlockPos[] pos) {
         World world = Minecraft.getMinecraft().world;
         if (world == null)
             return;
@@ -176,7 +176,7 @@ public class HCStumping extends Feature {
     }
 
     @SubscribeEvent
-    public static void onStructureSetBlock(StructureSetBlockEvent event) {
+    public void onStructureSetBlock(StructureSetBlockEvent event) {
         if (event.getWorld().isRemote)
             return;
         if (event.getState().getBlock() instanceof BlockLog) {

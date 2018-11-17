@@ -17,7 +17,7 @@ import static betterwithmods.util.WorldUtils.addDrop;
 
 public class FeedWolfchop extends Feature {
     @SubscribeEvent
-    public static void feedDog(PlayerInteractEvent.EntityInteractSpecific event) {
+    public void feedDog(PlayerInteractEvent.EntityInteractSpecific event) {
         ItemStack stack = event.getItemStack();
         if (event.getTarget() instanceof EntityWolf && stack.getItem() == BWMItems.WOLF_CHOP) {
             Random rand = event.getWorld().rand;
@@ -35,7 +35,7 @@ public class FeedWolfchop extends Feature {
     }
 
     @SubscribeEvent
-    public static void dropItem(LivingDropsEvent event) {
+    public void dropItem(LivingDropsEvent event) {
         World world = event.getEntityLiving().getEntityWorld();
         if (event.getEntityLiving() instanceof EntityWolf) {
             addDrop(event, new ItemStack(BWMItems.WOLF_CHOP, world.rand.nextInt(2)));

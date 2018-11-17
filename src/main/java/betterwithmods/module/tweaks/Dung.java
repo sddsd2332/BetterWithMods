@@ -42,7 +42,7 @@ public class Dung extends Feature {
     private static boolean wolvesOnly;
 
     @SubscribeEvent
-    public static void mobDungProduction(LivingEvent.LivingUpdateEvent evt) {
+    public void mobDungProduction(LivingEvent.LivingUpdateEvent evt) {
         if (evt.getEntityLiving().getEntityWorld().isRemote)
             return;
         if (evt.getEntityLiving() instanceof EntityAnimal) {
@@ -89,7 +89,7 @@ public class Dung extends Feature {
     }
 
     @SubscribeEvent
-    public static void dungCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
+    public void dungCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (entity instanceof EntityAnimal) {
             if (wolvesOnly && !(entity instanceof EntityWolf))

@@ -89,13 +89,13 @@ public class HCStrata extends Feature {
     }
 
     @SubscribeEvent
-    public static void onJoinWorld(PlayerLoggedInEvent event) {
+    public void onJoinWorld(PlayerLoggedInEvent event) {
         getNoise(event.player.world, 50);
         getNoise(event.player.world, 0);
     }
 
     @SubscribeEvent
-    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         World world = event.getWorld();
         BlockPos pos = event.getPos();
         if (event.getHarvester() == null)
@@ -115,7 +115,7 @@ public class HCStrata extends Feature {
     }
 
     @SubscribeEvent
-    public static void getBreakSpeed(PlayerEvent.BreakSpeed event) {
+    public void getBreakSpeed(PlayerEvent.BreakSpeed event) {
         World world = event.getEntityPlayer().getEntityWorld();
         BlockPos pos = event.getPos();
         if (shouldStratify(world, pos)) {

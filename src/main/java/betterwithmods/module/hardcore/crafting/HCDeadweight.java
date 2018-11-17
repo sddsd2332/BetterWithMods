@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class HCDeadweight extends Feature {
 
     @SubscribeEvent
-    public static void onInteract(PlayerInteractEvent.RightClickBlock event) {
+    public void onInteract(PlayerInteractEvent.RightClickBlock event) {
         if (!PlayerUtils.isSurvival(event.getEntityPlayer()))
             return;
 

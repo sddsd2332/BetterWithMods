@@ -28,7 +28,7 @@ public class FluidBottles extends RequiredFeature {
     private static int waterBottleAmount = 300;
 
     @SubscribeEvent
-    public static void attachCapabilities(@Nonnull AttachCapabilitiesEvent<ItemStack> evt) {
+    public void attachCapabilities(@Nonnull AttachCapabilitiesEvent<ItemStack> evt) {
         if (evt.getCapabilities().containsKey(KEY)) {
             return;
         }

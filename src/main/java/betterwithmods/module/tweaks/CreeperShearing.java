@@ -35,7 +35,7 @@ public class CreeperShearing extends Feature {
     }
 
     @SubscribeEvent
-    public static void mobDrops(LivingDropsEvent event) {
+    public void mobDrops(LivingDropsEvent event) {
         EntityLivingBase entity = event.getEntityLiving();
         if (isMatching(entity)) {
             double chance = entity.getRNG().nextDouble() + (0.1 * event.getLootingLevel());
@@ -46,7 +46,7 @@ public class CreeperShearing extends Feature {
     }
 
     @SubscribeEvent
-    public static void shearCreeper(PlayerInteractEvent.EntityInteractSpecific e) {
+    public void shearCreeper(PlayerInteractEvent.EntityInteractSpecific e) {
         if (e.getTarget() instanceof EntityLivingBase) {
             EntityLivingBase creeper = (EntityLivingBase) e.getTarget();
             if (isMatching(creeper)) {

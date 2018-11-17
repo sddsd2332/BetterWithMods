@@ -37,7 +37,7 @@ public class VisibleStorms extends Feature {
     private static float desiredDistance, desiredDistanceScale;
 
     @SideOnly(Side.CLIENT)
-    private static void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale) {
+    private void renderFog(int fogMode, float farPlaneDistance, float farPlaneDistanceScale) {
         if (fogMode < 0) {
             GlStateManager.setFogStart(0.0F);
             GlStateManager.setFogEnd(farPlaneDistance);
@@ -49,7 +49,7 @@ public class VisibleStorms extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void playerTick(TickEvent.PlayerTickEvent tickEvent) {
+    public void playerTick(TickEvent.PlayerTickEvent tickEvent) {
         if (tickEvent.phase == TickEvent.Phase.START)
             return;
 
@@ -103,7 +103,7 @@ public class VisibleStorms extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void fogDistance(EntityViewRenderEvent.RenderFogEvent fogEvent) {
+    public void fogDistance(EntityViewRenderEvent.RenderFogEvent fogEvent) {
         if (!SAND_STORMS)
             return;
         Entity entity = fogEvent.getEntity();
@@ -142,7 +142,7 @@ public class VisibleStorms extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void fogColor(EntityViewRenderEvent.FogColors fogEvent) {
+    public void fogColor(EntityViewRenderEvent.FogColors fogEvent) {
         if (!SAND_STORMS)
             return;
         Entity entity = fogEvent.getEntity();

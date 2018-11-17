@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class MoreCobble extends Feature {
 
     @SubscribeEvent
-    public static void dropCobble(BlockEvent.HarvestDropsEvent event) {
+    public void dropCobble(BlockEvent.HarvestDropsEvent event) {
         if (!event.isSilkTouching() && !event.getWorld().isRemote) {
             IBlockState state = event.getState();
             if (state.getBlock() == Blocks.STONE) {

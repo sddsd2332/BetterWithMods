@@ -82,7 +82,7 @@ public class HCHunger extends Feature {
 
     //Adds Exhaustion when Jumping and cancels Jump if too exhausted
     @SubscribeEvent
-    public static void onJump(LivingEvent.LivingJumpEvent event) {
+    public void onJump(LivingEvent.LivingJumpEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             player.addExhaustion(0.5f);
@@ -90,7 +90,7 @@ public class HCHunger extends Feature {
     }
 
     @SubscribeEvent
-    public static void entityConstruct(EntityEvent.EntityConstructing e) {
+    public void entityConstruct(EntityEvent.EntityConstructing e) {
         if (e.getEntity() instanceof EntityPlayer) {
             e.getEntity().getDataManager().register(EXHAUSTION_TICK, 0);
         }
@@ -105,7 +105,7 @@ public class HCHunger extends Feature {
     }
 
     @SubscribeEvent
-    public static void onPlayerTick(TickEvent.PlayerTickEvent event) {
+    public void onPlayerTick(TickEvent.PlayerTickEvent event) {
         if (!event.player.world.isRemote && event.phase == TickEvent.Phase.START) {
             EntityPlayer player = event.player;
 
@@ -127,7 +127,7 @@ public class HCHunger extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onHarvest(BlockEvent.BreakEvent event) {
+    public void onHarvest(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
         if (event.isCanceled() || !PlayerUtils.isSurvival(player))
             return;
@@ -142,7 +142,7 @@ public class HCHunger extends Feature {
     }
 
     @SubscribeEvent
-    public static void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
+    public void allowHealthRegen(HealthRegenEvent.AllowRegen event) {
         if (!event.player.world.getGameRules().getBoolean("naturalRegeneration"))
             return;
         //Whether the player can heal
@@ -152,12 +152,12 @@ public class HCHunger extends Feature {
 
     //Changes food to correct value.
     @SubscribeEvent
-    public static void modifyFoodValues(FoodEvent.GetFoodValues event) {
+    public void modifyFoodValues(FoodEvent.GetFoodValues event) {
         event.foodValues = FoodHelper.getFoodValue(event.food).orElseGet(() -> new FoodValues(Math.min(event.foodValues.hunger * 3, 60), 0));
     }
 
     @SubscribeEvent
-    public static void onFoodStatsAdd(FoodEvent.FoodStatsAddition event) {
+    public void onFoodStatsAdd(FoodEvent.FoodStatsAddition event) {
         event.setCanceled(true);
 
         int maxHunger = AppleCoreAPI.accessor.getMaxHunger(event.player);
@@ -170,7 +170,7 @@ public class HCHunger extends Feature {
     }
 
     @SubscribeEvent
-    public static void getPlayerFoodValue(FoodEvent.GetPlayerFoodValues event) {
+    public void getPlayerFoodValue(FoodEvent.GetPlayerFoodValues event) {
         if (event.player == null)
             return;
         FoodStats stats = event.player.getFoodStats();
@@ -188,7 +188,7 @@ public class HCHunger extends Feature {
 
     //Changes exhaustion to reduce food first, then fat.
     @SubscribeEvent
-    public static void exhaust(ExhaustionEvent.Exhausted event) {
+    public void exhaust(ExhaustionEvent.Exhausted event) {
         FoodStats stats = event.player.getFoodStats();
         int saturation = (int) ((stats.getSaturationLevel() - 1) / 6);
         int hunger = stats.getFoodLevel() / 6;
@@ -208,25 +208,25 @@ public class HCHunger extends Feature {
     /*--------------------------------------------------*/
 
     @SubscribeEvent
-    public static void setMaxFood(HungerEvent.GetMaxHunger event) {
+    public void setMaxFood(HungerEvent.GetMaxHunger event) {
         event.maxHunger = 60;
     }
 
     //Change Health Regen speed to take 30 seconds
     @SubscribeEvent
-    public static void healthRegenSpeed(HealthRegenEvent.GetRegenTickPeriod event) {
+    public void healthRegenSpeed(HealthRegenEvent.GetRegenTickPeriod event) {
         event.regenTickPeriod = 600;
     }
 
     //Stop regen from Fat value.
     @SubscribeEvent
-    public static void denyFatRegen(HealthRegenEvent.AllowSaturatedRegen event) {
+    public void denyFatRegen(HealthRegenEvent.AllowSaturatedRegen event) {
         event.setResult(Event.Result.DENY);
     }
 
     //Shake Hunger bar whenever any exhaustion is given?
     @SubscribeEvent
-    public static void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
+    public void onExhaustAdd(ExhaustionEvent.ExhaustionAddition event) {
         if (PlayerUtils.isSurvival(event.player)) {
             if (event.deltaExhaustion >= HCHunger.blockBreakExhaustion) {
                 if (event.player instanceof EntityPlayerMP)
@@ -238,13 +238,13 @@ public class HCHunger extends Feature {
     }
 
     @SubscribeEvent
-    public static void onStarve(StarvationEvent.AllowStarvation event) {
+    public void onStarve(StarvationEvent.AllowStarvation event) {
         if (event.player.getFoodStats().getFoodLevel() <= 0 && event.player.getFoodStats().getSaturationLevel() <= 0)
             event.setResult(Event.Result.ALLOW);
     }
 
     @SubscribeEvent
-    public static void onStarve(StarvationEvent.Starve event) {
+    public void onStarve(StarvationEvent.Starve event) {
         event.setCanceled(true);
         event.player.attackEntityFrom(DamageSource.STARVE, 1);
     }

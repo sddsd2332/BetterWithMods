@@ -23,7 +23,7 @@ public class HCGunpowder extends Feature {
     public static List<Class> disableGunpowder = Lists.newArrayList();
 
     @SubscribeEvent
-    public static void mobDrops(LivingDropsEvent evt) {
+    public void mobDrops(LivingDropsEvent evt) {
         boolean contained = false;
         for (Class clazz : disableGunpowder) {
             if (evt.getEntity().getClass().isAssignableFrom(clazz)) {

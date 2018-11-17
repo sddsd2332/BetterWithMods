@@ -37,7 +37,7 @@ public class HCLumber extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    public static void harvestLog(BlockEvent.HarvestDropsEvent event) {
+    public void harvestLog(BlockEvent.HarvestDropsEvent event) {
         if (!event.getWorld().isRemote) {
             IBlockVariants wood = VariantUtils.getVariantFromState(LOG, event.getState());
             if (wood != null) {

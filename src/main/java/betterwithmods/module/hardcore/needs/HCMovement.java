@@ -37,7 +37,7 @@ public class HCMovement extends Feature {
     public static boolean dirtpathQuality;
 
     @SubscribeEvent
-    public static void onWalk(TickEvent.PlayerTickEvent event) {
+    public void onWalk(TickEvent.PlayerTickEvent event) {
         if (event.phase == TickEvent.Phase.END) {
             EntityPlayer player = event.player;
             if (player.isRiding())
@@ -72,7 +72,7 @@ public class HCMovement extends Feature {
     //Should cancel out the FOV change from HCMovement entirely
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void onFOV(FOVUpdateEvent event) {
+    public void onFOV(FOVUpdateEvent event) {
         EntityPlayer player = event.getEntity();
         float f = 1.0F;
 

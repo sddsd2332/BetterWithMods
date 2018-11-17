@@ -31,7 +31,7 @@ public class HCHunting extends Feature {
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
-    public static void addEntityAI(EntityJoinWorldEvent evt) {
+    public void addEntityAI(EntityJoinWorldEvent evt) {
         if (evt.getEntity() instanceof EntityCreature) {
             EntityCreature entity = (EntityCreature) evt.getEntity();
             if (entity instanceof EntityZombie) {

@@ -41,7 +41,7 @@ public class NetherFortressSpawns extends Feature {
     };
 
     @SubscribeEvent
-    public static void getPotentialSpawns(WorldEvent.PotentialSpawns event) {
+    public void getPotentialSpawns(WorldEvent.PotentialSpawns event) {
         World world = event.getWorld();
         if (world.isRemote)
             return;

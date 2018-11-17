@@ -50,7 +50,7 @@ public class HCSheep extends Feature {
     }
 
     @SubscribeEvent
-    public static void sheepCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
+    public void sheepCapabilityEvent(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (entity instanceof EntitySheep) {
             event.addCapability(NATURAL_COLOR, new NaturalColor());
@@ -58,7 +58,7 @@ public class HCSheep extends Feature {
     }
 
     @SubscribeEvent
-    public static void sheepSpawnEvent(LivingSpawnEvent event) {
+    public void sheepSpawnEvent(LivingSpawnEvent event) {
         if (event instanceof LivingSpawnEvent.AllowDespawn)
             return;
 
@@ -106,7 +106,7 @@ public class HCSheep extends Feature {
     }
 
     @SubscribeEvent
-    public static void sheepBreedEvent(BabyEntitySpawnEvent event) {
+    public void sheepBreedEvent(BabyEntitySpawnEvent event) {
         World world = event.getParentA().world;
 
         if (world.isRemote)

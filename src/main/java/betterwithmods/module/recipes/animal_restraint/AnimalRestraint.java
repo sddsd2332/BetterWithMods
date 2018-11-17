@@ -108,7 +108,7 @@ public class AnimalRestraint extends Feature {
     }
 
     @SubscribeEvent
-    public static void onAttach(AttachCapabilitiesEvent<Entity> event) {
+    public void onAttach(AttachCapabilitiesEvent<Entity> event) {
         Entity entity = event.getObject();
         if (harnessEntity(entity)) {
             event.addCapability(CAPABILITY, new Harness());
@@ -116,7 +116,7 @@ public class AnimalRestraint extends Feature {
     }
 
     @SubscribeEvent
-    public static void onTrack(PlayerEvent.StartTracking event) {
+    public void onTrack(PlayerEvent.StartTracking event) {
         if (event.getEntityPlayer().world.isRemote)
             return;
         Entity entity = event.getTarget();
@@ -124,7 +124,7 @@ public class AnimalRestraint extends Feature {
     }
 
     @SubscribeEvent
-    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+    public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         if (event.getWorld().isRemote)
             return;
 
@@ -159,7 +159,7 @@ public class AnimalRestraint extends Feature {
     }
 
     @SubscribeEvent
-    public static void onLivingTick(LivingEvent.LivingUpdateEvent e) {
+    public void onLivingTick(LivingEvent.LivingUpdateEvent e) {
         EntityLivingBase entity = e.getEntityLiving();
 
         Harness cap = getHarnessCapability(entity);

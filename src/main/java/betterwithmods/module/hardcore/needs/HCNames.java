@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class HCNames extends Feature {
 
     @SubscribeEvent
-    public static void onPlayerJoin(EntityJoinWorldEvent e) {
+    public void onPlayerJoin(EntityJoinWorldEvent e) {
         if (e.getEntity() instanceof EntityPlayerMP) {
             EntityPlayer player = (EntityPlayer) e.getEntity();
             Team team = player.getTeam();

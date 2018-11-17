@@ -19,7 +19,7 @@ public class RenewableEndstone extends Feature {
     private static int chance;
 
     @SubscribeEvent
-    public static void giveEndermenEndStone(LivingSpawnEvent evt) {
+    public void giveEndermenEndStone(LivingSpawnEvent evt) {
         EntityLivingBase entity = evt.getEntityLiving();
         if (evt.getWorld().provider.getDimensionType() == DimensionType.THE_END) {
             if (entity instanceof EntityEnderman) {

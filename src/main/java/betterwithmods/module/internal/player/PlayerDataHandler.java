@@ -25,7 +25,7 @@ public class PlayerDataHandler extends RequiredFeature {
     private static final ResourceLocation PLAYER_INFO = new ResourceLocation(ModLib.MODID, "player_info");
 
     @SubscribeEvent
-    public static void clone(PlayerEvent.Clone event) {
+    public void clone(PlayerEvent.Clone event) {
         PlayerInfo o = PlayerInfo.getPlayerInfo(event.getOriginal());
         PlayerInfo n = PlayerInfo.getPlayerInfo(event.getEntityPlayer());
         if (o != null && n != null) {
@@ -34,7 +34,7 @@ public class PlayerDataHandler extends RequiredFeature {
     }
 
     @SubscribeEvent
-    public static void attachCapability(AttachCapabilitiesEvent<Entity> event) {
+    public void attachCapability(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityPlayer && !event.getCapabilities().containsKey(PLAYER_INFO)) {
             event.addCapability(PLAYER_INFO, new PlayerInfo());
         }

@@ -19,7 +19,7 @@ import net.minecraftforge.items.ItemStackHandler;
 public class ExplosiveRecipes extends Feature {
 
     @SubscribeEvent
-    public static void onBulkCraft(BulkCraftEvent event) {
+    public void onBulkCraft(BulkCraftEvent event) {
         if (event.getTile() instanceof IHeated && event.getRecipe() instanceof CookingPotRecipe) {
             CookingPotRecipe recipe = (CookingPotRecipe) event.getRecipe();
             if (((IHeated) event.getTile()).getHeat(event.getWorld(), event.getTile().getPos()) > recipe.getHeat()) {

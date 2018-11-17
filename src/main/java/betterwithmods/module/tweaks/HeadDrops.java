@@ -28,7 +28,7 @@ public class HeadDrops extends Feature {
     private static int sawHeadDropChance, battleAxeHeadDropChance;
 
     @SubscribeEvent
-    public static void onLivingDrop(LivingDropsEvent event) {
+    public void onLivingDrop(LivingDropsEvent event) {
         if (isChoppingBlock(event.getSource()))
             addHead(event, sawHeadDropChance);
         if (isBattleAxe(event.getEntityLiving()))

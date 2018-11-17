@@ -48,12 +48,12 @@ public class HCFurnace extends Feature {
 
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
-    public static void onTextureStitch(TextureStitchEvent event) {
+    public void onTextureStitch(TextureStitchEvent event) {
         event.getMap().registerSprite(new ResourceLocation("betterwithmods:blocks/furnace_full"));
     }
 
     @SubscribeEvent
-    public static void getFurnaceFuel(FurnaceFuelBurnTimeEvent event) {
+    public void getFurnaceFuel(FurnaceFuelBurnTimeEvent event) {
         int speed = FUEL_TIMINGS.entrySet().stream().filter(e -> e.getKey().apply(event.getItemStack())).mapToInt(Map.Entry::getValue).findAny().orElse(-1);
         if (speed >= 0) {
             event.setBurnTime(speed);
@@ -62,7 +62,7 @@ public class HCFurnace extends Feature {
 
     @SideOnly(Side.CLIENT)
     @SubscribeEvent
-    public static void onTooltip(ItemTooltipEvent event) {
+    public void onTooltip(ItemTooltipEvent event) {
         if (!TOOLTIP)
             return;
         if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {

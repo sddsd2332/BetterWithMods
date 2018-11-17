@@ -51,7 +51,7 @@ public class HCTools extends Feature {
     }
 
     @SubscribeEvent
-    public static void onHitEntity(LivingAttackEvent event) {
+    public void onHitEntity(LivingAttackEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer) {
             EntityPlayer player = (EntityPlayer) event.getEntityLiving();
             ItemStack stack = player.getHeldItemMainhand();
@@ -60,12 +60,12 @@ public class HCTools extends Feature {
     }
 
     @SubscribeEvent
-    public static void onUseHoe(UseHoeEvent event) {
+    public void onUseHoe(UseHoeEvent event) {
         breakTool(event.getCurrent(), event.getEntityPlayer());
     }
 
     @SubscribeEvent
-    public static void onBreaking(BlockEvent.BreakEvent event) {
+    public void onBreaking(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
         ItemStack stack = player.getHeldItemMainhand();
         breakTool(stack, player);
@@ -79,7 +79,7 @@ public class HCTools extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void harvestGarbage(BlockEvent.BreakEvent event) {
+    public void harvestGarbage(BlockEvent.BreakEvent event) {
         EntityPlayer player = event.getPlayer();
         if (event.isCanceled() || player == null || player.isCreative())
             return;

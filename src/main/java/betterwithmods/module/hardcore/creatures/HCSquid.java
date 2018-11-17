@@ -20,7 +20,7 @@ public class HCSquid extends Feature {
 
     @SuppressWarnings("unchecked")
     @SubscribeEvent
-    public static void addEntityAI(EntityJoinWorldEvent event) {
+    public void addEntityAI(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntitySquid) {
             EntitySquid squid = (EntitySquid) event.getEntity();
 //            squid.getAttributeMap().getAttributeInstance(SharedMonsterAttributes.FOLLOW_RANGE).setBaseValue(64d);
@@ -38,7 +38,7 @@ public class HCSquid extends Feature {
     }
 
     @SubscribeEvent
-    public static void onEntityTick(LivingEvent.LivingUpdateEvent event) {
+    public void onEntityTick(LivingEvent.LivingUpdateEvent event) {
         if (event.getEntityLiving() instanceof EntitySquid) {
             EntitySquid squid = (EntitySquid) event.getEntityLiving();
             squid.setAir(300);
@@ -51,12 +51,12 @@ public class HCSquid extends Feature {
     }
 
     @SubscribeEvent
-    public static void onClicked(PlayerInteractEvent.EntityInteractSpecific event) {
+    public void onClicked(PlayerInteractEvent.EntityInteractSpecific event) {
 
     }
 
     @SubscribeEvent
-    public static void onDismount(EntityMountEvent event) {
+    public void onDismount(EntityMountEvent event) {
         if (event.getEntityMounting() instanceof EntitySquid && event.isDismounting() && event.getEntityMounting().isEntityAlive()) {
             event.setResult(Event.Result.DENY);
             event.setCanceled(true);

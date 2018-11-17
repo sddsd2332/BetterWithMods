@@ -53,7 +53,7 @@ public class GrassPath extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onBlockRightclick(PlayerInteractEvent.RightClickBlock event) {
+    public void onBlockRightclick(PlayerInteractEvent.RightClickBlock event) {
         if (event.getResult() != Event.Result.DEFAULT || event.isCanceled())
             return;
 

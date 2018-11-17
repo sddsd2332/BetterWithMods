@@ -42,14 +42,14 @@ public class HCChickens extends Feature {
     }
 
     @SubscribeEvent
-    public static void onAttachCap(AttachCapabilitiesEvent<Entity> event) {
+    public void onAttachCap(AttachCapabilitiesEvent<Entity> event) {
         if (event.getObject() instanceof EntityChicken) {
             event.addCapability(EGG_LAYER, new EggLayer(new ItemStack(Items.EGG), SEEDS));
         }
     }
 
     @SubscribeEvent
-    public static void onEntityTick(LivingEvent.LivingUpdateEvent event) {
+    public void onEntityTick(LivingEvent.LivingUpdateEvent event) {
         EntityLivingBase entityLiving = event.getEntityLiving();
         if (entityLiving.world.isRemote)
             return;
@@ -75,7 +75,7 @@ public class HCChickens extends Feature {
     }
 
     @SubscribeEvent
-    public static void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
+    public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
         if (SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving) {
             EggLayer layer = getLayer(event.getTarget());
             if (layer != null) {

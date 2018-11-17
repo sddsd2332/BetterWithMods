@@ -18,7 +18,7 @@ public class HCJumping extends Feature {
     }
 
     @SubscribeEvent
-    public static void onBlockPlace(PlayerInteractEvent.RightClickBlock e) {
+    public void onBlockPlace(PlayerInteractEvent.RightClickBlock e) {
         if (!PlayerUtils.isSurvival(e.getEntityPlayer()) || e.getEntityPlayer().isInWater() || e.getEntityPlayer().isOnLadder())
             return;
         if (e.getItemStack().getItem() instanceof ItemBlock && !e.getEntityPlayer().onGround) {

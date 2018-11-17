@@ -17,7 +17,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 public class MysteryMeat extends Feature {
     @SubscribeEvent
-    public static void dropMysteryMeat(LivingDropsEvent event) {
+    public void dropMysteryMeat(LivingDropsEvent event) {
         if (event.getEntityLiving() instanceof EntityPlayer || event.getEntityLiving() instanceof EntityVillager || event.getEntityLiving() instanceof AbstractIllager) {
             addDrop(event, new ItemStack(BWMItems.MYSTERY_MEAT, 1 + event.getEntityLiving().world.rand.nextInt(2) + event.getLootingLevel()));
         }

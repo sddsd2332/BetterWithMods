@@ -47,7 +47,7 @@ public class HCBonemeal extends Feature {
     }
 
     @SubscribeEvent
-    public static void onBonemeal(BonemealEvent e) {
+    public void onBonemeal(BonemealEvent e) {
         if (!PlayerUtils.isSurvival(e.getEntityPlayer()))
             return;
         if (!(e.getBlock().getBlock() instanceof BlockGrass) && !(e.getBlock().getBlock() instanceof BlockPlanter) && e.getBlock().getBlock() instanceof IGrowable) {
@@ -58,7 +58,7 @@ public class HCBonemeal extends Feature {
     }
 
     @SubscribeEvent
-    public static void onEntityCollideWith(EntityCollidedEvent event) {
+    public void onEntityCollideWith(EntityCollidedEvent event) {
         if (event.getWorld().isRemote)
             return;
         if (event.getState().getBlock() instanceof BlockFarmland || event.getState().getBlock() == BlockPlanter.getBlock(BlockPlanter.Type.FARMLAND)) {
@@ -72,7 +72,7 @@ public class HCBonemeal extends Feature {
     }
 
     @SubscribeEvent
-    public static void onItemUse(PlayerInteractEvent.RightClickBlock e) {
+    public void onItemUse(PlayerInteractEvent.RightClickBlock e) {
         ItemStack stack = e.getItemStack();
         if (!FERTILIZERS.test(stack))
             return;

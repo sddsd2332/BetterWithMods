@@ -38,7 +38,7 @@ import java.util.stream.IntStream;
 public class KilnRecipes extends Feature {
 
     @SubscribeEvent
-    public static void formKiln(BlockEvent.NeighborNotifyEvent event) {
+    public void formKiln(BlockEvent.NeighborNotifyEvent event) {
         BlockPos up = event.getPos().up();
         World world = event.getWorld();
         if (KilnStructureManager.isKilnBlock(world, up) && BWMHeatRegistry.getHeat(world, event.getPos()) > 0) {
@@ -47,7 +47,7 @@ public class KilnRecipes extends Feature {
     }
 
     @SubscribeEvent
-    public static void onKilnPlace(BlockEvent.PlaceEvent event) {
+    public void onKilnPlace(BlockEvent.PlaceEvent event) {
         if (event.getPlacedBlock().getBlock().isAir(event.getPlacedBlock(), event.getWorld(), event.getPos())) {
             KilnStructureManager.createKiln(event.getWorld(), event.getPos());
         }

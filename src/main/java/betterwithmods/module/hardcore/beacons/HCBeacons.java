@@ -66,14 +66,14 @@ public class HCBeacons extends Feature {
     }
 
     @SubscribeEvent
-    public static void attachTileCapability(AttachCapabilitiesEvent<TileEntity> event) {
+    public void attachTileCapability(AttachCapabilitiesEvent<TileEntity> event) {
         if (event.getObject() instanceof TileEnderchest && !event.getObject().hasCapability(ENDERCHEST_CAPABILITY, EnumFacing.UP)) {
             event.addCapability(new ResourceLocation(ModLib.MODID, "enderchest"), new EnderchestCap(EnumFacing.UP));
         }
     }
 
     @SubscribeEvent
-    public static void attachWorldCapability(AttachCapabilitiesEvent<World> event) {
+    public void attachWorldCapability(AttachCapabilitiesEvent<World> event) {
         World world = event.getObject();
 
         //Capability for tracking beacon ranges

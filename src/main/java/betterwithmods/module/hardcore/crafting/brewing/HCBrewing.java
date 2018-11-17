@@ -52,7 +52,7 @@ public class HCBrewing extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public static void mobDrops(LivingDropsEvent evt) {
+    public void mobDrops(LivingDropsEvent evt) {
         Entity entity = evt.getEntityLiving();
         List<EntityItem> drops = evt.getDrops();
 

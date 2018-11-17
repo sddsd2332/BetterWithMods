@@ -53,7 +53,7 @@ public class HCPiles extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    public static void onHarvest(BlockEvent.HarvestDropsEvent event) {
+    public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         IBlockState state = event.getState();
         if (event.isSilkTouching() || event.getResult().equals(Event.Result.DENY) || !blockStateToPile.containsKey(state))
             return;

@@ -19,7 +19,7 @@ public class HCBabyZombies extends Feature {
     private static final AttributeModifier BABY_DAMAGE = new AttributeModifier(BABY_DAMAGE_ID, "Baby damage", -0.25, 1);
 
     @SubscribeEvent
-    public static void onJoinWorld(EntityJoinWorldEvent event) {
+    public void onJoinWorld(EntityJoinWorldEvent event) {
         if (event.getEntity() instanceof EntityZombie) {
             EntityZombie entity = (EntityZombie) event.getEntity();
             if (entity.isChild()) {

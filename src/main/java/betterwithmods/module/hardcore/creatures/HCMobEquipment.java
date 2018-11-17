@@ -70,7 +70,7 @@ public class HCMobEquipment extends Feature {
     }
 
     @SubscribeEvent
-    public static void onSetEquipment(EntitySetEquipmentEvent event) {
+    public void onSetEquipment(EntitySetEquipmentEvent event) {
         EntityLivingBase entity = (EntityLivingBase) event.getEntity();
         ResourceLocation key = EntityList.getKey(entity);
 

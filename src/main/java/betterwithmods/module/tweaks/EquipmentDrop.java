@@ -15,7 +15,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 public class EquipmentDrop extends Feature {
 
     @SubscribeEvent
-    public static void setDropChance(EntityJoinWorldEvent e) {
+    public void setDropChance(EntityJoinWorldEvent e) {
         if (e.getEntity() instanceof EntityLiving) {
             EntityLiving entity = (EntityLiving) e.getEntity();
             if (entity instanceof EntityZombie) {

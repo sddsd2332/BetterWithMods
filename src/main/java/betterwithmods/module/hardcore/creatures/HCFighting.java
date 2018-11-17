@@ -18,7 +18,7 @@ public class HCFighting extends Feature {
 
 
     @SubscribeEvent
-    public static void onKnockback(LivingKnockBackEvent event) {
+    public void onKnockback(LivingKnockBackEvent event) {
         Entity attacker = event.getAttacker();
         if (attacker instanceof EntityPlayer) {
             if (!PlayerUtils.isSurvival((EntityPlayer) attacker))
