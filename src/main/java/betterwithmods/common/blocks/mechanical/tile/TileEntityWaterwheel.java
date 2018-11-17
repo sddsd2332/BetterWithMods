@@ -13,6 +13,7 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.util.math.Vec3i;
+import net.minecraft.world.World;
 import net.minecraftforge.fluids.BlockFluidBase;
 import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.relauncher.Side;
@@ -21,7 +22,7 @@ import net.minecraftforge.fml.relauncher.SideOnly;
 import java.util.HashMap;
 
 public class TileEntityWaterwheel extends TileAxleGenerator {
-    static HashMap<Block, IWaterCurrent> WATER_BLOCKS = new HashMap<>();
+    public static HashMap<Block, IWaterCurrent> WATER_BLOCKS = new HashMap<>();
 
     public TileEntityWaterwheel() {
         super();
@@ -45,7 +46,7 @@ public class TileEntityWaterwheel extends TileAxleGenerator {
         return 0;
     }
 
-    public boolean isWater(BlockPos pos) {
+    public static boolean isWater(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
         return isVanillaWater(state) || isForgeFluid(state.getBlock()) || WATER_BLOCKS.containsKey(state.getBlock());
     }
@@ -59,11 +60,11 @@ public class TileEntityWaterwheel extends TileAxleGenerator {
         return WATER_BLOCKS.get(state.getBlock());
     }
 
-    private boolean isVanillaWater(IBlockState state) {
+    private static boolean isVanillaWater(IBlockState state) {
         return state.getBlock() instanceof BlockLiquid && state.getMaterial() == Material.WATER;
     }
 
-    private boolean isForgeFluid(Block block) {
+    private static boolean isForgeFluid(Block block) {
         return block instanceof BlockFluidBase && ((BlockFluidBase) block).getFluid() == FluidRegistry.WATER;
     }
 
@@ -79,7 +80,7 @@ public class TileEntityWaterwheel extends TileAxleGenerator {
                     int zPos = (axis == EnumFacing.Axis.X ? i : 0);
                     BlockPos offset = pos.add(xPos, j, zPos);
                     if (j == -2)
-                        hasWater = isWater(offset);
+                        hasWater = isWater(world, offset);
                     if (!hasWater) {
                         hasWater = sidesHaveWater();
                         if (!hasWater)
@@ -91,7 +92,7 @@ public class TileEntityWaterwheel extends TileAxleGenerator {
                         IBlockState state = world.getBlockState(offset);
                         boolean replaceable = state.getBlock().isReplaceable(world, offset);
                         if (i == -2 || i == 2) {
-                            isAir = replaceable || isWater(offset);
+                            isAir = replaceable || isWater(world, offset);
                         } else
                             isAir = replaceable;
                     }
@@ -117,16 +118,16 @@ public class TileEntityWaterwheel extends TileAxleGenerator {
             int zRight = axis == EnumFacing.Axis.X ? 2 : 0;
             BlockPos leftPos = pos.add(xLeft, i, zLeft);
             BlockPos rightPos = pos.add(xRight, i, zRight);
-            if (isWater(leftPos))
+            if (isWater(world, leftPos))
                 leftWater++;
-            else if (isWater(rightPos))
+            else if (isWater(world, rightPos))
                 rightWater++;
 
             int xP = axis == EnumFacing.Axis.Z ? i : 0;
             int yP = -2;
             int zP = axis == EnumFacing.Axis.X ? i : 0;
             BlockPos bPos = pos.add(xP, yP, zP);
-            bottomIsUnobstructed = getBlockWorld().isAirBlock(bPos) || isWater(bPos);
+            bottomIsUnobstructed = getBlockWorld().isAirBlock(bPos) || isWater(world, bPos);
             if (!bottomIsUnobstructed)
                 break;
         }
@@ -158,9 +159,9 @@ public class TileEntityWaterwheel extends TileAxleGenerator {
                 int zRight = axis == EnumFacing.Axis.X ? 2 : 0;
                 BlockPos leftPos = pos.add(xLeft, i, zLeft);
                 BlockPos rightPos = pos.add(xRight, i, zRight);
-                if (isWater(leftPos))
+                if (isWater(world, leftPos))
                     leftWater++;
-                if (isWater(rightPos))
+                if (isWater(world, rightPos))
                     rightWater++;
             }
             int xFlow = Math.abs(overallFlow.x) > 2 ? (int) Math.signum(overallFlow.x) : 0;
