@@ -10,7 +10,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.*;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Loader;
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -25,9 +24,7 @@ public final class ItemBookManual extends ItemBook {
 
     @Override
     public void getSubItems(CreativeTabs tab, NonNullList<ItemStack> items) {
-        if (!Loader.isModLoaded("patchouli")) {
-            super.getSubItems(tab, items);
-        }
+        super.getSubItems(tab, items);
     }
 
     public static boolean tryOpenManual(final World world, final EntityPlayer player, @Nullable final String path) {

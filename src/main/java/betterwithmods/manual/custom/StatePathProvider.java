@@ -1,5 +1,6 @@
 package betterwithmods.manual.custom;
 
+import betterwithmods.BWMod;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.mechanical.BlockMechMachines;
@@ -74,7 +75,7 @@ public class StatePathProvider implements PathProvider {
     private String defaultPathFor(IBlockState state) {
         Block block = state.getBlock();
         ResourceLocation loc = block.getRegistryName();
-        if (loc != null) {
+        if (loc != null && loc.getNamespace().equalsIgnoreCase(BWMod.MODID)) {
             String name = loc.getPath();
             return String.format("%%LANGUAGE%%/blocks/%s.md", name);
         }
