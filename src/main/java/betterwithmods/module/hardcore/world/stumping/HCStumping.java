@@ -165,7 +165,7 @@ public class HCStumping extends Feature {
     }
 
     @SideOnly(Side.CLIENT)
-    public void syncPlaced(BlockPos[] pos) {
+    public static void syncPlaced(BlockPos[] pos) {
         World world = Minecraft.getMinecraft().world;
         if (world == null)
             return;
