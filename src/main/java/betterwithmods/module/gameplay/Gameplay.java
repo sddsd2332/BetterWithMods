@@ -80,7 +80,7 @@ public class Gameplay extends Module {
         cauldronStokedSpeedFactor = (float) loadPropDouble("Cauldron stoked speed factor", "Cooking speed multiplier for stoked cauldrons and crucibles.", 1.0);
         cauldronMultipleFiresFactor = (float) loadPropDouble("Cauldron Multiple fires factor", "Sets how strongly multiple fire sources (in a 3x3 grid below the pot) affect cooking times.", 1.0);
         dropHempSeeds = loadPropBool("Drop Hemp Seeds", "Adds Hemp seeds to the grass seed drop list.", true);
-        waterwheelFluidConfig = ConfigHelper.loadPropStringList("Waterwheel fluids", name, "Additional Fluids which will allow the Waterwheel to turn, format fluid_name. (Vanilla water will always work)", new String[]{
+        waterwheelFluidConfig = ConfigHelper.loadPropStringList("Waterwheel fluids", name, "Additional Fluids which will allow the Waterwheel to turn and screw pump to pump, format fluid_name. (Vanilla water will always work)", new String[]{
                 "swamp_water"
         });
 
