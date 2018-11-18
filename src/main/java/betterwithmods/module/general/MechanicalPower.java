@@ -21,7 +21,7 @@ public class MechanicalPower extends RequiredFeature {
     @Override
     public void onInit(FMLInitializationEvent event) {
         HAND_CRANK_EXHAUSTION = loadProperty("Hand Crank Exhaustion", 6.0f)
-                .setMin(0.0).setMax(20.0)
+                .setMin(0.0f).setMax(20.0f)
                 .setComment("How much saturation turning the crank eats. Set to 0.0 to disable.")
                 .get();
 
