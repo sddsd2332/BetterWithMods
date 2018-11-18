@@ -383,7 +383,7 @@ public class MiniBlocks extends Feature {
                 RecipeRegistry.WOOD_SAW.addRecipe(siding, mouldingStack);
                 RecipeRegistry.WOOD_SAW.addRecipe(moulding, cornerStack);
                 if (BWMOreDictionary.isOre(parentStack, "plankWood")) {
-                    RecipeRegistry.WOOD_SAW.addRecipe(corner, ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_GEAR, 2));
+                    RecipeRegistry.WOOD_SAW.addRecipe(corner, ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOODEN_GEAR, 2));
                 }
             } else {
                 ItemStack sidingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material), parent, 8);

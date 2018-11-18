@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:hemp_leaf",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:wooden_gear"
+    },
+    "title": {
+      "translate": "item.betterwithmods:wooden_gear.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.wooden_gear.desc"
+    }
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:wooden_gear"
+          }
+        ]
+      }
+    }
+  },
+  "rewards": {
+    "recipes": [
+      "betterwithmods:blocks/mech/hand_crank"
+    ]
+  }
+}

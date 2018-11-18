@@ -61,7 +61,7 @@ public class BWMOreDictionary {
         registerOre("element", ItemMaterial.getStack(ItemMaterial.EnumMaterial.ELEMENT));
         registerOre("latchRedstone", ItemMaterial.getStack(ItemMaterial.EnumMaterial.REDSTONE_LATCH));
         registerOre("arrowSoulforgedSteel", ItemMaterial.getStack(ItemMaterial.EnumMaterial.BROADHEAD));
-        registerOre("gearWood", ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_GEAR));
+        registerOre("gearWood", ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOODEN_GEAR));
         registerOre("cropHemp", ItemMaterial.getStack(ItemMaterial.EnumMaterial.HEMP_LEAF));
         registerOre("dyeBrown", ItemMaterial.getStack(ItemMaterial.EnumMaterial.DUNG));
         registerOre("dung", ItemMaterial.getStack(ItemMaterial.EnumMaterial.DUNG));

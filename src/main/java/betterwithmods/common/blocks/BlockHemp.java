@@ -151,8 +151,7 @@ public class BlockHemp extends BlockCrops implements IPlantable {
 
     @Override
     public int damageDropped(IBlockState state) {
-        int meta = state.getValue(AGE);
-        return meta > 6 ? 2 : 0;
+        return 0;
     }
 
     @Nonnull

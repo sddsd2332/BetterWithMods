@@ -1,7 +1,8 @@
 {
   "name": "Millstone",
-  "icon": "betterwithmods:single_machine",
-  "category": "blocks",
+  "icon": "betterwithmods:millstone",
+  "advancement": "betterwithmods:hand_crank",
+  "category": "machines",
   "pages": [
     {
       "type": "text",
@@ -11,7 +12,7 @@
     {
       "type": "crafting",
       "title": "Recipe",
-      "recipe": "betterwithmods:blocks/mech/single_machine_0"
+      "recipe": "betterwithmods:blocks/mech/millstone"
     }
   ]
 }

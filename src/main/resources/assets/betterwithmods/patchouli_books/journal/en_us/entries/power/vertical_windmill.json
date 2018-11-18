@@ -1,0 +1,18 @@
+{
+  "name": "Vertical Windmill",
+  "icon": "betterwithmods:vertical_windmill",
+  "advancement": "betterwithmods:wooden_axle",
+  "category": "power",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": ""
+    },
+    {
+      "type": "crafting",
+      "title": "Recipe",
+      "recipe": "betterwithmods:blocks/mech/vertical_windmill"
+    }
+  ]
+}

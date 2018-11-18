@@ -1,5 +1,5 @@
 {
-  "parent": "betterwithmods:wood_gear",
+  "parent": "betterwithmods:wooden_gear",
   "display": {
     "icon": {
       "item": "betterwithmods:hand_crank"
@@ -9,8 +9,7 @@
     },
     "description": {
       "translate": "advancement.betterwithmods.hand_crank.desc"
-    },
-    "hidden": true
+    }
   },
   "criteria": {
     "has_item": {

@@ -34,7 +34,7 @@ public class BlockBrokenGearbox extends BlockBase {
     public BlockBrokenGearbox(Material material) {
         super(material);
         setHardness(3.5f);
-        setRepairIngredient(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_GEAR)));
+        setRepairIngredient(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOODEN_GEAR)));
         setRepairedBlock(BWMBlocks.WOODEN_GEARBOX);
         setRepairCost(2);
     }

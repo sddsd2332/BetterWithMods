@@ -1,0 +1,22 @@
+{
+  "name": "Wooden Axle",
+  "icon": "betterwithmods:wooden_axle",
+  "category": "power",
+  "advancement": "betterwithmods:rope",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Test",
+      "text": "These axles, made of wood"
+    },
+    {
+      "type": "crafting",
+      "recipe": "betterwithmods:blocks/mech/wooden_axle"
+    },
+    {
+      "type": "crafting",
+      "recipe": "betterwithmods:blocks/mech/wooden_axle_efficient",
+      "advancement": "betterwithmods:saw"
+    }
+  ]
+}

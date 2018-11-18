@@ -6,6 +6,22 @@
         "modid": "betterwithmods"
       }
     ],
+    "name": "PLANKS_WOOD",
+    "ingredient": [
+      {
+        "type": "forge:ore_dict",
+        "ore": "plankWood"
+      }
+    ]
+  },
+
+  {
+    "conditions": [
+      {
+        "type": "forge:mod_loaded",
+        "modid": "betterwithmods"
+      }
+    ],
     "name": "HE_PLANKS",
     "ingredient": [
       {

@@ -63,7 +63,7 @@ public class ItemMaterial extends Item {
     @Override
     public int getItemBurnTime(ItemStack stack) {
         switch (material) {
-            case WOOD_GEAR:
+            case WOODEN_GEAR:
                 return 18;
             case NETHERCOAL:
                 return 3200;
@@ -82,7 +82,7 @@ public class ItemMaterial extends Item {
 
 
     public enum EnumMaterial implements IItemType {
-        WOOD_GEAR,
+        WOODEN_GEAR,
         NETHERCOAL,
         HEMP_LEAF,
         HEMP_FIBERS,

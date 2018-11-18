@@ -1,5 +1,5 @@
 {
-  "parent": "betterwithmods:wood_gear",
+  "parent": "betterwithmods:wooden_gear",
   "display": {
     "icon": {
       "item": "betterwithmods:millstone"
@@ -9,8 +9,7 @@
     },
     "description": {
       "translate": "advancement.betterwithmods.millstone.desc"
-    },
-    "hidden": true
+    }
   },
   "criteria": {
     "has_item": {
@@ -26,7 +25,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "betterwithmods:items/material/wood_gear"
+        "recipe": "betterwithmods:items/material/wooden_gear"
       }
     }
   },

@@ -9,8 +9,7 @@
     },
     "description": {
       "translate": "advancement.betterwithmods.cauldron.desc"
-    },
-    "hidden": true
+    }
   },
   "criteria": {
     "has_items": {

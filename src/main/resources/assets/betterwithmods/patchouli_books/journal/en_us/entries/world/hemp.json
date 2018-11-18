@@ -1,0 +1,27 @@
+{
+  "name": "Hemp Plant",
+  "icon": "betterwithmods:hemp",
+  "advancement": "betterwithmods:hemp_seed",
+  "category": "world",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Hemp Plant",
+      "text": "The Hemp Plant is a strong fibrous plant that grows to my height after it has matured.$(br2)To grow it requires being planted in adequately lit and moist farmland."
+    },
+    {
+      "type": "image",
+      "title": "Hemp Plant",
+      "border": true,
+      "images": [
+      "betterwithmods:textures/documentation/hemp.png"
+      ]
+    },
+    {
+      "type": "crafting",
+      "recipe": "betterwithmods:items/rope",
+      "advancement": "betterwithmods:millstone",
+      "text": "The fibers of this plant can be harnessed to make a strong and versatile rope"
+    }
+  ]
+}

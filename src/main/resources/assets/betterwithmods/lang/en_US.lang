@@ -178,7 +178,7 @@ tile.betterwithmods:deadweight.veryDamaged.name=Very Damaged Deadweight
 tile.betterwithmods:bucket.name=Well Bucket
 
 
-item.betterwithmods:wood_gear.name=Wooden Gear
+item.betterwithmods:wooden_gear.name=Wooden Gear
 item.betterwithmods:nethercoal.name=Nethercoal
 item.betterwithmods:hemp_leaf.name=Hemp
 item.betterwithmods:hemp_fibers.name=Hemp Fibers
@@ -498,7 +498,7 @@ advancement.betterwithmods.glue.desc=Horsey?
 advancement.betterwithmods.urn.desc=This Is Teh Urn!
 advancement.betterwithmods.block_dispenser.desc=Starting A Hemp Dispensery
 advancement.betterwithmods.table_wood.desc=Not Quite King Athur's, But It'll Do
-advancement.betterwithmods.wood_gear.desc=Beware Of Splinters
+advancement.betterwithmods.wooden_gear.desc=Beware Of Splinters
 advancement.betterwithmods.platform.desc=More Reliable Than Curse
 advancement.betterwithmods.composite_bow.desc=Pew Pew
 advancement.betterwithmods.pulley.desc=Do You Feel Pulled To Something?

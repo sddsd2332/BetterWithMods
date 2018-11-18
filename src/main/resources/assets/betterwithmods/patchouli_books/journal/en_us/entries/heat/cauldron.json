@@ -1,0 +1,18 @@
+{
+  "name": "Cauldron",
+  "icon": "betterwithmods:cauldron",
+  "advancement": "betterwithmods:nether",
+  "category": "heat",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": ""
+    },
+    {
+      "type": "crafting",
+      "title": "Recipe",
+      "recipe": "betterwithmods:blocks/mech/cauldron"
+    }
+  ]
+}

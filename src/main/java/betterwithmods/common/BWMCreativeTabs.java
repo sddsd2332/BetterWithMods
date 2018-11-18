@@ -16,7 +16,7 @@ public class BWMCreativeTabs {
         @Override
         @SideOnly(Side.CLIENT)
         public ItemStack createIcon() {
-            return ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOOD_GEAR);
+            return ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOODEN_GEAR);
         }
     };
 
