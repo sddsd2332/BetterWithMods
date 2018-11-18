@@ -28,11 +28,5 @@
         "recipe": "minecraft:iron_hoe"
       }
     }
-  },
-  "requirements": [
-    [
-      "has_items",
-      "has_the_recipe"
-    ]
-  ]
+  }
 }

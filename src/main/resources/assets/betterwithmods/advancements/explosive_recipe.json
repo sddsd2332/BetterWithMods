@@ -2,8 +2,7 @@
   "parent": "betterwithmods:cauldron",
   "display": {
     "icon": {
-      "item": "betterwithmods:material",
-      "data": 17
+      "item": "betterwithmods:blasting_oil"
     },
     "title": {
       "translate": "advancement.betterwithmods.explosive_recipe.name"

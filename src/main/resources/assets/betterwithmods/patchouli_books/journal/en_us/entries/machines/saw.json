@@ -1,0 +1,19 @@
+{
+  "name": "Saw",
+  "icon": "betterwithmods:saw",
+  "advancement": "betterwithmods:wooden_axle",
+  "category": "machines",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "crafting",
+      "title": "Recipe",
+      "recipe": "betterwithmods:blocks/mech/saw"
+    }
+  ],
+  "sortnum": 5
+}

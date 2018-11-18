@@ -13,21 +13,20 @@
     "announce_to_chat": false
   },
   "criteria": {
-    "has_item": {
+    "crafting_table": {
       "trigger": "minecraft:inventory_changed",
       "conditions": {
         "items": [
           {
-            "ore": "plankWood",
-            "type": "forge:ore_dict"
+            "item": "minecraft:crafting_table"
           }
         ]
       }
     }
   },
-  "requirements": [
-    [
-      "has_item"
+  "rewards": {
+    "recipes": [
+      "betterwithmods:blocks/mech/cauldron"
     ]
-  ]
+  }
 }

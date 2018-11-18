@@ -21,11 +21,18 @@
           }
         ]
       }
+    },
+    "has_the_recipe": {
+      "trigger": "minecraft:recipe_unlocked",
+      "conditions": {
+        "recipe": "betterwithmods:items/material/wooden_gear"
+      }
     }
   },
   "rewards": {
     "recipes": [
-      "betterwithmods:blocks/mech/hand_crank"
+      "betterwithmods:blocks/mech/hand_crank",
+      "betterwithmods:blocks/mech/millstone"
     ]
   }
 }

@@ -27,5 +27,10 @@
     [
       "has_item"
     ]
-  ]
+  ],
+  "rewards": {
+    "recipes": [
+      "betterwithmods:items/material/wooden_gear"
+    ]
+  }
 }

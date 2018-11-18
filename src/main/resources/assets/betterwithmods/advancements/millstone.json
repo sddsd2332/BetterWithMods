@@ -25,7 +25,7 @@
     "has_the_recipe": {
       "trigger": "minecraft:recipe_unlocked",
       "conditions": {
-        "recipe": "betterwithmods:items/material/wooden_gear"
+        "recipe": "betterwithmods:blocks/mech/millstone"
       }
     }
   },

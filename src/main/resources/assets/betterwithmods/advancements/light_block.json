@@ -2,7 +2,7 @@
   "parent": "betterwithmods:cauldron",
   "display": {
     "icon": {
-      "item": "betterwithmods:light"
+      "item": "betterwithmods:light_yellow"
     },
     "title": {
       "translate": "tile.betterwithmods:light.name"
