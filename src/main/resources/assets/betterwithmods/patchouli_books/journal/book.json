@@ -8,5 +8,6 @@
   "model": "betterwithmods:manual",
   "version": "0",
   "subtitle": "",
-  "index_icon": "betterwithmods:textures/icons/index.png"
+  "index_icon": "betterwithmods:textures/icons/index.png",
+  "show_progress": "false"
 }

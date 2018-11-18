@@ -1,9 +1,10 @@
 {
   "name": "Horizontal Windmill",
-  "icon": "betterwithmods:wooden_axle",
+  "icon": "betterwithmods:horizontal_windmill",
+  "advancement": "betterwithmods:wooden_axle",
   "category": "power",
-  "advancement": "betterwithmods:horizontal_windmill",
   "pages": [
+
     {
       "type": "text",
       "title": "",
@@ -14,5 +15,6 @@
       "title": "Recipe",
       "recipe": "betterwithmods:blocks/mech/horizontal_windmill"
     }
-  ]
+  ],
+  "sortnum": 5
 }
