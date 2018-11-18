@@ -1,9 +1,9 @@
 package betterwithmods.module.hardcore.world.strata;
 
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
+import betterwithmods.module.internal.BrokenToolRegistry;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;

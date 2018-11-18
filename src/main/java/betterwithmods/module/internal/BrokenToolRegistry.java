@@ -1,5 +1,6 @@
-package betterwithmods.common.registry;
+package betterwithmods.module.internal;
 
+import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -24,14 +25,10 @@ import java.util.UUID;
  * <p>
  * It tries to be efficient about it by only registering for a tick event as needed.
  */
-public class BrokenToolRegistry {
+public class BrokenToolRegistry extends RequiredFeature {
 
     public static final Map<UUID, ItemStack> destroyed = new HashMap<>();
     private static final Ticker ticker = new Ticker();
-
-    public static void init() {
-        MinecraftForge.EVENT_BUS.register(BrokenToolRegistry.class);
-    }
 
     public static ItemStack findItem(EntityPlayer player, IBlockState state) {
         if (player == null)

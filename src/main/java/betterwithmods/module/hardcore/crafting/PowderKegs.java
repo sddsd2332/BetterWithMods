@@ -26,9 +26,12 @@ public class PowderKegs extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.TNT.getRegistryName()));
-
         Blocks.TNT.setTranslationKey("betterwithmods:powder_keg");
         Items.TNT_MINECART.setTranslationKey("betterwithmods:powder_keg_minecart");
+    }
+
+    @Override
+    public void registerRecipes() {
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.TNT.getRegistryName()));
     }
 }

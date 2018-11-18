@@ -20,6 +20,7 @@ public class InternalRegistries extends RequiredModule {
                 new MiscRegistry(),
                 new AdvancementRegistry(),
                 new AdvancedDispenserRegistry(),
+                new BrokenToolRegistry(),
                 BWMNetwork.INSTANCE
         );
 

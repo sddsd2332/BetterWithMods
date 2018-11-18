@@ -40,9 +40,11 @@ public class MillRecipes extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-
         grindingOnly = loadProperty("Grinding Only", true).setComment("Remove normal recipes for certain grindable items").get();
+    }
 
+    @Override
+    public void registerRecipes() {
         if (grindingOnly) {
             RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Items.SUGAR)));
             RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT, new ItemStack(Items.BLAZE_POWDER)));

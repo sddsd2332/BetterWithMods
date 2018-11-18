@@ -1,7 +1,6 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -15,7 +14,6 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.math.BlockPos;
 import net.minecraftforge.event.world.BlockEvent;
-import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -64,17 +62,15 @@ public class HCLumber extends Feature {
         axePlankAmount = loadProperty("Axe Plank Amount", 3).setComment("Amount of Planks dropped when crafted with an axe").get();
         axeBarkAmount = loadProperty("Axe Bark Amount", 1).setComment("Amount of Bark dropped when crafted with an axe").get();
         axeSawDustAmount = loadProperty("Axe Sawdust Amount", 2).setComment("Amount of Sawdust dropped when crafted with an axe").get();
-
-
     }
 
     @Override
-    public void onInit(FMLInitializationEvent event) {
-        BrokenToolRegistry.init();
+    public void registerRecipes() {
         for (IRecipe recipe : BWMOreDictionary.logRecipes) {
-            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.EXACT, recipe));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, recipe.getRegistryName()));
         }
     }
+
 
     @Override
     public boolean hasEvent() {

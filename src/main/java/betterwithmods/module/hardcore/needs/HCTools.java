@@ -105,7 +105,10 @@ public class HCTools extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         removeLowTools = loadProperty("Remove cheapest tools", true).setComment("The minimum level of the hoe and the sword is iron, and the axe needs at least stone.").get();
+    }
 
+    @Override
+    public void registerRecipes() {
         if (removeLowTools) {
             removeLowTierToolRecipes();
         }

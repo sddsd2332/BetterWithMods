@@ -321,7 +321,7 @@ public class MiniBlocks extends Feature {
     }
 
     @Override
-    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+    public void onRecipesRegistered(RegistryEvent.Register<IRecipe> event) {
         registerMiniblocks();
 
         BWMOreDictionary.registerOre("miniblocks",

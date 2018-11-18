@@ -16,7 +16,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -43,7 +42,7 @@ public class HCOres extends Feature {
     }
 
     @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
+    public void registerRecipes() {
         if (customRecipes) {
             RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.COMPASS.getRegistryName()));
             RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.CLOCK.getRegistryName()));

@@ -263,11 +263,15 @@ public class HCFishing extends Feature {
         configuration = new FishingTimes();
 
         CapabilityManager.INSTANCE.register(FishingBait.class, new CapabilityFishingRod(), FishingBait::new);
-        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:fishing_rod"));
 
     }
 
-    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
+    @Override
+    public void registerRecipes() {
+        RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:fishing_rod"));
+    }
+
+    public void onRecipesRegistered(RegistryEvent.Register<IRecipe> event) {
         BAIT = StackIngredient.fromStacks(config().loadItemStackArray("Bait", getCategory(), "Add items as valid fishing bait", new ItemStack[]{
                 new ItemStack(Items.SPIDER_EYE),
                 new ItemStack(BWMItems.CREEPER_OYSTER),

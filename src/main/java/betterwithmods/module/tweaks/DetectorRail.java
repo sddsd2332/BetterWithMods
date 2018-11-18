@@ -33,6 +33,10 @@ public class DetectorRail extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         Blocks.DETECTOR_RAIL.setTranslationKey(ModLib.MODID + ":detector_rail_wood");
+    }
+
+    @Override
+    public void registerRecipes() {
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.DETECTOR_RAIL.getRegistryName()));
     }
 

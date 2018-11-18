@@ -9,7 +9,6 @@ import com.google.common.collect.Sets;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.util.ResourceLocation;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.util.Set;
 
@@ -23,7 +22,7 @@ public class HCSaw extends Feature {
     }
 
     @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
+    public void registerRecipes() {
         Set<ResourceLocation> blocks = Sets.newHashSet(
                 Blocks.OAK_FENCE.getRegistryName(),
                 Blocks.ACACIA_FENCE.getRegistryName(),

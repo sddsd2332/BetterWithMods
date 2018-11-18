@@ -92,11 +92,13 @@ public class MossGeneration extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-
         RADIUS = loadProperty("Moss radius from the mob spawner", 5).get();
         RATE = loadProperty("Moss grow rate", 100).setComment("1 out of this rate will cause a moss to try to generate").get();
         DISABLE_VINE_RECIPES = loadProperty("Disable Vine Recipes", true).setComment("Disables the mossy cobblestone and mossy brick recipes involving vines.").get();
+    }
 
+    @Override
+    public void registerRecipes() {
         if (DISABLE_VINE_RECIPES) {
             RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:mossy_cobblestone"));
             RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:mossy_stonebrick"));

@@ -3,7 +3,6 @@ package betterwithmods.module.recipes;
 import betterwithmods.api.recipe.output.impl.RandomCountOutputs;
 import betterwithmods.api.recipe.output.impl.RandomOutput;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.common.registry.crafting.ChoppingRecipe;
 import betterwithmods.lib.ModLib;
@@ -38,20 +37,7 @@ public class SawRecipes extends Feature {
     }
 
     @Override
-    public void onInit(FMLInitializationEvent event) {
-        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.PUMPKIN, 0, OreDictionary.WILDCARD_VALUE));
-        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.VINE));
-        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.YELLOW_FLOWER));
-        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.BROWN_MUSHROOM));
-        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.RED_MUSHROOM));
-        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(BWMBlocks.ROPE));
-        for (int i = 0; i < 9; i++)
-            RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.RED_FLOWER, 1, i));
-
-        RecipeRegistry.WOOD_SAW.addRecipe(new SawRecipe(new BlockStateIngredient(new ItemStack(Blocks.MELON_BLOCK)), new RandomCountOutputs(new RandomOutput(new ItemStack(Items.MELON), 3, 8))));
-
-        BWMOreDictionary.findLogRecipes();
-
+    public void registerRecipes() {
         for (IBlockVariants variant : VariantUtils.BLOCK_VARIANTS) {
             ItemStack log = variant.getStack(IBlockVariants.EnumBlock.LOG, 1);
             if (!log.isEmpty()) {
@@ -59,6 +45,20 @@ public class SawRecipes extends Feature {
                 RecipeRegistry.addRecipe(new ChoppingRecipe(variant).setRegistryName(location));
             }
         }
+    }
+
+    @Override
+    public void onInit(FMLInitializationEvent event) {
+        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.PUMPKIN, 0, OreDictionary.WILDCARD_VALUE));
+        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.VINE));
+        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.YELLOW_FLOWER));
+        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.BROWN_MUSHROOM));
+        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.RED_MUSHROOM));
+        RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(BWMBlocks.ROPE));
+        //TODO meta in use
+        for (int i = 0; i < 9; i++)
+            RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.RED_FLOWER, 1, i));
+        RecipeRegistry.WOOD_SAW.addRecipe(new SawRecipe(new BlockStateIngredient(new ItemStack(Blocks.MELON_BLOCK)), new RandomCountOutputs(new RandomOutput(new ItemStack(Items.MELON), 3, 8))));
     }
 
     @Override

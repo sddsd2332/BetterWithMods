@@ -11,7 +11,6 @@ import betterwithmods.module.tweaks.CheaperAxes;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
 
 /**
@@ -24,7 +23,7 @@ public class HCDiamond extends Feature {
     }
 
     @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
+    public void registerRecipes() {
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:diamond_axe"));
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:diamond_hoe"));
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_STRING, "minecraft:diamond_pickaxe"));

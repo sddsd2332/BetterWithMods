@@ -76,11 +76,14 @@ public class RecipeRegistry extends RequiredFeature {
     }
 
     @Override
-    public void registerRecipes(RegistryEvent.Register<IRecipe> event) {
-        //Gather oredictionary
-        //TODO should be obsolute in 1.13
+    public void registerRecipes() {
         BWMOreDictionary.registerOres();
+        BWMOreDictionary.findLogRecipes();
         BWMOreDictionary.oreGathering();
+    }
+
+    @Override
+    public void onRecipesRegistered(RegistryEvent.Register<IRecipe> event) {
         applyRecipeActions((ForgeRegistry<IRecipe>) event.getRegistry());
     }
 }

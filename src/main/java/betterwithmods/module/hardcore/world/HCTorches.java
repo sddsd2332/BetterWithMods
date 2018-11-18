@@ -5,7 +5,6 @@ import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
 import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.init.Blocks;
-import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 /**
  * Created by primetoxinz on 5/10/17.
@@ -17,7 +16,7 @@ public class HCTorches extends Feature {
     }
 
     @Override
-    public void onPreInit(FMLPreInitializationEvent event) {
+    public void registerRecipes() {
         RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Blocks.TORCH.getRegistryName()));
     }
 }

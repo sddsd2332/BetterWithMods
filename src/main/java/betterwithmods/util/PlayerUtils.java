@@ -2,10 +2,10 @@ package betterwithmods.util;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.hardcore.needs.HCArmor;
 import betterwithmods.module.hardcore.needs.hunger.HCHunger;
+import betterwithmods.module.internal.BrokenToolRegistry;
 import com.google.common.collect.Sets;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;

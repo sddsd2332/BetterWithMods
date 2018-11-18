@@ -39,7 +39,7 @@ import javax.annotation.Nullable;
 
 
 public class HCBonemeal extends Feature {
-
+    private static boolean removeBonemealRecipe;
     public static IngredientSet FERTILIZERS = new IngredientSet();
 
     public static void registerFertilizer(ItemStack stack) {
@@ -117,7 +117,11 @@ public class HCBonemeal extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
-        boolean removeBonemealRecipe = loadProperty("Remove Bonemeal Crafting Recipe", true).get();
+        removeBonemealRecipe = loadProperty("Remove Bonemeal Crafting Recipe", true).get();
+    }
+
+    @Override
+    public void registerRecipes() {
         if (removeBonemealRecipe) {
             RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.OUTPUT_SIZE, new ItemStack(Items.DYE, 3, EnumDyeColor.WHITE.getDyeDamage())));
         }

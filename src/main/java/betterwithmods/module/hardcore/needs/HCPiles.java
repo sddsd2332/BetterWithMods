@@ -2,7 +2,6 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
-import betterwithmods.common.registry.BrokenToolRegistry;
 import betterwithmods.common.registry.advanceddispenser.BehaviorSilkTouch;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
@@ -83,7 +82,6 @@ public class HCPiles extends Feature {
     public void onInit(FMLInitializationEvent event) {
         keepSoilDrops = loadProperty("Soil Blocks Keep Their Drops", true).setComment("Blocks affected by HC Piles that drop things other than themselves will keep those drops.").get();
 
-        BrokenToolRegistry.init();
         registerPile(Blocks.DIRT, new ItemStack(BWMItems.DIRT_PILE, 3));
         registerPile(Blocks.DIRT, 1, new ItemStack(BWMItems.DIRT_PILE, 3));
         registerPile(Blocks.DIRT, 2, new ItemStack(BWMItems.DIRT_PILE, 3));
