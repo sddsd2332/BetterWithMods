@@ -1,6 +1,7 @@
 package betterwithmods.module.internal;
 
 import betterwithmods.library.common.modularity.impl.RequiredModule;
+import betterwithmods.module.compat.patchouli.Patchouli;
 import betterwithmods.network.BWMNetwork;
 
 public class InternalRegistries extends RequiredModule {
@@ -21,6 +22,8 @@ public class InternalRegistries extends RequiredModule {
                 new AdvancedDispenserRegistry(),
                 BWMNetwork.INSTANCE
         );
+
+        addFeature(Patchouli.class, "patchouli");
     }
 
     //Register first.

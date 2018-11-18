@@ -4,11 +4,10 @@
   "advancement": "betterwithmods:wooden_axle",
   "category": "power",
   "pages": [
-
     {
       "type": "text",
       "title": "",
-      "text": ""
+      "text": "DOCUMENTME"
     },
     {
       "type": "crafting",

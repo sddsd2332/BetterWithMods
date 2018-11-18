@@ -7,6 +7,7 @@ import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.common.tile.TileKiln;
 import betterwithmods.library.common.advancements.Advancements;
 import betterwithmods.module.internal.AdvancementRegistry;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -30,11 +31,17 @@ public class KilnStructureManager {
         KILN_BLOCKS.add(state);
     }
 
+    public static boolean isKilnBlock(IBlockState state) {
+        if (state.getMaterial() == Material.AIR)
+            return false;
+        return KILN_BLOCKS.contains(state);
+    }
+
     public static boolean isKilnBlock(IBlockAccess world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
         if (state.getBlock().isAir(state, world, pos))
             return false;
-        return KILN_BLOCKS.contains(state);
+        return isKilnBlock(state);
     }
 
     public static boolean createKiln(World world, BlockPos pos) {

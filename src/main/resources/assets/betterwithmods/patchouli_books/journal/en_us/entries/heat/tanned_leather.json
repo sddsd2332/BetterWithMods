@@ -1,0 +1,13 @@
+{
+  "name": "Tanned Leather",
+  "icon": "betterwithmods:tanned_leather",
+  "advancement": "betterwithmods:cauldron",
+  "category": "heat",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

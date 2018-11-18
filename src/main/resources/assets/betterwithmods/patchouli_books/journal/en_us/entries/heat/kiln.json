@@ -1,6 +1,6 @@
 {
-  "name": "Cauldron",
-  "icon": "betterwithmods:cauldron",
+  "name": "Kiln",
+  "icon": "minecraft:brick_block",
   "advancement": "betterwithmods:nether",
   "category": "heat",
   "pages": [
@@ -10,9 +10,9 @@
       "text": "DOCUMENTME"
     },
     {
-      "type": "crafting",
-      "title": "Recipe",
-      "recipe": "betterwithmods:blocks/mech/cauldron"
+      "type": "multiblock",
+      "name": "Tube Kiln",
+      "multiblock_id": "betterwithmods:kiln_tube"
     }
   ]
 }

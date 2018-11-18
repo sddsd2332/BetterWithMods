@@ -1,0 +1,13 @@
+{
+  "name": "Hibach",
+  "icon": "betterwithmods:hibachi",
+  "advancement": "betterwithmods:hellfire_dust",
+  "category": "heat",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ]
+}
