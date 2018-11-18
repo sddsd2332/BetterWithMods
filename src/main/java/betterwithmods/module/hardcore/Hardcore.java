@@ -40,13 +40,14 @@ public class Hardcore extends Module {
         addFeature(HCHunger.class, "applecore");
         addFeature(HCMobEquipment.class, "betterwithlib");
 
-        addFeature(new HCDiamond().recipes());
-        addFeature(new HCRedstone().recipes());
-        addFeature(new HCBoating().recipes());
-        addFeature(new HCFishing().recipes());
-        addFeature(new HCTorches().recipes());
-        addFeature(new PowderKegs().recipes());
-        addFeature(new HCStructures().recipes());
+        addFeature(new HCDiamond()).recipes();
+        addFeature(new HCRedstone()).recipes();
+        addFeature(new HCBoating()).recipes();
+        addFeature(new HCFishing()).recipes();
+        addFeature(new HCTorches()).recipes();
+        addFeature(new PowderKegs()).recipes();
+        addFeature(new HCStructures()).recipes();
+        addFeature(new HCOres()).recipes();
 
         addFeature(new HCArmor());
         addFeature(new HCBeacons());
@@ -67,7 +68,6 @@ public class Hardcore extends Module {
         addFeature(new HCLumber());
         addFeature(new HCMelon());
         addFeature(new HCNames());
-        addFeature(new HCOres());
         addFeature(new HCPiles());
         addFeature(new HCSeeds());
         addFeature(new HCSaw());

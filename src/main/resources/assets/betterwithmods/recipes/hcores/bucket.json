@@ -1,0 +1,23 @@
+{
+  "conditions": [
+    {
+      "type": "config",
+      "enabled": "hcores"
+    }
+  ],
+  "result": {
+    "item": "minecraft:bucket"
+  },
+  "pattern": [
+    "I I",
+    "I I",
+    "III"
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "I": {
+      "ore": "nuggetIron",
+      "type": "forge:ore_dict"
+    }
+  }
+}

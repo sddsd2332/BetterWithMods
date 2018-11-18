@@ -104,6 +104,8 @@ public class HCTools extends Feature {
 
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
+        removeLowTools = loadProperty("Remove cheapest tools", true).setComment("The minimum level of the hoe and the sword is iron, and the axe needs at least stone.").get();
+
         if (removeLowTools) {
             removeLowTierToolRecipes();
         }
@@ -111,8 +113,6 @@ public class HCTools extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-
-        removeLowTools = loadProperty("Remove cheapest tools", true).setComment("The minimum level of the hoe and the sword is iron, and the axe needs at least stone.").get();
         noHungerThreshold = loadProperty("No Exhaustion Harvest Level", Item.ToolMaterial.IRON.getHarvestLevel()).setComment("When destroying a 0 hardness block with a tool of this harvest level or higher, no exhaustion is applied").get();
         noDamageThreshold = loadProperty("No Durability Damage Harvest Level", Item.ToolMaterial.DIAMOND.getHarvestLevel()).setComment("When destroying a 0 hardness block with a tool of this harvest level or higher, no durability damage is applied").get();
         perToolOverrides = loadProperty("Change Durability per Tool", true).setComment("Allow configuring tool durability for each class").get();

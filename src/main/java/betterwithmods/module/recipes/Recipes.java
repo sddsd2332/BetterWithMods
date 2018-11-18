@@ -24,7 +24,7 @@ public class Recipes extends Module {
         addFeature(new TurntableRecipes());
         addFeature(new HopperRecipes());
         addFeature(new NetherGrowth());
-        addFeature(new AnimalRestraint().recipes());
+        addFeature(new AnimalRestraint()).recipes();
         addFeature(new MiniBlocks());
         addFeature(new BlastingOil());
     }

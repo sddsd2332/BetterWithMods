@@ -9,11 +9,11 @@ public class Tweaks extends Module {
 
     @Override
     public void setup() {
-        addFeature(new FastStick().recipes());
-        addFeature(new CheaperAxes().recipes());
-        addFeature(new DetectorRail().recipes());
-        addFeature(new SaddleRecipe().recipes());
-        addFeature(new WoolArmor().recipes());
+        addFeature(new FastStick()).recipes();
+        addFeature(new CheaperAxes()).recipes();
+        addFeature(new DetectorRail()).recipes();
+        addFeature(new SaddleRecipe()).recipes();
+        addFeature(new WoolArmor()).recipes();
         addFeature(new AxeLeaves());
         addFeature(new CreeperShearing());
         addFeature(new Dung());

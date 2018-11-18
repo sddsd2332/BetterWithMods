@@ -16,6 +16,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 
 import java.util.Arrays;
 import java.util.Optional;
@@ -42,6 +43,16 @@ public class HCOres extends Feature {
     }
 
     @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        if (customRecipes) {
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.COMPASS.getRegistryName()));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.CLOCK.getRegistryName()));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.BUCKET.getRegistryName()));
+            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.FLINT_AND_STEEL.getRegistryName()));
+        }
+    }
+
+    @Override
     public void onInit(FMLInitializationEvent event) {
 
         oreNuggetSmelting = loadProperty("Ore to Nugget Smelting", true).setComment("Make Ores (oredict ore.* )smelt into nuggets instead of ingots").get();
@@ -50,32 +61,28 @@ public class HCOres extends Feature {
         dustExclude = Arrays.stream(loadProperty("Dust Exclude", new String[0]).setComment("Oredictionary entries to exclude from dust to nugget smelting  Remove the prefix of the oredictionary. example 'dustIron' would be just 'iron'").get()).collect(Collectors.toSet());
 
         dustNuggetSmelting = loadProperty("Dust to Nugget Smelting", true).setComment("Make Dusts ( oredict dust.* ) smelt into nuggets instead of ingots").get();
-        boolean fixVanillaRecipes = loadProperty("Fix Vanilla Recipes", true).setComment("Make certain recipes cheaper to be more reasonable with nugget smelting, including Compass, Clock, and Bucket").get();
 
         oreProductionCount = loadProperty("Ore Production Count", 1).setComment("Number of Materials returned from Smelting an Ore").get();
         dustProductionCount = loadProperty("Dust Production Count", 1).setComment("Number of Materials returned from Smelting a Dust").get();
 
-
-        if (fixVanillaRecipes) {
-            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.COMPASS.getRegistryName()));
-            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.CLOCK.getRegistryName()));
-            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.BUCKET.getRegistryName()));
-            RecipeRegistry.removeRecipe(new RecipeRemover<>(RecipeMatchers.REGISTRY_NAME, Items.FLINT_AND_STEEL.getRegistryName()));
-            //TODO
-//            addHardcoreRecipe(new ShapedOreRecipe(null, Items.COMPASS, " N ", "NRN", " N ", 'N', "nuggetIron", 'R', "dustRedstone").setRegistryName(new ResourceLocation("minecraft", "compass")));
-//            addHardcoreRecipe(new ShapedOreRecipe(null, Items.CLOCK, " N ", "NQN", " N ", 'N', "nuggetGold", 'Q', "gemQuartz").setRegistryName(new ResourceLocation("minecraft", "clock")));
-//            addHardcoreRecipe(new ShapedOreRecipe(null, Items.BUCKET, "N N", "N N", "NNN", 'N', "nuggetIron").setRegistryName(new ResourceLocation("minecraft", "bucket")));
-//            addHardcoreRecipe(new ShapelessOreRecipe(null, Items.FLINT_AND_STEEL, Items.FLINT, "nuggetIron").setRegistryName(new ResourceLocation("minecraft", "flint_and_steel")));
+        if (customRecipes) {
+            addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
+            addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
+            addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_NUGGET, 4));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_NUGGET, 4));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_NUGGET));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_NUGGET, 4));
+        } else {
+            addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_INGOT, 3));
+            addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
+            addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_INGOT, 4));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_INGOT, 4));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_INGOT));
+            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_INGOT, 4));
         }
 
-        addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
-        addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
-        addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
-        RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_NUGGET, 4));
-        RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_NUGGET, 4));
-        RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_NUGGET));
-
-        RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_NUGGET, 4));
     }
 
     private void addMeltingRecipeWithoutReturn(ItemStack input, ItemStack output) {
@@ -89,19 +96,6 @@ public class HCOres extends Feature {
 //            }
         });
     }
-//TODO
-//    @Override
-//    public void disabledInit(FMLInitializationEvent event) {
-//        addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_INGOT, 3));
-//        addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
-//        addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
-//        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_INGOT, 4));
-//        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_INGOT, 4));
-//        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_INGOT));
-//        BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_INGOT, 4));
-//    }
-//
-
 
     @Override
     public void onPostInit(FMLPostInitializationEvent event) {

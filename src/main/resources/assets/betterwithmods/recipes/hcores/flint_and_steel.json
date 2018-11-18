@@ -1,0 +1,21 @@
+{
+  "conditions": [
+    {
+      "type": "config",
+      "enabled": "hcores"
+    }
+  ],
+  "result": {
+    "item": "minecraft:flint_and_steel"
+  },
+  "type": "forge:ore_shapeless",
+  "ingredients": [
+    {
+      "ore": "nuggetIron",
+      "type": "forge:ore_dict"
+    },
+    {
+      "item": "minecraft:flint_and_steel"
+    }
+  ]
+}

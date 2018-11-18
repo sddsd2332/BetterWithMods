@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "config",
+      "enabled": "hcores"
+    }
+  ],
+  "result": {
+    "item": "minecraft:clock"
+  },
+  "pattern": [
+    " G ",
+    "GQG",
+    " G "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "G": {
+      "ore": "nuggetGold",
+      "type": "forge:ore_dict"
+    },
+    "Q": {
+      "ore": "gemQuartz",
+      "type": "forge:ore_dict"
+    }
+  }
+}

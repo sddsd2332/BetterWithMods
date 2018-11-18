@@ -1,0 +1,27 @@
+{
+  "conditions": [
+    {
+      "type": "config",
+      "enabled": "hcores"
+    }
+  ],
+  "result": {
+    "item": "minecraft:compass"
+  },
+  "pattern": [
+    " I ",
+    "IRI",
+    " I "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "I": {
+      "ore": "nuggetIron",
+      "type": "forge:ore_dict"
+    },
+    "R": {
+      "ore": "dustRedstone",
+      "type": "forge:ore_dict"
+    }
+  }
+}
