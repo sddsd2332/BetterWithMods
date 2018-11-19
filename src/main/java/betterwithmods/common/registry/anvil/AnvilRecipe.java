@@ -11,11 +11,11 @@ import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nullable;
 
-public class WrappedRecipe implements IForgeRegistryEntry<WrappedRecipe> {
+public class AnvilRecipe implements IForgeRegistryEntry<AnvilRecipe> {
 
     private IRecipe recipe;
 
-    public WrappedRecipe(IRecipe recipe) {
+    public AnvilRecipe(IRecipe recipe) {
         this.recipe = recipe;
     }
 
@@ -53,7 +53,7 @@ public class WrappedRecipe implements IForgeRegistryEntry<WrappedRecipe> {
     }
 
     @Override
-    public WrappedRecipe setRegistryName(ResourceLocation name) {
+    public AnvilRecipe setRegistryName(ResourceLocation name) {
         recipe.setRegistryName(name);
         return this;
     }
@@ -65,8 +65,8 @@ public class WrappedRecipe implements IForgeRegistryEntry<WrappedRecipe> {
     }
 
     @Override
-    public Class<WrappedRecipe> getRegistryType() {
-        return WrappedRecipe.class;
+    public Class<AnvilRecipe> getRegistryType() {
+        return AnvilRecipe.class;
     }
 
     public IRecipe getRecipe() {

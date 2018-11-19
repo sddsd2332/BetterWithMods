@@ -5,8 +5,9 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.items.ItemBark;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.bulk.recipes.CauldronRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
-import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.miniblocks.MiniBlockIngredient;
@@ -18,8 +19,10 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
 
@@ -28,17 +31,17 @@ import java.util.Map;
 /**
  * Created by primetoxinz on 5/16/17.
  */
-public class CauldronRecipes extends Feature {
-
-    @Override
-    protected boolean canEnable() {
-        return true;
-    }
+public class CauldronRecipes extends RequiredFeature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
         unstoked();
         stoked();
+    }
+
+    @SubscribeEvent
+    public void onCauldronRecipes(RegistryEvent.Register<CauldronRecipe> event) {
+        System.out.println("WOAH!");
     }
 
     private void stoked() {

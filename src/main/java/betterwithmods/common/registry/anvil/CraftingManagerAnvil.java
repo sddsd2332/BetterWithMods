@@ -9,17 +9,13 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.fml.common.Mod;
 
-import javax.annotation.Nonnull;
-import java.util.Collection;
-
-public class CraftingManagerAnvil extends CraftingManagerBase<WrappedRecipe> {
+public class CraftingManagerAnvil extends CraftingManagerBase<AnvilRecipe> {
 
     private IRecipe recipe;
 
     public CraftingManagerAnvil() {
-        super(new ResourceLocation(ModLib.MODID, "anvil"), WrappedRecipe.class);
+        super(new ResourceLocation(ModLib.MODID, "anvil"), AnvilRecipe.class);
     }
 
     /**
@@ -31,7 +27,7 @@ public class CraftingManagerAnvil extends CraftingManagerBase<WrappedRecipe> {
             return recipe.getCraftingResult(inventory);
         }
 
-        for (WrappedRecipe irecipe : getValuesCollection()) {
+        for (AnvilRecipe irecipe : getValuesCollection()) {
             if (irecipe.matches(inventory, world)) {
                 recipe = irecipe.getRecipe();
                 return irecipe.getCraftingResult(inventory);
@@ -55,7 +51,7 @@ public class CraftingManagerAnvil extends CraftingManagerBase<WrappedRecipe> {
             return recipe.getRemainingItems(inventory);
         }
 
-        for (WrappedRecipe irecipe : getValuesCollection()) {
+        for (AnvilRecipe irecipe : getValuesCollection()) {
             if (irecipe.matches(inventory, craftMatrix)) {
                 recipe = irecipe.getRecipe();
                 return irecipe.getRemainingItems(inventory);
