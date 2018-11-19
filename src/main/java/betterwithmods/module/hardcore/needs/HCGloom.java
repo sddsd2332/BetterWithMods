@@ -8,6 +8,7 @@ import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.TimeUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
+import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageGloom;
@@ -149,7 +150,12 @@ public class HCGloom extends Feature {
                 }
             }
 
+            if (world.getTotalWorldTime() % 120 == 0) {
+                AdvancementRegistry.STATE_TRIGGER.trigger(playermp, "gloom");
+            }
+
             if (world.getTotalWorldTime() % 40 == 0) {
+
                 if (world.rand.nextInt(2) == 0) {
                     if (MiscRegistry.PENALTY_HANDLERS.attackedByGrue(player)) {
                         player.attackEntityFrom(BWMDamageSource.gloom, 2);
