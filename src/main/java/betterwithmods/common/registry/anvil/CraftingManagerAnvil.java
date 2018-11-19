@@ -1,19 +1,26 @@
 package betterwithmods.common.registry.anvil;
 
 import betterwithmods.common.registry.base.CraftingManagerBase;
+import betterwithmods.lib.ModLib;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.CraftingManager;
 import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.common.Mod;
 
 import javax.annotation.Nonnull;
-import java.util.List;
+import java.util.Collection;
 
-public class CraftingManagerAnvil extends CraftingManagerBase<IRecipe> {
+public class CraftingManagerAnvil extends CraftingManagerBase<WrappedRecipe> {
 
     private IRecipe recipe;
+
+    public CraftingManagerAnvil() {
+        super(new ResourceLocation(ModLib.MODID, "anvil"), WrappedRecipe.class);
+    }
 
     /**
      * Retrieves an ItemStack that has multiple recipes for it.
@@ -24,9 +31,9 @@ public class CraftingManagerAnvil extends CraftingManagerBase<IRecipe> {
             return recipe.getCraftingResult(inventory);
         }
 
-        for (IRecipe irecipe : recipes) {
+        for (WrappedRecipe irecipe : getValuesCollection()) {
             if (irecipe.matches(inventory, world)) {
-                recipe = irecipe;
+                recipe = irecipe.getRecipe();
                 return irecipe.getCraftingResult(inventory);
             }
         }
@@ -48,9 +55,9 @@ public class CraftingManagerAnvil extends CraftingManagerBase<IRecipe> {
             return recipe.getRemainingItems(inventory);
         }
 
-        for (IRecipe irecipe : recipes) {
+        for (WrappedRecipe irecipe : getValuesCollection()) {
             if (irecipe.matches(inventory, craftMatrix)) {
-                recipe = irecipe;
+                recipe = irecipe.getRecipe();
                 return irecipe.getRemainingItems(inventory);
             }
         }
@@ -69,17 +76,5 @@ public class CraftingManagerAnvil extends CraftingManagerBase<IRecipe> {
         }
 
         return nonnulllist;
-    }
-
-
-    @Override
-    public List<IRecipe> getDisplayRecipes() {
-        return recipes;
-    }
-
-    @Override
-    public IRecipe addRecipe(@Nonnull IRecipe recipe) {
-        this.recipes.add(recipe);
-        return recipe;
     }
 }

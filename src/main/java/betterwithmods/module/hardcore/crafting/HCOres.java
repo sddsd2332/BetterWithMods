@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
+import betterwithmods.common.registry.bulk.recipes.CrucibleRecipe;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
@@ -85,7 +86,7 @@ public class HCOres extends Feature {
     }
 
     private void addMeltingRecipeWithoutReturn(ItemStack input, ItemStack output) {
-        RecipeRegistry.CRUCIBLE.addRecipe(new CookingPotRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {
+        RecipeRegistry.CRUCIBLE.register(new CrucibleRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {
             //TODO
 //            @Override
 //            protected boolean consumeIngredients(ItemStackHandler inventory, NonNullList<ItemStack> containItems) {

@@ -18,7 +18,9 @@ import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
+import betterwithmods.common.registry.bulk.recipes.CauldronRecipe;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
+import betterwithmods.common.registry.bulk.recipes.CrucibleRecipe;
 import betterwithmods.common.registry.bulk.recipes.MillRecipe;
 import betterwithmods.common.registry.crafting.ToolBaseRecipe;
 import betterwithmods.common.registry.crafting.ToolDamageRecipe;
@@ -155,7 +157,7 @@ public class JEI implements IModPlugin {
         reg.handleRecipes(ToolDamageRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), SteelAnvilRecipeCategory.UID);
         reg.handleRecipes(ToolDamageRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), "minecraft.crafting");
 
-        reg.addRecipes(RecipeRegistry.MILLSTONE.getRecipes(), MillRecipeCategory.UID);
+        reg.addRecipes(RecipeRegistry.MILLSTONE.getValuesCollection(), MillRecipeCategory.UID);
         reg.addRecipes(RecipeRegistry.WOOD_SAW.getDisplayRecipes(), SawRecipeCategory.UID);
         reg.addRecipes(RecipeRegistry.TURNTABLE.getDisplayRecipes(), TurntableRecipeCategory.UID);
         reg.addRecipes(RecipeRegistry.FILTERED_HOPPER.getDisplayRecipes(), HopperRecipeCategory.UID);
@@ -208,8 +210,8 @@ public class JEI implements IModPlugin {
             crucible.add(crucibleUID);
             kiln.add(kilnUID);
 
-            reg.handleRecipes(CookingPotRecipe.class, recipe -> new BulkRecipeWrapper<>(HELPER, recipe, 9), cauldronUID);
-            reg.handleRecipes(CookingPotRecipe.class, recipe -> new BulkRecipeWrapper<>(HELPER, recipe, 9), crucibleUID);
+            reg.handleRecipes(CauldronRecipe.class, recipe -> new BulkRecipeWrapper<>(HELPER, recipe, 9), cauldronUID);
+            reg.handleRecipes(CrucibleRecipe.class, recipe -> new BulkRecipeWrapper<>(HELPER, recipe, 9), crucibleUID);
             reg.handleRecipes(KilnRecipe.class, recipe -> new KilnRecipeWrapper(HELPER, recipe), kilnUID);
 
             reg.addRecipes(RecipeRegistry.CAULDRON.getRecipesForHeat(heat), cauldronUID);

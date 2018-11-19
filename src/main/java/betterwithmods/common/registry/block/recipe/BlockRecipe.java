@@ -9,6 +9,7 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.List;
 import java.util.Random;
@@ -19,7 +20,7 @@ import java.util.Random;
  * @author primetoxinz
  * @version 03/19/2018
  */
-public abstract class BlockRecipe {
+public abstract class BlockRecipe<V extends IForgeRegistryEntry<V>> extends IForgeRegistryEntry.Impl<V> {
     private final BlockStateIngredient input;
     private final IRecipeOutputs recipeOutput;
 

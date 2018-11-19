@@ -44,6 +44,7 @@ public class MillRecipeCategory extends BWMRecipeCategory<BulkRecipeWrapper> {
         guiItemStackGroup.set(ingredients);
         guiOutputs.set(ingredients);
 
+        guiOutputs.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> tooltip.add(wrapper.getRecipe().getRegistryName().toString()));
 
     }
 }

@@ -58,7 +58,7 @@ public class SawRecipes extends Feature {
         //TODO meta in use
         for (int i = 0; i < 9; i++)
             RecipeRegistry.WOOD_SAW.addSelfdropRecipe(new ItemStack(Blocks.RED_FLOWER, 1, i));
-        RecipeRegistry.WOOD_SAW.addRecipe(new SawRecipe(new BlockStateIngredient(new ItemStack(Blocks.MELON_BLOCK)), new RandomCountOutputs(new RandomOutput(new ItemStack(Items.MELON), 3, 8))));
+        RecipeRegistry.WOOD_SAW.register(new SawRecipe(new BlockStateIngredient(new ItemStack(Blocks.MELON_BLOCK)), new RandomCountOutputs(new RandomOutput(new ItemStack(Items.MELON), 3, 8))));
     }
 
     @Override

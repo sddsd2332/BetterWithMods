@@ -9,14 +9,16 @@ import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Comparator;
 import java.util.List;
 
-public class BulkRecipe implements Comparable<BulkRecipe> {
+public class BulkRecipe<V extends IForgeRegistryEntry<V>> extends IForgeRegistryEntry.Impl<V> implements Comparable<BulkRecipe<V>> {
 
     private final IRecipeInputs recipeInputs;
     private final IRecipeOutputs recipeOutput;
@@ -95,17 +97,17 @@ public class BulkRecipe implements Comparable<BulkRecipe> {
         return this;
     }
 
-    @Override
-    public int compareTo(@Nonnull BulkRecipe bulkRecipe) {
-        return Comparator.comparingInt(BulkRecipe::getPriority).reversed().compare(this, bulkRecipe);
-    }
-
     public int matches(IBulkTile tile) {
         return recipeInputs.orderedMatch(tile);
     }
 
     public boolean isHidden() {
         return false;
+    }
+
+    @Override
+    public int compareTo(@Nonnull BulkRecipe<V> recipe) {
+        return Comparator.comparingInt(BulkRecipe<V>::getPriority).reversed().compare(this, recipe);
     }
 }
 

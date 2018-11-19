@@ -53,7 +53,7 @@ public class CookingPotTests extends BaseBulkTest<CookingPotRecipe> {
 
     @Before
     public void beforeTest() {
-        TEST_MANAGER = new CraftingManagerPot();
+        TEST_MANAGER = new CraftingManagerPot<>("test");
         List<Ingredient> inputs = Lists.newArrayList(Ingredient.fromStacks(new ItemStack(Blocks.COBBLESTONE)));
         List<Ingredient> inputs2 = Lists.newArrayList(new OreIngredient("cobblestone"));
 
@@ -68,9 +68,9 @@ public class CookingPotTests extends BaseBulkTest<CookingPotRecipe> {
     public void testWrongHeatRecipe() {
         Assertions.assertThat(stokedRecipe.isInvalid()).isFalse();
 
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).isEmpty();
-        TEST_MANAGER.addRecipe(stokedRecipe);
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).hasSize(1);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).isEmpty();
+        TEST_MANAGER.register(stokedRecipe);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).hasSize(1);
 
         Assertions.assertThat(TEST_MANAGER.canCraft(stokedRecipe, TILE)).isFalse();
         Assertions.assertThat(TEST_MANAGER.craftItem(stokedRecipe, null, TILE)).isEmpty();

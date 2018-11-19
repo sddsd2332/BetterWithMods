@@ -3,12 +3,14 @@ package betterwithmods.common.registry.bulk.manager;
 import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.common.registry.bulk.recipes.MillRecipe;
 import betterwithmods.common.tile.TileMill;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.internal.SoundRegistry;
 import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
@@ -16,12 +18,22 @@ import net.minecraft.world.World;
 import java.util.List;
 
 public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
+
+    public CraftingManagerMill() {
+        super(new ResourceLocation(ModLib.MODID, "millstone"), MillRecipe.class);
+    }
+
     public MillRecipe addMillRecipe(List<Ingredient> inputs, List<ItemStack> outputs, SoundEvent type) {
-        return addRecipe(new MillRecipe(inputs, outputs).setSound(type));
+        MillRecipe recipe = new MillRecipe(inputs, outputs).setSound(type);
+        register(recipe);
+        return recipe;
+
     }
 
     public MillRecipe addMillRecipe(List<Ingredient> inputs, List<ItemStack> outputs) {
-        return addRecipe(new MillRecipe(inputs, outputs));
+        MillRecipe recipe = new MillRecipe(inputs, outputs);
+        register(recipe);
+        return recipe;
     }
 
     public MillRecipe addMillRecipe(Ingredient input, List<ItemStack> outputs, SoundEvent type) {
@@ -69,7 +81,7 @@ public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
     public boolean craftRecipe(World world, IBulkTile tile) {
         if (tile instanceof TileMill) {
             TileMill mill = (TileMill) tile;
-            MillRecipe recipe = findRecipe(recipes, tile).orElse(null);
+            MillRecipe recipe = findRecipe(getValuesCollection(), tile).orElse(null);
 
             if (mill.getBlockWorld().rand.nextInt(20) == 0)
                 mill.getBlockWorld().playSound(null, mill.getBlockPos(), SoundRegistry.BLOCK_GRIND_NORMAL, SoundCategory.BLOCKS, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F, 0.5F + mill.getBlockWorld().rand.nextFloat() * 0.1F);
@@ -96,5 +108,4 @@ public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
 
         return false;
     }
-
 }

@@ -13,7 +13,7 @@ import java.util.List;
 /**
  * Created by primetoxinz on 5/16/17.
  */
-public class MillRecipe extends BulkRecipe {
+public class MillRecipe extends BulkRecipe<MillRecipe> {
     private SoundEvent sound;
 
     private int ticks;

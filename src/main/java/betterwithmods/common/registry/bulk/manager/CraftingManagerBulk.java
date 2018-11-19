@@ -5,78 +5,62 @@ import betterwithmods.common.registry.base.CraftingManagerBase;
 import betterwithmods.common.registry.bulk.recipes.BulkRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public abstract class CraftingManagerBulk<T extends BulkRecipe> extends CraftingManagerBase<T> {
+public abstract class CraftingManagerBulk<V extends BulkRecipe<V>> extends CraftingManagerBase<V> {
 
-    public T addRecipe(@Nonnull T recipe) {
-        if (!recipe.isInvalid())
-            recipes.add(recipe);
-        return recipe;
+    public CraftingManagerBulk(ResourceLocation registryName, Class<V> type) {
+        super(registryName, type);
     }
 
     public abstract boolean craftRecipe(World world, IBulkTile tile);
 
     @Nonnull
-    public NonNullList<ItemStack> craftItem(T recipe, World world, IBulkTile tile) {
+    public NonNullList<ItemStack> craftItem(V recipe, World world, IBulkTile tile) {
         return canCraft(recipe, tile) ? recipe.onCraft(world, tile) : NonNullList.create();
     }
 
-    protected Optional<T> findRecipe(List<T> recipes, IBulkTile tile) {
+    protected Optional<V> findRecipe(Collection<V> recipes, IBulkTile tile) {
         return recipes.stream().map(r -> {
             int i = r.matches(tile);
             return Pair.of(r, i);
         }).filter(p -> p.getValue() > -1).sorted(Comparator.comparingInt(Pair::getValue)).map(Pair::getKey).sorted().findFirst();
     }
 
-    public T findRecipe(IBulkTile tile) {
-        return findRecipe(recipes, tile).orElse(null);
+    public V findRecipe(IBulkTile tile) {
+        return findRecipe(getValuesCollection(), tile).orElse(null);
     }
 
-    protected List<T> findRecipe(List<ItemStack> outputs) {
-        List<T> recipes = findRecipeExact(outputs);
+    protected List<V> findRecipe(List<ItemStack> outputs) {
+        List<V> recipes = findRecipeExact(outputs);
         if (recipes.isEmpty())
             recipes = findRecipeFuzzy(outputs);
         return recipes;
     }
 
-    protected List<T> findRecipeFuzzy(List<ItemStack> outputs) {
-        return recipes.stream().filter(r -> r.getRecipeOutput().matchesFuzzy(outputs)).collect(Collectors.toList());
+    protected List<V> findRecipeFuzzy(List<ItemStack> outputs) {
+        return getValuesCollection().stream().filter(r -> r.getRecipeOutput().matchesFuzzy(outputs)).collect(Collectors.toList());
     }
 
-    protected List<T> findRecipeExact(List<ItemStack> outputs) {
-        return recipes.stream().filter(r -> r.getRecipeOutput().matches(outputs)).collect(Collectors.toList());
+    protected List<V> findRecipeExact(List<ItemStack> outputs) {
+        return getValuesCollection().stream().filter(r -> r.getRecipeOutput().matches(outputs)).collect(Collectors.toList());
     }
 
-    public boolean canCraft(T recipe, IBulkTile tile) {
+    public boolean canCraft(V recipe, IBulkTile tile) {
         return recipe != null;
     }
 
-    public T getRecipe(IBulkTile tile) {
-        return findRecipe(recipes, tile).orElse(null);
-    }
-
-    public boolean remove(List<ItemStack> outputs) {
-        return recipes.removeAll(findRecipe(outputs));
-    }
-
-    public boolean removeFuzzy(List<ItemStack> outputs) {
-        return recipes.removeAll(findRecipeFuzzy(outputs));
-    }
-
-    public boolean removeExact(List<ItemStack> outputs) {
-        return recipes.removeAll(findRecipeExact(outputs));
-    }
-
-    @Override
-    public List<T> getDisplayRecipes() {
-        return getRecipes();
+    public V getRecipe(IBulkTile tile) {
+        return findRecipe(getValuesCollection(), tile).orElse(null);
     }
 }

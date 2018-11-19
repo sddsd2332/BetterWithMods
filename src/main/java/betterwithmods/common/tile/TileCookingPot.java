@@ -36,15 +36,15 @@ import java.util.List;
 import java.util.Random;
 
 
-public abstract class TileCookingPot extends TileVisibleInventory implements IMechanicalPower, IHeated, ICrankable {
+public abstract class TileCookingPot<T extends CookingPotRecipe<T>> extends TileVisibleInventory implements IMechanicalPower, IHeated, ICrankable {
     private static final int MAX_TIME = 1000;
-    protected final CraftingManagerBulk<CookingPotRecipe> manager;
+    protected final CraftingManagerBulk<T> manager;
     private final HashMap<BlockPos, BWMHeatRegistry.HeatSource> heatCache = new HashMap<>();
     public int cookProgress, cookTime;
     public EnumFacing facing;
     public int heat;
 
-    public TileCookingPot(CraftingManagerBulk<CookingPotRecipe> manager) {
+    public TileCookingPot(CraftingManagerBulk<T> manager) {
         this.manager = manager;
         this.cookProgress = 0;
         this.cookTime = 0;

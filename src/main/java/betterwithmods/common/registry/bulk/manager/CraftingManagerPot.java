@@ -1,95 +1,26 @@
 package betterwithmods.common.registry.bulk.manager;
 
-import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.api.tile.IHeated;
 import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
-import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.common.tile.TileCookingPot;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.InventoryUtils;
-import betterwithmods.library.utils.ingredient.StackIngredient;
-import com.google.common.collect.Lists;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
+import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
-public class CraftingManagerPot extends CraftingManagerBulk<CookingPotRecipe> {
+public class CraftingManagerPot<V extends CookingPotRecipe<V>> extends CraftingManagerBulk<V> {
 
-    public CookingPotRecipe addRecipe(List<Ingredient> inputs, IRecipeOutputs outputs, int heat) {
-        return addRecipe(new CookingPotRecipe(inputs, outputs, heat));
-    }
-
-    public CookingPotRecipe addRecipe(List<Ingredient> inputs, List<ItemStack> outputs, int heat) {
-        return addRecipe(new CookingPotRecipe(inputs, outputs, heat));
-    }
-
-    public CookingPotRecipe addStokedRecipe(ItemStack input, ItemStack... output) {
-        return addStokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input.copy())), Lists.newArrayList(output));
-    }
-
-    public CookingPotRecipe addStokedRecipe(ItemStack input, List<ItemStack> output) {
-        return addStokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input.copy())), output);
-    }
-
-    public CookingPotRecipe addStokedRecipe(ItemStack input, ItemStack output) {
-        return addStokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output));
-    }
-
-    public CookingPotRecipe addStokedRecipe(Ingredient ingredient, ItemStack output) {
-        return addStokedRecipe(Lists.newArrayList(ingredient), Lists.newArrayList(output));
-    }
-
-    public CookingPotRecipe addStokedRecipe(Ingredient ingredient, List<ItemStack> outputs) {
-        return addStokedRecipe(Lists.newArrayList(ingredient), outputs);
-    }
-
-    public CookingPotRecipe addStokedRecipe(List<Ingredient> inputs, List<ItemStack> outputs) {
-        return addRecipe(inputs, outputs, BWMHeatRegistry.STOKED_HEAT);
-    }
-
-    public CookingPotRecipe addStokedRecipe(List<Ingredient> inputs, IRecipeOutputs outputs) {
-        return addRecipe(inputs, outputs, BWMHeatRegistry.STOKED_HEAT);
-    }
-
-    //Unstoked
-    public CookingPotRecipe addUnstokedRecipe(List<Ingredient> inputs, ItemStack output) {
-        return addUnstokedRecipe(inputs, Lists.newArrayList(output));
-    }
-
-    public CookingPotRecipe addUnstokedRecipe(ItemStack input, ItemStack... output) {
-        return addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input.copy())), Lists.newArrayList(output));
-    }
-
-    public CookingPotRecipe addUnstokedRecipe(ItemStack input, List<ItemStack> output) {
-        return addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), output);
-    }
-
-    public CookingPotRecipe addUnstokedRecipe(ItemStack input, ItemStack output) {
-        return addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output));
-    }
-
-    public CookingPotRecipe addUnstokedRecipe(Ingredient ingredient, ItemStack output) {
-        return addUnstokedRecipe(Lists.newArrayList(ingredient), Lists.newArrayList(output));
-    }
-
-    public CookingPotRecipe addUnstokedRecipe(Ingredient ingredient, List<ItemStack> outputs) {
-        return addUnstokedRecipe(Lists.newArrayList(ingredient), outputs);
-    }
-
-    public CookingPotRecipe addUnstokedRecipe(List<Ingredient> inputs, List<ItemStack> outputs) {
-        return addRecipe(inputs, outputs, BWMHeatRegistry.UNSTOKED_HEAT);
-    }
-
-    public CookingPotRecipe addUnstokedRecipe(List<Ingredient> inputs, IRecipeOutputs outputs) {
-        return addRecipe(inputs, outputs, BWMHeatRegistry.UNSTOKED_HEAT);
-    }
-
-    public CookingPotRecipe addHeatlessRecipe(List<Ingredient> inputs, List<ItemStack> outputs, int heat) {
-        return addRecipe(inputs, outputs, heat).setIgnoreHeat(true);
+    public CraftingManagerPot(String name, Class<V> type) {
+        super(new ResourceLocation(ModLib.MODID, name), type);
     }
 
     @Override
@@ -101,7 +32,7 @@ public class CraftingManagerPot extends CraftingManagerBulk<CookingPotRecipe> {
     public boolean craftRecipe(World world, IBulkTile tile) {
         if (tile instanceof TileCookingPot) {
             TileCookingPot pot = (TileCookingPot) tile;
-            CookingPotRecipe r = findRecipe(tile);
+            V r = findRecipe(tile);
 
             if (canCraft(r, tile)) {
                 if (pot.cookProgress >= pot.getMax()) {
@@ -118,9 +49,9 @@ public class CraftingManagerPot extends CraftingManagerBulk<CookingPotRecipe> {
     }
 
     @Override
-    protected Optional<CookingPotRecipe> findRecipe(List<CookingPotRecipe> recipes, IBulkTile tile) {
+    protected Optional<V> findRecipe(Collection<V> recipes, IBulkTile tile) {
         if (tile instanceof IHeated) {
-            List<CookingPotRecipe> r1 = recipes.stream().filter(r -> r.canCraft((IHeated) tile, tile.getWorld(), tile.getPos())).collect(Collectors.toList());
+            List<V> r1 = recipes.stream().filter(r -> r.canCraft((IHeated) tile, tile.getWorld(), tile.getPos())).collect(Collectors.toList());
             return super.findRecipe(r1, tile);
         }
         return Optional.empty();
@@ -128,6 +59,17 @@ public class CraftingManagerPot extends CraftingManagerBulk<CookingPotRecipe> {
 
 
     public List<CookingPotRecipe> getRecipesForHeat(int heat) {
-        return getRecipes().stream().filter(r -> r.getHeat() == heat).collect(Collectors.toList());
+        return getValuesCollection().stream().filter(r -> r.getHeat() == heat).collect(Collectors.toList());
     }
+
+    public void addStokedRecipe(Object... objects) {
+    }
+
+    public void addUnstokedRecipe(Object... objects) {
+    }
+
+    public void addHeatlessRecipe(Object... objects) {
+    }
+
+
 }

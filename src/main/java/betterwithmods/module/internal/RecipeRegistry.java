@@ -7,6 +7,8 @@ import betterwithmods.common.registry.block.managers.CraftingManagerSaw;
 import betterwithmods.common.registry.block.managers.CraftingManagerTurntable;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerMill;
 import betterwithmods.common.registry.bulk.manager.CraftingManagerPot;
+import betterwithmods.common.registry.bulk.recipes.CauldronRecipe;
+import betterwithmods.common.registry.bulk.recipes.CrucibleRecipe;
 import betterwithmods.common.registry.hopper.filters.HopperFilters;
 import betterwithmods.common.registry.hopper.manager.CraftingManagerHopper;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
@@ -25,8 +27,8 @@ import java.util.List;
 
 public class RecipeRegistry extends RequiredFeature {
 
-    public static final CraftingManagerPot CAULDRON = new CraftingManagerPot();
-    public static final CraftingManagerPot CRUCIBLE = new CraftingManagerPot();
+    public static final CraftingManagerPot<CauldronRecipe> CAULDRON = new CraftingManagerPot<>("cauldron", CauldronRecipe.class);
+    public static final CraftingManagerPot<CrucibleRecipe> CRUCIBLE = new CraftingManagerPot<>("crucible", CrucibleRecipe.class);
     public static final CraftingManagerMill MILLSTONE = new CraftingManagerMill();
     public static final CraftingManagerSaw WOOD_SAW = new CraftingManagerSaw();
     public static final CrafingManagerKiln KILN = new CrafingManagerKiln();

@@ -55,7 +55,7 @@ public class LongBoi extends Feature {
                         .egg(0xe4d3d0, 0xfd742b)
                         .build()
         );
-        RecipeRegistry.TURNTABLE.addRecipe(new LongRecipe());
+        RecipeRegistry.TURNTABLE.register(new LongRecipe());
     }
 
     private static class LongRecipe extends TurntableRecipe {

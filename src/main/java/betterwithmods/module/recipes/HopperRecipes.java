@@ -105,20 +105,20 @@ public class HopperRecipes extends Feature {
             }
         });
 
-        RecipeRegistry.FILTERED_HOPPER.addRecipe(new HopperRecipe(ModLib.MODID + ":wicker", new OreIngredient("dustRedstone"), Lists.newArrayList(new ItemStack(Items.GLOWSTONE_DUST)), Lists.newArrayList(new ItemStack(Items.GUNPOWDER))));
+        RecipeRegistry.FILTERED_HOPPER.register(new HopperRecipe(ModLib.MODID + ":wicker", new OreIngredient("dustRedstone"), Lists.newArrayList(new ItemStack(Items.GLOWSTONE_DUST)), Lists.newArrayList(new ItemStack(Items.GUNPOWDER))));
 
-        RecipeRegistry.FILTERED_HOPPER.addRecipe(new SoulUrnRecipe(new OreIngredient("dustNetherrack"), ItemStack.EMPTY, ItemMaterial.getStack(ItemMaterial.EnumMaterial.HELLFIRE_DUST)));
-        RecipeRegistry.FILTERED_HOPPER.addRecipe(new SoulUrnRecipe(new OreIngredient("dustSoul"), ItemStack.EMPTY, ItemMaterial.getStack(ItemMaterial.EnumMaterial.SAWDUST)));
+        RecipeRegistry.FILTERED_HOPPER.register(new SoulUrnRecipe(new OreIngredient("dustNetherrack"), ItemStack.EMPTY, ItemMaterial.getStack(ItemMaterial.EnumMaterial.HELLFIRE_DUST)));
+        RecipeRegistry.FILTERED_HOPPER.register(new SoulUrnRecipe(new OreIngredient("dustSoul"), ItemStack.EMPTY, ItemMaterial.getStack(ItemMaterial.EnumMaterial.SAWDUST)));
         if (brimstoneFiltering)
-            RecipeRegistry.FILTERED_HOPPER.addRecipe(new SoulUrnRecipe(new OreIngredient("dustGlowstone"), ItemStack.EMPTY, ItemMaterial.getStack(ItemMaterial.EnumMaterial.BRIMSTONE)));
+            RecipeRegistry.FILTERED_HOPPER.register(new SoulUrnRecipe(new OreIngredient("dustGlowstone"), ItemStack.EMPTY, ItemMaterial.getStack(ItemMaterial.EnumMaterial.BRIMSTONE)));
 
-        RecipeRegistry.FILTERED_HOPPER.addRecipe(new HopperRecipe(ModLib.MODID + ":wicker",
+        RecipeRegistry.FILTERED_HOPPER.register(new HopperRecipe(ModLib.MODID + ":wicker",
                 Ingredient.fromStacks(new ItemStack(Blocks.GRAVEL)),
                 new WeightedOutputs(new ChanceOutput(new ItemStack(Blocks.SAND), 0.5), new ChanceOutput(new ItemStack(Blocks.SAND, 1, 1), 0.5)),
                 new ListOutputs(new ItemStack(Items.FLINT))
         ));
 
-        RecipeRegistry.FILTERED_HOPPER.addRecipe(new HopperRecipe(ModLib.MODID + ":soul_sand", new OreIngredient("sand"), ItemStack.EMPTY, new ItemStack(Blocks.SOUL_SAND)) {
+        RecipeRegistry.FILTERED_HOPPER.register(new HopperRecipe(ModLib.MODID + ":soul_sand", new OreIngredient("sand"), ItemStack.EMPTY, new ItemStack(Blocks.SOUL_SAND)) {
             @Override
             protected boolean canCraft(World world, BlockPos pos, TileFilteredHopper tile) {
                 return super.canCraft(world, pos, tile) && tile.soulsRetained > 0;

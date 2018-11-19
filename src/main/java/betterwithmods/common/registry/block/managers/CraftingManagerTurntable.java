@@ -2,12 +2,14 @@ package betterwithmods.common.registry.block.managers;
 
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import betterwithmods.common.tile.TileTurntable;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import com.google.common.collect.Lists;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
@@ -16,6 +18,10 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class CraftingManagerTurntable extends CraftingManagerBlock<TurntableRecipe> {
+
+    public CraftingManagerTurntable() {
+        super(new ResourceLocation(ModLib.MODID, "turntable"), TurntableRecipe.class);
+    }
 
     public static TileTurntable findTurntable(World world, BlockPos craftingPos) {
         for (int i = 1; i <= 2; i++) {
@@ -44,19 +50,17 @@ public class CraftingManagerTurntable extends CraftingManagerBlock<TurntableReci
     }
 
     public TurntableRecipe addRecipe(BlockStateIngredient input, IBlockState productState, List<ItemStack> outputs, int rotations) {
-        return addRecipe(new TurntableRecipe(input, productState, outputs, rotations));
+        TurntableRecipe recipe = new TurntableRecipe(input, productState, outputs, rotations);
+        register(recipe);
+        return recipe;
     }
 
     protected List<TurntableRecipe> findRecipe(IBlockState output) {
-        return recipes.stream().filter(r -> r.getProductState() == output).collect(Collectors.toList());
+        return getValuesCollection().stream().filter(r -> r.getProductState() == output).collect(Collectors.toList());
     }
 
     public boolean remove(IBlockState output) {
-        return recipes.removeAll(findRecipe(output));
+        return getValuesCollection().removeAll(findRecipe(output));
     }
 
-    @Override
-    public TurntableRecipe addRecipe(@Nonnull TurntableRecipe recipe) {
-        return super.addRecipe(recipe);
-    }
 }

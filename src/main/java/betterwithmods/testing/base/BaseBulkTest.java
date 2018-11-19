@@ -15,7 +15,7 @@ import net.minecraftforge.items.ItemStackHandler;
 import org.fest.assertions.Assertions;
 
 
-public abstract class BaseBulkTest<T extends BulkRecipe> extends BaseTest {
+public abstract class BaseBulkTest<T extends BulkRecipe<T>> extends BaseTest {
 
     protected final IBulkTile TILE;
     protected CraftingManagerBulk<T> TEST_MANAGER;
@@ -53,19 +53,19 @@ public abstract class BaseBulkTest<T extends BulkRecipe> extends BaseTest {
     public void testRecipeAddition() {
         Assertions.assertThat(recipe.isInvalid()).isFalse();
 
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).isEmpty();
-        TEST_MANAGER.addRecipe(recipe);
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).hasSize(1);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).isEmpty();
+        TEST_MANAGER.register(recipe);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).hasSize(1);
     }
 
     @Test
     public void testRecipeRemoval() {
         Assertions.assertThat(recipe.isInvalid()).isFalse();
 
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).isEmpty();
-        TEST_MANAGER.addRecipe(recipe);
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).isNotEmpty();
-        TEST_MANAGER.removeRecipe(recipe);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).isEmpty();
+        TEST_MANAGER.register(recipe);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).isNotEmpty();
+        TEST_MANAGER.remove(recipe.getRegistryName());
     }
 
     @Test
@@ -86,9 +86,9 @@ public abstract class BaseBulkTest<T extends BulkRecipe> extends BaseTest {
     private void testRecipe(T recipe) {
         Assertions.assertThat(recipe.isInvalid()).isFalse();
 
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).isEmpty();
-        TEST_MANAGER.addRecipe(recipe);
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).hasSize(1);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).isEmpty();
+        TEST_MANAGER.register(recipe);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).hasSize(1);
 
         Assertions.assertThat(TEST_MANAGER.canCraft(recipe, TILE)).isTrue();
         Assertions.assertThat(TEST_MANAGER.craftItem(recipe, null, TILE)).isNotEmpty();

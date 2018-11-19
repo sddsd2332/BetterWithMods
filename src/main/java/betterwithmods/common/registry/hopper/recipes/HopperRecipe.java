@@ -15,10 +15,11 @@ import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.items.ItemStackHandler;
+import net.minecraftforge.registries.IForgeRegistryEntry;
 
 import java.util.List;
 
-public class HopperRecipe {
+public class HopperRecipe extends IForgeRegistryEntry.Impl<HopperRecipe> {
     protected final ResourceLocation filterName;
     protected final Ingredient input;
 

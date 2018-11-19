@@ -7,6 +7,7 @@ import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
 import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
+import betterwithmods.common.registry.anvil.WrappedRecipe;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.hardcore.needs.HCTools;
@@ -51,7 +52,7 @@ public class AnvilRecipes extends Feature {
     }
 
     private static IRecipe addAnvilRecipe(IRecipe recipe) {
-        RecipeRegistry.ANVIL.addRecipe(recipe);
+        RecipeRegistry.ANVIL.register(new WrappedRecipe(recipe));
         if (recipe.getRecipeOutput().isEmpty()) {
             BetterWithMods.LOGGER.warn("Recipe is missing output " + recipe.getRegistryName());
         }

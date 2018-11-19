@@ -12,7 +12,7 @@ import org.fest.assertions.Assertions;
 import java.util.Optional;
 
 
-public abstract class BaseBlockTest<T extends BlockRecipe> extends BaseTest {
+public abstract class BaseBlockTest<T extends BlockRecipe<T>> extends BaseTest {
 
     protected final BlockPos origin = BlockPos.ORIGIN;
     protected FakeWorld world;
@@ -32,18 +32,18 @@ public abstract class BaseBlockTest<T extends BlockRecipe> extends BaseTest {
     @Test
     public void testRecipeAddition() {
         Assertions.assertThat(recipe.isInvalid()).isFalse();
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).isEmpty();
-        TEST_MANAGER.addRecipe(recipe);
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).hasSize(1);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).isEmpty();
+        TEST_MANAGER.register(recipe);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).hasSize(1);
     }
 
     @Test
     public void testRecipeRemoval() {
         Assertions.assertThat(recipe.isInvalid()).isFalse();
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).isEmpty();
-        TEST_MANAGER.addRecipe(recipe);
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).isNotEmpty();
-        TEST_MANAGER.removeRecipe(recipe);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).isEmpty();
+        TEST_MANAGER.register(recipe);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).isNotEmpty();
+        TEST_MANAGER.remove(recipe.getRegistryName());
     }
 
     @Test
@@ -69,14 +69,14 @@ public abstract class BaseBlockTest<T extends BlockRecipe> extends BaseTest {
 
     protected void testRecipe(T recipe, BlockPos pos) {
         Assertions.assertThat(recipe.isInvalid()).isFalse();
-        Assertions.assertThat(TEST_MANAGER.getRecipes()).isEmpty();
-        TEST_MANAGER.addRecipe(recipe);
+        Assertions.assertThat(TEST_MANAGER.getValuesCollection()).isEmpty();
+        TEST_MANAGER.register(recipe);
         Optional<T> foundRecipe = TEST_MANAGER.findRecipe(world, origin, world.getBlockState(pos));
         Assertions.assertThat(foundRecipe.isPresent()).isTrue();
         if (foundRecipe.isPresent()) {
             T actualRecipe = foundRecipe.get();
             Assertions.assertThat(actualRecipe.craftRecipe(world, origin, world.rand, world.getBlockState(pos))).isTrue();
-            TEST_MANAGER.getRecipes().clear();
+            TEST_MANAGER.getValuesCollection().clear();
         }
     }
 }

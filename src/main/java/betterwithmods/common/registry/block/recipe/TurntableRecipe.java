@@ -20,7 +20,7 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 4/20/17.
  */
-public class TurntableRecipe extends BlockRecipe {
+public class TurntableRecipe extends BlockRecipe<TurntableRecipe> {
     private final int rotations;
 
     private final IBlockState productState;
