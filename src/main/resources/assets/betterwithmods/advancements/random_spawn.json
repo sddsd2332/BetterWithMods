@@ -1,0 +1,22 @@
+{
+  "parent": "betterwithmods:root",
+  "display": {
+    "icon": {
+      "item": "minecraft:diamond"
+    },
+    "title": {
+      "translate": "Random Spawn!"
+    },
+    "description": {
+      "translate": " "
+    }
+  },
+  "criteria": {
+    "random_spawn": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "value": "random_spawn"
+      }
+    }
+  }
+}

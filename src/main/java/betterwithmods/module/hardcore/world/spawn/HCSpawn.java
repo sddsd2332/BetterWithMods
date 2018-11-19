@@ -6,6 +6,7 @@ import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.TimeUtils;
 import betterwithmods.library.utils.WeatherUtils;
 import betterwithmods.module.general.General;
+import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.module.internal.player.PlayerInfo;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.material.Material;
@@ -89,6 +90,7 @@ public class HCSpawn extends Feature {
             if (isNew) {
                 //Only reset the death timer when the cooldown is met, so you can't prolong a spawn are by intentionally dying to reset the timer.
                 info.setTicksSinceDeath(0);
+                AdvancementRegistry.STATE_TRIGGER.trigger(player, "random_spawn");
             }
             BlockPos currentSpawn = isNew ? player.world.getSpawnPoint() : getSpawn(player);
             int radius = isNew ? HARDCORE_SPAWN_RADIUS : HARDCORE_SPAWN_COOLDOWN_RADIUS;
