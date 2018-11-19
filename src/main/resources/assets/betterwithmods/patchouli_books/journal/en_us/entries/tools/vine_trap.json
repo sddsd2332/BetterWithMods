@@ -1,0 +1,13 @@
+{
+  "name": "Vine Trap",
+  "icon": "betterwithmods:vine_trap",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

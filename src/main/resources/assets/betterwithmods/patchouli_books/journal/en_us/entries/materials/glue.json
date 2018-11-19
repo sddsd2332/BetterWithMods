@@ -1,0 +1,14 @@
+{
+  "name": "Glue",
+  "icon": "betterwithmods:glue",
+  "advancement": "betterwithmods:bellows",
+  "category": "materials",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 2
+}

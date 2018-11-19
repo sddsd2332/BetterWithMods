@@ -1,0 +1,15 @@
+{
+  "parent": "betterwithmods:hibachi",
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:blasting_oil"
+          }
+        ]
+      }
+    }
+  }
+}

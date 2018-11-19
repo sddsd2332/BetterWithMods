@@ -1,0 +1,14 @@
+{
+  "name": "Mining Charge",
+  "icon": "betterwithmods:mining_charge",
+  "advancement": "betterwithmods:dynamite",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Blasting Oil",
+  "icon": "betterwithmods:blasting_oil",
+  "advancement": "betterwithmods:bellows",
+  "category": "materials",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 2
+}

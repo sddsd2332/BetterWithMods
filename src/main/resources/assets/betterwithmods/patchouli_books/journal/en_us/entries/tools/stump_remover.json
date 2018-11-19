@@ -1,0 +1,14 @@
+{
+  "name": "Stump Remover",
+  "icon": "betterwithmods:stump_remover",
+  "advancement": "betterwithmods:shear_creeper",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

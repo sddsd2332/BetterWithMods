@@ -35,7 +35,6 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Collection;
-import java.util.Objects;
 import java.util.Optional;
 import java.util.function.Function;
 
@@ -155,8 +154,8 @@ public abstract class BlockCamo extends BlockBase {
 
 
     @Override
-    public void harvestBlock(@Nonnull World worldIn, EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nullable TileEntity te, ItemStack stack) {
-        player.addStat(Objects.requireNonNull(StatList.getBlockStats(this)));
+    public void harvestBlock(@Nonnull World worldIn, @Nonnull EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nullable TileEntity te, ItemStack stack) {
+        player.addStat(StatList.getBlockStats(this));
         player.addExhaustion(0.005F);
         int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
         boolean silkTouch = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;

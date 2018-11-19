@@ -1,0 +1,14 @@
+{
+  "name": "Tallow",
+  "icon": "betterwithmods:tallow",
+  "advancement": "betterwithmods:bellows",
+  "category": "materials",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 2
+}

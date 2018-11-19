@@ -1,0 +1,14 @@
+{
+  "name": "Dynamite",
+  "icon": "betterwithmods:dynamite",
+  "advancement": "betterwithmods:blasting_oil",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

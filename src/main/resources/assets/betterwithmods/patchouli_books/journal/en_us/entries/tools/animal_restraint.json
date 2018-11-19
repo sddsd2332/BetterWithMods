@@ -1,0 +1,14 @@
+{
+  "name": "Animal Restraint",
+  "icon": "betterwithmods:animal_restraint",
+  "advancement": "betterwithmods:tanned_leather",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}
