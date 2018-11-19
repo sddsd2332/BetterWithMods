@@ -1,10 +1,10 @@
 {
   "parent": "betterwithmods:root",
   "criteria": {
-    "gloom": {
+    "too_restless": {
       "trigger": "betterwithmods:state_trigger",
       "conditions": {
-        "value": "gloom"
+        "value": "too_restless"
       }
     }
   }

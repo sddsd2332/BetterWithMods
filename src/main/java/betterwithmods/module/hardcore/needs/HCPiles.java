@@ -6,9 +6,12 @@ import betterwithmods.common.registry.advanceddispenser.BehaviorSilkTouch;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.module.internal.AdvancedDispenserRegistry;
+import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemBlock;
@@ -53,11 +56,12 @@ public class HCPiles extends Feature {
 
     @SubscribeEvent(priority = EventPriority.LOWEST)
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
+        EntityPlayer player = event.getHarvester();
         IBlockState state = event.getState();
         if (event.isSilkTouching() || event.getResult().equals(Event.Result.DENY) || !blockStateToPile.containsKey(state))
             return;
 
-        if (PlayerUtils.isCurrentToolEffectiveOnBlock(event.getHarvester(), event.getPos(), event.getState()))
+        if (PlayerUtils.isCurrentToolEffectiveOnBlock(player, event.getPos(), event.getState()))
             return;
 
         if (blockStateToPile.containsKey(state)) {
@@ -71,6 +75,9 @@ public class HCPiles extends Feature {
             }
             if (extraDrops != null)
                 event.getDrops().addAll(extraDrops);
+            if (player instanceof EntityPlayerMP) {
+                AdvancementRegistry.STATE_TRIGGER.trigger((EntityPlayerMP) player, "no_shovel");
+            }
         }
     }
 

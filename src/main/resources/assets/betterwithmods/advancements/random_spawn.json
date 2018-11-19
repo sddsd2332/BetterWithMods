@@ -2,7 +2,7 @@
   "parent": "betterwithmods:root",
   "criteria": {
     "random_spawn": {
-      "trigger": "minecraft:inventory_changed",
+      "trigger": "betterwithmods:state_trigger",
       "conditions": {
         "value": "random_spawn"
       }

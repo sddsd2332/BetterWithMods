@@ -3,8 +3,10 @@ package betterwithmods.module.hardcore.world;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.entity.player.PlayerSleepInBedEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -30,9 +32,13 @@ public class HCBeds extends Feature {
         if (PlayerUtils.isSurvival(event.getEntityPlayer())) {
             event.getEntityPlayer().sendStatusMessage(TooltipUtils.getMessageComponent(ModLib.MODID, BED_TOO_RESTLESS), true);
             event.setResult(TOO_RESTLESS);
+
             if (stillSetSpawn) {
                 event.getEntityPlayer().setSpawnPoint(event.getPos(), true);
+            } else if (event.getEntityPlayer() instanceof EntityPlayerMP) {
+                AdvancementRegistry.STATE_TRIGGER.trigger((EntityPlayerMP) event.getEntityPlayer(), "too_restless");
             }
+
         }
     }
 
