@@ -1,7 +1,6 @@
 {
-  "name": "Hibachi",
-  "icon": "betterwithmods:hibachi",
-  "advancement": "betterwithmods:hellfire_dust",
+  "name": "Block Dispenser",
+  "icon": "betterwithmods:block_dispenser",
   "category": "redstone",
   "pages": [
     {
@@ -10,5 +9,5 @@
       "text": "DOCUMENTME"
     }
   ],
-  "sortnum": 1
+  "sortnum": 5
 }

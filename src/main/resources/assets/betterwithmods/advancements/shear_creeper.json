@@ -1,0 +1,20 @@
+{
+  "parent": "betterwithmods:root",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:creeper_oyster"
+    },
+    "title": {
+      "translate": "advancement.betterwithmods.creeper_oyster.title"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.creeper_oyster.desc"
+    },
+    "frame": "challenge"
+  },
+  "criteria": {
+    "shear": {
+      "trigger": "betterwithmods:shear_creeper"
+    }
+  }
+}

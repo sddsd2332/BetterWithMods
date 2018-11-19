@@ -5,9 +5,11 @@ import betterwithmods.common.entity.EntityShearedCreeper;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import betterwithmods.library.utils.InventoryUtils;
+import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemShears;
@@ -47,6 +49,7 @@ public class CreeperShearing extends Feature {
 
     @SubscribeEvent
     public void shearCreeper(PlayerInteractEvent.EntityInteractSpecific e) {
+
         if (e.getTarget() instanceof EntityLivingBase) {
             EntityLivingBase creeper = (EntityLivingBase) e.getTarget();
             if (isMatching(creeper)) {
@@ -65,6 +68,9 @@ public class CreeperShearing extends Feature {
                         e.getWorld().playSound(null, shearedCreeper.posX, shearedCreeper.posY, shearedCreeper.posZ, SoundEvents.ENTITY_SHEEP_SHEAR, SoundCategory.HOSTILE, 1, 1F);
                         creeper.setDead();
                         e.getWorld().spawnEntity(shearedCreeper);
+                        if (e.getEntityPlayer() instanceof EntityPlayerMP) {
+                            AdvancementRegistry.trigger((EntityPlayerMP) e.getEntityPlayer(), AdvancementRegistry.SHEAR_CREEPER);
+                        }
                     }
                 }
             }

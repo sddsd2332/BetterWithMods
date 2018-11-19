@@ -1,5 +1,5 @@
 {
-  "parent": "betterwithmods:axle",
+  "parent": "betterwithmods:wooden_axle",
   "display": {
     "icon": {
       "item": "betterwithmods:wooden_gearbox"

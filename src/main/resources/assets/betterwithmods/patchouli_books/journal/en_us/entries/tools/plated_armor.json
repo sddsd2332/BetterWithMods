@@ -1,0 +1,13 @@
+{
+  "name": "Plated Armor",
+  "icon": "betterwithmods:steel_helmet",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

@@ -1,0 +1,14 @@
+{
+  "name": "Ender  Spectacles",
+  "icon": "betterwithmods:ender_spectacles",
+  "advancement": "betterwithmods:tanned_leather",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

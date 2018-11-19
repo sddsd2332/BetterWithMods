@@ -1,13 +1,14 @@
 {
-  "name": "Tanned Leather",
-  "icon": "betterwithmods:tanned_leather",
+  "name": "Soups",
+  "icon": "betterwithmods:hearty_stew",
   "advancement": "betterwithmods:cauldron",
-  "category": "heat",
+  "category": "foods",
   "pages": [
     {
       "type": "text",
       "title": "",
       "text": "DOCUMENTME"
     }
-  ]
+  ],
+  "sortnum": 5
 }

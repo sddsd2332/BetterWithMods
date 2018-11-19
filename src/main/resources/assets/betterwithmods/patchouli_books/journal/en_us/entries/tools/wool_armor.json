@@ -1,0 +1,13 @@
+{
+  "name": "Wool Armor",
+  "icon": "betterwithmods:wool_helmet",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 2
+}

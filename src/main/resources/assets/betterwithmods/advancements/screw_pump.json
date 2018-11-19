@@ -1,5 +1,5 @@
 {
-  "parent": "betterwithmods:gearbox",
+  "parent": "betterwithmods:wooden_gearbox",
   "display": {
     "icon": {
       "item": "betterwithmods:screw_pump"

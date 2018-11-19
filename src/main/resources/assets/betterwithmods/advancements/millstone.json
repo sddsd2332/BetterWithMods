@@ -28,11 +28,5 @@
         "recipe": "betterwithmods:blocks/mech/millstone"
       }
     }
-  },
-  "requirements": [
-    [
-      "has_item",
-      "has_the_recipe"
-    ]
-  ]
+  }
 }

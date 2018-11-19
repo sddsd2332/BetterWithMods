@@ -61,7 +61,6 @@ public final class BWMItems {
     public static final Item GRAVEL_PILE = null;
     public static final Item SAND_PILE = null;
     public static final Item RED_SAND_PILE = null;
-    public static final Item MANUAL = null;
     public static final Item ARCANE_SCROLL = null;
     public static final Item LEATHER_TANNED_HELMET = null;
     public static final Item LEATHER_TANNED_CHEST = null;

@@ -1,0 +1,16 @@
+{
+  "name": "Creeper",
+  "icon": "minecraft:skull:4",
+  "category": "world",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:creeper"
+    }
+  ]
+}

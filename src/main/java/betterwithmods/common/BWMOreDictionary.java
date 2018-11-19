@@ -52,7 +52,6 @@ public class BWMOreDictionary {
 
         registerOre("wool", new ItemStack(Blocks.WOOL, OreDictionary.WILDCARD_VALUE));
         registerOre("scroll", BWMItems.ARCANE_SCROLL);
-        registerOre("book", BWMItems.MANUAL);
         registerOre("dung", ItemMaterial.getStack(ItemMaterial.EnumMaterial.DUNG));
         registerOre("padding", ItemMaterial.getStack(ItemMaterial.EnumMaterial.PADDING));
         registerOre("soap", ItemMaterial.getStack(ItemMaterial.EnumMaterial.SOAP));

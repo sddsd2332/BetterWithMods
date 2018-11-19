@@ -1,0 +1,14 @@
+{
+  "name": "Crucible",
+  "icon": "betterwithmods:crucible",
+  "advancement": "betterwithmods:kiln",
+  "category": "heat",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 10
+}

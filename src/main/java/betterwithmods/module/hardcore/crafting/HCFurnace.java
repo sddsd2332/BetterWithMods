@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.client.tesr.TESRFurnaceContent;
 import betterwithmods.common.blocks.BlockFurnace;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.TooltipUtils;
@@ -68,7 +69,7 @@ public class HCFurnace extends Feature {
         if (!FurnaceRecipes.instance().getSmeltingResult(event.getItemStack()).isEmpty()) {
             double ticks = HCFurnace.getCookingTime(event.getItemStack()).orElse(HCFurnace.DEFAULT_FURNACE_TIMING);
             double seconds = ticks / 20.0;
-            event.getToolTip().add(TooltipUtils.getTooltip(FURNACE_TIME, String.format("%.2f", seconds)));
+            event.getToolTip().add(TooltipUtils.getTooltip(ModLib.MODID, FURNACE_TIME, String.format("%.2f", seconds)));
         }
     }
 

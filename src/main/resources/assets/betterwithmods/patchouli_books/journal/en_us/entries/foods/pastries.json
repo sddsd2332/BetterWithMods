@@ -1,0 +1,14 @@
+{
+  "name": "Pastries",
+  "icon": "minecraft:cake",
+  "advancement": "betterwithmods:kiln",
+  "category": "foods",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

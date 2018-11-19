@@ -16,6 +16,7 @@ public class AdvancementRegistry extends Advancements {
     public static SimpleTrigger CONSTRUCT_KILN;
     public static SimpleTrigger SPAWN_HOPPER_FRIEND;
     public static SimpleTrigger EXPLOSIVE_RECIPE;
+    public static SimpleTrigger SHEAR_CREEPER;
 
     @Override
     public void register() {
@@ -24,5 +25,6 @@ public class AdvancementRegistry extends Advancements {
         CONSTRUCT_KILN = CriteriaTriggers.register(new SimpleTrigger(new ResourceLocation(ModLib.MODID, "construct_kiln")));
         SPAWN_HOPPER_FRIEND = CriteriaTriggers.register(new SimpleTrigger(new ResourceLocation(ModLib.MODID, "spawn_hopper_friend")));
         EXPLOSIVE_RECIPE = CriteriaTriggers.register(new SimpleTrigger(new ResourceLocation(ModLib.MODID, "explosive_recipe")));
+        SHEAR_CREEPER = CriteriaTriggers.register(new SimpleTrigger(new ResourceLocation(ModLib.MODID, "shear_creeper")));
     }
 }

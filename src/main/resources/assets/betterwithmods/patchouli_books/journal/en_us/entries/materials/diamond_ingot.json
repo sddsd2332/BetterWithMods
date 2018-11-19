@@ -1,0 +1,14 @@
+{
+  "name": "Diamond Ingot",
+  "icon": "betterwithmods:diamond_ingot",
+  "advancement": "betterwithmods:crucible",
+  "category": "materials",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 2
+}

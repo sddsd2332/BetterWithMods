@@ -14,5 +14,6 @@
       "title": "Recipe",
       "recipe": "betterwithmods:blocks/mech/cauldron"
     }
-  ]
+  ],
+  "sortnum": 1
 }

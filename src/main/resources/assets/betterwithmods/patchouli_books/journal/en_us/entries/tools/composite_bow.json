@@ -1,0 +1,14 @@
+{
+  "name": "Composite Bow",
+  "icon": "betterwithmods:composite_bow",
+  "advancement": "betterwithmods:saw",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

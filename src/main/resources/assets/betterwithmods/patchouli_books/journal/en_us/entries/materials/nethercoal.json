@@ -1,0 +1,14 @@
+{
+  "name": "Nethercoal",
+  "icon": "betterwithmods:nethercoal",
+  "advancement": "betterwithmods:hibachi",
+  "category": "materials",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 2
+}

@@ -5,10 +5,10 @@
       "item": "betterwithmods:leather_tanned_chest"
     },
     "title": {
-      "translate": "advancement.betterwithmods.plated_armor.name"
+      "translate": "advancement.betterwithmods.tanned_leather_armor.name"
     },
     "description": {
-      "translate": "advancement.betterwithmods.plated_armor.desc"
+      "translate": "advancement.betterwithmods.tanned_leather_armor.desc"
     }
   },
   "criteria": {

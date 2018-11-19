@@ -1,0 +1,13 @@
+{
+  "name": "Meats",
+  "icon": "minecraft:cooked_beef",
+  "category": "foods",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 4
+}

@@ -1,7 +1,6 @@
 {
-  "name": "Hibachi",
-  "icon": "betterwithmods:hibachi",
-  "advancement": "betterwithmods:hellfire_dust",
+  "name": "Light Block",
+  "icon": "betterwithmods:light_yellow",
   "category": "redstone",
   "pages": [
     {
@@ -10,5 +9,5 @@
       "text": "DOCUMENTME"
     }
   ],
-  "sortnum": 1
+  "sortnum": 2
 }

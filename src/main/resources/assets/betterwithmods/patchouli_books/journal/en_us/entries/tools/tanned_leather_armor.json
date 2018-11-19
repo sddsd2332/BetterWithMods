@@ -1,0 +1,14 @@
+{
+  "name": "Tanned Leather Armor",
+  "icon": "betterwithmods:leather_tanned_helmet",
+  "advancement": "betterwithmods:tanned_leather",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 3
+}

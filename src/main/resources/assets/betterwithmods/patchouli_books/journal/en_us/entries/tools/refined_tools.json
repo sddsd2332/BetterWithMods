@@ -1,0 +1,13 @@
+{
+  "name": "Refined Tools",
+  "icon": "betterwithmods:steel_mattock",
+  "category": "tools",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

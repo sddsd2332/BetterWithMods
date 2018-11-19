@@ -1,7 +1,6 @@
 {
-  "name": "Hibachi",
-  "icon": "betterwithmods:hibachi",
-  "advancement": "betterwithmods:hellfire_dust",
+  "name": "Wind Chime",
+  "icon": "betterwithmods:bamboo_chime_oak",
   "category": "redstone",
   "pages": [
     {

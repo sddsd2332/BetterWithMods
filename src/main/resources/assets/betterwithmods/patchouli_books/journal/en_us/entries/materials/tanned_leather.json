@@ -1,0 +1,14 @@
+{
+  "name": "Tanned Leather",
+  "icon": "betterwithmods:tanned_leather",
+  "advancement": "betterwithmods:cauldron",
+  "category": "materials",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 2
+}

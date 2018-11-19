@@ -14,5 +14,6 @@
       "name": "Tube Kiln",
       "multiblock_id": "betterwithmods:kiln_tube"
     }
-  ]
+  ],
+  "sortnum": 3
 }

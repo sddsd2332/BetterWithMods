@@ -28,11 +28,5 @@
         "recipe": "betterwithmods:blocks/mech/hand_crank"
       }
     }
-  },
-  "requirements": [
-    [
-      "has_item",
-      "has_the_recipe"
-    ]
-  ]
+  }
 }
