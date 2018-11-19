@@ -8,6 +8,10 @@
       "type": "text",
       "title": "",
       "text": "DOCUMENTME"
+    },
+    {
+      "type": "bulk_recipe",
+      "text": ""
     }
   ],
   "sortnum": 2

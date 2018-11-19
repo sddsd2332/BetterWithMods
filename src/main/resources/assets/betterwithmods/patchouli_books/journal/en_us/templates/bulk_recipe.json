@@ -1,0 +1,9 @@
+{
+  "components": [
+    {
+      "type": "custom",
+      "class": "betterwithmods.module.compat.patchouli.ComponentBulk",
+      "text": "#text"
+    }
+  ]
+}

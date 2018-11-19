@@ -2,7 +2,7 @@
   "name": "Hibachi",
   "icon": "betterwithmods:hibachi",
   "advancement": "betterwithmods:hellfire_dust",
-  "category": "redstone",
+  "category": "heat",
   "pages": [
     {
       "type": "text",
