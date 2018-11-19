@@ -13,13 +13,11 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.container.anvil.ContainerSteelAnvil;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
-import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
+import betterwithmods.common.registry.anvil.AnvilRecipe;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import betterwithmods.common.registry.bulk.recipes.CauldronRecipe;
-import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.registry.bulk.recipes.CrucibleRecipe;
 import betterwithmods.common.registry.bulk.recipes.MillRecipe;
 import betterwithmods.common.registry.crafting.ToolBaseRecipe;
@@ -48,9 +46,9 @@ import mezz.jei.startup.StackHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.item.crafting.IRecipe;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.item.crafting.ShapelessRecipes;
-import net.minecraftforge.oredict.ShapelessOreRecipe;
+import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import javax.annotation.Nonnull;
 import java.util.*;
@@ -148,14 +146,16 @@ public class JEI implements IModPlugin {
         reg.handleRecipes(SawRecipe.class, r -> new BlockRecipeWrapper<>(HELPER, r, 3), SteelSawRecipeCategory.UID);
         reg.handleRecipes(TurntableRecipe.class, recipe -> new TurntableRecipeWrapper(HELPER, recipe), TurntableRecipeCategory.UID);
         reg.handleRecipes(HopperRecipe.class, recipe -> new HopperRecipeWrapper(HELPER, recipe), HopperRecipeCategory.UID);
-        reg.handleRecipes(ShapedAnvilRecipe.class, recipe -> new ShapedAnvilRecipeWrapper(HELPER, recipe), SteelAnvilRecipeCategory.UID);
-        reg.handleRecipes(ShapelessAnvilRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), SteelAnvilRecipeCategory.UID);
-        reg.handleRecipes(ShapelessOreRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), SteelAnvilRecipeCategory.UID);
-        reg.handleRecipes(ShapelessRecipes.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), SteelAnvilRecipeCategory.UID);
-        reg.handleRecipes(ToolBaseRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), SteelAnvilRecipeCategory.UID);
+        reg.handleRecipes(AnvilRecipe.class, recipe -> {
+            IRecipe r = recipe.getRecipe();
+            if (r instanceof IShapedRecipe) {
+                return new ShapedAnvilRecipeWrapper(HELPER, (IShapedRecipe) r);
+            } else {
+                return new ShapelessRecipeWrapper<>(HELPER, r);
+            }
+        }, SteelAnvilRecipeCategory.UID);
         reg.handleRecipes(ToolBaseRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), VanillaRecipeCategoryUid.CRAFTING);
-        reg.handleRecipes(ToolDamageRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), SteelAnvilRecipeCategory.UID);
-        reg.handleRecipes(ToolDamageRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), "minecraft.crafting");
+        reg.handleRecipes(ToolDamageRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), VanillaRecipeCategoryUid.CRAFTING);
 
         reg.addRecipes(RecipeRegistry.MILLSTONE.getValuesCollection(), MillRecipeCategory.UID);
         reg.addRecipes(RecipeRegistry.WOOD_SAW.getDisplayRecipes(), SawRecipeCategory.UID);

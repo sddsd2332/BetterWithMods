@@ -1,12 +1,12 @@
 package betterwithmods.module.compat.jei.wrapper;
 
-import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
 import mezz.jei.plugins.vanilla.crafting.ShapelessRecipeWrapper;
+import net.minecraftforge.common.crafting.IShapedRecipe;
 
-public class ShapedAnvilRecipeWrapper extends ShapelessRecipeWrapper<ShapedAnvilRecipe> implements IShapedCraftingRecipeWrapper {
-    public ShapedAnvilRecipeWrapper(IJeiHelpers helpers, ShapedAnvilRecipe recipe) {
+public class ShapedAnvilRecipeWrapper extends ShapelessRecipeWrapper<IShapedRecipe> implements IShapedCraftingRecipeWrapper {
+    public ShapedAnvilRecipeWrapper(IJeiHelpers helpers, IShapedRecipe recipe) {
         super(helpers, recipe);
     }
 
