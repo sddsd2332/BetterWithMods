@@ -287,11 +287,6 @@ public class TileFilteredHopper extends TileVisibleInventory implements IMechani
     }
 
     @Override
-    public String getName() {
-        return "inv.filtered_hopper.entityName";
-    }
-
-    @Override
     public int getMaxVisibleSlots() {
         return 18;
     }

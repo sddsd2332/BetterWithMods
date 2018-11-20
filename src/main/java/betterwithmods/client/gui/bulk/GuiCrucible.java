@@ -7,8 +7,4 @@ public class GuiCrucible extends GuiCookingPot<ContainerCrucible> {
         super(container);
     }
 
-    @Override
-    public String getTitle() {
-        return "inv.crucible.name";
-    }
 }

@@ -1,11 +1,11 @@
 package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.lib.ModLib;
+import betterwithmods.module.compat.jei.JEILib;
 import mezz.jei.api.gui.IDrawable;
 import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.recipe.IRecipeCategory;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.client.resources.I18n;
 
 import javax.annotation.Nonnull;
 
@@ -17,10 +17,10 @@ public abstract class BWMRecipeCategory<T extends IRecipeWrapper> implements IRe
     private final String localizedName, uid;
 
 
-    public BWMRecipeCategory(@Nonnull IDrawable background, @Nonnull String uid, @Nonnull String unlocalizedName) {
+    public BWMRecipeCategory(@Nonnull IDrawable background, @Nonnull String name) {
         this.background = background;
-        this.localizedName = I18n.format(unlocalizedName);
-        this.uid = uid;
+        this.localizedName = JEILib.name(name);
+        this.uid = JEILib.uid(name);
     }
 
     public static void createSlotsHorizontal(IGuiIngredientGroup group, boolean input, int count, int start, int x, int y) {

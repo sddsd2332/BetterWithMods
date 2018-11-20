@@ -177,7 +177,6 @@ tile.betterwithmods:deadweight.slightlyDamaged.name=Slightly Damaged Deadweight
 tile.betterwithmods:deadweight.veryDamaged.name=Very Damaged Deadweight
 tile.betterwithmods:bucket.name=Well Bucket
 
-
 item.betterwithmods:wooden_gear.name=Wooden Gear
 item.betterwithmods:nethercoal.name=Nethercoal
 item.betterwithmods:hemp_leaf.name=Hemp
@@ -311,25 +310,22 @@ message.betterwithmods:async.enabled=Asynchronous timer enabled
 message.betterwithmods:async.disabled=Asynchronous timer disabled
 message.betterwithmods:async.unavailable=Unable to toggle asynchronous timer: World does not advance time.
 
-inv.cauldron.name=Cauldron
-inv.cauldron.stoked.name=Stoked Cauldron
-inv.crucible.name=Crucible
-inv.crucible.stoked.name=Stoked Crucible
-inv.filtered_hopper.name=Filtered Hopper
-inv.mill.name=Mill Stone
-inv.dispenser.name=Block Dispenser
-inv.saw.name=Saw
-inv.kiln.name=Kiln
-inv.kiln.stoked.name=Stoked Kiln
-inv.pulley.name=Pulley
-inv.turntable.name=Turntable
-inv.steel_anvil.name=Soulforged Steel Anvil
-inv.hopper.name=Hopper Recipes
-inv.hopper.throw=Throw
-inv.hopper.filter=Filter
-inv.hopper.outputs=Outputs
-inv.hopper.place=Place underneath the Hopper
-inv.hopper.soul_urn.name=Hopper Soul Urn Recipes
+inventory.betterwithmods:cauldron.title=Cauldron
+inventory.betterwithmods:crucible.title=Crucible
+inventory.betterwithmods:filtered_hopper.title=Filtered Hopper
+inventory.betterwithmods:millstone.title=Millstone
+inventory.betterwithmods:block_dispenser.title=Block Dispenser
+inventory.betterwithmods:saw.title=Saw
+inventory.betterwithmods:kiln.title=Kiln
+inventory.betterwithmods:pulley.title=Pulley
+inventory.betterwithmods:turntable.title=Turntable
+inventory.betterwithmods:steel_anvil.title=Soulforged Steel Anvil
+inventory.betterwithmods:infernal_enchanter.title=Infernal Enchanter
+
+desc.betterwithmods:filtered_hopper_throw=Throw
+desc.betterwithmods:filtered_hopper_filter=Filter
+desc.betterwithmods:filtered_hopper_output=Output
+desc.betterwithmods:filtered_hopper_place=Place
 
 advancements.betterwithmods:title=Better With Mods
 itemGroup.betterwithmods:blocks=BWM Blocks
@@ -514,3 +510,5 @@ advancement.betterwithmods.overpower_hopper.name=Cuddly Friend
 advancement.betterwithmods.overpower_hopper.desc=Power Your Hopper Next Time
 advancement.betterwithmods.explosive_recipe.name=Put it in the wrong pot!
 advancement.betterwithmods.explosive_recipe.desc=It was way too hot!
+
+

@@ -7,16 +7,10 @@ import net.minecraft.util.ResourceLocation;
 
 public class GuiBlockDispenser extends GuiBase<ContainerAdvancedDispenser> {
     private static final int guiHeight = 182;
-    private static final String NAME = "inv.betterwithmods.dispenser.name";
 
     public GuiBlockDispenser(ContainerAdvancedDispenser container) {
         super(container, new ResourceLocation(ModLib.MODID, "textures/gui/dispenser.png"));
         this.ySize = guiHeight;
-    }
-
-    @Override
-    public String getTitle() {
-        return NAME;
     }
 
     @Override

@@ -16,10 +16,6 @@ public class TileSteelAnvil extends TileBasicInventory {
         return 16;
     }
 
-    public String getName() {
-        return "inv.steel_anvil.entityName";
-    }
-
     public SimpleStackHandler getResult() {
         return result;
     }

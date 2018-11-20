@@ -2,15 +2,13 @@ package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.registry.block.recipe.SawRecipe;
-import betterwithmods.lib.ModLib;
+import betterwithmods.module.compat.jei.JEILib;
 import betterwithmods.module.compat.jei.wrapper.BlockRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.util.Translator;
-import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
@@ -20,12 +18,9 @@ import javax.annotation.Nonnull;
 public class SawRecipeCategory extends BWMRecipeCategory<BlockRecipeWrapper<SawRecipe>> {
     public static final int WIDTH = 117;
     public static final int HEIGHT = 36;
-    public static final String UID = "bwm.saw";
-
-    public static final ResourceLocation LOCATION = new ResourceLocation(ModLib.MODID, "textures/gui/jei/saw.png");
 
     public SawRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(LOCATION, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.saw.name"));
+        super(guiHelper.createDrawable(JEILib.SAW_TEXTURE, 0, 0, WIDTH, HEIGHT), "saw");
     }
 
     @Override

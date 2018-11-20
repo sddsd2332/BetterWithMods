@@ -2,16 +2,14 @@ package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.lib.ModLib;
+import betterwithmods.module.compat.jei.JEILib;
 import betterwithmods.module.compat.jei.wrapper.TurntableRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.util.Translator;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 
@@ -24,12 +22,9 @@ import javax.annotation.Nonnull;
 public class TurntableRecipeCategory extends BWMRecipeCategory<TurntableRecipeWrapper> {
     public static final int width = 76;
     public static final int height = 50;
-    public static final String UID = "bwm.turntable";
-    private static final ResourceLocation location = new ResourceLocation(ModLib.MODID, "textures/gui/jei/turntable.png");
-
 
     public TurntableRecipeCategory(IGuiHelper helper) {
-        super(helper.createDrawable(location, 0, 0, width, height), UID, Translator.translateToLocal("inv.turntable.name"));
+        super(helper.createDrawable(JEILib.TURNTABLE_TEXTURE, 0, 0, width, height), "turntable");
     }
 
     @Override

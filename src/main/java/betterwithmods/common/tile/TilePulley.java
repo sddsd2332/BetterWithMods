@@ -70,11 +70,6 @@ public class TilePulley extends TileVisibleInventory implements IMechanicalPower
     }
 
     @Override
-    public String getName() {
-        return "inv.pulley.entityName";
-    }
-
-    @Override
     public int getMaxVisibleSlots() {
         return 4;
     }

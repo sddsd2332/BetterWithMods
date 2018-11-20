@@ -103,16 +103,15 @@ public class JEI implements IModPlugin {
 
         for (int heat : BWMHeatRegistry.allHeatLevels()) {
             reg.addRecipeCategories(
-                    new CookingPotRecipeCategory(guiHelper, getHeatUID(CookingPotRecipeCategory.CAULDRON_UID, heat)),
-                    new CookingPotRecipeCategory(guiHelper, getHeatUID(CookingPotRecipeCategory.CRUCIBLE_UID, heat)),
-                    new KilnRecipeCategory(guiHelper, getHeatUID(KilnRecipeCategory.UID, heat))
+                    new CookingPotRecipeCategory(guiHelper, getHeatUID(JEILib.CAULDRON_UID, heat)),
+                    new CookingPotRecipeCategory(guiHelper, getHeatUID(JEILib.CRUCIBLE_UID, heat)),
+                    new KilnRecipeCategory(guiHelper, getHeatUID(JEILib.KILN_UID, heat))
             );
         }
 
         reg.addRecipeCategories(
                 new MillRecipeCategory(guiHelper),
                 new SawRecipeCategory(guiHelper),
-                new SteelSawRecipeCategory(guiHelper),
                 new TurntableRecipeCategory(guiHelper),
                 new HopperRecipeCategory(guiHelper),
                 new SteelAnvilRecipeCategory(guiHelper)
@@ -141,11 +140,10 @@ public class JEI implements IModPlugin {
 
         registerHeatBasedRecipes(reg);
 
-        reg.handleRecipes(MillRecipe.class, r -> new BulkRecipeWrapper<>(HELPER, r, 3), MillRecipeCategory.UID);
-        reg.handleRecipes(SawRecipe.class, r -> new BlockRecipeWrapper<>(HELPER, r, 3), SawRecipeCategory.UID);
-        reg.handleRecipes(SawRecipe.class, r -> new BlockRecipeWrapper<>(HELPER, r, 3), SteelSawRecipeCategory.UID);
-        reg.handleRecipes(TurntableRecipe.class, recipe -> new TurntableRecipeWrapper(HELPER, recipe), TurntableRecipeCategory.UID);
-        reg.handleRecipes(HopperRecipe.class, recipe -> new HopperRecipeWrapper(HELPER, recipe), HopperRecipeCategory.UID);
+        reg.handleRecipes(MillRecipe.class, r -> new BulkRecipeWrapper<>(HELPER, r, 3), JEILib.MILLSTONE_UID);
+        reg.handleRecipes(SawRecipe.class, r -> new BlockRecipeWrapper<>(HELPER, r, 3), JEILib.SAW_UID);
+        reg.handleRecipes(TurntableRecipe.class, recipe -> new TurntableRecipeWrapper(HELPER, recipe), JEILib.TURNTABLE_UID);
+        reg.handleRecipes(HopperRecipe.class, recipe -> new HopperRecipeWrapper(HELPER, recipe), JEILib.HOPPER_UID);
         reg.handleRecipes(AnvilRecipe.class, recipe -> {
             IRecipe r = recipe.getRecipe();
             if (r instanceof IShapedRecipe) {
@@ -153,31 +151,31 @@ public class JEI implements IModPlugin {
             } else {
                 return new ShapelessRecipeWrapper<>(HELPER, r);
             }
-        }, SteelAnvilRecipeCategory.UID);
+        }, JEILib.ANVIL_UID);
         reg.handleRecipes(ToolBaseRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), VanillaRecipeCategoryUid.CRAFTING);
         reg.handleRecipes(ToolDamageRecipe.class, recipe -> new ShapelessRecipeWrapper<>(HELPER, recipe), VanillaRecipeCategoryUid.CRAFTING);
 
-        reg.addRecipes(RecipeRegistry.MILLSTONE.getValuesCollection(), MillRecipeCategory.UID);
-        reg.addRecipes(RecipeRegistry.WOOD_SAW.getDisplayRecipes(), SawRecipeCategory.UID);
-        reg.addRecipes(RecipeRegistry.TURNTABLE.getDisplayRecipes(), TurntableRecipeCategory.UID);
-        reg.addRecipes(RecipeRegistry.FILTERED_HOPPER.getDisplayRecipes(), HopperRecipeCategory.UID);
-        reg.addRecipes(RecipeRegistry.ANVIL.getDisplayRecipes(), SteelAnvilRecipeCategory.UID);
+        reg.addRecipes(RecipeRegistry.MILLSTONE.getValuesCollection(), JEILib.MILLSTONE_UID);
+        reg.addRecipes(RecipeRegistry.WOOD_SAW.getDisplayRecipes(), JEILib.SAW_UID);
+        reg.addRecipes(RecipeRegistry.TURNTABLE.getDisplayRecipes(), JEILib.TURNTABLE_UID);
+        reg.addRecipes(RecipeRegistry.FILTERED_HOPPER.getDisplayRecipes(), JEILib.HOPPER_UID);
+        reg.addRecipes(RecipeRegistry.ANVIL.getDisplayRecipes(), JEILib.ANVIL_UID);
 
-        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.MILLSTONE), MillRecipeCategory.UID);
-        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.FILTERED_HOPPER), HopperRecipeCategory.UID);
-        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.TURNTABLE), TurntableRecipeCategory.UID);
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.MILLSTONE), JEILib.MILLSTONE_UID);
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.FILTERED_HOPPER), JEILib.HOPPER_UID);
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.TURNTABLE), JEILib.TURNTABLE_UID);
 
-        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.SAW), SawRecipeCategory.UID);
-        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.STEEL_ANVIL), SteelAnvilRecipeCategory.UID);
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.SAW), JEILib.SAW_UID);
+        reg.addRecipeCatalyst(new ItemStack(BWMBlocks.STEEL_ANVIL), JEILib.ANVIL_UID);
 
-        reg.addRecipeClickArea(GuiMill.class, 81, 19, 14, 14, MillRecipeCategory.UID);
-        reg.addRecipeClickArea(GuiSteelAnvil.class, 88, 41, 28, 23, SteelAnvilRecipeCategory.UID);
-        reg.addRecipeClickArea(GuiFilteredHopper.class, 81, 19, 14, 14, HopperRecipeCategory.UID);
+        reg.addRecipeClickArea(GuiMill.class, 81, 19, 14, 14, JEILib.MILLSTONE_UID);
+        reg.addRecipeClickArea(GuiSteelAnvil.class, 88, 41, 28, 23, JEILib.ANVIL_UID);
+        reg.addRecipeClickArea(GuiFilteredHopper.class, 81, 19, 14, 14, JEILib.HOPPER_UID);
 
         registerAnvil(reg);
 
         IRecipeTransferRegistry recipeTransferRegistry = reg.getRecipeTransferRegistry();
-        recipeTransferRegistry.addRecipeTransferHandler(ContainerSteelAnvil.class, SteelAnvilRecipeCategory.UID, 1, 16, 17, 36);
+        recipeTransferRegistry.addRecipeTransferHandler(ContainerSteelAnvil.class, JEILib.ANVIL_UID, 1, 16, 17, 36);
         recipeTransferRegistry.addRecipeTransferHandler(new AnvilCraftingTransfer());
 
     }
@@ -203,9 +201,9 @@ public class JEI implements IModPlugin {
     private void registerHeatBasedRecipes(@Nonnull IModRegistry reg) {
         Set<String> cauldron = Sets.newHashSet(), crucible = Sets.newHashSet(), kiln = Sets.newHashSet();
         for (int heat : BWMHeatRegistry.allHeatLevels()) {
-            String cauldronUID = getHeatUID(CookingPotRecipeCategory.CAULDRON_UID, heat);
-            String crucibleUID = getHeatUID(CookingPotRecipeCategory.CRUCIBLE_UID, heat);
-            String kilnUID = getHeatUID(KilnRecipeCategory.UID, heat);
+            String cauldronUID = getHeatUID(JEILib.CAULDRON_UID, heat);
+            String crucibleUID = getHeatUID(JEILib.CRUCIBLE_UID, heat);
+            String kilnUID = getHeatUID(JEILib.KILN_UID, heat);
             cauldron.add(cauldronUID);
             crucible.add(crucibleUID);
             kiln.add(kilnUID);
