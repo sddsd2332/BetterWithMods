@@ -1,0 +1,36 @@
+{
+  "name": "Beetroots",
+  "icon": "minecraft:beetroot",
+  "category": "produce",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Beetroots",
+      "multiblock": {
+        "pattern": [
+          [" 0 "],
+          [" F "]
+        ],
+        "mapping": {
+          "0": "minecraft:beetroots[age=3]",
+          "F": "minecraft:farmland[moisture=7]"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of a fully grown beetroot crop."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:beetroot_seeds",
+      "title": "Seeds",
+      "text": "Beetroot seeds seem to only be found in villages far away from where my journey began."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:beetroot",
+      "title": "Crop",
+      "text": "Once harvested beetroot can be processed in many different ways. The following pages are all the products I have been able to produce from beetroots. "
+    }
+  ]
+}

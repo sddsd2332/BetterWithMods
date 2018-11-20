@@ -1,0 +1,36 @@
+{
+  "name": "Wheat",
+  "icon": "minecraft:wheat",
+  "category": "produce",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Wheat",
+      "multiblock": {
+        "pattern": [
+          [" 0 "],
+          [" F "]
+        ],
+        "mapping": {
+          "0": "minecraft:wheat[age=7]",
+          "F": "minecraft:farmland[moisture=7]"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of a fully grown wheat crop."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:wheat_seeds",
+      "title": "Seeds",
+      "text": "Wheat seeds seem to only be found by using a hoe on grass or in villages far away from where my journey began."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:wheat",
+      "title": "Crop",
+      "text": "Once harvested wheat can be processed in many different ways. The following pages are all the products I have been able to produce from wheat. "
+    }
+  ]
+}

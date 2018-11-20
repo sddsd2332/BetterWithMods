@@ -1,0 +1,38 @@
+{
+  "name": "Pumpkin",
+  "icon": "minecraft:pumpkin",
+  "category": "produce",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Pumpkin",
+      "multiblock": {
+        "pattern": [
+          [" 0P"],
+          [" FD"]
+        ],
+        "mapping": {
+          "0": "minecraft:pumpkin_stem[age=7]",
+          "F": "minecraft:farmland[moisture=7]",
+          "P": "minecraft:pumpkin",
+          "D": "minecraft:dirt"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of a fully grown pumpkin crop."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:pumpkin_seeds",
+      "title": "Seeds",
+      "text": "Pumpkin seeds seem to only be found in villages far away from where my journey began."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:pumpkin",
+      "title": "Crop",
+      "text": "Once harvested pumpkin can be processed in many different ways. The following pages are all the products I have been able to produce from pumpkins. "
+    }
+  ]
+}

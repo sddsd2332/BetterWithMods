@@ -1,0 +1,7 @@
+{
+  "name": "Produce",
+  "description": "This world has many varieties of fruits and vegetables across the land. The villagers that inhabit this world tend to grow many different types of produce.",
+  "icon": "minecraft:apple",
+  "parent": "foods",
+  "sortnum": 1
+}
