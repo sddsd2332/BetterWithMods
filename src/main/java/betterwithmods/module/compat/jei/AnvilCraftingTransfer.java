@@ -1,14 +1,15 @@
 package betterwithmods.module.compat.jei;
 
 import betterwithmods.common.container.anvil.ContainerSteelAnvil;
+import betterwithmods.library.common.container.ISlotRange;
+import betterwithmods.library.utils.GuiUtils;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferInfo;
 import net.minecraft.inventory.Slot;
 
 import javax.annotation.Nonnull;
-import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class AnvilCraftingTransfer implements IRecipeTransferInfo<ContainerSteelAnvil> {
@@ -33,19 +34,18 @@ public class AnvilCraftingTransfer implements IRecipeTransferInfo<ContainerSteel
     @Nonnull
     @Override
     public List<Slot> getRecipeSlots(@Nonnull ContainerSteelAnvil container) {
-        int[] indicies = new int[]{1, 2, 3, 5, 6, 7, 9, 10, 11};
-        return Arrays.stream(indicies).mapToObj(container::getSlot).collect(Collectors.toList());
+        ISlotRange range = container.getSlotRange(GuiUtils.SLOTS_CONTAINER_INVENTORY);
+        Predicate<Slot> filter = i -> {
+            int slot = (i.slotNumber - range.getStart());
+            return slot < 12 && (slot % 4) != 0;
+        };
+        return range.getSlots(container).stream().filter(filter).collect(Collectors.toList());
     }
 
 
     @Nonnull
     @Override
     public List<Slot> getInventorySlots(@Nonnull ContainerSteelAnvil container) {
-        List<Slot> slots = new ArrayList<>();
-        for (int i = 17; i < 53; i++) {
-            Slot slot = container.getSlot(i);
-            slots.add(slot);
-        }
-        return slots;
+        return container.getSlotRange(GuiUtils.SLOTS_FULL_PLAYER_INVENTORY).getSlots(container);
     }
 }

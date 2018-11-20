@@ -19,7 +19,6 @@ public class ContainerSteelAnvil extends ContainerTile<TileSteelAnvil> {
 
     public static final ResourceLocation SLOTS_RESULT = new ResourceLocation(BetterWithLib.MODID, "result");
 
-
     protected InventoryAnvilCrafting craftingMatrix;
     private InventoryAnvilResult craftingResults;
 
