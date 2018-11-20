@@ -1,0 +1,18 @@
+{
+  "name": "Wolf",
+  "icon": "betterwithmods:cooked_wolf_chop",
+  "category": "meats",
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "minecraft:wolf",
+      "scale": "0.65",
+      "name": "Wolf Chops",
+      "text": "Obtained by slaughtering adult wolves."
+    }, {
+      "type": "smelting",
+      "name": "Cooking",
+      "recipe": "betterwithmods:wolf_chop"
+    }
+  ]
+}

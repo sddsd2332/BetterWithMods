@@ -1,0 +1,18 @@
+{
+  "name": "Eggs",
+  "icon": "minecraft:egg",
+  "category": "meats",
+  "pages": [
+    {
+      "type": "spotlight",
+      "item": "minecraft:egg",
+      "title": "Eggs",
+      "text": "Eggs are a very cheap meal that can be cooked whole, or by cooking just the egg inside."
+    }, {
+      "type": "smelting",
+      "name": "Cooking",
+      "recipe": "minecraft:egg",
+      "recipe2": "betterwithmods:raw_eggs"
+    }
+  ]
+}
