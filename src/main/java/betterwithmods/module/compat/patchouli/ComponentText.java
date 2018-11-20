@@ -1,9 +1,9 @@
 package betterwithmods.module.compat.patchouli;
 
 import com.google.gson.annotations.SerializedName;
-import net.minecraft.client.gui.GuiScreen;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.item.EnumDyeColor;
+import vazkii.patchouli.api.IComponentRenderContext;
 import vazkii.patchouli.api.ICustomComponent;
 import vazkii.patchouli.api.VariableHolder;
 import vazkii.patchouli.client.book.gui.BookTextRenderer;
@@ -30,8 +30,8 @@ public class ComponentText implements ICustomComponent {
     private transient int color;
 
     @Override
-    public void onDisplayed(GuiScreen parent) {
-        this.textRenderer = new BookTextRenderer((GuiBook) parent, this.text, this.x, this.y, this.maxWidth, this.lineHeight, this.color);
+    public void onDisplayed(IComponentRenderContext context) {
+        this.textRenderer = new BookTextRenderer((GuiBook) context.getGui(), this.text, this.x, this.y, this.maxWidth, this.lineHeight, this.color);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class ComponentText implements ICustomComponent {
     }
 
     @Override
-    public void render(float pticks, int mouseX, int mouseY) {
+    public void render(IComponentRenderContext iComponentRenderContext, float pticks, int mouseX, int mouseY) {
         GlStateManager.pushMatrix();
         GlStateManager.translate(x, y, 0);
         textRenderer.render(mouseX, mouseY);
