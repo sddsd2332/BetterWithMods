@@ -3,16 +3,16 @@ package betterwithmods.module.compat.jei.category;
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.module.compat.jei.JEILib;
 import betterwithmods.module.compat.jei.wrapper.HopperRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IGuiIngredientGroup;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
-import mezz.jei.util.Translator;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.text.TextFormatting;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -29,24 +29,25 @@ import java.util.List;
 public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper> {
     public static final int width = 145;
     public static final int height = 80;
-    public static final String UID = "bwm.hopper";
-    public static final ResourceLocation location = new ResourceLocation(ModLib.MODID, "textures/gui/jei/hopper.png");
-    final int outputSlot = 3;
-    final int secondaryOutputSlot = 5;
+
+    private final int outputSlot = 3;
+    private final int secondaryOutputSlot = 5;
 
     public HopperRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(location, 0, 0, width, height), UID, Translator.translateToLocal("inv.hopper.name"));
+        super(guiHelper.createDrawable(JEILib.HOPPER_TEXTURE, 0, 0, width, height), "filtered_hopper");
     }
 
     @SideOnly(Side.CLIENT)
     @Override
     public void drawExtras(Minecraft minecraft) {
-        String throwText = Translator.translateToLocal("inv.hopper.throw");
-        int l = minecraft.fontRenderer.getStringWidth(throwText);
+        String text = TooltipUtils.getDescription(ModLib.MODID, JEILib.HOPPER_THROW);
+        int l = minecraft.fontRenderer.getStringWidth(text);
         int textColor = 0x808080;
-        minecraft.fontRenderer.drawString(throwText, width / 2 - l + 5, -11, textColor);
-        minecraft.fontRenderer.drawString(Translator.translateToLocal("inv.hopper.filter"), width / 2 - 50, 16, textColor);
-        minecraft.fontRenderer.drawString(Translator.translateToLocal("inv.hopper.outputs"), width / 2 + 10, -11, textColor);
+        minecraft.fontRenderer.drawString(text, width / 2 - l + 5, -11, textColor);
+        text = TooltipUtils.getDescription(ModLib.MODID, JEILib.HOPPER_FILTER);
+        minecraft.fontRenderer.drawString(text, width / 2 - 50, 16, textColor);
+        text = TooltipUtils.getDescription(ModLib.MODID, JEILib.HOPPER_OUTPUT);
+        minecraft.fontRenderer.drawString(text, width / 2 + 10, -11, textColor);
     }
 
     @Override
@@ -57,7 +58,7 @@ public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper>
 
         guiItemStacks.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex == 2 && !tooltip.isEmpty())
-                tooltip.add(1, TextFormatting.LIGHT_PURPLE + "" + TextFormatting.BOLD + Translator.translateToLocal("inv.hopper.place"));
+                tooltip.add(1, TooltipUtils.style(TooltipUtils.getDescriptionComponent(ModLib.MODID, JEILib.HOPPER_PLACE), TextFormatting.LIGHT_PURPLE, TextFormatting.BOLD).getFormattedText());
         });
         int x = width / 2 - 18, y = 0;
         guiItemStacks.init(0, true, x, y); //inputs item

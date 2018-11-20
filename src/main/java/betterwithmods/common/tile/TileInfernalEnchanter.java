@@ -115,10 +115,6 @@ public class TileInfernalEnchanter extends TileBasicInventory implements ITickab
         super.readFromNBT(compound);
     }
 
-    public String getName() {
-        return "bwm.infernalenchanter";
-    }
-
     public boolean isActive() {
         return active;
     }

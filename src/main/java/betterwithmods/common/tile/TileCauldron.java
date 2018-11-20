@@ -7,10 +7,5 @@ public class TileCauldron extends TileCookingPot {
         super(RecipeRegistry.CAULDRON);
     }
 
-    @Override
-    public String getName() {
-        return "inv.cauldron.entityName";
-    }
-
 
 }

@@ -12,7 +12,6 @@ import static betterwithmods.lib.TooltipLib.MILLSTONE_BLOCKED;
 public class GuiMill extends GuiProgress<ContainerMill> {
 
     private static final ResourceLocation TEXTURE = new ResourceLocation(ModLib.MODID, "textures/gui/mill.png");
-    private static final String NAME = "inv.mill.name";
 
     public GuiMill(ContainerMill container) {
         super(container, TEXTURE, 80, 18, 176, 14, 14, 14);
@@ -24,11 +23,6 @@ public class GuiMill extends GuiProgress<ContainerMill> {
         this.drawDefaultBackground();
         super.drawScreen(mouseX, mouseY, partialTicks);
         this.renderHoveredToolTip(mouseX, mouseY);
-    }
-
-    @Override
-    public String getTitle() {
-        return NAME;
     }
 
     @Override

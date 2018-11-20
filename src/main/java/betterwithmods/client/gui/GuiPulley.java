@@ -15,11 +15,6 @@ public class GuiPulley extends GuiProgress<ContainerPulley> {
     }
 
     @Override
-    public String getTitle() {
-        return getContainer().getTile().getName();
-    }
-
-    @Override
     public int getTitleY() {
         return 6;
     }

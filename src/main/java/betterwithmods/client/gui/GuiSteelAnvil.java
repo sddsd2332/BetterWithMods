@@ -14,10 +14,6 @@ public class GuiSteelAnvil extends GuiBase<ContainerSteelAnvil> {
         this.ySize = 183;
     }
 
-    @Override
-    public String getTitle() {
-        return getContainer().getTile().getName();
-    }
 
     @Override
     public int getTitleY() {

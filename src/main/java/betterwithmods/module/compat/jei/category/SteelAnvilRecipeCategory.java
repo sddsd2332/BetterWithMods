@@ -1,15 +1,13 @@
 package betterwithmods.module.compat.jei.category;
 
-import betterwithmods.lib.ModLib;
+import betterwithmods.module.compat.jei.JEILib;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.IGuiItemStackGroup;
 import mezz.jei.api.gui.IRecipeLayout;
 import mezz.jei.api.ingredients.IIngredients;
 import mezz.jei.api.recipe.IRecipeWrapper;
 import mezz.jei.api.recipe.wrapper.IShapedCraftingRecipeWrapper;
-import mezz.jei.util.Translator;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -21,13 +19,11 @@ public class SteelAnvilRecipeCategory extends BWMRecipeCategory<IRecipeWrapper> 
 
     public static final int WIDTH = 134;
     public static final int HEIGHT = 72;
-    public static final String UID = "bwm.steel_anvil";
     private static final int craftOutputSlot = 16;
     private static final int craftInputSlot1 = 0;
-    private static final ResourceLocation location = new ResourceLocation(ModLib.MODID, "textures/gui/jei/steel_anvil.png");
 
     public SteelAnvilRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(location, 0, 0, WIDTH, HEIGHT), UID, Translator.translateToLocal("inv.steel_anvil.name"));
+        super(guiHelper.createDrawable(JEILib.ANVIL_TEXTURE, 0, 0, WIDTH, HEIGHT), "steel_anvil");
     }
 
     @Override

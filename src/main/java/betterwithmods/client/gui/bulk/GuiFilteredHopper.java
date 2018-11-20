@@ -14,11 +14,6 @@ public class GuiFilteredHopper extends GuiProgress<ContainerFilteredHopper> {
     }
 
     @Override
-    public String getTitle() {
-        return getContainer().getTile().getName();
-    }
-
-    @Override
     public int getTitleY() {
         return 6;
     }

@@ -3,14 +3,13 @@ package betterwithmods.module.compat.jei.category;
 
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
-import betterwithmods.lib.ModLib;
+import betterwithmods.module.compat.jei.JEILib;
 import betterwithmods.module.compat.jei.wrapper.KilnRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
 import mezz.jei.api.gui.*;
 import mezz.jei.api.ingredients.IIngredients;
 import net.minecraft.client.Minecraft;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.ResourceLocation;
 
 import javax.annotation.Nonnull;
 import java.util.List;
@@ -19,13 +18,12 @@ import java.util.List;
 public class KilnRecipeCategory extends BWMRecipeCategory<KilnRecipeWrapper> {
     public static final int width = 145;
     public static final int height = 80;
-    public static final String UID = "bwm.kiln";
-    private static final ResourceLocation guiTexture = new ResourceLocation(ModLib.MODID, "textures/gui/jei/kiln.png");
+
     private final IGuiHelper helper;
     private IDrawableAnimated flame;
 
-    public KilnRecipeCategory(IGuiHelper helper, String uid) {
-        super(helper.createDrawable(guiTexture, 0, 0, width, height), uid, String.format("inv.%s.name", uid.substring(4)));
+    public KilnRecipeCategory(IGuiHelper helper, String name) {
+        super(helper.createDrawable(JEILib.KILN_TEXTURE, 0, 0, width, height), name);
         this.helper = helper;
     }
 
@@ -36,7 +34,7 @@ public class KilnRecipeCategory extends BWMRecipeCategory<KilnRecipeWrapper> {
 
     @Override
     public void setRecipe(@Nonnull IRecipeLayout layout, @Nonnull KilnRecipeWrapper wrapper, @Nonnull IIngredients ingredients) {
-        IDrawableStatic flameDrawable = helper.createDrawable(guiTexture, 145, wrapper.getRecipe().getHeat() > 1 ? 14 : 0, 14, 14);
+        IDrawableStatic flameDrawable = helper.createDrawable(JEILib.KILN_TEXTURE, 145, wrapper.getRecipe().getHeat() > 1 ? 14 : 0, 14, 14);
         this.flame = helper.createAnimatedDrawable(flameDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
 
         IGuiItemStackGroup stacks = layout.getItemStacks();

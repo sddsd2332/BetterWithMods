@@ -74,11 +74,6 @@ public class GuiInfernalEnchanter extends GuiBase<ContainerInfernalEnchanter> {
     }
 
     @Override
-    public String getTitle() {
-        return getContainer().getTile().getName();
-    }
-
-    @Override
     public int getTitleY() {
         return 6;
     }

@@ -24,12 +24,6 @@ public class GuiCookingPot<C extends ContainerBase> extends GuiProgress<C> {
         return super.getTextureX() + (getHeat() > 0 ? 0 : getWidth());
     }
 
-
-    @Override
-    public String getTitle() {
-        return "inv.crucible.name";
-    }
-
     @Override
     public int getTitleY() {
         return 6;
