@@ -1,6 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMOreDictionary;
+import betterwithmods.common.registry.block.recipe.builder.KilnRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.internal.RecipeRegistry;
@@ -24,9 +25,11 @@ public class KilnSmelting extends Feature {
     public void onPostInit(FMLPostInitializationEvent event) {
         oreProductionCount = loadProperty("Ore Production Count", 1).setComment("Number of Materials returned from Smelting an Ore in the Kiln").get();
 
+        KilnRecipeBuilder builder = new KilnRecipeBuilder();
+
         BWMOreDictionary.oreNames.stream().flatMap(ore -> Arrays.stream(ore.getMatchingStacks())).filter(s -> s.getItem() instanceof ItemBlock).forEach(input -> {
             ItemStack output = FurnaceRecipes.instance().getSmeltingResult(input).copy();
-            RecipeRegistry.KILN.addStokedRecipe(input, InventoryUtils.setCount(output, oreProductionCount));
+            RecipeRegistry.KILN.register(builder.stoked().input(input).outputs(InventoryUtils.setCount(output, oreProductionCount)).build());
         });
     }
 

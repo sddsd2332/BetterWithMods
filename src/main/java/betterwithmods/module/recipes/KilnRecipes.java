@@ -7,6 +7,7 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.*;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.KilnStructureManager;
+import betterwithmods.common.registry.block.recipe.builder.KilnRecipeBuilder;
 import betterwithmods.common.registry.heat.BWMHeatRegistry;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
@@ -27,9 +28,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-
-import java.util.stream.Collectors;
-import java.util.stream.IntStream;
 
 /**
  * Created by primetoxinz on 5/16/17.
@@ -70,23 +68,44 @@ public class KilnRecipes extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.CRUCIBLE), new ItemStack(BWMBlocks.CRUCIBLE));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.PLANTER), BlockPlanter.getStack(BlockPlanter.Type.EMPTY));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.URN), new ItemStack(BWMBlocks.URN));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.VASE), BlockVase.getStack(EnumDyeColor.WHITE));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.BRICK), new ItemStack(Items.BRICK));
-        RecipeRegistry.KILN.addStokedRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.NETHER_BRICK), ItemMaterial.getStack(ItemMaterial.EnumMaterial.NETHER_SLUDGE));
+        KilnRecipeBuilder builder = new KilnRecipeBuilder();
 
-        RecipeRegistry.KILN.addStokedRecipe(new ItemStack(Blocks.CLAY), new ItemStack(Blocks.HARDENED_CLAY));
-        RecipeRegistry.KILN.addStokedRecipe(new ItemStack(BWMBlocks.NETHER_CLAY), BlockAesthetic.getStack(BlockAesthetic.Type.NETHERCLAY));
+        RecipeRegistry.KILN.registerAll(
+                builder.stoked()
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.CRUCIBLE))
+                        .outputs(new ItemStack(BWMBlocks.CRUCIBLE)).build(),
+                builder.stoked()
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.PLANTER))
+                        .outputs(BlockPlanter.getStack(BlockPlanter.Type.EMPTY)).build(),
+                builder.stoked()
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.URN))
+                        .outputs(new ItemStack(BWMBlocks.URN)).build(),
+                builder.stoked()
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.VASE))
+                        .outputs(BlockVase.getStack(EnumDyeColor.WHITE)).build(),
+                builder.stoked()
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.BRICK))
+                        .outputs(new ItemStack(Items.BRICK)).build(),
+                builder.stoked()
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.NETHER_BRICK))
+                        .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.NETHER_SLUDGE)).build(),
+                builder.stoked()
+                        .input(new ItemStack(Blocks.CLAY))
+                        .outputs(new ItemStack(Blocks.HARDENED_CLAY)).build(),
+                builder.stoked()
+                        .input(new ItemStack(BWMBlocks.NETHER_CLAY))
+                        .outputs(BlockAesthetic.getStack(BlockAesthetic.Type.NETHERCLAY)).build()
+        );
 
         int foodModifier = BetterWithMods.MODULE_LOADER.isFeatureEnabled(HCCooking.class) ? 1 : 2;
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.CAKE), IntStream.range(0, foodModifier).mapToObj(i -> new ItemStack(Items.CAKE)).collect(Collectors.toList()));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.BREAD), new ItemStack(Items.BREAD, foodModifier));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.COOKIE), new ItemStack(Items.COOKIE, 8 * foodModifier));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.PUMPKIN), new ItemStack(Items.PUMPKIN_PIE, foodModifier));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.APPLE), new ItemStack(BWMItems.APPLE_PIE, foodModifier));
-        RecipeRegistry.KILN.addUnstokedRecipe(BlockRawPastry.getStack(BlockRawPastry.Type.MELON), new ItemStack(BWMItems.MELON_PIE, foodModifier));
+        RecipeRegistry.KILN.registerAll(
+                builder.input(BlockRawPastry.getStack(BlockRawPastry.Type.CAKE)).outputs(new ItemStack(Items.CAKE, foodModifier)).build(),
+                builder.input(BlockRawPastry.getStack(BlockRawPastry.Type.BREAD)).outputs(new ItemStack(Items.BREAD, foodModifier)).build(),
+                builder.input(BlockRawPastry.getStack(BlockRawPastry.Type.COOKIE)).outputs(new ItemStack(Items.COOKIE, 8 * foodModifier)).build(),
+                builder.input(BlockRawPastry.getStack(BlockRawPastry.Type.PUMPKIN)).outputs(new ItemStack(Items.PUMPKIN_PIE, foodModifier)).build(),
+                builder.input(BlockRawPastry.getStack(BlockRawPastry.Type.APPLE)).outputs(new ItemStack(BWMItems.APPLE_PIE, foodModifier)).build(),
+                builder.input(BlockRawPastry.getStack(BlockRawPastry.Type.MELON)).outputs(new ItemStack(BWMItems.MELON_PIE, foodModifier)).build()
+        );
     }
 
 

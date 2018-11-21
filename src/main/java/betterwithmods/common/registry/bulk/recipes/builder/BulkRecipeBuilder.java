@@ -5,6 +5,7 @@ import betterwithmods.api.recipe.input.impl.IngredientInputs;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.common.registry.bulk.recipes.BulkRecipe;
+import betterwithmods.library.common.recipes.BaseRecipeBuilder;
 import com.google.common.base.Preconditions;
 import net.minecraft.block.Block;
 import net.minecraft.item.Item;
@@ -14,15 +15,13 @@ import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
-public abstract class BulkRecipeBuilder<V extends BulkRecipe<V>> {
+public abstract class BulkRecipeBuilder<V extends BulkRecipe<V>> extends BaseRecipeBuilder<V> {
 
     private ResourceLocation name;
     protected IRecipeInputs inputs;
     protected IRecipeOutputs outputs;
     protected boolean handleContainers;
     protected int priority;
-
-    protected abstract V create();
 
     public BulkRecipeBuilder<V> inputs(Block block) {
         return inputs(Item.getItemFromBlock(block));
@@ -64,16 +63,12 @@ public abstract class BulkRecipeBuilder<V extends BulkRecipe<V>> {
         return this;
     }
 
-    public BulkRecipeBuilder<V> name(ResourceLocation name) {
-        this.name = name;
-        return this;
-    }
-
     public BulkRecipeBuilder<V> priority(int priority) {
         this.priority = priority;
         return this;
     }
 
+    @Override
     public V build() {
         Preconditions.checkNotNull(inputs, "inputs");
         Preconditions.checkNotNull(outputs, "outputs");
@@ -91,6 +86,7 @@ public abstract class BulkRecipeBuilder<V extends BulkRecipe<V>> {
         return recipe;
     }
 
+    @Override
     public void reset() {
         name = null;
         inputs = null;

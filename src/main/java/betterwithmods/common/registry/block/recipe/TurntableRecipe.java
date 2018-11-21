@@ -13,7 +13,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import org.apache.commons.lang3.ArrayUtils;
 
-import java.util.List;
 import java.util.Optional;
 import java.util.Random;
 
@@ -22,32 +21,15 @@ import java.util.Random;
  */
 public class TurntableRecipe extends BlockRecipe<TurntableRecipe> {
     private final int rotations;
-
     private final IBlockState productState;
     private final ItemStack representative;
 
-    public TurntableRecipe(BlockStateIngredient input, List<ItemStack> outputs, IBlockState productState, int rotations) {
-        this(input, productState, outputs, rotations);
-    }
-
-    public TurntableRecipe(BlockStateIngredient input, IBlockState productState, List<ItemStack> outputs, int rotations) {
-        this(input, productState, new ItemStack(productState.getBlock(), 1, productState.getBlock().getMetaFromState(productState)), outputs, rotations);
-    }
-
-    public TurntableRecipe(BlockStateIngredient input, IBlockState productState, ItemStack representative, List<ItemStack> outputs, int rotations) {
-        super(input, outputs);
+    public TurntableRecipe(BlockStateIngredient input, IRecipeOutputs recipeOutput, int rotations, IBlockState productState, ItemStack representative) {
+        super(input, recipeOutput);
         this.rotations = rotations;
         this.productState = productState;
         this.representative = representative;
     }
-
-    public TurntableRecipe(BlockStateIngredient input, IBlockState productState, ItemStack representative, IRecipeOutputs outputs, int rotations) {
-        super(input, outputs);
-        this.rotations = rotations;
-        this.productState = productState;
-        this.representative = representative;
-    }
-
 
     public int getRotations() {
         return rotations;

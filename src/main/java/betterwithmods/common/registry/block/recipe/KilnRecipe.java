@@ -1,5 +1,6 @@
 package betterwithmods.common.registry.block.recipe;
 
+import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.tile.IHeatRecipe;
 import betterwithmods.common.event.FakePlayerHandler;
 import betterwithmods.common.registry.KilnStructureManager;
@@ -7,11 +8,9 @@ import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
-import net.minecraft.item.ItemStack;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -22,11 +21,11 @@ public class KilnRecipe extends BlockRecipe<KilnRecipe> implements IHeatRecipe {
     private boolean ignoreHeat;
     private int cookTime;
 
-    public KilnRecipe(BlockStateIngredient input, List<ItemStack> outputs, int heat, int cookTime) {
-        super(input, outputs);
+    public KilnRecipe(BlockStateIngredient input, IRecipeOutputs recipeOutput, int heat) {
+        super(input, recipeOutput);
         this.heat = heat;
-        this.cookTime = cookTime;
     }
+
 
     @Override
     public int getHeat() {
@@ -37,7 +36,7 @@ public class KilnRecipe extends BlockRecipe<KilnRecipe> implements IHeatRecipe {
         return cookTime;
     }
 
-    public void setCookTime(int cookTime) {
+    public void cookTime(int cookTime) {
         this.cookTime = cookTime;
     }
 
@@ -46,9 +45,8 @@ public class KilnRecipe extends BlockRecipe<KilnRecipe> implements IHeatRecipe {
         return ignoreHeat;
     }
 
-    public KilnRecipe setIgnoreHeat(boolean ignoreHeat) {
+    public void ignoreHeat(boolean ignoreHeat) {
         this.ignoreHeat = ignoreHeat;
-        return this;
     }
 
     @Override

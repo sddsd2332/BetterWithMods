@@ -22,10 +22,6 @@ public class SawRecipe extends BlockRecipe<SawRecipe> {
 
     public static StackEjector EJECTOR = new StackEjector(new VectorBuilder().rand(0.4f).offset(0.25f, 0, 0.25f), new VectorBuilder().setGaussian(0.01f, 0.01f, 0.01f));
 
-    public SawRecipe(BlockStateIngredient input, List<ItemStack> outputs) {
-        super(input, outputs);
-    }
-
     public SawRecipe(BlockStateIngredient input, IRecipeOutputs recipeOutput) {
         super(input, recipeOutput);
     }

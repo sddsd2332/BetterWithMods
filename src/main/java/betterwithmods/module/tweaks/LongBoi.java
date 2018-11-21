@@ -1,5 +1,6 @@
 package betterwithmods.module.tweaks;
 
+import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.client.render.RenderLongboi;
 import betterwithmods.common.blocks.BlockWolf;
 import betterwithmods.common.entity.EntityLongboi;
@@ -12,7 +13,6 @@ import betterwithmods.library.utils.ingredient.EntityIngredient;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.EntityRegistry;
 import betterwithmods.module.internal.RecipeRegistry;
-import com.google.common.collect.Lists;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.SoundEvents;
@@ -61,7 +61,7 @@ public class LongBoi extends Feature {
     private static class LongRecipe extends TurntableRecipe {
 
         public LongRecipe() {
-            super(new EntityIngredient(new ResourceLocation("wolf")), Lists.newArrayList(), Blocks.AIR.getDefaultState(), 8);
+            super(new EntityIngredient(new ResourceLocation("wolf")), new ListOutputs(), 8, Blocks.AIR.getDefaultState(), ItemStack.EMPTY);
         }
 
 

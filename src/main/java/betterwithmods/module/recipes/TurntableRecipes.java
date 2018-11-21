@@ -2,9 +2,9 @@ package betterwithmods.module.recipes;
 
 import betterwithmods.common.blocks.BlockUnfiredPottery;
 import betterwithmods.common.registry.TurntableRotationManager;
+import betterwithmods.common.registry.block.recipe.builder.TurntableRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
-import com.google.common.collect.Lists;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -27,11 +27,37 @@ public class TurntableRecipes extends Feature {
     @Override
     public void onInit(FMLInitializationEvent event) {
 
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(new ItemStack(Blocks.CLAY), BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.CRUCIBLE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.CRUCIBLE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.PLANTER));
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.PLANTER), BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.VASE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.VASE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.URN), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        RecipeRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.URN), Blocks.AIR.getDefaultState(), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        TurntableRecipeBuilder builder = new TurntableRecipeBuilder();
+        RecipeRegistry.TURNTABLE.registerAll(
+                builder
+                        .productState(BlockUnfiredPottery.getBlock(BlockUnfiredPottery.Type.CRUCIBLE))
+                        .input(new ItemStack(Blocks.CLAY))
+                        .outputs(new ItemStack(Items.CLAY_BALL))
+                        .build(),
+
+                builder
+                        .productState(BlockUnfiredPottery.getBlock(BlockUnfiredPottery.Type.PLANTER))
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.CRUCIBLE))
+                        .build(),
+
+                builder
+                        .productState(BlockUnfiredPottery.getBlock(BlockUnfiredPottery.Type.PLANTER))
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.VASE))
+                        .outputs(new ItemStack(Items.CLAY_BALL))
+                        .build(),
+
+                builder
+                        .productState(BlockUnfiredPottery.getBlock(BlockUnfiredPottery.Type.VASE))
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.URN))
+                        .outputs(new ItemStack(Items.CLAY_BALL))
+                        .build(),
+
+                builder
+                        .productState(Blocks.AIR)
+                        .input(BlockUnfiredPottery.getStack(BlockUnfiredPottery.Type.URN))
+                        .outputs(new ItemStack(Items.CLAY_BALL))
+                        .build()
+        );
 
 
         TurntableRotationManager.addAttachment(b -> b instanceof BlockTorch);

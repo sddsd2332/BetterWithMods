@@ -16,7 +16,7 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * HCLumber and HCPiles try to give appropriate output if the appropriate tool is used
+ * HCLumber and HCPiles try to give appropriate outputs if the appropriate tool is used
  * They do this by checking the tool in your main hand on HarvestDropsEvent.
  * Unfortunately by the time HarvestDropsEvent occurs, the "appropriate tool" has been destroyed.
  * <p>

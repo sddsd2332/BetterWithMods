@@ -7,6 +7,7 @@ import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.camo.BlockCamo;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.block.recipe.builder.SawRecipeBuilder;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
@@ -339,6 +340,7 @@ public class MiniBlocks extends Feature {
             event.getRegistry().register(new MiniRecipe(corner, moulding));
         }
 
+        SawRecipeBuilder sawBuilder = new SawRecipeBuilder();
         for (IBlockState parent : MATERIALS.values()) {
             ItemStack parentStack = GlobalUtils.getStackFromState(parent);
             Material material = parent.getMaterial();
@@ -379,11 +381,14 @@ public class MiniBlocks extends Feature {
                 ItemStack sidingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material), parent, 2);
                 ItemStack mouldingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(material), parent, 2);
                 ItemStack cornerStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(material), parent, 2);
-                RecipeRegistry.WOOD_SAW.addRecipe(parentStack, sidingStack);
-                RecipeRegistry.WOOD_SAW.addRecipe(siding, mouldingStack);
-                RecipeRegistry.WOOD_SAW.addRecipe(moulding, cornerStack);
+                RecipeRegistry.WOOD_SAW.registerAll(
+                        sawBuilder.input(parentStack).outputs(sidingStack).build(),
+                        sawBuilder.input(siding).outputs(mouldingStack).build(),
+                        sawBuilder.input(moulding).outputs(cornerStack).build()
+                );
+
                 if (BWMOreDictionary.isOre(parentStack, "plankWood")) {
-                    RecipeRegistry.WOOD_SAW.addRecipe(corner, ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOODEN_GEAR, 2));
+                    RecipeRegistry.WOOD_SAW.register(sawBuilder.input(corner).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOODEN_GEAR, 2)).build());
                 }
             } else {
                 ItemStack sidingStack = MiniBlocks.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material), parent, 8);

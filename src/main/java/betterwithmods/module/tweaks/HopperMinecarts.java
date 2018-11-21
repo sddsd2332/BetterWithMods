@@ -89,7 +89,7 @@ public class HopperMinecarts extends Feature {
 
     @Override
     public String getDescription() {
-        return "Allow Hopper Minecarts to output to inventories below them";
+        return "Allow Hopper Minecarts to outputs to inventories below them";
     }
 
     public static class Counter implements ICapabilitySerializable<NBTTagCompound> {

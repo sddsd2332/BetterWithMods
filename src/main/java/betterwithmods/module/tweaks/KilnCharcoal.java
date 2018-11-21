@@ -1,5 +1,6 @@
 package betterwithmods.module.tweaks;
 
+import betterwithmods.common.registry.block.recipe.builder.KilnRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
 import com.google.common.collect.Lists;
@@ -32,6 +33,8 @@ public class KilnCharcoal extends Feature {
         List<ItemStack> logs = Lists.newArrayList();
         logs.addAll(OreDictionary.getOres("logWood"));
 
+        KilnRecipeBuilder builder = new KilnRecipeBuilder();
+
         for (ItemStack stack : logs) {
             if (stack.getItem() instanceof ItemBlock) {
                 ItemStack charcoalOutput = FurnaceRecipes.instance().getSmeltingResult(stack).copy();
@@ -39,7 +42,7 @@ public class KilnCharcoal extends Feature {
                     continue;
                 if (disableFurnaceCharcoal)
                     RecipeRegistry.removeFurnaceRecipe(stack);
-                RecipeRegistry.KILN.addStokedRecipe(stack, charcoalOutput);
+                RecipeRegistry.KILN.register(builder.stoked().input(stack).outputs(charcoalOutput).build());
             }
         }
     }

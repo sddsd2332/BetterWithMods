@@ -2,10 +2,10 @@ package betterwithmods.module.recipes;
 
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.block.recipe.builder.KilnRecipeBuilder;
 import betterwithmods.common.registry.bulk.recipes.builder.CrucibleRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
-import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -39,8 +39,12 @@ public class HarderSteelRecipe extends Feature {
                         .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT)).build()
         );
 
+        KilnRecipeBuilder builderKiln = new KilnRecipeBuilder();
 
-        RecipeRegistry.KILN.addStokedRecipe(new ItemStack(Blocks.END_STONE), Lists.newArrayList(BlockAesthetic.getStack(BlockAesthetic.Type.WHITECOBBLE, 1), ItemMaterial.getStack(ItemMaterial.EnumMaterial.ENDER_SLAG)));
+        RecipeRegistry.KILN.register(builderKiln.stoked()
+                .input(new ItemStack(Blocks.END_STONE))
+                .outputs(BlockAesthetic.getStack(BlockAesthetic.Type.WHITECOBBLE, 1), ItemMaterial.getStack(ItemMaterial.EnumMaterial.ENDER_SLAG))
+                .build());
     }
 
 }

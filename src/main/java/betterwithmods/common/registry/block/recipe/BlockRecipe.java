@@ -1,7 +1,6 @@
 package betterwithmods.common.registry.block.recipe;
 
 import betterwithmods.api.recipe.output.IRecipeOutputs;
-import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.block.state.IBlockState;
@@ -11,7 +10,6 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
-import java.util.List;
 import java.util.Random;
 
 /**
@@ -23,10 +21,6 @@ import java.util.Random;
 public abstract class BlockRecipe<V extends IForgeRegistryEntry<V>> extends IForgeRegistryEntry.Impl<V> {
     private final BlockStateIngredient input;
     private final IRecipeOutputs recipeOutput;
-
-    public BlockRecipe(BlockStateIngredient input, List<ItemStack> outputs) {
-        this(input, new ListOutputs(outputs));
-    }
 
     public BlockRecipe(BlockStateIngredient input, IRecipeOutputs recipeOutput) {
         this.input = input;
