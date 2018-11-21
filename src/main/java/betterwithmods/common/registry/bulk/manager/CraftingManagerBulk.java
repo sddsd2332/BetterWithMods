@@ -7,7 +7,6 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
-import net.minecraftforge.registries.IForgeRegistryEntry;
 import org.apache.commons.lang3.tuple.Pair;
 
 import javax.annotation.Nonnull;
@@ -62,5 +61,13 @@ public abstract class CraftingManagerBulk<V extends BulkRecipe<V>> extends Craft
 
     public V getRecipe(IBulkTile tile) {
         return findRecipe(getValuesCollection(), tile).orElse(null);
+    }
+
+
+    @Override
+    public void register(V value) {
+        if (value.isInvalid())
+            return;
+        super.register(value);
     }
 }

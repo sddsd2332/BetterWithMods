@@ -1,15 +1,12 @@
 package betterwithmods.common.registry.bulk.recipes;
 
 import betterwithmods.api.recipe.input.IRecipeInputs;
-import betterwithmods.api.recipe.input.impl.IngredientInputs;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
-import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
-import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
@@ -24,26 +21,9 @@ public class BulkRecipe<V extends IForgeRegistryEntry<V>> extends IForgeRegistry
     private final IRecipeOutputs recipeOutput;
     protected int priority;
 
-    public BulkRecipe(IRecipeInputs recipeInputs, IRecipeOutputs recipeOutput, int priority) {
+    public BulkRecipe(IRecipeInputs recipeInputs, IRecipeOutputs recipeOutput) {
         this.recipeInputs = recipeInputs;
         this.recipeOutput = recipeOutput;
-        this.priority = priority;
-    }
-
-    public BulkRecipe(List<Ingredient> inputs, IRecipeOutputs outputs, int priority) {
-        this(new IngredientInputs(inputs), outputs, priority);
-    }
-
-    public BulkRecipe(@Nonnull List<Ingredient> inputs, @Nonnull List<ItemStack> outputs) {
-        this(inputs, outputs, 0);
-    }
-
-    public BulkRecipe(List<Ingredient> inputs, IRecipeOutputs outputs) {
-        this(inputs, outputs, 0);
-    }
-
-    public BulkRecipe(List<Ingredient> inputs, @Nonnull List<ItemStack> outputs, int priority) {
-        this(inputs, new ListOutputs(outputs), priority);
     }
 
     public NonNullList<ItemStack> onCraft(@Nullable World world, IBulkTile tile) {

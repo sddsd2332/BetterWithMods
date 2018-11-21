@@ -4,68 +4,16 @@ import betterwithmods.api.tile.IBulkTile;
 import betterwithmods.common.registry.bulk.recipes.MillRecipe;
 import betterwithmods.common.tile.TileMill;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.internal.SoundRegistry;
-import com.google.common.collect.Lists;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
-import net.minecraft.util.SoundEvent;
 import net.minecraft.world.World;
-
-import java.util.List;
 
 public class CraftingManagerMill extends CraftingManagerBulk<MillRecipe> {
 
     public CraftingManagerMill() {
         super(new ResourceLocation(ModLib.MODID, "millstone"), MillRecipe.class);
-    }
-
-    public MillRecipe addMillRecipe(List<Ingredient> inputs, List<ItemStack> outputs, SoundEvent type) {
-        MillRecipe recipe = new MillRecipe(inputs, outputs).setSound(type);
-        register(recipe);
-        return recipe;
-
-    }
-
-    public MillRecipe addMillRecipe(List<Ingredient> inputs, List<ItemStack> outputs) {
-        MillRecipe recipe = new MillRecipe(inputs, outputs);
-        register(recipe);
-        return recipe;
-    }
-
-    public MillRecipe addMillRecipe(Ingredient input, List<ItemStack> outputs, SoundEvent type) {
-        return addMillRecipe(Lists.newArrayList(input), outputs, type);
-    }
-
-    public MillRecipe addMillRecipe(Ingredient input, ItemStack output, SoundEvent type) {
-        return addMillRecipe(Lists.newArrayList(input), Lists.newArrayList(output), type);
-    }
-
-    public MillRecipe addMillRecipe(ItemStack input, List<ItemStack> outputs, SoundEvent type) {
-        return addMillRecipe(StackIngredient.fromStacks(input), outputs, type);
-    }
-
-    public MillRecipe addMillRecipe(ItemStack input, ItemStack output, SoundEvent type) {
-        return addMillRecipe(StackIngredient.fromStacks(input), output, type);
-    }
-
-    public MillRecipe addMillRecipe(Ingredient input, List<ItemStack> outputs) {
-        return addMillRecipe(Lists.newArrayList(input), outputs);
-    }
-
-    public MillRecipe addMillRecipe(Ingredient input, ItemStack output) {
-        return addMillRecipe(Lists.newArrayList(input), Lists.newArrayList(output));
-    }
-
-    public MillRecipe addMillRecipe(ItemStack input, List<ItemStack> outputs) {
-        return addMillRecipe(StackIngredient.fromStacks(input), outputs);
-    }
-
-    public MillRecipe addMillRecipe(ItemStack input, ItemStack output) {
-        return addMillRecipe(StackIngredient.fromStacks(input), output);
     }
 
     @Override

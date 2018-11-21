@@ -17,6 +17,10 @@ public class IngredientInputs implements IRecipeInputs {
 
     private NonNullList<Ingredient> ingredients;
 
+    public IngredientInputs(Ingredient... ingredients) {
+        this.ingredients = ListUtils.asNonnullList(ingredients);
+    }
+
     public IngredientInputs(List<Ingredient> ingredients) {
         this(ListUtils.asNonnullList(ingredients));
     }

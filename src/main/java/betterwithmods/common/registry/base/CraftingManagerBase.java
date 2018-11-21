@@ -25,6 +25,7 @@ public abstract class CraftingManagerBase<V extends IForgeRegistryEntry<V>> impl
                 .create();
     }
 
+
     @Override
     public Iterator<V> iterator() {
         return registry.iterator();

@@ -1,25 +1,16 @@
 package betterwithmods.common.registry.bulk.recipes;
 
+import betterwithmods.api.recipe.input.IRecipeInputs;
 import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.tile.IHeatRecipe;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
-
-import javax.annotation.Nonnull;
-import java.util.List;
 
 public class CookingPotRecipe<V extends CookingPotRecipe<V>> extends BulkRecipe<V> implements IHeatRecipe {
 
     private final int heat;
     private boolean ignoreHeat;
 
-    public CookingPotRecipe(@Nonnull List<Ingredient> inputs, @Nonnull List<ItemStack> outputs, int heat) {
-        super(inputs, outputs);
-        this.heat = heat;
-    }
-
-    public CookingPotRecipe(List<Ingredient> inputs, IRecipeOutputs outputs, int heat) {
-        super(inputs, outputs);
+    public CookingPotRecipe(IRecipeInputs recipeInputs, IRecipeOutputs recipeOutput, int heat) {
+        super(recipeInputs, recipeOutput);
         this.heat = heat;
     }
 
