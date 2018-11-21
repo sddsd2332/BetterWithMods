@@ -135,4 +135,6 @@ public class EndRoomGenerator {
         if (Crypts.spawnMiniboss) return;
 
     }
+
+
 }

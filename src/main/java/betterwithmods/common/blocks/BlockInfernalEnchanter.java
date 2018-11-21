@@ -2,7 +2,9 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.tile.TileInfernalEnchanter;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
@@ -22,6 +24,9 @@ import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
+import net.minecraft.world.gen.structure.template.PlacementSettings;
+import net.minecraft.world.gen.structure.template.Template;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -85,24 +90,10 @@ public class BlockInfernalEnchanter extends BlockBase {
         if (worldIn.isRemote) {
             return true;
         } else {
-            if (worldIn.getTileEntity(pos) != null) {
+            if (worldIn instanceof WorldServer && worldIn.getTileEntity(pos) != null) {
                 if (playerIn.isCreative() && playerIn.getHeldItemMainhand().isItemEqual(new ItemStack(Blocks.BOOKSHELF, 1, 0))) {
-                    //TODO - Just make this a structure .-.
-                    for (int x = -8; x < 8; x++) {
-                        for (int z = -8; z < 8; z++) {
-                            for (int y = 0; y < 17; y++) {
-                                worldIn.setBlockState(new BlockPos(x + pos.getX(), y + pos.getY(), z + pos.getZ()), Blocks.BOOKSHELF.getDefaultState());
-                            }
-                        }
-                    }
-
-                    for (int x = -7; x < 7; x++) {
-                        for (int z = -7; z < 7; z++) {
-                            for (int y = 0; y < 17; y++) {
-                                worldIn.setBlockState(new BlockPos(x + pos.getX(), y + pos.getY(), z + pos.getZ()), Blocks.AIR.getDefaultState());
-                            }
-                        }
-                    }
+                    Template template = WorldUtils.getTemplate((WorldServer) worldIn, ModLib.MODID, "infernal_enchanter");
+                    template.addBlocksToWorld(worldIn, pos.add(-8, 0, -8), new PlacementSettings());
                 } else {
                     playerIn.openGui(BetterWithMods.instance, 0, worldIn, pos.getX(), pos.getY(), pos.getZ());
                 }
@@ -158,11 +149,14 @@ public class BlockInfernalEnchanter extends BlockBase {
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         super.randomDisplayTick(stateIn, worldIn, pos, rand);
 
-        for (int i = -8; i <= 8; ++i) {
-            for (int j = -8; j <= 8; ++j) {
+        if (!stateIn.getValue(ACTIVE))
+            return;
+        int r = TileInfernalEnchanter.RADIUS;
+        for (int i = -r; i <= r; ++i) {
+            for (int j = -r; j <= r; ++j) {
 
-                if (rand.nextInt(16) == 0) {
-                    for (int k = 0; k <= 8; ++k) {
+                if (rand.nextInt(32) == 0) {
+                    for (int k = -r; k <= r; ++k) {
                         BlockPos blockpos = pos.add(i, k, j);
                         if (net.minecraftforge.common.ForgeHooks.getEnchantPower(worldIn, blockpos) > 0) {
                             if (!worldIn.isAirBlock(pos.add(i / 2, 0, j / 2))) {

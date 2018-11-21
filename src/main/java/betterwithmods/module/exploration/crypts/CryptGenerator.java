@@ -1,7 +1,7 @@
 package betterwithmods.module.exploration.crypts;
 
 import betterwithmods.lib.ModLib;
-import net.minecraft.util.ResourceLocation;
+import betterwithmods.util.WorldUtils;
 import net.minecraft.util.Rotation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.DimensionType;
@@ -10,7 +10,6 @@ import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.IChunkProvider;
 import net.minecraft.world.gen.IChunkGenerator;
 import net.minecraft.world.gen.structure.template.PlacementSettings;
-import net.minecraft.world.gen.structure.template.Template;
 import net.minecraftforge.fml.common.IWorldGenerator;
 
 import java.util.Random;
@@ -36,13 +35,10 @@ public class CryptGenerator implements IWorldGenerator {
 
         if (world instanceof WorldServer) {
             WorldServer worldServer = (WorldServer) world;
-            endRoomGenerator = new EndRoomGenerator(getTemplate(worldServer, "crypt_end"));
+            endRoomGenerator = new EndRoomGenerator(WorldUtils.getTemplate(worldServer, ModLib.MODID, "crypt_end"));
 
             endRoomGenerator.generate(random, worldServer, basePos, placementSettings);
         }
     }
 
-    private Template getTemplate(WorldServer worldServer, String templateName) {
-        return worldServer.getStructureTemplateManager().getTemplate(worldServer.getMinecraftServer(), new ResourceLocation(ModLib.MODID, templateName));
-    }
 }

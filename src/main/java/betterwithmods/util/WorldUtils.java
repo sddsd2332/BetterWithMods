@@ -11,6 +11,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -19,8 +20,10 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.DimensionType;
 import net.minecraft.world.EnumSkyBlock;
 import net.minecraft.world.World;
+import net.minecraft.world.WorldServer;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
+import net.minecraft.world.gen.structure.template.Template;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import javax.annotation.Nullable;
@@ -247,5 +250,9 @@ public final class WorldUtils {
     public static boolean isReplaceable(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
         return state.getBlock().isReplaceable(world, pos);
+    }
+
+    public static Template getTemplate(WorldServer worldServer, String domain, String templateName) {
+        return worldServer.getStructureTemplateManager().getTemplate(worldServer.getMinecraftServer(), new ResourceLocation(domain, templateName));
     }
 }

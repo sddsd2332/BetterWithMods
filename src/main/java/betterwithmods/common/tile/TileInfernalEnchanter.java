@@ -30,7 +30,7 @@ import java.util.List;
  * Created by primetoxinz on 9/11/16.
  */
 public class TileInfernalEnchanter extends TileBasicInventory implements ITickable {
-    private final static int RADIUS = 8;
+    public final static int RADIUS = 8;
     private int bookcaseCount;
     private boolean active;
 
