@@ -105,12 +105,16 @@ public class DynblockUtils {
                 args);
     }
 
+    public static Collection<BlockDynamic> blocks() {
+        return DYNAMIC_VARIANT_TABLE.values();
+    }
 
-    static void addDynamicVariant(DynamicType type, Material material, BlockDynamic block) {
+
+    public static void addDynamicVariant(DynamicType type, Material material, BlockDynamic block) {
         DYNAMIC_VARIANT_TABLE.put(type, material, block);
     }
 
-    static BlockDynamic getDynamicVariant(DynamicType type, Material material) {
+    public static BlockDynamic getDynamicVariant(DynamicType type, Material material) {
         return DYNAMIC_VARIANT_TABLE.get(type, material);
     }
 }

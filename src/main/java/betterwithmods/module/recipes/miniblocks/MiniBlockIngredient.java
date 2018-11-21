@@ -86,7 +86,7 @@ public class MiniBlockIngredient extends BlockStateIngredient {
                     IBlockState state = GlobalUtils.getStateFromStack(stack);
                     Material material = state.getMaterial();
                     if (DynblockUtils.isValidMini(state)) {
-                        BlockDynamic blockMini = MiniBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);
+                        BlockDynamic blockMini = DynblockUtils.getDynamicVariant(type, material);
                         stacks.add(DynblockUtils.fromParent(blockMini, state));
                     }
                 }

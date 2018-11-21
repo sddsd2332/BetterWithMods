@@ -30,7 +30,7 @@ import betterwithmods.module.compat.jei.ingredient.OutputHelper;
 import betterwithmods.module.compat.jei.ingredient.OutputRenderer;
 import betterwithmods.module.compat.jei.wrapper.*;
 import betterwithmods.module.internal.RecipeRegistry;
-import betterwithmods.module.recipes.miniblocks.MiniBlocks;
+import betterwithmods.module.recipes.miniblocks.DynblockUtils;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import mezz.jei.Internal;
@@ -49,7 +49,9 @@ import net.minecraft.item.crafting.IRecipe;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import javax.annotation.Nonnull;
-import java.util.*;
+import java.util.Collections;
+import java.util.List;
+import java.util.Set;
 import java.util.function.Consumer;
 
 @mezz.jei.api.JEIPlugin
@@ -109,7 +111,7 @@ public class JEI implements IModPlugin {
     }
 
     private Item[] getAllMiniBlocks() {
-        return MiniBlocks.MINI_MATERIAL_BLOCKS.values().stream().map(HashMap::values).flatMap(Collection::stream).map(Item::getItemFromBlock).toArray(Item[]::new);
+        return DynblockUtils.blocks().stream().map(Item::getItemFromBlock).toArray(Item[]::new);
     }
 
     @Override
