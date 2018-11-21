@@ -1,0 +1,7 @@
+{
+  "name": "Meals",
+  "description": "By mixing together various meats and produce I am able to create delicious and hearty meals to help sustain my hunger.",
+  "icon": "minecraft:cake",
+  "parent": "foods",
+  "sortnum": 2
+}

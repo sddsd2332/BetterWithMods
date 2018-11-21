@@ -1,0 +1,18 @@
+{
+  "name": "Pork",
+  "icon": "minecraft:cooked_porkchop",
+  "category": "meats",
+  "pages": [
+    {
+      "type": "entity",
+      "entity": "minecraft:pig",
+      "scale": "0.5",
+      "name": "Pork Chops",
+      "text": "Obtained by slaughtering adult pigs."
+    }, {
+      "type": "smelting",
+      "name": "Cooking",
+      "recipe": "minecraft:porkchop"
+    }
+  ]
+}

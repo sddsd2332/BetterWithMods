@@ -1,0 +1,36 @@
+{
+  "name": "Mushrooms",
+  "icon": "minecraft:brown_mushroom",
+  "category": "produce",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Mushrooms",
+      "multiblock": {
+        "pattern": [
+          [" 0 "],
+          [" F "]
+        ],
+        "mapping": {
+          "0": "minecraft:brown_mushroom",
+          "F": "minecraft:stone"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of a wild mushroom."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:brown_mushroom",
+      "title": "Seeds",
+      "text": "Mushrooms are their own seeds. They seem to be found in dark and dank places such as caves and abandoned buildings. $(br2)Mushrooms seem to slowly spread when given enough darkness and time."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:brown_mushroom",
+      "title": "Crop",
+      "text": "Once harvested a mushroom can be processed in many different ways. The following pages are all the products I have been able to produce from mushrooms. "
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Potatoes",
+  "icon": "minecraft:potato",
+  "category": "produce",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Potatoes",
+      "multiblock": {
+        "pattern": [
+          [" 0 "],
+          [" F "]
+        ],
+        "mapping": {
+          "0": "minecraft:potatoes[age=7]",
+          "F": "minecraft:farmland[moisture=7]"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of a fully grown potato crop."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:potato",
+      "title": "Seeds",
+      "text": "Potatoes are their own seeds. They also seem to only be found in villages far away from where my journey began."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:potato",
+      "title": "Crop",
+      "text": "Once harvested potato can be processed in many different ways. The following pages are all the products I have been able to produce from potatos. "
+    }
+  ]
+}

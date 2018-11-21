@@ -1,0 +1,38 @@
+{
+  "name": "Melon",
+  "icon": "minecraft:melon_block",
+  "category": "produce",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Melon",
+      "multiblock": {
+        "pattern": [
+          [" 0P"],
+          [" FD"]
+        ],
+        "mapping": {
+          "0": "minecraft:melon_stem[age=7]",
+          "F": "minecraft:farmland[moisture=7]",
+          "P": "minecraft:melon_block",
+          "D": "minecraft:dirt"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of a fully grown melon crop."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:melon_seeds",
+      "title": "Seeds",
+      "text": "Melon seeds seem to only be found in villages far away from where my journey began."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:melon",
+      "title": "Crop",
+      "text": "Once harvested melon can be processed in many different ways. The following pages are all the products I have been able to produce from melons. "
+    }
+  ]
+}

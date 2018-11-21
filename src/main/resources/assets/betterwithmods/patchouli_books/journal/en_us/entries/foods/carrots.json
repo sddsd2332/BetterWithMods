@@ -1,0 +1,36 @@
+{
+  "name": "Carrots",
+  "icon": "minecraft:carrot",
+  "category": "produce",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Carrots",
+      "multiblock": {
+        "pattern": [
+          [" 0 "],
+          [" F "]
+        ],
+        "mapping": {
+          "0": "minecraft:carrots[age=7]",
+          "F": "minecraft:farmland[moisture=7]"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of a fully grown carrot crop."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:carrot",
+      "title": "Seeds",
+      "text": "Carrots are their own seeds. They also seem to only be found in villages far away from where my journey began."
+    },
+    {
+      "type": "spotlight",
+      "item": "minecraft:carrot",
+      "title": "Crop",
+      "text": "Once harvested carrot can be processed in many different ways. The following pages are all the products I have been able to produce from carrots. "
+    }
+  ]
+}
