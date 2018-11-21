@@ -6,12 +6,9 @@ import betterwithmods.common.registry.bulk.recipes.CookingPotRecipe;
 import betterwithmods.common.tile.TileCookingPot;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.InventoryUtils;
-import net.minecraft.item.ItemStack;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.world.World;
 
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.Optional;
@@ -62,14 +59,6 @@ public class CraftingManagerPot<V extends CookingPotRecipe<V>> extends CraftingM
         return getValuesCollection().stream().filter(r -> r.getHeat() == heat).collect(Collectors.toList());
     }
 
-    public void addStokedRecipe(Object... objects) {
-    }
-
-    public void addUnstokedRecipe(Object... objects) {
-    }
-
-    public void addHeatlessRecipe(Object... objects) {
-    }
 
 
 }

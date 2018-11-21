@@ -19,4 +19,6 @@ public interface IRecipeInputs {
     default boolean handleContainers() {
         return true;
     }
+
+    IRecipeInputs disableContainers();
 }

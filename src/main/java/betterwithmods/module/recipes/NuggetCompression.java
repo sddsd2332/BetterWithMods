@@ -1,6 +1,7 @@
 package betterwithmods.module.recipes;
 
 import betterwithmods.common.BWMOreDictionary;
+import betterwithmods.common.registry.bulk.recipes.builder.CrucibleRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
@@ -18,11 +19,13 @@ public class NuggetCompression extends Feature {
 
     @Override
     public void onPostInit(FMLPostInitializationEvent event) {
+        CrucibleRecipeBuilder builder = new CrucibleRecipeBuilder();
+
         for (BWMOreDictionary.Ore ingot : BWMOreDictionary.ingotNames) {
             String suffix = ingot.getSuffix();
             if (!ingot.getOres().isEmpty() && suffix != null) {
                 StackIngredient nugget = StackIngredient.fromOre(9, "nugget" + suffix);
-                RecipeRegistry.CRUCIBLE.addStokedRecipe(nugget, ingot.getOres().get(0));
+                RecipeRegistry.CRUCIBLE.register(builder.stoked().inputs(nugget).outputs(ingot.getOres().get(0)).build());
             }
         }
     }

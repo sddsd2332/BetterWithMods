@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.BWMOreDictionary;
+import betterwithmods.common.registry.bulk.recipes.builder.CrucibleRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -49,47 +50,37 @@ public class HCOres extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-
         oreNuggetSmelting = loadProperty("Ore to Nugget Smelting", true).setComment("Make Ores (oredict ore.* )smelt into nuggets instead of ingots").get();
-
         oreExclude = Arrays.stream(loadProperty("Ore Exclude", new String[0]).setComment("Oredictionary entries to exclude from ore to nugget smelting. Remove the prefix of the oredictionary. example 'oreIron' would be just 'iron' ").get()).collect(Collectors.toSet());
         dustExclude = Arrays.stream(loadProperty("Dust Exclude", new String[0]).setComment("Oredictionary entries to exclude from dust to nugget smelting  Remove the prefix of the oredictionary. example 'dustIron' would be just 'iron'").get()).collect(Collectors.toSet());
-
         dustNuggetSmelting = loadProperty("Dust to Nugget Smelting", true).setComment("Make Dusts ( oredict dust.* ) smelt into nuggets instead of ingots").get();
-
         oreProductionCount = loadProperty("Ore Production Count", 1).setComment("Number of Materials returned from Smelting an Ore").get();
         dustProductionCount = loadProperty("Dust Production Count", 1).setComment("Number of Materials returned from Smelting a Dust").get();
 
+        CrucibleRecipeBuilder builder = new CrucibleRecipeBuilder();
         if (customRecipes) {
-            addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
-            addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
-            addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_NUGGET, 7));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_NUGGET, 4));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_NUGGET, 4));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_NUGGET));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_NUGGET, 4));
+            RecipeRegistry.CRUCIBLE.registerAll(
+                    builder.stoked().disableContainers().inputs(new ItemStack(Items.BUCKET)).outputs(new ItemStack(Items.IRON_NUGGET, 7)).build(),
+                    builder.stoked().disableContainers().inputs(new ItemStack(Items.WATER_BUCKET)).outputs(new ItemStack(Items.IRON_NUGGET, 7)).build(),
+                    builder.stoked().disableContainers().inputs(new ItemStack(Items.BUCKET)).outputs(new ItemStack(Items.IRON_NUGGET, 7)).build(),
+                    builder.stoked().inputs(new ItemStack(Items.MAP)).outputs(new ItemStack(Items.IRON_NUGGET, 4)).build(),
+                    builder.stoked().inputs(new ItemStack(Items.COMPASS)).outputs(new ItemStack(Items.IRON_NUGGET, 4)).build(),
+                    builder.stoked().inputs(new ItemStack(Blocks.TRIPWIRE_HOOK, 2)).outputs(new ItemStack(Items.IRON_NUGGET)).build(),
+                    builder.stoked().inputs(new ItemStack(Items.CLOCK)).outputs(new ItemStack(Items.GOLD_NUGGET, 4)).build()
+            );
         } else {
-            addMeltingRecipeWithoutReturn(new ItemStack(Items.BUCKET), new ItemStack(Items.IRON_INGOT, 3));
-            addMeltingRecipeWithoutReturn(new ItemStack(Items.WATER_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
-            addMeltingRecipeWithoutReturn(new ItemStack(Items.MILK_BUCKET), new ItemStack(Items.IRON_INGOT, 3));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MAP), new ItemStack(Items.IRON_INGOT, 4));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.COMPASS), new ItemStack(Items.IRON_INGOT, 4));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.TRIPWIRE_HOOK, 2), new ItemStack(Items.IRON_INGOT));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CLOCK), new ItemStack(Items.GOLD_INGOT, 4));
+            RecipeRegistry.CRUCIBLE.registerAll(
+                    builder.stoked().disableContainers().inputs(new ItemStack(Items.BUCKET)).outputs(new ItemStack(Items.IRON_INGOT, 3)).build(),
+                    builder.stoked().disableContainers().inputs(new ItemStack(Items.WATER_BUCKET)).outputs(new ItemStack(Items.IRON_INGOT, 3)).build(),
+                    builder.stoked().disableContainers().inputs(new ItemStack(Items.BUCKET)).outputs(new ItemStack(Items.IRON_INGOT, 3)).build(),
+                    builder.stoked().inputs(new ItemStack(Items.MAP)).outputs(new ItemStack(Items.IRON_INGOT, 4)).build(),
+                    builder.stoked().inputs(new ItemStack(Items.COMPASS)).outputs(new ItemStack(Items.IRON_INGOT, 4)).build(),
+                    builder.stoked().inputs(new ItemStack(Blocks.TRIPWIRE_HOOK, 2)).outputs(new ItemStack(Items.IRON_INGOT)).build(),
+                    builder.stoked().inputs(new ItemStack(Items.CLOCK)).outputs(new ItemStack(Items.GOLD_INGOT, 4)).build()
+            );
         }
-
     }
 
-    private void addMeltingRecipeWithoutReturn(ItemStack input, ItemStack output) {
-        //TODO
-//        RecipeRegistry.CRUCIBLE.register(new CrucibleRecipe(Lists.newArrayList(StackIngredient.fromStacks(input)), Lists.newArrayList(output), BWMHeatRegistry.STOKED_HEAT) {//            @Override
-//            protected boolean consumeIngredients(ItemStackHandler inventory, NonNullList<ItemStack> containItems) {
-//                boolean success = super.consumeIngredients(inventory, containItems);
-//                containItems.clear();
-//                return success;
-//            }
-//        });
-    }
 
     @Override
     public void onPostInit(FMLPostInitializationEvent event) {
@@ -125,3 +116,4 @@ public class HCOres extends Feature {
     }
 
 }
+

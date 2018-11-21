@@ -1,10 +1,10 @@
 package betterwithmods.module.hardcore.crafting;
 
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.bulk.recipes.builder.CrucibleRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
-import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;
 import net.minecraft.init.Blocks;
@@ -48,14 +48,9 @@ public class HCRedstone extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        RecipeRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 4));
+        CrucibleRecipeBuilder builder = new CrucibleRecipeBuilder();
+        RecipeRegistry.CRUCIBLE.register(builder.stoked().inputs(new ItemStack(Blocks.IRON_TRAPDOOR, 2)).outputs(new ItemStack(Items.IRON_INGOT, 4)).build());
         //New observer recipe :)
         AnvilRecipes.addSteelShapedRecipe(new ResourceLocation("betterwithmods", "observer"), new ItemStack(Blocks.OBSERVER), "LSSL", "SRRS", "STTS", 'S', "stone", 'R', "dustRedstone", 'T', Blocks.REDSTONE_TORCH, 'L', ItemMaterial.getStack(ItemMaterial.EnumMaterial.POLISHED_LAPIS));
     }
-
-    //TODO
-//    @Override
-//    public void disabledInit(FMLInitializationEvent event) {
-//        BWRegistry.CRUCIBLE.addStokedRecipe(StackIngredient.fromStacks(new ItemStack(Blocks.IRON_TRAPDOOR, 2)), new ItemStack(Items.IRON_INGOT, 6));
-//    }
 }

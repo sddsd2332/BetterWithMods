@@ -16,6 +16,7 @@ import java.util.List;
 public class IngredientInputs implements IRecipeInputs {
 
     private NonNullList<Ingredient> ingredients;
+    private boolean containers = true;
 
     public IngredientInputs(Ingredient... ingredients) {
         this.ingredients = ListUtils.asNonnullList(ingredients);
@@ -28,7 +29,6 @@ public class IngredientInputs implements IRecipeInputs {
     public IngredientInputs(NonNullList<Ingredient> ingredients) {
         this.ingredients = ingredients;
     }
-
 
     @Override
     public int orderedMatch(IRecipeContext context) {
@@ -73,5 +73,14 @@ public class IngredientInputs implements IRecipeInputs {
         return ingredients;
     }
 
+    @Override
+    public boolean handleContainers() {
+        return containers;
+    }
 
+    @Override
+    public IRecipeInputs disableContainers() {
+        this.containers = false;
+        return this;
+    }
 }

@@ -1,10 +1,10 @@
 package betterwithmods.module.recipes;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.registry.bulk.recipes.builder.CauldronRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
-import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -18,15 +18,18 @@ public class NetherGrowth extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        RecipeRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(
+
+        CauldronRecipeBuilder builder = new CauldronRecipeBuilder();
+
+        RecipeRegistry.CAULDRON.register(builder.unstoked().inputs(
                 StackIngredient.fromStacks(new ItemStack(Blocks.BROWN_MUSHROOM)),
                 StackIngredient.fromStacks(new ItemStack(Blocks.RED_MUSHROOM)),
                 StackIngredient.fromStacks(new ItemStack(Blocks.MYCELIUM)),
                 new OreIngredient("cropNetherWart"),
                 StackIngredient.fromStacks(new ItemStack(Items.ROTTEN_FLESH)),
                 StackIngredient.fromOre(8, "blockSoulUrn")
-
-        ), Lists.newArrayList(new ItemStack(BWMBlocks.NETHER_GROWTH)));
+                ).outputs(new ItemStack(BWMBlocks.NETHER_GROWTH)).build()
+        );
     }
 
     @Override

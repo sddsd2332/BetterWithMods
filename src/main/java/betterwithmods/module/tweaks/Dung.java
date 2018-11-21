@@ -1,11 +1,11 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.bulk.recipes.builder.CauldronRecipeBuilder;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
-import com.google.common.collect.Lists;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.passive.EntityAnimal;
@@ -118,8 +118,19 @@ public class Dung extends Feature {
                 instance.deserializeNBT((NBTTagCompound) nbt);
             }
         }, DungProducer::new);
-        RecipeRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER)));
-        RecipeRegistry.CAULDRON.addUnstokedRecipe(Lists.newArrayList(StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT, 2)), new OreIngredient("dung")), Lists.newArrayList(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2)));
+
+        CauldronRecipeBuilder builder = new CauldronRecipeBuilder();
+
+        RecipeRegistry.CAULDRON.registerAll(
+                builder.unstoked().inputs(
+                        StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER)),
+                        new OreIngredient("dung"))
+                        .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER)).build(),
+                builder.unstoked().inputs(
+                        StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT, 2)),
+                        new OreIngredient("dung"))
+                        .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2)).build()
+        );
     }
 
 

@@ -6,19 +6,31 @@ import betterwithmods.api.recipe.output.IRecipeOutputs;
 import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.common.registry.bulk.recipes.BulkRecipe;
 import com.google.common.base.Preconditions;
+import net.minecraft.block.Block;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
+
+import java.util.List;
 
 public abstract class BulkRecipeBuilder<V extends BulkRecipe<V>> {
 
     private ResourceLocation name;
     protected IRecipeInputs inputs;
     protected IRecipeOutputs outputs;
+    protected boolean handleContainers;
     protected int priority;
 
     protected abstract V create();
 
+    public BulkRecipeBuilder<V> inputs(Block block) {
+        return inputs(Item.getItemFromBlock(block));
+    }
+
+    public BulkRecipeBuilder<V> inputs(Item item) {
+        return inputs(Ingredient.fromItem(item));
+    }
 
     public BulkRecipeBuilder<V> inputs(ItemStack stack) {
         return inputs(Ingredient.fromStacks(stack));
@@ -33,9 +45,19 @@ public abstract class BulkRecipeBuilder<V extends BulkRecipe<V>> {
         return this;
     }
 
+    public BulkRecipeBuilder<V> disableContainers() {
+        this.handleContainers = false;
+        return this;
+    }
+
     public BulkRecipeBuilder<V> outputs(ItemStack... stacks) {
         return outputs(new ListOutputs(stacks));
     }
+
+    public BulkRecipeBuilder<V> outputs(List<ItemStack> stacks) {
+        return outputs(new ListOutputs(stacks));
+    }
+
 
     public BulkRecipeBuilder<V> outputs(IRecipeOutputs outputs) {
         this.outputs = outputs;
@@ -55,6 +77,10 @@ public abstract class BulkRecipeBuilder<V extends BulkRecipe<V>> {
     public V build() {
         Preconditions.checkNotNull(inputs, "inputs");
         Preconditions.checkNotNull(outputs, "outputs");
+
+        if (handleContainers) {
+            this.inputs.disableContainers();
+        }
 
         V recipe = create();
         if (name != null) {

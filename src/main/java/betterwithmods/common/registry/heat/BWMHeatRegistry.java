@@ -16,6 +16,10 @@ public class BWMHeatRegistry {
     public static final int STOKED_HEAT = 2;
     private static final List<HeatSource> HEAT_SOURCES = Lists.newArrayList();
 
+    public static boolean isExistingHeat(int heat) {
+        return !getStacks(heat).isEmpty();
+    }
+
     public static void addHeatSource(BlockStateIngredient ingredient, int heat) {
         HEAT_SOURCES.add(new HeatSource(ingredient, heat));
     }

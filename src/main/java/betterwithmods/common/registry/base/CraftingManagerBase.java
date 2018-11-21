@@ -94,7 +94,8 @@ public abstract class CraftingManagerBase<V extends IForgeRegistryEntry<V>> impl
     @SafeVarargs
     @Override
     public final void registerAll(V... values) {
-        registry.registerAll(values);
+        for (V v : values)
+            register(v);
     }
 
     public V remove(@Nonnull ResourceLocation key) {

@@ -4,12 +4,14 @@ import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.bulk.recipes.builder.CrucibleRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.tweaks.CheaperAxes;
 import com.google.common.collect.Lists;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.oredict.OreDictionary;
@@ -22,7 +24,10 @@ import java.util.List;
 public class MetalReclaming extends Feature {
     public static int reclaimCount;
 
-    public static void addReclaimRecipe(ItemStack input, String oreSuffix, int ingotCount) {
+    private static CrucibleRecipeBuilder builder = new CrucibleRecipeBuilder();
+
+    @Deprecated //oreSuffix will not work once oredict is gone
+    public static void addReclaimRecipe(Item item, String oreSuffix, int ingotCount) {
         int totalNuggets = ingotCount * reclaimCount;
         int ingots = totalNuggets / 9;
         int nuggets = totalNuggets % 9;
@@ -42,7 +47,7 @@ public class MetalReclaming extends Feature {
             if (!nuggetStack.isEmpty())
                 outputs.add(new ItemStack(nuggetStack.getItem(), nuggets, nuggetStack.getMetadata()));
         }
-        RecipeRegistry.CRUCIBLE.addStokedRecipe(input, outputs);
+        RecipeRegistry.CRUCIBLE.register(builder.stoked().inputs(item).outputs(outputs).build());
     }
 
     @Override
@@ -56,70 +61,156 @@ public class MetalReclaming extends Feature {
         reclaimCount = loadProperty("Reclaming Count", 6).setMin(0).setMax(9).setComment("Amount (in nuggets per ingot) tools and armor in the crucible reclaim. Does not affect diamond or soulforged steel ingot reclamation. (Set to 0 to disable reclamation entirely.)").get();
 
         if (reclaimCount > 0) {
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_HOE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_SWORD, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 3));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_PICKAXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 3));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_AXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, axe_amt));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_SHOVEL, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_MATTOCK, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 4));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_BATTLEAXE, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 5));
-            addReclaimRecipe(new ItemStack(Items.IRON_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), "Iron", 8);
-            addReclaimRecipe(new ItemStack(Items.IRON_AXE, 1, OreDictionary.WILDCARD_VALUE), "Iron", axe_amt);
-            addReclaimRecipe(new ItemStack(Items.IRON_BOOTS, 1, OreDictionary.WILDCARD_VALUE), "Iron", 4);
-            addReclaimRecipe(new ItemStack(Items.IRON_HELMET, 1, OreDictionary.WILDCARD_VALUE), "Iron", 5);
-            addReclaimRecipe(new ItemStack(Items.IRON_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE), "Iron", 7);
-            addReclaimRecipe(new ItemStack(Items.IRON_HOE, 1, OreDictionary.WILDCARD_VALUE), "Iron", 2);
-            addReclaimRecipe(new ItemStack(Items.IRON_PICKAXE, 1, OreDictionary.WILDCARD_VALUE), "Iron", 3);
-            addReclaimRecipe(new ItemStack(Items.IRON_SHOVEL, 1, OreDictionary.WILDCARD_VALUE), "Iron", 1);
-            addReclaimRecipe(new ItemStack(Items.IRON_SWORD, 1, OreDictionary.WILDCARD_VALUE), "Iron", 2);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), "Gold", 8);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_AXE, 1, OreDictionary.WILDCARD_VALUE), "Gold", axe_amt);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_BOOTS, 1, OreDictionary.WILDCARD_VALUE), "Gold", 4);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_HELMET, 1, OreDictionary.WILDCARD_VALUE), "Gold", 5);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE), "Gold", 7);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_HOE, 1, OreDictionary.WILDCARD_VALUE), "Gold", 2);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_PICKAXE, 1, OreDictionary.WILDCARD_VALUE), "Gold", 3);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_SHOVEL, 1, OreDictionary.WILDCARD_VALUE), "Gold", 1);
-            addReclaimRecipe(new ItemStack(Items.GOLDEN_SWORD, 1, OreDictionary.WILDCARD_VALUE), "Gold", 2);
-            addReclaimRecipe(new ItemStack(Items.SHEARS, 1, OreDictionary.WILDCARD_VALUE), "Iron", 2);
 
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(ItemMaterial.getStack(ItemMaterial.EnumMaterial.ARMOR_PLATE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_HELMET, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 10));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_CHEST, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 14));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_PANTS, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 12));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMItems.STEEL_BOOTS, 1, OreDictionary.WILDCARD_VALUE), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 8));
+            RecipeRegistry.CRUCIBLE.registerAll(
+                    //STEEL
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_HOE)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 2)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_SWORD)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 3)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_PICKAXE)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 3)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_AXE)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, axe_amt)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_SHOVEL)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 1)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_MATTOCK)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 4)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_BATTLEAXE)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 5)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_HELMET)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 10)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_CHEST)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 14)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_PANTS)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 12)).build(),
+                    builder.stoked()
+                            .inputs(BWMItems.STEEL_BOOTS)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 8)).build(),
+                    builder.stoked()
+                            .inputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.ARMOR_PLATE))
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT)).build(),
+                    builder.stoked()
+                            .inputs(BWMBlocks.STEEL_ANVIL)
+                            .outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 7)).build(),
 
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHAIN_MAIL), new ItemStack(Items.IRON_NUGGET, 4));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_HELMET, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 20));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 32));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 28));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_BOOTS, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 16));
+                    //IRON
+                    builder.stoked()
+                            .inputs(Items.CHAINMAIL_HELMET)
+                            .outputs(new ItemStack(Items.IRON_NUGGET, 20)).build(),
+                    builder.stoked()
+                            .inputs(Items.CHAINMAIL_LEGGINGS)
+                            .outputs(new ItemStack(Items.IRON_NUGGET, 32)).build(),
+                    builder.stoked()
+                            .inputs(Items.CHAINMAIL_CHESTPLATE)
+                            .outputs(new ItemStack(Items.IRON_NUGGET, 28)).build(),
+                    builder.stoked()
+                            .inputs(Items.CHAINMAIL_BOOTS)
+                            .outputs(new ItemStack(Items.IRON_NUGGET, 16)).build(),
+                    builder.stoked()
+                            .inputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHAIN_MAIL))
+                            .outputs(new ItemStack(Items.IRON_NUGGET, 4)).build(),
+                    builder.stoked()
+                            .inputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.CHAIN_MAIL))
+                            .outputs(new ItemStack(Items.IRON_NUGGET, 4)).build(),
+                    builder.stoked()
+                            .inputs(Items.SHIELD)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 1)).build(),
+                    builder.stoked()
+                            .inputs(Items.IRON_DOOR)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 2)).build(),
+                    builder.stoked()
+                            .inputs(Items.IRON_HORSE_ARMOR)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 8)).build(),
 
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.SHIELD, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_INGOT, 1));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.IRON_DOOR), new ItemStack(Items.IRON_INGOT, 2));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.IRON_HORSE_ARMOR, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_INGOT, 8));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.GOLDEN_HORSE_ARMOR, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.GOLD_INGOT, 8));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.MINECART), new ItemStack(Items.IRON_INGOT, 5));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHEST_MINECART), new ItemStack(Items.IRON_INGOT, 5));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.FURNACE_MINECART), new ItemStack(Items.IRON_INGOT, 5));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.HOPPER_MINECART), new ItemStack(Items.IRON_INGOT, 5));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.TNT_MINECART), new ItemStack(Items.IRON_INGOT, 5));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CAULDRON), new ItemStack(Items.IRON_INGOT, 7));
+                    builder.stoked()
+                            .inputs(Items.MINECART)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 5)).build(),
+                    builder.stoked()
+                            .inputs(Items.CHEST_MINECART)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 5)).build(),
+                    builder.stoked()
+                            .inputs(Items.FURNACE_MINECART)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 5)).build(),
+                    builder.stoked()
+                            .inputs(Items.HOPPER_MINECART)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 5)).build(),
+                    builder.stoked()
+                            .inputs(Items.TNT_MINECART)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 5)).build(),
+                    builder.stoked()
+                            .inputs(Items.CAULDRON)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 7)).build(),
+                    builder.stoked()
+                            .inputs(new ItemStack(Blocks.RAIL, 8))
+                            .outputs(new ItemStack(Items.IRON_INGOT, 3)).build(),
+                    builder.stoked()
+                            .inputs(new ItemStack(Blocks.ACTIVATOR_RAIL, 6))
+                            .outputs(new ItemStack(Items.IRON_INGOT, 6)).build(),
+                    builder.stoked()
+                            .inputs(new ItemStack(Blocks.DETECTOR_RAIL, 6))
+                            .outputs(new ItemStack(Items.IRON_INGOT, 6)).build(),
+                    builder.stoked()
+                            .inputs(new ItemStack(BWMBlocks.BOOSTER, 6))
+                            .outputs(new ItemStack(Items.IRON_INGOT, 6)).build(),
+                    builder.stoked()
+                            .inputs(new ItemStack(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, 6))
+                            .outputs(new ItemStack(Items.IRON_INGOT, 2)).build(),
+                    builder.stoked()
+                            .inputs(new ItemStack(Blocks.IRON_BARS, 8))
+                            .outputs(new ItemStack(Items.IRON_INGOT, 3)).build(),
+                    builder.stoked()
+                            .inputs(Blocks.ANVIL)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 3)).build(),
+                    builder.stoked()
+                            .inputs(Blocks.HOPPER)
+                            .outputs(new ItemStack(Items.IRON_INGOT, 3)).build(),
 
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.RAIL, 8), new ItemStack(Items.IRON_INGOT, 3));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.GOLDEN_RAIL, 6), new ItemStack(Items.GOLD_INGOT, 6));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.ACTIVATOR_RAIL, 6), new ItemStack(Items.IRON_INGOT, 6));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.DETECTOR_RAIL, 6), new ItemStack(Items.IRON_INGOT, 6));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMBlocks.BOOSTER, 6), new ItemStack(Items.IRON_INGOT, 6));
+                    //GOLD
+                    builder.stoked()
+                            .inputs(Items.GOLDEN_HORSE_ARMOR)
+                            .outputs(new ItemStack(Items.GOLD_INGOT, 8)).build(),
+                    builder.stoked()
+                            .inputs(new ItemStack(Blocks.RAIL, 8))
+                            .outputs(new ItemStack(Items.GOLD_INGOT, 6)).build(),
+                    builder.stoked()
+                            .inputs(new ItemStack(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE))
+                            .outputs(new ItemStack(Items.GOLD_INGOT, 2)).build()
+            );
 
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.IRON_BARS, 8), new ItemStack(Items.IRON_INGOT, 3));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.ANVIL, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_INGOT, 31));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.HOPPER, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_INGOT, 5));
+            addReclaimRecipe(Items.IRON_CHESTPLATE, "Iron", 8);
+            addReclaimRecipe(Items.IRON_AXE, "Iron", axe_amt);
+            addReclaimRecipe(Items.IRON_BOOTS, "Iron", 4);
+            addReclaimRecipe(Items.IRON_HELMET, "Iron", 5);
+            addReclaimRecipe(Items.IRON_LEGGINGS, "Iron", 7);
+            addReclaimRecipe(Items.IRON_HOE, "Iron", 2);
+            addReclaimRecipe(Items.IRON_PICKAXE, "Iron", 3);
+            addReclaimRecipe(Items.IRON_SHOVEL, "Iron", 1);
+            addReclaimRecipe(Items.IRON_SWORD, "Iron", 2);
 
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.HEAVY_WEIGHTED_PRESSURE_PLATE, 1), new ItemStack(Items.IRON_INGOT, 2));
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Blocks.LIGHT_WEIGHTED_PRESSURE_PLATE, 1), new ItemStack(Items.GOLD_INGOT, 2));
+            addReclaimRecipe(Items.GOLDEN_CHESTPLATE, "Gold", 8);
+            addReclaimRecipe(Items.GOLDEN_AXE, "Gold", axe_amt);
+            addReclaimRecipe(Items.GOLDEN_BOOTS, "Gold", 4);
+            addReclaimRecipe(Items.GOLDEN_HELMET, "Gold", 5);
+            addReclaimRecipe(Items.GOLDEN_LEGGINGS, "Gold", 7);
+            addReclaimRecipe(Items.GOLDEN_HOE, "Gold", 2);
+            addReclaimRecipe(Items.GOLDEN_PICKAXE, "Gold", 3);
+            addReclaimRecipe(Items.GOLDEN_SHOVEL, "Gold", 1);
+            addReclaimRecipe(Items.GOLDEN_SWORD, "Gold", 2);
+            addReclaimRecipe(Items.SHEARS, "Iron", 2);
 
-            RecipeRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(BWMBlocks.STEEL_ANVIL), ItemMaterial.getStack(ItemMaterial.EnumMaterial.STEEL_INGOT, 7));
+
+
         }
     }
 }
