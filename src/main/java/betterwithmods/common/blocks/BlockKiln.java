@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.blocks.camo.CamoInfo;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.common.tile.TileKiln;
@@ -21,7 +21,7 @@ import javax.annotation.Nullable;
 import java.util.Set;
 import java.util.function.Supplier;
 
-public class BlockKiln extends BlockCamo {
+public class BlockKiln extends BlockDynamic {
 
     public BlockKiln(Supplier<Set<IBlockState>> states) {
         super(Material.ROCK, material -> states.get());
@@ -47,7 +47,7 @@ public class BlockKiln extends BlockCamo {
 
     @Override
     public IBlockState fromTile(IExtendedBlockState state, TileCamo tile) {
-        return state.withProperty(BlockCamo.CAMO_INFO, new CamoInfo(tile.getState()));
+        return state.withProperty(BlockDynamic.CAMO_INFO, new CamoInfo(tile.getState()));
     }
 
     @Override

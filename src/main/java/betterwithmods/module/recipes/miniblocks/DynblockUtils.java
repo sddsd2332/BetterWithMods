@@ -2,9 +2,10 @@ package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMOreDictionary;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.library.utils.MaterialUtil;
 import betterwithmods.library.utils.ReflectionHelperBlock;
-import com.google.common.collect.Lists;
+import com.google.common.collect.*;
 import net.minecraft.block.*;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -21,15 +22,19 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import java.util.Collection;
 import java.util.List;
 import java.util.Random;
 
 public class DynblockUtils {
 
-    public static List<ItemStack> getStacks(MiniType type, Material material) {
+    public static final Table<DynamicType, Material, BlockDynamic> DYNAMIC_VARIANT_TABLE = HashBasedTable.create();
+    public static final Multimap<Material, IBlockState> MATERIAL_VARIANTS = HashMultimap.create();
+
+    public static Collection<ItemStack> getStacks(DynamicType type, Material material) {
         List<ItemStack> stacks = Lists.newArrayList();
-        Block block = MiniBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);
-        for (IBlockState state : MiniBlocks.MATERIAL_VARIANTS.get(material)) {
+        Block block = getDynamicVariant(type, material);
+        for (IBlockState state : MATERIAL_VARIANTS.get(material)) {
             stacks.add(fromParent(block, state));
         }
         return stacks;
@@ -37,7 +42,7 @@ public class DynblockUtils {
 
     public static boolean isValidMini(IBlockState state) {
         Material material = state.getMaterial();
-        return MaterialUtil.isValid(material) && MiniBlocks.MATERIAL_VARIANTS.get(material).contains(state);
+        return MaterialUtil.isValid(material) && MATERIAL_VARIANTS.get(material).contains(state);
     }
 
     public static boolean isValidMini(IBlockState state, ItemStack stack) {
@@ -101,4 +106,11 @@ public class DynblockUtils {
     }
 
 
+    static void addDynamicVariant(DynamicType type, Material material, BlockDynamic block) {
+        DYNAMIC_VARIANT_TABLE.put(type, material, block);
+    }
+
+    static BlockDynamic getDynamicVariant(DynamicType type, Material material) {
+        return DYNAMIC_VARIANT_TABLE.get(type, material);
+    }
 }

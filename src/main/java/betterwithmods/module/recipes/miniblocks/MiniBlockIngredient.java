@@ -1,7 +1,7 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
@@ -29,11 +29,11 @@ import java.util.Arrays;
 public class MiniBlockIngredient extends BlockStateIngredient {
 
     private final Ingredient base;
-    private final MiniType type;
+    private final DynamicType type;
     private ItemStack[] cache = null;
 
     public MiniBlockIngredient(String type, Ingredient base) {
-        this.type = MiniType.fromName(type.toLowerCase());
+        this.type = DynamicType.fromName(type.toLowerCase());
         this.base = base;
     }
 
@@ -44,7 +44,7 @@ public class MiniBlockIngredient extends BlockStateIngredient {
     @Override
     public boolean apply(@Nullable ItemStack stack) {
         IBlockState state = ItemCamo.getState(stack);
-        if (state != null && MiniType.matches(type, stack)) {
+        if (state != null && DynamicType.matches(type, stack)) {
             ItemStack baseStack = GlobalUtils.getStackFromState(state);
             return base.apply(baseStack);
         }
@@ -86,7 +86,7 @@ public class MiniBlockIngredient extends BlockStateIngredient {
                     IBlockState state = GlobalUtils.getStateFromStack(stack);
                     Material material = state.getMaterial();
                     if (DynblockUtils.isValidMini(state)) {
-                        BlockCamo blockMini = MiniBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);
+                        BlockDynamic blockMini = MiniBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);
                         stacks.add(DynblockUtils.fromParent(blockMini, state));
                     }
                 }

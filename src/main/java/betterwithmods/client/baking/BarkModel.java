@@ -1,7 +1,7 @@
 package betterwithmods.client.baking;
 
 import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.blocks.camo.CamoInfo;
 import betterwithmods.lib.ModLib;
 import com.google.common.collect.ImmutableMap;
@@ -25,7 +25,7 @@ public class BarkModel extends ModelFactory<CamoInfo> {
     public final IModel template;
 
     public BarkModel(IModel template) {
-        super(BlockCamo.CAMO_INFO, TextureMap.LOCATION_MISSING_TEXTURE);
+        super(BlockDynamic.CAMO_INFO, TextureMap.LOCATION_MISSING_TEXTURE);
         this.template = template;
     }
 

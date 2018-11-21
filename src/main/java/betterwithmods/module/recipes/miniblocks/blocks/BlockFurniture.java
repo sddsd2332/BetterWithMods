@@ -1,6 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.tile.TileCamo;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
@@ -27,7 +27,7 @@ import java.util.Collection;
 import java.util.List;
 import java.util.function.Function;
 
-public abstract class BlockFurniture extends BlockCamo {
+public abstract class BlockFurniture extends BlockDynamic {
     protected static final PropertyBool SUPPORTED = PropertyBool.create("supported");
 
     public BlockFurniture(Material material, Function<Material, Collection<IBlockState>> subtypes) {

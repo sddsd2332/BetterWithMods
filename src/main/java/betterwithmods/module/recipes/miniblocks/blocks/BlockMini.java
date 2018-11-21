@@ -3,11 +3,10 @@ package betterwithmods.module.recipes.miniblocks.blocks;
 import betterwithmods.api.block.IRenderRotationPlacement;
 import betterwithmods.client.ClientEventHandler;
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.recipes.miniblocks.DynblockUtils;
 import betterwithmods.module.recipes.miniblocks.ItemMini;
-import betterwithmods.module.recipes.miniblocks.MiniBlocks;
 import betterwithmods.module.recipes.miniblocks.client.MiniInfo;
 import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.recipes.miniblocks.tiles.TileMini;
@@ -43,7 +42,7 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-public abstract class BlockMini extends BlockCamo implements IRenderRotationPlacement {
+public abstract class BlockMini extends BlockDynamic implements IRenderRotationPlacement {
 
     public static final IUnlistedProperty<MiniInfo> MINI_INFO = new UnlistedPropertyGeneric<>("mini", MiniInfo.class);
 
@@ -57,7 +56,7 @@ public abstract class BlockMini extends BlockCamo implements IRenderRotationPlac
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        items.addAll(MiniBlocks.MATERIAL_VARIANTS.get(material).stream().sorted(this::compareBlockStates).map(state -> DynblockUtils.fromParent(this, state)).collect(Collectors.toList()));
+        items.addAll(DynblockUtils.MATERIAL_VARIANTS.get(material).stream().sorted(this::compareBlockStates).map(state -> DynblockUtils.fromParent(this, state)).collect(Collectors.toList()));
     }
 
     @Override

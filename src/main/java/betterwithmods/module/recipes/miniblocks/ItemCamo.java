@@ -1,6 +1,6 @@
 package betterwithmods.module.recipes.miniblocks;
 
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.tile.TileCamo;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
@@ -60,7 +60,7 @@ public class ItemCamo extends ItemBlock {
             TileEntity tile = world.getTileEntity(pos);
             if (tile instanceof TileCamo)
                 setNBT((TileCamo) tile, world, stack);
-            ((BlockCamo) item.block).onBlockPlacedBy(world, pos, state, player, stack, side, hitX, hitY, hitZ);
+            ((BlockDynamic) item.block).onBlockPlacedBy(world, pos, state, player, stack, side, hitX, hitY, hitZ);
             if (player instanceof EntityPlayerMP)
                 CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP) player, pos, stack);
         }

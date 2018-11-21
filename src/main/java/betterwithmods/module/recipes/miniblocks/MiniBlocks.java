@@ -5,7 +5,7 @@ import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.blocks.BlockAesthetic;
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.block.recipe.builder.SawRecipeBuilder;
 import betterwithmods.common.tile.TileCamo;
@@ -23,9 +23,6 @@ import betterwithmods.module.recipes.miniblocks.blocks.*;
 import betterwithmods.module.recipes.miniblocks.client.CamoModel;
 import betterwithmods.module.recipes.miniblocks.client.MiniModel;
 import betterwithmods.module.recipes.miniblocks.client.StairModel;
-import com.google.common.collect.HashMultimap;
-import com.google.common.collect.Maps;
-import com.google.common.collect.Multimap;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -58,25 +55,14 @@ import net.minecraftforge.oredict.ShapedOreRecipe;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.Set;
 import java.util.stream.Collectors;
 
 
 public class MiniBlocks extends Feature {
-    public static final HashMap<MiniType, HashMap<Material, BlockCamo>> MINI_MATERIAL_BLOCKS = Maps.newHashMap();
-    public static final Multimap<Material, IBlockState> MATERIAL_VARIANTS = HashMultimap.create();
     private static boolean autoGeneration;
     private static boolean requiresAnvil;
     private static Set<Ingredient> WHITELIST;
-
-
-    static {
-        for (MiniType type : MiniType.VALUES) {
-            MINI_MATERIAL_BLOCKS.put(type, Maps.newHashMap());
-        }
-    }
-
 
     public static void forceMiniBlock(Ingredient ingredient) {
         WHITELIST.add(ingredient);
@@ -100,9 +86,9 @@ public class MiniBlocks extends Feature {
         return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath());
     }
 
-    public static void placeMini(World world, BlockPos pos, MiniType type, IBlockState parent) {
+    public static void placeMini(World world, BlockPos pos, DynamicType type, IBlockState parent) {
         Material material = parent.getMaterial();
-        Block block = MINI_MATERIAL_BLOCKS.get(type).get(material);
+        Block block = DynblockUtils.getDynamicVariant(type, material);
         world.setBlockState(pos, block.getDefaultState());
         TileCamo camo = (TileCamo) world.getTileEntity(pos);
         if (camo != null)
@@ -112,21 +98,21 @@ public class MiniBlocks extends Feature {
     public void createBlocks() {
         for (Material material : MaterialUtil.materials()) {
             String name = MaterialUtil.getMaterialName(material);
-            MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).put(material, (BlockMini) new BlockSiding(material, MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "siding", name)));
-            MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).put(material, (BlockMini) new BlockMoulding(material, MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "moulding", name)));
-            MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).put(material, (BlockMini) new BlockCorner(material, MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "corner", name)));
-            MINI_MATERIAL_BLOCKS.get(MiniType.COLUMN).put(material, (BlockMini) new BlockColumn(material, MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "column", name)));
-            MINI_MATERIAL_BLOCKS.get(MiniType.PEDESTAL).put(material, (BlockMini) new BlockPedestals(material, MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "pedestal", name)));
-            MINI_MATERIAL_BLOCKS.get(MiniType.STAIR).put(material, (BlockMini) new BlockStair(material, MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "stair", name)));
-            MINI_MATERIAL_BLOCKS.get(MiniType.TABLE).put(material, (BlockCamo) new BlockTable(material, MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "table", name)));
-            MINI_MATERIAL_BLOCKS.get(MiniType.BENCH).put(material, (BlockCamo) new BlockBench(material, MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "bench", name)));
-            MINI_MATERIAL_BLOCKS.get(MiniType.CHAIR).put(material, (BlockCamo) new BlockChair(material, MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "chair", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.SIDING, material, (BlockMini) new BlockSiding(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "siding", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.MOULDING, material, (BlockMini) new BlockMoulding(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "moulding", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.CORNER, material, (BlockMini) new BlockCorner(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "corner", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.COLUMN, material, (BlockMini) new BlockColumn(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "column", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.PEDESTAL, material, (BlockMini) new BlockPedestals(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "pedestal", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.STAIR, material, (BlockMini) new BlockStair(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "stair", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.TABLE, material, (BlockDynamic) new BlockTable(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "table", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.BENCH, material, (BlockDynamic) new BlockBench(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "bench", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.CHAIR, material, (BlockDynamic) new BlockChair(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "chair", name)));
         }
 
-        for (MiniType type : MiniType.VALUES) {
-            for (BlockCamo mini : MINI_MATERIAL_BLOCKS.get(type).values()) {
-                //TODO change so a generator can be used
-                BlockRegistry.registerBlock(mini.setCreativeTab(BWMCreativeTabs.MINI_BLOCKS), mini.createItemBlock(mini).setRegistryName(mini.getRegistryName()));
+        //TODO change so a generator can be used
+        for (DynamicType type : DynamicType.VALUES) {
+            for (BlockDynamic dynamic : DynblockUtils.DYNAMIC_VARIANT_TABLE.values()) {
+                BlockRegistry.registerBlock(dynamic.setCreativeTab(BWMCreativeTabs.MINI_BLOCKS), dynamic.createItemBlock(dynamic).setRegistryName(dynamic.getRegistryName()));
             }
         }
     }
@@ -138,13 +124,10 @@ public class MiniBlocks extends Feature {
         MiniModel.CORNER = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/corner")));
         MiniModel.COLUMN = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/column")));
         MiniModel.PEDESTAL = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/pedestal")));
-        MiniModel.STAIR = new StairModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair")),
-                RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair_inner_corner")));
+        MiniModel.STAIR = new StairModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair")), RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair_inner_corner")));
         MiniModel.CHAIR = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/chair")));
-
         CamoModel.TABLE_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_supported")));
         CamoModel.TABLE_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_unsupported")));
-
         CamoModel.BENCH_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_supported")));
         CamoModel.BENCH_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_unsupported")));
 
@@ -198,9 +181,9 @@ public class MiniBlocks extends Feature {
 
         final NonNullList<ItemStack> list = NonNullList.create();
 
-        Iterable<Item> items = ForgeRegistries.ITEMS;
-        if (!autoGeneration)
-            items = WHITELIST.stream().map(Ingredient::getMatchingStacks).flatMap(Arrays::stream).map(ItemStack::getItem).collect(Collectors.toSet());
+        Iterable<Item> items = autoGeneration
+                ? ForgeRegistries.ITEMS
+                : WHITELIST.stream().map(Ingredient::getMatchingStacks).flatMap(Arrays::stream).map(ItemStack::getItem).collect(Collectors.toSet());
 
         for (Item item : items) {
             if (!(item instanceof ItemBlock))
@@ -217,7 +200,7 @@ public class MiniBlocks extends Feature {
                     if (state != null && DynblockUtils.isValidMini(state, stack)) {
                         Material material = state.getMaterial();
                         if (MaterialUtil.isValid(material)) {
-                            MATERIAL_VARIANTS.put(material, state);
+                            DynblockUtils.MATERIAL_VARIANTS.put(material, state);
                         }
                     }
                 }
@@ -232,7 +215,7 @@ public class MiniBlocks extends Feature {
         autoGeneration = loadProperty("Auto Generate Miniblocks", false).setComment("Automatically add miniblocks for many blocks, based on heuristics and probably planetary alignments. WARNING: Exposure to this config option can kill pack developers.").get();
         requiresAnvil = loadProperty("Stone Miniblocks require Anvil recipe", true).setComment("When enabled stone and metal miniblocks will require an anvil recipe, when disabled they will all be made with the saw").get();
         createBlocks();
-        MiniType.registerTiles();
+        DynamicType.registerTiles();
     }
 
     @Override
@@ -240,14 +223,14 @@ public class MiniBlocks extends Feature {
         registerMiniblocks();
 
         BWMOreDictionary.registerOre("miniblocks",
-                new ItemStack(MiniBlocks.MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(Material.WOOD)),
-                new ItemStack(MiniBlocks.MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(Material.WOOD)),
-                new ItemStack(MiniBlocks.MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(Material.WOOD)));
+                new ItemStack(DynblockUtils.getDynamicVariant(DynamicType.SIDING, Material.WOOD)),
+                new ItemStack(DynblockUtils.getDynamicVariant(DynamicType.MOULDING, Material.WOOD)),
+                new ItemStack(DynblockUtils.getDynamicVariant(DynamicType.CORNER, Material.WOOD)));
 
         for (Material material : MaterialUtil.materials()) {
-            BlockCamo siding = MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material);
-            BlockCamo moulding = MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(material);
-            BlockCamo corner = MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(material);
+            BlockDynamic siding = DynblockUtils.getDynamicVariant(DynamicType.SIDING, material);
+            BlockDynamic moulding = DynblockUtils.getDynamicVariant(DynamicType.MOULDING, material);
+            BlockDynamic corner = DynblockUtils.getDynamicVariant(DynamicType.CORNER, material);
 
             event.getRegistry().register(new MiniRecipe(siding, null));
             event.getRegistry().register(new MiniRecipe(moulding, siding));
@@ -255,17 +238,17 @@ public class MiniBlocks extends Feature {
         }
 
         SawRecipeBuilder sawBuilder = new SawRecipeBuilder();
-        for (IBlockState parent : MATERIAL_VARIANTS.values()) {
+        for (IBlockState parent : DynblockUtils.MATERIAL_VARIANTS.values()) {
             ItemStack parentStack = GlobalUtils.getStackFromState(parent);
             Material material = parent.getMaterial();
             MiniBlockIngredient siding = new MiniBlockIngredient("siding", parentStack);
             MiniBlockIngredient moulding = new MiniBlockIngredient("moulding", parentStack);
 
-            ItemStack columnStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.COLUMN).get(material), parent, 8);
-            ItemStack pedestalStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.PEDESTAL).get(material), parent, 8);
-            ItemStack tableStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.TABLE).get(material), parent, 1);
-            ItemStack benchStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.BENCH).get(material), parent, 1);
-            ItemStack chairStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.CHAIR).get(material), parent, 2);
+            ItemStack columnStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.COLUMN, material), parent, 8);
+            ItemStack pedestalStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.PEDESTAL, material), parent, 8);
+            ItemStack tableStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.TABLE, material), parent, 1);
+            ItemStack benchStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.BENCH, material), parent, 1);
+            ItemStack chairStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.CHAIR, material), parent, 2);
 
             AnvilRecipes.addSteelShapedRecipe(columnStack.getItem().getRegistryName(), columnStack, "XX", "XX", "XX", "XX", 'X', moulding);
             AnvilRecipes.addSteelShapedRecipe(pedestalStack.getItem().getRegistryName(), pedestalStack, " XX ", "BBBB", "BBBB", "BBBB", 'X', siding, 'B', parentStack);
@@ -292,9 +275,9 @@ public class MiniBlocks extends Feature {
 
             if (!requiresAnvil || material == Material.WOOD) {
                 MiniBlockIngredient corner = new MiniBlockIngredient("corner", parentStack);
-                ItemStack sidingStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material), parent, 2);
-                ItemStack mouldingStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(material), parent, 2);
-                ItemStack cornerStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(material), parent, 2);
+                ItemStack sidingStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.SIDING, material), parent, 2);
+                ItemStack mouldingStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.MOULDING, material), parent, 2);
+                ItemStack cornerStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.CORNER, material), parent, 2);
                 RecipeRegistry.WOOD_SAW.registerAll(
                         sawBuilder.input(parentStack).outputs(sidingStack).build(),
                         sawBuilder.input(siding).outputs(mouldingStack).build(),
@@ -305,9 +288,9 @@ public class MiniBlocks extends Feature {
                     RecipeRegistry.WOOD_SAW.register(sawBuilder.input(corner).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WOODEN_GEAR, 2)).build());
                 }
             } else {
-                ItemStack sidingStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(material), parent, 8);
-                ItemStack mouldingStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.MOULDING).get(material), parent, 8);
-                ItemStack cornerStack = DynblockUtils.fromParent(MINI_MATERIAL_BLOCKS.get(MiniType.CORNER).get(material), parent, 8);
+                ItemStack sidingStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.SIDING, material), parent, 8);
+                ItemStack mouldingStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.MOULDING, material), parent, 8);
+                ItemStack cornerStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.CORNER, material), parent, 8);
 
                 AnvilRecipes.addSteelShapedRecipe(sidingStack.getItem().getRegistryName(), sidingStack, "XXXX", 'X', parentStack);
                 AnvilRecipes.addSteelShapedRecipe(mouldingStack.getItem().getRegistryName(), mouldingStack, "XXXX", 'X', siding);

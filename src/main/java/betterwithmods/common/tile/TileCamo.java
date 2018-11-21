@@ -1,6 +1,6 @@
 package betterwithmods.common.tile;
 
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.library.common.tile.TileBasic;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -98,7 +98,7 @@ public class TileCamo extends TileBasic {
     }
 
     public ItemStack getPickBlock(EntityPlayer player, RayTraceResult target, IBlockState state) {
-        if (this.state != null && state.getBlock() instanceof BlockCamo) {
+        if (this.state != null && state.getBlock() instanceof BlockDynamic) {
             return fromParentState(state.getBlock(), this.state, 1);
         }
         return ItemStack.EMPTY;

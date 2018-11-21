@@ -3,7 +3,7 @@ package betterwithmods.module.recipes.miniblocks.client;
 import betterwithmods.client.baking.ModelFactory;
 import betterwithmods.client.baking.WrappedBakedModel;
 import betterwithmods.client.model.render.RenderUtils;
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.blocks.camo.CamoInfo;
 import com.google.common.collect.ImmutableMap;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -26,7 +26,7 @@ public class CamoModel extends ModelFactory<CamoInfo> {
     public final IModel template;
 
     public CamoModel(IModel template) {
-        super(BlockCamo.CAMO_INFO, TextureMap.LOCATION_MISSING_TEXTURE);
+        super(BlockDynamic.CAMO_INFO, TextureMap.LOCATION_MISSING_TEXTURE);
         this.template = template;
     }
 

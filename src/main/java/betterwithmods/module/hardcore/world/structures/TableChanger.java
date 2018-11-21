@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.world.structures;
 
+import betterwithmods.module.recipes.miniblocks.DynamicType;
 import betterwithmods.module.recipes.miniblocks.MiniBlocks;
-import betterwithmods.module.recipes.miniblocks.MiniType;
 import net.minecraft.block.BlockFence;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -21,7 +21,7 @@ public class TableChanger implements IChanger {
 
     @Override
     public IBlockState change(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState state) {
-        MiniBlocks.placeMini(world, pos.down(), MiniType.TABLE, Blocks.PLANKS.getDefaultState());
+        MiniBlocks.placeMini(world, pos.down(), DynamicType.TABLE, Blocks.PLANKS.getDefaultState());
         return Blocks.AIR.getDefaultState();
     }
 }

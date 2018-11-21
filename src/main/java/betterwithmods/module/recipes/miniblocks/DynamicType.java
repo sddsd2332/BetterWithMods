@@ -1,6 +1,6 @@
 package betterwithmods.module.recipes.miniblocks;
 
-import betterwithmods.common.blocks.camo.BlockCamo;
+import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.recipes.miniblocks.blocks.*;
@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 
 import java.util.Arrays;
 
-public enum MiniType {
+public enum DynamicType {
     SIDING(BlockSiding.class, TileSiding.class, "siding"),
     MOULDING(BlockMoulding.class, TileMoulding.class, "moulding"),
     CORNER(BlockCorner.class, TileCorner.class, "corner"),
@@ -24,41 +24,41 @@ public enum MiniType {
     STAIR(BlockStair.class, TileStair.class, "stair"),
     UNKNOWN(null, null, "");
 
-    public static final MiniType[] VALUES = values();
+    public static final DynamicType[] VALUES = values();
 
-    private final Class<? extends BlockCamo> block;
+    private final Class<? extends BlockDynamic> block;
     private final Class<? extends TileEntity> tile;
     private final String name;
 
 
-    MiniType(Class<? extends BlockCamo> block, Class<? extends TileEntity> tile, String name) {
+    DynamicType(Class<? extends BlockDynamic> block, Class<? extends TileEntity> tile, String name) {
         this.block = block;
         this.tile = tile;
         this.name = name;
     }
 
-    public static boolean matches(MiniType type, ItemStack stack) {
+    public static boolean matches(DynamicType type, ItemStack stack) {
         return fromStack(stack).equals(type);
     }
 
-    public static MiniType fromName(String name) {
+    public static DynamicType fromName(String name) {
         return Arrays.stream(VALUES).filter(t -> t.isName(name)).findFirst().orElse(null);
     }
 
-    public static MiniType fromBlock(BlockCamo block) {
+    public static DynamicType fromBlock(BlockDynamic block) {
         return Arrays.stream(VALUES).filter(t -> t.isBlock(block)).findFirst().orElse(null);
     }
 
-    public static MiniType fromStack(ItemStack stack) {
+    public static DynamicType fromStack(ItemStack stack) {
         if (stack.getItem() instanceof ItemCamo) {
-            BlockCamo mini = (BlockCamo) ((ItemCamo) stack.getItem()).getBlock();
+            BlockDynamic mini = (BlockDynamic) ((ItemCamo) stack.getItem()).getBlock();
             return fromBlock(mini);
         }
         return UNKNOWN;
     }
 
     public static void registerTiles() {
-        for (MiniType type : VALUES) {
+        for (DynamicType type : VALUES) {
             if (type.tile != null) {
                 if (TileEntity.getKey(type.tile) == null) {
                     GameRegistry.registerTileEntity(type.tile, new ResourceLocation(ModLib.MODID, type.name));
@@ -71,7 +71,7 @@ public enum MiniType {
         return this.name.equalsIgnoreCase(name);
     }
 
-    private boolean isBlock(BlockCamo mini) {
+    private boolean isBlock(BlockDynamic mini) {
         return this.block.isAssignableFrom(mini.getClass());
     }
 }

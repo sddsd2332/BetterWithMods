@@ -2,9 +2,9 @@ package betterwithmods.common;
 
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.lib.ModLib;
+import betterwithmods.module.recipes.miniblocks.DynamicType;
 import betterwithmods.module.recipes.miniblocks.DynblockUtils;
 import betterwithmods.module.recipes.miniblocks.MiniBlocks;
-import betterwithmods.module.recipes.miniblocks.MiniType;
 import net.minecraft.block.material.Material;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.item.ItemStack;
@@ -41,7 +41,7 @@ public class BWMCreativeTabs {
         @Override
         @SideOnly(Side.CLIENT)
         public ItemStack createIcon() {
-            return DynblockUtils.fromParent(MiniBlocks.MINI_MATERIAL_BLOCKS.get(MiniType.SIDING).get(Material.WOOD), MiniBlocks.MATERIAL_VARIANTS.get(Material.WOOD).stream().findAny().orElse(null));
+            return DynblockUtils.fromParent(MiniBlocks.MINI_MATERIAL_BLOCKS.get(DynamicType.SIDING).get(Material.WOOD), DynblockUtils.MATERIAL_VARIANTS.get(Material.WOOD).stream().findAny().orElse(null));
         }
     };
 }

@@ -38,12 +38,12 @@ import java.util.Collection;
 import java.util.Optional;
 import java.util.function.Function;
 
-public abstract class BlockCamo extends BlockBase {
+public abstract class BlockDynamic extends BlockBase {
 
     public static final IUnlistedProperty<CamoInfo> CAMO_INFO = new UnlistedPropertyGeneric<>("camo", CamoInfo.class);
     private final Function<Material, Collection<IBlockState>> subtypes;
 
-    public BlockCamo(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockDynamic(Material material, Function<Material, Collection<IBlockState>> subtypes) {
         super(material);
         this.subtypes = subtypes;
         setCreativeTab(BWMCreativeTabs.MINI_BLOCKS);
