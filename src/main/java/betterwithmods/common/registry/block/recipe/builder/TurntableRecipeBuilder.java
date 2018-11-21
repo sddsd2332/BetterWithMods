@@ -1,5 +1,6 @@
 package betterwithmods.common.registry.block.recipe.builder;
 
+import betterwithmods.api.recipe.output.impl.ListOutputs;
 import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import betterwithmods.library.utils.GlobalUtils;
 import com.google.common.base.Preconditions;
@@ -12,6 +13,10 @@ public class TurntableRecipeBuilder extends BlockRecipeBuilder<TurntableRecipe> 
     private int rotations = 8;
     private IBlockState productState;
     private ItemStack representativeStack = ItemStack.EMPTY;
+
+    public TurntableRecipeBuilder() {
+        outputs = new ListOutputs();
+    }
 
     public TurntableRecipeBuilder rotations(int rotations) {
         this.rotations = rotations;
@@ -36,6 +41,7 @@ public class TurntableRecipeBuilder extends BlockRecipeBuilder<TurntableRecipe> 
     public void reset() {
         super.reset();
         this.rotations = 8;
+        this.outputs = new ListOutputs();
     }
 
     @Override

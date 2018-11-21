@@ -55,7 +55,7 @@ public class BulkRecipe<V extends IForgeRegistryEntry<V>> extends IForgeRegistry
 
 
     public boolean isInvalid() {
-        return (getInputs().isEmpty() || getInputs().stream().anyMatch(InventoryUtils::isIngredientValid) || recipeOutput.isInvalid());
+        return (getInputs().isEmpty() || getInputs().stream().noneMatch(InventoryUtils::isIngredientValid) || recipeOutput.isInvalid());
     }
 
     @Override

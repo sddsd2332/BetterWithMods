@@ -48,7 +48,9 @@ public abstract class BlockRecipeBuilder<V extends BlockRecipe<V>> extends BaseR
 
         V recipe = create();
 
-        recipe.setRegistryName(name);
+        if (name != null) {
+            recipe.setRegistryName(name);
+        }
         reset();
         return recipe;
     }

@@ -22,6 +22,8 @@ public abstract class CraftingManagerBase<V extends IForgeRegistryEntry<V>> impl
         this.registry = (ForgeRegistry<V>) new RegistryBuilder<V>()
                 .setName(registryName)
                 .setType(type)
+                .disableSaving()
+                .allowModification()
                 .create();
     }
 

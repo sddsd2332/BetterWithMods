@@ -311,8 +311,8 @@ message.betterwithmods:async.disabled=Asynchronous timer disabled
 message.betterwithmods:async.unavailable=Unable to toggle asynchronous timer: World does not advance time.
 
 inventory.betterwithmods:cauldron.title=Cauldron
-inventory.betterwithmods:cauldron.1.title=Stoked Cauldron
-inventory.betterwithmods:cauldron.2.title=Cauldron
+inventory.betterwithmods:cauldron.1.title=Cauldron
+inventory.betterwithmods:cauldron.2.title=Stoked Cauldron
 inventory.betterwithmods:crucible.title=Crucible
 inventory.betterwithmods:crucible.1.title=Crucible
 inventory.betterwithmods:crucible.2.title=Stoked Crucible

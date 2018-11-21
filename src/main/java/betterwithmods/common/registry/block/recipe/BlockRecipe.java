@@ -59,7 +59,7 @@ public abstract class BlockRecipe<V extends IForgeRegistryEntry<V>> extends IFor
     }
 
     public boolean isInvalid() {
-        return (input.isSimple() && InventoryUtils.isIngredientValid(input) || recipeOutput.isInvalid());
+        return (input.isSimple() && !InventoryUtils.isIngredientValid(input) || recipeOutput.isInvalid());
     }
 
     public boolean matches(World world, BlockPos pos, IBlockState state) {

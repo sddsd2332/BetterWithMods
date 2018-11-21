@@ -87,6 +87,7 @@ public class MiscRegistry extends RequiredFeature {
     public static void registerHeatSources() {
         BWMHeatRegistry.addHeatSource(new BlockIngredient(Blocks.FIRE, Items.AIR), 1);
         BWMHeatRegistry.addHeatSource(new BlockIngredient(BWMBlocks.STOKED_FLAME, Items.AIR), 2);
+        BWMHeatRegistry.addHeatSource(new BlockIngredient(Blocks.BARRIER, Items.AIR), 1);
     }
 
     private static void registerFireInfo() {

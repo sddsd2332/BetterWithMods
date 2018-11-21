@@ -70,6 +70,12 @@ public abstract class CraftingManagerBlock<V extends BlockRecipe<V>> extends Cra
         return recipe;
     }
 
+    @Override
+    public void register(V value) {
+        if(value.isInvalid())
+            return;
+        super.register(value);
+    }
 
     @Nonnull
     public Collection<V> getDisplayRecipes() {
