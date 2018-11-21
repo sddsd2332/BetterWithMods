@@ -34,7 +34,7 @@ public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper>
     private final int secondaryOutputSlot = 5;
 
     public HopperRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(JEILib.HOPPER_TEXTURE, 0, 0, width, height), "filtered_hopper");
+        super(guiHelper.createDrawable(JEILib.HOPPER_TEXTURE, 0, 0, width, height), JEILib.HOPPER_BASE);
     }
 
     @SideOnly(Side.CLIENT)

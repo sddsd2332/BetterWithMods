@@ -20,7 +20,7 @@ public class SawRecipeCategory extends BWMRecipeCategory<BlockRecipeWrapper<SawR
     public static final int HEIGHT = 36;
 
     public SawRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(JEILib.SAW_TEXTURE, 0, 0, WIDTH, HEIGHT), "saw");
+        super(guiHelper.createDrawable(JEILib.SAW_TEXTURE, 0, 0, WIDTH, HEIGHT), JEILib.SAW_BASE);
     }
 
     @Override

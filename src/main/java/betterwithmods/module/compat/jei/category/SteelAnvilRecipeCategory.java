@@ -23,7 +23,7 @@ public class SteelAnvilRecipeCategory extends BWMRecipeCategory<IRecipeWrapper> 
     private static final int craftInputSlot1 = 0;
 
     public SteelAnvilRecipeCategory(IGuiHelper guiHelper) {
-        super(guiHelper.createDrawable(JEILib.ANVIL_TEXTURE, 0, 0, WIDTH, HEIGHT), "steel_anvil");
+        super(guiHelper.createDrawable(JEILib.ANVIL_TEXTURE, 0, 0, WIDTH, HEIGHT), JEILib.ANVIL_BASE);
     }
 
     @Override

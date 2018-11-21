@@ -24,7 +24,7 @@ public class TurntableRecipeCategory extends BWMRecipeCategory<TurntableRecipeWr
     public static final int height = 50;
 
     public TurntableRecipeCategory(IGuiHelper helper) {
-        super(helper.createDrawable(JEILib.TURNTABLE_TEXTURE, 0, 0, width, height), "turntable");
+        super(helper.createDrawable(JEILib.TURNTABLE_TEXTURE, 0, 0, width, height), JEILib.TURNTABLE_BASE);
     }
 
     @Override

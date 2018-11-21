@@ -35,19 +35,16 @@ import com.google.common.collect.Sets;
 import mezz.jei.Internal;
 import mezz.jei.api.*;
 import mezz.jei.api.ingredients.IModIngredientRegistration;
-import mezz.jei.api.recipe.IFocus;
 import mezz.jei.api.recipe.IRecipeCategoryRegistration;
 import mezz.jei.api.recipe.IVanillaRecipeFactory;
 import mezz.jei.api.recipe.VanillaRecipeCategoryUid;
 import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
-import mezz.jei.gui.Focus;
 import mezz.jei.plugins.vanilla.crafting.ShapelessRecipeWrapper;
 import mezz.jei.startup.StackHelper;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.item.crafting.Ingredient;
 import net.minecraftforge.common.crafting.IShapedRecipe;
 
 import javax.annotation.Nonnull;
@@ -71,22 +68,8 @@ public class JEI implements IModPlugin {
         ALL_OUTPUTS.forEach(consumer);
     }
 
-    public static void showRecipe(Ingredient ingredient) {
-        ItemStack stack = Lists.newArrayList(ingredient.getMatchingStacks()).stream().findFirst().orElse(ItemStack.EMPTY);
-        if (stack.isEmpty())
-            return;
-        IFocus<?> focus = new Focus<Object>(IFocus.Mode.OUTPUT, stack);
-        JEI.JEI_RUNTIME.getRecipesGui().show(focus);
-    }
-
-    private static String getHeatUID(String base, int heat) {
-        if (heat == BWMHeatRegistry.UNSTOKED_HEAT) {
-            return base;
-        } else if (heat == BWMHeatRegistry.STOKED_HEAT) {
-            return String.format("%s.%s", base, "stoked");
-        } else {
-            return String.format("%s.%s", base, heat);
-        }
+    private static String getHeatName(String base, int heat) {
+        return String.format("%s.%d", base, heat);
     }
 
     @Override
@@ -103,9 +86,9 @@ public class JEI implements IModPlugin {
 
         for (int heat : BWMHeatRegistry.allHeatLevels()) {
             reg.addRecipeCategories(
-                    new CookingPotRecipeCategory(guiHelper, getHeatUID(JEILib.CAULDRON_UID, heat)),
-                    new CookingPotRecipeCategory(guiHelper, getHeatUID(JEILib.CRUCIBLE_UID, heat)),
-                    new KilnRecipeCategory(guiHelper, getHeatUID(JEILib.KILN_UID, heat))
+                    new CookingPotRecipeCategory(guiHelper, getHeatName(JEILib.CAULDRON_BASE, heat)),
+                    new CookingPotRecipeCategory(guiHelper, getHeatName(JEILib.CRUCIBLE_BASE, heat)),
+                    new KilnRecipeCategory(guiHelper, getHeatName(JEILib.KILN_BASE, heat))
             );
         }
 
@@ -199,11 +182,14 @@ public class JEI implements IModPlugin {
     }
 
     private void registerHeatBasedRecipes(@Nonnull IModRegistry reg) {
-        Set<String> cauldron = Sets.newHashSet(), crucible = Sets.newHashSet(), kiln = Sets.newHashSet();
+        Set<String>
+                cauldron = Sets.newHashSet(),
+                crucible = Sets.newHashSet(),
+                kiln = Sets.newHashSet();
         for (int heat : BWMHeatRegistry.allHeatLevels()) {
-            String cauldronUID = getHeatUID(JEILib.CAULDRON_UID, heat);
-            String crucibleUID = getHeatUID(JEILib.CRUCIBLE_UID, heat);
-            String kilnUID = getHeatUID(JEILib.KILN_UID, heat);
+            String cauldronUID = JEILib.uid(getHeatName(JEILib.CAULDRON_BASE, heat));
+            String crucibleUID = JEILib.uid(getHeatName(JEILib.CRUCIBLE_BASE, heat));
+            String kilnUID = JEILib.uid(getHeatName(JEILib.KILN_BASE, heat));
             cauldron.add(cauldronUID);
             crucible.add(crucibleUID);
             kiln.add(kilnUID);

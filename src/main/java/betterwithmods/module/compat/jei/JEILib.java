@@ -5,14 +5,22 @@ import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 public class JEILib {
-    public static final String SAW_UID = uid("saw");
-    public static final String MILLSTONE_UID = uid("millstone");
-    public static final String CAULDRON_UID = uid("cauldron");
-    public static final String CRUCIBLE_UID = uid("crucible");
-    public static final String KILN_UID = uid("kiln");
-    public static final String TURNTABLE_UID = uid("turntable");
-    public static final String HOPPER_UID = uid("filtered_hopper");
-    public static final String ANVIL_UID = uid("steel_anvil");
+
+    public static final String CAULDRON_BASE = "cauldron";
+    public static final String CRUCIBLE_BASE = "crucible";
+    public static final String KILN_BASE = "kiln";
+
+    public static final String SAW_BASE = "saw";
+    public static final String MILLSTONE_BASE = "millstone";
+    public static final String TURNTABLE_BASE = "turntable";
+    public static final String HOPPER_BASE = "filtered_hopper";
+    public static final String ANVIL_BASE = "steel_anvil";
+
+    public static final String SAW_UID = uid(SAW_BASE);
+    public static final String MILLSTONE_UID = uid(MILLSTONE_BASE);
+    public static final String TURNTABLE_UID = uid(TURNTABLE_BASE);
+    public static final String HOPPER_UID = uid(HOPPER_BASE);
+    public static final String ANVIL_UID = uid(ANVIL_BASE);
 
     public static final String HOPPER_THROW = "filtered_hopper_throw";
     public static final String HOPPER_FILTER = "filtered_hopper_filter";

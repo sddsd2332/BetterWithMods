@@ -21,7 +21,7 @@ public class MillRecipeCategory extends BWMRecipeCategory<BulkRecipeWrapper> {
     private final IDrawableAnimated gear;
 
     public MillRecipeCategory(IGuiHelper helper) {
-        super(helper.createDrawable(JEILib.MILLSTONE_TEXTURE, 0, 0, width, height), "mill");
+        super(helper.createDrawable(JEILib.MILLSTONE_TEXTURE, 0, 0, width, height), JEILib.MILLSTONE_BASE);
         IDrawableStatic flameDrawable = helper.createDrawable(JEILib.MILLSTONE_TEXTURE, 150, 0, 14, 14);
         this.gear = helper.createAnimatedDrawable(flameDrawable, 200, IDrawableAnimated.StartDirection.BOTTOM, false);
     }
