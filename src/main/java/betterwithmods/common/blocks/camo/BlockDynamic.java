@@ -6,7 +6,6 @@ import betterwithmods.common.tile.TileCamo;
 import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.module.recipes.miniblocks.DynblockUtils;
 import betterwithmods.module.recipes.miniblocks.ItemCamo;
-import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -56,8 +55,8 @@ public abstract class BlockDynamic extends BlockBase {
         return Optional.empty();
     }
 
-    public ItemBlock createItemBlock(Block block) {
-        return new ItemCamo(block);
+    public ItemBlock createItemBlock() {
+        return new ItemCamo(this);
     }
 
     @SuppressWarnings("deprecation")

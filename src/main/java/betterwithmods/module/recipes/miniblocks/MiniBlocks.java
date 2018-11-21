@@ -108,14 +108,12 @@ public class MiniBlocks extends Feature {
             DynblockUtils.addDynamicVariant(DynamicType.BENCH, material, (BlockDynamic) new BlockBench(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "bench", name)));
             DynblockUtils.addDynamicVariant(DynamicType.CHAIR, material, (BlockDynamic) new BlockChair(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "chair", name)));
         }
-
-        //TODO change so a generator can be used
-        for (DynamicType type : DynamicType.VALUES) {
-            for (BlockDynamic dynamic : DynblockUtils.DYNAMIC_VARIANT_TABLE.values()) {
-                BlockRegistry.registerBlock(dynamic.setCreativeTab(BWMCreativeTabs.MINI_BLOCKS), dynamic.createItemBlock(dynamic).setRegistryName(dynamic.getRegistryName()));
-            }
+    
+        for (BlockDynamic dynamic : DynblockUtils.DYNAMIC_VARIANT_TABLE.values()) {
+            BlockRegistry.registerBlock(dynamic.setCreativeTab(BWMCreativeTabs.MINI_BLOCKS), dynamic.createItemBlock().setRegistryName(dynamic.getRegistryName()));
         }
     }
+
 
     @SideOnly(Side.CLIENT)
     public void onPostBake(ModelBakeEvent event) {

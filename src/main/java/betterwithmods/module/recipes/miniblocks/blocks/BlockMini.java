@@ -60,8 +60,8 @@ public abstract class BlockMini extends BlockDynamic implements IRenderRotationP
     }
 
     @Override
-    public ItemBlock createItemBlock(Block block) {
-        return new ItemMini(block);
+    public ItemBlock createItemBlock() {
+        return new ItemMini(this);
     }
 
     private int compareBlockStates(IBlockState a, IBlockState b) {
