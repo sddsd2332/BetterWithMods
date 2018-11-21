@@ -24,8 +24,8 @@ import javax.annotation.Nonnull;
 public class BlockFilteredHopper extends BlockMechMachine implements IUrnConnector {
     public static final ResourceLocation HOPPER = LootTableList.register(new ResourceLocation(ModLib.MODID, "block/hopper"));
 
-    private static final AxisAlignedBB BOX = new AxisAlignedBB(0, 4 / 16d, 0, 1, 0.99d, 1);
-
+    private static final AxisAlignedBB BOX = new AxisAlignedBB(0, 4 / 16d, 0, 1, 0.99d, 1),
+            SELECTION_BOX = new AxisAlignedBB(0, 4 / 16d, 0, 1, 1, 1);
     public BlockFilteredHopper() {
         super(Material.WOOD, HOPPER);
         this.useNeighborBrightness = true;
@@ -48,6 +48,11 @@ public class BlockFilteredHopper extends BlockMechMachine implements IUrnConnect
     @Override
     public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
         return new TileFilteredHopper();
+    }
+
+    @Override
+    public AxisAlignedBB getSelectedBoundingBox(IBlockState state, World worldIn, BlockPos pos) {
+        return SELECTION_BOX.offset(pos);
     }
 
     @SuppressWarnings("deprecation")
@@ -100,3 +105,4 @@ public class BlockFilteredHopper extends BlockMechMachine implements IUrnConnect
         return BlockRenderLayer.CUTOUT_MIPPED;
     }
 }
+
