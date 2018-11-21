@@ -18,6 +18,8 @@ import net.minecraft.util.ResourceLocation;
 public class TESRCookingPot extends TileEntitySpecialRenderer<TileCookingPot> {
     private int occupiedStacks;
 
+    public static final ResourceLocation CAULDRON_CONTENTS = new ResourceLocation(ModLib.MODID, "blocks/cauldron_contents");
+
     @Override
     public void render(TileCookingPot te, double x, double y, double z, float partialTicks, int destroyStage, float alpha) {
         if (te != null) {
@@ -34,7 +36,7 @@ public class TESRCookingPot extends TileEntitySpecialRenderer<TileCookingPot> {
         boolean stoked = tile.getHeat(tile.getBlockWorld(), tile.getBlockPos()) >= BWMHeatRegistry.STOKED_HEAT;
 
         if (tile instanceof TileCauldron) {
-            return new ResourceLocation(ModLib.MODID, "blocks/cauldron_contents");
+            return CAULDRON_CONTENTS;
         } else if (tile instanceof TileCrucible) {
             return stoked ? new ResourceLocation("minecraft", "blocks/lava_still") : new ResourceLocation("minecraft", "blocks/gravel");
         }

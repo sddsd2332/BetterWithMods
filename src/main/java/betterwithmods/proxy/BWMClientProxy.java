@@ -17,10 +17,12 @@ import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
 import net.minecraftforge.fml.client.registry.RenderingRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
@@ -81,5 +83,11 @@ public class BWMClientProxy extends ClientProxy {
     public void setLoader(ModuleLoader loader) {
         super.setLoader(loader);
         this.loader.setResourcePackProxy(RESOURCE_PACK_PROXY);
+    }
+
+    @SubscribeEvent
+    @SideOnly(Side.CLIENT)
+    public void onTextureStitch(TextureStitchEvent event) {
+        event.getMap().registerSprite(TESRCookingPot.CAULDRON_CONTENTS);
     }
 }
