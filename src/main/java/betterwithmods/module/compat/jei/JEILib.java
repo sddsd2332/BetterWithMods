@@ -1,10 +1,14 @@
 package betterwithmods.module.compat.jei;
 
+import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.lib.ModLib;
+import mezz.jei.api.recipe.IIngredientType;
 import net.minecraft.client.resources.I18n;
 import net.minecraft.util.ResourceLocation;
 
 public class JEILib {
+
+    public static final IIngredientType<IOutput> IOUTPUT = () -> IOutput.class;
 
     public static final String CAULDRON_BASE = "cauldron";
     public static final String CRUCIBLE_BASE = "crucible";

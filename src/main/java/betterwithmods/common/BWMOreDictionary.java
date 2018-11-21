@@ -167,8 +167,9 @@ public class BWMOreDictionary {
                 new ItemStack(Items.COOKED_FISH, 1, ItemFishFood.FishType.SALMON.getMetadata())
         );
 
-        registerOre("cookedPotato", Items.BAKED_POTATO);
-        registerOre("cookedCarrot", Items.CARROT);
+        registerOre("cookedPotato", Items.BAKED_POTATO, Items.POTATO);
+        registerOre("cookedCarrot", Items.CARROT, BWMItems.COOKED_CARROT);
+
 
         registerOre("listAllExplosives", new ItemStack(Blocks.TNT));
         registerOre("listAllExplosives", new ItemStack(Items.GUNPOWDER));

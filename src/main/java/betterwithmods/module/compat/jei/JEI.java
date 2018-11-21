@@ -12,6 +12,7 @@ import betterwithmods.client.gui.bulk.GuiMill;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.container.anvil.ContainerSteelAnvil;
+import betterwithmods.common.container.bulk.ContainerMill;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.anvil.AnvilRecipe;
 import betterwithmods.common.registry.block.recipe.KilnRecipe;
@@ -114,7 +115,7 @@ public class JEI implements IModPlugin {
     @Override
     public void registerIngredients(IModIngredientRegistration registry) {
         StackHelper stackHelper = Internal.getStackHelper();
-        doAllOutputs(clazz -> registry.register(clazz, Collections.emptySet(), new OutputHelper<>(stackHelper), new OutputRenderer<>()));
+        doAllOutputs(clazz -> registry.register(JEILib.IOUTPUT, Collections.emptySet(), new OutputHelper<>(stackHelper), new OutputRenderer<>()));
     }
 
     @Override
@@ -158,8 +159,11 @@ public class JEI implements IModPlugin {
         registerAnvil(reg);
 
         IRecipeTransferRegistry recipeTransferRegistry = reg.getRecipeTransferRegistry();
-        recipeTransferRegistry.addRecipeTransferHandler(ContainerSteelAnvil.class, JEILib.ANVIL_UID, 1, 16, 17, 36);
-        recipeTransferRegistry.addRecipeTransferHandler(new AnvilCraftingTransfer());
+
+
+        recipeTransferRegistry.addRecipeTransferHandler(new CraftingTransfer<>(JEILib.ANVIL_UID, ContainerSteelAnvil.class));
+        recipeTransferRegistry.addRecipeTransferHandler(new CraftingTransfer<>(JEILib.MILLSTONE_UID, ContainerMill.class));
+        recipeTransferRegistry.addRecipeTransferHandler(new AnvilVanillaCraftingTransfer());
 
     }
 
@@ -186,6 +190,9 @@ public class JEI implements IModPlugin {
                 cauldron = Sets.newHashSet(),
                 crucible = Sets.newHashSet(),
                 kiln = Sets.newHashSet();
+
+        IRecipeTransferRegistry recipeTransferRegistry = reg.getRecipeTransferRegistry();
+
         for (int heat : BWMHeatRegistry.allHeatLevels()) {
             String cauldronUID = JEILib.uid(getHeatName(JEILib.CAULDRON_BASE, heat));
             String crucibleUID = JEILib.uid(getHeatName(JEILib.CRUCIBLE_BASE, heat));
@@ -201,7 +208,6 @@ public class JEI implements IModPlugin {
             reg.addRecipes(RecipeRegistry.CAULDRON.getRecipesForHeat(heat), cauldronUID);
             reg.addRecipes(RecipeRegistry.CRUCIBLE.getRecipesForHeat(heat), crucibleUID);
             reg.addRecipes(RecipeRegistry.KILN.getRecipesForHeat(heat), kilnUID);
-
         }
 
         reg.addRecipeCatalyst(new ItemStack(BWMBlocks.CAULDRON), cauldron.toArray(new String[0]));

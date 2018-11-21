@@ -1,11 +1,11 @@
 package betterwithmods.module.compat.jei.wrapper;
 
-import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.registry.bulk.recipes.BulkRecipe;
+import betterwithmods.module.compat.jei.JEILib;
 import mezz.jei.api.IJeiHelpers;
 import mezz.jei.api.ingredients.IIngredients;
+import mezz.jei.api.ingredients.VanillaTypes;
 import mezz.jei.api.recipe.IRecipeWrapper;
-import net.minecraft.item.ItemStack;
 
 import javax.annotation.Nonnull;
 
@@ -23,8 +23,8 @@ public class BulkRecipeWrapper<T extends BulkRecipe> implements IRecipeWrapper {
 
     @Override
     public void getIngredients(@Nonnull IIngredients ingredients) {
-        ingredients.setInputLists(ItemStack.class, helpers.getStackHelper().expandRecipeItemStackInputs(recipe.getInputs()));
-        ingredients.setOutputLists(IOutput.class, recipe.getRecipeOutput().getExpandedOutputs(boxes));
+        ingredients.setInputLists(VanillaTypes.ITEM, helpers.getStackHelper().expandRecipeItemStackInputs(recipe.getInputs()));
+        ingredients.setOutputLists(JEILib.IOUTPUT, recipe.getRecipeOutput().getExpandedOutputs(boxes));
     }
 
     @Nonnull

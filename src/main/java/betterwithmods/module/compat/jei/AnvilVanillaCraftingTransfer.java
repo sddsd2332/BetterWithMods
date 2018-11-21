@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-public class AnvilCraftingTransfer implements IRecipeTransferInfo<ContainerSteelAnvil> {
+public class AnvilVanillaCraftingTransfer implements IRecipeTransferInfo<ContainerSteelAnvil> {
 
     @Nonnull
     @Override
