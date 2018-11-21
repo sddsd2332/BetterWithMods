@@ -14,6 +14,7 @@ import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.entity.Entity;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
@@ -131,8 +132,6 @@ public abstract class TileCookingPot<T extends CookingPotRecipe<T>> extends Tile
                     this.facing = EnumFacing.UP;
 
                 spawnParticles();
-
-                entityCollision();
                 //Only do crafting on the server
                 if (!world.isRemote && !InventoryUtils.isEmpty(inventory)) {
                     int heat = findHeat(getPos());
@@ -198,17 +197,18 @@ public abstract class TileCookingPot<T extends CookingPotRecipe<T>> extends Tile
         }
     }
 
-    //TODO move this to Block#onEntityCollision by lowering the bounding box a bit, like the filtered hopper
-    private void entityCollision() {
-        if (captureDroppedItems()) {
-            getBlockWorld().scheduleBlockUpdate(pos, this.getBlockType(), this.getBlockType().tickRate(getBlockWorld()), 5);
-            this.markDirty();
-        }
-    }
-
-
     public List<EntityItem> getCaptureItems(World worldIn, BlockPos pos) {
         return worldIn.getEntitiesWithinAABB(EntityItem.class, new AxisAlignedBB(pos.getX(), pos.getY(), pos.getZ(), pos.getX() + 1D, pos.getY() + 1.5D, pos.getZ() + 1D), EntitySelectors.IS_ALIVE);
+    }
+
+    public void insert(Entity entity) {
+        if (!InventoryUtils.isFull(inventory) && entity instanceof EntityItem) {
+            EntityItem item = (EntityItem) entity;
+            if (item.isDead)
+                return;
+            if (InventoryUtils.insertFromWorld(inventory, item, 0, 18, false))
+                this.getBlockWorld().playSound(null, pos.getX(), pos.getY(), pos.getZ(), SoundEvents.ENTITY_ITEM_PICKUP, SoundCategory.PLAYERS, 0.2F, ((getBlockWorld().rand.nextFloat() - getBlockWorld().rand.nextFloat()) * 0.7F + 1.0F) * 2.0F);
+        }
     }
 
     private boolean captureDroppedItems() {
