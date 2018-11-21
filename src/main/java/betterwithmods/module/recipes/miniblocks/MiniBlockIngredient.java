@@ -85,9 +85,9 @@ public class MiniBlockIngredient extends BlockStateIngredient {
                 if (!stack.isEmpty() && stack.getItem() instanceof ItemBlock) {
                     IBlockState state = GlobalUtils.getStateFromStack(stack);
                     Material material = state.getMaterial();
-                    if (MiniBlocks.isValidMini(state)) {
+                    if (DynblockUtils.isValidMini(state)) {
                         BlockCamo blockMini = MiniBlocks.MINI_MATERIAL_BLOCKS.get(type).get(material);
-                        stacks.add(MiniBlocks.fromParent(blockMini, state));
+                        stacks.add(DynblockUtils.fromParent(blockMini, state));
                     }
                 }
             }

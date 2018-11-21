@@ -4,8 +4,8 @@ import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.module.recipes.miniblocks.DynblockUtils;
 import betterwithmods.module.recipes.miniblocks.ItemCamo;
-import betterwithmods.module.recipes.miniblocks.MiniBlocks;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
@@ -76,7 +76,7 @@ public abstract class BlockCamo extends BlockBase {
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
         for (IBlockState state : subtypes.apply(material)) {
-            items.add(MiniBlocks.fromParent(this, state));
+            items.add(DynblockUtils.fromParent(this, state));
         }
     }
 
