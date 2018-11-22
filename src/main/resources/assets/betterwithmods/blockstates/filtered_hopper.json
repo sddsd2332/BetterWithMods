@@ -3,7 +3,8 @@
   "defaults": {
     "textures": {
       "up": "betterwithmods:blocks/hopper_top",
-      "side": "blocks/planks_oak",
+      "side": "betterwithmods:blocks/hopper_side",
+      "inside": "minecraft:blocks/planks_oak",
       "particle": "#side",
       "invfill": "blocks/gravel"
     },

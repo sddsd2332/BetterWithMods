@@ -1,0 +1,117 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "side": "betterwithmods:blocks/wooden_clutchbox_side",
+      "side_on": "betterwithmods:blocks/wooden_clutchbox_side_on",
+      "input": "betterwithmods:blocks/wooden_clutchbox_input",
+      "output": "betterwithmods:blocks/wooden_clutchbox_output"
+    },
+    "model": "betterwithmods:clutchbox_off"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block",
+        "textures": {
+          "up": "#input"
+        }
+      }
+    ],
+    "active": {
+      "false": {},
+      "true": {}
+    },
+    "redstone": {
+      "false": {
+        "model": "betterwithmods:clutchbox_off"
+      },
+      "true": {
+        "model": "betterwithmods:clutchbox_on"
+      }
+    },
+    "facing": {
+      "down": {
+        "textures": {
+          "down": "#input"
+        }
+      },
+      "up": {
+        "textures": {
+          "up": "#input"
+        }
+      },
+      "north": {
+        "textures": {
+          "north": "#input"
+        }
+      },
+      "south": {
+        "textures": {
+          "south": "#input"
+        }
+      },
+      "west": {
+        "textures": {
+          "west": "#input"
+        }
+      },
+      "east": {
+        "textures": {
+          "east": "#input"
+        }
+      }
+    },
+    "up": {
+      "false": {},
+      "true": {
+        "textures": {
+          "up": "#output"
+        }
+      }
+    },
+    "down": {
+      "false": {},
+      "true": {
+        "textures": {
+          "down": "#output"
+        }
+      }
+    },
+    "north": {
+      "false": {},
+      "true": {
+        "textures": {
+          "north": "#output"
+        }
+      }
+    },
+    "south": {
+      "false": {},
+      "true": {
+        "textures": {
+          "south": "#output"
+        }
+      }
+    },
+    "west": {
+      "false": {},
+      "true": {
+        "textures": {
+          "west": "#output"
+        }
+      }
+    },
+    "east": {
+      "false": {},
+      "true": {
+        "textures": {
+          "east": "#output"
+        }
+      }
+    }
+  }
+}

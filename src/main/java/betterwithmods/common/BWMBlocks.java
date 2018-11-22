@@ -17,6 +17,8 @@ public final class BWMBlocks {
     public static final Block WOODEN_AXLE = null;
     public static final Block WOODEN_GEARBOX = null;
     public static final Block WOODEN_BROKEN_GEARBOX = null;
+    public static final Block WOODEN_CLUTCHBOX = null;
+    public static final Block WOODEN_BROKEN_CLUTCHBOX = null;
     public static final Block HAND_CRANK = null;
     public static final Block WICKER = null;
     public static final Block URN = null;

@@ -13,11 +13,11 @@ import net.minecraft.world.World;
 
 public class MechanicalUtil implements IMechanicalUtil {
 
-    public boolean isRedstonePowered(World world, BlockPos pos) {
-        return world.getRedstonePowerFromNeighbors(pos) > 0;
+    public boolean isRedstonePowered(IBlockAccess world, BlockPos pos) {
+        return WorldUtils.getRedstonePowerFromNeighbors(world, pos) > 0;
     }
 
-    public IMechanicalPower getMechanicalPower(World world, BlockPos pos, EnumFacing facing) {
+    public IMechanicalPower getMechanicalPower(IBlockAccess world, BlockPos pos, EnumFacing facing) {
         TileEntity tile = world.getTileEntity(pos);
         if (tile != null && tile.hasCapability(CapabilityMechanicalPower.MECHANICAL_POWER, facing)) {
             return tile.getCapability(CapabilityMechanicalPower.MECHANICAL_POWER, facing);
@@ -25,7 +25,7 @@ public class MechanicalUtil implements IMechanicalUtil {
         return null;
     }
 
-    public boolean canInput(World world, BlockPos pos, EnumFacing facing) {
+    public boolean canInput(IBlockAccess world, BlockPos pos, EnumFacing facing) {
         IMechanicalPower power = getMechanicalPower(world, pos, facing);
         return power != null && power.getMaximumInput(facing) > 0;
     }
@@ -43,7 +43,7 @@ public class MechanicalUtil implements IMechanicalUtil {
         return null;
     }
 
-    public int getPowerOutput(World world, BlockPos pos, EnumFacing facing) {
+    public int getPowerOutput(IBlockAccess world, BlockPos pos, EnumFacing facing) {
         IMechanicalPower power = getMechanicalPower(world, pos, facing);
         if (power != null) {
             return power.getMechanicalOutput(facing);

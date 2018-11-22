@@ -1,5 +1,6 @@
 package betterwithmods.module.internal;
 
+import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.blocks.*;
 import betterwithmods.common.blocks.blood_wood.BlockBloodLeaves;
@@ -104,6 +105,7 @@ public class BlockRegistry extends RequiredFeature {
                 .builder().block(new BlockAnchor()).id("anchor").build()
                 .builder().block(new BlockRope()).id("rope").build()
                 .builder().block(new BlockBrokenGearbox(Material.WOOD)).id("wooden_broken_gearbox").build()
+                .builder().block(new BlockBrokenGearbox(Material.WOOD).setRepairedBlock(BWMBlocks.WOODEN_CLUTCHBOX)).id("wooden_broken_clutchbox").build()
                 .builder().block(new BlockWicker()).id("wicker").build()
                 .builder().block(new BlockUrn(BlockUrn.EnumType.EMPTY)).id("urn").build()
                 .builder().block(new BlockUrn(BlockUrn.EnumType.SOUL)).id("soul_urn").itemblock(ItemBlockUrn::new).build()
@@ -199,6 +201,11 @@ public class BlockRegistry extends RequiredFeature {
                 .tab(BWMCreativeTabs.BLOCKS)
                 .tile(TileGearbox.class).id("wooden_gearbox")
                 .builder().block(new BlockGearbox(Material.WOOD, 1)).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger())
+                .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileClutchbox.class).id("wooden_clutchbox")
+                .builder().block(new BlockClutchBox(Material.WOOD, 1)).build()
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger())
                 .tab(BWMCreativeTabs.BLOCKS)

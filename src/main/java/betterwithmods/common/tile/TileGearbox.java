@@ -34,11 +34,6 @@ public class TileGearbox extends TileBasic implements IMechanicalPower {
             return;
         tick = 0;
 
-        if (BWMAPI.IMPLEMENTATION.isRedstonePowered(world, pos)) {
-            setPower(0);
-            markDirty();
-            return;
-        }
         int power = this.getMechanicalInput(getFacing());
 
 

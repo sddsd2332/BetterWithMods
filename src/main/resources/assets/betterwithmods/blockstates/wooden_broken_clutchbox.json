@@ -1,0 +1,56 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "textures": {
+      "side": "betterwithmods:blocks/wooden_clutchbox_side_broken",
+      "input": "betterwithmods:blocks/wooden_clutchbox_input_broken",
+      "output": "betterwithmods:blocks/wooden_clutchbox_output_broken"
+    },
+    "model": "betterwithmods:gearbox"
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block",
+        "textures": {
+          "up": "#input"
+        }
+      }
+    ],
+    "facing": {
+      "down": {
+        "textures": {
+          "down": "#input"
+        }
+      },
+      "up": {
+        "textures": {
+          "up": "#input"
+        }
+      },
+      "north": {
+        "textures": {
+          "north": "#input"
+        }
+      },
+      "south": {
+        "textures": {
+          "south": "#input"
+        }
+      },
+      "west": {
+        "textures": {
+          "west": "#input"
+        }
+      },
+      "east": {
+        "textures": {
+          "east": "#input"
+        }
+      }
+    }
+  }
+}

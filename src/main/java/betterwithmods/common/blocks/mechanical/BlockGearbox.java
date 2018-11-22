@@ -33,12 +33,21 @@ import java.util.Optional;
 import java.util.Random;
 
 public class BlockGearbox extends BlockBase implements IBlockActive, IOverpower, IAdvancedRotationPlacement, IRenderRotationPlacement {
-    private final int maxPower;
+    protected final int maxPower;
 
     public BlockGearbox(Material material, int maxPower) {
         super(material);
         this.maxPower = maxPower;
-        this.setDefaultState(getDefaultState().withProperty(DirUtils.FACING, EnumFacing.UP).withProperty(ACTIVE, false));
+        this.setDefaultState(getDefaultState()
+                .withProperty(DirUtils.FACING, EnumFacing.UP)
+                .withProperty(ACTIVE, false)
+                .withProperty(DirUtils.UP,false)
+                .withProperty(DirUtils.DOWN,false)
+                .withProperty(DirUtils.NORTH,false)
+                .withProperty(DirUtils.SOUTH,false)
+                .withProperty(DirUtils.EAST,false)
+                .withProperty(DirUtils.WEST,false)
+        );
     }
 
     @Nonnull

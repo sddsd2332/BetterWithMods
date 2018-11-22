@@ -9,15 +9,15 @@ import net.minecraft.world.World;
 
 public interface IMechanicalUtil {
 
-    IMechanicalPower getMechanicalPower(World world, BlockPos pos, EnumFacing facing);
+    IMechanicalPower getMechanicalPower(IBlockAccess world, BlockPos pos, EnumFacing facing);
 
     IAxle getAxle(IBlockAccess world, BlockPos pos, EnumFacing facing);
 
-    boolean isRedstonePowered(World world, BlockPos pos);
+    boolean isRedstonePowered(IBlockAccess world, BlockPos pos);
 
-    boolean canInput(World world, BlockPos pos, EnumFacing facing);
+    boolean canInput(IBlockAccess world, BlockPos pos, EnumFacing facing);
 
     boolean isAxle(IBlockAccess world, BlockPos pos, EnumFacing facing);
 
-    int getPowerOutput(World world, BlockPos pos, EnumFacing facing);
+    int getPowerOutput(IBlockAccess world, BlockPos pos, EnumFacing facing);
 }

@@ -23,7 +23,7 @@
           "texture": "#side"
         },
         "south": {
-          "texture": "#side"
+          "texture": "#inside"
         },
         "west": {
           "texture": "#side"
@@ -52,7 +52,7 @@
           "texture": "#up"
         },
         "north": {
-          "texture": "#side"
+          "texture": "#inside"
         },
         "south": {
           "texture": "#side"
@@ -93,7 +93,7 @@
           "texture": "#side"
         },
         "east": {
-          "texture": "#side"
+          "texture": "#inside"
         }
       }
     },
@@ -122,7 +122,7 @@
           "texture": "#side"
         },
         "west": {
-          "texture": "#side"
+          "texture": "#inside"
         },
         "east": {
           "texture": "#side"

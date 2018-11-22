@@ -17,16 +17,14 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.DimensionType;
-import net.minecraft.world.EnumSkyBlock;
-import net.minecraft.world.World;
-import net.minecraft.world.WorldServer;
+import net.minecraft.world.*;
 import net.minecraft.world.chunk.Chunk;
 import net.minecraft.world.chunk.storage.ExtendedBlockStorage;
 import net.minecraft.world.gen.structure.template.Template;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 
 import javax.annotation.Nullable;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.StreamSupport;
@@ -255,4 +253,20 @@ public final class WorldUtils {
     public static Template getTemplate(WorldServer worldServer, String domain, String templateName) {
         return worldServer.getStructureTemplateManager().getTemplate(worldServer.getMinecraftServer(), new ResourceLocation(domain, templateName));
     }
+
+
+    public static int getRedstonePowerFromNeighbors(IBlockAccess access, BlockPos pos) {
+        return Arrays.stream(EnumFacing.values()).mapToInt(f -> getRedstonePower(access, pos.offset(f), f)).max().orElse(0);
+    }
+
+    public static int getRedstonePower(IBlockAccess access, BlockPos pos, EnumFacing facing) {
+        IBlockState iblockstate1 = access.getBlockState(pos);
+        return iblockstate1.getBlock().shouldCheckWeakPower(iblockstate1, access, pos, facing) ? getStrongPower(access, pos) : iblockstate1.getWeakPower(access, pos, facing);
+    }
+
+    public static int getStrongPower(IBlockAccess access, BlockPos pos) {
+        return Arrays.stream(EnumFacing.VALUES).mapToInt(f -> access.getStrongPower(pos.offset(f), f)).max().orElse(0);
+    }
+
+
 }

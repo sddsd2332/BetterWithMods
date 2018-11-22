@@ -39,16 +39,19 @@ public class BlockBrokenGearbox extends BlockBase {
         setRepairCost(2);
     }
 
-    public void setRepairIngredient(StackIngredient ingredient) {
+    public BlockBrokenGearbox setRepairIngredient(StackIngredient ingredient) {
         this.repairIngredient = ingredient;
+        return this;
     }
 
-    public void setRepairedBlock(Block repairedBlock) {
+    public BlockBrokenGearbox setRepairedBlock(Block repairedBlock) {
         this.repairedBlock = repairedBlock;
+        return this;
     }
 
-    public void setRepairCost(int count) {
+    public BlockBrokenGearbox setRepairCost(int count) {
         this.repairCost = count;
+        return this;
     }
 
     @Override

@@ -1,10 +1,10 @@
 {
   "result": {
-    "item": "betterwithmods:wooden_gearbox"
+    "item": "betterwithmods:wooden_clutchbox"
   },
   "pattern": [
     "PGP",
-    "GAG",
+    "GLG",
     "PGP"
   ],
   "type": "forge:ore_shaped",
@@ -16,8 +16,9 @@
       "ore": "gearWood",
       "type": "forge:ore_dict"
     },
-    "A": {
-      "item": "betterwithmods:wooden_axle"
+    "L": {
+      "type": "forge:ore_dict",
+      "ore": "latchRedstone"
     }
   }
 }

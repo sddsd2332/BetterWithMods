@@ -39,11 +39,6 @@ public class CauldronRecipes extends RequiredFeature {
         stoked();
     }
 
-    @SubscribeEvent
-    public void onCauldronRecipes(RegistryEvent.Register<CauldronRecipe> event) {
-        System.out.println("WOAH!");
-    }
-
     private void stoked() {
 
         CauldronRecipeBuilder builder = new CauldronRecipeBuilder();
