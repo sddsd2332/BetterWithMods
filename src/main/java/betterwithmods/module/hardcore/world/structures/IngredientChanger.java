@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraft.world.gen.structure.StructureComponent;
@@ -18,17 +19,27 @@ public class IngredientChanger implements IChanger {
     }
 
     @Override
-    public boolean canChange(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
+    public boolean canChangeState(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
         return ingredient.test(world, pos, original);
     }
 
     @Override
-    public IBlockState change(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
+    public IBlockState changeState(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
         BiomeEvent.GetVillageBlockID event = new BiomeEvent.GetVillageBlockID(world.getBiome(pos), original);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getReplacement() != null) {
             return event.getReplacement();
         }
         return state;
+    }
+
+    @Override
+    public boolean canChangeLoot(StructureComponent structure, World world, BlockPos pos, ResourceLocation lootTable) {
+        return false;
+    }
+
+    @Override
+    public ResourceLocation changeLootTable(StructureComponent structure, World world, BlockPos pos, ResourceLocation lootTable) {
+        return null;
     }
 }

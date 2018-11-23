@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.world.structures;
 
 import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
@@ -28,12 +29,22 @@ public class RelativePosChanger implements IChanger {
     }
 
     @Override
-    public boolean canChange(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
+    public boolean canChangeState(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
         return check.contains(relativePos);
     }
 
     @Override
-    public IBlockState change(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
+    public IBlockState changeState(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
         return state;
+    }
+
+    @Override
+    public boolean canChangeLoot(StructureComponent structure, World world, BlockPos pos, ResourceLocation lootTable) {
+        return false;
+    }
+
+    @Override
+    public ResourceLocation changeLootTable(StructureComponent structure, World world, BlockPos pos, ResourceLocation lootTable) {
+        return null;
     }
 }

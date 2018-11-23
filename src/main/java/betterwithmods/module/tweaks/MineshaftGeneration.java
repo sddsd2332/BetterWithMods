@@ -1,6 +1,6 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.library.common.event.StructureSetBlockEvent;
+import betterwithmods.library.common.event.structure.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientSet;
@@ -58,8 +58,8 @@ public class MineshaftGeneration extends Feature {
         }
 
         @Override
-        public boolean canChange(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
-            return (structure instanceof StructureMineshaftPieces.Peice && ((StructureMineshaftPieces.Peice) structure).mineShaftType == this.type) && super.canChange(structure, world, pos, relativePos, original);
+        public boolean canChangeState(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
+            return (structure instanceof StructureMineshaftPieces.Peice && ((StructureMineshaftPieces.Peice) structure).mineShaftType == this.type) && super.canChangeState(structure, world, pos, relativePos, original);
         }
     }
 

@@ -1,11 +1,13 @@
 package betterwithmods.module.hardcore.world.structures;
 
-import betterwithmods.library.common.event.StructureSetBlockEvent;
+import betterwithmods.library.common.event.structure.StructureLootEvent;
+import betterwithmods.library.common.event.structure.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.ingredient.blockstate.BlockIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.MaterialIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.PredicateBlockStateIngredient;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
@@ -41,10 +43,18 @@ public class HCVillages extends Feature {
         }
     }
 
+    @SubscribeEvent
+    public void onStructureLoot(StructureLootEvent event) {
+        if (event.getComponent() instanceof StructureVillagePieces.Village) {
+            StructureChanger.convert(VILLAGE, event);
+        }
+    }
+
     @Override
     public String getDescription() {
         return "Makes it so villages with in the reaches of the spawn zone are abandoned and gradually gain more resources the further out. What this means to be gained by the player.";
     }
+
 
     @Override
     public void onInit(FMLInitializationEvent event) {
@@ -67,17 +77,29 @@ public class HCVillages extends Feature {
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.CRAFTING_TABLE), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.BOOKSHELF), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.TORCH), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.FURNACE), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.PLANTS), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.DIRT.getDefaultState()))
-                .addChanger(new IngredientChanger(new PredicateBlockStateIngredient((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockDoor), Blocks.AIR.getDefaultState()));
+                .addChanger(new IngredientChanger(new PredicateBlockStateIngredient((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockDoor), Blocks.AIR.getDefaultState()))
+                .addChanger(new ChestLootChanger(null));
 
-        SEMIABANDONED = ABANDONED;
-//                .addChanger(tableChanger)
-//                .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.AIR.getDefaultState()))
-//                .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()));
+        SEMIABANDONED
+                .addChanger(tableChanger)
+                .addChanger(new BiomeIngredientChanger(new BlockStateIngredient(new ItemStack(Blocks.WOOL, 1, EnumDyeColor.BLACK.getMetadata())), Blocks.PLANKS.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.CRAFTING_TABLE), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.BOOKSHELF), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.TORCH), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.FURNACE), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.DIRT.getDefaultState()))
+                .addChanger(new IngredientChanger(new PredicateBlockStateIngredient((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockDoor), Blocks.AIR.getDefaultState()))
+                .addChanger(new ChestLootChanger(null))
+                .addChanger(new CropTypeChanger(Lists.newArrayList(Blocks.POTATOES, Blocks.CARROTS, Blocks.AIR)));
 
-        NORMAL.addChanger(tableChanger);
+        NORMAL
+                .addChanger(tableChanger)
+                .addChanger(new CropTypeChanger(Lists.newArrayList(Blocks.WHEAT, Blocks.BEETROOTS, Blocks.POTATOES, Blocks.CARROTS)));
 
     }
 

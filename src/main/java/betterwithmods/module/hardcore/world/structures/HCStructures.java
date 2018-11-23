@@ -1,7 +1,7 @@
 package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
-import betterwithmods.library.common.event.StructureSetBlockEvent;
+import betterwithmods.library.common.event.structure.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -80,7 +80,7 @@ public class HCStructures extends Feature {
                 .addChanger(new RelativePosChanger(Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST), new AxisAlignedBB(11, 0, 9, 11, -13, 9)))
                 //Deletes loot table
                 //TODO This doesn't work as the lootable gets set again later
-                .addChanger(new ChestLootChanger())
+                .addChanger(new ChestLootChanger(null))
                 //Replace clay with obsidian
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()));
 

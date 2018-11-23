@@ -15,7 +15,7 @@ public class BiomeIngredientChanger extends IngredientChanger {
     }
 
     @Override
-    public IBlockState change(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
+    public IBlockState changeState(StructureComponent structure, World world, BlockPos pos, BlockPos relativePos, IBlockState original) {
         BiomeEvent.GetVillageBlockID event = new BiomeEvent.GetVillageBlockID(world.getBiome(pos), state);
         MinecraftForge.EVENT_BUS.post(event);
         if (event.getReplacement() != null) {

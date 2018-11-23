@@ -3,7 +3,7 @@ package betterwithmods.module.hardcore.world.stumping;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.event.StructureSetBlockEvent;
+import betterwithmods.library.common.event.structure.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.library.utils.ToolUtils;
