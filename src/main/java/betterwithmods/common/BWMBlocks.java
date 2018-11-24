@@ -69,4 +69,6 @@ public final class BWMBlocks {
     public static final Block BARREL = null;
     public static final Block DETECTOR_RAIL_STONE = null;
     public static final Block DETECTOR_RAIL_STEEL = null;
+    public static final Block HEAD = null;
+
 }
