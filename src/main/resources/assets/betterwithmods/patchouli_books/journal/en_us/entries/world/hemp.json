@@ -14,8 +14,14 @@
       "title": "Hemp Plant",
       "border": true,
       "images": [
-      "betterwithmods:textures/documentation/hemp.png"
+        "betterwithmods:textures/documentation/hemp.png"
       ]
+    },
+    {
+      "type": "mill_text",
+      "title": "Hemp Fiber",
+      "mill": "betterwithmods:hemp_fiber",
+      "text": "Using the millstone, leaves of this plant can be ground into a very strong fiber with many applications."
     },
     {
       "type": "crafting",

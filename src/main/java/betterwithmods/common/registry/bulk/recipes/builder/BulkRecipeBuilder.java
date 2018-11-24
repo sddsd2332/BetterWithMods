@@ -11,13 +11,11 @@ import net.minecraft.block.Block;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraft.util.ResourceLocation;
 
 import java.util.List;
 
 public abstract class BulkRecipeBuilder<V extends BulkRecipe<V>> extends BaseRecipeBuilder<V> {
 
-    private ResourceLocation name;
     protected IRecipeInputs inputs;
     protected IRecipeOutputs outputs;
     protected boolean handleContainers;

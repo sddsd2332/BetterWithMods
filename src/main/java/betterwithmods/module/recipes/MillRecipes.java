@@ -4,6 +4,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockRawPastry;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.bulk.recipes.builder.MillRecipeBuilder;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
@@ -17,6 +18,7 @@ import net.minecraft.init.Items;
 import net.minecraft.init.SoundEvents;
 import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.oredict.OreIngredient;
@@ -64,7 +66,9 @@ public class MillRecipes extends Feature {
                 builder.sound(SoundEvents.ENTITY_GHAST_SCREAM).inputs(new OreIngredient("netherrack")).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.GROUND_NETHERRACK)).build(),
                 builder.sound(SoundEvents.ENTITY_BLAZE_DEATH).inputs(new ItemStack(Items.BLAZE_ROD)).outputs(new ItemStack(Items.BLAZE_POWDER, 3)).build(),
                 builder.sound(SoundEvents.ENTITY_WOLF_WHINE).inputs(new ItemStack(BWMBlocks.WOLF)).outputs(new ItemStack(Items.STRING, 10), ColorUtils.getDye(EnumDyeColor.RED, 3)).build(),
-                builder.inputs(new OreIngredient("cropHemp")).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.HEMP_FIBERS, 3)).build(),
+                builder.inputs(new OreIngredient("cropHemp")).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.HEMP_FIBERS, 3))
+                        .name(new ResourceLocation(ModLib.MODID, "hemp_fiber"))
+                        .build(),
                 builder.inputs(new ItemStack(BWMBlocks.WOLF)).outputs(new ItemStack(Items.STRING, 10), ColorUtils.getDye(EnumDyeColor.RED, 3)).build(),
                 builder.inputs(new ItemStack(Items.REEDS)).outputs(new ItemStack(Items.SUGAR, 2)).build(),
                 builder.inputs(new ItemStack(Items.COAL, 1)).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.COAL_DUST)).build(),

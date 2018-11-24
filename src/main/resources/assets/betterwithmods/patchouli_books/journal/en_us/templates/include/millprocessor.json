@@ -1,0 +1,53 @@
+{
+  "processor": "betterwithmods.module.compat.patchouli.bulk.MillstoneProcessor",
+  "components": [
+    {
+      "type": "item",
+      "item": "#input1",
+      "x": 32,
+      "y": 6
+    },
+    {
+      "type": "item",
+      "item": "#input2",
+      "x": 30,
+      "y": 26
+    },
+    {
+      "type": "item",
+      "item": "#input3",
+      "x": 30,
+      "y": 46
+    },
+    {
+      "type": "item",
+      "item": "#output1",
+      "x": 68,
+      "y": 6
+    },
+    {
+      "type": "item",
+      "item": "#output2",
+      "x": 70,
+      "y": 26
+    },
+    {
+      "type": "item",
+      "item": "#output3",
+      "x": 70,
+      "y": 46
+    },
+    {
+      "type": "image",
+      "image": "betterwithmods:textures/gui/book/millstone.png",
+      "x": 26,
+      "y": 2,
+      "u": 0,
+      "v": 0,
+      "width": 64,
+      "height": 64,
+      "texture_width": 128,
+      "texture_height": 128
+    }
+  ]
+}

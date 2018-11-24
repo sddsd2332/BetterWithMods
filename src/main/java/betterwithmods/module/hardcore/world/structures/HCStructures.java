@@ -79,7 +79,6 @@ public class HCStructures extends Feature {
                 //Place Ladder
                 .addChanger(new RelativePosChanger(Blocks.LADDER.getDefaultState().withProperty(BlockLadder.FACING, EnumFacing.WEST), new AxisAlignedBB(11, 0, 9, 11, -13, 9)))
                 //Deletes loot table
-                //TODO This doesn't work as the lootable gets set again later
                 .addChanger(new ChestLootChanger(null))
                 //Replace clay with obsidian
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()));
@@ -111,7 +110,6 @@ public class HCStructures extends Feature {
         if (event.getComponent() instanceof ComponentScatteredFeaturePieces.DesertPyramid) {
             StructureChanger.convert(DESERT_TEMPLE, event);
         } else if (event.getComponent() instanceof ComponentScatteredFeaturePieces.JunglePyramid) {
-//            System.out.printf("/tp %s ~ %s\n", event.getPos().getX(), event.getPos().getZ());
             StructureChanger.convert(JUNGLE_TEMPLE, event);
         } else if (event.getComponent() instanceof ComponentScatteredFeaturePieces.SwampHut) {
             StructureChanger.convert(WITCH_HUT, event);
