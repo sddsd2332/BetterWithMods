@@ -1,7 +1,7 @@
-package betterwithmods.module.compat.patchouli.bulk;
+package betterwithmods.module.compat.patchouli.block;
 
-import betterwithmods.common.registry.bulk.manager.CraftingManagerBulk;
-import betterwithmods.common.registry.bulk.recipes.BulkRecipe;
+import betterwithmods.common.registry.block.managers.CraftingManagerBlock;
+import betterwithmods.common.registry.block.recipe.BlockRecipe;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.ResourceLocation;
@@ -13,17 +13,17 @@ import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
-public class BulkProcessor<V extends BulkRecipe<V>> implements IComponentProcessor {
+public class BlockProcessor<V extends BlockRecipe<V>> implements IComponentProcessor {
 
     protected V recipe;
 
-    private CraftingManagerBulk<V> registry;
+    private CraftingManagerBlock<V> registry;
 
     private final Pattern inputPattern, outputPattern;
 
-    public BulkProcessor(CraftingManagerBulk<V> registry, int inputCount, int outputCount) {
+    public BlockProcessor(CraftingManagerBlock<V> registry, int outputCount) {
         this.registry = registry;
-        this.inputPattern = Pattern.compile("input([0-" + (inputCount - 1) + "])");
+        this.inputPattern = Pattern.compile("input");
         this.outputPattern = Pattern.compile("output([0-" + (outputCount - 1) + "])");
     }
 
@@ -33,16 +33,12 @@ public class BulkProcessor<V extends BulkRecipe<V>> implements IComponentProcess
         this.recipe = registry.getValue(new ResourceLocation(recipeName));
     }
 
-
     @Override
     public String process(String key) {
         Matcher input = inputPattern.matcher(key);
         Matcher output = outputPattern.matcher(key);
         if (input.matches()) {
-            int index = Integer.parseInt(input.group(1)) - 1;
-            List<Ingredient> ingredients = recipe.getInputs();
-
-            Ingredient ingredient = ingredients.size() > index ? ingredients.get(index) : Ingredient.EMPTY;
+            Ingredient ingredient = recipe.getInput();
             ItemStack[] stacks = ingredient.getMatchingStacks();
             ItemStack stack = stacks.length == 0 ? ItemStack.EMPTY : stacks[0];
             return ItemStackUtil.serializeStack(stack);

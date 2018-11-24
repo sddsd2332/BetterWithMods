@@ -1,0 +1,26 @@
+{
+  "_comment": "WAITING ON DEEPER VARIABLES",
+  "components": [
+    {
+      "type": "custom",
+      "class": "betterwithmods.module.compat.patchouli.ComponentMultiblock",
+      "x": 20,
+      "y": 30,
+      "name": "#name",
+      "maxX": 50,
+      "maxY": 50,
+      "scale": 0.8,
+      "multiblock": {
+        "pattern": [
+          [
+            "B0"
+          ]
+        ],
+        "mapping": {
+          "0": "betterwithmods:saw[facing=east]",
+          "B": "#block"
+        }
+      }
+    }
+  ]
+}
