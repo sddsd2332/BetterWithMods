@@ -65,5 +65,7 @@ public class CookingPotRecipeCategory extends BWMRecipeCategory<BulkRecipeWrappe
 
         List<List<ItemStack>> inputList = ingredients.getInputs(ItemStack.class);
         craftingGrid.setInputs(stacks, inputList);
+
+        outputs.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> tooltip.add(wrapper.getRecipe().getRegistryName().toString()));
     }
 }

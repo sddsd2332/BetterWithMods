@@ -1,0 +1,24 @@
+{
+  "include": [
+    {
+      "template": "include/cauldronprocessor",
+      "as": "recipe",
+      "using": {
+        "recipe": "#cauldron"
+      }
+    }
+  ],
+  "components": [
+    {
+      "type": "header",
+      "text": "#title",
+      "x": -1,
+      "y": -5
+    },
+    {
+      "type": "text",
+      "text": "#text",
+      "y": 69
+    }
+  ]
+}

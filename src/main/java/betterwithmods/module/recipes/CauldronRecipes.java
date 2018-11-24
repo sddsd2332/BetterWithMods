@@ -5,8 +5,8 @@ import betterwithmods.common.BWMItems;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.items.ItemBark;
 import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.common.registry.bulk.recipes.CauldronRecipe;
 import betterwithmods.common.registry.bulk.recipes.builder.CauldronRecipeBuilder;
+import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import betterwithmods.library.utils.colors.ColorUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
@@ -20,10 +20,9 @@ import net.minecraft.item.ItemFood;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.FurnaceRecipes;
 import net.minecraft.item.crafting.Ingredient;
-import net.minecraftforge.event.RegistryEvent;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
-import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.oredict.OreIngredient;
 
 import java.util.Map;
@@ -137,11 +136,15 @@ public class CauldronRecipes extends RequiredFeature {
                 builder.unstoked().inputs(
                         StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER)),
                         bark
-                ).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER)).build(),
+                ).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER))
+                        .name(new ResourceLocation(ModLib.MODID, "tanned_leather"))
+                        .build(),
                 builder.unstoked().inputs(
                         StackIngredient.fromStacks(ItemMaterial.getStack(ItemMaterial.EnumMaterial.SCOURED_LEATHER_CUT, 2)),
                         bark
-                ).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2)).build(),
+                ).outputs(ItemMaterial.getStack(ItemMaterial.EnumMaterial.TANNED_LEATHER_CUT, 2))
+                        .name(new ResourceLocation(ModLib.MODID, "tanned_leather_cut"))
+                        .build(),
                 builder.unstoked().inputs(
                         new OreIngredient("dustSulfur"),
                         new OreIngredient("dustSaltpeter"),

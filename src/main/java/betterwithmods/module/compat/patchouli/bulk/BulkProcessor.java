@@ -53,7 +53,6 @@ public class BulkProcessor<V extends BulkRecipe<V>> implements IComponentProcess
             ItemStack stack = stacks.size() > index ? stacks.get(index) : ItemStack.EMPTY;
             return ItemStackUtil.serializeStack(stack);
         }
-
         return null;
     }
 }

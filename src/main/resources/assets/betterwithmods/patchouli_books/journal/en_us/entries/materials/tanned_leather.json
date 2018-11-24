@@ -8,6 +8,11 @@
       "type": "text",
       "title": "",
       "text": "DOCUMENTME"
+    },
+    {
+      "type": "cauldron_text",
+      "title": "Tanned Leather",
+      "cauldron": "betterwithmods:tanned_leather"
     }
   ],
   "sortnum": 2
