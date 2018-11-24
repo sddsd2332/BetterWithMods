@@ -10,12 +10,34 @@
       "text": "The Hemp Plant is a strong fibrous plant that grows to my height after it has matured.$(br2)To grow it requires being planted in adequately lit and moist farmland."
     },
     {
-      "type": "image",
-      "title": "Hemp Plant",
-      "border": true,
-      "images": [
-        "betterwithmods:textures/documentation/hemp.png"
-      ]
+      "type": "multiblock",
+      "name": "Hemp Plant",
+      "multiblock": {
+        "pattern": [
+          [
+            "T"
+          ],
+          [
+            "B"
+          ],
+          [
+            "F"
+          ],
+          [
+            "0"
+          ]
+        ],
+        "mapping": {
+          "0": "minecraft:air",
+          "F": "minecraft:farmland[moisture=7]",
+          "B": "betterwithmods:hemp[age=7,top=false]",
+          "T": "betterwithmods:hemp[age=7,top=true]",
+          "D": "minecraft:dirt"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of a fully grown hemp plant."
     },
     {
       "type": "mill_text",

@@ -1,0 +1,7 @@
+{
+  "name": "Monsters",
+  "description": "",
+  "icon": "minecraft:skull:4",
+  "parent": "world",
+  "sortnum": 2
+}
