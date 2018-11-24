@@ -12,7 +12,7 @@
           [" FD"]
         ],
         "mapping": {
-          "0": "minecraft:pumpkin_stem[age=7]",
+          "0": "minecraft:pumpkin_stem[age=7,facing=west]",
           "F": "minecraft:farmland[moisture=7]",
           "P": "minecraft:pumpkin",
           "D": "minecraft:dirt"
