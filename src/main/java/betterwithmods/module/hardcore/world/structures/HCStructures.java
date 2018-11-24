@@ -87,7 +87,8 @@ public class HCStructures extends Feature {
         NORMAL_DESERT_TEMPLE
                 .addChanger(new RelativePosChanger(Blocks.ENCHANTING_TABLE.getDefaultState(), new BlockPos(10, 1, 10)))
                 //Replace clay with obsidian
-                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()));
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STONE_PRESSURE_PLATE), Blocks.WOODEN_PRESSURE_PLATE.getDefaultState()));
 
 
         //TODO

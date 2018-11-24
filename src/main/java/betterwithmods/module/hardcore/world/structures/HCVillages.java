@@ -77,12 +77,13 @@ public class HCVillages extends Feature {
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.CRAFTING_TABLE), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.BOOKSHELF), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.TORCH), Blocks.AIR.getDefaultState()))
-                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.FURNACE), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.FURNACE), Blocks.COBBLESTONE.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.PLANTS), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.DIRT.getDefaultState()))
                 .addChanger(new IngredientChanger(new PredicateBlockStateIngredient((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockDoor), Blocks.AIR.getDefaultState()))
                 .addChanger(new ChestLootChanger(null));
+
 
         SEMIABANDONED
                 .addChanger(tableChanger)
@@ -96,7 +97,7 @@ public class HCVillages extends Feature {
                 .addChanger(new IngredientChanger(new PredicateBlockStateIngredient((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockDoor), Blocks.AIR.getDefaultState()))
                 .addChanger(new ChestLootChanger(null))
                 .addChanger(new CropTypeChanger(Lists.newArrayList(Blocks.POTATOES, Blocks.CARROTS, Blocks.AIR)));
-
+        //TODO configs for crop lists
         NORMAL
                 .addChanger(tableChanger)
                 .addChanger(new CropTypeChanger(Lists.newArrayList(Blocks.WHEAT, Blocks.BEETROOTS, Blocks.POTATOES, Blocks.CARROTS)));
