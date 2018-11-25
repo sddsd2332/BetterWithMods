@@ -17,7 +17,7 @@ public class PlayerInfo implements ICapabilitySerializable<NBTTagCompound> {
     @SuppressWarnings("CanBeFinal")
     @CapabilityInject(PlayerInfo.class)
     public static Capability<PlayerInfo> CAP_PLAYER_INFO = null;
-    public boolean givenManual;
+    private boolean givenManual;
     private int ticksSinceDeath;
 
     public static PlayerInfo getPlayerInfo(EntityPlayer player) {
