@@ -1,6 +1,3 @@
-[submodule "src/main/resources/assets/betterwithmods/patchouli_books/betterwithmods"]
-	path = src/main/resources/assets/betterwithmods/patchouli_books/betterwithmods
-	url = https://gitlab.com/BetterWithMods/patchouli_book
 [submodule "src/main/resources/assets/betterwithmods/documentation"]
 	path = src/main/resources/assets/betterwithmods/documentation
 	url = git@gitlab.com:BetterWithMods/Documentation.git
