@@ -96,31 +96,27 @@ public class TileBeacon extends net.minecraft.tileentity.TileEntityBeacon implem
             effect.onBeaconBreak(world, pos, currentLevel);
             WorldUtils.playBroadcast(world, effect.getDeactivationSound());
             this.effect = null;
+            this.active = false;
         }
-
         SpawnBeaconEffect.removeAll(getPos());
-
         CapabilityBeacon storage = world.getCapability(CapabilityBeacon.BEACON_CAPABILITY, EnumFacing.UP);
         if (storage != null) {
             storage.removeBeacon(pos);
         }
-
-        this.active = false;
+        markDirty();
     }
 
     public boolean canSeeSky() {
-        if (world.provider.isNether()) {
-            BlockPos.MutableBlockPos pos;
-            for (pos = new BlockPos.MutableBlockPos(getPos().up()); pos.getY() < 128; pos.setY(pos.getY() + 1)) {
-                IBlockState state = world.getBlockState(pos);
-                if (state.getBlock() == Blocks.BEDROCK)
-                    return true;
-                if (state.getBlock().getLightOpacity(state, world, pos) > 0)
-                    return false;
-            }
-            return true;
+        BlockPos.MutableBlockPos pos;
+        final int height = world.provider.isNether() ? 128 : 256;
+        for (pos = new BlockPos.MutableBlockPos(getPos().up()); pos.getY() < height; pos.setY(pos.getY() + 1)) {
+            IBlockState state = world.getBlockState(pos);
+            if (world.provider.isNether() && state.getBlock() == Blocks.BEDROCK)
+                return true;
+            if (state.getBlock().getLightOpacity(state, world, pos) > 127)
+                return false;
         }
-        return world.canBlockSeeSky(pos);
+        return true;
     }
 
     @SideOnly(Side.CLIENT)
