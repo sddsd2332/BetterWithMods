@@ -26,7 +26,9 @@ public class RenderHandler {
         HEAD_RENDERS.put(HeadType.SHEEP, new SheepHead());
         HEAD_RENDERS.put(HeadType.VILLAGER, new VillagerHead());
         HEAD_RENDERS.put(HeadType.WITCH, new VillagerHead(new ResourceLocation("minecraft:textures/entity/witch.png"), 64,128));
-
+        HEAD_RENDERS.put(HeadType.SPIDER, new SpiderHead(new ResourceLocation("minecraft:textures/entity/spider/spider.png"), 0.0625f));
+        HEAD_RENDERS.put(HeadType.CAVESPIDER, new SpiderHead(new ResourceLocation("minecraft:textures/entity/spider/cave_spider.png"), 0.04375f));
+        HEAD_RENDERS.put(HeadType.JUNGLESPIDER, new SpiderHead(new ResourceLocation("betterwithmods:textures/entity/jungle_spider.png"), 0.04375f));
     }
 
     public static IRenderHead<?> getRender(HeadType type) {
