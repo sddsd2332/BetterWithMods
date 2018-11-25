@@ -1,7 +1,6 @@
 package betterwithmods.module.general.moreheads.common;
 
 import betterwithmods.library.utils.DirUtils;
-import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.module.general.moreheads.client.TEISRHead;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -101,4 +100,6 @@ public class ItemHead extends ItemBlock {
         }
         return super.getItemStackDisplayName(stack);
     }
+
+
 }

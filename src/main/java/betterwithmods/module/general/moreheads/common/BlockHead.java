@@ -2,16 +2,14 @@ package betterwithmods.module.general.moreheads.common;
 
 import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.DirUtils;
-import net.minecraft.block.Block;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumBlockRenderType;
 import net.minecraft.util.EnumFacing;
@@ -22,6 +20,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockHead extends BlockBase {
@@ -38,6 +37,8 @@ public class BlockHead extends BlockBase {
 
     public BlockHead() {
         super(Material.CIRCUITS);
+        setHardness(1.0F);
+        setSoundType(SoundType.STONE);
     }
 
     @Override
@@ -121,5 +122,39 @@ public class BlockHead extends BlockBase {
         return super.getBoundingBox(state, source, pos);
     }
 
+
+    @Nonnull
+    @SuppressWarnings("deprecation")
+    public ItemStack getItem(IBlockAccess worldIn, BlockPos pos, @Nonnull IBlockState state) {
+        TileEntity tile = worldIn.getTileEntity(pos);
+        if (tile instanceof TileHead) {
+            TileHead head = (TileHead) tile;
+            HeadType type = head.getType();
+            if (type != null)
+                return type.getStack();
+        }
+        return new ItemStack(this);
+    }
+
+    @Override
+    public void getDrops(@Nonnull NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
+        drops.add(getItem(world, pos, state));
+    }
+
+    @Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+        if (willHarvest) return true; //If it will harvest, delay deletion of the block until after getDrops
+        return super.removedByPlayer(state, world, pos, player, willHarvest);
+    }
+
+    /**
+     * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
+     * Block.removedByPlayer
+     */
+    @Override
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool) {
+        super.harvestBlock(world, player, pos, state, te, tool);
+        world.setBlockToAir(pos);
+    }
 
 }
