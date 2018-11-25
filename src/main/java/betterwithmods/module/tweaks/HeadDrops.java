@@ -8,11 +8,8 @@ import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.item.EntityItem;
-import net.minecraft.entity.monster.EntityCreeper;
-import net.minecraft.entity.monster.EntitySkeleton;
-import net.minecraft.entity.monster.EntityWitherSkeleton;
-import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -22,7 +19,6 @@ import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import java.security.Provider;
 import java.util.HashMap;
 import java.util.function.Supplier;
 
@@ -76,10 +72,15 @@ public class HeadDrops extends Feature {
     }
 
     public static void addHead(LivingDropsEvent event, double chance) {
+        EntityLivingBase entity = event.getEntityLiving();
+        if (entity instanceof EntityDragon) {
+            addDrop(event, new ItemStack(Items.SKULL, 1, 5));
+        }
+
         if (event.getEntity().getEntityWorld().rand.nextDouble() > chance)
             return;
 
-        EntityLivingBase entity = event.getEntityLiving();
+
         if (entity instanceof EntityPlayer) {
             addDrop(event, PlayerUtils.getPlayerHead((EntityPlayer) event.getEntityLiving()));
         } else {
