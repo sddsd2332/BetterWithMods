@@ -19,9 +19,4 @@ public class SpiderHead extends RenderHeadModel<ModelSpiderHead> {
     public float getScale() {
         return scale;
     }
-
-    @Override
-    public ModelSpiderHead getModel() {
-        return new ModelSpiderHead(0, 0, 64, 32);
-    }
 }

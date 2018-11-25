@@ -69,6 +69,7 @@ public class ItemHead extends ItemBlock {
                     }
                     head.setType(getHeadType(itemstack));
                     tile.markDirty();
+                    itemstack.shrink(1);
                 }
 
                 return EnumActionResult.SUCCESS;
