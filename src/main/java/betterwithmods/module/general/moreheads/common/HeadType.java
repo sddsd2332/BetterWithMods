@@ -1,11 +1,16 @@
 package betterwithmods.module.general.moreheads.common;
 
+import betterwithmods.common.BWMBlocks;
 import betterwithmods.library.utils.DirUtils;
+import net.minecraft.item.ItemStack;
+import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
+import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.Vec3d;
 
 import javax.annotation.Nonnull;
+import javax.annotation.Nullable;
 
 public enum HeadType implements IStringSerializable {
 
@@ -25,7 +30,7 @@ public enum HeadType implements IStringSerializable {
             new Vec3d(0.5, 0.25, 0.125),
             new Vec3d(0.875, 0.25, 0.5),
             new Vec3d(0.125, 0.25, 0.5)),
-    MUSHROOMCOW("mushroomcow", "entity.MushroomCow.name", DirUtils.CENTER, DirUtils.CENTER,
+    MUSHROOMCOW("mooshroom", "entity.MushroomCow.name", DirUtils.CENTER, DirUtils.CENTER,
             new Vec3d(0.5, 0.25, 0.875),
             new Vec3d(0.5, 0.25, 0.125),
             new Vec3d(0.875, 0.25, 0.5),
@@ -69,20 +74,20 @@ public enum HeadType implements IStringSerializable {
 
     public static HeadType[] VALUES = values();
 
-    private Vec3d[] translations = new Vec3d[0];
+    private Vec3d[] translations;
 
     HeadType(String name, String entityUnlocalizedName, Vec3d... translations) {
+        this(new ResourceLocation(name), entityUnlocalizedName, translations);
+    }
+
+    HeadType(ResourceLocation name, String entityUnlocalizedName, Vec3d... translations) {
         this.name = name;
         this.translations = translations;
         this.entityUnlocalizedName = entityUnlocalizedName;
     }
 
-    private String name;
+    private ResourceLocation name;
     private String entityUnlocalizedName;
-
-    HeadType(String entityUnlocalizedName) {
-        this.entityUnlocalizedName = entityUnlocalizedName;
-    }
 
     public String getEntityUnlocalizedName() {
         return entityUnlocalizedName;
@@ -106,9 +111,22 @@ public enum HeadType implements IStringSerializable {
         return null;
     }
 
+    @Nullable
+    public ResourceLocation getRegistryName() {
+        return name;
+    }
+
     @Nonnull
     @Override
     public String getName() {
-        return name;
+        return name.toString();
+    }
+
+    public ItemStack getStack() {
+        ItemStack stack = new ItemStack(BWMBlocks.HEAD);
+        NBTTagCompound tag= new NBTTagCompound();
+        tag.setString("type", this.getName());
+        stack.setTagCompound(tag);
+        return stack;
     }
 }

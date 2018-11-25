@@ -44,7 +44,7 @@ public class RenderHeadModel<M extends ModelBase> implements IRenderHead<M> {
         GlStateManager.scale(-1.0F, -1.0F, 1.0F);
         GlStateManager.enableAlpha();
         getModel().render(null, partialTicks, 0.0F, 0.0F, rotation, 0.0F, getScale());
-
+        GlStateManager.enableCull();
         GlStateManager.popMatrix();
     }
 

@@ -4,7 +4,9 @@ import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.BWMItems;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.util.PlayerUtils;
+import com.google.common.collect.Maps;
 import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityCreeper;
@@ -15,9 +17,14 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
 import net.minecraft.util.DamageSource;
+import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
+
+import java.security.Provider;
+import java.util.HashMap;
+import java.util.function.Supplier;
 
 /**
  * Created by primetoxinz on 5/13/17.
@@ -25,13 +32,25 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 
 public class HeadDrops extends Feature {
-    private static int sawHeadDropChance, battleAxeHeadDropChance;
+    private static double sawHeadDropChance, battleAxeHeadDropChance;
+
+    public static HashMap<ResourceLocation, Supplier<ItemStack>> HEADDROPS = Maps.newHashMap();
+
+    public static void addHeadDrop(ResourceLocation location, Supplier<ItemStack> head) {
+        HEADDROPS.put(location, head);
+    }
+
+    public static ItemStack getHeadDrop(ResourceLocation location) {
+        if (HEADDROPS.containsKey(location))
+            return HEADDROPS.get(location).get().copy();
+        return ItemStack.EMPTY;
+    }
 
     @SubscribeEvent
     public void onLivingDrop(LivingDropsEvent event) {
         if (isChoppingBlock(event.getSource()))
             addHead(event, sawHeadDropChance);
-        if (isBattleAxe(event.getEntityLiving()))
+        if (isBattleAxe(event.getSource()))
             addHead(event, battleAxeHeadDropChance);
     }
 
@@ -39,8 +58,7 @@ public class HeadDrops extends Feature {
         return source.equals(BWMDamageSource.getChoppingBlockDamage());
     }
 
-    private static boolean isBattleAxe(EntityLivingBase entity) {
-        DamageSource source = entity.getLastDamageSource();
+    private static boolean isBattleAxe(DamageSource source) {
         if (source != null && source.getImmediateSource() != null) {
             Entity e = source.getImmediateSource();
             if (e instanceof EntityLivingBase) {
@@ -51,32 +69,38 @@ public class HeadDrops extends Feature {
         return false;
     }
 
-    public static void addDrop(LivingDropsEvent evt, ItemStack drop) {
-        EntityItem item = new EntityItem(evt.getEntityLiving().getEntityWorld(), evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, drop);
+    public static void addDrop(LivingDropsEvent event, ItemStack drop) {
+        EntityItem item = new EntityItem(event.getEntityLiving().getEntityWorld(), event.getEntityLiving().posX, event.getEntityLiving().posY, event.getEntityLiving().posZ, drop);
         item.setDefaultPickupDelay();
-        evt.getDrops().add(item);
+        event.getDrops().add(item);
     }
 
-    public static void addHead(LivingDropsEvent evt, int chance) {
-        if (chance > 0 && evt.getEntity().getEntityWorld().rand.nextInt(chance) != 0)
+    public static void addHead(LivingDropsEvent event, double chance) {
+        if (event.getEntity().getEntityWorld().rand.nextDouble() > chance)
             return;
-        if (evt.getEntityLiving() instanceof EntitySkeleton)
-            addDrop(evt, new ItemStack(Items.SKULL, 1, 0));
-        else if (evt.getEntityLiving() instanceof EntityWitherSkeleton)
-            addDrop(evt, new ItemStack(Items.SKULL, 1, 1));
-        else if (evt.getEntityLiving() instanceof EntityZombie)
-            addDrop(evt, new ItemStack(Items.SKULL, 1, 2));
-        else if (evt.getEntityLiving() instanceof EntityCreeper)
-            addDrop(evt, new ItemStack(Items.SKULL, 1, 4));
-        else if (evt.getEntityLiving() instanceof EntityPlayer) {
-            addDrop(evt, PlayerUtils.getPlayerHead((EntityPlayer) evt.getEntityLiving()));
+
+        EntityLivingBase entity = event.getEntityLiving();
+        if (entity instanceof EntityPlayer) {
+            addDrop(event, PlayerUtils.getPlayerHead((EntityPlayer) event.getEntityLiving()));
+        } else {
+            ResourceLocation key = EntityList.getKey(entity);
+            ItemStack stack = getHeadDrop(key);
+            if (!stack.isEmpty()) {
+                addDrop(event, stack);
+            }
         }
     }
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        sawHeadDropChance = loadProperty("Saw Drop Chance", 3).setComment("Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely").get();
-        battleAxeHeadDropChance = loadProperty("BattleAxe Drop Chance", 3).setComment("Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely").get();
+        sawHeadDropChance = loadProperty("Saw Drop Chance", 0.33).setComment("Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely").get();
+        battleAxeHeadDropChance = loadProperty("BattleAxe Drop Chance", 0.33).setComment("Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely").get();
+
+        addHeadDrop(new ResourceLocation("skeleton"), () -> new ItemStack(Items.SKULL));
+        addHeadDrop(new ResourceLocation("wither_skeleton"), () -> new ItemStack(Items.SKULL, 1, 1));
+        addHeadDrop(new ResourceLocation("zombie"), () -> new ItemStack(Items.SKULL, 1, 2));
+        addHeadDrop(new ResourceLocation("creeper"), () -> new ItemStack(Items.SKULL, 1, 4));
+
     }
 
     @Override

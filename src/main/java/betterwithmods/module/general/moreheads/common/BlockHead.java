@@ -45,7 +45,7 @@ public class BlockHead extends BlockBase {
         TileEntity tile = world.getTileEntity(pos);
         if (tile instanceof TileHead) {
             HeadType type = ((TileHead) tile).getType();
-            return getStack(type);
+            return type.getStack();
         }
         return super.getPickBlock(state, target, world, pos, player);
     }
@@ -63,7 +63,7 @@ public class BlockHead extends BlockBase {
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
         for (HeadType type : HeadType.VALUES) {
-            items.add(getStack(type));
+            items.add(type.getStack());
         }
     }
 
@@ -121,11 +121,5 @@ public class BlockHead extends BlockBase {
         return super.getBoundingBox(state, source, pos);
     }
 
-    private ItemStack getStack(HeadType type) {
-        ItemStack stack = new ItemStack(this);
-        NBTTagCompound tag= new NBTTagCompound();
-        tag.setString("type", type.getName());
-        stack.setTagCompound(tag);
-        return stack;
-    }
+
 }
