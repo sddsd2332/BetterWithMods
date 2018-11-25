@@ -1,7 +1,7 @@
 package betterwithmods.common.items.tools;
 
 import betterwithmods.common.BWMOreDictionary;
-import betterwithmods.module.hardcore.creatures.HCEnchanting;
+import betterwithmods.module.general.InfernalEnchanting;
 import betterwithmods.module.internal.ItemRegistry;
 import com.google.common.collect.ImmutableSet;
 import net.minecraft.block.state.IBlockState;
@@ -43,6 +43,6 @@ public class ItemSoulforgedPickaxe extends ItemPickaxe {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return HCEnchanting.canEnchantSteel(enchantment) && super.canApplyAtEnchantingTable(stack, enchantment);
+        return InfernalEnchanting.canEnchantSteel(enchantment) && super.canApplyAtEnchantingTable(stack, enchantment);
     }
 }

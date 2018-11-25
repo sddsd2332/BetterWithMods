@@ -2,7 +2,7 @@ package betterwithmods.common.items.tools;
 
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.lib.ModLib;
-import betterwithmods.module.hardcore.creatures.HCEnchanting;
+import betterwithmods.module.general.InfernalEnchanting;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.entity.Entity;
 import net.minecraft.init.SoundEvents;
@@ -40,6 +40,6 @@ public class ItemSoulforgeArmor extends ItemArmor {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return HCEnchanting.canEnchantSteel(enchantment) && super.canApplyAtEnchantingTable(stack, enchantment);
+        return InfernalEnchanting.canEnchantSteel(enchantment) && super.canApplyAtEnchantingTable(stack, enchantment);
     }
 }

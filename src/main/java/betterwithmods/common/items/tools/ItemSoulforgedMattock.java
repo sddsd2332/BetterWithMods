@@ -3,7 +3,7 @@ package betterwithmods.common.items.tools;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.library.utils.ToolUtils;
-import betterwithmods.module.hardcore.creatures.HCEnchanting;
+import betterwithmods.module.general.InfernalEnchanting;
 import betterwithmods.module.internal.ItemRegistry;
 import betterwithmods.util.PlayerUtils;
 import com.google.common.collect.ImmutableSet;
@@ -57,7 +57,7 @@ public class ItemSoulforgedMattock extends ItemTool {
 
     @Override
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
-        return HCEnchanting.canEnchantSteel(enchantment) && super.canApplyAtEnchantingTable(stack, enchantment);
+        return InfernalEnchanting.canEnchantSteel(enchantment) && super.canApplyAtEnchantingTable(stack, enchantment);
     }
 
     @Override

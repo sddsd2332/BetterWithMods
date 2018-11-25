@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.creatures;
+package betterwithmods.module.general;
 
 import betterwithmods.common.items.ItemArcaneScroll;
 import betterwithmods.library.common.modularity.impl.Feature;
@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 
-public class HCEnchanting extends Feature {
+public class InfernalEnchanting extends Feature {
     private static final HashMap<Class<? extends EntityLivingBase>, ScrollDrop> SCROLL_DROPS = Maps.newHashMap();
 
     private static Map<Enchantment, Integer> LEVEL_OVERRIDE = Maps.newHashMap();

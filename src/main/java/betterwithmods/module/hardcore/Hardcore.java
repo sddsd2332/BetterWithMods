@@ -80,7 +80,6 @@ public class Hardcore extends Module {
         addFeature(new HCMovement());
         addFeature(new MoreCobble());
         addFeature(new HCDeadweight());
-        addFeature(new HCEnchanting());
         addFeature(new HCStrata());
         addFeature(new HCFurnace());
         addFeature(new HCSapling());

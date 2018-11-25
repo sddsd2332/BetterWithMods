@@ -26,7 +26,8 @@ public class General extends RequiredModule {
                 new FluidBottles(),
                 new UnitTesting(),
                 new Pulley(),
-                new MoreHeads()
+                new MoreHeads(),
+                new InfernalEnchanting()
         );
     }
 

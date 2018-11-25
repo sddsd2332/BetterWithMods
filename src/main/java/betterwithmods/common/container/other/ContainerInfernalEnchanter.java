@@ -10,7 +10,7 @@ import betterwithmods.library.common.container.SlotItemHandlerFiltered;
 import betterwithmods.library.common.container.SlotTransformation;
 import betterwithmods.library.common.inventory.SimpleStackHandler;
 import betterwithmods.library.utils.GuiUtils;
-import betterwithmods.module.hardcore.creatures.HCEnchanting;
+import betterwithmods.module.general.InfernalEnchanting;
 import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.util.InfernalEnchantment;
 import net.minecraft.client.gui.inventory.GuiContainer;
@@ -113,10 +113,10 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
     }
 
     private int getEnchantCost(int levelIndex, Enchantment enchantment, int enchantCount) {
-        if (enchantment == null || levelIndex > HCEnchanting.getMaxLevel(enchantment)) {
+        if (enchantment == null || levelIndex > InfernalEnchanting.getMaxLevel(enchantment)) {
             return -1;
         } else {
-            double max = Math.min(HCEnchanting.getMaxLevel(enchantment), enchantLevels.length);
+            double max = Math.min(InfernalEnchanting.getMaxLevel(enchantment), enchantLevels.length);
             double multiplier = levelIndex / max;
             return (int) Math.ceil(30.0 * multiplier) + (30 * enchantCount);
         }
