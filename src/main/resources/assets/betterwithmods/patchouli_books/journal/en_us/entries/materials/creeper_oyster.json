@@ -1,7 +1,7 @@
 {
-  "name": "Wool Armor",
-  "icon": "betterwithmods:wool_helmet",
-  "category": "tools",
+  "name": "Creeper Oyster",
+  "icon": "betterwithmods:creeper_oyster",
+  "category": "materials",
   "pages": [
     {
       "type": "text",

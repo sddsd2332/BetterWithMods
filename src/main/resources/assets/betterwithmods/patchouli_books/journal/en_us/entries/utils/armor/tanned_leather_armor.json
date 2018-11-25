@@ -1,0 +1,19 @@
+{
+  "name": "Tanned Leather Armor",
+  "icon": "betterwithmods:leather_tanned_helmet",
+  "advancement": "betterwithmods:tanned_leather",
+  "category": "armor",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:armor_stand{ShowArms:1,ArmorItems:[{id:'betterwithmods:leather_tanned_boots',Count:1b},{id:'betterwithmods:leather_tanned_pants',Count:1b},{id:'betterwithmods:leather_tanned_chest',Count:1b},{id:'betterwithmods:leather_tanned_helmet',Count:1b}],HandItems:[{},{}]}",
+      "scale": 0.75
+    }
+  ],
+  "sortnum": 3
+}

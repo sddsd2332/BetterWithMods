@@ -1,0 +1,7 @@
+{
+  "name": "Armor",
+  "description": "",
+  "icon": "betterwithmods:steel_helmet",
+  "parent": "tools",
+  "sortnum": 8
+}

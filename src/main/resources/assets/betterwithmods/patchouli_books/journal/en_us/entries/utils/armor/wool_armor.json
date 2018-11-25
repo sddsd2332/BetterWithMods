@@ -1,0 +1,18 @@
+{
+  "name": "Wool Armor",
+  "icon": "betterwithmods:wool_helmet",
+  "category": "armor",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:armor_stand{ShowArms:1,ArmorItems:[{id:'betterwithmods:wool_boots',Count:1b},{id:'betterwithmods:wool_pants',Count:1b},{id:'betterwithmods:wool_chest',Count:1b},{id:'betterwithmods:wool_helmet',Count:1b}],HandItems:[{},{}]}",
+      "scale": 0.75
+    }
+  ],
+  "sortnum": 2
+}

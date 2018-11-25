@@ -1,8 +1,8 @@
 {
-  "name": "Ender  Spectacles",
+  "name": "Ender Spectacles",
   "icon": "betterwithmods:ender_spectacles",
   "advancement": "betterwithmods:tanned_leather",
-  "category": "tools",
+  "category": "armor",
   "pages": [
     {
       "type": "text",

@@ -1,0 +1,18 @@
+{
+  "name": "Plated Armor",
+  "icon": "betterwithmods:steel_helmet",
+  "category": "armor",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:armor_stand{ShowArms:1,ArmorItems:[{id:'betterwithmods:steel_boots',Count:1b},{id:'betterwithmods:steel_pants',Count:1b},{id:'betterwithmods:steel_chest',Count:1b},{id:'betterwithmods:steel_helmet',Count:1b}],HandItems:[{},{}]}",
+      "scale": 0.75
+    }
+  ],
+  "sortnum": 5
+}
