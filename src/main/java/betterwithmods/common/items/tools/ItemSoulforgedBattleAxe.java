@@ -29,7 +29,7 @@ public class ItemSoulforgedBattleAxe extends ItemAxe {
     public boolean canApplyAtEnchantingTable(ItemStack stack, Enchantment enchantment) {
         if (HCEnchanting.canEnchantSteel(enchantment)) {
             EnumEnchantmentType type = enchantment.type;
-            return type == EnumEnchantmentType.WEAPON || type == EnumEnchantmentType.DIGGER;
+            return type == EnumEnchantmentType.WEAPON || type == EnumEnchantmentType.DIGGER || type == EnumEnchantmentType.BREAKABLE || type == EnumEnchantmentType.ALL;
         }
         return false;
 

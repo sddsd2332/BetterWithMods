@@ -73,7 +73,8 @@ public class ContainerInfernalEnchanter extends ContainerTile<TileInfernalEnchan
     }
 
     public int getEnchantLevel(int i) {
-        return getPropertyValue(getLevelName(i));
+        ResourceLocation l = getLevelName(i);
+        return getPropertyValue(l, 0);
     }
 
     private boolean areValidItems(ItemStack scroll, ItemStack item) {

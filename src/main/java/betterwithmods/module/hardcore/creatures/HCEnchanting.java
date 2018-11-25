@@ -162,6 +162,7 @@ public class HCEnchanting extends Feature {
         });
 
         addEnchantOverride(Enchantments.RESPIRATION, 5);
+        addEnchantOverride(Enchantments.UNBREAKING, 4);
 
 
         //TODO

@@ -11,7 +11,6 @@ import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 public class HCHardness extends Feature {
 
     private static void rebalanceVanillaHardness() {
-        Blocks.STONE.setHardness(2.25F).setResistance(10.0F);
         Blocks.PLANKS.setHardness(1.0F).setResistance(5.0F);
         Blocks.LOG.setHardness(1.25F);
         Blocks.LOG2.setHardness(1.25F);
