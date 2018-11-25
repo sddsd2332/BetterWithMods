@@ -178,6 +178,7 @@ tile.betterwithmods:deadweight.intact.name=Deadweight
 tile.betterwithmods:deadweight.slightlyDamaged.name=Slightly Damaged Deadweight
 tile.betterwithmods:deadweight.veryDamaged.name=Very Damaged Deadweight
 tile.betterwithmods:bucket.name=Well Bucket
+tile.betterwithmods:head.name=Head
 
 item.betterwithmods:wooden_gear.name=Wooden Gear
 item.betterwithmods:nethercoal.name=Nethercoal
