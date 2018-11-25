@@ -12,7 +12,7 @@ import betterwithmods.lib.ModLib;
 import betterwithmods.library.client.resourceproxy.ResourcePackProxy;
 import betterwithmods.library.common.modularity.impl.ModuleLoader;
 import betterwithmods.library.common.modularity.impl.proxy.ClientProxy;
-import betterwithmods.module.hardcore.beacons.TileBeacon;
+import betterwithmods.module.conversion.beacons.TileBeacon;
 import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.client.renderer.color.BlockColors;
 import net.minecraft.client.renderer.color.ItemColors;

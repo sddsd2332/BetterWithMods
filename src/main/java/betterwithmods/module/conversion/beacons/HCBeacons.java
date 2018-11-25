@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.beacons;
+package betterwithmods.module.conversion.beacons;
 
 import betterwithmods.common.blocks.BlockBeacon;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;
@@ -34,7 +34,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import java.awt.*;
 import java.util.List;
 
-import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CAPABILITY;
+import static betterwithmods.module.conversion.beacons.EnderchestCap.ENDERCHEST_CAPABILITY;
 
 
 /**

@@ -1,6 +1,6 @@
 package betterwithmods.common.blocks;
 
-import betterwithmods.module.hardcore.beacons.TileBeacon;
+import betterwithmods.module.conversion.beacons.TileBeacon;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.player.EntityPlayer;

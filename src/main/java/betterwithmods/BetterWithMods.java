@@ -3,6 +3,7 @@ package betterwithmods;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.ModuleLoader;
 import betterwithmods.library.common.modularity.impl.proxy.Proxy;
+import betterwithmods.module.conversion.Conversion;
 import betterwithmods.module.exploration.Exploration;
 import betterwithmods.module.general.General;
 import betterwithmods.module.hardcore.Hardcore;
@@ -26,7 +27,8 @@ public class BetterWithMods {
             new Recipes(),
             new Tweaks(),
             new Hardcore(),
-            new Exploration()
+            new Exploration(),
+            new Conversion()
     );
     public static Logger LOGGER;
     @SidedProxy(serverSide = ModLib.SERVER_PROXY, clientSide = ModLib.CLIENT_PROXY, modId = ModLib.MODID)

@@ -1,7 +1,8 @@
-package betterwithmods.module.hardcore.needs.hunger;
+package betterwithmods.module.conversion.hunger;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.client.gui.GuiHunger;
+import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.items.itemblocks.ItemBlockEdible;
@@ -278,6 +279,8 @@ public class HCHunger extends Feature {
                     ).id("minecraft:red_mushroom"));
         }
         ItemRegistry.registerItems(factory.complete());
+
+        GuiStatus.isHungerLoaded = true;
     }
 
     @Override

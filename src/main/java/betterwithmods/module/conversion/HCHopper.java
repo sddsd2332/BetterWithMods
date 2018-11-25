@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.crafting;
+package betterwithmods.module.conversion;
 
 import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.Feature;
@@ -15,11 +15,6 @@ import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import javax.annotation.Nullable;
 
 public class HCHopper extends Feature {
-
-    @Override
-    protected boolean isEnabledByDefault() {
-        return false;
-    }
 
     @Override
     public String getDescription() {

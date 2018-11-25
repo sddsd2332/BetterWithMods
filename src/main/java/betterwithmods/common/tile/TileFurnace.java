@@ -1,6 +1,6 @@
 package betterwithmods.common.tile;
 
-import betterwithmods.module.hardcore.crafting.HCFurnace;
+import betterwithmods.module.conversion.HCFurnace;
 import net.minecraft.block.BlockFurnace;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;

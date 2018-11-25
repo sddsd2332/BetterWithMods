@@ -2,7 +2,7 @@ package betterwithmods.client.gui;
 
 
 import betterwithmods.common.penalties.BasicPenalty;
-import betterwithmods.module.hardcore.needs.hunger.HCHunger;
+import betterwithmods.module.conversion.hunger.HCHunger;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.ScaledResolution;
 import net.minecraft.client.renderer.GlStateManager;

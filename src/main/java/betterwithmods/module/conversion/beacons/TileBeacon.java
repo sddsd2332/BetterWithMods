@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.beacons;
+package betterwithmods.module.conversion.beacons;
 
 import betterwithmods.library.utils.colors.ColorUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;

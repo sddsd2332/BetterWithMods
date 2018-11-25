@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.needs.hunger;
+package betterwithmods.module.conversion.hunger;
 
 import betterwithmods.library.utils.InventoryUtils;
 import com.google.common.collect.Maps;

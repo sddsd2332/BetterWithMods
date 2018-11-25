@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.beacons;
+package betterwithmods.module.conversion.beacons;
 
 import betterwithmods.library.utils.CapabilityUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -13,7 +13,7 @@ import net.minecraftforge.common.DimensionManager;
 import javax.annotation.Nonnull;
 import java.util.function.BiFunction;
 
-import static betterwithmods.module.hardcore.beacons.EnderchestCap.ENDERCHEST_CAPABILITY;
+import static betterwithmods.module.conversion.beacons.EnderchestCap.ENDERCHEST_CAPABILITY;
 
 public class TileEnderchest extends TileEntityEnderChest {
 
