@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.needs;
 
+import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
@@ -214,6 +215,7 @@ public class HCGloom extends Feature {
         MiscRegistry.PENALTY_HANDLERS.add(PENALTIES = new GloomPenalties(this));
         CapabilityManager.INSTANCE.register(Gloom.class, new CapabilityGloom(), Gloom::new);
 
+        GuiStatus.isGloomLoaded = true;
     }
 
     @Override

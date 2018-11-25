@@ -1,5 +1,6 @@
 package betterwithmods.module.hardcore.needs;
 
+import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.common.penalties.HealthPenalities;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.MiscRegistry;
@@ -12,6 +13,8 @@ public class HCInjury extends Feature {
     @Override
     public void onPreInit(FMLPreInitializationEvent event) {
         MiscRegistry.PENALTY_HANDLERS.add(new HealthPenalities(this));
+
+        GuiStatus.isInjuryLoaded = true;
     }
 
     @Override

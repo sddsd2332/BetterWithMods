@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.crafting;
+package betterwithmods.module.conversion;
 
 import betterwithmods.client.tesr.TESRFurnaceContent;
 import betterwithmods.common.blocks.BlockFurnace;

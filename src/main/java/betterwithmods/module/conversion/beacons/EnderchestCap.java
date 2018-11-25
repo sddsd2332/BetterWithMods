@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.beacons;
+package betterwithmods.module.conversion.beacons;
 
 import net.minecraft.inventory.InventoryEnderChest;
 import net.minecraft.nbt.NBTBase;

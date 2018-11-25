@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.beacons;
+package betterwithmods.module.conversion.beacons;
 
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
