@@ -11,14 +11,11 @@ import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
-import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.init.Enchantments;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
-import net.minecraft.stats.StatList;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
@@ -133,10 +130,25 @@ public abstract class BlockDynamic extends BlockBase {
     public void onBlockPlacedBy(World world, BlockPos pos, IBlockState state, EntityLivingBase placer, ItemStack stack) {
     }
 
+    @Override
+    public boolean removedByPlayer(IBlockState state, World world, BlockPos pos, EntityPlayer player, boolean willHarvest) {
+        if (willHarvest) return true; //If it will harvest, delay deletion of the block until after getDrops
+        return super.removedByPlayer(state, world, pos, player, willHarvest);
+    }
+
+    /**
+     * Spawns the block's drops in the world. By the time this is called the Block has possibly been set to air via
+     * Block.removedByPlayer
+     */
+    @Override
+    public void harvestBlock(World world, EntityPlayer player, BlockPos pos, IBlockState state, @Nullable TileEntity te, ItemStack tool) {
+        super.harvestBlock(world, player, pos, state, te, tool);
+        world.setBlockToAir(pos);
+    }
+
     @Nonnull
     @SuppressWarnings("deprecation")
-    @Override
-    public ItemStack getItem(World worldIn, BlockPos pos, @Nonnull IBlockState state) {
+    public ItemStack getItem(IBlockAccess worldIn, BlockPos pos, @Nonnull IBlockState state) {
         TileEntity tile = worldIn.getTileEntity(pos);
         if (tile instanceof TileCamo) {
             TileCamo mini = (TileCamo) tile;
@@ -145,59 +157,10 @@ public abstract class BlockDynamic extends BlockBase {
         return new ItemStack(this);
     }
 
-
     @Override
-    public final void getDrops(@Nonnull NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
-        getDrops(drops, world, pos, state, null, fortune, false);
+    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+        drops.add(getItem(world, pos, state));
     }
-
-
-    @Override
-    public void harvestBlock(@Nonnull World worldIn, @Nonnull EntityPlayer player, @Nonnull BlockPos pos, @Nonnull IBlockState state, @Nullable TileEntity te, ItemStack stack) {
-        player.addStat(StatList.getBlockStats(this));
-        player.addExhaustion(0.005F);
-        int fortuneLevel = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
-        boolean silkTouch = EnchantmentHelper.getEnchantmentLevel(Enchantments.SILK_TOUCH, stack) > 0;
-
-        NonNullList<ItemStack> items = NonNullList.create();
-        getDrops(items, worldIn, pos, state, te, 0, false);
-        float chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(items, worldIn, pos, state, fortuneLevel, 1.0f, silkTouch, player);
-
-        harvesters.set(player);
-
-        if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
-            for (ItemStack item : items)
-                if (chance >= 1.0f || worldIn.rand.nextFloat() <= chance)
-                    spawnAsEntity(worldIn, pos, item);
-        }
-
-        harvesters.set(null);
-    }
-
-    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, @Nullable TileEntity te, int fortune, boolean silkTouch) {
-        if (te instanceof TileCamo) {
-            drops.add(((TileCamo) te).getPickBlock(null, null, state));
-        } else {
-            super.getDrops(drops, world, pos, state, fortune);
-        }
-    }
-
-
-    @Override
-    public void dropBlockAsItemWithChance(World worldIn, @Nonnull BlockPos pos, @Nonnull IBlockState state, float chance, int fortune) {
-        if (!worldIn.isRemote && !worldIn.restoringBlockSnapshots) {
-            NonNullList<ItemStack> drops = NonNullList.create();
-            getDrops(drops, worldIn, pos, state, worldIn.getTileEntity(pos), fortune, false);
-            chance = net.minecraftforge.event.ForgeEventFactory.fireBlockHarvesting(drops, worldIn, pos, state, fortune, chance, false, harvesters.get());
-
-            for (ItemStack drop : drops) {
-                if (worldIn.rand.nextFloat() <= chance) {
-                    spawnAsEntity(worldIn, pos, drop);
-                }
-            }
-        }
-    }
-
 
     @Nonnull
     @Override
