@@ -1,0 +1,17 @@
+{
+  "name": "Blaze",
+  "icon": "betterwithmods:head{type: 'minecraft:blaze'}",
+  "category": "monsters",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:blaze",
+      "scale": 0.75
+    }
+  ]
+}

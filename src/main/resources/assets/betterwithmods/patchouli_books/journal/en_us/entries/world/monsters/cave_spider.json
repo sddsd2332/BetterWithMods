@@ -1,0 +1,17 @@
+{
+  "name": "Cave Spider",
+  "icon": "betterwithmods:head{type: 'minecraft:cave_spider'}",
+  "category": "monsters",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:cave_spider",
+      "scale": 0.75
+    }
+  ]
+}

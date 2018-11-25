@@ -1,0 +1,17 @@
+{
+  "name": "Slime",
+  "icon": "betterwithmods:head{type: 'minecraft:slime'}",
+  "category": "monsters",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:slime",
+      "scale": 0.75
+    }
+  ]
+}

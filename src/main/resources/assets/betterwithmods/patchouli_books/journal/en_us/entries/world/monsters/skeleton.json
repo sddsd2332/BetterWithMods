@@ -1,0 +1,17 @@
+{
+  "name": "Skeleton",
+  "icon": "minecraft:skull:0",
+  "category": "monsters",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:skeleton",
+      "scale": 0.75
+    }
+  ]
+}

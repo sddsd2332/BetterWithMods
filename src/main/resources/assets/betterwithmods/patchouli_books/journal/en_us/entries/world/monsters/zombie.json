@@ -1,0 +1,17 @@
+{
+  "name": "Zombie ",
+  "icon": "minecraft:skull:2",
+  "category": "monsters",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:zombie",
+      "scale": 0.75
+    }
+  ]
+}

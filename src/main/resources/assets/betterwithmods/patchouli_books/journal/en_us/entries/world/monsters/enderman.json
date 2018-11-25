@@ -1,0 +1,17 @@
+{
+  "name": "Enderman",
+  "icon": "betterwithmods:head{type: 'minecraft:enderman'}",
+  "category": "monsters",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:enderman",
+      "scale": 0.75
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Sheep",
+  "icon": "betterwithmods:head{type: 'minecraft:sheep'}",
+  "category": "animals",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:sheep",
+      "scale": 0.75
+    }
+  ]
+}

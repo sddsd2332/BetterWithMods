@@ -1,0 +1,17 @@
+{
+  "name": "Rabbit",
+  "icon": "minecraft:rabbit_hide",
+  "category": "animals",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:rabbit",
+      "scale": 0.75
+    }
+  ]
+}

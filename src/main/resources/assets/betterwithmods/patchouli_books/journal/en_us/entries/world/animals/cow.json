@@ -1,0 +1,17 @@
+{
+  "name": "Cow",
+  "icon": "betterwithmods:head{type: 'minecraft:cow'}",
+  "category": "animals",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:cow",
+      "scale": 0.75
+    }
+  ]
+}

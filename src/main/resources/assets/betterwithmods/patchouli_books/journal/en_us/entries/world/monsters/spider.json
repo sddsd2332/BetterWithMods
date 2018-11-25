@@ -1,0 +1,17 @@
+{
+  "name": "Spider",
+  "icon": "betterwithmods:head{type: 'minecraft:spider'}",
+  "category": "monsters",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:spider",
+      "scale": 0.75
+    }
+  ]
+}

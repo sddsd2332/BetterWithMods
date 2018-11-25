@@ -1,0 +1,17 @@
+{
+  "name": "Mooshroom",
+  "icon": "betterwithmods:head{type: 'minecraft:mooshroom'}",
+  "category": "animals",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:mooshroom",
+      "scale": 0.75
+    }
+  ]
+}

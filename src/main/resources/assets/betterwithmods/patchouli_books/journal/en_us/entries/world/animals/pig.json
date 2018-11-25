@@ -1,0 +1,17 @@
+{
+  "name": "Pig",
+  "icon": "betterwithmods:head{type: 'minecraft:pig'}",
+  "category": "animals",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:pig",
+      "scale": 0.75
+    }
+  ]
+}

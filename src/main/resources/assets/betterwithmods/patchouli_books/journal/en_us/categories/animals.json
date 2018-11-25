@@ -1,7 +1,7 @@
 {
   "name": "Animals",
   "description": "",
-  "icon": "minecraft:player_head{display:{Name:'Cow'},SkullOwner:{Name:'mooooooojang'}}",
+  "icon": "betterwithmods:head{type: 'minecraft:cow'}",
   "parent": "world",
   "sortnum": 2
 }

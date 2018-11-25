@@ -1,0 +1,17 @@
+{
+  "name": "Wither Skeleton",
+  "icon": "minecraft:skull:1",
+  "category": "monsters",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:wither_skeleton",
+      "scale": 0.75
+    }
+  ]
+}

@@ -1,0 +1,17 @@
+{
+  "name": "Horse",
+  "icon": "minecraft:leather",
+  "category": "animals",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:horse",
+      "scale": 0.75
+    }
+  ]
+}
