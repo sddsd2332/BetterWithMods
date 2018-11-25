@@ -1,6 +1,7 @@
 package betterwithmods.common.blocks;
 
 import betterwithmods.common.BWMOreDictionary;
+import betterwithmods.module.general.moreheads.common.BlockHead;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockSkull;
 import net.minecraft.block.BlockTorch;
@@ -47,7 +48,7 @@ public class BlockCandleHolder extends BlockStickBase {
             return state.withProperty(CONNECTION, Connection.CONNECTED);
         } else if (shape == BlockFaceShape.SOLID || shape == BlockFaceShape.CENTER_SMALL || shape == BlockFaceShape.CENTER || isUprightTorch(above) || BWMOreDictionary.isOre(stack, "blockCandle")) {
             return state.withProperty(CONNECTION, Connection.CANDLE);
-        } else if (shape == BlockFaceShape.CENTER_BIG || block instanceof BlockSkull) {
+        } else if (shape == BlockFaceShape.CENTER_BIG || block instanceof BlockSkull || block instanceof BlockHead) {
             return state.withProperty(CONNECTION, Connection.SKULL);
         }
         return state;
