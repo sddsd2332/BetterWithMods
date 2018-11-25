@@ -48,7 +48,7 @@ public class InvUtils {
     }
 
     public static boolean isIngredientValid(Ingredient ingredient) {
-        return ArrayUtils.isEmpty(ingredient.getMatchingStacks());
+        return !ArrayUtils.isEmpty(ingredient.getMatchingStacks());
     }
 
     public static boolean containsIngredient(ItemStackHandler handler, Ingredient ingredient) {

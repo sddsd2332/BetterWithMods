@@ -11,7 +11,6 @@ import net.minecraft.world.World;
 
 import java.util.List;
 import java.util.Random;
-import java.util.stream.Collectors;
 
 /**
  * Purpose:
@@ -64,7 +63,7 @@ public abstract class BlockRecipe {
     }
 
     public boolean isInvalid() {
-        return (input.isSimple() && InvUtils.isIngredientValid(input) || recipeOutput.isInvalid());
+        return (input.isSimple() && !InvUtils.isIngredientValid(input) || recipeOutput.isInvalid());
     }
 
     public boolean matches(World world, BlockPos pos, IBlockState state) {

@@ -25,7 +25,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
-import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -253,11 +252,7 @@ public class MiniBlocks extends Feature {
             if (!(item instanceof ItemBlock))
                 continue;
             try {
-
-                final CreativeTabs ctab = item.getCreativeTab();
-                if (ctab != null) {
-                    item.getSubItems(ctab, list);
-                }
+                item.getSubItems(item.getCreativeTab(), list);
                 for (final ItemStack stack : list) {
                     if (!(stack.getItem() instanceof ItemBlock))
                         continue;
