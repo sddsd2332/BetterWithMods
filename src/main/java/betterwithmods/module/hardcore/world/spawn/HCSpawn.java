@@ -3,8 +3,11 @@ package betterwithmods.module.hardcore.world.spawn;
 import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.utils.CapabilityUtils;
+import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.TimeUtils;
 import betterwithmods.library.utils.WeatherUtils;
+import betterwithmods.module.compat.patchouli.Patchouli;
 import betterwithmods.module.general.General;
 import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.module.internal.player.PlayerInfo;
@@ -15,6 +18,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.MathHelper;
@@ -31,6 +35,7 @@ import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.PlayerEvent.PlayerRespawnEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.items.IItemHandler;
 
 import java.util.Random;
 
@@ -94,7 +99,6 @@ public class HCSpawn extends Feature {
             }
             BlockPos currentSpawn = isNew ? player.world.getSpawnPoint() : getSpawn(player);
             int radius = isNew ? HARDCORE_SPAWN_RADIUS : HARDCORE_SPAWN_COOLDOWN_RADIUS;
-
             int internalRadius = isNew ? HARDCORE_SPAWN_INTERNAL_RADIUS : 0;
 
             if (General.isDebug())
@@ -159,8 +163,7 @@ public class HCSpawn extends Feature {
     public void onPlayerRespawn(PlayerRespawnEvent event) {
         EntityPlayer player = event.player;
         World world = player.getEntityWorld();
-        if (!world.getGameRules().getBoolean(GAMERULE_CHANGETIME))
-            return;
+
         if (!PlayerUtils.isSurvival(player) && !(player instanceof EntityPlayerMP))
             return;
 
@@ -170,10 +173,15 @@ public class HCSpawn extends Feature {
 
             int timeSinceDeath = info.getTicksSinceDeath();
             boolean isNew = timeSinceDeath >= HARDCORE_SPAWN_COOLDOWN;
-            if (isNew) {
+            if (world.getGameRules().getBoolean(GAMERULE_CHANGETIME) && isNew) {
                 WeatherUtils.setWeatherCleared(server);
                 TimeUtils.setAllWorldTimes(server, TimeUtils.TimeFrame.DAWN);
             }
+
+            if (isNew) {
+                Patchouli.giveJournal(player);
+            }
+
         }
 
     }
