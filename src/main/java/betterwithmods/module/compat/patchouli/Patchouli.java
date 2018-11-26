@@ -118,7 +118,7 @@ public class Patchouli extends Feature {
     public static final SoundEvent BOOK_FLIP = null;
 
     public static ItemStack getJournal(EntityPlayer player) {
-        if (!giveJournal || GUIDE_BOOK == null)
+        if (GUIDE_BOOK == null)
             return ItemStack.EMPTY;
         ItemStack stack = new ItemStack(GUIDE_BOOK);
         NBTTagCompound tag = new NBTTagCompound();
@@ -130,6 +130,9 @@ public class Patchouli extends Feature {
     }
 
     public static void giveJournal(EntityPlayer player) {
+        if (!giveJournal)
+            return;
+
         ItemStack journal = Patchouli.getJournal(player);
         if (journal.isEmpty())
             return;
