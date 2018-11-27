@@ -1,7 +1,7 @@
 {
   "name": "Skeleton",
   "icon": "minecraft:skull:0",
-  "category": "monsters",
+  "category": "world/monsters",
   "pages": [
     {
       "type": "text",

@@ -1,0 +1,29 @@
+{
+  "components": [
+
+    {
+      "type": "item",
+      "item": "#item",
+      "x": 49,
+      "y": 4
+    },
+    {
+      "type": "header",
+      "text": "#desc",
+      "x": -1,
+      "y": 24
+    },
+    {
+      "type": "image",
+      "image": "betterwithmods:textures/gui/book/spotlight.png",
+      "x": 26,
+      "y": 0,
+      "u": 0,
+      "v": 0,
+      "width": 64,
+      "height": 24,
+      "texture_width": 128,
+      "texture_height": 128
+    }
+  ]
+}

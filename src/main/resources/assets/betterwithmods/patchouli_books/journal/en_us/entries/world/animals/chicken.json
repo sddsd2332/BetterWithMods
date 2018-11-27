@@ -1,17 +1,24 @@
 {
   "name": "Chicken",
   "icon": "betterwithmods:head{type: 'minecraft:chicken'}",
-  "category": "animals",
+  "category": "world/animals",
   "pages": [
     {
-      "type": "text",
-      "title": "",
-      "text": "DOCUMENTME"
+      "type": "bottom_spotlight",
+      "title": "Chicken",
+      "text": "This animal is different from the other animals. It has two legs and two wings. Its body is covered in something other than hair, small leaf like pieces to be called Feathers. They seem to only eat plants off the ground. Their meat seems to be edible.",
+      "item": "minecraft:feather",
+      "desc": "A Chicken Feather"
     },
     {
       "type": "entity",
       "entity": "minecraft:chicken",
       "scale": 0.75
+    },
+    {
+      "type": "smelting",
+      "name": "Cooking",
+      "recipe": "minecraft:chicken"
     }
   ]
 }

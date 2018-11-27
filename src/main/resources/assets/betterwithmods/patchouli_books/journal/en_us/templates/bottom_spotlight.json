@@ -1,0 +1,26 @@
+{
+  "include": [
+    {
+      "template": "include/spotlight",
+      "as": "spotlight",
+      "using": {
+        "item": "#item",
+        "desc": "#desc"
+      },
+      "y": 100
+    }
+  ],
+  "components": [
+    {
+      "type": "header",
+      "text": "#title",
+      "x": -1,
+      "y": -5
+    },
+    {
+      "type": "text",
+      "text": "#text",
+      "y": 10
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
   "name": "Wheat",
   "icon": "minecraft:wheat",
-  "category": "produce",
+  "category": "world/plants",
   "pages": [
     {
       "type": "multiblock",

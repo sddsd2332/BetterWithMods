@@ -1,7 +1,7 @@
 {
   "name": "Slime",
   "icon": "betterwithmods:head{type: 'minecraft:slime'}",
-  "category": "monsters",
+  "category": "world/monsters",
   "pages": [
     {
       "type": "text",

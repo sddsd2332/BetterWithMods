@@ -1,7 +1,7 @@
 {
   "name": "Pig",
   "icon": "betterwithmods:head{type: 'minecraft:pig'}",
-  "category": "animals",
+  "category": "world/animals",
   "pages": [
     {
       "type": "text",

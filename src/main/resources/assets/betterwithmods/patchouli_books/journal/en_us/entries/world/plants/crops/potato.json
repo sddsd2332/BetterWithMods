@@ -1,7 +1,7 @@
 {
   "name": "Potatoes",
   "icon": "minecraft:potato",
-  "category": "produce",
+  "category": "world/plants",
   "pages": [
     {
       "type": "multiblock",

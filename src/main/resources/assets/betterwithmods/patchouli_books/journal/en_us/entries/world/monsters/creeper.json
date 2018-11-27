@@ -1,7 +1,7 @@
 {
   "name": "Creeper",
   "icon": "minecraft:skull:4",
-  "category": "monsters",
+  "category": "world/monsters",
   "pages": [
     {
       "type": "text",

@@ -1,8 +1,8 @@
 {
   "name": "Hemp Plant",
-  "icon": "betterwithmods:hemp",
+  "icon": "betterwithmods:hemp_leaf",
   "advancement": "betterwithmods:hemp_seed",
-  "category": "world",
+  "category": "world/plants",
   "pages": [
     {
       "type": "text",

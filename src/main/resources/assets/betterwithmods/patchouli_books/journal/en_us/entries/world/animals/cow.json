@@ -1,12 +1,14 @@
 {
   "name": "Cow",
   "icon": "betterwithmods:head{type: 'minecraft:cow'}",
-  "category": "animals",
+  "category": "world/animals",
   "pages": [
     {
-      "type": "text",
-      "title": "",
-      "text": "DOCUMENTME"
+      "type": "bottom_spotlight",
+      "title": "Cow",
+      "text": "This large spotted creature is peaceful but easily frightened. It eats grasses and feeds its young from it utter. After hunting a cow, harvesting their Leather could be very useful as well as giving a large meal from its meat.",
+      "item": "minecraft:leather",
+      "desc": "Cow Leather"
     },
     {
       "type": "entity",

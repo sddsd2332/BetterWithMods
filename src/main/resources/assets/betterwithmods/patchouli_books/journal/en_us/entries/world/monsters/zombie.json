@@ -1,7 +1,7 @@
 {
   "name": "Zombie ",
   "icon": "minecraft:skull:2",
-  "category": "monsters",
+  "category": "world/monsters",
   "pages": [
     {
       "type": "text",

@@ -1,7 +1,7 @@
 {
   "name": "Pumpkin",
   "icon": "minecraft:pumpkin",
-  "category": "produce",
+  "category": "world/plants",
   "pages": [
     {
       "type": "multiblock",

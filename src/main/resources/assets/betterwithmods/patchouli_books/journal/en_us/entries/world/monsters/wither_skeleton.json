@@ -1,7 +1,7 @@
 {
   "name": "Wither Skeleton",
   "icon": "minecraft:skull:1",
-  "category": "monsters",
+  "category": "world/monsters",
   "pages": [
     {
       "type": "text",

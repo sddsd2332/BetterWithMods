@@ -1,7 +1,7 @@
 {
   "name": "Sheep",
   "icon": "betterwithmods:head{type: 'minecraft:sheep'}",
-  "category": "animals",
+  "category": "world/animals",
   "pages": [
     {
       "type": "text",

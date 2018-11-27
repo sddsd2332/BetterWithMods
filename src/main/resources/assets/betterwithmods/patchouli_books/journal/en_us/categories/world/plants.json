@@ -1,0 +1,7 @@
+{
+  "name": "Plants",
+  "description": "",
+  "icon": "minecraft:sapling",
+  "parent": "world",
+  "sortnum": 3
+}

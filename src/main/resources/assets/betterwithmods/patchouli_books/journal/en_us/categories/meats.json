@@ -1,7 +1,0 @@
-{
-  "name": "Meats",
-  "description": "It seems that nearly all friendly creatures in this world have some sort of usuable meat. $(br2)Cooking the meat provides a much more nutritious meal.",
-  "icon": "minecraft:cooked_beef",
-  "parent": "foods",
-  "sortnum": 0
-}

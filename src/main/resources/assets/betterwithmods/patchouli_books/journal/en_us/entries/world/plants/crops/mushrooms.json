@@ -1,7 +1,7 @@
 {
   "name": "Mushrooms",
   "icon": "minecraft:brown_mushroom",
-  "category": "produce",
+  "category": "world/plants",
   "pages": [
     {
       "type": "multiblock",

@@ -1,7 +1,7 @@
 {
   "name": "Melon",
   "icon": "minecraft:melon_block",
-  "category": "produce",
+  "category": "world/plants",
   "pages": [
     {
       "type": "multiblock",

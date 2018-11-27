@@ -1,7 +1,7 @@
 {
   "name": "Carrots",
   "icon": "minecraft:carrot",
-  "category": "produce",
+  "category": "world/plants",
   "pages": [
     {
       "type": "multiblock",
