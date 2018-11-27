@@ -158,8 +158,9 @@ public class Patchouli extends Feature {
         EntityPlayer player = event.getEntityPlayer();
         Ingredient journal = new NBTIngredient(getJournal(player));
 
-        if (InventoryUtils.containsIngredient(journal, CapabilityUtils.getFullPlayerInventory(player))) {
-            EntityItem entity = event.getItem();
+
+        EntityItem entity = event.getItem();
+        if (journal.apply(entity.getItem()) && InventoryUtils.containsIngredient(journal, CapabilityUtils.getFullPlayerInventory(player))) {
             if (BOOK_FLIP != null) {
                 player.getEntityWorld().playSound(null, entity.getPosition(), BOOK_FLIP, SoundCategory.PLAYERS, 1, 1);
             }
