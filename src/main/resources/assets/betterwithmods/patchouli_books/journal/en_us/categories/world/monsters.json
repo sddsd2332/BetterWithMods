@@ -1,6 +1,6 @@
 {
   "name": "Monsters",
-  "description": "",
+  "description": "In the darkness of caves or when the sun goes down, evil creatures come forth and are out to get me. I am unsure why they are hostile to me, but I must defend myself. Some of them hold valuables I should collect.",
   "icon": "minecraft:skull:4",
   "parent": "world",
   "sortnum": 2

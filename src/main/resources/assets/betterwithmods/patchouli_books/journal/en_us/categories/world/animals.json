@@ -1,7 +1,7 @@
 {
   "name": "Animals",
-  "description": "",
   "icon": "betterwithmods:head{type: 'minecraft:cow'}",
   "parent": "world",
+  "description": "Through my explorations I have found many peaceful animals that have various uses to me.",
   "sortnum": 2
 }

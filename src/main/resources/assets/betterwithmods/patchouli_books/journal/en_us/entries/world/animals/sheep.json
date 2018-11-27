@@ -4,14 +4,20 @@
   "category": "world/animals",
   "pages": [
     {
-      "type": "text",
-      "title": "",
-      "text": "DOCUMENTME"
+      "type": "bottom_spotlight",
+      "title": "Sheep",
+      "text": "This timid fluffy creature eats tall grasses. It's wool fur must keep it very warm. It is worth hunting them to use this wool for some protection, along with some Mutton.",
+      "item": "minecraft:wool",
+      "desc": "Sheep Wool"
     },
     {
       "type": "entity",
       "entity": "minecraft:sheep",
       "scale": 0.75
+    }, {
+      "type": "smelting",
+      "name": "Cooking",
+      "recipe": "minecraft:mutton"
     }
   ]
 }

@@ -5,13 +5,18 @@
   "pages": [
     {
       "type": "text",
-      "title": "",
-      "text": "DOCUMENTME"
+      "title": "Pig",
+      "text": "These small and fat creatures seem to eat many things, mostly plants but if they're hunger that can change. Their plumpness makes for a good meal when cooking Pork."
     },
     {
       "type": "entity",
       "entity": "minecraft:pig",
       "scale": 0.75
+    },
+    {
+      "type": "smelting",
+      "name": "Cooking",
+      "recipe": "minecraft:porkchop"
     }
   ]
 }

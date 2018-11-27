@@ -1,0 +1,13 @@
+{
+  "name": "Water",
+  "icon": "minecraft:ice",
+  "category": "world",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Water",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 1
+}

@@ -6,7 +6,7 @@
     {
       "type": "bottom_spotlight",
       "title": "Cow",
-      "text": "This large spotted creature is peaceful but easily frightened. It eats grasses and feeds its young from it utter. After hunting a cow, harvesting their Leather could be very useful as well as giving a large meal from its meat.",
+      "text": "This large spotted creature is peaceful but easily frightened. It eats grasses and feeds its young from it utter. After hunting a cow, harvesting their Leather could be very useful as well as giving a large meal from its beef.",
       "item": "minecraft:leather",
       "desc": "Cow Leather"
     },
@@ -14,6 +14,11 @@
       "type": "entity",
       "entity": "minecraft:cow",
       "scale": 0.75
+    },
+    {
+      "type": "smelting",
+      "name": "Cooking",
+      "recipe": "minecraft:beef"
     }
   ]
 }

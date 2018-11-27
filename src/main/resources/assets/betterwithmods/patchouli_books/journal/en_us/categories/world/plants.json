@@ -1,6 +1,6 @@
 {
   "name": "Plants",
-  "description": "",
+  "description": "This world is full of lush plant life. Trees and grass go on forever. Harvesting them often yields something that will help me survive.",
   "icon": "minecraft:sapling",
   "parent": "world",
   "sortnum": 3
