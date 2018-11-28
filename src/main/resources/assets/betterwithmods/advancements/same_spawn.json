@@ -1,0 +1,11 @@
+{
+  "parent": "betterwithmods:root",
+  "criteria": {
+    "same_spawn": {
+      "trigger": "betterwithmods:state_trigger",
+      "conditions": {
+        "value": "same_spawn"
+      }
+    }
+  }
+}

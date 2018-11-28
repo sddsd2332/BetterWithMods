@@ -2,6 +2,7 @@ package betterwithmods.module.internal;
 
 import betterwithmods.library.common.modularity.impl.RequiredModule;
 import betterwithmods.module.compat.patchouli.Patchouli;
+import betterwithmods.module.internal.player.PlayerDataHandler;
 import betterwithmods.network.BWMNetwork;
 
 public class InternalRegistries extends RequiredModule {
@@ -21,6 +22,7 @@ public class InternalRegistries extends RequiredModule {
                 new AdvancementRegistry(),
                 new AdvancedDispenserRegistry(),
                 new BrokenToolRegistry(),
+                new PlayerDataHandler(),
                 BWMNetwork.INSTANCE
         );
 

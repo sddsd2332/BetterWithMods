@@ -1,0 +1,28 @@
+{
+  "name": "Life",
+  "icon": "betterwithmods:textures/icons/life.png",
+  "category": "world",
+  "pages": [
+    {
+      "type": "text",
+      "title": "intro",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "text",
+      "title": "Health and Injury",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "text",
+      "title": "Hunger",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "text",
+      "title": "Sleep",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 1
+}

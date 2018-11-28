@@ -1,0 +1,28 @@
+{
+  "components": [
+    {
+      "type": "header",
+      "text": "#title",
+      "x": -1,
+      "y": -1
+    },
+    {
+      "type": "text",
+      "text": "#text1",
+      "advancement": "#advancement1",
+      "x": 0,
+      "y": 9
+    },
+    {
+      "type": "separator",
+      "x": 0,
+      "y": 78
+    }
+    {
+      "type": "text",
+      "advancement": "#advancement2",
+      "text": "#text2",
+      "y": 83
+    }
+  ]
+}

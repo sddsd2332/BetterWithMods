@@ -19,7 +19,6 @@ public class General extends RequiredModule {
         addFeatures(
                 new Client(),
                 new Waterwheel(),
-                new PlayerDataHandler(),
                 new MechanicalPower(),
                 new Hemp(),
                 new MoreCobble(),

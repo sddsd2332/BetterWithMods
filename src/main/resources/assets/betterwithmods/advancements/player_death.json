@@ -1,0 +1,11 @@
+{
+  "parent": "betterwithmods:root",
+  "criteria": {
+    "player_death": {
+      "trigger": "betterwithmods:state_trigger",
+      "conditions": {
+        "value": "player_death"
+      }
+    }
+  }
+}

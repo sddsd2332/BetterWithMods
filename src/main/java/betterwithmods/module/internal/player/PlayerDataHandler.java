@@ -2,15 +2,19 @@ package betterwithmods.module.internal.player;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.common.advancements.SimpleTrigger;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import betterwithmods.module.hardcore.needs.HCNames;
+import betterwithmods.module.internal.AdvancementRegistry;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.scoreboard.Scoreboard;
 import net.minecraft.scoreboard.Team;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.common.capabilities.CapabilityManager;
 import net.minecraftforge.event.AttachCapabilitiesEvent;
+import net.minecraftforge.event.entity.living.LivingDeathEvent;
 import net.minecraftforge.event.entity.player.PlayerEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLServerStartingEvent;
@@ -60,8 +64,12 @@ public class PlayerDataHandler extends RequiredFeature {
     }
 
 
-    @Override
-    public boolean hasEvent() {
-        return true;
+    @SubscribeEvent
+    public void onPlayerDeath(LivingDeathEvent event) {
+        if(event.getEntityLiving() instanceof EntityPlayerMP) {
+            EntityPlayerMP player = (EntityPlayerMP) event.getEntityLiving();
+            AdvancementRegistry.STATE_TRIGGER.trigger(player, "player_death");
+        }
     }
+
 }

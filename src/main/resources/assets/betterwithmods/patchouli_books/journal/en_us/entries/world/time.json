@@ -1,13 +1,13 @@
 {
-  "name": "Biomes",
-  "icon": "minecraft:grass",
+  "name": "Time",
+  "icon": "minecraft:clock",
   "category": "world",
   "pages": [
     {
       "type": "text",
-      "title": "Biomes",
+      "title": "Time",
       "text": "DOCUMENTME"
     }
   ],
-  "sortnum": 4
+  "sortnum": 3
 }

@@ -95,7 +95,6 @@ public class HCSpawn extends Feature {
             if (isNew) {
                 //Only reset the death timer when the cooldown is met, so you can't prolong a spawn are by intentionally dying to reset the timer.
                 info.setTicksSinceDeath(0);
-                AdvancementRegistry.STATE_TRIGGER.trigger(player, "random_spawn");
             }
             BlockPos currentSpawn = isNew ? player.world.getSpawnPoint() : getSpawn(player);
             int radius = isNew ? HARDCORE_SPAWN_RADIUS : HARDCORE_SPAWN_COOLDOWN_RADIUS;
@@ -161,11 +160,12 @@ public class HCSpawn extends Feature {
 
     @SubscribeEvent
     public void onPlayerRespawn(PlayerRespawnEvent event) {
-        EntityPlayer player = event.player;
+        if (!PlayerUtils.isSurvival(event.player) && !(event.player instanceof EntityPlayerMP))
+            return;
+
+        EntityPlayerMP player = (EntityPlayerMP) event.player;
         World world = player.getEntityWorld();
 
-        if (!PlayerUtils.isSurvival(player) && !(player instanceof EntityPlayerMP))
-            return;
 
         MinecraftServer server = player.getServer();
         if (server != null && server.getPlayerList().getPlayers().size() == 1) {
@@ -179,7 +179,10 @@ public class HCSpawn extends Feature {
             }
 
             if (isNew) {
+                AdvancementRegistry.STATE_TRIGGER.trigger(player, "random_spawn");
                 Patchouli.giveJournal(player);
+            } else {
+                AdvancementRegistry.STATE_TRIGGER.trigger(player, "same_spawn");
             }
 
         }
