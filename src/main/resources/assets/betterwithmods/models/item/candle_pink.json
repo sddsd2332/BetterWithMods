@@ -1,0 +1,7 @@
+
+{
+  "parent": "betterwithmods:item/default",
+  "textures": {
+    "layer0": "betterwithmods:items/candles/candle_pink"
+  }
+}
