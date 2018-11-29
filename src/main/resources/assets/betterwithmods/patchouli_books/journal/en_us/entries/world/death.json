@@ -7,11 +7,11 @@
     {
       "type": "text",
       "title": "death",
-      "text": " Everything has changed. I seem to recall that Death from my previous land was permanent. I still remember the excruciating pain and my life slipping away and yet here I am again in this world.$(br2)I kept my memories but my belongings are not with me."
+      "text": " I seem to recall that Death from my previous land was permanent. I still remember the excruciating pain and my life slipping away and yet here I am again in this world.$(br2)I kept my memories but my belongings are not with me."
     },
     {
       "type": "double_text",
-      "title": "Respawn",
+      "title1": "Respawn",
       "text1": " I'm not sure where I am. It's not the same place as when I first woke up here.$(br) I hope I can find a way to get back to that place, it might have some significance to why I am here.",
       "text2": " Though, it seems if I die multiple times within a short time span I am anchored to the same general area. Eventually this wears off and I am thrusted far off.",
       "advancement1": "betterwithmods:random_spawn",

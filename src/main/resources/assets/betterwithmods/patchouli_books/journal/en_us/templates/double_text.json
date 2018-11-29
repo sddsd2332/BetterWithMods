@@ -2,27 +2,38 @@
   "components": [
     {
       "type": "header",
-      "text": "#title",
+      "text": "#title1",
       "x": -1,
       "y": -1
+    },
+    {
+      "type": "separator",
+      "x": -1,
+      "y": 12
     },
     {
       "type": "text",
       "text": "#text1",
       "advancement": "#advancement1",
       "x": 0,
-      "y": 9
+      "y": 19
+    },
+    {
+      "type": "header",
+      "text": "#title2",
+      "x": -1,
+      "y": 82
     },
     {
       "type": "separator",
       "x": 0,
-      "y": 78
-    }
+      "y": 90
+    },
     {
       "type": "text",
       "advancement": "#advancement2",
       "text": "#text2",
-      "y": 83
+      "y": 95
     }
   ]
 }

@@ -9,9 +9,11 @@
       "text": "DOCUMENTME"
     },
     {
-      "type": "text",
-      "title": "Health and Injury",
-      "text": "DOCUMENTME"
+      "type": "double_text",
+      "title1": "Health",
+      "title2": "Injury",
+      "text1": "  ",
+      "text2": "  "
     },
     {
       "type": "text",
