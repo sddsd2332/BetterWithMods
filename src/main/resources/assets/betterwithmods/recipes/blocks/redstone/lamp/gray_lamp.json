@@ -1,0 +1,28 @@
+{
+  "result": {
+    "item": "betterwithmods:lamp",
+    "nbt": {
+      "color":4673362
+    }
+  },
+  "pattern": [
+    " P ",
+    "PFP",
+    " R "
+  ],
+  "type": "forge:ore_shaped",
+  "key": {
+    "P": {
+      "ore": "paneGlassGray",
+      "type": "forge:ore_dict"
+    },
+    "R": {
+      "ore": "dustRedstone",
+      "type": "forge:ore_dict"
+    },
+    "F": {
+      "ore": "filament",
+      "type": "forge:ore_dict"
+    }
+  }
+}

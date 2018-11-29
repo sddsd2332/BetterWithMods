@@ -254,6 +254,9 @@ public final class WorldUtils {
         return worldServer.getStructureTemplateManager().getTemplate(worldServer.getMinecraftServer(), new ResourceLocation(domain, templateName));
     }
 
+    public static boolean isRedstonePowered(IBlockAccess world, BlockPos pos) {
+        return getRedstonePowerFromNeighbors(world,pos) > 0;
+    }
 
     public static int getRedstonePowerFromNeighbors(IBlockAccess access, BlockPos pos) {
         return Arrays.stream(EnumFacing.values()).mapToInt(f -> getRedstonePower(access, pos.offset(f), f)).max().orElse(0);

@@ -69,7 +69,7 @@ public class BlockHemp extends BlockCrops implements IPlantable {
     }
 
     private boolean isBelowLightBlock(World world, BlockPos pos) {
-        return world.getBlockState(pos.up()).getBlock() instanceof BlockLight || world.getBlockState(pos.up(2)).getBlock() instanceof BlockLight;
+        return world.getBlockState(pos.up()).getBlock() instanceof IHempGrower || (world.isAirBlock(pos.up()) && world.getBlockState(pos.up(2)).getBlock() instanceof IHempGrower);
     }
 
     public boolean canBePlantedHere(World world, BlockPos pos) {
@@ -94,9 +94,8 @@ public class BlockHemp extends BlockCrops implements IPlantable {
 
         double growthChance = BlockHemp.growthChance;
 
-        if (world.getBlockState(pos.up(2)).getBlock() instanceof BlockLight && world.isAirBlock(pos.up())) {
-            if (world.getBlockState(pos.up(2)).getValue(BlockLight.ACTIVE))
-                growthChance /= lampModifier;
+        if (isBelowLightBlock(world, pos)) {
+            growthChance /= lampModifier;
         }
         if (world.getBlockState(pos.down()).getBlock().isFertile(world, pos.down()))
             growthChance /= fertileModifier;

@@ -40,7 +40,7 @@ public final class BWMBlocks {
     public static final Block BLOCK_DISPENSER = null;
     public static final Block BUDDY_BLOCK = null;
     public static final Block CREATIVE_GENERATOR = null;
-    public static final Block LIGHT = null;
+    public static final Block LAMP = null;
     public static final Block PLATFORM = null;
     public static final Block MINING_CHARGE = null;
     public static final Block FERTILE_FARMLAND = null;

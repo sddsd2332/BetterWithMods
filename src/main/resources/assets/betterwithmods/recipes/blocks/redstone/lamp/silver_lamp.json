@@ -1,6 +1,9 @@
 {
   "result": {
-    "item": "betterwithmods:light_yellow"
+    "item": "betterwithmods:lamp",
+    "nbt": {
+      "color":10329495
+    }
   },
   "pattern": [
     " P ",
@@ -10,7 +13,7 @@
   "type": "forge:ore_shaped",
   "key": {
     "P": {
-      "ore": "paneGlassYellow",
+      "ore": "paneGlassSilver",
       "type": "forge:ore_dict"
     },
     "R": {

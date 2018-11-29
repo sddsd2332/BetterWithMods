@@ -13,9 +13,16 @@ import betterwithmods.library.client.resourceproxy.ResourcePackProxy;
 import betterwithmods.library.common.modularity.impl.ModuleLoader;
 import betterwithmods.library.common.modularity.impl.proxy.ClientProxy;
 import betterwithmods.module.conversion.beacons.TileBeacon;
+import betterwithmods.module.internal.BlockRegistry;
+import net.minecraft.block.Block;
+import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.BannerTextures;
 import net.minecraft.client.renderer.color.BlockColors;
+import net.minecraft.client.renderer.color.IBlockColor;
+import net.minecraft.client.renderer.color.IItemColor;
 import net.minecraft.client.renderer.color.ItemColors;
+import net.minecraft.init.Items;
+import net.minecraft.item.Item;
 import net.minecraft.util.ResourceLocation;
 import net.minecraftforge.client.event.TextureStitchEvent;
 import net.minecraftforge.fml.client.registry.ClientRegistry;
@@ -77,6 +84,24 @@ public class BWMClientProxy extends ClientProxy {
         itemColors.registerItemColorHandler(ColorHandlers.ITEM_FOLIAGE, BWMBlocks.VINE_TRAP);
         itemColors.registerItemColorHandler(ColorHandlers.ITEM_BLOOD_LEAF, BWMBlocks.BLOOD_LEAVES);
         itemColors.registerItemColorHandler(ColorHandlers.ITEM_GRASS, BWMBlocks.DIRT_SLAB);
+
+        for(Block block: BlockRegistry.REGISTRY) {
+            registerBlockColors(block);
+        }
+    }
+
+    @SideOnly(Side.CLIENT)
+    public void registerBlockColors(Block block) {
+        Item itemBlock = Item.getItemFromBlock(block);
+        Minecraft mc = Minecraft.getMinecraft();
+        final BlockColors blockColors = mc.getBlockColors();
+        final ItemColors itemColors = mc.getItemColors();
+        if(block instanceof IBlockColor) {
+            blockColors.registerBlockColorHandler((IBlockColor) block, block);
+        }
+        if(itemBlock != Items.AIR && block instanceof IItemColor) {
+            itemColors.registerItemColorHandler((IItemColor) block, itemBlock);
+        }
     }
 
     @Override

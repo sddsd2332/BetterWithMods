@@ -57,7 +57,7 @@ import java.util.Objects;
 
 public class BlockRegistry extends RequiredFeature {
 
-    private static List<Block> REGISTRY = Lists.newArrayList();
+    public final static List<Block> REGISTRY = Lists.newArrayList();
 
     public static void registerTileEntities() {
         //TODO
@@ -229,6 +229,11 @@ public class BlockRegistry extends RequiredFeature {
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger())
                 .tab(BWMCreativeTabs.BLOCKS)
+                .tile(TileLamp.class).id("lamp")
+                .builder().block(new BlockLamp()).itemblock(ItemBlockLamp::new).build()
+                .complete());
+        registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger())
+                .tab(BWMCreativeTabs.BLOCKS)
                 .tile(TileWindmillHorizontal.class).id("horizontal_windmill")
                 .builder().block(new BlockWindmill(EnumFacing.Axis.X)).itemblock(ItemHorizontalWindmill::new).build()
                 .complete());
@@ -275,16 +280,6 @@ public class BlockRegistry extends RequiredFeature {
                 .tab(BWMCreativeTabs.BLOCKS)
                 .tile(TileVase.class).id("vase")
                 .blockGenerator(BlockVase.GENERATOR)
-                .complete());
-        registerBlocks(BlockEntryBuilderFactory.<EnumDyeColor>create(getLogger())
-                .tab(BWMCreativeTabs.BLOCKS)
-                .id("light")
-                .blockGenerator(BlockLight.GENERATOR)
-                .complete());
-        registerBlocks(BlockEntryBuilderFactory.<EnumDyeColor>create(getLogger())
-                .tab(BWMCreativeTabs.BLOCKS)
-                .id("light_inverted")
-                .blockGenerator(BlockLight.INVERTED_GENERATOR)
                 .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create(getLogger())
                 .tab(BWMCreativeTabs.BLOCKS)

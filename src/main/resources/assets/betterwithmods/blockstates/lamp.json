@@ -2,10 +2,12 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "all": "betterwithmods:blocks/lamp_off"
+      "all": "betterwithmods:blocks/lamp",
+      "particle": "#all",
+      "overlay": "betterwithmods:blocks/lamp_overlay"
     },
-    "model": "cube_all",
-    "uvlock": false
+    "model": "betterwithmods:lamp",
+    "uvlock": true
   },
   "variants": {
     "normal": [
@@ -19,7 +21,7 @@
     "active": {
       "true": {
         "textures": {
-          "all": "betterwithmods:blocks/lamp_on"
+          "overlay": "betterwithmods:blocks/lamp_overlay_on"
         }
       },
       "false": {}

@@ -56,7 +56,7 @@ public class MiscRegistry extends RequiredFeature {
                 new BlockIngredient(Blocks.UNPOWERED_REPEATER, Items.REPEATER),
                 new BlockIngredient(Blocks.UNLIT_REDSTONE_TORCH),
                 new BlockIngredient(Blocks.REDSTONE_TORCH),
-                new BlockDropIngredient(new ItemStack(BWMBlocks.LIGHT)),
+                new BlockDropIngredient(new ItemStack(BWMBlocks.LAMP)),
                 new BlockDropIngredient(new ItemStack(BWMBlocks.BUDDY_BLOCK))
         );
     }
