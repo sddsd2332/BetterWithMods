@@ -2,7 +2,10 @@
   "parent": "betterwithmods:cauldron",
   "display": {
     "icon": {
-      "item": "betterwithmods:light_yellow"
+      "item": "betterwithmods:lamp",
+      "nbt": {
+        "color": 16701501
+      }
     },
     "title": {
       "translate": "tile.betterwithmods:light.name"
@@ -17,7 +20,10 @@
       "conditions": {
         "items": [
           {
-            "item": "betterwithmods:light_yellow"
+            "item": "betterwithmods:lamp",
+            "nbt": {
+              "color": 16701501
+            }
           }
         ]
       }

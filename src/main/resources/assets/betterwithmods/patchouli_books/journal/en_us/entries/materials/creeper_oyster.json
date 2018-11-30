@@ -2,6 +2,7 @@
   "name": "Creeper Oyster",
   "icon": "betterwithmods:creeper_oyster",
   "category": "materials",
+  "advancement": "betterwithmods:monsters/creeper_oyster",
   "pages": [
     {
       "type": "text",

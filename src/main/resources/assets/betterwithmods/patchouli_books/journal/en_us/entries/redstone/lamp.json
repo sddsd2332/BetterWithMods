@@ -1,6 +1,6 @@
 {
   "name": "Light Block",
-  "icon": "betterwithmods:light_yellow",
+  "icon": "betterwithmods:lamp{'color': 16701501}",
   "category": "redstone",
   "pages": [
     {
@@ -11,3 +11,4 @@
   ],
   "sortnum": 2
 }
+

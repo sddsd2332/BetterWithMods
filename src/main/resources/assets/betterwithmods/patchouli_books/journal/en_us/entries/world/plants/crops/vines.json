@@ -1,0 +1,26 @@
+{
+  "name": "Vines",
+  "icon": "minecraft:vine",
+  "category": "world/plants",
+  "advancement": "betterwithmods:crops/vine",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Vine",
+      "multiblock": {
+        "pattern": [
+          [" 0 "],
+          [" V "],
+          [" V "]
+        ],
+        "mapping": {
+          "0": "minecraft:vine",
+          "V": "minecraft:vine"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of a vine"
+    }
+  ]
+}

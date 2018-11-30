@@ -2,6 +2,7 @@
   "name": "Vine Trap",
   "icon": "betterwithmods:vine_trap",
   "category": "tools",
+  "advancement": "betterwithmods:crops/vine",
   "pages": [
     {
       "type": "text",

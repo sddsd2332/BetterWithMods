@@ -14,8 +14,8 @@
       "title1": "Respawn",
       "text1": " I'm not sure where I am. It's not the same place as when I first woke up here.$(br) I hope I can find a way to get back to that place, it might have some significance to why I am here.",
       "text2": " Though, it seems if I die multiple times within a short time span I am anchored to the same general area. Eventually this wears off and I am thrusted far off.",
-      "advancement1": "betterwithmods:random_spawn",
-      "advancement2": "betterwithmods:same_spawn"
+      "advancement1": "betterwithmods:world.random_spawn",
+      "advancement2": "betterwithmods:world/same_spawn"
     }
   ],
   "sortnum": 2

@@ -1,5 +1,5 @@
 {
-  "parent": "betterwithmods:hemp_seed",
+  "parent": "betterwithmods:crops/hemp_seed",
   "display": {
     "icon": {
       "item": "betterwithmods:hemp_leaf"
