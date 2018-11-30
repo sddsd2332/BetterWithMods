@@ -126,7 +126,7 @@ public class BlockLamp extends BlockBase implements IBlockActive, IHempGrower, I
     @SuppressWarnings("deprecation")
     @Override
     public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-        if (blockAccess.getBlockState(pos).getBlock() == this)
+        if (blockAccess.getBlockState(pos.offset(side)).getBlock() == this)
             return false;
         return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
     }
