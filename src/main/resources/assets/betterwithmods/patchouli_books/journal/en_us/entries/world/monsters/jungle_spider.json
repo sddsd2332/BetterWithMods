@@ -2,6 +2,7 @@
   "name": "Jungle Spider",
   "icon": "betterwithmods:head{type: 'betterwithmods:jungle_spider'}",
   "category": "world/monsters",
+  "advancement": "monsters/jungle_spider",
   "pages": [
     {
       "type": "text",

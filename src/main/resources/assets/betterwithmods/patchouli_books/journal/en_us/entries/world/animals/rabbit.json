@@ -2,6 +2,7 @@
   "name": "Rabbit",
   "icon": "minecraft:rabbit_hide",
   "category": "world/animals",
+  "advancement": "animals/rabbit",
   "pages": [
     {
       "type": "text",

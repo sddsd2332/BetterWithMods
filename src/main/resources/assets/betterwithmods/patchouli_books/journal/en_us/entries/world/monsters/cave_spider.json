@@ -2,6 +2,7 @@
   "name": "Cave Spider",
   "icon": "betterwithmods:head{type: 'minecraft:cave_spider'}",
   "category": "world/monsters",
+  "advancement": "monsters/cave_spider",
   "pages": [
     {
       "type": "text",

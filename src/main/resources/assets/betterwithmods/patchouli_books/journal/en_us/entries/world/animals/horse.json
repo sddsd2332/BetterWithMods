@@ -2,6 +2,7 @@
   "name": "Horse",
   "icon": "minecraft:leather",
   "category": "world/animals",
+  "advancement": "animals/horse",
   "pages": [
     {
       "type": "text",

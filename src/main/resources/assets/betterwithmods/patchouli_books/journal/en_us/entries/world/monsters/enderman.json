@@ -2,6 +2,7 @@
   "name": "Enderman",
   "icon": "betterwithmods:head{type: 'minecraft:enderman'}",
   "category": "world/monsters",
+  "advancement": "monsters/enderman",
   "pages": [
     {
       "type": "text",
