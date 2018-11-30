@@ -2,6 +2,7 @@
   "name": "Potatoes",
   "icon": "minecraft:potato",
   "category": "world/plants",
+  "advancement": "betterwithmods:crops/potato",
   "pages": [
     {
       "type": "multiblock",

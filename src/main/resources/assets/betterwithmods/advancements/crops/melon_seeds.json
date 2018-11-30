@@ -1,0 +1,15 @@
+{
+  "parent": "betterwithmods:root",
+  "criteria": {
+    "has_items": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:melon_seeds"
+          }
+        ]
+      }
+    }
+  }
+}

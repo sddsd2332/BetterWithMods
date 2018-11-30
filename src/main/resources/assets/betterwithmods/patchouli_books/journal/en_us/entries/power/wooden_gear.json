@@ -6,12 +6,12 @@
     {
       "type": "text",
       "title": "",
-      "text": "DOCUMENTME"
+      "text": "I have created this gear as a means to transfer rotational energy to help with processing the materials I have collected.$(br2)First thing I need is to process this $(l:world/plants/crops/hemp)Hemp$(/l) I just grew."
     },
     {
       "type": "crafting",
       "title": "Recipe",
-      "recipe": "betterwithmods:blocks/mech/wooden_gear"
+      "recipe": "betterwithmods:items/material/wooden_gear"
     }
   ],
   "sortnum": "-1"

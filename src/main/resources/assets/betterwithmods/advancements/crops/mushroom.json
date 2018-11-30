@@ -1,0 +1,31 @@
+{
+  "parent": "betterwithmods:root",
+  "criteria": {
+    "brown": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:brown_mushroom"
+          }
+        ]
+      }
+    },
+    "red": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "minecraft:red_mushroom"
+          }
+        ]
+      }
+    }
+  },
+  "requirements": [
+    [
+      "brown",
+      "red"
+    ]
+  ]
+}

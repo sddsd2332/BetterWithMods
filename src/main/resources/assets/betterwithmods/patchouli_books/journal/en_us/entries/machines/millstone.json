@@ -1,13 +1,13 @@
 {
   "name": "Millstone",
   "icon": "betterwithmods:millstone",
-  "advancement": "betterwithmods:hand_crank",
+  "advancement": "betterwithmods:wooden_gear",
   "category": "machines",
   "pages": [
     {
       "type": "text",
       "title": "",
-      "text": "The Millstone can receive Mechanical Power from a Hand Crank, or by an Axle from the top or bottom. When powered, the gear inside turns and crushes materials into a finer form. The Items are ground up one at a time, then ejected horizontally into the world. Millstones with have a $(#F00)Blocked$() notification , to properly rotate it needs space all around it so no full blocks can be next to it!"
+      "text": ""
     },
     {
       "type": "crafting",

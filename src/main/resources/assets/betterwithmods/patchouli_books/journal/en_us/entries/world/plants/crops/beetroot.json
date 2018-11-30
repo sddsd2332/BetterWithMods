@@ -2,6 +2,7 @@
   "name": "Beetroots",
   "icon": "minecraft:beetroot",
   "category": "world/plants",
+  "advancement": "betterwithmods:crops/beetroot_seeds",
   "pages": [
     {
       "type": "multiblock",

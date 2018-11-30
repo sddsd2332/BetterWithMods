@@ -1,7 +1,7 @@
 {
   "name": "Hand Crank",
   "icon": "betterwithmods:hand_crank",
-  "advancement": "betterwithmods:wooden_gear",
+  "advancement": "betterwithmods:millstone",
   "category": "power",
   "pages": [
     {

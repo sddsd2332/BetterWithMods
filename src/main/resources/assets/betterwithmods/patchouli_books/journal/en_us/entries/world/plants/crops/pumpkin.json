@@ -2,6 +2,7 @@
   "name": "Pumpkin",
   "icon": "minecraft:pumpkin",
   "category": "world/plants",
+  "advancement": "betterwithmods:crops/pumpkin_seeds",
   "pages": [
     {
       "type": "multiblock",

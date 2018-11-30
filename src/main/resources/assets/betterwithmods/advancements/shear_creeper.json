@@ -10,6 +10,7 @@
     "description": {
       "translate": "advancement.betterwithmods.creeper_oyster.desc"
     },
+    "hidden": true,
     "frame": "challenge"
   },
   "criteria": {

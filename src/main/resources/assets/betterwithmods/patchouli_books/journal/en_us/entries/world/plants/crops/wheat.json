@@ -2,6 +2,7 @@
   "name": "Wheat",
   "icon": "minecraft:wheat",
   "category": "world/plants",
+  "advancement": "betterwithmods:crops/wheat_seeds",
   "pages": [
     {
       "type": "multiblock",

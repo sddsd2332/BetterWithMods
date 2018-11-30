@@ -2,6 +2,7 @@
   "name": "Melon",
   "icon": "minecraft:melon_block",
   "category": "world/plants",
+  "advancement": "betterwithmods:crops/melon_seeds",
   "pages": [
     {
       "type": "multiblock",

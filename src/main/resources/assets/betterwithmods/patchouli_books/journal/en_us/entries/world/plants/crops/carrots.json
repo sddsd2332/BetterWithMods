@@ -2,6 +2,7 @@
   "name": "Carrots",
   "icon": "minecraft:carrot",
   "category": "world/plants",
+  "advancement": "betterwithmods:crops/carrot",
   "pages": [
     {
       "type": "multiblock",

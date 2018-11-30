@@ -2,7 +2,6 @@ package betterwithmods.module.internal.player;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.common.advancements.SimpleTrigger;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import betterwithmods.module.hardcore.needs.HCNames;
 import betterwithmods.module.internal.AdvancementRegistry;

@@ -2,6 +2,7 @@
   "name": "Tree Bark",
   "icon": "betterwithmods:bark{texture: {Properties: {variant: 'oak', axis: 'y'}, Name: 'minecraft:log'}}",
   "category": "world/plants",
+  "advancement": "betterwithmods:world/bark",
   "pages": [
     {
       "type": "text",

@@ -57,14 +57,11 @@ public class BlockLamp extends BlockBase implements IBlockActive, IHempGrower, I
     }
 
     public static ItemStack createLamp(int color, boolean inverted) {
-
         ItemStack stack = new ItemStack(BWMBlocks.LAMP);
-
         NBTTagCompound tag = new NBTTagCompound();
         tag.setInteger("color", color);
         tag.setBoolean("inverted", inverted);
         stack.setTagCompound(tag);
-
         return stack;
     }
 
@@ -125,10 +122,13 @@ public class BlockLamp extends BlockBase implements IBlockActive, IHempGrower, I
 
     @SuppressWarnings("deprecation")
     @Override
-    public boolean shouldSideBeRendered(IBlockState blockState, IBlockAccess blockAccess, BlockPos pos, EnumFacing side) {
-        if (blockAccess.getBlockState(pos.offset(side)).getBlock() == this)
+    public boolean shouldSideBeRendered(@Nonnull  IBlockState state, @Nonnull IBlockAccess access, @Nonnull BlockPos pos, EnumFacing side) {
+        IBlockState offsetState = access.getBlockState(pos.offset(side));
+        if (offsetState != state)
+            return true;
+        if (offsetState.getBlock() == this)
             return false;
-        return super.shouldSideBeRendered(blockState, blockAccess, pos, side);
+        return super.shouldSideBeRendered(state, access, pos, side);
     }
 
     @Override

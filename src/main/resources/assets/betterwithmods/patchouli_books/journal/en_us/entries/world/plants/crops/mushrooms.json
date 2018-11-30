@@ -2,6 +2,7 @@
   "name": "Mushrooms",
   "icon": "minecraft:brown_mushroom",
   "category": "world/plants",
+  "advancement": "betterwithmods:crops/mushroom",
   "pages": [
     {
       "type": "multiblock",
