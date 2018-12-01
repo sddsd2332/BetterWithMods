@@ -9,6 +9,7 @@ import betterwithmods.library.utils.ingredient.blockstate.MaterialIngredient;
 import betterwithmods.library.utils.ingredient.blockstate.PredicateBlockStateIngredient;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
+import net.minecraft.block.BlockDirt;
 import net.minecraft.block.BlockDoor;
 import net.minecraft.block.material.Material;
 import net.minecraft.entity.monster.EntityIronGolem;
@@ -78,6 +79,7 @@ public class HCVillages extends Feature {
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.BOOKSHELF), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.TORCH), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.FURNACE), Blocks.COBBLESTONE.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.FARMLAND), Blocks.DIRT.getDefaultState().withProperty(BlockDirt.VARIANT, BlockDirt.DirtType.COARSE_DIRT)))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.PLANTS), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.DIRT.getDefaultState()))
