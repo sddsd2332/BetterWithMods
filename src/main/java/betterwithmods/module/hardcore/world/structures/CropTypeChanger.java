@@ -47,13 +47,15 @@ public class CropTypeChanger implements IChanger {
     private IBlockState getVillageCrop(StructureComponent component) {
         if (component instanceof StructureVillagePieces.Village) {
             StructureVillagePieces.Start start = getStart((StructureVillagePieces.Village) component);
-            StructureBoundingBox box = start.getBoundingBox();
-            //Use this vec as the bb is not hashable. Really hacky lol
-            Vec3i vec = new Vec3i(box.minX, 64, box.minZ);
-            if (!CROPS.containsKey(vec)) {
-                CROPS.put(vec, pickRandomCrop());
+            if(start != null) {
+                StructureBoundingBox box = start.getBoundingBox();
+                //Use this vec as the bb is not hashable. Really hacky lol
+                Vec3i vec = new Vec3i(box.minX, 64, box.minZ);
+                if (!CROPS.containsKey(vec)) {
+                    CROPS.put(vec, pickRandomCrop());
+                }
+                return randomAge(CROPS.get(vec));
             }
-            return randomAge(CROPS.get(vec));
         }
         return Blocks.AIR.getDefaultState();
     }
