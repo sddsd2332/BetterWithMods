@@ -1,0 +1,12 @@
+{
+  "name": "Iron Wall",
+  "icon": "betterwithmods:iron_wall",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Iron Wall",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

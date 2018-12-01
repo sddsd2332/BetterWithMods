@@ -1,0 +1,12 @@
+{
+  "name": "Wicker",
+  "icon": "betterwithmods:wicker",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Wicker",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

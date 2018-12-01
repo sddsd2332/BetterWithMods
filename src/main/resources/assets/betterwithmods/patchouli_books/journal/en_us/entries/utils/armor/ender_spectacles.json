@@ -8,6 +8,12 @@
       "type": "text",
       "title": "",
       "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "name": "Ender Spectacles",
+      "entity": "minecraft:armor_stand{ShowArms:0,ArmorItems:[{},{},{},{id:'betterwithmods:ender_spectacles',Count:1b}],HandItems:[{},{}]}",
+      "scale": 0.75
     }
   ],
   "sortnum": 5

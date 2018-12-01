@@ -1,0 +1,12 @@
+{
+  "name": "Wooden Barrel",
+  "icon": "betterwithmods:barrel",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Wooden Barrel",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

@@ -1,0 +1,39 @@
+{
+  "include": [
+    {
+      "template": "include/spotlight",
+      "as": "spotlight1",
+      "using": {
+        "item": "#item1",
+        "desc": "#desc1"
+      },
+      "y": 10
+    },
+    {
+      "template": "include/spotlight",
+      "as": "spotlight2",
+      "using": {
+        "item": "#item2",
+        "desc": "#desc2"
+      },
+      "y": 50
+    },
+    {
+      "template": "include/spotlight",
+      "as": "spotlight3",
+      "using": {
+        "item": "#item3",
+        "desc": "#desc3"
+      },
+      "y": 90
+    }
+  ],
+  "components": [
+    {
+      "type": "header",
+      "text": "#title",
+      "x": -1,
+      "y": -5
+    }
+  ]
+}

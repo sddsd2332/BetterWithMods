@@ -1,0 +1,12 @@
+{
+  "name": "Dirt Slab",
+  "icon": "betterwithmods:dirt_slab",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Dirt Slab",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

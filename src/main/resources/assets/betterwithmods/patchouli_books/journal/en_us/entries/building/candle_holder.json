@@ -1,0 +1,12 @@
+{
+  "name": "Candle Holders",
+  "icon": "betterwithmods:candle_holder",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Candle Holders",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

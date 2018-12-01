@@ -1,0 +1,21 @@
+{
+  "name": "Furniture",
+  "icon": "betterwithmods:chair_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Furniture",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "triple_spotlight",
+      "item1": "betterwithmods:chair_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
+      "desc1": "Chairs",
+      "item2": "betterwithmods:table_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
+      "desc2": "Tables",
+      "item3": "betterwithmods:bench_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
+      "desc3": "Benches"
+    }
+  ]
+}

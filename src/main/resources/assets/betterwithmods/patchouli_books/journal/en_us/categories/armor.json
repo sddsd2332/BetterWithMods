@@ -1,7 +1,6 @@
 {
-  "name": "Armor",
+  "name": "Armor & Accessories",
   "description": "",
-  "icon": "betterwithmods:steel_helmet",
-  "parent": "tools",
+  "icon": "betterwithmods:textures/icons/armor.png",
   "sortnum": 8
 }

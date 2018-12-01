@@ -1,0 +1,12 @@
+{
+  "name": "Shaft",
+  "icon": "betterwithmods:shaft",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Shaft",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

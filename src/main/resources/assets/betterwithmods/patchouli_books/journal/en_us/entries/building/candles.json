@@ -1,0 +1,12 @@
+{
+  "name": "Candles",
+  "icon": "betterwithmods:candle_red",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Candles",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

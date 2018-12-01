@@ -6,8 +6,8 @@
   "pages": [
     {
       "type": "text",
-      "title": "Description:",
-      "text": "The Hand Crank is the earliest form of creating mechanical power, it can power any machine that does not need continuous mechanical power. For example, the $(l:blocks/millstone)Millstone$(/l) will be the first machine you’ll want to use the Hand Crank on to begin creating your $(l:blocks/windmill) Windmill $(/l)."
+      "title": "",
+      "text": ""
     },
     {
       "type": "crafting",

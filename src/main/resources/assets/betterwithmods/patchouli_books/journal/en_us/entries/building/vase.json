@@ -1,0 +1,12 @@
+{
+  "name": "Vases",
+  "icon": "betterwithmods:vase_red",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Vases",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

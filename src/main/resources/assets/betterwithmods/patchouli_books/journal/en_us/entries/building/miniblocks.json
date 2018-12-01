@@ -1,0 +1,21 @@
+{
+  "name": "Mini Blocks",
+  "icon": "betterwithmods:siding_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
+  "category": "building",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Mini Blocks",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "triple_spotlight",
+      "item1": "betterwithmods:siding_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
+      "desc1": "Siding",
+      "item2": "betterwithmods:moulding_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
+      "desc2": "Moulding",
+      "item3": "betterwithmods:corner_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
+      "desc3": "Corners"
+    }
+  ]
+}
