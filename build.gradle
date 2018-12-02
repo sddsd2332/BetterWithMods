@@ -58,14 +58,15 @@ dependencies {
 
     compile 'org.easytesting:fest-assert:1.4'
     compile 'org.easytesting:fest-util:1.1.6'
-
-//    compile files('libraries/Thaumcraft-1.12.2-6.1.BETA16-deobf.jar')
+    if (System.getenv().BUILD_NUMBER != null)
+        compile files('libraries/Thaumcraft-1.12.2-6.1.BETA16-deobf.jar')
 }
 
 sourceSets {
     main {
         java {
 //            exclude '**/Thaumcraft.java'
+            exclude 'betterwithmods/testing/*'
         }
         resources {
             exclude 'assets/betterwithmods/docs/en_us/assets/**'
