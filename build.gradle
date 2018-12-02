@@ -66,7 +66,6 @@ sourceSets {
     main {
         java {
 //            exclude '**/Thaumcraft.java'
-            exclude 'betterwithmods/testing/*'
         }
         resources {
             exclude 'assets/betterwithmods/docs/en_us/assets/**'
