@@ -25,9 +25,9 @@ if (System.getenv().BUILD_NUMBER != null) {//adds the build number to the end of
 }
 
 minecraft {
-    version = "1.12.2-14.23.5.2770"
+    version = "${minecraft_version}-${forge_version}"
     runDir = "run"
-    mappings = "stable_39"
+    mappings = mcp_mappings
     replace "%VERSION%": "${project.version}"
     useDepAts = true
 }
@@ -59,7 +59,7 @@ dependencies {
     compile 'org.easytesting:fest-assert:1.4'
     compile 'org.easytesting:fest-util:1.1.6'
 
-    compile files('libraries/Thaumcraft-1.12.2-6.1.BETA16-deobf.jar')
+//    compile files('libraries/Thaumcraft-1.12.2-6.1.BETA16-deobf.jar')
 }
 
 sourceSets {

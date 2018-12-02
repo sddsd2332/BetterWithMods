@@ -177,12 +177,30 @@ public abstract class BlockMini extends BlockRotate implements IRenderRotationPl
     }
 
     @Override
+    public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
+        return getTile(world, pos).map(t -> t.getState().getBlock().isFlammable(world, pos, face)).orElse(false);
+    }
+
+    @Override
     public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return getTile(world, pos).map(t -> t.getState().getBlock().getFireSpreadSpeed(world, pos, face)).orElse(5);
     }
 
     @Override
     public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
-        return getTile(world, pos).map(t -> t.getState().getBlock().getFlammability(world, pos, face)).orElse(10);
+        return getTile(world, pos).map(t -> {
+            try {
+                return t.getState().getBlock().getFlammability(world, pos, face);
+            } catch (Exception e) {
+                return null;
+            }
+        }).orElse(10);
+    }
+
+    @Override
+    public boolean isTopSolid(IBlockState state) {
+        return true;
     }
 }
+
+
