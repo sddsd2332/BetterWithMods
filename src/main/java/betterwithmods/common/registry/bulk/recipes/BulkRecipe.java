@@ -71,7 +71,7 @@ public class BulkRecipe implements Comparable<BulkRecipe> {
     }
 
     public boolean isInvalid() {
-        return (getInputs().isEmpty() || getInputs().stream().anyMatch(InvUtils::isIngredientValid) || recipeOutput.isInvalid());
+        return (getInputs().isEmpty() || getInputs().stream().noneMatch(InvUtils::isIngredientValid) || recipeOutput.isInvalid());
     }
 
     @Override
