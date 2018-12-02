@@ -13,6 +13,12 @@
       "type": "entity",
       "entity": "betterwithmods:jungle_spider",
       "scale": 0.75
+    },
+    {
+      "type": "spotlight",
+      "title": "Poison Sac",
+      "item": "betterwithmods:poison_sac",
+      "text": "DOCUMENTME"
     }
   ]
 }
