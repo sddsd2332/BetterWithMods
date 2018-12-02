@@ -2,7 +2,7 @@
   "name": "Horse",
   "icon": "minecraft:leather",
   "category": "world/animals",
-  "advancement": "animals/horse",
+  "advancement": "betterwithmods:animals/horse",
   "pages": [
     {
       "type": "text",

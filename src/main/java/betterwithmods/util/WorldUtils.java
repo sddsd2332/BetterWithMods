@@ -234,12 +234,6 @@ public final class WorldUtils {
         return b == null || a.equals(b);
     }
 
-    public static void addDrop(LivingDropsEvent evt, ItemStack drop) {
-        EntityItem item = new EntityItem(evt.getEntityLiving().getEntityWorld(), evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, drop);
-        item.setDefaultPickupDelay();
-        evt.getDrops().add(item);
-    }
-
     public static boolean isAir(World world, BlockPos pos) {
         IBlockState state = world.getBlockState(pos);
         return state.getBlock().isAir(state, world, pos);

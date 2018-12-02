@@ -2,7 +2,7 @@
   "name": "Blaze",
   "icon": "betterwithmods:head{type: 'minecraft:blaze'}",
   "category": "world/monsters",
-  "advancement": "monsters/blaze",
+  "advancement": "betterwithmods:monsters/blaze",
   "pages": [
     {
       "type": "text",

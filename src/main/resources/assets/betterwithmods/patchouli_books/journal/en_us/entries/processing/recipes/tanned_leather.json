@@ -2,7 +2,7 @@
   "name": "Tanned Leather",
   "icon": "betterwithmods:tanned_leather",
   "advancement": "betterwithmods:cauldron",
-  "category": "materials",
+  "category": "processing/cauldron",
   "pages": [
     {
       "type": "text",

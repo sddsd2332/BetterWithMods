@@ -2,7 +2,7 @@
   "name": "Spider",
   "icon": "betterwithmods:head{type: 'minecraft:spider'}",
   "category": "world/monsters",
-  "advancement": "monsters/spider",
+  "advancement": "betterwithmods:monsters/spider",
   "pages": [
     {
       "type": "text",

@@ -9,10 +9,7 @@ import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.texture.TextureMap;
 import net.minecraft.util.ResourceLocation;
 import org.lwjgl.opengl.GL11;
-import vazkii.patchouli.api.IComponentRenderContext;
-import vazkii.patchouli.api.ICustomComponent;
-import vazkii.patchouli.api.IMultiblock;
-import vazkii.patchouli.api.IStateMatcher;
+import vazkii.patchouli.api.*;
 import vazkii.patchouli.client.base.ClientTicker;
 import vazkii.patchouli.client.book.gui.GuiBook;
 import vazkii.patchouli.common.book.Book;
@@ -22,16 +19,24 @@ import vazkii.patchouli.common.multiblock.SerializedMultiblock;
 
 public class ComponentMultiblock implements ICustomComponent {
 
-    String name;
+    @VariableHolder
+    public String name;
     @SerializedName("multiblock_id")
-    String multiblockId;
+    private String multiblockId;
+    @VariableHolder
     @SerializedName("multiblock")
-    SerializedMultiblock serializedMultiblock;
-    transient Multiblock multiblockObj;
+    public SerializedMultiblock serializedMultiblock;
+    private transient Multiblock multiblockObj;
 
-    boolean rotate = false;
+    public boolean rotate = false;
 
-    float scale, maxX, maxY;
+    public int x = GuiBook.PAGE_WIDTH / 2, y = 8;
+
+    public float scale = 1;
+    @SerializedName("max_x")
+    public int maxX = 90;
+    @SerializedName("max_y")
+    public int maxY = 90;
 
     @Override
     public void build(int componentX, int componentY, int pageNum) {
@@ -47,28 +52,24 @@ public class ComponentMultiblock implements ICustomComponent {
 
         if (multiblockObj == null)
             throw new IllegalArgumentException("No multiblock located for " + multiblockId);
+
     }
 
     @Override
     public void render(IComponentRenderContext context, float pticks, int mouseX, int mouseY) {
 
         if (context.getGui() instanceof GuiBook) {
+
             GuiBook gui = (GuiBook) context.getGui();
             Book book = gui.book;
-            int x = GuiBook.PAGE_WIDTH / 2 - 53;
-            int y = 7;
+            int x = this.x - ((int) (106 * this.scale) / 2);
+
             GlStateManager.enableBlend();
             GlStateManager.color(1F, 1F, 1F);
-
+            gui.drawCenteredStringNoShadow(name, GuiBook.PAGE_WIDTH / 2, 0, book.headerColor);
             GlStateManager.scale(scale, scale, scale);
 
-
             GuiBook.drawFromTexture(book, x, y, 405, 149, 106, 106);
-
-            GlStateManager.pushMatrix();
-            GlStateManager.scale(1, 1, 1);
-            gui.drawCenteredStringNoShadow(name, GuiBook.PAGE_WIDTH / 2, 0, book.headerColor);
-            GlStateManager.popMatrix();
 
             if (multiblockObj != null)
                 renderMultiblock(gui);
@@ -83,7 +84,7 @@ public class ComponentMultiblock implements ICustomComponent {
         float scaleY = maxY / height;
         float scale = -Math.min(scaleX, scaleY);
 
-        int xPos = GuiBook.PAGE_WIDTH / 2;
+        int xPos = this.x;
         int yPos = 60;
         GlStateManager.pushMatrix();
         GlStateManager.translate(xPos, yPos, 100);

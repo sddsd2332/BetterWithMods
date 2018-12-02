@@ -2,7 +2,7 @@
   "name": "Wither Skeleton",
   "icon": "minecraft:skull:1",
   "category": "world/monsters",
-  "advancement": "monsters/wither_skeleton",
+  "advancement": "betterwithmods:monsters/wither_skeleton",
   "pages": [
     {
       "type": "text",

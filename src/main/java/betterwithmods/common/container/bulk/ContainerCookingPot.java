@@ -9,7 +9,7 @@ import net.minecraft.util.ResourceLocation;
 
 public abstract class ContainerCookingPot<T extends TileCookingPot> extends ContainerTile<T> {
 
-    public static final ResourceLocation HEAT = new ResourceLocation(ModLib.MODID, "heat");
+    public static final ResourceLocation HEAT = new ResourceLocation(ModLib.MODID, "processing");
 
     public ContainerCookingPot(T tile, EntityPlayer player) {
         super(tile, player);

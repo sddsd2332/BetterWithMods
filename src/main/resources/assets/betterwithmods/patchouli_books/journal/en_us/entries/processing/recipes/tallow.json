@@ -1,8 +1,8 @@
 {
-  "name": "Blasting Oil",
-  "icon": "betterwithmods:blasting_oil",
+  "name": "Tallow",
+  "icon": "betterwithmods:tallow",
   "advancement": "betterwithmods:bellows",
-  "category": "materials",
+  "category": "processing/cauldron",
   "pages": [
     {
       "type": "text",

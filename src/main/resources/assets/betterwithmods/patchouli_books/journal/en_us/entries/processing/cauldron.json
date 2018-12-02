@@ -1,8 +1,8 @@
 {
   "name": "Cauldron",
   "icon": "betterwithmods:cauldron",
-  "advancement": "betterwithmods:nether",
-  "category": "heat",
+  "advancement": "betterwithmods:netherrack",
+  "category": "processing",
   "pages": [
     {
       "type": "text",

@@ -5,9 +5,9 @@
       "class": "betterwithmods.module.compat.patchouli.ComponentMultiblock",
       "x": 20,
       "y": 30,
-      "name": "#name",
-      "maxX": 50,
-      "maxY": 50,
+      "name": "Saw Recipe",
+      "maxX": 58,
+      "maxY": 58,
       "scale": 0.8,
       "multiblock": {
         "pattern": [

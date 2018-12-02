@@ -1,8 +1,8 @@
 {
-  "name": "Enderman",
-  "icon": "betterwithmods:head{type: 'minecraft:enderman'}",
+  "name": "Witch",
+  "icon": "betterwithmods:head{type: 'minecraft:witch'}",
   "category": "world/monsters",
-  "advancement": "betterwithmods:monsters/enderman",
+  "advancement": "betterwithmods:monsters/witch",
   "pages": [
     {
       "type": "text",
@@ -11,7 +11,7 @@
     },
     {
       "type": "entity",
-      "entity": "minecraft:enderman",
+      "entity": "minecraft:witch",
       "scale": 0.75
     }
   ]

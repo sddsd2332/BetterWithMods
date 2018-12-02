@@ -103,7 +103,7 @@ public abstract class TileCookingPot<T extends CookingPotRecipe<T>> extends Tile
         this.facing = EnumFacing.byIndex(value(tag, "facing", EnumFacing.UP.getIndex()));
         this.cookProgress = value(tag, "progress", 0);
         this.cookTime = value(tag, "time", 4000);
-        this.heat = value(tag, "heat", 0);
+        this.heat = value(tag, "processing", 0);
     }
 
     @Nonnull
@@ -112,7 +112,7 @@ public abstract class TileCookingPot<T extends CookingPotRecipe<T>> extends Tile
         NBTTagCompound t = super.writeToNBT(tag);
         t.setInteger("facing", facing.getIndex());
         t.setInteger("progress", this.cookProgress);
-        t.setInteger("heat", this.heat);
+        t.setInteger("processing", this.heat);
         t.setInteger("time", this.cookTime);
         return t;
     }

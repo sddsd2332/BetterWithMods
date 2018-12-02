@@ -12,7 +12,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Random;
 
-import static betterwithmods.util.WorldUtils.addDrop;
+import static betterwithmods.library.utils.EntityUtils.addDrop;
 
 
 public class FeedWolfchop extends Feature {

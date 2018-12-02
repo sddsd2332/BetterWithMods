@@ -1,0 +1,7 @@
+{
+  "name": "Stoked Cauldron Recipes",
+  "description": "",
+  "icon": "betterwithmods:cauldron",
+  "parent": "processing",
+  "sortnum": 1
+}

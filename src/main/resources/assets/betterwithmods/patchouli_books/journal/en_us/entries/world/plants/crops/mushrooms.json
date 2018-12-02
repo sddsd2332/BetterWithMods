@@ -5,20 +5,9 @@
   "advancement": "betterwithmods:crops/mushroom",
   "pages": [
     {
-      "type": "multiblock",
+      "type": "crop",
       "name": "Mushrooms",
-      "multiblock": {
-        "pattern": [
-          [" 0 "],
-          [" F "]
-        ],
-        "mapping": {
-          "0": "minecraft:brown_mushroom",
-          "F": "minecraft:stone"
-        }
-      },
-      "enable_visualize": false,
-      "symmetrical": true,
+      "crop": "minecraft:brown_mushroom",
       "text": "A depiction of a wild mushroom."
     },
     {

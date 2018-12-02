@@ -2,7 +2,7 @@
   "name": "Chicken",
   "icon": "betterwithmods:head{type: 'minecraft:chicken'}",
   "category": "world/animals",
-  "advancement": "animals/chicken",
+  "advancement": "betterwithmods:animals/chicken",
   "pages": [
     {
       "type": "bottom_spotlight",

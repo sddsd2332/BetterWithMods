@@ -1,8 +1,8 @@
 {
   "name": "Kiln",
   "icon": "minecraft:brick_block",
-  "advancement": "betterwithmods:nether",
-  "category": "heat",
+  "advancement": "betterwithmods:netherrack",
+  "category": "processing",
   "pages": [
     {
       "type": "text",

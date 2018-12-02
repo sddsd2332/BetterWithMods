@@ -24,7 +24,7 @@ public class ItemVerticalWindmill extends ItemAxleGenerator {
     @Override
     public AxisAlignedBB getBounds(EnumFacing.Axis axis, int radius) {
         if (axis == Y) {
-            return new AxisAlignedBB(-radius, -radius + 1, -radius, radius, radius - 1, radius);
+            return new AxisAlignedBB(-radius, -radius + 1, -radius, radius, radius, radius);
         }
         return Block.NULL_AABB;
     }

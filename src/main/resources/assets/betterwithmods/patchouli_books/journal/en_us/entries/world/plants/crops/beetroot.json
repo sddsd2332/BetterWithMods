@@ -5,20 +5,9 @@
   "advancement": "betterwithmods:crops/beetroot_seeds",
   "pages": [
     {
-      "type": "multiblock",
+      "type": "crop",
       "name": "Beetroots",
-      "multiblock": {
-        "pattern": [
-          [" 0 "],
-          [" F "]
-        ],
-        "mapping": {
-          "0": "minecraft:beetroots[age=3]",
-          "F": "minecraft:farmland[moisture=7]"
-        }
-      },
-      "enable_visualize": false,
-      "symmetrical": true,
+      "crop": "minecraft:beetroots[age=3]",
       "text": "A depiction of a fully grown beetroot crop."
     },
     {

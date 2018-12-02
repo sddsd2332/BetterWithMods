@@ -5,20 +5,9 @@
   "advancement": "betterwithmods:crops/wheat_seeds",
   "pages": [
     {
-      "type": "multiblock",
+      "type": "crop",
       "name": "Wheat",
-      "multiblock": {
-        "pattern": [
-          [" 0 "],
-          [" F "]
-        ],
-        "mapping": {
-          "0": "minecraft:wheat[age=7]",
-          "F": "minecraft:farmland[moisture=7]"
-        }
-      },
-      "enable_visualize": false,
-      "symmetrical": true,
+      "crop": "minecraft:wheat[age=7]",
       "text": "A depiction of a fully grown wheat crop."
     },
     {

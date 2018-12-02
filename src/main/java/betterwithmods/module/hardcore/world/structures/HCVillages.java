@@ -94,6 +94,7 @@ public class HCVillages extends Feature {
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.BOOKSHELF), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.TORCH), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.FURNACE), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.GRASS), Blocks.DIRT.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.GLASS), Blocks.AIR.getDefaultState()))
                 .addChanger(new IngredientChanger(new MaterialIngredient(Material.WATER), Blocks.DIRT.getDefaultState()))
                 .addChanger(new IngredientChanger(new PredicateBlockStateIngredient((world, pos) -> world.getBlockState(pos).getBlock() instanceof BlockDoor), Blocks.AIR.getDefaultState()))

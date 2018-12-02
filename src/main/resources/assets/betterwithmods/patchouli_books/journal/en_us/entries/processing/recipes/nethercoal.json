@@ -2,7 +2,7 @@
   "name": "Nethercoal",
   "icon": "betterwithmods:nethercoal",
   "advancement": "betterwithmods:hibachi",
-  "category": "materials",
+  "category": "processing/cauldron",
   "pages": [
     {
       "type": "text",

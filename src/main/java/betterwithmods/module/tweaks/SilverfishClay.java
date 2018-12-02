@@ -1,7 +1,7 @@
 package betterwithmods.module.tweaks;
 
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.util.WorldUtils;
+import betterwithmods.library.utils.EntityUtils;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntitySilverfish;
 import net.minecraft.init.Items;
@@ -18,7 +18,7 @@ public class SilverfishClay extends Feature {
         EntityLivingBase entity = event.getEntityLiving();
         if (entity instanceof EntitySilverfish) {
             if (entity.world.provider.getDimensionType() == DimensionType.THE_END)
-                WorldUtils.addDrop(event, new ItemStack(Items.CLAY_BALL, entity.getRNG().nextInt(3)));
+                EntityUtils.addDrop(event, new ItemStack(Items.CLAY_BALL, entity.getRNG().nextInt(3)));
         }
     }
 

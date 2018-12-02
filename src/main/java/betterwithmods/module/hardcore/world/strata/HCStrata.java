@@ -120,17 +120,13 @@ public class HCStrata extends Feature {
         BlockPos pos = event.getPos();
         if (shouldStratify(world, pos)) {
             ItemStack stack = BrokenToolRegistry.findItem(event.getEntityPlayer(), event.getState());
-            float scale = 1;
             int strata = getStratification(world, pos, world.provider.getDimension()).ordinal();
-
             if (STATES.getOrDefault(event.getState(), BlockType.STONE) == BlockType.STONE) {
                 int level = Math.max(1, stack.getItem().getHarvestLevel(stack, "pickaxe", event.getEntityPlayer(), event.getState()));
                 if (level <= strata) {
-                    scale = INCORRECT_STRATA_SCALE;
+                    event.setNewSpeed(INCORRECT_STRATA_SCALE * event.getOriginalSpeed());
                 }
             }
-            float speed = scale * event.getOriginalSpeed();
-            event.setNewSpeed(speed);
         }
     }
 

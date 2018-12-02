@@ -21,9 +21,7 @@
         "items": [
           {
             "item": "betterwithmods:lamp",
-            "nbt": {
-              "color": 16701501
-            }
+            "nbt": "{color: 16701501}"
           }
         ]
       }

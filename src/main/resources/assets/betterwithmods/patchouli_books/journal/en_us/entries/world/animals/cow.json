@@ -2,7 +2,7 @@
   "name": "Cow",
   "icon": "betterwithmods:head{type: 'minecraft:cow'}",
   "category": "world/animals",
-  "advancement": "animals/cow",
+  "advancement": "betterwithmods:animals/cow",
   "pages": [
     {
       "type": "bottom_spotlight",

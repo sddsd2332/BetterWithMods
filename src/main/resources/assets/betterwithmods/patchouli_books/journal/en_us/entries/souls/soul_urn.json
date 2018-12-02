@@ -1,0 +1,14 @@
+{
+  "name": "Soul Urn",
+  "icon": "betterwithmods:soul_urn",
+  "advancement": "betterwithmods:netherrack",
+  "category": "souls",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

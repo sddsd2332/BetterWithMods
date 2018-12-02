@@ -5,20 +5,9 @@
   "advancement": "betterwithmods:crops/carrot",
   "pages": [
     {
-      "type": "multiblock",
+      "type": "crop",
       "name": "Carrots",
-      "multiblock": {
-        "pattern": [
-          [" 0 "],
-          [" F "]
-        ],
-        "mapping": {
-          "0": "minecraft:carrots[age=7]",
-          "F": "minecraft:farmland[moisture=7]"
-        }
-      },
-      "enable_visualize": false,
-      "symmetrical": true,
+      "crop": "minecraft:carrots[age=7]",
       "text": "A depiction of a fully grown carrot crop."
     },
     {

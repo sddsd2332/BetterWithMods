@@ -1,0 +1,22 @@
+{
+  "components": [
+    {
+      "type": "custom",
+      "class": "betterwithmods.module.compat.patchouli.ComponentMultiblock",
+      "name": "#name",
+      "max_x": 58,
+      "max_y": 58,
+      "scale": 1,
+      "multiblock": {
+        "pattern": [
+          [" 0 "],
+          [" F "]
+        ],
+        "mapping": {
+          "0": "#crop",
+          "F": "minecraft:farmland[moisture=7]"
+        }
+      }
+    }
+  ]
+}

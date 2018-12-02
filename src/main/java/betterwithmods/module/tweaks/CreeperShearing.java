@@ -6,7 +6,6 @@ import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.utils.EntityUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.internal.AdvancementRegistry;
-import betterwithmods.util.WorldUtils;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -42,7 +41,7 @@ public class CreeperShearing extends Feature {
         if (isMatching(entity)) {
             double chance = entity.getRNG().nextDouble() + (0.1 * event.getLootingLevel());
             if (chance <= 0.05) {
-                WorldUtils.addDrop(event, new ItemStack(BWMItems.CREEPER_OYSTER));
+                EntityUtils.addDrop(event, new ItemStack(BWMItems.CREEPER_OYSTER));
             }
         }
     }

@@ -1,0 +1,25 @@
+{
+  "include": [
+    {
+      "template": "include/sawcomponent",
+      "as": "recipe",
+      "using": {
+        "block": "minecraft:planks",
+        "name": "Siding"
+      }
+    }
+  ],
+  "components": [
+    {
+      "type": "header",
+      "text": "#title",
+      "x": -1,
+      "y": -5
+    },
+    {
+      "type": "text",
+      "text": "#text",
+      "y": 69
+    }
+  ]
+}

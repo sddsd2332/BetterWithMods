@@ -11,10 +11,7 @@ import net.minecraft.entity.passive.EntitySquid;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.init.PotionTypes;
-import net.minecraft.item.Item;
-import net.minecraft.item.ItemFishFood;
-import net.minecraft.item.ItemSplashPotion;
-import net.minecraft.item.ItemStack;
+import net.minecraft.item.*;
 import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.potion.PotionEffect;
 import net.minecraft.potion.PotionHelper;
@@ -48,7 +45,7 @@ public class HCBrewing extends Feature {
 
     private static boolean isWitchDropBlacklisted(ItemStack stack) {
         Item item = stack.getItem();
-        return item == Items.GLOWSTONE_DUST || item == Items.SUGAR || item == Items.SPIDER_EYE || item == Items.GUNPOWDER;
+        return item == Items.GLOWSTONE_DUST || item == Items.SUGAR || item == Items.SPIDER_EYE || item == Items.GUNPOWDER || item instanceof ItemPotion;
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
@@ -58,21 +55,18 @@ public class HCBrewing extends Feature {
 
         if (entity instanceof EntityWitch) {
             Iterator<EntityItem> iterator = drops.iterator();
-            while (iterator.hasNext()) {
-                EntityItem item = iterator.next();
-                ItemStack stack = item.getItem();
-                if (removeWitchPotionDrops && isWitchDropBlacklisted(stack))
-                    iterator.remove();
-                else if (stack.getItem() == Items.REDSTONE)
-                    item.setItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WITCH_WART, stack.getCount()));
-            }
-        }
-
-        if (entity instanceof EntitySquid) {
+            EntityItem item = iterator.next();
+            ItemStack stack = item.getItem();
+            if (stack.getItem() == Items.REDSTONE)
+                item.setItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.WITCH_WART, stack.getCount()));
+            else if (removeWitchPotionDrops && isWitchDropBlacklisted(stack))
+                iterator.remove();
+        } else if (entity instanceof EntitySquid) {
             if (entity.world.rand.nextInt(100) < 10) {
                 entity.entityDropItem(ItemMaterial.getStack(ItemMaterial.EnumMaterial.MYSTERY_GLAND), 0);
             }
         }
+
     }
 
     @Override

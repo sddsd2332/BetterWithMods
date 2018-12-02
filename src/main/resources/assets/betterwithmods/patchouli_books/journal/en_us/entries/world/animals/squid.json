@@ -1,0 +1,31 @@
+{
+  "name": "Squid",
+  "icon": "minecraft:dye",
+  "category": "world/animals",
+  "advancement": "betterwithmods:animals/squid",
+  "pages": [
+    {
+      "type": "text",
+      "title": "Squid",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "entity",
+      "entity": "minecraft:squid",
+      "scale": 0.5,
+      "offset": -0.75
+    },
+    {
+      "type": "spotlight",
+      "title": "Ink Sac",
+      "item": "minecraft:dye",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "spotlight",
+      "title": "Mysterious Gland",
+      "item": "betterwithmods:mystery_gland",
+      "text": "DOCUMENTME"
+    }
+  ]
+}

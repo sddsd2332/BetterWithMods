@@ -2,7 +2,7 @@
   "name": "Mooshroom",
   "icon": "betterwithmods:head{type: 'minecraft:mooshroom'}",
   "category": "world/animals",
-  "advancement": "animals/mooshroom",
+  "advancement": "betterwithmods:animals/mooshroom",
   "pages": [
     {
       "type": "text",

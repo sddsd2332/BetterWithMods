@@ -2,7 +2,7 @@
   "name": "Creeper",
   "icon": "minecraft:skull:4",
   "category": "world/monsters",
-  "advancement": "monsters/creeper",
+  "advancement": "betterwithmods:monsters/creeper",
   "pages": [
     {
       "type": "text",

@@ -16,6 +16,12 @@
       "desc2": "Moulding",
       "item3": "betterwithmods:corner_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
       "desc3": "Corners"
+    },
+    {
+      "type": "saw_text",
+      "title": "Siding",
+      "name": "Siding",
+      "block": "minecraft:planks"
     }
   ]
 }

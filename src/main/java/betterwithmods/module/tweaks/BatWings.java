@@ -8,7 +8,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
-import static betterwithmods.util.WorldUtils.addDrop;
+import static betterwithmods.library.utils.EntityUtils.addDrop;
 
 
 public class BatWings extends Feature {

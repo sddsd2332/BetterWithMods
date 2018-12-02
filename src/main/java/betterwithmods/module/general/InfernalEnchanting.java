@@ -2,8 +2,8 @@ package betterwithmods.module.general;
 
 import betterwithmods.common.items.ItemArcaneScroll;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.utils.EntityUtils;
 import betterwithmods.util.InfernalEnchantment;
-import betterwithmods.util.WorldUtils;
 import com.google.common.collect.Maps;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -65,7 +65,7 @@ public class InfernalEnchanting extends Feature {
                 if (drop.getScroll(event.getEntityLiving()) != null) {
                     double chance = event.getEntityLiving().getRNG().nextDouble() + (lootingDropBonus * event.getLootingLevel());
                     if (chance <= drop.getChance()) {
-                        WorldUtils.addDrop(event, drop.getScroll(event.getEntityLiving()));
+                        EntityUtils.addDrop(event, drop.getScroll(event.getEntityLiving()));
                     }
                 }
             }
