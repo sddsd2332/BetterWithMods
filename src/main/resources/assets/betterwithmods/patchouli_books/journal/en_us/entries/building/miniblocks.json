@@ -23,5 +23,6 @@
       "name": "Siding",
       "block": "minecraft:planks"
     }
-  ]
+  ],
+  "sortnum": 2
 }

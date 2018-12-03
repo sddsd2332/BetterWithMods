@@ -13,6 +13,16 @@
       "type": "crafting",
       "title": "Recipe",
       "recipe": "betterwithmods:blocks/mech/pulley"
+    },
+    {
+      "type": "text",
+      "title": "Platform",
+      "text": "DOCUMENTME"
+    },
+    {
+      "type": "text",
+      "title": "Iron Wall",
+      "text": "DOCUMENTME"
     }
   ],
   "sortnum": 6

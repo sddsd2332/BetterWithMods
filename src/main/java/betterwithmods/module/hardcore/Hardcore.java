@@ -32,13 +32,12 @@ public class Hardcore extends Module {
         addFeature(new HCBoating()).recipes();
         addFeature(new HCFishing()).recipes();
         addFeature(new HCTorches()).recipes();
-        addFeature(new PowderKegs()).recipes();
         addFeature(new HCStructures()).recipes();
         addFeature(new HCOres()).recipes();
+        addFeature(new PowderKegs()).recipes();
 
         addFeatures(
                 new HCArmor(),
-
                 new HCBeds(),
                 new HCBonemeal(),
                 new HCBrewing(),

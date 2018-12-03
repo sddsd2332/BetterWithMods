@@ -2,7 +2,7 @@
   "name": "Diamond Ingot",
   "icon": "betterwithmods:diamond_ingot",
   "advancement": "betterwithmods:crucible",
-  "category": "materials",
+  "category": "processing",
   "pages": [
     {
       "type": "text",

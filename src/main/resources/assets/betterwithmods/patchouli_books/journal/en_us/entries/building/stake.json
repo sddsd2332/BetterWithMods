@@ -1,12 +1,13 @@
 {
-  "name": "Iron Wall",
-  "icon": "betterwithmods:iron_wall",
+  "name": "Stakes",
+  "icon": "betterwithmods:stake",
   "category": "building",
   "pages": [
     {
       "type": "text",
-      "title": "Iron Wall",
+      "title": "Stake",
       "text": "DOCUMENTME"
     }
-  ]
+  ],
+  "sortnum": 2
 }

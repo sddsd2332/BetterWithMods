@@ -1,0 +1,14 @@
+{
+  "name": "Vine Trap",
+  "icon": "betterwithmods:vine_trap",
+  "category": "building",
+  "advancement": "betterwithmods:crops/vine",
+  "pages": [
+    {
+      "type": "text",
+      "title": "",
+      "text": "DOCUMENTME"
+    }
+  ],
+  "sortnum": 5
+}

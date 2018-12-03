@@ -1,7 +1,7 @@
 {
-  "name": "Soulforged Steel Ingot",
-  "icon": "betterwithmods:steel_ingot",
-  "advancement": "betterwithmods:crucible",
+  "name": "Nether Growth",
+  "icon": "betterwithmods:nether_growth",
+  "advancement": "betterwithmods:soul_urn",
   "category": "souls",
   "pages": [
     {

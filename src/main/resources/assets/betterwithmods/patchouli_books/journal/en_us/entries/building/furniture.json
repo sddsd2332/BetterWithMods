@@ -17,5 +17,6 @@
       "item3": "betterwithmods:bench_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
       "desc3": "Benches"
     }
-  ]
+  ],
+  "sortnum": 2
 }

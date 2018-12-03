@@ -1,0 +1,28 @@
+{
+  "parent": "betterwithmods:root",
+  "display": {
+    "icon": {
+      "item": "betterwithmods:dragon_vessel"
+    },
+    "title": {
+      "translate": "advancement.betterwithmods.dragon_vessel.name"
+    },
+    "description": {
+      "translate": "advancement.betterwithmods.dragon_vessel.desc"
+    },
+    "hidden": true,
+    "frame": "challenge"
+  },
+  "criteria": {
+    "has_item": {
+      "trigger": "minecraft:inventory_changed",
+      "conditions": {
+        "items": [
+          {
+            "item": "betterwithmods:dragon_vessel"
+          }
+        ]
+      }
+    }
+  }
+}

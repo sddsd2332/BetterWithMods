@@ -1,7 +1,7 @@
 {
-  "name": "Soulforged Steel Ingot",
-  "icon": "betterwithmods:steel_ingot",
-  "advancement": "betterwithmods:crucible",
+  "name": "Blood Wood Tree",
+  "icon": "betterwithmods:blood_sapling",
+  "advancement": "betterwithmods:soul_urn",
   "category": "souls",
   "pages": [
     {

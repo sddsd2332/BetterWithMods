@@ -1,8 +1,8 @@
 {
-  "name": "Vine Trap",
-  "icon": "betterwithmods:vine_trap",
+  "name": "Composite Bow",
+  "icon": "betterwithmods:composite_bow",
+  "advancement": "betterwithmods:saw",
   "category": "tools",
-  "advancement": "betterwithmods:crops/vine",
   "pages": [
     {
       "type": "text",
@@ -10,5 +10,5 @@
       "text": "DOCUMENTME"
     }
   ],
-  "sortnum": 5
+  "sortnum": 1
 }

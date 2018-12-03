@@ -1,18 +1,18 @@
 {
-  "name": "Candles & Candle Holders",
-  "icon": "betterwithmods:candle_red",
+  "name": "Rope",
+  "icon": "betterwithmods:rope",
   "category": "building",
   "pages": [
     {
       "type": "text",
-      "title": "Candles",
+      "title": "Rope",
       "text": "DOCUMENTME"
     },
     {
       "type": "text",
-      "title": "Candle Holders",
+      "title": "Anchor",
       "text": "DOCUMENTME"
     }
   ],
-  "sortnum": 2
+  "sortnum": 1
 }
