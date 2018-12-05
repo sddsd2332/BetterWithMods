@@ -3,26 +3,39 @@ package betterwithmods.module.hardcore.creatures;
 import betterwithmods.common.items.ItemArcaneScroll;
 import betterwithmods.module.Feature;
 import betterwithmods.util.InfernalEnchantment;
+import betterwithmods.util.InvUtils;
 import betterwithmods.util.WorldUtils;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import net.minecraft.enchantment.Enchantment;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.IMerchant;
 import net.minecraft.entity.boss.EntityDragon;
 import net.minecraft.entity.boss.EntityWither;
 import net.minecraft.entity.monster.*;
 import net.minecraft.entity.passive.EntityBat;
 import net.minecraft.entity.passive.EntitySquid;
+import net.minecraft.entity.passive.EntityVillager;
 import net.minecraft.init.Enchantments;
+import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.ResourceLocation;
+import net.minecraft.village.MerchantRecipe;
+import net.minecraft.village.MerchantRecipeList;
 import net.minecraft.world.DimensionType;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
+import net.minecraftforge.fml.common.registry.ForgeRegistries;
+import net.minecraftforge.fml.common.registry.VillagerRegistry;
 
+import javax.annotation.Nonnull;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
 public class HCEnchanting extends Feature {
     private static final HashMap<Class<? extends EntityLivingBase>, ScrollDrop> SCROLL_DROPS = Maps.newHashMap();
@@ -139,18 +152,46 @@ public class HCEnchanting extends Feature {
         addEnchantOverride(Enchantments.RESPIRATION, 5);
 
 
-        //TODO
-        // SHARPNESS -> Butcher Trade
-        // LOOTING -> Farmer Trade
-        // UNBREAKING -> Blacksmith Trade
-        // FORTUNE ->  Priest Trade
-        // POWER   -> Librarian Trade
-        // LUCK_OF_THE_SEA, LURE -> Fisherman Trade
-        /*
-        BINDING_CURSE illager
-        MENDING REMOVE
-        VANISHING_CURSE illager
-         */
+        EntityVillager.ITradeList sharpness = new PricedTradeList(
+                new ItemStack(Items.EMERALD),
+                new EntityVillager.PriceInfo(35, 50), ItemArcaneScroll.getScrollWithEnchant(Enchantments.SHARPNESS));
+
+        EntityVillager.ITradeList looting = new PricedTradeList(
+                new ItemStack(Items.EMERALD),
+                new EntityVillager.PriceInfo(15, 30), ItemArcaneScroll.getScrollWithEnchant(Enchantments.LOOTING));
+
+        EntityVillager.ITradeList unbreaking = new PricedTradeList(
+                new ItemStack(Items.EMERALD),
+                new EntityVillager.PriceInfo(34, 47), ItemArcaneScroll.getScrollWithEnchant(Enchantments.UNBREAKING));
+
+
+        EntityVillager.ITradeList fortune = new PricedTradeList(
+                new ItemStack(Items.EMERALD),
+                new EntityVillager.PriceInfo(48, 62), ItemArcaneScroll.getScrollWithEnchant(Enchantments.FORTUNE));
+
+        EntityVillager.ITradeList power = new PricedTradeList(
+                new ItemStack(Items.EMERALD),
+                new EntityVillager.PriceInfo(32, 40), ItemArcaneScroll.getScrollWithEnchant(Enchantments.POWER));
+
+
+        EntityVillager.ITradeList luckofsea = new PricedTradeList(
+                new ItemStack(Items.EMERALD),
+                new EntityVillager.PriceInfo(15, 30), ItemArcaneScroll.getScrollWithEnchant(Enchantments.LUCK_OF_THE_SEA));
+
+        EntityVillager.ITradeList lure = new PricedTradeList(
+                new ItemStack(Items.EMERALD),
+                new EntityVillager.PriceInfo(10, 20), ItemArcaneScroll.getScrollWithEnchant(Enchantments.LUCK_OF_THE_SEA));
+
+
+
+        addVillagerTrade("minecraft:butcher", 0, 5, sharpness);
+        addVillagerTrade("minecraft:farmer", 0, 5, looting);
+        addVillagerTrade("minecraft:smith", 2, 5, unbreaking);
+        addVillagerTrade("minecraft:priest", 0, 5, fortune);
+        addVillagerTrade("minecraft:librarian", 0, 5, power);
+        addVillagerTrade("minecraft:farmer", 1, 5, luckofsea);
+        addVillagerTrade("minecraft:farmer", 1, 5, lure);
+
     }
 
     @Override
@@ -188,11 +229,63 @@ public class HCEnchanting extends Feature {
         if (event.phase == TickEvent.Phase.START)
             return;
 
-        if(!event.player.getEntityWorld().isRemote) {
+        if (!event.player.getEntityWorld().isRemote) {
             int mod = EnchantmentHelper.getRespirationModifier(event.player);
-            if(mod >= 5) {
+            if (mod >= 5) {
                 event.player.setAir(300);
             }
         }
     }
+
+
+    public static void addVillagerTrade(String profession, int careerId, int level, EntityVillager.ITradeList trade) {
+        VillagerRegistry.VillagerProfession profression = ForgeRegistries.VILLAGER_PROFESSIONS.getValue(new ResourceLocation(profession));
+        if (profression != null) {
+            VillagerRegistry.VillagerCareer career = profression.getCareer(careerId);
+            career.addTrade(level, trade);
+        }
+
+    }
+
+    public static class TradeList implements EntityVillager.ITradeList {
+        private List<MerchantRecipe> recipes;
+
+        public TradeList(MerchantRecipe... recipes) {
+            this.recipes = Lists.newArrayList(recipes);
+        }
+
+        @Override
+        public void addMerchantRecipe(@Nonnull IMerchant merchant, @Nonnull MerchantRecipeList recipeList, @Nonnull Random random) {
+            recipeList.addAll(recipes);
+        }
+
+    }
+
+    public static class PricedTradeList implements EntityVillager.ITradeList {
+        @Nonnull
+        private ItemStack input;
+        @Nonnull
+        private EntityVillager.PriceInfo info;
+        @Nonnull
+        private ItemStack output;
+
+        public PricedTradeList(@Nonnull ItemStack input, @Nonnull EntityVillager.PriceInfo info, @Nonnull ItemStack output) {
+            this.input = input;
+            this.info = info;
+            this.output = output;
+        }
+
+        private ItemStack getInput(Random random) {
+
+            ItemStack copy = input.copy();
+            InvUtils.setCount(copy, info.getPrice(random));
+            return copy;
+        }
+
+        @Override
+        public void addMerchantRecipe(@Nonnull IMerchant merchant, @Nonnull MerchantRecipeList recipeList, @Nonnull Random random) {
+            recipeList.add(new MerchantRecipe(getInput(random), output));
+        }
+    }
+
 }
