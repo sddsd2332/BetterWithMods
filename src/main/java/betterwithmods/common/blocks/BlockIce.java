@@ -4,6 +4,8 @@ import betterwithmods.util.FluidUtils;
 import betterwithmods.util.item.ToolsManager;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.PropertyBool;
+import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.player.EntityPlayer;
@@ -16,9 +18,13 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
 public class BlockIce extends net.minecraft.block.BlockIce {
+
+    private static final PropertyBool NATURAL = PropertyBool.create("natural");
+
     public BlockIce() {
         super();
         setHardness(0.5F);
@@ -26,6 +32,12 @@ public class BlockIce extends net.minecraft.block.BlockIce {
         setSoundType(SoundType.GLASS);
         setTranslationKey("ice");
         ToolsManager.setPickaxesAsEffectiveAgainst(this);
+        setDefaultState(getDefaultState().withProperty(NATURAL, true));
+    }
+
+    @Override
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, NATURAL);
     }
 
     @Override
@@ -46,6 +58,7 @@ public class BlockIce extends net.minecraft.block.BlockIce {
                 return;
             }
 
+
             int i = EnchantmentHelper.getEnchantmentLevel(Enchantments.FORTUNE, stack);
             harvesters.set(player);
             this.dropBlockAsItem(worldIn, pos, state, i);
@@ -53,13 +66,16 @@ public class BlockIce extends net.minecraft.block.BlockIce {
             Material material = worldIn.getBlockState(pos.down()).getMaterial();
 
             if (material.blocksMovement() || material.isLiquid()) {
-                setWater(worldIn, pos);
+                if (state.getValue(NATURAL))
+                    worldIn.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState());
+                else
+                    setWater(worldIn, pos);
             }
         }
     }
 
     @Override
-    protected void turnIntoWater(World worldIn, BlockPos pos) {
+    protected void turnIntoWater(@Nonnull World worldIn, @Nonnull BlockPos pos) {
         if (worldIn.provider.doesWaterVaporize()) {
             worldIn.setBlockToAir(pos);
         } else {
@@ -74,6 +90,22 @@ public class BlockIce extends net.minecraft.block.BlockIce {
         for (EnumFacing facing : EnumFacing.HORIZONTALS) {
             FluidUtils.setLiquid(world, pos.offset(facing), Blocks.WATER, 10, false);
         }
+
         world.neighborChanged(pos, Blocks.WATER, pos);
+    }
+
+    @Override
+    public int getMetaFromState(IBlockState state) {
+        return state.getValue(NATURAL) ? 1 : 0;
+    }
+
+    @Override
+    public IBlockState getStateFromMeta(int meta) {
+        return getDefaultState().withProperty(NATURAL, meta == 1);
+    }
+
+    @Override
+    protected ItemStack getSilkTouchDrop(IBlockState state) {
+        return new ItemStack(this, 1, getMetaFromState(state));
     }
 }
