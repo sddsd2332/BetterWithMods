@@ -8,6 +8,7 @@ import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
@@ -75,10 +76,9 @@ public class BlockCookingPot extends BlockBase {
     }
 
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.TILTING);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{DirUtils.TILTING};
     }
 
 

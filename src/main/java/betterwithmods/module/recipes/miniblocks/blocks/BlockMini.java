@@ -85,10 +85,9 @@ public abstract class BlockMini extends BlockDynamic implements IRenderRotationP
         return getDefaultState();
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{MINI_INFO});
+    public IUnlistedProperty<?>[] getUnlistedProperties() {
+        return new IUnlistedProperty[]{MINI_INFO};
     }
 
     @Nullable

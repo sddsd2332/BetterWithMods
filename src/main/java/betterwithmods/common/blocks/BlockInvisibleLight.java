@@ -6,6 +6,7 @@ import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -181,9 +182,8 @@ public class BlockInvisibleLight extends BlockBase {
         return meta + state.getValue(DirUtils.FACING).getIndex();
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.FACING, SUNLIGHT);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{DirUtils.FACING, SUNLIGHT};
     }
 }

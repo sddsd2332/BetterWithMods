@@ -6,6 +6,7 @@ import betterwithmods.common.tile.TileHandCrank;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
 import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.library.utils.TooltipUtils;
 import betterwithmods.module.general.MechanicalPower;
@@ -13,6 +14,7 @@ import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -176,11 +178,12 @@ public class BlockHandCrank extends BlockBase implements IOverpower {
         return state.getValue(STAGE);
     }
 
-    @Nonnull
+
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, STAGE);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{STAGE};
     }
+
 
     @Override
     public boolean hasTileEntity(IBlockState state) {

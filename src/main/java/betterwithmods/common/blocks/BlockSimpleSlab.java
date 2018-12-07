@@ -1,5 +1,6 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.library.common.block.BlockBase;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
@@ -20,16 +21,13 @@ import javax.annotation.Nonnull;
  *
  * @author Koward
  */
-public class BlockSimpleSlab extends Block {
+public class BlockSimpleSlab extends BlockBase {
     protected static final AxisAlignedBB AABB_BOTTOM_HALF = new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D);
 
-    public BlockSimpleSlab(Material materialIn, MapColor blockMapColorIn) {
-        super(materialIn, blockMapColorIn);
+    public BlockSimpleSlab(Material material) {
+        super(material);
     }
 
-    public BlockSimpleSlab(Material materialIn) {
-        super(materialIn);
-    }
 
     @Nonnull
     @Override

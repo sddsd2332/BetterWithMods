@@ -8,6 +8,7 @@ import betterwithmods.library.utils.ingredient.EntityIngredient;
 import betterwithmods.module.internal.AdvancedDispenserRegistry;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityAgeable;
@@ -104,9 +105,10 @@ public class BlockWolf extends BlockBase {
         return this.getDefaultState().withProperty(DirUtils.FACING, EnumFacing.byIndex(meta));
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.FACING);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{DirUtils.FACING};
     }
+
+
 }

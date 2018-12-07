@@ -2,6 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.common.block.IBlockActive;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderGenerator;
 import betterwithmods.module.internal.SoundRegistry;
 import com.google.common.collect.Lists;
@@ -11,6 +12,7 @@ import net.minecraft.block.BlockFence;
 import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -29,8 +31,7 @@ import java.util.List;
 import java.util.Random;
 import java.util.Set;
 
-public class BlockChime extends BlockBase {
-    public static final PropertyBool ACTIVE = PropertyBool.create("active");
+public class BlockChime extends BlockBase implements IBlockActive {
     public static final Set<Block> BLOCKS = Sets.newHashSet();
     private static final AxisAlignedBB CHIME_AABB = new AxisAlignedBB(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.875D, 0.6875D);
     private SoundEvent chimeSound;
@@ -43,7 +44,6 @@ public class BlockChime extends BlockBase {
         this.setChimeSound(material == Material.IRON ? SoundRegistry.BLOCK_CHIME_METAL : SoundRegistry.BLOCK_CHIME_WOOD);
     }
 
-
     private void setChimeSound(SoundEvent chimeSound) {
         this.chimeSound = chimeSound;
     }
@@ -53,8 +53,8 @@ public class BlockChime extends BlockBase {
         if (world.isRemote)
             return true;
         else {
-            if (!state.getValue(ACTIVE)) {
-                world.setBlockState(pos, state.withProperty(ACTIVE, true));
+            if (!isActive(state)) {
+                setActive(world,pos, true);
                 world.playSound(null, pos, chimeSound, SoundCategory.BLOCKS, 0.4F, 1.0F);
                 for (EnumFacing facing : EnumFacing.VALUES)
                     world.notifyNeighborsOfStateChange(pos.offset(facing), this, false);
@@ -93,7 +93,7 @@ public class BlockChime extends BlockBase {
 
     @Override
     public void breakBlock(@Nonnull World world, @Nonnull BlockPos pos, @Nonnull IBlockState state) {
-        if (state.getValue(ACTIVE)) {
+        if (isActive(state)) {
             for (EnumFacing facing : EnumFacing.VALUES)
                 world.notifyNeighborsOfStateChange(pos.offset(facing), this, false);
         }
@@ -127,10 +127,10 @@ public class BlockChime extends BlockBase {
     @Override
     public void updateTick(World world, BlockPos pos, IBlockState state, Random rand) {
         boolean storm = detectStorming(world, pos) || isEntityColliding(world, pos);
-        boolean isActive = state.getValue(ACTIVE);
+        boolean isActive = isActive(state);
 
         if (storm != isActive) {
-            world.setBlockState(pos, state.withProperty(ACTIVE, storm));
+            setActive(world,pos, storm);
             world.notifyNeighborsOfStateChange(pos, this, false);
             for (EnumFacing facing : EnumFacing.VALUES)
                 world.notifyNeighborsOfStateChange(pos.offset(facing), this, false);
@@ -164,8 +164,8 @@ public class BlockChime extends BlockBase {
 
     @Override
     public void onEntityCollision(World world, BlockPos pos, IBlockState state, Entity entity) {
-        if (!state.getValue(ACTIVE)) {
-            world.setBlockState(pos, state.withProperty(ACTIVE, true));
+        if (!isActive(state)) {
+            setActive(world,pos, true);
             world.notifyNeighborsOfStateChange(pos, this, false);
             for (EnumFacing facing : EnumFacing.VALUES)
                 world.notifyNeighborsOfStateChange(pos.offset(facing), this, false);
@@ -182,7 +182,7 @@ public class BlockChime extends BlockBase {
     @SuppressWarnings("deprecation")
     @Override
     public int getWeakPower(IBlockState state, IBlockAccess world, BlockPos pos, EnumFacing facing) {
-        if (state.getValue(ACTIVE))
+        if(isActive(state))
             return 15;
         return 0;
     }
@@ -212,10 +212,9 @@ public class BlockChime extends BlockBase {
         return BlockFaceShape.UNDEFINED;
     }
 
-    @Nonnull
     @Override
-    public BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return IBlockActive.super.getProperties();
     }
 
     public static class Generator extends BlockEntryBuilderGenerator<BlockPlanks.EnumType> {

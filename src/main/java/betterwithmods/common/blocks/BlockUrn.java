@@ -8,6 +8,7 @@ import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -109,11 +110,9 @@ public class BlockUrn extends BlockBase implements ISoulContainer {
         return state;
     }
 
-
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, UNDERHOPPER);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{UNDERHOPPER};
     }
 
     @Nonnull

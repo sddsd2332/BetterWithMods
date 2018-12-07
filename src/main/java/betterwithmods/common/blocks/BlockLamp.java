@@ -9,6 +9,7 @@ import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -66,10 +67,10 @@ public class BlockLamp extends BlockBase implements IBlockActive, IHempGrower, I
     }
 
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return IBlockActive.super.getProperties();
     }
-
+    
     @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(ACTIVE) ? 1 : 0;

@@ -14,6 +14,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -295,10 +296,11 @@ public class BlockSaw extends BlockBase implements IBlockActive, IOverpower {
         return active | facing;
     }
 
-    @Nonnull
+
+
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, ACTIVE, DirUtils.FACING);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{ACTIVE, DirUtils.FACING};
     }
 
     public Optional<TileSaw> withTile(World world, BlockPos pos) {

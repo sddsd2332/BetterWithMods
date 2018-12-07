@@ -4,8 +4,10 @@ import betterwithmods.BetterWithMods;
 import betterwithmods.common.tile.TileInfernalEnchanter;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.library.common.block.IBlockActive;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -37,9 +39,7 @@ import java.util.Random;
 /**
  * Created by primetoxinz on 9/11/16.
  */
-public class BlockInfernalEnchanter extends BlockBase {
-
-    public static final PropertyBool ACTIVE = PropertyBool.create("active");
+public class BlockInfernalEnchanter extends BlockBase implements IBlockActive {
 
     public BlockInfernalEnchanter() {
         super(Material.IRON);
@@ -47,12 +47,10 @@ public class BlockInfernalEnchanter extends BlockBase {
         setResistance(2000.0F);
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return IBlockActive.super.getProperties();
     }
-
     @Override
     public int getMetaFromState(IBlockState state) {
         return state.getValue(ACTIVE) ? 1 : 0;
@@ -67,7 +65,7 @@ public class BlockInfernalEnchanter extends BlockBase {
 
     @Override
     public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
-        if (state.getValue(ACTIVE))
+        if (isActive(state))
             return 15;
         return super.getLightValue(state, world, pos);
     }
@@ -149,7 +147,7 @@ public class BlockInfernalEnchanter extends BlockBase {
     public void randomDisplayTick(IBlockState stateIn, World worldIn, BlockPos pos, Random rand) {
         super.randomDisplayTick(stateIn, worldIn, pos, rand);
 
-        if (!stateIn.getValue(ACTIVE))
+        if (!isActive(stateIn))
             return;
         int r = TileInfernalEnchanter.RADIUS;
         for (int i = -r; i <= r; ++i) {

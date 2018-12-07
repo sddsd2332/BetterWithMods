@@ -1,8 +1,10 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.library.common.block.IBlockActive;
 import net.minecraft.block.BlockBasePressurePlate;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -17,23 +19,21 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import java.util.List;
 
-public class BlockSteelPressurePlate extends BlockBasePressurePlate {
-
-    public static final PropertyBool POWERED = PropertyBool.create("powered");
+public class BlockSteelPressurePlate extends BlockBasePressurePlate implements IBlockActive {
 
     public BlockSteelPressurePlate() {
         super(Material.IRON);
-        this.setDefaultState(this.blockState.getBaseState().withProperty(POWERED, false));
+        this.setDefaultState(this.blockState.getBaseState().withProperty(ACTIVE, false));
         setSoundType(SoundType.METAL);
     }
 
     protected int getRedstoneStrength(@Nonnull IBlockState state) {
-        return state.getValue(POWERED) ? 15 : 0;
+        return isActive(state) ? 15 : 0;
     }
 
     @Nonnull
     protected IBlockState setRedstoneStrength(@Nonnull IBlockState state, int strength) {
-        return state.withProperty(POWERED, strength > 0);
+        return state.withProperty(ACTIVE, strength > 0);
     }
 
     protected void playClickOnSound(@Nonnull World worldIn, @Nonnull BlockPos color) {
@@ -60,16 +60,15 @@ public class BlockSteelPressurePlate extends BlockBasePressurePlate {
 
     @Nonnull
     public IBlockState getStateFromMeta(int meta) {
-        return this.getDefaultState().withProperty(POWERED, meta == 1);
+        return this.getDefaultState().withProperty(ACTIVE, meta == 1);
     }
 
     public int getMetaFromState(IBlockState state) {
-        return state.getValue(POWERED) ? 1 : 0;
+        return isActive(state) ? 1 : 0;
     }
 
-    @Nonnull
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, POWERED);
+    @Override
+    public IProperty<?>[] getProperties() {
+        return IBlockActive.super.getProperties();
     }
-
 }

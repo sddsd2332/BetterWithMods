@@ -5,6 +5,7 @@ import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.common.block.IBlockActive;
 import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -34,11 +35,11 @@ public abstract class BlockAxleGenerator extends BlockBase implements IBlockActi
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, EnumFacing.Axis.Z).withProperty(ACTIVE, false));
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, AXIS, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{AXIS, ACTIVE};
     }
+
 
     @Override
     public int getMetaFromState(IBlockState state) {

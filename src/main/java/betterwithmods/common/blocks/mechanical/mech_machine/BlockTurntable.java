@@ -2,7 +2,9 @@ package betterwithmods.common.blocks.mechanical.mech_machine;
 
 import betterwithmods.common.tile.TileTurntable;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -29,11 +31,12 @@ public class BlockTurntable extends BlockMechMachine {
         useNeighborBrightness = true;
     }
 
-    @Nonnull
+
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, SPEED, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{SPEED, ACTIVE};
     }
+
 
     @Nullable
     @Override

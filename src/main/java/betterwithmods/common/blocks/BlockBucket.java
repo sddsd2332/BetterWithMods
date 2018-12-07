@@ -6,6 +6,7 @@ import betterwithmods.common.tile.TilePulley;
 import betterwithmods.library.common.block.BlockBase;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -39,10 +40,9 @@ public class BlockBucket extends BlockBase implements IRopeConnector {
         setSoundType(SoundType.METAL);
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, IN_WATER, HAS_WATER, CONNECTED);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{IN_WATER, HAS_WATER, CONNECTED};
     }
 
     @Override

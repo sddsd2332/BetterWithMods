@@ -7,6 +7,7 @@ import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.library.utils.DirUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -93,10 +94,9 @@ public class BlockSteelAnvil extends BlockBase {
         return this.getDefaultState().withProperty(DirUtils.HORIZONTAL, EnumFacing.byHorizontalIndex(meta));
     }
 
-    @Nonnull
     @Override
-    public BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.HORIZONTAL);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{DirUtils.HORIZONTAL};
     }
 
     @Override

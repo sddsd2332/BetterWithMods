@@ -4,6 +4,7 @@ import betterwithmods.library.common.block.BlockBase;
 import net.minecraft.block.BlockSlab;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -111,10 +112,9 @@ public class BlockVineTrap extends BlockBase {
         return state.getValue(HALF) == BlockSlab.EnumBlockHalf.TOP ? 1 : 0;
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, HALF);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{HALF};
     }
 
     @Nonnull

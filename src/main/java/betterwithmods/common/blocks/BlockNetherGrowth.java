@@ -8,6 +8,7 @@ import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -149,6 +150,11 @@ public class BlockNetherGrowth extends BlockBase {
     @Override
     protected BlockStateContainer createBlockState() {
         return new BlockStateContainer(this, AGE);
+    }
+
+    @Override
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{AGE};
     }
 
     @Nonnull

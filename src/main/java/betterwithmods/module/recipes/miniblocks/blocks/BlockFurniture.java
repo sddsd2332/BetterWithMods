@@ -72,10 +72,9 @@ public abstract class BlockFurniture extends BlockDynamic {
         return new TileCamo();
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new ExtendedBlockState(this, new IProperty[]{SUPPORTED}, new IUnlistedProperty[]{CAMO_INFO});
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{SUPPORTED};
     }
 
     @Override

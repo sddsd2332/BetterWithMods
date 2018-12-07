@@ -11,6 +11,7 @@ import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -35,6 +36,8 @@ import javax.annotation.Nullable;
 import java.util.List;
 import java.util.Optional;
 import java.util.Random;
+
+import static betterwithmods.library.utils.DirUtils.AXIS;
 
 public class BlockBellows extends BlockMechMachine {
 
@@ -229,11 +232,12 @@ public class BlockBellows extends BlockMechMachine {
         return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.HORIZONTAL, EnumFacing.byHorizontalIndex(meta >> 1));
     }
 
-    @Nonnull
     @Override
-    public BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.HORIZONTAL, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{DirUtils.HORIZONTAL, ACTIVE};
     }
+
+
 
     public Optional<TileBellows> withTile(World world, BlockPos pos) {
         return Optional.ofNullable(getTile(world, pos));

@@ -9,6 +9,7 @@ import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -73,10 +74,9 @@ public class BlockBrokenGearbox extends BlockBase {
         return super.getStateForPlacement(worldIn, pos, facing, hitX, hitY, hitZ, meta, placer).withProperty(DirUtils.FACING, facing);
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.FACING);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{DirUtils.FACING};
     }
 
     @Nonnull

@@ -6,6 +6,7 @@ import betterwithmods.library.utils.ingredient.collections.BlockStateIngredientS
 import net.minecraft.block.Block;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -47,11 +48,10 @@ public class BlockBUD extends BlockBase {
     public int tickRate(World var1) {
         return 5;
     }
-
-    @Nonnull
+    
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.FACING, REDSTONE);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{DirUtils.FACING, REDSTONE};
     }
 
     @Nonnull

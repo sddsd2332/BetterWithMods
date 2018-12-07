@@ -7,6 +7,7 @@ import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -185,10 +186,9 @@ public class BlockAnchor extends BlockBase implements IRopeConnector {
         return state.getValue(FACING).getIndex();
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, FACING, LINKED);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{FACING, LINKED};
     }
 
     @Nonnull

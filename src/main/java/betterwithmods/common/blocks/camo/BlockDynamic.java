@@ -91,7 +91,12 @@ public abstract class BlockDynamic extends BlockBase {
     @Nonnull
     @Override
     protected BlockStateContainer createBlockState() {
-        return new ExtendedBlockState(this, new IProperty[0], new IUnlistedProperty[]{CAMO_INFO});
+        return new ExtendedBlockState(this, getProperties(), getUnlistedProperties());
+    }
+
+    @Override
+    public IUnlistedProperty<?>[] getUnlistedProperties() {
+        return new IUnlistedProperty[]{CAMO_INFO};
     }
 
     @Nullable

@@ -10,6 +10,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockLiquid;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -95,10 +96,10 @@ public class BlockScrewPump extends BlockBase implements IBlockActive, IOverpowe
         return meta + state.getValue(DirUtils.HORIZONTAL).getIndex();
     }
 
-    @Nonnull
+
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.HORIZONTAL, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{ACTIVE, DirUtils.HORIZONTAL};
     }
 
     @Override

@@ -9,6 +9,7 @@ import net.minecraft.block.BlockDirt;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.MapColor;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyEnum;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -195,10 +196,9 @@ public class BlockDirtSlab extends BlockSimpleSlab {
         return state.getValue(VARIANT).getMetadata();
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, VARIANT, SNOWY);
+    public IProperty<?>[] getProperties() {
+            return new IProperty[]{VARIANT, SNOWY};
     }
 
     @Nonnull

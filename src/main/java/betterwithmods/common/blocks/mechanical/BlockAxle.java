@@ -9,6 +9,7 @@ import betterwithmods.library.utils.InventoryUtils;
 import betterwithmods.module.internal.SoundRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -52,10 +53,9 @@ public class BlockAxle extends BlockBase implements IOverpower, IBlockActive {
         this.setDefaultState(this.blockState.getBaseState().withProperty(AXIS, Y).withProperty(ACTIVE, false));
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, AXIS, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{AXIS, ACTIVE};
     }
 
     @Nonnull

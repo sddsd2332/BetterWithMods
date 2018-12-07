@@ -6,6 +6,7 @@ import net.minecraft.block.Block;
 import net.minecraft.block.BlockFenceGate;
 import net.minecraft.block.BlockHorizontal;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.BlockStateContainer;
@@ -41,10 +42,9 @@ public class BlockPane extends BlockBase {
         setDefaultState(getDefaultState().withProperty(DirUtils.NORTH, true).withProperty(DirUtils.SOUTH, true).withProperty(DirUtils.EAST, true).withProperty(DirUtils.WEST, true));
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.NORTH, DirUtils.SOUTH, DirUtils.EAST, DirUtils.WEST);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{DirUtils.NORTH, DirUtils.SOUTH, DirUtils.EAST, DirUtils.WEST};
     }
 
     @Override

@@ -7,6 +7,7 @@ import betterwithmods.library.common.block.IBlockActive;
 import betterwithmods.library.utils.CapabilityUtils;
 import betterwithmods.library.utils.InventoryUtils;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
@@ -60,11 +61,11 @@ public abstract class BlockMechMachine extends BlockBase implements IBlockActive
         return true;
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{ACTIVE};
     }
+
 
     @Nonnull
     @Override

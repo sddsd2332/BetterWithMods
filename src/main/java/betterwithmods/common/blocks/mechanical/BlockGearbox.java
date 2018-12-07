@@ -12,6 +12,7 @@ import betterwithmods.library.utils.DirUtils;
 import betterwithmods.module.internal.SoundRegistry;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -149,10 +150,9 @@ public class BlockGearbox extends BlockBase implements IBlockActive, IOverpower,
         return this.getDefaultState().withProperty(ACTIVE, (meta & 1) == 1).withProperty(DirUtils.FACING, EnumFacing.byIndex(meta >> 1));
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, DirUtils.FACING, ACTIVE, DirUtils.UP, DirUtils.DOWN, DirUtils.NORTH, DirUtils.SOUTH, DirUtils.WEST, DirUtils.EAST);
+    public IProperty<?>[] getProperties() {
+        return new IProperty[]{DirUtils.FACING, ACTIVE, DirUtils.UP, DirUtils.DOWN, DirUtils.NORTH, DirUtils.SOUTH, DirUtils.WEST, DirUtils.EAST};
     }
 
     @Override

@@ -5,6 +5,7 @@ import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.common.block.IBlockActive;
 import net.minecraft.block.Block;
 import net.minecraft.block.material.Material;
+import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -144,10 +145,9 @@ public class BlockHibachi extends BlockBase implements IBlockActive, IFireSource
         return state.getValue(ACTIVE) ? 1 : 0;
     }
 
-    @Nonnull
     @Override
-    protected BlockStateContainer createBlockState() {
-        return new BlockStateContainer(this, ACTIVE);
+    public IProperty<?>[] getProperties() {
+        return IBlockActive.super.getProperties();
     }
 
     @Override
