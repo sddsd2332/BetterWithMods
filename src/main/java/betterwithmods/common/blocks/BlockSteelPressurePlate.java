@@ -67,6 +67,11 @@ public class BlockSteelPressurePlate extends BlockBasePressurePlate implements I
         return isActive(state) ? 1 : 0;
     }
 
+    @Nonnull
+    protected BlockStateContainer createBlockState() {
+        return new BlockStateContainer(this, getProperties());
+    }
+
     @Override
     public IProperty<?>[] getProperties() {
         return IBlockActive.super.getProperties();

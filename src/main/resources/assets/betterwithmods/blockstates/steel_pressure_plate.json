@@ -13,7 +13,7 @@
     "inventory": [
       {}
     ],
-    "powered": {
+    "active": {
       "true": {
         "model": "pressure_plate_down"
       },
