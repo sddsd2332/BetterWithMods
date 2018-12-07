@@ -20,8 +20,6 @@ public class BarkModel extends ModelFactory<CamoInfo> {
 
     public static final ModelResourceLocation LOCATION = new ModelResourceLocation(new ResourceLocation(ModLib.MODID, "bark"), "inventory");
 
-    public static BarkModel BARK;
-
     public final IModel template;
 
     public BarkModel(IModel template) {

@@ -1,5 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.recipes.miniblocks.orientations.CornerOrientation;
 import betterwithmods.module.recipes.miniblocks.tiles.TileCorner;
@@ -20,7 +21,7 @@ import java.util.function.Function;
 
 public class BlockCorner extends BlockMini {
 
-    public BlockCorner(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockCorner(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
     }
 

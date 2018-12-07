@@ -1,5 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -21,7 +22,7 @@ public class BlockBench extends BlockFurniture implements ISittable {
     private static final AxisAlignedBB BENCH_TOP = new AxisAlignedBB(0, 6d / 16d, 0, 1, 8 / 16d, 1);
     private static final ImmutableList<AxisAlignedBB> BENCH = ImmutableList.of(new AxisAlignedBB(0, 6 / 16d, 0, 1, 0.5, 1), new AxisAlignedBB(6 / 16d, 0, 6 / 16d, 10 / 16d, 8 / 16d, 10 / 16d));
 
-    public BlockBench(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockBench(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
         setDefaultState(getDefaultState().withProperty(SUPPORTED, true));
     }

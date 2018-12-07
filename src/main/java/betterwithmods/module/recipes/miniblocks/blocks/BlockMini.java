@@ -6,6 +6,7 @@ import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.module.recipes.miniblocks.DynblockUtils;
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.ItemMini;
 import betterwithmods.module.recipes.miniblocks.client.MiniInfo;
 import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
@@ -46,7 +47,7 @@ public abstract class BlockMini extends BlockDynamic implements IRenderRotationP
 
     public static final IUnlistedProperty<MiniInfo> MINI_INFO = new UnlistedPropertyGeneric<>("mini", MiniInfo.class);
 
-    public BlockMini(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockMini(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
     }
 

@@ -1,5 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockFaceShape;
@@ -19,7 +20,7 @@ public class BlockTable extends BlockFurniture {
     private static final AxisAlignedBB TABLE_TOP = new AxisAlignedBB(0, 14d / 16d, 0, 1, 1, 1);
     private static final ImmutableList<AxisAlignedBB> TABLE = ImmutableList.of(new AxisAlignedBB(0, 14 / 16d, 0, 1, 1, 1), new AxisAlignedBB(6 / 16d, 0, 6 / 16d, 10 / 16d, 14 / 16d, 10 / 16d));
 
-    public BlockTable(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockTable(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
         setDefaultState(getDefaultState().withProperty(SUPPORTED, true));
     }

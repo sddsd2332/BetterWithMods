@@ -1,5 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.recipes.miniblocks.orientations.SidingOrientation;
 import betterwithmods.module.recipes.miniblocks.tiles.TileSiding;
@@ -20,7 +21,7 @@ import java.util.function.Function;
 
 public class BlockSiding extends BlockMini {
 
-    public BlockSiding(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockSiding(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
     }
 

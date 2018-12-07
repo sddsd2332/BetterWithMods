@@ -5,9 +5,9 @@ import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.tile.TileCamo;
 import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.module.recipes.miniblocks.DynblockUtils;
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.ItemCamo;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.creativetab.CreativeTabs;
@@ -37,9 +37,9 @@ import java.util.function.Function;
 public abstract class BlockDynamic extends BlockBase {
 
     public static final IUnlistedProperty<CamoInfo> CAMO_INFO = new UnlistedPropertyGeneric<>("camo", CamoInfo.class);
-    private final Function<Material, Collection<IBlockState>> subtypes;
+    private final ISubtypeProvider subtypes;
 
-    public BlockDynamic(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockDynamic(Material material, ISubtypeProvider subtypes) {
         super(material);
         this.subtypes = subtypes;
         setCreativeTab(BWMCreativeTabs.MINI_BLOCKS);
@@ -71,7 +71,7 @@ public abstract class BlockDynamic extends BlockBase {
 
     @Override
     public void getSubBlocks(CreativeTabs itemIn, NonNullList<ItemStack> items) {
-        for (IBlockState state : subtypes.apply(material)) {
+        for (IBlockState state : subtypes.getSubtypes(material)) {
             items.add(DynblockUtils.fromParent(this, state));
         }
     }

@@ -22,6 +22,7 @@ public enum DynamicType {
     BENCH(BlockBench.class, TileCamo.class, "bench"),
     CHAIR(BlockChair.class, TileChair.class, "chair"),
     STAIR(BlockStair.class, TileStair.class, "stair"),
+    GRATE(BlockPane.class, TileCamo.class, "grate"),
     UNKNOWN(null, null, "");
 
     public static final DynamicType[] VALUES = values();
@@ -73,5 +74,17 @@ public enum DynamicType {
 
     private boolean isBlock(BlockDynamic mini) {
         return this.block.isAssignableFrom(mini.getClass());
+    }
+
+    public Class<? extends BlockDynamic> getBlock() {
+        return block;
+    }
+
+    public Class<? extends TileEntity> getTile() {
+        return tile;
+    }
+
+    public String getName() {
+        return name;
     }
 }

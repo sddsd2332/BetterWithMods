@@ -179,8 +179,7 @@ public class ItemRegistry extends RequiredFeature {
     @SideOnly(Side.CLIENT)
     @Override
     public void onPostBake(ModelBakeEvent event) {
-        BarkModel.BARK = new BarkModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "item/bark")));
-        event.getModelRegistry().putObject(BarkModel.LOCATION, BarkModel.BARK);
+        event.getModelRegistry().putObject(BarkModel.LOCATION,  new BarkModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "item/bark"))));
     }
 
     @Override

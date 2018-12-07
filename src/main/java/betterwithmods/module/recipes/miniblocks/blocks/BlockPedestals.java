@@ -1,5 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.recipes.miniblocks.orientations.PedestalOrientation;
 import betterwithmods.module.recipes.miniblocks.tiles.TilePedestal;
@@ -21,7 +22,7 @@ import java.util.function.Function;
 public class BlockPedestals extends BlockMini {
 
 
-    public BlockPedestals(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockPedestals(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
     }
 

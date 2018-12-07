@@ -1,5 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.recipes.miniblocks.orientations.StairOrientation;
 import betterwithmods.module.recipes.miniblocks.tiles.TileMini;
@@ -29,7 +30,7 @@ import java.util.function.Function;
 
 public class BlockStair extends BlockMini {
 
-    public BlockStair(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockStair(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
     }
 

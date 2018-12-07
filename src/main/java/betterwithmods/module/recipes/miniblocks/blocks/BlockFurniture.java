@@ -2,6 +2,7 @@ package betterwithmods.module.recipes.miniblocks.blocks;
 
 import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.tile.TileCamo;
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
@@ -30,7 +31,7 @@ import java.util.function.Function;
 public abstract class BlockFurniture extends BlockDynamic {
     protected static final PropertyBool SUPPORTED = PropertyBool.create("supported");
 
-    public BlockFurniture(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockFurniture(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
     }
 

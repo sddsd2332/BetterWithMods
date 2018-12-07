@@ -24,6 +24,7 @@ import betterwithmods.library.client.baking.IStateParticleBakedModel;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.Sets;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.BakedQuad;
 import net.minecraft.client.renderer.block.model.IBakedModel;
@@ -52,6 +53,12 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
     private final Cache<ModelKey<T>, IBakedModel> cache;
     private final IUnlistedProperty<T> property;
     private final ResourceLocation particle;
+
+    protected static final Set<String> DEFAULT_VARIANTS = Sets.newHashSet("normal", "inventory");
+
+
+    public Set<String> variants = DEFAULT_VARIANTS;
+
 
     protected ModelFactory(IUnlistedProperty<T> property, ResourceLocation particle) {
         super();
@@ -162,5 +169,23 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
 
             return originalModel;
         }
+    }
+
+    public ModelFactory<T> setVariants(Set<String> variants) {
+        this.variants = variants;
+        return this;
+    }
+
+    public ModelFactory<T> setVariants(String... variants) {
+        return this.setVariants(Sets.newHashSet(variants));
+    }
+
+    @Nonnull
+    public Set<String> getVariants() {
+        return variants;
+    }
+
+    public String getRegistryName() {
+        return "";
     }
 }

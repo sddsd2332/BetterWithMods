@@ -7,8 +7,8 @@ public class StairModel extends MiniModel {
 
     private final IModel inner_corner;
 
-    public StairModel(IModel template, IModel inner_corner) {
-        super(template);
+    public StairModel(IModel template, IModel inner_corner, String registryName) {
+        super(template, registryName);
         this.inner_corner = inner_corner;
     }
 

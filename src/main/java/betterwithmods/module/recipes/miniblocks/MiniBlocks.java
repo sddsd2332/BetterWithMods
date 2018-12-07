@@ -1,6 +1,7 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.BetterWithMods;
+import betterwithmods.client.baking.ModelFactory;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.BWMOreDictionary;
@@ -19,10 +20,10 @@ import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;
-import betterwithmods.module.recipes.miniblocks.blocks.*;
 import betterwithmods.module.recipes.miniblocks.client.CamoModel;
 import betterwithmods.module.recipes.miniblocks.client.MiniModel;
 import betterwithmods.module.recipes.miniblocks.client.StairModel;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -52,9 +53,11 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 import net.minecraftforge.oredict.ShapedOreRecipe;
 
+import javax.annotation.Nonnull;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -65,8 +68,8 @@ public class MiniBlocks extends Feature {
     private static Set<Ingredient> WHITELIST;
 
     @SideOnly(Side.CLIENT)
-    public static void registerModel(IRegistry<ModelResourceLocation, IBakedModel> registry, String name, IBakedModel model) {
-        registerModel(registry, name, model, Sets.newHashSet("normal", "inventory"));
+    public static void registerModel(IRegistry<ModelResourceLocation, IBakedModel> registry, String name, @Nonnull ModelFactory<?> model) {
+        registerModel(registry, name, model, model.getVariants());
     }
 
     @SideOnly(Side.CLIENT)
@@ -94,17 +97,18 @@ public class MiniBlocks extends Feature {
     public void createBlocks() {
         for (Material material : MaterialUtil.materials()) {
             String name = MaterialUtil.getMaterialName(material);
-            DynblockUtils.addDynamicVariant(DynamicType.SIDING, material, (BlockMini) new BlockSiding(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "siding", name)));
-            DynblockUtils.addDynamicVariant(DynamicType.MOULDING, material, (BlockMini) new BlockMoulding(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "moulding", name)));
-            DynblockUtils.addDynamicVariant(DynamicType.CORNER, material, (BlockMini) new BlockCorner(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "corner", name)));
-            DynblockUtils.addDynamicVariant(DynamicType.COLUMN, material, (BlockMini) new BlockColumn(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "column", name)));
-            DynblockUtils.addDynamicVariant(DynamicType.PEDESTAL, material, (BlockMini) new BlockPedestals(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "pedestal", name)));
-            DynblockUtils.addDynamicVariant(DynamicType.STAIR, material, (BlockMini) new BlockStair(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "stair", name)));
-            DynblockUtils.addDynamicVariant(DynamicType.TABLE, material, (BlockDynamic) new BlockTable(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "table", name)));
-            DynblockUtils.addDynamicVariant(DynamicType.BENCH, material, (BlockDynamic) new BlockBench(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "bench", name)));
-            DynblockUtils.addDynamicVariant(DynamicType.CHAIR, material, (BlockDynamic) new BlockChair(material, DynblockUtils.MATERIAL_VARIANTS::get).setRegistryName(String.format("%s_%s", "chair", name)));
+            DynblockUtils.addDynamicVariant(DynamicType.SIDING, material, name);
+            DynblockUtils.addDynamicVariant(DynamicType.MOULDING, material, name);
+            DynblockUtils.addDynamicVariant(DynamicType.CORNER, material, name);
+            DynblockUtils.addDynamicVariant(DynamicType.COLUMN, material, name);
+            DynblockUtils.addDynamicVariant(DynamicType.PEDESTAL, material, name);
+            DynblockUtils.addDynamicVariant(DynamicType.STAIR, material, name);
+            DynblockUtils.addDynamicVariant(DynamicType.TABLE, material, name);
+            DynblockUtils.addDynamicVariant(DynamicType.GRATE, material, name);
+            DynblockUtils.addDynamicVariant(DynamicType.BENCH, material, name);
+            DynblockUtils.addDynamicVariant(DynamicType.CHAIR, material, name);
         }
-    
+
         for (BlockDynamic dynamic : DynblockUtils.DYNAMIC_VARIANT_TABLE.values()) {
             BlockRegistry.registerBlock(dynamic.setCreativeTab(BWMCreativeTabs.MINI_BLOCKS), dynamic.createItemBlock().setRegistryName(dynamic.getRegistryName()));
         }
@@ -113,32 +117,26 @@ public class MiniBlocks extends Feature {
 
     @SideOnly(Side.CLIENT)
     public void onPostBake(ModelBakeEvent event) {
-        MiniModel.SIDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/siding")));
-        MiniModel.MOULDING = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/moulding")));
-        MiniModel.CORNER = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/corner")));
-        MiniModel.COLUMN = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/column")));
-        MiniModel.PEDESTAL = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/pedestal")));
-        MiniModel.STAIR = new StairModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair")), RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair_inner_corner")));
-        MiniModel.CHAIR = new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/chair")));
-        CamoModel.TABLE_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_supported")));
-        CamoModel.TABLE_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_unsupported")));
-        CamoModel.BENCH_SUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_supported")));
-        CamoModel.BENCH_UNSUPPORTED = new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_unsupported")));
+
+        List<ModelFactory> models = Lists.newArrayList();
+
+        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/siding")), "siding"));
+        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/moulding")), "moulding"));
+        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/corner")), "corner"));
+        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/column")), "column"));
+        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/pedestal")), "pedestals"));
+        models.add(new StairModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair")), RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair_inner_corner")), "stair"));
+        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/chair")), "chair"));
+        models.add(new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_supported")), "table").setVariants("normal", "inventory", "supported=true"));
+        models.add(new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_unsupported")), "table").setVariants("supported=false"));
+        models.add(new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_supported")), "bench").setVariants("normal", "inventory", "supported=true"));
+        models.add(new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_unsupported")), "bench").setVariants("supported=false"));
 
         for (Material material : MaterialUtil.materials()) {
             String name = MaterialUtil.getMaterialName(material);
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "siding", name), MiniModel.SIDING);
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "moulding", name), MiniModel.MOULDING);
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "corner", name), MiniModel.CORNER);
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "column", name), MiniModel.COLUMN);
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "pedestal", name), MiniModel.PEDESTAL);
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "stair", name), MiniModel.STAIR);
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "chair", name), MiniModel.CHAIR);
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "table", name), CamoModel.TABLE_SUPPORTED, Sets.newHashSet("normal", "inventory", "supported=true"));
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "table", name), CamoModel.TABLE_UNSUPPORTED, Sets.newHashSet("supported=false"));
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "bench", name), CamoModel.BENCH_SUPPORTED, Sets.newHashSet("normal", "inventory", "supported=true"));
-            registerModel(event.getModelRegistry(), String.format("%s_%s", "bench", name), CamoModel.BENCH_UNSUPPORTED, Sets.newHashSet("supported=false"));
-
+            for(ModelFactory<?> model: models) {
+                registerModel(event.getModelRegistry(), model.getRegistryName() + "_" + name, model, model.getVariants());
+            }
         }
     }
 

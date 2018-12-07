@@ -30,7 +30,7 @@ import java.util.Map;
  * Created by primetoxinz on 6/27/17.
  */
 public class BlockPane extends BlockBase {
-    private final Map<PropertyBool, AxisAlignedBB> bounds = new HashMap<PropertyBool, AxisAlignedBB>() {{
+    public static final Map<PropertyBool, AxisAlignedBB> PANE_BOUNDS = new HashMap<PropertyBool, AxisAlignedBB>() {{
         put(DirUtils.NORTH, new AxisAlignedBB(0.4375F, 0.0F, 0.0F, 0.5625F, 1.0F, 0.5625F));
         put(DirUtils.SOUTH, new AxisAlignedBB(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 1.0F));
         put(DirUtils.WEST, new AxisAlignedBB(0.0F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F));
@@ -70,6 +70,75 @@ public class BlockPane extends BlockBase {
 
     @Override
     public void addCollisionBoxToList(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> collidingBoxes, Entity entity, boolean pass) {
+        collisionPane(state, world, pos, entityBox, collidingBoxes, entity, pass);
+    }
+
+    @Nonnull
+    @Override
+    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
+        state = state.getActualState(world, pos);
+        AxisAlignedBB bound = new AxisAlignedBB(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
+        for (PropertyBool dir : DirUtils.DIR_PROP_HORIZ)
+            if (state.getValue(dir))
+                bound = bound.union(PANE_BOUNDS.get(dir));
+        return bound;
+    }
+
+    @Override
+    @SideOnly(Side.CLIENT)
+    public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
+        return true;
+    }
+
+    @Nonnull
+    @Override
+    @SideOnly(Side.CLIENT)
+    public BlockRenderLayer getRenderLayer() {
+        return BlockRenderLayer.CUTOUT_MIPPED;
+    }
+
+    @Override
+    public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
+        return false;
+    }
+
+    @Nonnull
+    @Override
+    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
+        return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE_THIN : BlockFaceShape.CENTER_SMALL;
+    }
+
+    @Nonnull
+    @Override
+    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
+        boolean north = canConnectTo(world, pos, EnumFacing.NORTH);
+        boolean east = canConnectTo(world, pos, EnumFacing.EAST);
+        boolean south = canConnectTo(world, pos, EnumFacing.SOUTH);
+        boolean west = canConnectTo(world, pos, EnumFacing.WEST);
+        return state.withProperty(DirUtils.NORTH, north).withProperty(DirUtils.EAST, east).withProperty(DirUtils.SOUTH, south).withProperty(DirUtils.WEST, west);
+    }
+
+
+    public static boolean isFenceGate(IBlockAccess world, BlockPos pos, EnumFacing dir) {
+        IBlockState state = world.getBlockState(pos.offset(dir));
+        if (dir == EnumFacing.EAST || dir == EnumFacing.WEST)
+            return state.getBlock() instanceof BlockFenceGate && (state.getValue(BlockHorizontal.FACING) == EnumFacing.NORTH || state.getValue(BlockHorizontal.FACING) == EnumFacing.SOUTH);
+        else
+            return state.getBlock() instanceof BlockFenceGate && (state.getValue(BlockHorizontal.FACING) == EnumFacing.EAST || state.getValue(BlockHorizontal.FACING) == EnumFacing.WEST);
+    }
+
+    public static boolean isCompatiblePane(IBlockAccess world, BlockPos pos, EnumFacing dir) {
+        BlockPos neighbor = pos.offset(dir);
+        Block block = world.getBlockState(neighbor).getBlock();
+        return block instanceof BlockPane;
+    }
+
+    public static boolean canConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir) {
+        return isFenceGate(world, pos, dir) || isCompatiblePane(world, pos, dir) || world.isSideSolid(pos.offset(dir), dir.getOpposite(), true);
+    }
+
+
+    public static void collisionPane(IBlockState state, @Nonnull World world, @Nonnull BlockPos pos, @Nonnull AxisAlignedBB entityBox, @Nonnull List<AxisAlignedBB> collidingBoxes, Entity entity, boolean pass) {
         state = state.getActualState(world, pos);
 
         float minY = 0.001F;
@@ -99,74 +168,7 @@ public class BlockPane extends BlockBase {
             AxisAlignedBB extX = new AxisAlignedBB(minX, minY, 0.4375F, maxX, maxY, 0.5625F);
             addCollisionBoxToList(pos, entityBox, collidingBoxes, extX);
         }
-    }
 
-    @Nonnull
-    @Override
-    public AxisAlignedBB getBoundingBox(IBlockState state, IBlockAccess world, BlockPos pos) {
-        state = state.getActualState(world, pos);
-        AxisAlignedBB bound = new AxisAlignedBB(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
-        for (PropertyBool dir : DirUtils.DIR_PROP_HORIZ)
-            if (state.getValue(dir))
-                bound = bound.union(bounds.get(dir));
-        return bound;
     }
-
-    @Override
-    @SideOnly(Side.CLIENT)
-    public boolean shouldSideBeRendered(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
-        return true;
-    }
-
-    @Nonnull
-    @Override
-    @SideOnly(Side.CLIENT)
-    public BlockRenderLayer getRenderLayer() {
-        return BlockRenderLayer.CUTOUT_MIPPED;
-    }
-
-    @Override
-    public boolean isSideSolid(IBlockState state, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
-        return false;
-    }
-
-    public final boolean isIncompatibleBlock(Block block) {
-        return false;
-    }
-
-    public final boolean isFenceGate(IBlockAccess world, BlockPos pos, EnumFacing dir) {
-        IBlockState state = world.getBlockState(pos.offset(dir));
-        if (dir == EnumFacing.EAST || dir == EnumFacing.WEST)
-            return state.getBlock() instanceof BlockFenceGate && (state.getValue(BlockHorizontal.FACING) == EnumFacing.NORTH || state.getValue(BlockHorizontal.FACING) == EnumFacing.SOUTH);
-        else
-            return state.getBlock() instanceof BlockFenceGate && (state.getValue(BlockHorizontal.FACING) == EnumFacing.EAST || state.getValue(BlockHorizontal.FACING) == EnumFacing.WEST);
-    }
-
-    public boolean isCompatiblePane(IBlockAccess world, BlockPos pos, EnumFacing dir) {
-        BlockPos neighbor = pos.offset(dir);
-        Block block = world.getBlockState(neighbor).getBlock();
-        return block instanceof BlockPane;
-    }
-
-    public boolean canConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir) {
-        return isFenceGate(world, pos, dir) || isCompatiblePane(world, pos, dir) || world.isSideSolid(pos.offset(dir), dir.getOpposite(), true);
-    }
-
-    @Nonnull
-    @Override
-    public IBlockState getActualState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-        boolean north = canConnectTo(world, pos, EnumFacing.NORTH);
-        boolean east = canConnectTo(world, pos, EnumFacing.EAST);
-        boolean south = canConnectTo(world, pos, EnumFacing.SOUTH);
-        boolean west = canConnectTo(world, pos, EnumFacing.WEST);
-        return state.withProperty(DirUtils.NORTH, north).withProperty(DirUtils.EAST, east).withProperty(DirUtils.SOUTH, south).withProperty(DirUtils.WEST, west);
-    }
-
-    @Nonnull
-    @Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-        return face != EnumFacing.UP && face != EnumFacing.DOWN ? BlockFaceShape.MIDDLE_POLE_THIN : BlockFaceShape.CENTER_SMALL;
-    }
-
 
 }

@@ -16,13 +16,14 @@ import net.minecraftforge.common.model.TRSRTransformation;
 
 public class MiniModel extends ModelFactory<MiniInfo> {
 
-    public static MiniModel SIDING, MOULDING, CORNER, COLUMN, PEDESTAL, STAIR, CHAIR;
-
     public final IModel template;
 
-    public MiniModel(IModel template) {
+    private String registryName;
+
+    public MiniModel(IModel template, String registryName) {
         super(BlockMini.MINI_INFO, TextureMap.LOCATION_MISSING_TEXTURE);
         this.template = template;
+        this.registryName = registryName;
     }
 
     @Override
@@ -44,5 +45,11 @@ public class MiniModel extends ModelFactory<MiniInfo> {
     @Override
     public MiniInfo fromItemStack(ItemStack stack) {
         return new MiniInfo(stack);
+    }
+
+
+    @Override
+    public String getRegistryName() {
+        return registryName;
     }
 }

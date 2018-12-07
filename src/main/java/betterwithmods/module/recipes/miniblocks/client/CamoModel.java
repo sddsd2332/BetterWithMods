@@ -16,18 +16,19 @@ import net.minecraft.util.EnumFacing;
 import net.minecraftforge.client.model.IModel;
 import net.minecraftforge.common.model.TRSRTransformation;
 
+import java.util.Set;
+
 public class CamoModel extends ModelFactory<CamoInfo> {
 
-    public static CamoModel TABLE_SUPPORTED, TABLE_UNSUPPORTED;
-    public static CamoModel BENCH_SUPPORTED, BENCH_UNSUPPORTED;
-    public static CamoModel KILN;
-    public static CamoModel BARK;
 
     public final IModel template;
+    private String registryName;
 
-    public CamoModel(IModel template) {
+
+    public CamoModel(IModel template, String registryName) {
         super(BlockDynamic.CAMO_INFO, TextureMap.LOCATION_MISSING_TEXTURE);
         this.template = template;
+        this.registryName = registryName;
     }
 
     @Override
@@ -36,7 +37,6 @@ public class CamoModel extends ModelFactory<CamoInfo> {
         for (EnumFacing facing : EnumFacing.VALUES) {
             textures.put(facing.getName2(), RenderUtils.getTextureFromFace(object.getState(), facing).getIconName());
         }
-
         TRSRTransformation state = TRSRTransformation.from(ModelRotation.X0_Y0);
         IModel retexture = template.retexture(textures.build()).uvlock(true);
         return new WrappedBakedModel(retexture.bake(state, DefaultVertexFormats.BLOCK, RenderUtils.textureGetter), RenderUtils.getParticleTexture(object.getState())).addDefaultBlockTransforms();
@@ -46,4 +46,11 @@ public class CamoModel extends ModelFactory<CamoInfo> {
     public CamoInfo fromItemStack(ItemStack stack) {
         return new CamoInfo(stack);
     }
+
+    @Override
+    public String getRegistryName() {
+        return registryName;
+    }
+
+
 }

@@ -1,5 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.recipes.miniblocks.orientations.ChairOrientation;
 import betterwithmods.module.recipes.miniblocks.tiles.TileChair;
@@ -24,7 +25,7 @@ import java.util.function.Function;
 
 public class BlockChair extends BlockMini implements ISittable {
 
-    public BlockChair(Material material, Function<Material, Collection<IBlockState>> subtypes) {
+    public BlockChair(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
     }
 

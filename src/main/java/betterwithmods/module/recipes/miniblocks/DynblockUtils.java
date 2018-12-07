@@ -22,9 +22,13 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 
+import javax.annotation.Nonnull;
+import java.lang.reflect.Constructor;
+import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.function.Function;
 
 public class DynblockUtils {
 
@@ -34,7 +38,7 @@ public class DynblockUtils {
     public static Collection<ItemStack> getStacks(DynamicType type, Material material) {
         List<ItemStack> stacks = Lists.newArrayList();
         Block block = getDynamicVariant(type, material);
-        for (IBlockState state : MATERIAL_VARIANTS.get(material)) {
+        for (IBlockState state : getSubtypes(material)) {
             stacks.add(fromParent(block, state));
         }
         return stacks;
@@ -42,7 +46,7 @@ public class DynblockUtils {
 
     public static boolean isValidMini(IBlockState state) {
         Material material = state.getMaterial();
-        return MaterialUtil.isValid(material) && MATERIAL_VARIANTS.get(material).contains(state);
+        return MaterialUtil.isValid(material) && getSubtypes(material).contains(state);
     }
 
     public static boolean isValidMini(IBlockState state, ItemStack stack) {
@@ -110,8 +114,26 @@ public class DynblockUtils {
     }
 
 
-    public static void addDynamicVariant(DynamicType type, Material material, BlockDynamic block) {
-        DYNAMIC_VARIANT_TABLE.put(type, material, block);
+    public static Collection<IBlockState> getSubtypes(Material material) {
+        return MATERIAL_VARIANTS.get(material);
+    }
+
+    public static void addDynamicVariant(@Nonnull DynamicType type, Material material, String name) {
+
+        String registry = type.getName() + "_" + name;
+
+        ISubtypeProvider provider = DynblockUtils::getSubtypes;
+        BlockDynamic block = null;
+        try {
+            Constructor<?> constructor = type.getBlock().getConstructor(Material.class, ISubtypeProvider.class);
+            block = (BlockDynamic) constructor.newInstance(material, provider);
+            block.setRegistryName(registry);
+
+        } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {
+            e.printStackTrace();
+        }
+        if (block != null)
+            DYNAMIC_VARIANT_TABLE.put(type, material, block);
     }
 
     public static BlockDynamic getDynamicVariant(DynamicType type, Material material) {
