@@ -66,10 +66,7 @@ public class BlockIce extends net.minecraft.block.BlockIce {
             Material material = worldIn.getBlockState(pos.down()).getMaterial();
 
             if (material.blocksMovement() || material.isLiquid()) {
-                if (state.getValue(NATURAL))
-                    worldIn.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState());
-                else
-                    setWater(worldIn, pos);
+                setWater(worldIn, pos, state);
             }
         }
     }
@@ -79,16 +76,21 @@ public class BlockIce extends net.minecraft.block.BlockIce {
         if (worldIn.provider.doesWaterVaporize()) {
             worldIn.setBlockToAir(pos);
         } else {
-            this.dropBlockAsItem(worldIn, pos, worldIn.getBlockState(pos), 0);
-            setWater(worldIn, pos);
+            IBlockState state = worldIn.getBlockState(pos);
+            this.dropBlockAsItem(worldIn, pos, state, 0);
+            setWater(worldIn, pos, state);
         }
     }
 
-    private void setWater(World world, BlockPos pos) {
+    private void setWater(World world, BlockPos pos, IBlockState state) {
 
-        FluidUtils.setLiquid(world, pos, Blocks.WATER, 14, true);
-        for (EnumFacing facing : EnumFacing.HORIZONTALS) {
-            FluidUtils.setLiquid(world, pos.offset(facing), Blocks.WATER, 10, false);
+        if (state.getValue(NATURAL)) {
+            world.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState());
+        } else {
+            FluidUtils.setLiquid(world, pos, Blocks.WATER, 14, true);
+            for (EnumFacing facing : EnumFacing.HORIZONTALS) {
+                FluidUtils.setLiquid(world, pos.offset(facing), Blocks.WATER, 10, false);
+            }
         }
 
         world.neighborChanged(pos, Blocks.WATER, pos);
