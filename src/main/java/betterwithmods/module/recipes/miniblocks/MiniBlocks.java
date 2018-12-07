@@ -64,10 +64,6 @@ public class MiniBlocks extends Feature {
     private static boolean requiresAnvil;
     private static Set<Ingredient> WHITELIST;
 
-    public static void forceMiniBlock(Ingredient ingredient) {
-        WHITELIST.add(ingredient);
-    }
-
     @SideOnly(Side.CLIENT)
     public static void registerModel(IRegistry<ModelResourceLocation, IBakedModel> registry, String name, IBakedModel model) {
         registerModel(registry, name, model, Sets.newHashSet("normal", "inventory"));
@@ -147,7 +143,7 @@ public class MiniBlocks extends Feature {
     }
 
     public Set<Ingredient> loadMiniblockWhitelist() {
-        File file = new File(config().path, "betterwithmods/miniblocks.json");
+        File file = new File(config().path, "betterwithmods/dynamicblocks.json");
 
         //noinspection ResultOfMethodCallIgnored
         file.getParentFile().mkdirs();
@@ -219,11 +215,6 @@ public class MiniBlocks extends Feature {
     @Override
     public void onRecipesRegistered(RegistryEvent.Register<IRecipe> event) {
         registerMiniblocks();
-
-        BWMOreDictionary.registerOre("miniblocks",
-                new ItemStack(DynblockUtils.getDynamicVariant(DynamicType.SIDING, Material.WOOD)),
-                new ItemStack(DynblockUtils.getDynamicVariant(DynamicType.MOULDING, Material.WOOD)),
-                new ItemStack(DynblockUtils.getDynamicVariant(DynamicType.CORNER, Material.WOOD)));
 
         for (Material material : MaterialUtil.materials()) {
             BlockDynamic siding = DynblockUtils.getDynamicVariant(DynamicType.SIDING, material);
