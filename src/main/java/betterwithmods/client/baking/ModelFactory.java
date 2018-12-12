@@ -54,12 +54,6 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
     private final IUnlistedProperty<T> property;
     private final ResourceLocation particle;
 
-    protected static final Set<String> DEFAULT_VARIANTS = Sets.newHashSet("normal", "inventory");
-
-
-    public Set<String> variants = DEFAULT_VARIANTS;
-
-
     protected ModelFactory(IUnlistedProperty<T> property, ResourceLocation particle) {
         super();
         FACTORIES.add(this);
@@ -109,7 +103,7 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
 
     private IBakedModel getModel(IBlockState state, BlockRenderLayer layer) {
         if (state instanceof IExtendedBlockState) {
-            return getModel(((IExtendedBlockState) state).getValue(property), layer);
+            return getModel(((IExtendedBlockState) state).getValue(getProperty()), layer);
         } else {
             return null;
         }
@@ -169,23 +163,5 @@ public abstract class ModelFactory<T extends IRenderComparable<T>> extends BaseB
 
             return originalModel;
         }
-    }
-
-    public ModelFactory<T> setVariants(Set<String> variants) {
-        this.variants = variants;
-        return this;
-    }
-
-    public ModelFactory<T> setVariants(String... variants) {
-        return this.setVariants(Sets.newHashSet(variants));
-    }
-
-    @Nonnull
-    public Set<String> getVariants() {
-        return variants;
-    }
-
-    public String getRegistryName() {
-        return "";
     }
 }

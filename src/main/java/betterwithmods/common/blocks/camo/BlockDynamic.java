@@ -2,8 +2,9 @@ package betterwithmods.common.blocks.camo;
 
 import betterwithmods.client.baking.UnlistedPropertyGeneric;
 import betterwithmods.common.BWMCreativeTabs;
-import betterwithmods.common.tile.TileCamo;
+import betterwithmods.common.tile.TileDynamic;
 import betterwithmods.library.common.block.BlockBase;
+import betterwithmods.module.recipes.miniblocks.DynamicType;
 import betterwithmods.module.recipes.miniblocks.DynblockUtils;
 import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.ItemCamo;
@@ -30,11 +31,9 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.Optional;
-import java.util.function.Function;
 
-public abstract class BlockDynamic extends BlockBase {
+public abstract class BlockDynamic<T extends TileDynamic> extends BlockBase {
 
     public static final IUnlistedProperty<CamoInfo> CAMO_INFO = new UnlistedPropertyGeneric<>("camo", CamoInfo.class);
     private final ISubtypeProvider subtypes;
@@ -45,10 +44,10 @@ public abstract class BlockDynamic extends BlockBase {
         setCreativeTab(BWMCreativeTabs.MINI_BLOCKS);
     }
 
-    public Optional<? extends TileCamo> getTile(IBlockAccess world, BlockPos pos) {
+    public Optional<T> getTile(IBlockAccess world, BlockPos pos) {
         TileEntity tile = world.getTileEntity(pos);
-        if (tile instanceof TileCamo)
-            return Optional.of((TileCamo) tile);
+        if (tile instanceof TileDynamic)
+            return Optional.of((T) tile);
         return Optional.empty();
     }
 
@@ -101,7 +100,9 @@ public abstract class BlockDynamic extends BlockBase {
 
     @Nullable
     @Override
-    public abstract TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state);
+    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
+        return new TileDynamic();
+    }
 
     @Override
     public boolean hasTileEntity(IBlockState state) {
@@ -111,12 +112,17 @@ public abstract class BlockDynamic extends BlockBase {
     @Nonnull
     @Override
     public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
-        IExtendedBlockState extendedBS = (IExtendedBlockState) super.getExtendedState(state, world, pos);
-        return getTile(world, pos).map(t -> fromTile(extendedBS, t)).orElse(extendedBS);
+        final IExtendedBlockState extendedBS = (IExtendedBlockState) super.getExtendedState(state, world, pos);
+
+        T tile = getTile(world,pos).orElse(null);
+        if(tile != null) {
+            return fromTile(extendedBS, tile);
+        }
+        return extendedBS;
     }
 
-    public IBlockState fromTile(IExtendedBlockState state, TileCamo tile) {
-        return state.withProperty(CAMO_INFO, new CamoInfo(tile));
+    public IExtendedBlockState fromTile(IExtendedBlockState state, T tile) {
+        return state.withProperty(CAMO_INFO, new CamoInfo(tile.getState()));
     }
 
     @SuppressWarnings("deprecation")
@@ -155,8 +161,8 @@ public abstract class BlockDynamic extends BlockBase {
     @SuppressWarnings("deprecation")
     public ItemStack getItem(IBlockAccess worldIn, BlockPos pos, @Nonnull IBlockState state) {
         TileEntity tile = worldIn.getTileEntity(pos);
-        if (tile instanceof TileCamo) {
-            TileCamo mini = (TileCamo) tile;
+        if (tile instanceof TileDynamic) {
+            TileDynamic mini = (TileDynamic) tile;
             return mini.getPickBlock(null, null, state);
         }
         return new ItemStack(this);
@@ -182,5 +188,4 @@ public abstract class BlockDynamic extends BlockBase {
     public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
         return getTile(world, pos).map(t -> t.getState().getBlock().getFlammability(world, pos, face)).orElse(10);
     }
-
 }

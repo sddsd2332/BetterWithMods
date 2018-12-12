@@ -4,6 +4,7 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.renderer.*;
 import net.minecraft.client.renderer.block.model.BakedQuad;
+import net.minecraft.client.renderer.block.model.BakedQuadRetextured;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.entity.RenderLiving;
 import net.minecraft.client.renderer.texture.TextureAtlasSprite;
@@ -192,6 +193,10 @@ public class RenderUtils {
             renderItem = Minecraft.getMinecraft().getRenderItem();
         }
         return renderItem.getItemModelWithOverrides(stack, null, null).getParticleTexture();
+    }
+
+    public static BakedQuad retexture(BakedQuad quad, TextureAtlasSprite sprite) {
+        return new BakedQuadRetextured(quad,sprite);
     }
 
     public static ResourceLocation getResourceLocation(ItemStack stack) {

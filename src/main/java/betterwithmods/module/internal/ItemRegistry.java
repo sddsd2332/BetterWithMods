@@ -27,6 +27,7 @@ import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.util.EnumHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -59,19 +60,13 @@ public class ItemRegistry extends RequiredFeature {
         ITEMS.add(item);
     }
 
-    @SideOnly(Side.CLIENT)
-    private static void setModelLocation(Item item, int meta, String variantSettings) {
-        setModelLocation(item, meta, item.getRegistryName(), variantSettings);
-    }
-
-    @SideOnly(Side.CLIENT)
-    private static void setModelLocation(Item item, int meta, ResourceLocation location, String variantSettings) {
-        ModelLoader.setCustomModelResourceLocation(item, meta, new ModelResourceLocation(location, variantSettings));
+    public static void setInventoryModel(Item item, ModelResourceLocation model) {
+        ModelLoader.setCustomModelResourceLocation(item, 0, model);
     }
 
     @SideOnly(Side.CLIENT)
     public static void setInventoryModel(Item item) {
-        setModelLocation(item, 0, "inventory");
+        setInventoryModel(item,new ModelResourceLocation(item.getRegistryName(), "inventory"));
     }
 
     @SubscribeEvent
@@ -83,7 +78,7 @@ public class ItemRegistry extends RequiredFeature {
     }
 
     @SideOnly(Side.CLIENT)
-    @SubscribeEvent
+    @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void registerModels(ModelRegistryEvent event) {
         getItems().forEach(ItemRegistry::setInventoryModel);
     }
@@ -179,7 +174,7 @@ public class ItemRegistry extends RequiredFeature {
     @SideOnly(Side.CLIENT)
     @Override
     public void onPostBake(ModelBakeEvent event) {
-        event.getModelRegistry().putObject(BarkModel.LOCATION,  new BarkModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "item/bark"))));
+        event.getModelRegistry().putObject(BarkModel.LOCATION, new BarkModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "item/bark"))));
     }
 
     @Override

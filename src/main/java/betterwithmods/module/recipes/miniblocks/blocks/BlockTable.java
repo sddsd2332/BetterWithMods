@@ -1,5 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
+import betterwithmods.module.recipes.miniblocks.DynamicType;
 import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import com.google.common.collect.ImmutableList;
 import net.minecraft.block.material.Material;

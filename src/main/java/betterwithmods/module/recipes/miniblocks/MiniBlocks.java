@@ -1,29 +1,20 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.BetterWithMods;
-import betterwithmods.client.baking.ModelFactory;
-import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.common.BWMCreativeTabs;
-import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.camo.BlockDynamic;
-import betterwithmods.common.items.ItemMaterial;
-import betterwithmods.common.registry.block.recipe.builder.SawRecipeBuilder;
-import betterwithmods.common.tile.TileCamo;
+import betterwithmods.common.tile.TileDynamic;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.JsonUtils;
 import betterwithmods.library.utils.MaterialUtil;
-import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.module.internal.BlockRegistry;
-import betterwithmods.module.internal.RecipeRegistry;
-import betterwithmods.module.recipes.AnvilRecipes;
+import betterwithmods.module.internal.ItemRegistry;
 import betterwithmods.module.recipes.miniblocks.client.CamoModel;
-import betterwithmods.module.recipes.miniblocks.client.MiniModel;
-import betterwithmods.module.recipes.miniblocks.client.StairModel;
-import com.google.common.collect.Lists;
+import betterwithmods.module.recipes.miniblocks.client.DynamicStateMapper;
+import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -32,6 +23,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.renderer.block.model.IBakedModel;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
+import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.Item;
@@ -42,23 +34,26 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.registry.IRegistry;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.ModelBakeEvent;
+import net.minecraftforge.client.event.ModelRegistryEvent;
+import net.minecraftforge.client.model.ModelLoader;
 import net.minecraftforge.common.crafting.CraftingHelper;
 import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
+import net.minecraftforge.fml.common.eventhandler.EventPriority;
+import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
-import net.minecraftforge.oredict.ShapedOreRecipe;
 
-import javax.annotation.Nonnull;
 import java.io.File;
 import java.nio.file.Files;
 import java.util.Arrays;
-import java.util.List;
+import java.util.EnumMap;
+import java.util.Map;
 import java.util.Set;
+import java.util.function.Function;
 import java.util.stream.Collectors;
 
 
@@ -67,17 +62,6 @@ public class MiniBlocks extends Feature {
     private static boolean requiresAnvil;
     private static Set<Ingredient> WHITELIST;
 
-    @SideOnly(Side.CLIENT)
-    public static void registerModel(IRegistry<ModelResourceLocation, IBakedModel> registry, String name, @Nonnull ModelFactory<?> model) {
-        registerModel(registry, name, model, model.getVariants());
-    }
-
-    @SideOnly(Side.CLIENT)
-    public static void registerModel(IRegistry<ModelResourceLocation, IBakedModel> registry, String name, IBakedModel model, Set<String> variants) {
-        for (String variant : variants) {
-            registry.putObject(new ModelResourceLocation(ModLib.MODID + ":" + name, variant), model);
-        }
-    }
 
     private static ResourceLocation getRecipeRegistry(ItemStack output, ItemStack parent) {
         if (parent.getMetadata() > 0)
@@ -89,7 +73,7 @@ public class MiniBlocks extends Feature {
         Material material = parent.getMaterial();
         Block block = DynblockUtils.getDynamicVariant(type, material);
         world.setBlockState(pos, block.getDefaultState());
-        TileCamo camo = (TileCamo) world.getTileEntity(pos);
+        TileDynamic camo = (TileDynamic) world.getTileEntity(pos);
         if (camo != null)
             camo.setState(parent);
     }
@@ -97,45 +81,46 @@ public class MiniBlocks extends Feature {
     public void createBlocks() {
         for (Material material : MaterialUtil.materials()) {
             String name = MaterialUtil.getMaterialName(material);
-            DynblockUtils.addDynamicVariant(DynamicType.SIDING, material, name);
-            DynblockUtils.addDynamicVariant(DynamicType.MOULDING, material, name);
-            DynblockUtils.addDynamicVariant(DynamicType.CORNER, material, name);
-            DynblockUtils.addDynamicVariant(DynamicType.COLUMN, material, name);
-            DynblockUtils.addDynamicVariant(DynamicType.PEDESTAL, material, name);
-            DynblockUtils.addDynamicVariant(DynamicType.STAIR, material, name);
-            DynblockUtils.addDynamicVariant(DynamicType.TABLE, material, name);
-            DynblockUtils.addDynamicVariant(DynamicType.GRATE, material, name);
-            DynblockUtils.addDynamicVariant(DynamicType.BENCH, material, name);
-            DynblockUtils.addDynamicVariant(DynamicType.CHAIR, material, name);
+            for (DynamicType type : DynamicType.VALUES) {
+                DynblockUtils.addDynamicVariant(type, material, name);
+            }
         }
 
         for (BlockDynamic dynamic : DynblockUtils.DYNAMIC_VARIANT_TABLE.values()) {
             BlockRegistry.registerBlock(dynamic.setCreativeTab(BWMCreativeTabs.MINI_BLOCKS), dynamic.createItemBlock().setRegistryName(dynamic.getRegistryName()));
         }
+
     }
 
+    @SubscribeEvent(priority = EventPriority.LOWEST)
+    public void onModelRegistry(ModelRegistryEvent event) {
+        for (DynamicType type : DynamicType.VALUES) {
+            IStateMapper mapper = new DynamicStateMapper(type);
+            ModelResourceLocation modelResourceLocation = new ModelResourceLocation(new ResourceLocation(ModLib.MODID, type.getName()), "inventory");
+            for (BlockDynamic block : DynblockUtils.getTypeBlocks(type)) {
+                ModelLoader.setCustomStateMapper(block, mapper);
+                Item item = Item.getItemFromBlock(block);
+                ItemRegistry.setInventoryModel(item, modelResourceLocation);
+            }
+        }
+    }
 
     @SideOnly(Side.CLIENT)
     public void onPostBake(ModelBakeEvent event) {
 
-        List<ModelFactory> models = Lists.newArrayList();
+        EnumMap<DynamicType, Function<IBakedModel, IBakedModel>> modelReplacer = Maps.newEnumMap(DynamicType.class);
+        for (DynamicType type : DynamicType.VALUES) {
+            modelReplacer.put(type, CamoModel::new);
+        }
 
-        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/siding")), "siding"));
-        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/moulding")), "moulding"));
-        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/corner")), "corner"));
-        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/column")), "column"));
-        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/pedestal")), "pedestals"));
-        models.add(new StairModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair")), RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/mini/stair_inner_corner")), "stair"));
-        models.add(new MiniModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/chair")), "chair"));
-        models.add(new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_supported")), "table").setVariants("normal", "inventory", "supported=true"));
-        models.add(new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/table_unsupported")), "table").setVariants("supported=false"));
-        models.add(new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_supported")), "bench").setVariants("normal", "inventory", "supported=true"));
-        models.add(new CamoModel(RenderUtils.getModel(new ResourceLocation(ModLib.MODID, "block/bench_unsupported")), "bench").setVariants("supported=false"));
-
-        for (Material material : MaterialUtil.materials()) {
-            String name = MaterialUtil.getMaterialName(material);
-            for(ModelFactory<?> model: models) {
-                registerModel(event.getModelRegistry(), model.getRegistryName() + "_" + name, model, model.getVariants());
+        for (ModelResourceLocation location : event.getModelRegistry().getKeys()) {
+            IBakedModel model = event.getModelRegistry().getObject(location);
+            if (model != null) {
+                for (Map.Entry<DynamicType, Function<IBakedModel, IBakedModel>> entry : modelReplacer.entrySet()) {
+                    if (location.getPath().equals(entry.getKey().getName())) {
+                        event.getModelRegistry().putObject(location, entry.getValue().apply(model));
+                    }
+                }
             }
         }
     }
@@ -213,7 +198,7 @@ public class MiniBlocks extends Feature {
     @Override
     public void onRecipesRegistered(RegistryEvent.Register<IRecipe> event) {
         registerMiniblocks();
-
+/*
         for (Material material : MaterialUtil.materials()) {
             BlockDynamic siding = DynblockUtils.getDynamicVariant(DynamicType.SIDING, material);
             BlockDynamic moulding = DynblockUtils.getDynamicVariant(DynamicType.MOULDING, material);
@@ -284,7 +269,7 @@ public class MiniBlocks extends Feature {
                 AnvilRecipes.addSteelShapedRecipe(cornerStack.getItem().getRegistryName(), cornerStack, "XXXX", 'X', moulding);
             }
         }
-
+            */
     }
 
     @Override
@@ -292,5 +277,9 @@ public class MiniBlocks extends Feature {
         return "Dynamically generate Siding, Mouldings and Corners for many of the blocks in the game.";
     }
 
+    @Override
+    public boolean hasEvent() {
+        return true;
 
+    }
 }

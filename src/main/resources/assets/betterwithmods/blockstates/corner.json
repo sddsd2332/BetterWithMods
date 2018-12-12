@@ -1,0 +1,45 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "betterwithmods:mini/corner",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block"
+      }
+    ],
+    "orientation": {
+      "down_north": {
+      },
+      "down_south": {
+        "y": 90
+      },
+      "down_east": {
+        "y": 270
+      },
+      "down_west": {
+        "y": 180
+      },
+      "up_north": {
+        "x": 90
+      },
+      "up_south": {
+        "x": 90,
+        "y": 90
+      },
+      "up_east": {
+        "x": 90,
+        "y": 270
+      },
+      "up_west": {
+        "x": 90,
+        "y": 180
+      }
+    }
+  }
+}

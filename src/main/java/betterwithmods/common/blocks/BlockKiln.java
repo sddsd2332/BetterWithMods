@@ -2,7 +2,7 @@ package betterwithmods.common.blocks;
 
 import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.blocks.camo.CamoInfo;
-import betterwithmods.common.tile.TileCamo;
+import betterwithmods.common.tile.TileDynamic;
 import betterwithmods.common.tile.TileKiln;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
@@ -46,7 +46,7 @@ public class BlockKiln extends BlockDynamic {
     }
 
     @Override
-    public IBlockState fromTile(IExtendedBlockState state, TileCamo tile) {
+    public IExtendedBlockState fromTile(IExtendedBlockState state, TileDynamic tile) {
         return state.withProperty(BlockDynamic.CAMO_INFO, new CamoInfo(tile.getState()));
     }
 

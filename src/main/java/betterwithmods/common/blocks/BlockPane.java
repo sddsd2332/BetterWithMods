@@ -130,7 +130,7 @@ public class BlockPane extends BlockBase {
     public static boolean isCompatiblePane(IBlockAccess world, BlockPos pos, EnumFacing dir) {
         BlockPos neighbor = pos.offset(dir);
         Block block = world.getBlockState(neighbor).getBlock();
-        return block instanceof BlockPane;
+        return block instanceof betterwithmods.module.recipes.miniblocks.blocks.BlockPane;
     }
 
     public static boolean canConnectTo(IBlockAccess world, BlockPos pos, EnumFacing dir) {

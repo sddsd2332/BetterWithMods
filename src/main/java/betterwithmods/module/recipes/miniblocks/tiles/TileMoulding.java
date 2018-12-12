@@ -1,14 +1,12 @@
 package betterwithmods.module.recipes.miniblocks.tiles;
 
-import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
+import betterwithmods.module.recipes.miniblocks.blocks.BlockMoulding;
+import betterwithmods.module.recipes.miniblocks.blocks.BlockSiding;
 import betterwithmods.module.recipes.miniblocks.orientations.MouldingOrientation;
+import betterwithmods.module.recipes.miniblocks.orientations.SidingOrientation;
 
-public class TileMoulding extends TileMini {
+public class TileMoulding extends TileOrientation<MouldingOrientation> {
     public TileMoulding() {
-    }
-
-    @Override
-    public BaseOrientation deserializeOrientation(int ordinal) {
-        return MouldingOrientation.VALUES[ordinal];
+        super(BlockMoulding.ORIENTATION);
     }
 }

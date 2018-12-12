@@ -10,7 +10,7 @@ import net.minecraft.util.math.BlockPos;
 
 import javax.annotation.Nonnull;
 
-public class TileKiln extends TileCamo implements ITickable {
+public class TileKiln extends TileDynamic implements ITickable {
 
     private int cookTicks;
     private int prevProgress;

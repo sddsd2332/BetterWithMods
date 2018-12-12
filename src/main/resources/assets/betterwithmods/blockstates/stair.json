@@ -1,0 +1,65 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "betterwithmods:mini/stair",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block"
+      }
+    ],
+    "orientation": {
+      "south_down": {
+        "y": 90
+      },
+      "west_down": {
+        "y": 180
+      },
+      "north_down": {
+        "y": 270
+      },
+      "east_down": {
+      },
+
+
+      "south_vert": {
+        "x": 90,
+        "y": 90
+      },
+      "west_vert": {
+        "x": 90,
+        "y": 180
+      },
+      "north_vert": {
+        "x": 90,
+        "y": 270
+      },
+      "east_vert": {
+        "x": 90
+      },
+
+
+      "south_up": {
+        "x": 180,
+        "y": 90
+      },
+      "west_up": {
+        "x": 180,
+        "y": 180
+      },
+      "north_up": {
+        "x": 180,
+        "y": 270
+      },
+      "east_up": {
+        "x": 180,
+        "y": 0
+      }
+    }
+  }
+}

@@ -1,21 +1,14 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
 import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
-import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
+import betterwithmods.module.recipes.miniblocks.PropertyOrientation;
 import betterwithmods.module.recipes.miniblocks.orientations.StairOrientation;
-import betterwithmods.module.recipes.miniblocks.tiles.TileMini;
 import betterwithmods.module.recipes.miniblocks.tiles.TileStair;
 import com.google.common.collect.Lists;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.entity.player.EntityPlayer;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.EnumHand;
-import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
@@ -24,20 +17,20 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collection;
 import java.util.List;
-import java.util.function.Function;
 
-public class BlockStair extends BlockMini {
+public class BlockStair extends BlockOrientation<StairOrientation, TileStair> {
+
+    public static final PropertyOrientation<StairOrientation> ORIENTATION = new PropertyOrientation<>("orientation", StairOrientation.class, StairOrientation.PLACER, StairOrientation.VALUES);
 
     public BlockStair(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
     }
 
     private List<AxisAlignedBB> getCollisionBoxes(World world, BlockPos pos) {
-        BaseOrientation o = getTile(world, pos).map(TileMini::getOrientation).orElse(null);
-        if (o instanceof StairOrientation) {
-            return ((StairOrientation) o).getCollison();
+        StairOrientation o = getOrientation(world,pos);
+        if (o != null) {
+            return o.getCollison();
         }
         return Lists.newArrayList();
     }
@@ -48,14 +41,6 @@ public class BlockStair extends BlockMini {
         for (AxisAlignedBB axisalignedbb : getCollisionBoxes(worldIn, pos)) {
             addCollisionBoxToList(pos, entityBox, collidingBoxes, axisalignedbb);
         }
-    }
-
-    @Override
-    public boolean onBlockActivated(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
-
-        System.out.println(getTile(worldIn, pos).map(TileMini::getOrientation).map(IStringSerializable::getName).orElse("null"));
-
-        return super.onBlockActivated(worldIn, pos, state, playerIn, hand, facing, hitX, hitY, hitZ);
     }
 
     @SuppressWarnings("deprecation")
@@ -90,7 +75,7 @@ public class BlockStair extends BlockMini {
     }
 
     @Override
-    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
-        return StairOrientation.fromNeighbors(placer, pos, new Vec3d(hitX, hitY, hitZ), face);
+    public PropertyOrientation<StairOrientation> getOrientationProperty() {
+        return ORIENTATION;
     }
 }

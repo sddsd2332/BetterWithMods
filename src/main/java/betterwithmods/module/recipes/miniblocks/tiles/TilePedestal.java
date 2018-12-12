@@ -1,15 +1,10 @@
 package betterwithmods.module.recipes.miniblocks.tiles;
 
-import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
+import betterwithmods.module.recipes.miniblocks.blocks.BlockPedestal;
 import betterwithmods.module.recipes.miniblocks.orientations.PedestalOrientation;
 
-public class TilePedestal extends TileMini {
+public class TilePedestal extends TileOrientation<PedestalOrientation> {
     public TilePedestal() {
+        super(BlockPedestal.ORIENTATION);
     }
-
-    @Override
-    public BaseOrientation deserializeOrientation(int ordinal) {
-        return PedestalOrientation.VALUES[ordinal];
-    }
-
 }

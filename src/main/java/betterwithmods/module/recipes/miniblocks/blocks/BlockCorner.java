@@ -1,43 +1,24 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
 import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
-import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
+import betterwithmods.module.recipes.miniblocks.PropertyOrientation;
 import betterwithmods.module.recipes.miniblocks.orientations.CornerOrientation;
 import betterwithmods.module.recipes.miniblocks.tiles.TileCorner;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.function.Function;
 
-public class BlockCorner extends BlockMini {
+public class BlockCorner extends BlockOrientation<CornerOrientation, TileCorner> {
+    public static final PropertyOrientation<CornerOrientation> ORIENTATION = new PropertyOrientation<>("orientation", CornerOrientation.class, CornerOrientation.PLACER, CornerOrientation.VALUES);
 
     public BlockCorner(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
+        setDefaultState(getDefaultState().withProperty(ORIENTATION, CornerOrientation.DOWN_EAST));
     }
-
-    @Override
-    public BaseOrientation getDefaultOrientation(ItemStack stack) {
-        return CornerOrientation.DOWN_SOUTH;
-    }
-
-
-    @Override
-    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing facing, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
-        if (facing != null)
-            return CornerOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), facing);
-        return BaseOrientation.DEFAULT;
-    }
-
 
     @Nullable
     @Override
@@ -45,5 +26,8 @@ public class BlockCorner extends BlockMini {
         return new TileCorner();
     }
 
-
+    @Override
+    public PropertyOrientation<CornerOrientation> getOrientationProperty() {
+        return ORIENTATION;
+    }
 }

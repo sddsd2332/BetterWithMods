@@ -1,0 +1,71 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "sub": "betterwithmods:pane_extension",
+    "model": "betterwithmods:pane_main",
+    "uvlock": false
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "model": "betterwithmods:pane_main",
+        "submodel": {
+          "ext0": {
+            "model": "betterwithmods:pane_extension",
+            "y": 90
+          },
+          "ext2": {
+            "model": "betterwithmods:pane_extension",
+            "y": 270
+          }
+        }
+      }
+    ],
+    "north": {
+      "true": {
+        "submodel": {
+          "ext0": {
+            "model": "betterwithmods:pane_extension",
+            "y": 90
+          }
+        }
+      },
+      "false": {}
+    },
+    "east": {
+      "true": {
+        "submodel": {
+          "ext1": {
+            "model": "betterwithmods:pane_extension",
+            "y": 180
+          }
+        }
+      },
+      "false": {}
+    },
+    "south": {
+      "true": {
+        "submodel": {
+          "ext2": {
+            "model": "betterwithmods:pane_extension",
+            "y": 270
+          }
+        }
+      },
+      "false": {}
+    },
+    "west": {
+      "true": {
+        "submodel": {
+          "ext3": {
+            "model": "betterwithmods:pane_extension"
+          }
+        }
+      },
+      "false": {}
+    }
+  }
+}

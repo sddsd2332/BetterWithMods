@@ -1,7 +1,7 @@
 package betterwithmods.common.blocks.camo;
 
 import betterwithmods.client.baking.IRenderComparable;
-import betterwithmods.common.tile.TileCamo;
+import betterwithmods.common.tile.TileDynamic;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
@@ -9,7 +9,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 
 public class CamoInfo implements IRenderComparable<CamoInfo> {
-    public final IBlockState state;
+    private final IBlockState state;
 
     public CamoInfo(IBlockState state) {
         this.state = state;
@@ -22,10 +22,6 @@ public class CamoInfo implements IRenderComparable<CamoInfo> {
         } else {
             this.state = Blocks.AIR.getDefaultState();
         }
-    }
-
-    public CamoInfo(TileCamo tile) {
-        this.state = tile.getState();
     }
 
     @Override

@@ -31,7 +31,7 @@ import javax.annotation.Nullable;
 import java.util.List;
 
 public class WrappedBakedModel extends BaseBakedModel {
-    private final IBakedModel parent;
+    protected final IBakedModel parent;
     private final TextureAtlasSprite particle;
 
     public WrappedBakedModel(IBakedModel parent, TextureAtlasSprite particle) {

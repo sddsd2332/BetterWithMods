@@ -1,7 +1,7 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.common.blocks.camo.BlockDynamic;
-import betterwithmods.common.tile.TileCamo;
+import betterwithmods.common.tile.TileDynamic;
 import net.minecraft.advancements.CriteriaTriggers;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -58,8 +58,8 @@ public class ItemCamo extends ItemBlock {
         if (state.getBlock() == item.block) {
             setTileEntityNBT(world, player, pos, stack);
             TileEntity tile = world.getTileEntity(pos);
-            if (tile instanceof TileCamo)
-                setNBT((TileCamo) tile, world, stack);
+            if (tile instanceof TileDynamic)
+                setNBT((TileDynamic) tile, world, stack);
             ((BlockDynamic) item.block).onBlockPlacedBy(world, pos, state, player, stack, side, hitX, hitY, hitZ);
             if (player instanceof EntityPlayerMP)
                 CriteriaTriggers.PLACED_BLOCK.trigger((EntityPlayerMP) player, pos, stack);
@@ -67,7 +67,7 @@ public class ItemCamo extends ItemBlock {
         return true;
     }
 
-    public static void setNBT(TileCamo tileentity, World worldIn, ItemStack stackIn) {
+    public static void setNBT(TileDynamic tileentity, World worldIn, ItemStack stackIn) {
         NBTTagCompound data = stackIn.getSubCompound("texture");
 
         if (data != null) {

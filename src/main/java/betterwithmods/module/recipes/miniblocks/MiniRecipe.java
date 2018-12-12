@@ -1,13 +1,11 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.library.utils.GlobalUtils;
-import betterwithmods.module.recipes.miniblocks.blocks.BlockMini;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.inventory.InventoryCrafting;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.IRecipe;
-import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.world.World;
 import net.minecraftforge.registries.IForgeRegistryEntry;
 
@@ -85,15 +83,19 @@ public class MiniRecipe extends IForgeRegistryEntry.Impl<IRecipe> implements IRe
     public ItemStack getOutput(ItemStack input) {
         ItemStack result = ItemStack.EMPTY;
         if (!input.isEmpty()) {
-            if (end instanceof BlockMini) {
-                result = new ItemStack(end);
-                NBTTagCompound tag = input.getTagCompound();
-                result.setTagCompound(tag);
-            } else {
-                IBlockState state = ItemCamo.getState(input);
-                if (state != null)
-                    result = GlobalUtils.getStackFromState(state);
-            }
+
+            //TODO
+//            if (end instanceof BlockMini) {
+//                result = new ItemStack(end);
+//                NBTTagCompound tag = input.getTagCompound();
+//                result.setTagCompound(tag);
+//            } else {
+//
+//            }
+
+            IBlockState state = ItemCamo.getState(input);
+            if (state != null)
+                result = GlobalUtils.getStackFromState(state);
         }
         return result;
 

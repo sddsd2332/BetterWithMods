@@ -1,7 +1,7 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.common.blocks.camo.BlockDynamic;
-import betterwithmods.common.tile.TileCamo;
+import betterwithmods.common.tile.TileDynamic;
 import betterwithmods.lib.ModLib;
 import betterwithmods.module.recipes.miniblocks.blocks.*;
 import betterwithmods.module.recipes.miniblocks.tiles.*;
@@ -13,24 +13,24 @@ import net.minecraftforge.fml.common.registry.GameRegistry;
 import java.util.Arrays;
 
 public enum DynamicType {
-    SIDING(BlockSiding.class, TileSiding.class, "siding"),
-    MOULDING(BlockMoulding.class, TileMoulding.class, "moulding"),
+    STAIR(BlockStair.class, TileStair.class, "stair"),
+    BENCH(BlockBench.class, TileDynamic.class, "bench"),
     CORNER(BlockCorner.class, TileCorner.class, "corner"),
     COLUMN(BlockColumn.class, TileColumn.class, "column"),
-    PEDESTAL(BlockPedestals.class, TilePedestal.class, "pedestal"),
-    TABLE(BlockTable.class, TileCamo.class, "table"),
-    BENCH(BlockBench.class, TileCamo.class, "bench"),
     CHAIR(BlockChair.class, TileChair.class, "chair"),
-    STAIR(BlockStair.class, TileStair.class, "stair"),
-    GRATE(BlockPane.class, TileCamo.class, "grate"),
-    UNKNOWN(null, null, "");
+    GRATE(BlockPane.class, TileDynamic.class, "grate"),
+    MOULDING(BlockMoulding.class, TileMoulding.class, "moulding"),
+    PEDESTAL(BlockPedestal.class, TilePedestal.class, "pedestal"),
+    SIDING(BlockSiding.class, TileSiding.class, "siding"),
+    SLATS(BlockPane.class, TileDynamic.class, "slats"),
+    TABLE(BlockTable.class, TileDynamic.class, "table"),
+    THINWALL(BlockPane.class, TileDynamic.class, "thinwall");
+
 
     public static final DynamicType[] VALUES = values();
-
     private final Class<? extends BlockDynamic> block;
     private final Class<? extends TileEntity> tile;
     private final String name;
-
 
     DynamicType(Class<? extends BlockDynamic> block, Class<? extends TileEntity> tile, String name) {
         this.block = block;
@@ -55,7 +55,7 @@ public enum DynamicType {
             BlockDynamic mini = (BlockDynamic) ((ItemCamo) stack.getItem()).getBlock();
             return fromBlock(mini);
         }
-        return UNKNOWN;
+        return null;
     }
 
     public static void registerTiles() {

@@ -1,7 +1,6 @@
 package betterwithmods.module.general.moreheads.client.heads;
 
 import betterwithmods.module.general.moreheads.client.RenderHeadModel;
-import betterwithmods.module.general.moreheads.client.model.ModelCowHead;
 import betterwithmods.module.general.moreheads.client.model.ModelSheepHead;
 import net.minecraft.util.ResourceLocation;
 

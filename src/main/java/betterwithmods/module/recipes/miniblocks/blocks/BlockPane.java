@@ -1,7 +1,6 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
 import betterwithmods.common.blocks.camo.BlockDynamic;
-import betterwithmods.common.tile.TileCamo;
 import betterwithmods.library.utils.DirUtils;
 import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import net.minecraft.block.material.Material;
@@ -10,7 +9,6 @@ import net.minecraft.block.properties.PropertyBool;
 import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.Entity;
-import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -21,7 +19,6 @@ import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nonnull;
-import javax.annotation.Nullable;
 import java.util.List;
 
 import static betterwithmods.common.blocks.BlockPane.*;
@@ -29,14 +26,10 @@ import static betterwithmods.common.blocks.BlockPane.*;
 public class BlockPane extends BlockDynamic {
 
     public BlockPane(Material material, ISubtypeProvider subtypes) {
-        super(material, subtypes);
+        super(material,subtypes);
     }
 
-    @Nullable
-    @Override
-    public TileEntity createTileEntity(@Nonnull World world, @Nonnull IBlockState state) {
-        return new TileCamo();
-    }
+
     @Override
     public IProperty<?>[] getProperties() {
         return new IProperty[]{DirUtils.NORTH, DirUtils.SOUTH, DirUtils.EAST, DirUtils.WEST};

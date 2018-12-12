@@ -40,7 +40,7 @@ public class BWMCreativeTabs {
         @Override
         @SideOnly(Side.CLIENT)
         public ItemStack createIcon() {
-            return DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.SIDING, Material.WOOD), DynblockUtils.MATERIAL_VARIANTS.get(Material.WOOD).stream().findAny().orElse(null));
+            return DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.TABLE, Material.WOOD), DynblockUtils.MATERIAL_VARIANTS.get(Material.WOOD).stream().findAny().orElse(null));
         }
     };
 }

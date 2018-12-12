@@ -1,0 +1,23 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "betterwithmods:bench_supported",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "transform": "forge:default-block"
+      }
+    ],
+    "supported": {
+      "true": {},
+      "false": {
+        "model": "betterwithmods:bench_unsupported"
+      }
+    }
+  }
+}

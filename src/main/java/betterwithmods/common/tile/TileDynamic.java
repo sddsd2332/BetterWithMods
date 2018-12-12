@@ -18,12 +18,11 @@ import net.minecraft.world.World;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileCamo extends TileBasic {
+public class TileDynamic extends TileBasic {
 
     public IBlockState state;
 
-
-    public TileCamo() {
+    public TileDynamic() {
     }
 
     public static ItemStack fromParentState(Block mini, IBlockState state, int count) {

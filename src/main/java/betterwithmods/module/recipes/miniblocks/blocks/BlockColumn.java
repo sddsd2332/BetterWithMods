@@ -1,42 +1,29 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
 import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
-import betterwithmods.module.recipes.miniblocks.orientations.BaseOrientation;
+import betterwithmods.module.recipes.miniblocks.PropertyOrientation;
 import betterwithmods.module.recipes.miniblocks.orientations.ColumnOrientation;
 import betterwithmods.module.recipes.miniblocks.tiles.TileColumn;
 import net.minecraft.block.material.Material;
-import net.minecraft.block.state.BlockFaceShape;
 import net.minecraft.block.state.IBlockState;
-import net.minecraft.entity.EntityLivingBase;
-import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
-import net.minecraft.util.EnumFacing;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.util.math.Vec3d;
-import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
-import java.util.Collection;
-import java.util.function.Function;
 
-public class BlockColumn extends BlockMini {
+public class BlockColumn extends BlockOrientation<ColumnOrientation, TileColumn> {
+
+    public static final PropertyOrientation<ColumnOrientation> ORIENTATION = new PropertyOrientation<>("orientation", ColumnOrientation.class, ColumnOrientation.PLACER, ColumnOrientation.VALUES);
 
     public BlockColumn(Material material, ISubtypeProvider subtypes) {
         super(material, subtypes);
     }
 
     @Override
-    public BaseOrientation getOrientationFromPlacement(EntityLivingBase placer, @Nullable EnumFacing face, ItemStack stack, BlockPos pos, float hitX, float hitY, float hitZ) {
-        return ColumnOrientation.getFromVec(new Vec3d(hitX, hitY, hitZ), face);
+    public PropertyOrientation<ColumnOrientation> getOrientationProperty() {
+        return ORIENTATION;
     }
-
-    @Override
-    public boolean rotates() {
-        return false;
-    }
-
 
     @Nullable
     @Override
@@ -44,13 +31,4 @@ public class BlockColumn extends BlockMini {
         return new TileColumn();
     }
 
-    @Nonnull
-    @Override
-    public BlockFaceShape getBlockFaceShape(IBlockAccess worldIn, IBlockState state, BlockPos pos, EnumFacing face) {
-        return BlockFaceShape.MIDDLE_POLE_THICK;
-    }
-
-
 }
-
-

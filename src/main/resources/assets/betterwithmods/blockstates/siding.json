@@ -1,0 +1,38 @@
+{
+  "forge_marker": 1,
+  "defaults": {
+    "model": "betterwithmods:mini/siding",
+    "uvlock": true
+  },
+  "variants": {
+    "normal": [
+      {}
+    ],
+    "inventory": [
+      {
+        "x": 90
+      }
+    ],
+    "orientation": {
+      "up": {
+        "x": 180
+      },
+      "down": {
+      },
+      "north": {
+        "x": 90
+      },
+      "south": {
+        "x": 270
+      },
+      "west": {
+        "x": 270,
+        "y": 90
+      },
+      "east": {
+        "x": 270,
+        "y": 270
+      }
+    }
+  }
+}

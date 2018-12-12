@@ -112,7 +112,7 @@ public class KilnRecipes extends Feature {
     @SubscribeEvent
     @SideOnly(Side.CLIENT)
     public void onPostBake(ModelBakeEvent event) {
-        event.getModelRegistry().putObject(new ModelResourceLocation(ModLib.MODID + ":kiln", "normal"), new CamoModel(RenderUtils.getModel(new ResourceLocation("minecraft", "block/cube")), "kiln"));
+//        event.getModelRegistry().putObject(new ModelResourceLocation(ModLib.MODID + ":kiln", "normal"), new CamoModel(RenderUtils.getModel(new ResourceLocation("minecraft", "block/cube")), "kiln"));
     }
 }
 

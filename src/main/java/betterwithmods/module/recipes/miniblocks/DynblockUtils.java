@@ -28,12 +28,17 @@ import java.lang.reflect.InvocationTargetException;
 import java.util.Collection;
 import java.util.List;
 import java.util.Random;
+import java.util.Set;
 import java.util.function.Function;
 
 public class DynblockUtils {
 
     public static final Table<DynamicType, Material, BlockDynamic> DYNAMIC_VARIANT_TABLE = HashBasedTable.create();
     public static final Multimap<Material, IBlockState> MATERIAL_VARIANTS = HashMultimap.create();
+
+    public static Collection<BlockDynamic> getTypeBlocks(DynamicType type) {
+        return DYNAMIC_VARIANT_TABLE.row(type).values();
+    }
 
     public static Collection<ItemStack> getStacks(DynamicType type, Material material) {
         List<ItemStack> stacks = Lists.newArrayList();
@@ -126,7 +131,7 @@ public class DynblockUtils {
         BlockDynamic block = null;
         try {
             Constructor<?> constructor = type.getBlock().getConstructor(Material.class, ISubtypeProvider.class);
-            block = (BlockDynamic) constructor.newInstance(material, provider);
+            block = (BlockDynamic) constructor.newInstance( material, provider);
             block.setRegistryName(registry);
 
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {

@@ -127,6 +127,16 @@ tile.betterwithmods:pedestal_iron.name=%s Pedestal
 tile.betterwithmods:stair_rock.name=%s Stairs
 tile.betterwithmods:stair_wood.name=%s Stairs
 tile.betterwithmods:stair_iron.name=%s Stairs
+tile.betterwithmods:grate_rock.name=%s Grate
+tile.betterwithmods:grate_wood.name=%s Grate
+tile.betterwithmods:grate_iron.name=%s Grate
+tile.betterwithmods:slats_rock.name=%s Slats
+tile.betterwithmods:slats_wood.name=%s Slats
+tile.betterwithmods:slats_iron.name=%s Slats
+tile.betterwithmods:thinwall_rock.name=%s Thinwall
+tile.betterwithmods:thinwall_wood.name=%s Thinwall
+tile.betterwithmods:thinwall_iron.name=%s Thinwall
+
 tile.betterwithmods:block_dispenser.name=Block Dispenser
 tile.betterwithmods:companion_cube.name=Companion Cube
 tile.betterwithmods:long_friend.name=Long Friend
