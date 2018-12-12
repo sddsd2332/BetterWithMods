@@ -1,6 +1,5 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
-import betterwithmods.module.recipes.miniblocks.DynamicType;
 import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.PropertyOrientation;
 import betterwithmods.module.recipes.miniblocks.orientations.SidingOrientation;

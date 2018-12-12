@@ -8,6 +8,9 @@ import betterwithmods.module.recipes.miniblocks.DynamicType;
 import betterwithmods.module.recipes.miniblocks.DynblockUtils;
 import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.ItemCamo;
+import net.minecraft.block.Block;
+import net.minecraft.block.BlockBreakable;
+import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
@@ -18,6 +21,7 @@ import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.BlockRenderLayer;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.math.BlockPos;
@@ -32,6 +36,7 @@ import net.minecraftforge.common.property.IUnlistedProperty;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 import java.util.Optional;
+
 
 public abstract class BlockDynamic<T extends TileDynamic> extends BlockBase {
 
@@ -53,6 +58,24 @@ public abstract class BlockDynamic<T extends TileDynamic> extends BlockBase {
 
     public ItemBlock createItemBlock() {
         return new ItemCamo(this);
+    }
+
+    @Override
+    public SoundType getSoundType(IBlockState state, World world, BlockPos pos, @Nullable Entity entity) {
+        IBlockState parent = getParent(world,pos);
+        if(parent != null) {
+            return parent.getBlock().getSoundType(parent, world,pos, entity);
+        }
+        return super.getSoundType(state, world, pos, entity);
+    }
+
+    @Override
+    public int getLightValue(IBlockState state, IBlockAccess world, BlockPos pos) {
+        IBlockState parent = getParent(world,pos);
+        if(parent != null) {
+            return parent.getBlock().getLightValue(parent, world,pos);
+        }
+        return super.getLightValue(state, world, pos);
     }
 
     @SuppressWarnings("deprecation")
@@ -114,8 +137,8 @@ public abstract class BlockDynamic<T extends TileDynamic> extends BlockBase {
     public IBlockState getExtendedState(@Nonnull IBlockState state, IBlockAccess world, BlockPos pos) {
         final IExtendedBlockState extendedBS = (IExtendedBlockState) super.getExtendedState(state, world, pos);
 
-        T tile = getTile(world,pos).orElse(null);
-        if(tile != null) {
+        T tile = getTile(world, pos).orElse(null);
+        if (tile != null) {
             return fromTile(extendedBS, tile);
         }
         return extendedBS;
@@ -169,7 +192,7 @@ public abstract class BlockDynamic<T extends TileDynamic> extends BlockBase {
     }
 
     @Override
-    public void getDrops(NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, IBlockState state, int fortune) {
+    public void getDrops(@Nonnull NonNullList<ItemStack> drops, IBlockAccess world, BlockPos pos, @Nonnull IBlockState state, int fortune) {
         drops.add(getItem(world, pos, state));
     }
 
@@ -181,11 +204,68 @@ public abstract class BlockDynamic<T extends TileDynamic> extends BlockBase {
 
     @Override
     public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
-        return getTile(world, pos).map(t -> t.getState().getBlock().getFireSpreadSpeed(world, pos, face)).orElse(5);
+        return withParent(world,pos).map(b ->b.getBlock().getFireSpreadSpeed(world, pos, face)).orElse(5);
     }
 
     @Override
     public int getFlammability(IBlockAccess world, BlockPos pos, EnumFacing face) {
-        return getTile(world, pos).map(t -> t.getState().getBlock().getFlammability(world, pos, face)).orElse(10);
+        return withParent(world,pos).map(b ->b.getBlock().getFlammability(world, pos, face)).orElse(10);
     }
+
+    @Override
+    public boolean canRenderInLayer(IBlockState state, BlockRenderLayer layer) {
+        Material material = this.getMaterial(state);
+        if (material == Material.GLASS) {
+            return layer == BlockRenderLayer.TRANSLUCENT;
+        }
+        if (state instanceof IExtendedBlockState) {
+            IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
+            CamoInfo info = extendedBlockState.getValue(CAMO_INFO);
+
+            if (info != null) {
+                IBlockState parent = info.getState();
+                return parent.getBlock().canRenderInLayer(parent, layer);
+            }
+        }
+        return super.canRenderInLayer(state, layer);
+    }
+
+    @SuppressWarnings("deprecation")
+    @Override
+    public boolean shouldSideBeRendered(IBlockState blockState, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
+
+        BlockPos offset = pos.offset(side);
+
+        IBlockState neighorState = world.getBlockState(offset);
+
+
+        if(neighorState.getBlock() != blockState.getBlock())
+            return true;
+
+
+
+        IBlockState parent = getParent(world, pos);
+        if (parent != null) {
+            Block block = parent.getBlock();
+            if (block instanceof BlockBreakable) {
+                IBlockState neighbor = getParent(world, offset);
+                if (neighbor != null && neighbor.getBlock() == parent.getBlock()) {
+                    return false;
+                }
+            }
+            return parent.getBlock().shouldSideBeRendered(parent, world, pos, side);
+        }
+        return super.shouldSideBeRendered(blockState, world, pos, side);
+    }
+
+    public IBlockState getParent(IBlockAccess world, BlockPos pos) {
+        return withParent(world, pos).orElse(null);
+    }
+
+    public Optional<IBlockState> withParent(IBlockAccess world, BlockPos pos) {
+        if (world.getBlockState(pos).getBlock() instanceof BlockDynamic)
+            return getTile(world, pos).map(TileDynamic::getState);
+        return Optional.empty();
+    }
+
 }

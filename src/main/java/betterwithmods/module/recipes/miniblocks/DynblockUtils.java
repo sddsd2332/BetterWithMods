@@ -59,6 +59,8 @@ public class DynblockUtils {
         final ReflectionHelperBlock pb = new ReflectionHelperBlock();
         final Class<? extends Block> blkClass = blk.getClass();
 
+        boolean isBreakable = pb.getBlockHardness(state, null, null) > 0;
+
         pb.onBlockActivated(null, null, null, null, null, null, 0, 0, 0);
         boolean noActivation = (getDeclaringClass(blkClass, pb.MethodName, World.class, BlockPos.class, IBlockState.class, EntityPlayer.class, EnumHand.class, EnumFacing.class, float.class, float.class, float.class) == Block.class);
 
@@ -75,7 +77,7 @@ public class DynblockUtils {
 
         boolean hasBehavior = (blk.hasTileEntity(state) || tickingBehavior) && blkClass != BlockGrass.class && blkClass != BlockIce.class;
 
-        return noUpdate && noActivation && noCustomCollision && isFullBlock && !hasBehavior && hasItem && !isOre;
+        return isBreakable && noUpdate && noActivation && noCustomCollision && isFullBlock && !hasBehavior && hasItem && !isOre;
     }
 
     public static ItemStack fromParent(Block mini, IBlockState state) {

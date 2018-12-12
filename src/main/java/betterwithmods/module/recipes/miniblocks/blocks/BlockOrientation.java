@@ -10,6 +10,7 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
@@ -53,8 +54,23 @@ public abstract class BlockOrientation<O extends IOrientation & Comparable<O>, T
     }
 
     protected O getOrientation(IBlockAccess world, BlockPos pos) {
-        return getTile(world, pos).map(TileOrientation::getOrientation).orElse(getOrientationProperty().getDefault());
+        if(world.getBlockState(pos).getBlock() instanceof BlockOrientation)
+            return getTile(world, pos).map(TileOrientation::getOrientation).orElse(getOrientationProperty().getDefault());
+        return null;
     }
 
+
+    @Override
+    public boolean shouldSideBeRendered(IBlockState blockState, @Nonnull IBlockAccess world, @Nonnull BlockPos pos, EnumFacing side) {
+
+        O orientation = getOrientation(world,pos);
+        if(orientation != null) {
+            return true;
+//            O neighbor = getOrientation(world,pos.offset(side));
+//            if(neighbor != null && orientation != neighbor)
+//                return true;
+        }
+        return super.shouldSideBeRendered(blockState, world, pos, side);
+    }
 }
 

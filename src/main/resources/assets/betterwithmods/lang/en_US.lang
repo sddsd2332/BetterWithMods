@@ -137,6 +137,7 @@ tile.betterwithmods:thinwall_rock.name=%s Thinwall
 tile.betterwithmods:thinwall_wood.name=%s Thinwall
 tile.betterwithmods:thinwall_iron.name=%s Thinwall
 
+
 tile.betterwithmods:block_dispenser.name=Block Dispenser
 tile.betterwithmods:companion_cube.name=Companion Cube
 tile.betterwithmods:long_friend.name=Long Friend

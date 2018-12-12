@@ -144,6 +144,7 @@ public class MiniBlocks extends Feature {
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.QUARTZ_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GOLD_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.IRON_BLOCK)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GLASS)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(BlockAesthetic.getStack(BlockAesthetic.Type.WHITESTONE)));
             JsonUtils.writeFile(file, DEFAULT_CONFIG);
         }
