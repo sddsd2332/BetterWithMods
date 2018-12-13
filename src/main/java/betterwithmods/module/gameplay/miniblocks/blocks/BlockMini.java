@@ -9,6 +9,7 @@ import betterwithmods.module.gameplay.miniblocks.client.MiniCacheInfo;
 import betterwithmods.module.gameplay.miniblocks.orientations.BaseOrientation;
 import betterwithmods.module.gameplay.miniblocks.tiles.TileMini;
 import net.minecraft.block.Block;
+import net.minecraft.block.material.EnumPushReaction;
 import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.state.BlockStateContainer;
@@ -200,6 +201,21 @@ public abstract class BlockMini extends BlockRotate implements IRenderRotationPl
     @Override
     public boolean isTopSolid(IBlockState state) {
         return true;
+    }
+
+
+    @Override
+    public EnumPushReaction getPushReaction(IBlockState state) {
+        if(state instanceof IExtendedBlockState) {
+            IExtendedBlockState extendedBlockState = (IExtendedBlockState) state;
+            MiniCacheInfo info = extendedBlockState.getValue(MINI_INFO);
+            if(info != null) {
+                IBlockState parent = info.getState();
+                if(parent != null)
+                    return parent.getPushReaction();
+            }
+        }
+        return super.getPushReaction(state);
     }
 }
 
