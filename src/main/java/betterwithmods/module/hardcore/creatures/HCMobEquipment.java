@@ -5,6 +5,7 @@ import betterwithmods.module.CompatFeature;
 import com.google.common.collect.Maps;
 import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLivingBase;
+import net.minecraft.entity.ai.attributes.AttributeModifier;
 import net.minecraft.init.Items;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
@@ -40,7 +41,9 @@ public class HCMobEquipment extends CompatFeature {
     }
 
     private static void witherSkeleton(EntityLivingBase entity) {
-        entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, new ItemStack(Items.STONE_AXE));
+        ItemStack stoneAxe = new ItemStack(Items.STONE_AXE);
+        stoneAxe.addAttributeModifier("generic.attackDamage", new AttributeModifier("generic.attackDamage", 2, 0), EntityEquipmentSlot.MAINHAND);
+        entity.setItemStackToSlot(EntityEquipmentSlot.MAINHAND, stoneAxe);
     }
 
 
