@@ -2,6 +2,7 @@ package betterwithmods.module.tweaks;
 
 import betterwithmods.common.BWMItems;
 import betterwithmods.common.damagesource.BWDamageSource;
+import betterwithmods.common.registry.crafting.IngredientTool;
 import betterwithmods.module.Feature;
 import betterwithmods.util.player.PlayerHelper;
 import net.minecraft.entity.Entity;
@@ -26,8 +27,8 @@ public class HeadDrops extends Feature {
 
     @Override
     public void setupConfig() {
-        sawHeadDropChance = loadPropInt("Saw Drop Chance", "Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely", 3);
-        battleAxeHeadDropChance = loadPropInt("BattleAxe Drop Chance", "Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely", 3);
+        sawHeadDropChance = loadPropInt("Saw Drop Chance", "Chance for extra drops from Mobs dying on a Saw. 0 disables it entirely", 4);
+        battleAxeHeadDropChance = loadPropInt("BattleAxe Drop Chance", "Chance for extra drops from Mobs dying from a BattleAxe. 0 disables it entirely", 4);
     }
 
     @Override
@@ -39,7 +40,7 @@ public class HeadDrops extends Feature {
     public void onLivingDrop(LivingDropsEvent event) {
         if (isChoppingBlock(event.getSource()))
             addHead(event, sawHeadDropChance);
-        if (isBattleAxe(event.getEntityLiving()))
+        if (isBattleAxe(event.getSource()))
             addHead(event, battleAxeHeadDropChance);
     }
 
@@ -47,19 +48,20 @@ public class HeadDrops extends Feature {
         return source.equals(BWDamageSource.getChoppingBlockDamage());
     }
 
-    private boolean isBattleAxe(EntityLivingBase entity) {
-        DamageSource source = entity.getLastDamageSource();
+
+    private static IngredientTool BATTLE_AXE = new IngredientTool(stack -> stack.getItem().equals(BWMItems.STEEL_BATTLEAXE), new ItemStack(BWMItems.STEEL_BATTLEAXE));
+
+    private static boolean isBattleAxe(DamageSource source) {
         if (source != null && source.getImmediateSource() != null) {
             Entity e = source.getImmediateSource();
             if (e instanceof EntityLivingBase) {
                 ItemStack held = ((EntityLivingBase) e).getHeldItemMainhand();
-                if (!held.isEmpty() && held.isItemEqual(new ItemStack(BWMItems.STEEL_BATTLEAXE))) {
-                    return true;
-                }
+                return BATTLE_AXE.apply(held);
             }
         }
         return false;
     }
+
 
     public void addDrop(LivingDropsEvent evt, ItemStack drop) {
         EntityItem item = new EntityItem(evt.getEntityLiving().getEntityWorld(), evt.getEntityLiving().posX, evt.getEntityLiving().posY, evt.getEntityLiving().posZ, drop);
