@@ -2,7 +2,7 @@ package betterwithmods.module.compat.jei.ingredient;
 
 import betterwithmods.api.recipe.output.IOutput;
 import mezz.jei.api.ingredients.IIngredientRenderer;
-import mezz.jei.plugins.vanilla.ingredients.ItemStackRenderer;
+import mezz.jei.plugins.vanilla.ingredients.item.ItemStackRenderer;
 import net.minecraft.client.Minecraft;
 import net.minecraft.client.gui.FontRenderer;
 import net.minecraft.client.util.ITooltipFlag;
