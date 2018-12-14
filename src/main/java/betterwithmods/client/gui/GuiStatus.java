@@ -3,7 +3,7 @@ package betterwithmods.client.gui;
 import betterwithmods.common.penalties.Penalty;
 import betterwithmods.common.penalties.PenaltyHandler;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.library.utils.LocaleUtils;
 import betterwithmods.module.internal.MiscRegistry;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.client.Minecraft;
@@ -57,7 +57,7 @@ public class GuiStatus {
                     continue;
                 Penalty p = handler.getPenalty(mc.player);
                 if (p != null) {
-                    String status = TooltipUtils.getTooltip(ModLib.MODID, p.getName());
+                    String status = LocaleUtils.getTooltip(ModLib.MODID, p.getName());
                     if (status.isEmpty())
                         continue;
                     int width = fontRenderer.getStringWidth(status);

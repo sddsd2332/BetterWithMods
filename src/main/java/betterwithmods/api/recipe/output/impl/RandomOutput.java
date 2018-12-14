@@ -3,7 +3,7 @@ package betterwithmods.api.recipe.output.impl;
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.InventoryUtils;
-import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.library.utils.LocaleUtils;
 import net.minecraft.item.ItemStack;
 
 import java.util.Random;
@@ -44,7 +44,7 @@ public class RandomOutput extends StackOutput {
     }
 
     public String getTooltip() {
-        return TooltipUtils.getTooltip(ModLib.MODID, RANDOM_OUTPUT, min, max);
+        return LocaleUtils.getTooltip(ModLib.MODID, RANDOM_OUTPUT, min, max);
     }
 
     @Override

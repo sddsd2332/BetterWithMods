@@ -3,7 +3,7 @@ package betterwithmods.module.compat.jei.category;
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.lib.ModLib;
-import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.library.utils.LocaleUtils;
 import betterwithmods.module.compat.jei.JEILib;
 import betterwithmods.module.compat.jei.wrapper.HopperRecipeWrapper;
 import mezz.jei.api.IGuiHelper;
@@ -40,13 +40,13 @@ public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper>
     @SideOnly(Side.CLIENT)
     @Override
     public void drawExtras(Minecraft minecraft) {
-        String text = TooltipUtils.getDescription(ModLib.MODID, JEILib.HOPPER_THROW);
+        String text = LocaleUtils.getDescription(ModLib.MODID, JEILib.HOPPER_THROW);
         int l = minecraft.fontRenderer.getStringWidth(text);
         int textColor = 0x808080;
         minecraft.fontRenderer.drawString(text, width / 2 - l + 5, -11, textColor);
-        text = TooltipUtils.getDescription(ModLib.MODID, JEILib.HOPPER_FILTER);
+        text = LocaleUtils.getDescription(ModLib.MODID, JEILib.HOPPER_FILTER);
         minecraft.fontRenderer.drawString(text, width / 2 - 50, 16, textColor);
-        text = TooltipUtils.getDescription(ModLib.MODID, JEILib.HOPPER_OUTPUT);
+        text = LocaleUtils.getDescription(ModLib.MODID, JEILib.HOPPER_OUTPUT);
         minecraft.fontRenderer.drawString(text, width / 2 + 10, -11, textColor);
     }
 
@@ -58,7 +58,7 @@ public class HopperRecipeCategory extends BWMRecipeCategory<HopperRecipeWrapper>
 
         guiItemStacks.addTooltipCallback((slotIndex, input, ingredient, tooltip) -> {
             if (slotIndex == 2 && !tooltip.isEmpty())
-                tooltip.add(1, TooltipUtils.style(TooltipUtils.getDescriptionComponent(ModLib.MODID, JEILib.HOPPER_PLACE), TextFormatting.LIGHT_PURPLE, TextFormatting.BOLD).getFormattedText());
+                tooltip.add(1, LocaleUtils.style(LocaleUtils.getDescriptionComponent(ModLib.MODID, JEILib.HOPPER_PLACE), TextFormatting.LIGHT_PURPLE, TextFormatting.BOLD).getFormattedText());
         });
         int x = width / 2 - 18, y = 0;
         guiItemStacks.init(0, true, x, y); //inputs item

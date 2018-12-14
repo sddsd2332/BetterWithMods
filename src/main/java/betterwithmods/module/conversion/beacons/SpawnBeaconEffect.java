@@ -3,7 +3,7 @@ package betterwithmods.module.conversion.beacons;
 import betterwithmods.BetterWithMods;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
-import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.library.utils.LocaleUtils;
 import betterwithmods.library.utils.ingredient.blockstate.BlockStateIngredient;
 import betterwithmods.module.hardcore.world.spawn.HCSpawn;
 import com.google.common.collect.Maps;
@@ -111,9 +111,9 @@ public class SpawnBeaconEffect extends BeaconEffect {
 
         if (!containsEntry(pos, point)) {
             addPoint(pos, point);
-            player.sendStatusMessage(TooltipUtils.getMessageComponent(ModLib.MODID, TooltipLib.BEACON_SPAWN_SET), true);
+            player.sendStatusMessage(LocaleUtils.getMessageComponent(ModLib.MODID, TooltipLib.BEACON_SPAWN_SET), true);
         } else {
-            player.sendStatusMessage(TooltipUtils.getMessageComponent(ModLib.MODID, TooltipLib.BEACON_SPAWN_ALREADY_SET), true);
+            player.sendStatusMessage(LocaleUtils.getMessageComponent(ModLib.MODID, TooltipLib.BEACON_SPAWN_ALREADY_SET), true);
         }
 
         return true;

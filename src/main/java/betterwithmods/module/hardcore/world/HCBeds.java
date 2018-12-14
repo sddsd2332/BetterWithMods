@@ -2,7 +2,7 @@ package betterwithmods.module.hardcore.world;
 
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
-import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.library.utils.LocaleUtils;
 import betterwithmods.module.internal.AdvancementRegistry;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.entity.player.EntityPlayer;
@@ -30,7 +30,7 @@ public class HCBeds extends Feature {
     @SubscribeEvent
     public void onSleepInBed(PlayerSleepInBedEvent event) {
         if (PlayerUtils.isSurvival(event.getEntityPlayer())) {
-            event.getEntityPlayer().sendStatusMessage(TooltipUtils.getMessageComponent(ModLib.MODID, BED_TOO_RESTLESS), true);
+            event.getEntityPlayer().sendStatusMessage(LocaleUtils.getMessageComponent(ModLib.MODID, BED_TOO_RESTLESS), true);
             event.setResult(TOO_RESTLESS);
 
             if (stillSetSpawn) {

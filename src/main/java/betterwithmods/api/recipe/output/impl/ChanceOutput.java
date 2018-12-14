@@ -3,7 +3,7 @@ package betterwithmods.api.recipe.output.impl;
 import betterwithmods.api.recipe.output.IOutput;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.utils.InventoryUtils;
-import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.library.utils.LocaleUtils;
 import net.minecraft.item.ItemStack;
 
 import static betterwithmods.lib.TooltipLib.CHANCE_OUTPUT;
@@ -22,7 +22,7 @@ public class ChanceOutput extends StackOutput {
 
     @Override
     public String getTooltip() {
-        return TooltipUtils.getTooltip(ModLib.MODID, CHANCE_OUTPUT, weight * 100);
+        return LocaleUtils.getTooltip(ModLib.MODID, CHANCE_OUTPUT, weight * 100);
     }
 
     @Override

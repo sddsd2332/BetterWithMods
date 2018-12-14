@@ -6,9 +6,8 @@ import betterwithmods.common.tile.TileHandCrank;
 import betterwithmods.lib.ModLib;
 import betterwithmods.lib.TooltipLib;
 import betterwithmods.library.common.block.BlockBase;
-import betterwithmods.library.utils.DirUtils;
 import betterwithmods.library.utils.InventoryUtils;
-import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.library.utils.LocaleUtils;
 import betterwithmods.module.general.MechanicalPower;
 import betterwithmods.util.PlayerUtils;
 import net.minecraft.block.Block;
@@ -17,7 +16,6 @@ import net.minecraft.block.material.Material;
 import net.minecraft.block.properties.IProperty;
 import net.minecraft.block.properties.PropertyInteger;
 import net.minecraft.block.state.BlockFaceShape;
-import net.minecraft.block.state.BlockStateContainer;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.SoundEvents;
@@ -92,7 +90,7 @@ public class BlockHandCrank extends BlockBase implements IOverpower {
             }
         } else if (world.isRemote) {
             if (hand == EnumHand.MAIN_HAND)
-                player.sendStatusMessage(TooltipUtils.getMessageComponent(this.getRegistryName().getNamespace(), TooltipLib.HANDCRANK_EXHAUSTION), true);
+                player.sendStatusMessage(LocaleUtils.getMessageComponent(this.getRegistryName().getNamespace(), TooltipLib.HANDCRANK_EXHAUSTION), true);
             return false;
         }
         return true;

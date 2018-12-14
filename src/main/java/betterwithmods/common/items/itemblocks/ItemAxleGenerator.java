@@ -5,7 +5,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.BlockAxle;
 import betterwithmods.common.blocks.mechanical.BlockAxleGenerator;
 import betterwithmods.library.utils.DirUtils;
-import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.library.utils.LocaleUtils;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
@@ -44,7 +44,7 @@ public abstract class ItemAxleGenerator extends ItemBlock implements IRenderRota
 
     private void showErrorMessage(EntityPlayer player, Error error) {
         String block = Objects.requireNonNull(getRegistryName()).getNamespace();
-        player.sendMessage(TooltipUtils.getMessageComponent(getRegistryName().getNamespace(), error.format(block)));
+        player.sendMessage(LocaleUtils.getMessageComponent(getRegistryName().getNamespace(), error.format(block)));
     }
 
     public AxisAlignedBB getBounds(EnumFacing.Axis axis, int radius) {

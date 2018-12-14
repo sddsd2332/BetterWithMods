@@ -8,7 +8,7 @@ import betterwithmods.lib.TooltipLib;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
 import betterwithmods.library.common.recipes.RecipeRemover;
-import betterwithmods.library.utils.TooltipUtils;
+import betterwithmods.library.utils.LocaleUtils;
 import betterwithmods.library.utils.ingredient.StackIngredient;
 import betterwithmods.module.internal.RecipeRegistry;
 import net.minecraft.enchantment.EnchantmentHelper;
@@ -184,7 +184,7 @@ public class HCFishing extends Feature {
         if (restrictToOpenWater) {
             if (event.getHookEntity().getEntityWorld().getHeight(hookPos.getX(), hookPos.getZ()) > hookPos.getY() || !isAirBlock(event.getHookEntity().getEntityWorld(), hookPos)) {
                 event.setCanceled(true);
-                event.getEntityPlayer().sendMessage(TooltipUtils.getMessageComponent(ModLib.MODID, TooltipLib.FISHING_NEEDS_OPEN_SKY));
+                event.getEntityPlayer().sendMessage(LocaleUtils.getMessageComponent(ModLib.MODID, TooltipLib.FISHING_NEEDS_OPEN_SKY));
                 return;
             }
         }
@@ -192,7 +192,7 @@ public class HCFishing extends Feature {
             for (int i = 1; i <= minimumWaterDepth; i++) {
                 if (!isWaterBlock(event.getHookEntity().getEntityWorld(), hookPos.add(0, (i * -1), 0))) {
                     event.setCanceled(true);
-                    event.getEntityPlayer().sendMessage(TooltipUtils.getMessageComponent(ModLib.MODID, TooltipLib.FISHING_NEEDS_DEEP_WATER));
+                    event.getEntityPlayer().sendMessage(LocaleUtils.getMessageComponent(ModLib.MODID, TooltipLib.FISHING_NEEDS_DEEP_WATER));
                     return;
                 }
             }
@@ -224,7 +224,7 @@ public class HCFishing extends Feature {
                     if (cap.hasBait() || event.getEntityPlayer().isCreative()) {
                         throwLine(event.getItemStack().getItem(), event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getWorld().rand).getType();
                     } else if (!event.getWorld().isRemote && (event.getHand() == EnumHand.MAIN_HAND || event.getHand() == EnumHand.OFF_HAND)) {
-                        event.getEntityPlayer().sendMessage(TooltipUtils.getMessageComponent(ModLib.MODID, TooltipLib.FISHING_NEEDS_BAIT));
+                        event.getEntityPlayer().sendMessage(LocaleUtils.getMessageComponent(ModLib.MODID, TooltipLib.FISHING_NEEDS_BAIT));
                     }
                 }
             }
@@ -248,7 +248,7 @@ public class HCFishing extends Feature {
                             tooltip = tag.getBoolean("bait") ? TooltipLib.FISHING_ROD_BAITED : TooltipLib.FISHING_ROD_UNBAITED;
                         }
                     }
-                    event.getToolTip().add(TooltipUtils.getTooltip(ModLib.MODID, tooltip));
+                    event.getToolTip().add(LocaleUtils.getTooltip(ModLib.MODID, tooltip));
                 }
             }
         }
