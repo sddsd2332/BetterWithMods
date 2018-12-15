@@ -46,7 +46,7 @@ public class TurntableManagerBlock extends CraftingManagerBlock<TurntableRecipe>
 
     @Override
     public TurntableRecipe addRecipe(TurntableRecipe recipe) {
-        return super.addRecipe(recipe);
+         return super.addRecipe(recipe);
     }
 
     public static TileEntityTurntable findTurntable(World world, BlockPos craftingPos) {

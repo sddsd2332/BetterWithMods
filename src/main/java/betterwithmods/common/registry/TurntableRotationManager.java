@@ -1,5 +1,6 @@
 package betterwithmods.common.registry;
 
+import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -33,7 +34,9 @@ public class TurntableRotationManager {
             return world.setBlockState(pos, state.withRotation(rotation));
         }
 
-        default boolean canTransmitVertically(World world, BlockPos pos) {
+        default boolean canTransmitVertically(World world, BlockPos pos, TurntableRecipe recipe) {
+            if (recipe != null)
+                return false;
             Block block = world.getBlockState(pos).getBlock();
             if (block == Blocks.GLASS || block == Blocks.STAINED_GLASS)
                 return true;
@@ -114,7 +117,7 @@ public class TurntableRotationManager {
             IBlockState state = blocks.get(facing);
             EnumFacing newFacing = rotation == Rotation.CLOCKWISE_90 ? facing.rotateY() : facing.rotateYCCW();
             BlockPos newPos = rotateAround(pos, newFacing, rotation);
-            if(!world.getBlockState(newPos).getMaterial().isReplaceable()) {
+            if (!world.getBlockState(newPos).getMaterial().isReplaceable()) {
                 state.getBlock().dropBlockAsItem(world, pos.offset(facing), state, 0);
                 world.setBlockToAir(pos.offset(facing));
             } else {

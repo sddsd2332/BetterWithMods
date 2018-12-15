@@ -1,6 +1,5 @@
 package betterwithmods.module.gameplay;
 
-import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.BlockUnfiredPottery;
 import betterwithmods.common.registry.TurntableRotationManager;
@@ -11,8 +10,6 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
-import net.minecraft.util.math.BlockPos;
-import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
@@ -30,7 +27,7 @@ public class TurntableRecipes extends Feature {
         BWRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.CRUCIBLE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER));
         BWRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.PLANTER), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.VASE), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
         BWRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.VASE), BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
-        BWRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), Blocks.AIR.getDefaultState(),Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
+        BWRegistry.TURNTABLE.addDefaultRecipe(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.URN), Blocks.AIR.getDefaultState(), Lists.newArrayList(new ItemStack(Items.CLAY_BALL)));
 
 
         TurntableRotationManager.addAttachment(b -> b instanceof BlockTorch);
@@ -49,38 +46,6 @@ public class TurntableRecipes extends Feature {
             return state.getValue(BlockLever.FACING).getFacing().getAxis().isVertical();
         });
         TurntableRotationManager.addRotationBlacklist(block -> block instanceof BlockPistonExtension);
-        TurntableRotationManager.addRotationHandler(BWMBlocks.UNFIRED_POTTERY, new TurntableRotationManager.IRotation() {
-            @Override
-            public boolean isValid(World world, BlockPos pos) {
-                return true;
-            }
-
-            @Override
-            public boolean canTransmitHorizontally(World world, BlockPos pos) {
-                return false;
-            }
-
-            @Override
-            public boolean canTransmitVertically(World world, BlockPos pos) {
-                return false;
-            }
-        });
-        TurntableRotationManager.addRotationHandler(Blocks.CLAY, new TurntableRotationManager.IRotation() {
-            @Override
-            public boolean isValid(World world, BlockPos pos) {
-                return true;
-            }
-
-            @Override
-            public boolean canTransmitHorizontally(World world, BlockPos pos) {
-                return false;
-            }
-
-            @Override
-            public boolean canTransmitVertically(World world, BlockPos pos) {
-                return false;
-            }
-        });
         TurntableRotationManager.addRotationHandler(block -> block instanceof BlockPistonBase, (world, pos) -> !world.getBlockState(pos).getValue(BlockPistonBase.EXTENDED));
     }
 }
