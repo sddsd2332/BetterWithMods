@@ -195,7 +195,7 @@ public class HCBuckets extends Feature {
         stopDispenserFillBehavior = loadProperty("Stop Dispenser Fill Behavior", false).setComment("Disallow the dispenser from using an empty bucket for anything.").get();
 
         if (fixIce) {
-            BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger()).builder().block(new BlockIce().setTranslationKey("ice")).id("minecraft:ice").build().complete()
+            BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger()).builder().subalias("field_150432_aD","ICE").block(new BlockIce().setTranslationKey("ice")).id("minecraft:ice").build().complete()
             );
         }
     }

@@ -85,8 +85,8 @@ public class HCFurnace extends Feature {
         TOOLTIP = loadProperty("Tooltip for modified cooking time", true).setComment("Shows a tooltip for items with modified cooking time").get();
 
         BlockRegistry.registerBlocks(BlockEntryBuilderFactory.<Void>create(getLogger())
-                .builder().block(new BlockFurnace(false)).id("minecraft:furnace").build()
-                .builder().block(new BlockFurnace(true)).id("minecraft:lit_furnace").noItem().build()
+                .builder().subalias("field_150460_al", "FURNACE").block(new BlockFurnace(false)).id("minecraft:furnace").build()
+                .builder().subalias("field_150470_am", "LIT_FURNACE").block(new BlockFurnace(true)).id("minecraft:lit_furnace").noItem().build()
                 .complete());
     }
 
