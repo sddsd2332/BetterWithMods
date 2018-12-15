@@ -1,8 +1,8 @@
 {
-  "name": "Refined Tools",
-  "icon": "betterwithmods:steel_mattock",
-  "category": "tools",
+  "name": "Anvil",
+  "icon": "betterwithmods:anvil",
   "advancement": "betterwithmods:soul_forged_steel",
+  "category": "processing",
   "pages": [
     {
       "type": "text",
@@ -10,5 +10,5 @@
       "text": "DOCUMENTME"
     }
   ],
-  "sortnum": 1
+  "sortnum": 10
 }

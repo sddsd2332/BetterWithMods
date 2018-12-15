@@ -2,6 +2,7 @@
   "name": "Light Block",
   "icon": "betterwithmods:lamp{'color': 16701501}",
   "category": "redstone",
+  "advancement": "betterwithmods:cauldron",
   "pages": [
     {
       "type": "text",

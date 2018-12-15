@@ -1,7 +1,8 @@
 {
-  "name": "Candles & Candle Holders",
+  "name": "Candles",
   "icon": "betterwithmods:candle_red",
   "category": "building",
+  "advancement": "betterwithmods:tallow",
   "pages": [
     {
       "type": "text",

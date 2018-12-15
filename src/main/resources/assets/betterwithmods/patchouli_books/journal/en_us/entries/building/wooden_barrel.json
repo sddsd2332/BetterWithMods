@@ -2,6 +2,7 @@
   "name": "Wooden Barrel",
   "icon": "betterwithmods:barrel",
   "category": "building",
+  "advancement": "betterwithmods:glue",
   "pages": [
     {
       "type": "text",

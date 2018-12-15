@@ -2,6 +2,7 @@
   "name": "Lens",
   "icon": "betterwithmods:lens",
   "category": "redstone",
+  "advancement": "betterwithmods:vanilla/diamond",
   "pages": [
     {
       "type": "text",

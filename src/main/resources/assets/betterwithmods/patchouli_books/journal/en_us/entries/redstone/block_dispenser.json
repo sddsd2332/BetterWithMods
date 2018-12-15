@@ -2,6 +2,7 @@
   "name": "Block Dispenser",
   "icon": "betterwithmods:block_dispenser",
   "category": "redstone",
+  "advancement": "betterwithmods:steel_anvil",
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "Stakes",
   "icon": "betterwithmods:stake",
   "category": "building",
+  "advancement": "betterwithmods:saw",
   "pages": [
     {
       "type": "text",

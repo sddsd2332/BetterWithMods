@@ -44,12 +44,6 @@
       "title": "Hemp Fiber",
       "mill": "betterwithmods:hemp_fiber",
       "text": "Using the millstone, leaves of this plant can be ground into a very strong fiber with many applications."
-    },
-    {
-      "type": "crafting",
-      "recipe": "betterwithmods:items/rope",
-      "advancement": "betterwithmods:millstone",
-      "text": "The fibers of this plant can be harnessed to make a strong and versatile rope"
     }
   ]
 }

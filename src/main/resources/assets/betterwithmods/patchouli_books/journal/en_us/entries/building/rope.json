@@ -2,6 +2,7 @@
   "name": "Rope",
   "icon": "betterwithmods:rope",
   "category": "building",
+  "advancement": "betterwithmods:hemp_fibers",
   "pages": [
     {
       "type": "text",

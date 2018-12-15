@@ -2,6 +2,7 @@
   "name": "Buddy Block",
   "icon": "betterwithmods:buddy_block",
   "category": "redstone",
+  "advancement": "betterwithmods:steel_anvil",
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "Shaft",
   "icon": "betterwithmods:shaft",
   "category": "building",
+  "advancement": "betterwithmods:vanilla/stick",
   "pages": [
     {
       "type": "text",

@@ -2,6 +2,7 @@
   "name": "Furniture",
   "icon": "betterwithmods:chair_wood{texture: {Properties: {variant: 'oak'}, Name: 'minecraft:planks'}}",
   "category": "building",
+  "advancement": "betterwithmods:saw",
   "pages": [
     {
       "type": "text",

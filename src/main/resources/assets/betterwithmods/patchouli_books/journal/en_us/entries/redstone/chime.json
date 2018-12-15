@@ -2,6 +2,7 @@
   "name": "Wind Chime",
   "icon": "betterwithmods:bamboo_chime_oak",
   "category": "redstone",
+  "advancement": "betterwithmods:saw",
   "pages": [
     {
       "type": "text",

@@ -1,0 +1,29 @@
+{
+  "name": "Sugar Cane",
+  "icon": "minecraft:reeds",
+  "category": "world/plants",
+  "advancement": "betterwithmods:crops/reeds",
+  "pages": [
+    {
+      "type": "multiblock",
+      "name": "Sugar Cane",
+      "multiblock": {
+        "pattern": [
+          [" 0 "],
+          [" V "],
+          [" V "],
+          ["WS "]
+        ],
+        "mapping": {
+          "0": "minecraft:reeds",
+          "V": "minecraft:reeds",
+          "W": "minecraft:water",
+          "S": "minecraft:sand"
+        }
+      },
+      "enable_visualize": false,
+      "symmetrical": true,
+      "text": "A depiction of Sugar Cane"
+    }
+  ]
+}

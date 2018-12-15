@@ -3,9 +3,7 @@
   "display": {
     "icon": {
       "item": "betterwithmods:lamp",
-      "nbt": {
-        "color": 16701501
-      }
+      "nbt": "{color: 16701501}"
     },
     "title": {
       "translate": "tile.betterwithmods:light.name"

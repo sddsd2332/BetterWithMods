@@ -2,6 +2,7 @@
   "name": "Vases",
   "icon": "betterwithmods:vase_red",
   "category": "building",
+  "advancement": "betterwithmods:kiln",
   "pages": [
     {
       "type": "text",

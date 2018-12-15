@@ -2,6 +2,7 @@
   "name": "Detector Block",
   "icon": "betterwithmods:detector",
   "category": "redstone",
+  "advancement": "betterwithmods:steel_anvil",
   "pages": [
     {
       "type": "text",

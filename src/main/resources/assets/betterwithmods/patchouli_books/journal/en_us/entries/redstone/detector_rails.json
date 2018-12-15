@@ -2,6 +2,7 @@
   "name": "Detector Rails",
   "icon": "betterwithmods:detector_rail_steel",
   "category": "redstone",
+  "advancement": "betterwithmods:vanilla/redstone",
   "pages": [
     {
       "type": "text",

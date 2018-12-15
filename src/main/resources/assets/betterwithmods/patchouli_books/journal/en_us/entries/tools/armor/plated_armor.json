@@ -2,6 +2,7 @@
   "name": "Plated Armor",
   "icon": "betterwithmods:steel_helmet",
   "category": "armor",
+  "advancement": "betterwithmods:soul_forged_steel",
   "pages": [
     {
       "type": "text",
