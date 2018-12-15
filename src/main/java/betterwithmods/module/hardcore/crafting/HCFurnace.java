@@ -4,6 +4,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.blocks.BlockFurnace;
 import betterwithmods.module.Feature;
+import betterwithmods.util.ReflectionLib;
 import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
 import net.minecraft.init.Blocks;
@@ -58,6 +59,9 @@ public class HCFurnace extends Feature {
     public void preInit(FMLPreInitializationEvent event) {
         BWMBlocks.registerBlock(FURNACE);
         BWMBlocks.registerBlock(LIT_FURNACE, null);
+
+        ReflectionLib.reflectSubalias(FURNACE, "field_150460_al", "FURNACE");
+        ReflectionLib.reflectSubalias(LIT_FURNACE, "field_150470_am", "LIT_FURNACE");
     }
 
     @Override

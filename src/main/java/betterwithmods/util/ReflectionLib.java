@@ -1,7 +1,13 @@
 package betterwithmods.util;
 
 
+import net.minecraft.block.Block;
+import net.minecraft.init.Blocks;
+import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import org.apache.commons.lang3.tuple.Pair;
+
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 
 public class ReflectionLib {
 
@@ -58,6 +64,34 @@ public class ReflectionLib {
         try {
             CLAZZ_MIXPREDICATE = (Class<Object>) Class.forName("net.minecraft.potion.PotionHelper$MixPredicate");
         } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void reflectSubalias(Block block, String... fields) {
+
+        Field field = ReflectionHelper.findField(Blocks.class, fields);
+        field.setAccessible(true);
+
+        Field modifiersField = null;
+        try {
+            modifiersField = Field.class.getDeclaredField("modifiers");
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        }
+
+        if(modifiersField != null) {
+            modifiersField.setAccessible(true);
+            try {
+                modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+            } catch (IllegalAccessException e) {
+                e.printStackTrace();
+            }
+        }
+
+        try {
+            field.set(null, block);
+        } catch (IllegalAccessException e) {
             e.printStackTrace();
         }
     }

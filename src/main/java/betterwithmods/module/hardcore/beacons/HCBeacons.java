@@ -11,8 +11,10 @@ import betterwithmods.common.registry.block.recipe.BlockDropIngredient;
 import betterwithmods.common.registry.block.recipe.BlockIngredient;
 import betterwithmods.common.registry.block.recipe.IngredientSpecial;
 import betterwithmods.module.Feature;
+import betterwithmods.util.ReflectionLib;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
+import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.monster.EntityMob;
@@ -71,13 +73,16 @@ public class HCBeacons extends Feature {
         enderchestBeacon = loadPropBool("Enderchest Beacon", "Rework how Enderchests work. Enderchests on their own work like normal chests. When placed on a beacon made of Ender Block the chest functions depending on level, more info in the Book of Single.", true);
     }
 
+    private Block BEACON = new BlockBeacon().setRegistryName("minecraft:beacon");
+    private Block ENDER_CHEST = new BlockEnderchest().setRegistryName("minecraft:ender_chest");
+
     @Override
     public void preInit(FMLPreInitializationEvent event) {
-
-        BWMBlocks.registerBlock(new BlockBeacon().setRegistryName("minecraft:beacon"));
+        BWMBlocks.registerBlock(BEACON);
+        ReflectionLib.reflectSubalias(BEACON, "BEACON","field_150461_bJ");
         if (enderchestBeacon) {
-
-            BWMBlocks.registerBlock(new BlockEnderchest().setRegistryName("minecraft:ender_chest"));
+            BWMBlocks.registerBlock(ENDER_CHEST);
+            ReflectionLib.reflectSubalias(ENDER_CHEST, "ENDER_CHEST","field_150477_bB");
             CapabilityManager.INSTANCE.register(EnderchestCap.class, new EnderchestCap.Storage(), EnderchestCap::new);
         }
         CapabilityManager.INSTANCE.register(CapabilityBeacon.class, new CapabilityBeacon.Storage(), CapabilityBeacon::new);

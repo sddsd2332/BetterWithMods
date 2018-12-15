@@ -8,6 +8,7 @@ import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.Feature;
 import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.FluidUtils;
+import betterwithmods.util.ReflectionLib;
 import betterwithmods.util.player.PlayerHelper;
 import com.google.common.collect.Lists;
 import com.google.common.primitives.Ints;
@@ -98,12 +99,12 @@ public class HCBuckets extends Feature {
     public void preInit(FMLPreInitializationEvent event) {
         if (fixIce) {
             BWMBlocks.registerBlock(ICE);
+            ReflectionLib.reflectSubalias(ICE,"field_150432_aD","ICE");
         }
     }
 
     @Override
     public void init(FMLInitializationEvent event) {
-        //TODO dispenser behavior; for water and lava bucket
 
         fluidcontainerBacklist = ConfigHelper.loadPropRLList("Fluid container blacklist", configCategory, "Blacklist itemstacks from being effected by HCBuckets", new String[]{
                 "thermalcultivation:watering_can"
