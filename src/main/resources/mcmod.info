@@ -3,7 +3,7 @@
     "modid": "betterwithmods",
     "name": "Better With Mods",
     "description": "Your one-stop shop for mechanical power and sadism.",
-    "version": "%VERSION$",
+    "version": "%VERSION%",
     "mcversion": "${mcversion}",
     "url": "",
     "updateUrl": "",
