@@ -28,7 +28,6 @@ pipeline {
     post {
         always {
             archive 'build/libs/**.jar'
-            discordSend description: 'Jenkins Pipeline Build', footer: 'Footer Text', link: env.BUILD_URL, result: currentBuild.currentResult, title: JOB_NAME, webhookURL: env.BWM_DISCORD
         }
     }
 }
