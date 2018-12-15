@@ -7,7 +7,7 @@ import net.minecraft.util.math.Vec3d;
 
 import javax.annotation.Nonnull;
 
-public enum PedestalOrientation implements IOrientation {
+public enum PedestalOrientation implements IOrientation<PedestalOrientation> {
     DOWN("down", new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
     UP("up", new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
     NORTH("north", new AxisAlignedBB(0, 0, 0, 1, 1, 1)),
@@ -17,7 +17,9 @@ public enum PedestalOrientation implements IOrientation {
 
     public static final PedestalOrientation[] VALUES = values();
 
-    public static final IOrientationPlacer<PedestalOrientation> PLACER = (placer, face, stack, hit) -> getFromVec(hit, face);
+    public static final IOrientationPlacer<PedestalOrientation> PLACER = (placer, face, stack, hit) -> {
+       return fromFace(placer.isSneaking() ? face.getOpposite() : face);
+    };
 
     private final String name;
     private final AxisAlignedBB bounds;
@@ -33,10 +35,6 @@ public enum PedestalOrientation implements IOrientation {
         return PedestalOrientation.DOWN;
     }
 
-    public static PedestalOrientation getFromVec(Vec3d hit, EnumFacing facing) {
-        return fromFace(facing);
-    }
-
     @Nonnull
     @Override
     public String getName() {
@@ -48,15 +46,14 @@ public enum PedestalOrientation implements IOrientation {
         return bounds;
     }
 
-
-    @Override
-    public PedestalOrientation next() {
-        return VALUES[(this.ordinal() + 1) % (VALUES.length)];
-    }
-
     @Override
     public BlockFaceShape getFaceShape(EnumFacing facing) {
         return BlockFaceShape.SOLID;
+    }
+
+    @Override
+    public PedestalOrientation[] allValues() {
+        return VALUES;
     }
 }
 

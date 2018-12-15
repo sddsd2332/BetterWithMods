@@ -10,7 +10,7 @@ import javax.annotation.Nonnull;
 import static betterwithmods.module.recipes.miniblocks.orientations.OrientationUtils.inCenter;
 import static betterwithmods.module.recipes.miniblocks.orientations.OrientationUtils.isMax;
 
-public enum SidingOrientation implements IOrientation {
+public enum SidingOrientation implements IOrientation<SidingOrientation> {
     UP("up", EnumFacing.UP, new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 1.0D)),
     DOWN("down", EnumFacing.DOWN, new AxisAlignedBB(0.0D, 0.0D, 0.0D, 1.0D, 0.5D, 1.0D)),
     NORTH("north", EnumFacing.NORTH, new AxisAlignedBB(0.0D, 0.0D, 0.5D, 1.0D, 1.0D, 1.0D)),
@@ -91,10 +91,6 @@ public enum SidingOrientation implements IOrientation {
         return bounds;
     }
 
-    @Override
-    public IOrientation next() {
-        return VALUES[(this.ordinal() + 1) % (VALUES.length)];
-    }
 
     public static IOrientationPlacer<SidingOrientation> PLACER = (placer, face, stack, hit) -> getFromVec(hit, face);
 
@@ -103,5 +99,9 @@ public enum SidingOrientation implements IOrientation {
         return UP;
     }
 
+    @Override
+    public SidingOrientation[] allValues() {
+        return VALUES;
+    }
 }
 

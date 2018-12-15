@@ -12,12 +12,12 @@ import net.minecraft.util.math.Vec3d;
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
 
-public class TileOrientation<T extends IOrientation & Comparable<T>> extends TileDynamic {
-    private T orientation;
+public class TileOrientation<O extends IOrientation<O> & Comparable<O>> extends TileDynamic {
+    private O orientation;
     @Nonnull
-    private final PropertyOrientation<T> property;
+    private final PropertyOrientation<O> property;
 
-    public TileOrientation(@Nonnull PropertyOrientation<T> property) {
+    public TileOrientation(@Nonnull PropertyOrientation<O> property) {
         this.property = property;
     }
 
@@ -47,7 +47,11 @@ public class TileOrientation<T extends IOrientation & Comparable<T>> extends Til
         super.readFromNBT(compound);
     }
 
-    public T getOrientation() {
+    public O getOrientation() {
         return orientation;
+    }
+
+    public void setOrientation(O orientation) {
+        this.orientation = orientation;
     }
 }

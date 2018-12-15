@@ -9,7 +9,7 @@ import net.minecraft.util.math.Vec3d;
 import javax.annotation.Nonnull;
 
 @FunctionalInterface
-public interface IOrientationPlacer<T extends IOrientation> {
-    T onPlaced(EntityLivingBase placer, @Nonnull EnumFacing face, ItemStack stack, Vec3d hit);
+public interface IOrientationPlacer<O extends IOrientation<O>> {
+    O onPlaced(EntityLivingBase placer, @Nonnull EnumFacing face, ItemStack stack, Vec3d hit);
 }
 

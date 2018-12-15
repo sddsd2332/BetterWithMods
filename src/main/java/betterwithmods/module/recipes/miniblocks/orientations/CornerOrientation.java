@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 import static betterwithmods.module.recipes.miniblocks.orientations.OrientationUtils.getCorner;
 
-public enum CornerOrientation implements IOrientation {
+public enum CornerOrientation implements IOrientation<CornerOrientation> {
 
     DOWN_NORTH("down_north", new AxisAlignedBB(0.0D, 0.0D, 0.5D, 0.5D, 0.5D, 1.0D)),
     DOWN_SOUTH("down_south", new AxisAlignedBB(0.0D, 0.0D, 0.0D, 0.5D, 0.5D, 0.5D)),
@@ -76,10 +76,9 @@ public enum CornerOrientation implements IOrientation {
         return bounds;
     }
 
-
     @Override
-    public CornerOrientation next() {
-        return VALUES[(this.ordinal() + 1) % (VALUES.length)];
+    public CornerOrientation[] allValues() {
+        return VALUES;
     }
 }
 

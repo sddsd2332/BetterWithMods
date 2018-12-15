@@ -6,12 +6,24 @@ import net.minecraft.util.math.Vec3d;
 
 import javax.annotation.Nonnull;
 
-public enum ColumnOrientation implements IOrientation {
+public enum ColumnOrientation implements IOrientation<ColumnOrientation> {
     Y("y", EnumFacing.DOWN, new AxisAlignedBB(2 / 16d, 0.0D, 2 / 16d, 14 / 16d, 1, 14 / 16d)),
     X("x", EnumFacing.WEST, new AxisAlignedBB(0, 2 / 16d, 2 / 16d, 1, 14 / 16d, 14 / 16d)),
     Z("z", EnumFacing.NORTH, new AxisAlignedBB(2 / 16d, 2 / 16d, 0, 14 / 16d, 14 / 16d, 1));
 
-    public static IOrientationPlacer<ColumnOrientation> PLACER = (placer, face, stack, hit) -> getFromVec(hit,face);
+    public static IOrientationPlacer<ColumnOrientation> PLACER = (placer, face, stack, hit) -> {
+        switch (face.getAxis()) {
+            case X:
+                return X;
+            case Y:
+                return Y;
+            case Z:
+                return Z;
+            default:
+                return ColumnOrientation.X;
+        }
+
+    };
 
     public static final ColumnOrientation[] VALUES = values();
 
@@ -25,20 +37,6 @@ public enum ColumnOrientation implements IOrientation {
         this.bounds = bounds;
     }
 
-    @SuppressWarnings("Duplicates")
-    public static ColumnOrientation getFromVec(Vec3d hit, EnumFacing facing) {
-        if (facing != null) {
-            switch (facing.getAxis()) {
-                case X:
-                    return X;
-                case Y:
-                    return Y;
-                case Z:
-                    return Z;
-            }
-        }
-        return ColumnOrientation.X;
-    }
 
     @Nonnull
     @Override
@@ -56,8 +54,8 @@ public enum ColumnOrientation implements IOrientation {
     }
 
     @Override
-    public ColumnOrientation next() {
-        return VALUES[(this.ordinal() + 1) % (VALUES.length)];
+    public ColumnOrientation[] allValues() {
+        return VALUES;
     }
 }
 

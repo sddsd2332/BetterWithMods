@@ -6,18 +6,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.IStringSerializable;
 import net.minecraft.util.math.AxisAlignedBB;
 
-public interface IOrientation extends IStringSerializable {
-    IOrientation DEFAULT = new IOrientation() {
-        @Override
-        public String getName() {
-            return "default";
-        }
-
-        @Override
-        public AxisAlignedBB getBounds() {
-            return Block.FULL_BLOCK_AABB;
-        }
-    };
+public interface IOrientation<O extends IOrientation<O>> extends IStringSerializable {
 
     default int ordinal() {
         return 0;
@@ -27,12 +16,15 @@ public interface IOrientation extends IStringSerializable {
         return Block.FULL_BLOCK_AABB;
     }
 
-    default IOrientation next() {
-        return DEFAULT;
+    default O next() {
+        O[] values = allValues();
+        return values[(this.ordinal() + 1) % (values.length)];
     }
 
     default BlockFaceShape getFaceShape(EnumFacing facing) {
         return BlockFaceShape.UNDEFINED;
     }
+
+    O[] allValues();
 
 }

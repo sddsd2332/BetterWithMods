@@ -21,6 +21,8 @@ public interface ISittable {
     }
 
     default boolean attemptToSit(World worldIn, BlockPos pos, IBlockState state, EntityPlayer playerIn, EnumHand hand, EnumFacing facing, float hitX, float hitY, float hitZ) {
+        if(playerIn.isSneaking())
+            return false;
         if (!playerIn.isRiding() && HoldingUtils.areHandsEmpty(playerIn) && worldIn.getEntitiesWithinAABB(EntitySitMount.class, getBoundingBox(state, worldIn, pos).offset(pos)).isEmpty()) {
             EntitySitMount mount = new EntitySitMount(worldIn, getOffset());
             mount.setPosition(pos.getX() + 0.5, pos.getY() + 0.25, pos.getZ() + 0.5);

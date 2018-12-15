@@ -59,7 +59,7 @@ public class DynblockUtils {
         final ReflectionHelperBlock pb = new ReflectionHelperBlock();
         final Class<? extends Block> blkClass = blk.getClass();
 
-        boolean isBreakable = pb.getBlockHardness(state, null, null) > 0;
+        boolean isBreakable = blk.getBlockHardness(state, null, null) > 0;
 
         pb.onBlockActivated(null, null, null, null, null, null, 0, 0, 0);
         boolean noActivation = (getDeclaringClass(blkClass, pb.MethodName, World.class, BlockPos.class, IBlockState.class, EntityPlayer.class, EnumHand.class, EnumFacing.class, float.class, float.class, float.class) == Block.class);

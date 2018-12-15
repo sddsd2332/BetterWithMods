@@ -8,7 +8,7 @@ import javax.annotation.Nonnull;
 
 import static betterwithmods.module.recipes.miniblocks.orientations.OrientationUtils.*;
 
-public enum MouldingOrientation implements IOrientation {
+public enum MouldingOrientation implements IOrientation<MouldingOrientation> {
 
 
     NORTH_UP("north_up", new AxisAlignedBB(0.0D, 0.5D, 0.0D, 1.0D, 1.0D, 0.5D)),
@@ -34,8 +34,6 @@ public enum MouldingOrientation implements IOrientation {
         this.name = name;
         this.bounds = bounds;
     }
-
-
 
            /*
     0 west down
@@ -130,5 +128,10 @@ public enum MouldingOrientation implements IOrientation {
     }
 
     public static IOrientationPlacer<MouldingOrientation> PLACER = (placer, face, stack, hit) -> getFromVec(hit, face);
+
+    @Override
+    public MouldingOrientation[] allValues() {
+        return VALUES;
+    }
 }
 

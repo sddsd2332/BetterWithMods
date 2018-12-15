@@ -10,18 +10,18 @@ import javax.annotation.Nonnull;
 import java.util.Collection;
 import java.util.Set;
 
-public class PropertyOrientation<T extends IOrientation & Comparable<T>> implements IProperty<T> {
+public class PropertyOrientation<O extends IOrientation<O> & Comparable<O>> implements IProperty<O> {
 
     private String name;
 
-    private Set<T> values;
+    private Set<O> values;
 
-    private Class<T> clazz;
+    private Class<O> clazz;
 
-    private IOrientationPlacer<T> placer;
+    private IOrientationPlacer<O> placer;
 
     @SafeVarargs
-    public PropertyOrientation(String name, Class<T> clazz, IOrientationPlacer<T> placer, T... values) {
+    public PropertyOrientation(String name, Class<O> clazz, IOrientationPlacer<O> placer, O... values) {
         this.name = name;
         this.placer = placer;
         this.values = Sets.newHashSet(values);
@@ -36,34 +36,34 @@ public class PropertyOrientation<T extends IOrientation & Comparable<T>> impleme
 
     @Nonnull
     @Override
-    public Collection<T> getAllowedValues() {
+    public Collection<O> getAllowedValues() {
         return values;
     }
 
     @Nonnull
     @Override
-    public Class<T> getValueClass() {
+    public Class<O> getValueClass() {
         return clazz;
     }
 
     @SuppressWarnings("All")
     @Nonnull
     @Override
-    public Optional<T> parseValue(@Nonnull String value) {
+    public Optional<O> parseValue(@Nonnull String value) {
         return Optional.fromJavaUtil(values.stream().filter(s -> s.getName().equals(value)).findFirst());
     }
 
     @Nonnull
     @Override
-    public String getName(@Nonnull T value) {
+    public String getName(@Nonnull O value) {
         return value.getName();
     }
 
-    public IOrientationPlacer<T> getPlacer() {
+    public IOrientationPlacer<O> getPlacer() {
         return this.placer;
     }
 
-    public T getDefault() {
+    public O getDefault() {
         return values.stream().findFirst().get();
     }
 }

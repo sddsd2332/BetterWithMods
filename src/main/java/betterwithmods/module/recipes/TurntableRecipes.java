@@ -5,11 +5,13 @@ import betterwithmods.common.registry.TurntableRotationManager;
 import betterwithmods.common.registry.block.recipe.builder.TurntableRecipeBuilder;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.module.internal.RecipeRegistry;
+import betterwithmods.module.recipes.miniblocks.blocks.BlockOrientation;
 import net.minecraft.block.*;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
@@ -67,6 +69,10 @@ public class TurntableRecipes extends Feature {
         TurntableRotationManager.addAttachment(b -> b instanceof BlockWallSign);
         TurntableRotationManager.addAttachment(b -> b instanceof BlockTripWireHook);
 
+        TurntableRotationManager.addRotationHandler(block -> block instanceof BlockOrientation, (world, pos) -> {
+            IBlockState state = world.getBlockState(pos);
+            return state.getBlock().rotateBlock(world,pos, EnumFacing.UP);
+        });
         TurntableRotationManager.addRotationHandler(block -> block instanceof BlockTorch, (world, pos) -> {
             IBlockState state = world.getBlockState(pos);
             return state.getValue(BlockTorch.FACING).getAxis().isVertical();

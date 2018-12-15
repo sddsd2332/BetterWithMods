@@ -1,6 +1,7 @@
 package betterwithmods.module.recipes.miniblocks.blocks;
 
 import betterwithmods.common.blocks.camo.BlockDynamic;
+import betterwithmods.library.common.block.IRotate;
 import betterwithmods.module.recipes.miniblocks.DynamicType;
 import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import betterwithmods.module.recipes.miniblocks.PropertyOrientation;
@@ -18,8 +19,9 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.util.Optional;
 
-public abstract class BlockOrientation<O extends IOrientation & Comparable<O>, T extends TileOrientation<O>> extends BlockDynamic<T> {
+public abstract class BlockOrientation<O extends IOrientation<O> & Comparable<O>, T extends TileOrientation<O>> extends BlockDynamic<T> {
 
     public abstract PropertyOrientation<O> getOrientationProperty();
 
@@ -72,5 +74,26 @@ public abstract class BlockOrientation<O extends IOrientation & Comparable<O>, T
         }
         return super.shouldSideBeRendered(blockState, world, pos, side);
     }
+
+    @Override
+    public void nextState(World world, BlockPos pos, IBlockState state) {
+        Optional<T> t = getTile(world,pos);
+        if(t.isPresent()) {
+            T tile = t.get();
+            tile.setOrientation(tile.getOrientation().next());
+            world.markBlockRangeForRenderUpdate(pos,pos);
+        }
+    }
+
+    @Override
+    public boolean rotates() {
+        return true;
+    }
+
+//    @Override
+//    public boolean rotateBlock(World world, @Nonnull BlockPos pos, @Nonnull EnumFacing axis) {
+//        nextState(world,pos, world.getBlockState(pos));
+//        return true;
+//    }
 }
 

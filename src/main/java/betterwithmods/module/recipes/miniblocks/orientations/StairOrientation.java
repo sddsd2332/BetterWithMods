@@ -15,7 +15,7 @@ import static betterwithmods.module.recipes.miniblocks.orientations.OrientationU
 import static betterwithmods.module.recipes.miniblocks.orientations.OrientationUtils.getCorner;
 import static betterwithmods.module.recipes.miniblocks.orientations.OrientationUtils.isMax;
 
-public enum StairOrientation implements IOrientation {
+public enum StairOrientation implements IOrientation<StairOrientation> {
 
 
     SOUTH_DOWN("south_down"),
@@ -68,11 +68,6 @@ public enum StairOrientation implements IOrientation {
 
     public List<AxisAlignedBB> getCollison() {
         return collison;
-    }
-
-    @Override
-    public StairOrientation next() {
-        return VALUES[(this.ordinal() + 1) % (VALUES.length)];
     }
 
     public static StairOrientation getFromVec(EntityLivingBase placer, Vec3d hit, @Nullable EnumFacing facing) {
@@ -143,5 +138,8 @@ public enum StairOrientation implements IOrientation {
         }
     }
 
-
+    @Override
+    public StairOrientation[] allValues() {
+        return VALUES;
+    }
 }

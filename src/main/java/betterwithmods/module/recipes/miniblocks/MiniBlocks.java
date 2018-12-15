@@ -2,16 +2,23 @@ package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMCreativeTabs;
+import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.common.blocks.camo.BlockDynamic;
+import betterwithmods.common.items.ItemMaterial;
+import betterwithmods.common.registry.block.recipe.builder.SawRecipeBuilder;
 import betterwithmods.common.tile.TileDynamic;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.modularity.impl.Feature;
+import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.library.utils.GlobalUtils;
 import betterwithmods.library.utils.JsonUtils;
 import betterwithmods.library.utils.MaterialUtil;
+import betterwithmods.library.utils.VariantUtils;
 import betterwithmods.module.internal.BlockRegistry;
 import betterwithmods.module.internal.ItemRegistry;
+import betterwithmods.module.internal.RecipeRegistry;
+import betterwithmods.module.recipes.AnvilRecipes;
 import betterwithmods.module.recipes.miniblocks.client.CamoModel;
 import betterwithmods.module.recipes.miniblocks.client.DynamicStateMapper;
 import com.google.common.collect.Maps;
@@ -46,6 +53,9 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import net.minecraftforge.oredict.OreIngredient;
+import net.minecraftforge.oredict.ShapedOreRecipe;
+import net.minecraftforge.oredict.ShapelessOreRecipe;
 
 import java.io.File;
 import java.nio.file.Files;
@@ -63,11 +73,15 @@ public class MiniBlocks extends Feature {
     private static Set<Ingredient> WHITELIST;
 
 
-    private static ResourceLocation getRecipeRegistry(ItemStack output, ItemStack parent) {
+    private static ResourceLocation getRecipeRegistry(String modifier, ItemStack output, ItemStack parent) {
         if (parent.getMetadata() > 0)
-            return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath() + "_" + parent.getMetadata());
-        return new ResourceLocation(ModLib.MODID, output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath());
+            return new ResourceLocation(ModLib.MODID, modifier + output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath() + "_" + parent.getMetadata());
+        return new ResourceLocation(ModLib.MODID, modifier + output.getItem().getRegistryName().getPath() + "_" + parent.getItem().getRegistryName().getPath());
     }
+    private static ResourceLocation getRecipeRegistry(ItemStack output, ItemStack parent) {
+        return getRecipeRegistry("", output, parent);
+    }
+
 
     public static void placeMini(World world, BlockPos pos, DynamicType type, IBlockState parent) {
         Material material = parent.getMaterial();
@@ -196,10 +210,19 @@ public class MiniBlocks extends Feature {
         DynamicType.registerTiles();
     }
 
+
+    private static ShapedOreRecipe createShapedDynamicRecipe(ItemStack parent, ItemStack dynamicOutput, Object... inputs) {
+        return (ShapedOreRecipe) new ShapedOreRecipe(dynamicOutput.getItem().getRegistryName(), dynamicOutput, inputs).setRegistryName(getRecipeRegistry(dynamicOutput, parent));
+    }
+
+    private static ShapelessOreRecipe createShapelessDynamicRecipe(ItemStack parent, ItemStack dynamicOutput, Object... inputs ) {
+        return (ShapelessOreRecipe) new ShapelessOreRecipe(dynamicOutput.getItem().getRegistryName(), dynamicOutput, inputs).setRegistryName(getRecipeRegistry(dynamicOutput, parent));
+    }
+
     @Override
     public void onRecipesRegistered(RegistryEvent.Register<IRecipe> event) {
         registerMiniblocks();
-/*
+
         for (Material material : MaterialUtil.materials()) {
             BlockDynamic siding = DynblockUtils.getDynamicVariant(DynamicType.SIDING, material);
             BlockDynamic moulding = DynblockUtils.getDynamicVariant(DynamicType.MOULDING, material);
@@ -223,12 +246,25 @@ public class MiniBlocks extends Feature {
             ItemStack benchStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.BENCH, material), parent, 1);
             ItemStack chairStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.CHAIR, material), parent, 2);
 
-            AnvilRecipes.addSteelShapedRecipe(columnStack.getItem().getRegistryName(), columnStack, "XX", "XX", "XX", "XX", 'X', moulding);
-            AnvilRecipes.addSteelShapedRecipe(pedestalStack.getItem().getRegistryName(), pedestalStack, " XX ", "BBBB", "BBBB", "BBBB", 'X', siding, 'B', parentStack);
+            ItemStack grateStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.GRATE, material), parent, 2);
+            ItemStack slatsStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.SLATS, material), parent, 2);
 
-            event.getRegistry().register(new ShapedOreRecipe(chairStack.getItem().getRegistryName(), chairStack, "  S", "SSS", "M M", 'S', siding, 'M', moulding).setMirrored(true).setRegistryName(getRecipeRegistry(chairStack, parentStack)));
-            event.getRegistry().register(new ShapedOreRecipe(tableStack.getItem().getRegistryName(), tableStack, "SSS", " M ", " M ", 'S', siding, 'M', moulding).setRegistryName(getRecipeRegistry(tableStack, parentStack)));
-            event.getRegistry().register(new ShapedOreRecipe(benchStack.getItem().getRegistryName(), benchStack, "SSS", " M ", 'S', siding, 'M', moulding).setRegistryName(getRecipeRegistry(benchStack, parentStack)));
+            ItemStack thinwallStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.THINWALL, material), parent, 4);
+
+            Ingredient stick = new OreIngredient("stickWood");
+
+            AnvilRecipes.addSteelShapedRecipe(getRecipeRegistry("anvil_", columnStack, parentStack), columnStack, "XX", "XX", "XX", "XX", 'X', moulding);
+            AnvilRecipes.addSteelShapedRecipe(getRecipeRegistry("anvil_", parentStack,parentStack), pedestalStack, " XX ", "BBBB", "BBBB", "BBBB", 'X', siding, 'B', parentStack);
+
+
+            event.getRegistry().registerAll(
+                    createShapedDynamicRecipe(parentStack, grateStack,  "MSM", "MSM", 'S', stick, 'M', moulding),
+                    createShapedDynamicRecipe(parentStack, slatsStack,  "MM", "MM", 'M', moulding),
+                    createShapedDynamicRecipe(parentStack, chairStack, "  S", "SSS", "M M", 'S', siding, 'M', moulding).setMirrored(true),
+                    createShapedDynamicRecipe(parentStack, tableStack, "SSS", " M ", " M ", 'S', siding, 'M', moulding).setMirrored(true),
+                    createShapedDynamicRecipe(parentStack, benchStack, "SSS", " M ", 'S', siding, 'M', moulding),
+                    createShapelessDynamicRecipe(parentStack, thinwallStack, siding)
+            );
 
             IBlockVariants blockVariants = VariantUtils.getVariantFromState(IBlockVariants.EnumBlock.BLOCK, parent);
             if (blockVariants != null) {
@@ -265,12 +301,12 @@ public class MiniBlocks extends Feature {
                 ItemStack mouldingStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.MOULDING, material), parent, 8);
                 ItemStack cornerStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.CORNER, material), parent, 8);
 
-                AnvilRecipes.addSteelShapedRecipe(sidingStack.getItem().getRegistryName(), sidingStack, "XXXX", 'X', parentStack);
-                AnvilRecipes.addSteelShapedRecipe(mouldingStack.getItem().getRegistryName(), mouldingStack, "XXXX", 'X', siding);
-                AnvilRecipes.addSteelShapedRecipe(cornerStack.getItem().getRegistryName(), cornerStack, "XXXX", 'X', moulding);
+                AnvilRecipes.addSteelShapedRecipe(getRecipeRegistry("anvil_", sidingStack,parentStack), sidingStack, "XXXX", 'X', parentStack);
+                AnvilRecipes.addSteelShapedRecipe(getRecipeRegistry("anvil_", mouldingStack,parentStack), mouldingStack, "XXXX", 'X', siding);
+                AnvilRecipes.addSteelShapedRecipe(getRecipeRegistry("anvil_", cornerStack,parentStack), cornerStack, "XXXX", 'X', moulding);
             }
         }
-            */
+
     }
 
     @Override
@@ -281,6 +317,5 @@ public class MiniBlocks extends Feature {
     @Override
     public boolean hasEvent() {
         return true;
-
     }
 }

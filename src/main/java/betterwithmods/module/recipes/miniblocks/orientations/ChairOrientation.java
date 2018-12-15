@@ -7,7 +7,7 @@ import net.minecraft.util.math.Vec3d;
 
 import javax.annotation.Nonnull;
 
-public enum ChairOrientation implements IOrientation {
+public enum ChairOrientation implements IOrientation<ChairOrientation> {
 
     SOUTH("south", EnumFacing.SOUTH),
     WEST("west", EnumFacing.WEST),
@@ -50,11 +50,11 @@ public enum ChairOrientation implements IOrientation {
         return BOX;
     }
 
-    @Override
-    public IOrientation next() {
-        return VALUES[(this.ordinal() + 1) % (VALUES.length)];
-    }
-
     public static IOrientationPlacer<ChairOrientation> PLACER = (placer, face, stack, hit) -> getFromVec(placer,hit,face);
+
+    @Override
+    public ChairOrientation[] allValues() {
+        return VALUES;
+    }
 }
 
