@@ -49,7 +49,7 @@ dependencies {
     compile "vazkii.patchouli:Patchouli:1.0+"
 
     if (!project.hasProperty("singleproject")) {
-        deobfCompile "betterwithmods:BetterWithLib:1.13-2.0.01-56"
+        deobfCompile "betterwithmods:BetterWithLib:1.13-2.0.01-57"
     } else {
         compile project(':BetterWithLib')
     }
