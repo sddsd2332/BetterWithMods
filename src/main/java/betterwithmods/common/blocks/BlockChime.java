@@ -1,10 +1,13 @@
 package betterwithmods.common.blocks;
 
+import betterwithmods.common.blocks.camo.BlockDynamic;
+import betterwithmods.common.tile.TileDynamic;
 import betterwithmods.lib.ModLib;
 import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.common.block.IBlockActive;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderGenerator;
 import betterwithmods.module.internal.SoundRegistry;
+import betterwithmods.module.recipes.miniblocks.ISubtypeProvider;
 import com.google.common.collect.Lists;
 import com.google.common.collect.Sets;
 import net.minecraft.block.Block;
@@ -27,24 +30,19 @@ import net.minecraft.world.World;
 
 import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import java.security.Provider;
 import java.util.List;
 import java.util.Random;
 import java.util.Set;
+import java.util.function.Supplier;
 
-public class BlockChime extends BlockBase implements IBlockActive {
+public class BlockChime extends BlockDynamic<TileDynamic> implements IBlockActive {
     public static final Set<Block> BLOCKS = Sets.newHashSet();
     private static final AxisAlignedBB CHIME_AABB = new AxisAlignedBB(0.3125D, 0.375D, 0.3125D, 0.6875D, 0.875D, 0.6875D);
-    private SoundEvent chimeSound;
+    private final Supplier<SoundEvent> chimeSound;
 
-
-    private BlockChime(Material material) {
-        super(material);
-        this.setHardness(2.0F);
-        this.setSoundType(SoundType.WOOD);
-        this.setChimeSound(material == Material.IRON ? SoundRegistry.BLOCK_CHIME_METAL : SoundRegistry.BLOCK_CHIME_WOOD);
-    }
-
-    private void setChimeSound(SoundEvent chimeSound) {
+    public BlockChime(Supplier<SoundEvent>  chimeSound, Material material, ISubtypeProvider subtypes) {
+        super(material, subtypes);
         this.chimeSound = chimeSound;
     }
 
@@ -55,7 +53,7 @@ public class BlockChime extends BlockBase implements IBlockActive {
         else {
             if (!isActive(state)) {
                 setActive(world,pos, true);
-                world.playSound(null, pos, chimeSound, SoundCategory.BLOCKS, 0.4F, 1.0F);
+                world.playSound(null, pos, chimeSound.get(), SoundCategory.BLOCKS, 0.4F, 1.0F);
                 for (EnumFacing facing : EnumFacing.VALUES)
                     world.notifyNeighborsOfStateChange(pos.offset(facing), this, false);
             }
@@ -136,7 +134,7 @@ public class BlockChime extends BlockBase implements IBlockActive {
                 world.notifyNeighborsOfStateChange(pos.offset(facing), this, false);
         }
         if (storm)
-            world.playSound(null, pos, chimeSound, SoundCategory.BLOCKS, 0.25F + (rand.nextFloat() - rand.nextFloat() * 0.1F), 1.0F);
+            world.playSound(null, pos, chimeSound.get(), SoundCategory.BLOCKS, 0.25F + (rand.nextFloat() - rand.nextFloat() * 0.1F), 1.0F);
         world.scheduleBlockUpdate(pos, this, tickRate(world), 5);
     }
 
@@ -169,7 +167,7 @@ public class BlockChime extends BlockBase implements IBlockActive {
             world.notifyNeighborsOfStateChange(pos, this, false);
             for (EnumFacing facing : EnumFacing.VALUES)
                 world.notifyNeighborsOfStateChange(pos.offset(facing), this, false);
-            world.playSound(null, pos, chimeSound, SoundCategory.BLOCKS, 1.0F, 1.0F);
+            world.playSound(null, pos, chimeSound.get(), SoundCategory.BLOCKS, 1.0F, 1.0F);
         }
     }
 
@@ -215,26 +213,6 @@ public class BlockChime extends BlockBase implements IBlockActive {
     @Override
     public IProperty<?>[] getProperties() {
         return IBlockActive.super.getProperties();
-    }
-
-    public static class Generator extends BlockEntryBuilderGenerator<BlockPlanks.EnumType> {
-
-        private Material material;
-
-        public Generator(Material material) {
-            super(Lists.newArrayList(BlockPlanks.EnumType.values()));
-            this.material = material;
-        }
-
-        @Override
-        public Block createBlock(BlockPlanks.EnumType variant) {
-            return new BlockChime(material);
-        }
-
-        @Override
-        public ResourceLocation id(BlockPlanks.EnumType variant) {
-            return new ResourceLocation(ModLib.MODID, (material == Material.WOOD ? "bamboo" : "metal") + "_chime_" + variant.getName());
-        }
     }
 
 }

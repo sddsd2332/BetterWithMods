@@ -1,5 +1,8 @@
 package betterwithmods.module.recipes.miniblocks;
 
+import betterwithmods.common.blocks.BlockChime;
+import betterwithmods.common.blocks.BlockChimeIron;
+import betterwithmods.common.blocks.BlockChimeReed;
 import betterwithmods.common.blocks.camo.BlockDynamic;
 import betterwithmods.common.tile.TileDynamic;
 import betterwithmods.lib.ModLib;
@@ -24,7 +27,9 @@ public enum DynamicType {
     SIDING(BlockSiding.class, TileSiding.class, "siding"),
     SLATS(BlockPane.class, TileDynamic.class, "slats"),
     TABLE(BlockTable.class, TileDynamic.class, "table"),
-    THINWALL(BlockPane.class, TileDynamic.class, "thinwall");
+    THINWALL(BlockPane.class, TileDynamic.class, "thinwall"),
+    REED_CHIME(BlockChimeReed.class, TileDynamic.class, "reed_chime"),
+    IRON_CHIME(BlockChimeIron .class, TileDynamic.class, "iron_chime");
 
 
     public static final DynamicType[] VALUES = values();

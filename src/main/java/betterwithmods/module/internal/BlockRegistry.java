@@ -281,11 +281,6 @@ public class BlockRegistry extends RequiredFeature {
                 .tile(TileVase.class).id("vase")
                 .blockGenerator(BlockVase.GENERATOR)
                 .complete());
-        registerBlocks(BlockEntryBuilderFactory.<BlockPlanks.EnumType>create(getLogger())
-                .tab(BWMCreativeTabs.BLOCKS)
-                .blockGenerator(new BlockChime.Generator(Material.IRON))
-                .blockGenerator(new BlockChime.Generator(Material.WOOD))
-                .complete());
         registerBlocks(BlockEntryBuilderFactory.<BlockCobble.Type>create(getLogger())
                 .tab(BWMCreativeTabs.BLOCKS)
                 .blockGenerator(new BlockCobble.Generator())

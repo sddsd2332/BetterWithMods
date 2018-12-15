@@ -49,9 +49,9 @@ public class HCBrewing extends Feature {
     }
 
     @SubscribeEvent(priority = EventPriority.HIGH)
-    public void mobDrops(LivingDropsEvent evt) {
-        Entity entity = evt.getEntityLiving();
-        List<EntityItem> drops = evt.getDrops();
+    public void mobDrops(LivingDropsEvent event) {
+        Entity entity = event.getEntityLiving();
+        List<EntityItem> drops = event.getDrops();
 
         if (entity instanceof EntityWitch) {
             Iterator<EntityItem> iterator = drops.iterator();

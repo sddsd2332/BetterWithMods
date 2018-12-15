@@ -249,8 +249,7 @@ public class RenderUtils {
     public static TextureAtlasSprite getTextureFromFace(IBlockState state, EnumFacing facing) {
         IBakedModel model = Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getModelForState(state);
         if (isModelValid(model)) {
-            return model.getQuads(state, facing, 0).stream().findFirst().map(BakedQuad::getSprite)
-                    .orElse(Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state));
+            return model.getQuads(state, facing, 0).stream().findFirst().map(BakedQuad::getSprite).orElse(Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state));
         }
         return Minecraft.getMinecraft().getBlockRendererDispatcher().getBlockModelShapes().getTexture(state);
     }

@@ -2,10 +2,8 @@
   "forge_marker": 1,
   "defaults": {
     "textures": {
-      "wood": "betterwithmods:blocks/wood_side_jungle",
-      "chime": "blocks/iron_block",
-      "string": "blocks/wool_colored_white",
-      "particle": "#wood"
+      "chime": "betterwithmods:blocks/bamboo",
+      "string": "blocks/wool_colored_white"
     },
     "model": "betterwithmods:chime",
     "uvlock": false
@@ -15,9 +13,7 @@
       {}
     ],
     "inventory": [
-      {
-
-      }
+      {      }
     ],
     "active": {
       "true": {},

@@ -33,6 +33,7 @@ import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.IStateMapper;
 import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.init.Blocks;
+import net.minecraft.init.Items;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
@@ -251,7 +252,11 @@ public class MiniBlocks extends Feature {
 
             ItemStack thinwallStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.THINWALL, material), parent, 4);
 
+            ItemStack reedChimeStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.REED_CHIME, material), parent, 1);
+            ItemStack ironChimeStack = DynblockUtils.fromParent(DynblockUtils.getDynamicVariant(DynamicType.IRON_CHIME, material), parent, 1);
+
             Ingredient stick = new OreIngredient("stickWood");
+            Ingredient string = new OreIngredient("string");
 
             AnvilRecipes.addSteelShapedRecipe(getRecipeRegistry("anvil_", columnStack, parentStack), columnStack, "XX", "XX", "XX", "XX", 'X', moulding);
             AnvilRecipes.addSteelShapedRecipe(getRecipeRegistry("anvil_", parentStack,parentStack), pedestalStack, " XX ", "BBBB", "BBBB", "BBBB", 'X', siding, 'B', parentStack);
@@ -263,6 +268,8 @@ public class MiniBlocks extends Feature {
                     createShapedDynamicRecipe(parentStack, chairStack, "  S", "SSS", "M M", 'S', siding, 'M', moulding).setMirrored(true),
                     createShapedDynamicRecipe(parentStack, tableStack, "SSS", " M ", " M ", 'S', siding, 'M', moulding).setMirrored(true),
                     createShapedDynamicRecipe(parentStack, benchStack, "SSS", " M ", 'S', siding, 'M', moulding),
+                    createShapedDynamicRecipe(parentStack, reedChimeStack, " S ", "SPS", "XMX", 'S', string, 'X', Items.REEDS , 'P', new ItemStack(Blocks.WOODEN_PRESSURE_PLATE), 'M', moulding),
+                    createShapedDynamicRecipe(parentStack, ironChimeStack, " S ", "SPS", "XMX", 'S', string, 'X', "nuggetIron", 'P', new ItemStack(Blocks.WOODEN_PRESSURE_PLATE), 'M', moulding),
                     createShapelessDynamicRecipe(parentStack, thinwallStack, siding)
             );
 
