@@ -3,6 +3,7 @@ package betterwithmods.module.recipes.miniblocks;
 import betterwithmods.BetterWithMods;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.blocks.camo.BlockDynamic;
+import betterwithmods.library.common.block.BlockBase;
 import betterwithmods.library.utils.MaterialUtil;
 import betterwithmods.library.utils.ReflectionHelperBlock;
 import com.google.common.collect.*;
@@ -62,7 +63,8 @@ public class DynblockUtils {
         boolean isBreakable = blk.getBlockHardness(state, null, null) > 0;
 
         pb.onBlockActivated(null, null, null, null, null, null, 0, 0, 0);
-        boolean noActivation = (getDeclaringClass(blkClass, pb.MethodName, World.class, BlockPos.class, IBlockState.class, EntityPlayer.class, EnumHand.class, EnumFacing.class, float.class, float.class, float.class) == Block.class);
+        Class activationClass = getDeclaringClass(blkClass, pb.MethodName, World.class, BlockPos.class, IBlockState.class, EntityPlayer.class, EnumHand.class, EnumFacing.class, float.class, float.class, float.class);
+        boolean noActivation = (activationClass == Block.class || activationClass == BlockBase.class);
 
         pb.updateTick(null, null, null, null);
         boolean noUpdate = getDeclaringClass(blkClass, pb.MethodName, World.class, BlockPos.class, IBlockState.class, Random.class) == Block.class;
@@ -133,7 +135,7 @@ public class DynblockUtils {
         BlockDynamic block = null;
         try {
             Constructor<?> constructor = type.getBlock().getConstructor(Material.class, ISubtypeProvider.class);
-            block = (BlockDynamic) constructor.newInstance( material, provider);
+            block = (BlockDynamic) constructor.newInstance(material, provider);
             block.setRegistryName(registry);
 
         } catch (NoSuchMethodException | IllegalAccessException | InstantiationException | InvocationTargetException e) {

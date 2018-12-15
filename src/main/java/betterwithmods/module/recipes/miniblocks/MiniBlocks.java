@@ -1,6 +1,7 @@
 package betterwithmods.module.recipes.miniblocks;
 
 import betterwithmods.BetterWithMods;
+import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMCreativeTabs;
 import betterwithmods.common.BWMOreDictionary;
 import betterwithmods.common.blocks.BlockAesthetic;
@@ -160,6 +161,7 @@ public class MiniBlocks extends Feature {
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GOLD_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.IRON_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GLASS)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(BWMBlocks.STEEL_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(BlockAesthetic.getStack(BlockAesthetic.Type.WHITESTONE)));
             JsonUtils.writeFile(file, DEFAULT_CONFIG);
         }
