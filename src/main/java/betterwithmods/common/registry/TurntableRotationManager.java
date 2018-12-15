@@ -1,5 +1,6 @@
 package betterwithmods.common.registry;
 
+import betterwithmods.common.registry.block.recipe.TurntableRecipe;
 import betterwithmods.network.BWMNetwork;
 import betterwithmods.network.messages.MessageRotate;
 import com.google.common.collect.Maps;
@@ -139,7 +140,7 @@ public class TurntableRotationManager {
             return world.setBlockState(pos, state.withRotation(rotation));
         }
 
-        default boolean canTransmitVertically(World world, BlockPos pos) {
+        default boolean canTransmitVertically(World world, BlockPos pos, TurntableRecipe recipe) {
             Block block = world.getBlockState(pos).getBlock();
             if (block == Blocks.GLASS || block == Blocks.STAINED_GLASS)
                 return true;

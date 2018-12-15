@@ -133,12 +133,14 @@ public class TileTurntable extends TileBasic implements ITickable, IMechanicalPo
         for (int i = 1; i < height; i++) {
             pos.setY(pos.getY() + 1);
             TurntableRotationManager.rotateEntities(world, pos, rotation);
+            IBlockState input = getBlockWorld().getBlockState(pos);
+            TurntableRecipe recipe = rotateCraftable(world, pos, input);
             TurntableRotationManager.IRotation handler = rotateBlock(pos, rotation);
             if (handler == null)
                 break;
             if (handler.canTransmitHorizontally(world, pos))
                 TurntableRotationManager.rotateAttachments(world, pos, rotation);
-            if (!handler.canTransmitVertically(world, pos))
+            if (!handler.canTransmitVertically(world, pos, recipe))
                 break;
         }
 
@@ -162,8 +164,6 @@ public class TileTurntable extends TileBasic implements ITickable, IMechanicalPo
     }
 
     private TurntableRotationManager.IRotation rotateBlock(BlockPos pos, Rotation rotation) {
-        IBlockState input = getBlockWorld().getBlockState(pos);
-        rotateCraftable(world, pos, input);
         return TurntableRotationManager.rotate(world, pos, rotation);
     }
 
@@ -174,7 +174,7 @@ public class TileTurntable extends TileBasic implements ITickable, IMechanicalPo
         }
     }
 
-    private void rotateCraftable(World world, BlockPos pos, IBlockState input) {
+    private TurntableRecipe  rotateCraftable(World world, BlockPos pos, IBlockState input) {
         TurntableRecipe recipe = RecipeRegistry.TURNTABLE.findRecipe(world, pos, input).orElse(null);
         if (recipe != null) {
             this.potteryRotation++;
@@ -184,6 +184,7 @@ public class TileTurntable extends TileBasic implements ITickable, IMechanicalPo
         } else {
             this.potteryRotation = 0;
         }
+        return recipe;
     }
 
     @Override

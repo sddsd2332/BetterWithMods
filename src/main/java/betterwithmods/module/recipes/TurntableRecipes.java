@@ -76,38 +76,6 @@ public class TurntableRecipes extends Feature {
             return state.getValue(BlockLever.FACING).getFacing().getAxis().isVertical();
         });
         TurntableRotationManager.addRotationBlacklist(block -> block instanceof BlockPistonExtension);
-        TurntableRotationManager.addRotationHandler(block -> block instanceof BlockUnfiredPottery, new TurntableRotationManager.IRotation() {
-            @Override
-            public boolean isValid(World world, BlockPos pos) {
-                return true;
-            }
-
-            @Override
-            public boolean canTransmitHorizontally(World world, BlockPos pos) {
-                return false;
-            }
-
-            @Override
-            public boolean canTransmitVertically(World world, BlockPos pos) {
-                return false;
-            }
-        });
-        TurntableRotationManager.addRotationHandler(Blocks.CLAY, new TurntableRotationManager.IRotation() {
-            @Override
-            public boolean isValid(World world, BlockPos pos) {
-                return true;
-            }
-
-            @Override
-            public boolean canTransmitHorizontally(World world, BlockPos pos) {
-                return false;
-            }
-
-            @Override
-            public boolean canTransmitVertically(World world, BlockPos pos) {
-                return false;
-            }
-        });
         TurntableRotationManager.addRotationHandler(block -> block instanceof BlockPistonBase, (world, pos) -> !world.getBlockState(pos).getValue(BlockPistonBase.EXTENDED));
     }
 
