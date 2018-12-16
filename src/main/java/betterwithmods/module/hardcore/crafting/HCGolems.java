@@ -25,12 +25,16 @@ import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.EnumDifficulty;
 import net.minecraft.world.World;
+import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
+import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 import java.util.Random;
 
 public class HCGolems extends Feature {
+
+    private static boolean disableIronGolems;
 
     @Override
     public String getDescription() {
@@ -43,9 +47,26 @@ public class HCGolems extends Feature {
         event.setCanceled(true);
     }
 
+    @SubscribeEvent
+    public void onEntityJoin(EntityJoinWorldEvent event) {
+        if (!disableIronGolems)
+            return;
+        if (event.getEntity() instanceof EntityIronGolem) {
+            EntityIronGolem golem = (EntityIronGolem) event.getEntity();
+            if (!golem.isPlayerCreated()) {
+                event.setCanceled(true);
+            }
+        }
+    }
+
     @Override
     public boolean hasEvent() {
         return true;
+    }
+
+    @Override
+    public void onPreInit(FMLPreInitializationEvent event) {
+        disableIronGolems = loadProperty("Disable Village Iron Golem Spawns", true).setComment("WARNING: Stops all non-player created Iron Golem Spawns").get();
     }
 
     @Override
