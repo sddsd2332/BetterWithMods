@@ -1,6 +1,7 @@
 package betterwithmods.module.hardcore.world.structures;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.BlockAesthetic;
 import betterwithmods.library.common.event.structure.StructureSetBlockEvent;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.recipes.RecipeMatchers;
@@ -32,10 +33,10 @@ public class HCStructures extends Feature {
     public static int HARDCORE_STRUCTURE_RADIUS;
     public static Set<StructureChanger> DESERT_TEMPLE = Sets.newHashSet();
     public static StructureChanger ABANDONED_DESERT_TEMPLE, NORMAL_DESERT_TEMPLE;
-    public static Set<StructureChanger> JUNGLE_TEMPLE = Sets.newHashSet();
-    public static StructureChanger ABANDONED_JUNGLE_TEMPLE, NORMAL_JUNGLE_TEMPLE;
-    public static Set<StructureChanger> WITCH_HUT = Sets.newHashSet();
-    public static StructureChanger WITCH_HUT_CHANGER = StructureChanger.create(WITCH_HUT, (w, p) -> true);
+    private static Set<StructureChanger> JUNGLE_TEMPLE = Sets.newHashSet();
+    private static StructureChanger ABANDONED_JUNGLE_TEMPLE, NORMAL_JUNGLE_TEMPLE;
+    private static Set<StructureChanger> WITCH_HUT = Sets.newHashSet();
+    private static StructureChanger WITCH_HUT_CHANGER;
     private boolean disableRecipes;
 
     @Override
@@ -54,6 +55,7 @@ public class HCStructures extends Feature {
         ABANDONED_JUNGLE_TEMPLE = StructureChanger.create(JUNGLE_TEMPLE, (w, p) -> p.distanceSq(w.getSpawnPoint()) < HARDCORE_STRUCTURE_RADIUS * HARDCORE_STRUCTURE_RADIUS);
         NORMAL_JUNGLE_TEMPLE = StructureChanger.create(JUNGLE_TEMPLE, (w, p) -> p.distanceSq(w.getSpawnPoint()) >= HARDCORE_STRUCTURE_RADIUS * HARDCORE_STRUCTURE_RADIUS);
 
+        WITCH_HUT_CHANGER = StructureChanger.create(WITCH_HUT, (w, p) -> true);
     }
 
     @Override
@@ -89,19 +91,30 @@ public class HCStructures extends Feature {
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STAINED_HARDENED_CLAY), Blocks.OBSIDIAN.getDefaultState()))
                 .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STONE_PRESSURE_PLATE), Blocks.WOODEN_PRESSURE_PLATE.getDefaultState()));
 
-
-        //TODO
         ABANDONED_JUNGLE_TEMPLE
-                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.REDSTONE_WIRE), Blocks.AIR.getDefaultState()));
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.REDSTONE_WIRE), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.STICKY_PISTON), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.DISPENSER), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.TRIPWIRE), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.TRIPWIRE_HOOK), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.UNPOWERED_REPEATER), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.POWERED_REPEATER), Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.LEVER), Blocks.AIR.getDefaultState()))
+                .addChanger(new RelativePosChanger(Blocks.AIR.getDefaultState(), new BlockPos(5, 3, 10)))
+                .addChanger(new RelativePosChanger(Blocks.AIR.getDefaultState(), new BlockPos(6, 3, 10)))
+                .addChanger(new ChestLootChanger(null))
+                ;
+
 
         NORMAL_JUNGLE_TEMPLE
                 .addChanger(new RelativePosChanger(BWMBlocks.HAND_CRANK.getDefaultState(), new BlockPos(5, 3, 10)))
-                .addChanger(new RelativePosChanger(BWMBlocks.DRAGON_VESSEL.getDefaultState(), new BlockPos(6, 3, 10)));
+                .addChanger(new RelativePosChanger(BWMBlocks.DRAGON_VESSEL.getDefaultState(), new BlockPos(6, 3, 10)))
+                .addChanger(new RelativePosChanger(BlockAesthetic.getVariant(BlockAesthetic.Type.CHOPBLOCKBLOOD), new BlockPos(5, 4, 11),new BlockPos(6, 4, 11)));
 
 
         WITCH_HUT_CHANGER
-                .addChanger(new RelativePosChanger(Blocks.PLANKS.getDefaultState().withProperty(BlockPlanks.VARIANT, BlockPlanks.EnumType.SPRUCE), new BlockPos(2, 2, 6)))
-                .addChanger(new RelativePosChanger(Blocks.BREWING_STAND.getDefaultState(), new BlockPos(2, 3, 6)));
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.FLOWER_POT),Blocks.AIR.getDefaultState()))
+                .addChanger(new IngredientChanger(new BlockIngredient(Blocks.CRAFTING_TABLE),Blocks.BREWING_STAND.getDefaultState()));
     }
 
 
