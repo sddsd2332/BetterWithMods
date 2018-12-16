@@ -4,7 +4,8 @@
     "textures": {
       "all": "betterwithmods:blocks/lamp",
       "particle": "#all",
-      "overlay": "betterwithmods:blocks/lamp_overlay"
+      "overlay": "betterwithmods:blocks/lamp_overlay",
+      "overlay_inverted": "betterwithmods:blocks/lamp_overlay"
     },
     "model": "betterwithmods:lamp",
     "uvlock": true
@@ -24,7 +25,14 @@
           "overlay": "betterwithmods:blocks/lamp_overlay_on"
         }
       },
-      "false": {}
+      "false": {
+        "textures": {
+          "overlay_inverted": "betterwithmods:blocks/lamp_overlay_on"
+        }
+      }
+    },
+    "inverted": {
+      "true": {"model": "betterwithmods:lamp_inverted"}, "false": {}
     }
   }
 }

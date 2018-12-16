@@ -1,0 +1,29 @@
+{
+  "parent": "block/cube_all",
+  "elements": [
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#all", "cullface": "down" },
+        "up":    { "texture": "#all", "cullface": "up" },
+        "north": { "texture": "#all", "cullface": "north" },
+        "south": { "texture": "#all", "cullface": "south" },
+        "west":  { "texture": "#all", "cullface": "west" },
+        "east":  { "texture": "#all", "cullface": "east" }
+      }
+    },
+    {
+      "from": [ 0, 0, 0 ],
+      "to": [ 16, 16, 16 ],
+      "faces": {
+        "down":  { "texture": "#overlay_inverted", "cullface": "down", "tintindex": 0},
+        "up":    { "texture": "#overlay_inverted", "cullface": "up", "tintindex": 0 },
+        "north": { "texture": "#overlay_inverted", "cullface": "north", "tintindex": 0 },
+        "south": { "texture": "#overlay_inverted", "cullface": "south", "tintindex": 0 },
+        "west":  { "texture": "#overlay_inverted", "cullface": "west", "tintindex": 0 },
+        "east":  { "texture": "#overlay_inverted", "cullface": "east", "tintindex": 0 }
+      }
+    }
+  ]
+}

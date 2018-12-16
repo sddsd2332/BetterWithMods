@@ -13,21 +13,17 @@ import javax.annotation.Nonnull;
 public class TileLamp extends TileBasic {
 
     private int color;
-    private boolean inverted = false;
 
+    @Nonnull
     @Override
     public NBTTagCompound writeToNBT(NBTTagCompound compound) {
-
         compound.setInteger("color", color);
-        compound.setBoolean("inverted", inverted);
-
         return super.writeToNBT(compound);
     }
 
     @Override
     public void readFromNBT(NBTTagCompound compound) {
         color = value(compound, "color", 0);
-        inverted = value(compound, "inverted", false);
         super.readFromNBT(compound);
     }
 
@@ -39,24 +35,15 @@ public class TileLamp extends TileBasic {
         this.color = color;
     }
 
-    public boolean isInverted() {
-        return inverted;
-    }
-
-    public void setInverted(boolean inverted) {
-        this.inverted = inverted;
-    }
-
-    public void fromItemStack(ItemStack stack) {
+     public void fromItemStack(ItemStack stack) {
         NBTTagCompound tag = stack.getTagCompound();
         if (tag != null) {
             color = value(tag, "color", 0);
-            inverted = value(tag, "inverted", false);
         }
     }
 
     public ItemStack getItemStack() {
-        return BlockLamp.createLamp(getColor(), isInverted());
+        return BlockLamp.createLamp(getColor());
     }
 
     @Override
