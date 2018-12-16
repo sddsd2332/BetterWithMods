@@ -70,7 +70,8 @@ public class Hardcore extends Module {
                 new ExplosiveRecipes(),
                 new HCBabyZombies(),
                 new HCNetherBrick(),
-                new HCFighting()
+                new HCFighting(),
+                new HCGolems()
         );
 
 

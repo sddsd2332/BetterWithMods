@@ -4,6 +4,7 @@ import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.BlockNetherGrowth;
 import betterwithmods.common.blocks.blood_wood.BlockBloodSapling;
 import betterwithmods.util.WorldUtils;
+import com.google.common.collect.Lists;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.EntityLivingBase;
@@ -17,10 +18,18 @@ import net.minecraft.world.World;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
 
+import java.util.List;
+import java.util.Random;
+
 /**
  * Created by primetoxinz on 6/13/17.
  */
 public class EntityUrn extends EntitySnowball {
+
+    private static final List<ImpactHandler> handlers = Lists.newArrayList();
+    static {
+        addHandler(EntityUrn::grow);
+    }
 
     public EntityUrn(World worldIn) {
         super(worldIn);
@@ -48,29 +57,22 @@ public class EntityUrn extends EntitySnowball {
      */
     protected void onImpact(RayTraceResult result) {
         if (!this.world.isRemote) {
-
-
             if (result.typeOfHit != RayTraceResult.Type.MISS) {
-                BlockPos pos = result.typeOfHit == RayTraceResult.Type.ENTITY ? result.entityHit.getPosition() : result.getBlockPos();
+
                 world.playSound(null, getPosition(), SoundEvents.ENTITY_SPLASH_POTION_BREAK, SoundCategory.PLAYERS, 0.5F, 0.4F / (rand.nextFloat() * 0.4F + 0.8F));
+                BlockPos pos = result.typeOfHit == RayTraceResult.Type.ENTITY ? result.entityHit.getPosition() : result.getBlockPos();
 
                 Iterable<BlockPos> pool = BlockPos.PooledMutableBlockPos.getAllInBox(pos.add(-3, -3, -3), pos.add(3, 3, 3));
-                boolean grew = false;
-                for (BlockPos p : pool) {
-                    IBlockState state = world.getBlockState(p);
-                    if (state.getBlock() == BWMBlocks.NETHER_GROWTH) {
-                        BlockNetherGrowth b = (BlockNetherGrowth) state.getBlock();
-                        for (int i = 0; i < 10; i++)
-                            b.grow(world, p, state, rand);
-                        grew = true;
-                    }
-                    if (state.getBlock() == BWMBlocks.BLOOD_SAPLING) {
-                        BlockBloodSapling sapling = (BlockBloodSapling) state.getBlock();
-                        if (sapling.generateTree(world, p, world.getBlockState(p), rand))
-                            grew = true;
+
+                boolean success = false;
+
+
+                for(ImpactHandler handler: handlers) {
+                    for (BlockPos p : pool) {
+                        success |= handler.onImpact(world, p, rand);
                     }
                 }
-                if (!grew) {
+                if (!success) {
                     WorldUtils.spawnGhast(world, pos);
                 }
             }
@@ -78,4 +80,33 @@ public class EntityUrn extends EntitySnowball {
             this.setDead();
         }
     }
+
+    private static boolean grow(World world, BlockPos p, Random rand) {
+        boolean grew = false;
+
+        IBlockState state = world.getBlockState(p);
+        if (state.getBlock() == BWMBlocks.NETHER_GROWTH) {
+            BlockNetherGrowth b = (BlockNetherGrowth) state.getBlock();
+            for (int i = 0; i < 10; i++)
+                b.grow(world, p, state, rand);
+            grew = true;
+        }
+
+        if (state.getBlock() == BWMBlocks.BLOOD_SAPLING) {
+            BlockBloodSapling sapling = (BlockBloodSapling) state.getBlock();
+            if (sapling.generateTree(world, p, world.getBlockState(p), rand))
+                grew = true;
+        }
+        return grew;
+    }
+
+    public static void addHandler(ImpactHandler handler) {
+        handlers.add(handler);
+    }
+
+    @FunctionalInterface
+    public interface  ImpactHandler  {
+        boolean onImpact(World world, BlockPos pos, Random random);
+    }
+
 }
