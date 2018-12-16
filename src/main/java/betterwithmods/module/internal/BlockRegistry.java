@@ -26,16 +26,21 @@ import betterwithmods.common.items.itemblocks.*;
 import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.tile.*;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.client.baking.IBakedModelWrapper;
+import betterwithmods.library.client.baking.IModelMatcher;
 import betterwithmods.library.common.block.creation.BlockEntry;
 import betterwithmods.library.common.block.creation.BlockEntryBuilderFactory;
 import betterwithmods.library.common.modularity.impl.RequiredFeature;
 import betterwithmods.module.conversion.beacons.TileBeacon;
 import betterwithmods.module.conversion.beacons.TileEnderchest;
+import betterwithmods.module.recipes.miniblocks.client.CamoModel;
 import betterwithmods.network.BWMNetwork;
 import com.google.common.collect.Lists;
+import com.google.common.collect.Maps;
 import net.minecraft.block.Block;
-import net.minecraft.block.BlockPlanks;
 import net.minecraft.block.material.Material;
+import net.minecraft.client.renderer.block.model.IBakedModel;
+import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.entity.item.EntityMinecartEmpty;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.init.Blocks;
@@ -43,15 +48,20 @@ import net.minecraft.item.EnumDyeColor;
 import net.minecraft.item.Item;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
+import net.minecraftforge.client.event.ModelBakeEvent;
 import net.minecraftforge.event.RegistryEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.event.FMLPreInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.registry.GameRegistry;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
 
 import javax.annotation.Nullable;
 import java.util.Collection;
 import java.util.List;
+import java.util.Map;
 import java.util.Objects;
 
 
@@ -309,4 +319,34 @@ public class BlockRegistry extends RequiredFeature {
     public int priority() {
         return 100;
     }
+
+
+    @Override
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        addModelReplacement(location -> location.getNamespace().equals(ModLib.MODID) && location.getPath().equals("kiln"), CamoModel::new);
+    }
+
+    @SideOnly(Side.CLIENT)
+    private static final Map<IModelMatcher, IBakedModelWrapper> MODEL_REPLACEMENTS = Maps.newHashMap();
+
+    @SideOnly(Side.CLIENT)
+    public static void addModelReplacement(IModelMatcher modelMatcher, IBakedModelWrapper wrapper) {
+        MODEL_REPLACEMENTS.put(modelMatcher, wrapper);
+    }
+
+    @SideOnly(Side.CLIENT)
+    @Override
+    public void onPostBake(ModelBakeEvent event) {
+        for (ModelResourceLocation location : event.getModelRegistry().getKeys()) {
+            IBakedModel model = event.getModelRegistry().getObject(location);
+            if (model != null) {
+                for (Map.Entry<IModelMatcher, IBakedModelWrapper> entry : MODEL_REPLACEMENTS.entrySet()) {
+                    if (entry.getKey().test(location)) {
+                        event.getModelRegistry().putObject(location, entry.getValue().apply(model));
+                    }
+                }
+            }
+        }
+    }
+
 }

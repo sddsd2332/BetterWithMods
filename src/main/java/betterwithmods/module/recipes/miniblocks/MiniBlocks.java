@@ -10,6 +10,8 @@ import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.block.recipe.builder.SawRecipeBuilder;
 import betterwithmods.common.tile.TileDynamic;
 import betterwithmods.lib.ModLib;
+import betterwithmods.library.client.baking.IBakedModelWrapper;
+import betterwithmods.library.client.baking.IModelMatcher;
 import betterwithmods.library.common.modularity.impl.Feature;
 import betterwithmods.library.common.variants.IBlockVariants;
 import betterwithmods.library.utils.GlobalUtils;
@@ -22,6 +24,7 @@ import betterwithmods.module.internal.RecipeRegistry;
 import betterwithmods.module.recipes.AnvilRecipes;
 import betterwithmods.module.recipes.miniblocks.client.CamoModel;
 import betterwithmods.module.recipes.miniblocks.client.DynamicStateMapper;
+import betterwithmods.module.recipes.miniblocks.client.DynamicTypeMatcher;
 import com.google.common.collect.Maps;
 import com.google.common.collect.Sets;
 import com.google.gson.JsonArray;
@@ -121,26 +124,6 @@ public class MiniBlocks extends Feature {
         }
     }
 
-    @SideOnly(Side.CLIENT)
-    public void onPostBake(ModelBakeEvent event) {
-
-        EnumMap<DynamicType, Function<IBakedModel, IBakedModel>> modelReplacer = Maps.newEnumMap(DynamicType.class);
-        for (DynamicType type : DynamicType.VALUES) {
-            modelReplacer.put(type, CamoModel::new);
-        }
-
-        for (ModelResourceLocation location : event.getModelRegistry().getKeys()) {
-            IBakedModel model = event.getModelRegistry().getObject(location);
-            if (model != null) {
-                for (Map.Entry<DynamicType, Function<IBakedModel, IBakedModel>> entry : modelReplacer.entrySet()) {
-                    if (location.getPath().equals(entry.getKey().getName())) {
-                        event.getModelRegistry().putObject(location, entry.getValue().apply(model));
-                    }
-                }
-            }
-        }
-    }
-
     public Set<Ingredient> loadMiniblockWhitelist() {
         File file = new File(config().path, "betterwithmods/dynamicblocks.json");
 
@@ -213,6 +196,13 @@ public class MiniBlocks extends Feature {
         DynamicType.registerTiles();
     }
 
+
+    @Override
+    public void onPreInitClient(FMLPreInitializationEvent event) {
+        for (DynamicType type : DynamicType.VALUES) {
+            BlockRegistry.addModelReplacement(new DynamicTypeMatcher(type), CamoModel::new);
+        }
+    }
 
     private static ShapedOreRecipe createShapedDynamicRecipe(ItemStack parent, ItemStack dynamicOutput, Object... inputs) {
         return (ShapedOreRecipe) new ShapedOreRecipe(dynamicOutput.getItem().getRegistryName(), dynamicOutput, inputs).setRegistryName(getRecipeRegistry(dynamicOutput, parent));
