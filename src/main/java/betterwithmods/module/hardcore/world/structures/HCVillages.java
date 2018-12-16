@@ -30,12 +30,11 @@ import java.util.Set;
 
 public class HCVillages extends Feature {
 
-    public static boolean disableAllComplexBlocks;
-    public static boolean disableVillagerSpawning;
-    public static boolean disableIronGolems;
     private static Set<StructureChanger> VILLAGE = Sets.newHashSet();
+
+    public static boolean disableVillagerSpawning;
     private int normalRadius, semiabandonedRadius;
-    private StructureChanger ABANDONED, SEMIABANDONED, NORMAL;
+
 
     @SubscribeEvent
     public void onStructureSetBlock(StructureSetBlockEvent event) {
@@ -59,16 +58,14 @@ public class HCVillages extends Feature {
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-
         semiabandonedRadius = loadProperty("Semi-Abandoned Village Radius", 2000).setComment("Block radius from 0,0 at which villages are now semi-abandoned, all villages inside this radius are abandoned").get();
         normalRadius = loadProperty("Normal Village Radius", 3000).setComment("Block radius from 0,0 at which villages are now normal, all villages in between this and semi-abandoned are semi-abandoned").get();
-        //TODO out of the scope of this Feature
-        disableVillagerSpawning = loadProperty("Replace Villager Spawning with Nitwits", true).setComment("Replaces all villager spawns with Nitwits, which have no trades").get();
-        disableIronGolems = loadProperty("Disable Village Iron Golem Spawns", true).setComment("WARNING: Stops all non-player created Iron Golem Spawns").get();
 
-        ABANDONED = StructureChanger.create(VILLAGE, (w, p) -> p.distanceSq(w.getSpawnPoint()) < semiabandonedRadius * semiabandonedRadius);
-        SEMIABANDONED = StructureChanger.create(VILLAGE, (w, p) -> p.distanceSq(w.getSpawnPoint()) < normalRadius * normalRadius);
-        NORMAL = StructureChanger.create(VILLAGE, (w, p) -> p.distanceSq(w.getSpawnPoint()) >= normalRadius * normalRadius);
+        disableVillagerSpawning = loadProperty("Replace Villager Spawning with Nitwits", true).setComment("Replaces all villager spawns with Nitwits, which have no trades").get();
+
+        StructureChanger ABANDONED = StructureChanger.create(VILLAGE, (w, p) -> p.distanceSq(w.getSpawnPoint()) < semiabandonedRadius * semiabandonedRadius);
+        StructureChanger SEMIABANDONED = StructureChanger.create(VILLAGE, (w, p) -> p.distanceSq(w.getSpawnPoint()) < normalRadius * normalRadius);
+        StructureChanger NORMAL = StructureChanger.create(VILLAGE, (w, p) -> p.distanceSq(w.getSpawnPoint()) >= normalRadius * normalRadius);
 
         TableChanger tableChanger = new TableChanger();
 
@@ -105,19 +102,6 @@ public class HCVillages extends Feature {
                 .addChanger(tableChanger)
                 .addChanger(new CropTypeChanger(Lists.newArrayList(Blocks.WHEAT, Blocks.BEETROOTS, Blocks.POTATOES, Blocks.CARROTS)));
 
-    }
-
-    //hack to stop iron golem spawning in villages, also will stop any other spawning
-    @SubscribeEvent
-    public void onEntityJoin(EntityJoinWorldEvent event) {
-        if (!disableIronGolems)
-            return;
-        if (event.getEntity() instanceof EntityIronGolem) {
-            EntityIronGolem golem = (EntityIronGolem) event.getEntity();
-            if (!golem.isPlayerCreated()) {
-                event.setCanceled(true);
-            }
-        }
     }
 
     @Override
