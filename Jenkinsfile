@@ -13,7 +13,7 @@ pipeline {
         stage('Setup') {
             steps {
                 echo 'Setting up Workspace'
-                sh './gradlew setupCiWorkspace'
+                sh './gradlew setupCiWorkspace --refresh-dependencies'
             }
         }
         stage('Build and Deploy') {
