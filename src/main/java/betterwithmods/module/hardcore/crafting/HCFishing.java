@@ -203,11 +203,7 @@ public class HCFishing extends Feature {
                 FishingBait cap = stack.getCapability(FISHING_ROD_CAP, EnumFacing.UP);
 
                 if (cap != null && cap.hasBait()) {
-                    cap.setBait(false);
-                    NBTTagCompound tag = stack.getTagCompound();
-                    if (tag != null && tag.hasKey("bait")) {
-                        tag.setBoolean("bait", false);
-                    }
+                    setBaited(stack, cap, false);
                 }
             }
         }
@@ -220,14 +216,33 @@ public class HCFishing extends Feature {
                 FishingBait cap = event.getItemStack().getCapability(FISHING_ROD_CAP, EnumFacing.UP);
                 event.setCanceled(true);
                 event.setResult(Event.Result.ALLOW);
+                EntityPlayer player = event.getEntityPlayer();
                 if (cap != null) {
-                    if (cap.hasBait() || event.getEntityPlayer().isCreative()) {
-                        throwLine(event.getItemStack().getItem(), event.getEntityPlayer(), event.getHand(), event.getWorld(), event.getWorld().rand).getType();
+                    if(!cap.hasBait()) {
+                        findBait(player,event.getHand(), cap);
+                    }
+                    if (cap.hasBait() || player.isCreative()) {
+                        throwLine(event.getItemStack().getItem(), player, event.getHand(), event.getWorld(), event.getWorld().rand).getType();
                     } else if (!event.getWorld().isRemote && (event.getHand() == EnumHand.MAIN_HAND || event.getHand() == EnumHand.OFF_HAND)) {
-                        event.getEntityPlayer().sendMessage(LocaleUtils.getMessageComponent(ModLib.MODID, TooltipLib.FISHING_NEEDS_BAIT));
+                        player.sendMessage(LocaleUtils.getMessageComponent(ModLib.MODID, TooltipLib.FISHING_NEEDS_BAIT));
                     }
                 }
             }
+        }
+    }
+
+
+    private void findBait(EntityPlayer player, EnumHand hand, FishingBait rod) {
+        EnumHand opposite = EnumHand.MAIN_HAND;
+        if(hand == EnumHand.MAIN_HAND) {
+            opposite = EnumHand.OFF_HAND;
+        }
+        ItemStack stack = player.getHeldItem(opposite);
+
+        if(BAIT.test(stack)) {
+            setBaited(player.getHeldItem(hand),rod, true);
+            if(!player.isCreative())
+                stack.shrink(1);
         }
     }
 
@@ -287,6 +302,14 @@ public class HCFishing extends Feature {
     @Override
     public String getDescription() {
         return "Change Fishing Rods to require bait and a large enough water source exposed to the sky.";
+    }
+
+    public static void setBaited(ItemStack stack, FishingBait cap, boolean baited) {
+        cap.setBait(baited);
+        NBTTagCompound tag = stack.getTagCompound();
+        if (tag != null && tag.hasKey("bait")) {
+            tag.setBoolean("bait", baited);
+        }
     }
 
     public static class CapabilityFishingRod implements Capability.IStorage<FishingBait> {
