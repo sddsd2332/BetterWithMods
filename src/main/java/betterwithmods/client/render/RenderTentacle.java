@@ -1,6 +1,6 @@
 package betterwithmods.client.render;
 
-import betterwithmods.module.hardcore.creatures.EntityTentacle;
+import betterwithmods.module.hardcore.creatures.squid.EntityTentacle;
 import net.minecraft.client.renderer.BufferBuilder;
 import net.minecraft.client.renderer.GlStateManager;
 import net.minecraft.client.renderer.Tessellator;

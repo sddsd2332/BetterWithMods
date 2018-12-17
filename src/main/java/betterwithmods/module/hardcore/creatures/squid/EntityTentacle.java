@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.creatures;
+package betterwithmods.module.hardcore.creatures.squid;
 
 import io.netty.buffer.ByteBuf;
 import net.minecraft.client.Minecraft;

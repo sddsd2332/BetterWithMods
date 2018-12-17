@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.creatures;
+package betterwithmods.module.hardcore.creatures.squid;
 
 import betterwithmods.network.BWMNetwork;
 import net.minecraft.entity.EntityLiving;

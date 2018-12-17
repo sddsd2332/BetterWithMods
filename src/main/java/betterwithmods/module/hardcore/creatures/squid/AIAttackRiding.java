@@ -1,4 +1,4 @@
-package betterwithmods.module.hardcore.creatures;
+package betterwithmods.module.hardcore.creatures.squid;
 
 import betterwithmods.common.BWMDamageSource;
 import betterwithmods.common.items.tools.ItemSoulforgeArmor;

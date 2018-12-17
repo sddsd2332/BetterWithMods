@@ -5,11 +5,6 @@ import betterwithmods.library.common.modularity.impl.Feature;
 public class HCEnchanting extends Feature {
 
     @Override
-    public boolean isEnabled() {
-        return false;
-    }
-
-    @Override
     public boolean hasEvent() {
         return true;
     }
