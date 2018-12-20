@@ -164,6 +164,9 @@ public class HCEnchanting extends Feature {
                 new ItemStack(Items.EMERALD),
                 new EntityVillager.PriceInfo(34, 47), ItemArcaneScroll.getScrollWithEnchant(Enchantments.UNBREAKING));
 
+        EntityVillager.ITradeList efficiency = new PricedTradeList(
+                new ItemStack(Items.EMERALD),
+                new EntityVillager.PriceInfo(34, 63), ItemArcaneScroll.getScrollWithEnchant(Enchantments.EFFICIENCY));
 
         EntityVillager.ITradeList fortune = new PricedTradeList(
                 new ItemStack(Items.EMERALD),
@@ -187,6 +190,7 @@ public class HCEnchanting extends Feature {
         addVillagerTrade("minecraft:butcher", 0, 5, sharpness);
         addVillagerTrade("minecraft:farmer", 0, 5, looting);
         addVillagerTrade("minecraft:smith", 2, 5, unbreaking);
+        addVillagerTrade("minecraft:smith", 2, 5, efficiency);
         addVillagerTrade("minecraft:priest", 0, 5, fortune);
         addVillagerTrade("minecraft:librarian", 0, 5, power);
         addVillagerTrade("minecraft:farmer", 1, 5, luckofsea);
