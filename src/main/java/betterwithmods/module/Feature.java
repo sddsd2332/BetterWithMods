@@ -210,7 +210,7 @@ public class Feature {
     }
 
     public final HashMap<Ingredient, Integer> loadItemStackIntMap(String propName, String comment, String[] _default) {
-        return ConfigHelper.loadItemStackIntMap(propName, configCategory, comment, _default);
+        return ConfigHelper.loadIngredientIntMap(propName, configCategory, comment, _default);
     }
 
     public final boolean loadRecipeCondition(String jsonName, String propName, String comment, boolean _default) {

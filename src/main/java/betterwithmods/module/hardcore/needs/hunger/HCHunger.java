@@ -9,6 +9,7 @@ import betterwithmods.common.items.ItemEdibleSeeds;
 import betterwithmods.common.penalties.FatPenalties;
 import betterwithmods.common.penalties.HungerPenalties;
 import betterwithmods.module.CompatFeature;
+import betterwithmods.module.ConfigHelper;
 import betterwithmods.module.hardcore.needs.HCTools;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessageHungerShake;
@@ -51,6 +52,8 @@ import squeek.applecore.api.hunger.ExhaustionEvent;
 import squeek.applecore.api.hunger.HealthRegenEvent;
 import squeek.applecore.api.hunger.HungerEvent;
 import squeek.applecore.api.hunger.StarvationEvent;
+
+import java.util.Map;
 
 /**
  * Created by primetoxinz on 6/20/17.
@@ -136,7 +139,6 @@ public class HCHunger extends CompatFeature {
         FoodHelper.registerFood(new ItemStack(Items.BEETROOT), 3);
         FoodHelper.registerFood(new ItemStack(Items.BAKED_POTATO), 6);
         FoodHelper.registerFood(new ItemStack(Items.BREAD), 12);
-
         FoodHelper.registerFood(new ItemStack(Items.GOLDEN_APPLE), 3);
         FoodHelper.registerFood(new ItemStack(Items.GOLDEN_APPLE, 1, 1), 3);
         FoodHelper.registerFood(new ItemStack(Items.GOLDEN_CARROT), 3);
@@ -165,7 +167,6 @@ public class HCHunger extends CompatFeature {
         FoodHelper.registerFood(new ItemStack(BWMItems.BAT_WING), 3);
         FoodHelper.registerFood(new ItemStack(BWMItems.COOKED_BAT_WING), 6);
         FoodHelper.registerFood(new ItemStack(Items.CHORUS_FRUIT), 3, 0, true);
-
         FoodHelper.registerFood(new ItemStack(BWMItems.DONUT), 3, 1.5f, true);
         FoodHelper.registerFood(new ItemStack(BWMItems.APPLE_PIE), 9, 12, true);
         FoodHelper.registerFood(new ItemStack(BWMItems.CHOCOLATE), 6, 3, true);
@@ -173,8 +174,13 @@ public class HCHunger extends CompatFeature {
         FoodHelper.registerFood(new ItemStack(Items.PUMPKIN_PIE), 9, 12, true);
         FoodHelper.registerFood(new ItemStack(Items.CAKE), 4, 12, true);
         FoodHelper.registerFood(new ItemStack(PUMPKIN_SEEDS), 1);
-
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
+
+        Map<ItemStack, FoodValues> hungerOverrides = ConfigHelper.loadFoodMap("Food hunger overrides", configCategory, "Allow modifying food values with hchunger, format with each value after the ; being optional, item=hunger;fat;alwaysEdible", new String[0]);
+        for(Map.Entry<ItemStack,FoodValues> e: hungerOverrides.entrySet()) {
+            FoodHelper.registerFood(e.getKey(), e.getValue(), false);
+        }
+
     }
 
     @Override
