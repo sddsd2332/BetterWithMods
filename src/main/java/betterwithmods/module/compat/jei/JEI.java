@@ -12,12 +12,14 @@ import betterwithmods.client.gui.bulk.GuiFilteredHopper;
 import betterwithmods.client.gui.bulk.GuiMill;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWMItems;
+import betterwithmods.common.BWMRecipes;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.mechanical.BlockCookingPot;
 import betterwithmods.common.blocks.mechanical.BlockMechMachines;
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.HopperInteractions;
 import betterwithmods.common.registry.HopperInteractions.HopperRecipe;
+import betterwithmods.common.registry.KilnStructureManager;
 import betterwithmods.common.registry.anvil.AnvilCraftingManager;
 import betterwithmods.common.registry.anvil.ShapedAnvilRecipe;
 import betterwithmods.common.registry.anvil.ShapelessAnvilRecipe;
@@ -47,7 +49,7 @@ import mezz.jei.api.recipe.transfer.IRecipeTransferRegistry;
 import mezz.jei.gui.Focus;
 import mezz.jei.plugins.vanilla.crafting.ShapelessRecipeWrapper;
 import mezz.jei.startup.StackHelper;
-import net.minecraft.init.Blocks;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -243,7 +245,8 @@ public class JEI implements IModPlugin {
 
         reg.addRecipeCatalyst(BlockCookingPot.getStack(CAULDRON), cauldron.stream().toArray(String[]::new));
         reg.addRecipeCatalyst(BlockCookingPot.getStack(CRUCIBLE), crucible.stream().toArray(String[]::new));
-        reg.addRecipeCatalyst(new ItemStack(Blocks.BRICK_BLOCK), kiln.stream().toArray(String[]::new));
+        for(IBlockState state: KilnStructureManager.KILN_BLOCKS)
+            reg.addRecipeCatalyst(BWMRecipes.getStackFromState(state), kiln.stream().toArray(String[]::new));
 
         reg.addRecipeClickArea(GuiCauldron.class, 81, 19, 14, 14, cauldron.stream().toArray(String[]::new));
         reg.addRecipeClickArea(GuiCrucible.class, 81, 19, 14, 14, crucible.stream().toArray(String[]::new));
