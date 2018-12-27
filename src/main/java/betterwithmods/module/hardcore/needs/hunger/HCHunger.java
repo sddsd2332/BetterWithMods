@@ -14,6 +14,7 @@ import betterwithmods.module.hardcore.needs.HCTools;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessageHungerShake;
 import betterwithmods.util.player.PlayerHelper;
+import com.google.common.collect.Maps;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.entity.player.EntityPlayerMP;
@@ -44,6 +45,7 @@ import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.common.gameevent.TickEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
+import org.apache.commons.lang3.tuple.Pair;
 import squeek.applecore.api.AppleCoreAPI;
 import squeek.applecore.api.food.FoodEvent;
 import squeek.applecore.api.food.FoodValues;
@@ -53,6 +55,7 @@ import squeek.applecore.api.hunger.HealthRegenEvent;
 import squeek.applecore.api.hunger.HungerEvent;
 import squeek.applecore.api.hunger.StarvationEvent;
 
+import java.util.HashMap;
 import java.util.Map;
 
 /**
@@ -176,7 +179,7 @@ public class HCHunger extends CompatFeature {
         FoodHelper.registerFood(new ItemStack(PUMPKIN_SEEDS), 1);
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
 
-        Map<ItemStack, FoodValues> hungerOverrides = ConfigHelper.loadFoodMap("Food hunger overrides", configCategory, "Allow modifying food values with hchunger, format with each value after the ; being optional, item=hunger;fat;alwaysEdible", new String[0]);
+        Map<ItemStack, FoodValues> hungerOverrides = loadFoodMap("Food hunger overrides", configCategory, "Allow modifying food values with hchunger, format with each value after the ; being optional, item=hunger;fat;alwaysEdible", new String[0]);
         for(Map.Entry<ItemStack,FoodValues> e: hungerOverrides.entrySet()) {
             FoodHelper.registerFood(e.getKey(), e.getValue(), false);
         }
@@ -372,6 +375,40 @@ public class HCHunger extends CompatFeature {
 
     }
 
+    public static Pair<FoodValues, Boolean> loadFoodValue(String value) {
+
+        String[] v = value.split(":");
+
+        int hunger = 0, fat = 0;
+        boolean alwaysEdible = false;
+
+        if (v.length > 0)
+            hunger = Integer.parseInt(v[0]);
+
+        if (v.length > 1)
+            fat = Integer.parseInt(v[1]);
+
+        if (v.length > 2)
+            alwaysEdible = Boolean.parseBoolean(v[2]);
+
+        return Pair.of(new FoodValues(hunger, fat), alwaysEdible);
+    }
+
+    public static HashMap<ItemStack, FoodValues> loadFoodMap(String propName, String category, String desc, String[] _default) {
+        HashMap<ItemStack, FoodValues> map = Maps.newHashMap();
+        String[] l = ConfigHelper.loadPropStringList(propName, category, desc, _default);
+        for (String s : l) {
+            String[] a = s.split("=");
+            if (a.length == 2) {
+                ItemStack stack = ConfigHelper.stackFromString(a[0]);
+                Pair<FoodValues, Boolean> value = loadFoodValue(a[1]);
+                if(value.getValue())
+                    FoodHelper.setAlwaysEdible(stack);
+                map.put(stack, value.getKey());
+            }
+        }
+        return map;
+    }
 
 }
 

@@ -10,7 +10,6 @@
  */
 package betterwithmods.module;
 
-import betterwithmods.module.hardcore.needs.hunger.FoodHelper;
 import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
@@ -25,8 +24,6 @@ import net.minecraftforge.common.crafting.JsonContext;
 import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
-import org.apache.commons.lang3.tuple.Pair;
-import squeek.applecore.api.food.FoodValues;
 
 import java.util.Arrays;
 import java.util.HashMap;
@@ -132,7 +129,7 @@ public class ConfigHelper {
         return null;
     }
 
-    private static ItemStack stackFromString(String name) {
+    public static ItemStack stackFromString(String name) {
         String[] split = name.split(":");
         if (split.length > 1) {
             int meta = 0;
@@ -200,40 +197,6 @@ public class ConfigHelper {
         return loadItemStackArray(propName, category, desc, strings_);
     }
 
-    public static Pair<FoodValues, Boolean> loadFoodValue(String value) {
-
-        String[] v = value.split(":");
-
-        int hunger = 0, fat = 0;
-        boolean alwaysEdible = false;
-
-        if (v.length > 0)
-            hunger = Integer.parseInt(v[0]);
-
-        if (v.length > 1)
-            fat = Integer.parseInt(v[1]);
-
-        if (v.length > 2)
-            alwaysEdible = Boolean.parseBoolean(v[2]);
-
-        return Pair.of(new FoodValues(hunger, fat), alwaysEdible);
-    }
-
-    public static HashMap<ItemStack, FoodValues> loadFoodMap(String propName, String category, String desc, String[] _default) {
-        HashMap<ItemStack, FoodValues> map = Maps.newHashMap();
-        String[] l = loadPropStringList(propName, category, desc, _default);
-        for (String s : l) {
-            String[] a = s.split("=");
-            if (a.length == 2) {
-                ItemStack stack = ConfigHelper.stackFromString(a[0]);
-                Pair<FoodValues, Boolean> value = loadFoodValue(a[1]);
-                if(value.getValue())
-                    FoodHelper.setAlwaysEdible(stack);
-                map.put(stack, value.getKey());
-            }
-        }
-        return map;
-    }
 
     public static HashMap<Ingredient, Integer> loadIngredientIntMap(String propName, String category, String desc, String[] _default) {
         HashMap<Ingredient, Integer> map = Maps.newHashMap();
