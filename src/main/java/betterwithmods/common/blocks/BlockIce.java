@@ -83,7 +83,8 @@ public class BlockIce extends net.minecraft.block.BlockIce {
     }
 
     private void setWater(World world, BlockPos pos, IBlockState state) {
-
+        if(state.getBlock() != this)
+            return;
         if (state.getValue(NATURAL)) {
             world.setBlockState(pos, Blocks.FLOWING_WATER.getDefaultState());
         } else {
