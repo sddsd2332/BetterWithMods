@@ -17,6 +17,7 @@ import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
 /**
@@ -32,13 +33,13 @@ public class ImprovedFlee extends Feature {
         return result != null && pos.equals(result.getBlockPos());
     }
 
-    //TODO
-//    @Override
-//    public void setupConfig() {
-//        blockPlace = loadPropBool("Animals Flee from Block Place", "When a block is placed in the vicinity of an animal it will get scared and run.", true);
-//        blockBreak = loadPropBool("Animals Flee from Block Break", "When a non-replaceable block is broken in the vicinity of an animal it will get scared and run.", true);
-//        groupFlee = loadPropBool("Animals Group Flee", "When an animal is attacked in the vicinity of another animal it will get scared and run.", true);
-//    }
+
+    @Override
+    public void onPostInit(FMLPostInitializationEvent event) {
+        blockPlace = loadProperty("Animals Flee from Block Place", true).setComment("When a block is placed in the vicinity of an animal it will get scared and run.").get();
+        blockBreak = loadProperty("Animals Flee from Block Break", true).setComment("When a non-replaceable block is broken in the vicinity of an animal it will get scared and run.").get();
+        groupFlee = loadProperty("Animals Group Flee", true).setComment("When an animal is attacked in the vicinity of another animal it will get scared and run.").get();
+    }
 
     @SubscribeEvent
     public void addEntityAI(EntityJoinWorldEvent evt) {
