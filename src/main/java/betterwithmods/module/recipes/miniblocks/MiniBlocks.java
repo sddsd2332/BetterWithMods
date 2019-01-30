@@ -161,6 +161,24 @@ public class MiniBlocks extends Feature {
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GOLD_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.IRON_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GLASS)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.STAINED_HARDENED_CLAY)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GRAY_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.GREEN_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.BLACK_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.BLUE_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.BROWN_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.CYAN_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.LIGHT_BLUE_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.LIME_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.MAGENTA_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.ORANGE_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.PINK_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.PURPLE_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.RED_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.SILVER_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.WHITE_GLAZED_TERRACOTTA)));
+            DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(Blocks.YELLOW_GLAZED_TERRACOTTA)));
+
             DEFAULT_CONFIG.add(JsonUtils.fromStack(new ItemStack(BWMBlocks.STEEL_BLOCK)));
             DEFAULT_CONFIG.add(JsonUtils.fromStack(BlockAesthetic.getStack(BlockAesthetic.Type.WHITESTONE)));
             JsonUtils.writeFile(file, DEFAULT_CONFIG);
