@@ -20,16 +20,20 @@ public class WildBabyAnimals extends Feature {
        if(event.getEntity() instanceof EntityAgeable && !(event.getEntity() instanceof EntityMob)) {
            EntityAgeable entity = (EntityAgeable) event.getEntity();
 
-           if(entity.ticksExisted <= 1 && random.nextInt(chance) == 1) {
-               entity.setGrowingAge(-24000);
+           if(entity.ticksExisted <= 1 && entity.getGrowingAge() >=0 && random.nextInt(chance) == 1) {
+               EntityAgeable baby = entity.createChild(entity);
+               if(baby != null) {
+                   baby.setGrowingAge(-24000);
+                   baby.setLocationAndAngles(entity.posX, entity.posY, entity.posZ, 0.0F, 0.0F);
+                   entity.world.spawnEntity(baby);
+               }
            }
-
        }
     }
 
     @Override
     public void onInit(FMLInitializationEvent event) {
-        chance = loadProperty("Chance of an animal spawning as a baby", 15).setComment("1/x chance of mob spawning as a baby.").get();
+        chance = loadProperty("Chance of an animal spawning as a baby", 1).setComment("1/x chance of mob spawning as a baby.").get();
     }
 
     @Override
