@@ -85,7 +85,6 @@ public abstract class ItemAxleGenerator extends ItemBlock implements IRenderRota
                 if (state.getBlock() instanceof BlockAxle) {
                     continue;
                 } else {
-                    showErrorMessage(player, Error.SPACE);
                     return false;
                 }
             }
@@ -162,8 +161,15 @@ public abstract class ItemAxleGenerator extends ItemBlock implements IRenderRota
             AxisAlignedBB box = this.getBounds(world, pos, side, x, y, z, stack, player);
 
             if (box != null) {
+                if(isValidArea(world, player, pos, getAxleAxis(world, pos))) {
+                    GlStateManager.color(0.0F, 0.75F, 0.0F, 0.2F);
+                } else {
+                    GlStateManager.color(0.75F, 0.0F, 0.0F, 0.2F);
+
+                }
                 renderModel(world, pos, pos.getX() - dx, pos.getY() - dy, pos.getZ() - dz, partial);
-                RenderGlobal.drawSelectionBoundingBox(box.grow(0.002D).offset(pos).offset(-dx, -dy, -dz), 0.0F, 0.0F, 0.0F, 0.4F);
+
+                //RenderGlobal.drawSelectionBoundingBox(box.grow(0.002D).offset(pos).offset(-dx, -dy, -dz), 1.0F, 0.0F, 0.0F, 0.4F);
             }
 
             GlStateManager.depthMask(true);

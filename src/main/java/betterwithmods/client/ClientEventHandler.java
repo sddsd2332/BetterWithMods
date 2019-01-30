@@ -20,6 +20,7 @@ import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.DrawBlockHighlightEvent;
+import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -28,6 +29,7 @@ import org.lwjgl.opengl.GL11;
 /**
  * Created by primetoxinz on 6/7/17.
  */
+@Mod.EventBusSubscriber
 public class ClientEventHandler {
     public static final Minecraft mc = Minecraft.getMinecraft();
     public static boolean blockPlacementHighlight;
