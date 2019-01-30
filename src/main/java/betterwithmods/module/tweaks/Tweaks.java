@@ -50,6 +50,7 @@ public class Tweaks extends Module {
         addFeature(new HopperMinecarts());
         addFeature(new FeedWolfchop());
         addFeature(new NetherFortressSpawns());
+        addFeature(new WildBabyAnimals());
     }
 
 }
