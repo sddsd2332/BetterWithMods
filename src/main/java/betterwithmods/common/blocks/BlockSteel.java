@@ -30,6 +30,9 @@ import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.Explosion;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -137,6 +140,7 @@ public class BlockSteel extends BWMBlock implements IMultiVariants{
         return new String[]{"height=0","height=1","height=2","height=3","height=4","height=5","height=6","height=7","height=8","height=9","height=10","height=11","height=12","height=13","height=14","height=15"};
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         if(stack.getMetadata() > 0)

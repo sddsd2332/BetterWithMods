@@ -10,6 +10,9 @@ import net.minecraft.item.ItemStack;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.util.NonNullList;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -64,6 +67,7 @@ public class ItemArcaneScroll extends Item {
         return EnumRarity.UNCOMMON;
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         int id = stack.getTagCompound() != null ? stack.getTagCompound().getInteger("enchant") : 0;
