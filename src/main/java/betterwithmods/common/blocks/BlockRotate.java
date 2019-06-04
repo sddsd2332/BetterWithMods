@@ -11,6 +11,9 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.SoundCategory;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
+import net.minecraftforge.fml.relauncher.Side;
+import net.minecraftforge.fml.relauncher.SideOnly;
+
 
 import javax.annotation.Nullable;
 import java.util.List;
@@ -23,6 +26,7 @@ public abstract class BlockRotate extends BWMBlock {
         super(material);
     }
 
+    @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World player, List<String> tooltip, ITooltipFlag advanced) {
         tooltip.add(I18n.format("tooltip.rotate_with_hand.name"));
