@@ -46,7 +46,8 @@ public class HCSapling extends Feature {
         if (event.getPlacedBlock().getBlock() instanceof BlockSapling) {
             IBlockState state = event.getPlacedBlock();
             IBlockState replaced = event.getBlockSnapshot().getReplacedBlock();
-            if(replaced.getBlock().isReplaceable(event.getWorld(), event.getBlockSnapshot().getPos())) {
+            //getBlock().isReplaceable(event.getWorld(), event.getBlockSnapshot().getPos())
+            if(replaced.getMaterial().isReplaceable()) {
                 for (SaplingConversion conversion : SAPLING_CONVERSIONS) {
                     if (conversion.ingredient.apply(event.getWorld(), event.getPos(), state)) {
                         event.getWorld().setBlockState(event.getPos(), conversion.getReplacement().getDefaultState());
