@@ -65,34 +65,36 @@ public class BlockFireStoked extends BlockFire {
                 world.setBlockState(pos, world.getBlockState(pos).withProperty(AGE, meta));
             }
 
-            boolean flag1 = world.isBlockinHighHumidity(pos);
+            if (world.getGameRules().getBoolean("doFireTick")) {
+                boolean flag1 = world.isBlockinHighHumidity(pos);
 
-            this.setFire(world, pos.east(), 300, rand, meta, EnumFacing.WEST);
-            this.setFire(world, pos.west(), 300, rand, meta, EnumFacing.EAST);
-            this.setFire(world, pos.down(), 250, rand, meta, EnumFacing.UP);
-            this.setFire(world, pos.up(), 250, rand, meta, EnumFacing.DOWN);
-            this.setFire(world, pos.north(), 300, rand, meta, EnumFacing.SOUTH);
-            this.setFire(world, pos.south(), 300, rand, meta, EnumFacing.NORTH);
-            for (int i1 = -1; i1 <= 1; ++i1) {
-                for (int j1 = 1; j1 <= 1; ++j1) {
-                    for (int k1 = 1; k1 <= 4; ++k1) {
-                        int l1 = 100;
-                        if (k1 > 1) {
-                            l1 += (k1 - (1)) * 100;
-                        }
-                        BlockPos blockpos = pos.add(i1, k1, j1);
-                        int i2 = this.getNeighborEncouragement(world, blockpos);
-                        if (i2 > 0) {
-                            int j2 = (i2 + 40 + world.getDifficulty().getId() * 7) / (meta + 30);
-                            if (flag1) {
-                                j2 /= 2;
+                this.setFire(world, pos.east(), 300, rand, meta, EnumFacing.WEST);
+                this.setFire(world, pos.west(), 300, rand, meta, EnumFacing.EAST);
+                this.setFire(world, pos.down(), 250, rand, meta, EnumFacing.UP);
+                this.setFire(world, pos.up(), 250, rand, meta, EnumFacing.DOWN);
+                this.setFire(world, pos.north(), 300, rand, meta, EnumFacing.SOUTH);
+                this.setFire(world, pos.south(), 300, rand, meta, EnumFacing.NORTH);
+                for (int i1 = -1; i1 <= 1; ++i1) {
+                    for (int j1 = 1; j1 <= 1; ++j1) {
+                        for (int k1 = 1; k1 <= 4; ++k1) {
+                            int l1 = 100;
+                            if (k1 > 1) {
+                                l1 += (k1 - (1)) * 100;
                             }
-                            if (j2 > 0 && rand.nextInt(l1) <= j2 && (!world.isRaining() || !this.canDie(world, blockpos))) {
-                                int k2 = meta + rand.nextInt(5) / 4;
-                                if (k2 > 15) {
-                                    k2 = 15;
+                            BlockPos blockpos = pos.add(i1, k1, j1);
+                            int i2 = this.getNeighborEncouragement(world, blockpos);
+                            if (i2 > 0) {
+                                int j2 = (i2 + 40 + world.getDifficulty().getId() * 7) / (meta + 30);
+                                if (flag1) {
+                                    j2 /= 2;
                                 }
-                                world.setBlockState(blockpos, Blocks.FIRE.getDefaultState().withProperty(AGE, k2));
+                                if (j2 > 0 && rand.nextInt(l1) <= j2 && (!world.isRaining() || !this.canDie(world, blockpos))) {
+                                    int k2 = meta + rand.nextInt(5) / 4;
+                                    if (k2 > 15) {
+                                        k2 = 15;
+                                    }
+                                    world.setBlockState(blockpos, Blocks.FIRE.getDefaultState().withProperty(AGE, k2));
+                                }
                             }
                         }
                     }
