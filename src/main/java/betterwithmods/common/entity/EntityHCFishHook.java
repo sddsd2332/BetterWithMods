@@ -140,9 +140,9 @@ public class EntityHCFishHook extends EntityFishHook implements IEntityAdditiona
             if (angler.isCreative()) {
                 this.ticksCaughtDelay = 1;
             } else {
-                int modifer = 20 * 60;
-                this.ticksCaughtDelay = MathHelper.getInt(this.rand, (int) (initialTime * (modifer)), (int) ((initialTime + 2) * (modifer)));
-                this.ticksCaughtDelay = Math.max(1200, this.ticksCaughtDelay - (this.lureSpeed * 1200));
+                int minute  = 20 * 60;
+                this.ticksCaughtDelay = MathHelper.getInt(this.rand, (int) (initialTime * (minute)), (int) ((initialTime + 2) * (minute)));
+                this.ticksCaughtDelay = Math.max(HCFishing.configuration.minimumTime, this.ticksCaughtDelay - (this.lureSpeed * minute));
             }
 
         }

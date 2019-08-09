@@ -336,6 +336,7 @@ public class HCFishing extends Feature {
     }
 
     public class FishingTimes {
+        public int minimumTime;
         public double initialTime;
         public double nightModifier, rainModifier, fullMoonModifier, dawnModifier, duskModifier;
 
@@ -346,6 +347,7 @@ public class HCFishing extends Feature {
             fullMoonModifier = loadPropDouble("Full Moon Modifier", "Scale the baseTime by this when it is a full moon", 0.5);
             dawnModifier = loadPropDouble("Dawn Modifier", "Scale the baseTime by this when it is dawn", 0.5);
             duskModifier = loadPropDouble("Dusk Modifier", "Scale the baseTime by this when it is dusk", 0.5);
+            minimumTime = loadPropInt("Minimum Time", "Fastest time possible for a single fish to be caught in ticks", 1200);
         }
     }
 }
