@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.creatures;
 
 import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.module.Feature;
+import betterwithmods.util.EntityUtils;
 import com.google.common.collect.Lists;
 import net.minecraft.entity.item.EntityItem;
 import net.minecraft.init.Items;
@@ -28,13 +29,7 @@ public class HCGunpowder extends Feature {
                 "net.minecraft.entity.monster.EntityWitch",
                 "betterwithmods.common.entity.EntityShearedCreeper"
         });
-        disableGunpowder = Arrays.stream(array).map(clazz -> {
-            try {
-                return Class.forName(clazz);
-            } catch (ClassNotFoundException ignore) {
-            }
-            return null;
-        }).collect(Collectors.toList());
+        disableGunpowder = EntityUtils.loadEntitiesFromStrings(array);
     }
 
     @Override

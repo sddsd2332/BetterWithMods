@@ -3,6 +3,7 @@ package betterwithmods.module.hardcore.creatures;
 import betterwithmods.common.BWOreDictionary;
 import betterwithmods.common.entity.ai.ShooterSpiderWeb;
 import betterwithmods.module.Feature;
+import betterwithmods.util.EntityUtils;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.ai.EntityAINearestAttackableTarget;
 import net.minecraft.entity.monster.EntitySpider;
@@ -31,20 +32,8 @@ public class HCHunting extends Feature {
         spidersShootWebs = loadPropBool("Spiders Shoot Web", "Spiders shoot webs at targets", true);
         String[] zombieStrings = loadPropStringList("Mobs Zombies Attack", "List of entity classes which zombies will attack", new String[]{"net.minecraft.entity.passive.EntityCow", "net.minecraft.entity.passive.EntitySheep", "net.minecraft.entity.passive.EntityPig", "net.minecraft.entity.passive.EntityLlama"});
         String[] spiderStrings = loadPropStringList("Mobs Spider Attack", "List of entity classes which spiders will attack", new String[]{"net.minecraft.entity.passive.EntityChicken","net.minecraft.entity.passive.EntityRabbit",});
-        zombiesAttack = Arrays.stream(zombieStrings).map(clazz -> {
-            try {
-                return Class.forName(clazz);
-            } catch (ClassNotFoundException ignore) {
-            }
-            return null;
-        }).collect(Collectors.toList());
-        spiderAttack = Arrays.stream(spiderStrings).map(clazz -> {
-            try {
-                return Class.forName(clazz);
-            } catch (ClassNotFoundException ignore) {
-            }
-            return null;
-        }).collect(Collectors.toList());
+        zombiesAttack = EntityUtils.loadEntitiesFromStrings(zombieStrings);
+        spiderAttack = EntityUtils.loadEntitiesFromStrings(spiderStrings);
     }
 
     @SuppressWarnings("unchecked")

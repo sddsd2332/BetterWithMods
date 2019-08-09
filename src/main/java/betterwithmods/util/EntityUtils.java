@@ -1,9 +1,15 @@
 package betterwithmods.util;
 
+import com.google.common.collect.Lists;
+import net.minecraft.entity.Entity;
+import net.minecraft.entity.EntityList;
 import net.minecraft.entity.EntityLiving;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.ai.EntityAIBase;
+import net.minecraft.util.ResourceLocation;
 
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
 
 public class EntityUtils {
@@ -26,4 +32,29 @@ public class EntityUtils {
         copyTo.setRotationYawHead(copyFrom.getRotationYawHead());
     }
 
+
+    private static Class entityFromID(String id) {
+        return EntityList.getClassFromName(id);
+    }
+
+    private static Class entityFromClassName(String className) {
+        try {
+            return Class.forName(className);
+        } catch (ClassNotFoundException ignore) {
+            return null;
+        }
+    }
+
+    public static List<Class> loadEntitiesFromStrings(String[] strings) {
+        List<Class> entities = Lists.newArrayList();
+        for(String string: strings) {
+            if(string.contains(":")) {
+                entities.add(entityFromID(string));
+            } else {
+                entities.add(entityFromClassName(string));
+            }
+        }
+
+        return entities;
+    }
 }
