@@ -53,7 +53,7 @@ import java.util.Random;
  * Created by primetoxinz on 7/23/17.
  */
 public class HCFishing extends Feature {
-    public static boolean requireBait, restrictToOpenWater;
+    public static boolean requireBait, restrictToOpenWater, overrideLoottable;
     public static int minimumWaterDepth;
 
     public static ResourceLocation HCFISHING_LOOT = LootTableList.register(new ResourceLocation(BWMod.MODID, "gameplay/fishing"));
@@ -66,6 +66,7 @@ public class HCFishing extends Feature {
     @Override
     public void setupConfig() {
         requireBait = loadPropBool("Require Bait", "Change Fishing Rods to require being Baited with certain items to entice fish, they won't nibble without it!", true);
+        overrideLoottable = loadPropBool("Override Loottable", "Override the vanilla gameplay/fishing loottable with betterwithmods:gameplay/fishing", true);
         restrictToOpenWater = loadPropBool("Restrict to Open Water", "Fishing on underground locations won't work, hook must be placed on a water block with line of sight to the sky.", true);
         minimumWaterDepth = loadPropInt("Minimum Water Depth", "If higher than 1, requires bodies of water to have a minimum depth for fishing to be successful.", 3);
         configuration = new FishingTimes();
@@ -96,7 +97,7 @@ public class HCFishing extends Feature {
 
     @SubscribeEvent(priority = EventPriority.HIGHEST)
     public void onLootTableLoad(LootTableLoadEvent event) {
-        if (event.getName().equals(LootTableList.GAMEPLAY_FISHING)) {
+        if (overrideLoottable && event.getName().equals(LootTableList.GAMEPLAY_FISHING)) {
             LootTable table = event.getLootTableManager().getLootTableFromLocation(HCFISHING_LOOT);
             //FIXME this is a shitty hack to stop the overriding loottable from being frozen immediately and stopping other modded events from being able to apply their additions to to the fishing loottable
             ReflectionHelper.setPrivateValue(LootTable.class, table, false, "isFrozen");
