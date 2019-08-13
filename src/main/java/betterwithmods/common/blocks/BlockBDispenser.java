@@ -9,6 +9,7 @@ import betterwithmods.common.blocks.behaviors.BehaviorBreakBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorDefaultDispenseBlock;
 import betterwithmods.common.blocks.behaviors.BehaviorEntity;
 import betterwithmods.common.blocks.tile.TileEntityBlockDispenser;
+import betterwithmods.module.gameplay.Gameplay;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockDirectional;
@@ -34,8 +35,15 @@ import net.minecraftforge.items.CapabilityItemHandler;
 
 import javax.annotation.Nullable;
 import java.util.Optional;
+import java.util.Set;
 
 public class BlockBDispenser extends BlockDispenser implements IMultiVariants {
+
+    public static boolean permitState(IBlockState state) {
+        return (Gameplay.blockDispenserWhitelist.isEmpty() || Gameplay.blockDispenserWhitelist.contains(state)) &&
+                (Gameplay.blockDispenserBlacklist.isEmpty() || !Gameplay.blockDispenserBlacklist.contains(state));
+    }
+
     public static final RegistryDefaulted<Item, IBehaviorDispenseItem> BLOCK_DISPENSER_REGISTRY = new RegistryDefaulted<>(new BehaviorDefaultDispenseBlock());
     public static final RegistryDefaulted<Block, IBehaviorCollect> BLOCK_COLLECT_REGISTRY = new RegistryDefaulted<>(new BehaviorBreakBlock());
     public static final RegistryDefaulted<ResourceLocation, IBehaviorEntity> ENTITY_COLLECT_REGISTRY = new RegistryDefaulted<>(new BehaviorEntity());

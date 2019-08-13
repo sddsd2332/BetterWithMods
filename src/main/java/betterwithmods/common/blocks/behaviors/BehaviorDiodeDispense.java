@@ -8,6 +8,7 @@ import betterwithmods.util.player.Profiles;
 import net.minecraft.dispenser.BehaviorDefaultDispenseItem;
 import net.minecraft.dispenser.IBlockSource;
 import net.minecraft.dispenser.IPosition;
+import net.minecraft.init.Blocks;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemBlockSpecial;
 import net.minecraft.item.ItemStack;
@@ -22,6 +23,11 @@ import net.minecraftforge.common.util.FakePlayerFactory;
 public class BehaviorDiodeDispense extends BehaviorDefaultDispenseItem {
     @Override
     protected ItemStack dispenseStack(IBlockSource source, ItemStack stack) {
+        //hardcode this because lazy.
+        if (!(BlockBDispenser.permitState(Blocks.UNPOWERED_REPEATER.getDefaultState()) || BlockBDispenser.permitState(Blocks.UNPOWERED_COMPARATOR.getDefaultState()))) {
+            return stack;
+        }
+
         EnumFacing facing = source.getBlockState().getValue(BlockBDispenser.FACING);
         IPosition pos = BlockBDispenser.getDispensePosition(source);
         BlockPos check = new BlockPos(pos.getX(), pos.getY(), pos.getZ());

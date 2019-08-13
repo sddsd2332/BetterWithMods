@@ -34,7 +34,7 @@ minecraft {
 
 repositories {
     maven { url "http://maven.blamejared.com" }
-    maven { url 'http://dvs1.progwml6.com/files/maven' }
+    maven { url 'https://dvs1.progwml6.com/files/maven' }
     maven { url "http://maven.amadornes.com/" }
     maven { url "http://www.ryanliptak.com/maven/" }
     maven { url "http://maven.tterrag.com" }
@@ -42,7 +42,7 @@ repositories {
     mavenCentral()
 }
 dependencies {
-    deobfCompile "mezz.jei:jei_1.12.2:+"
+    deobfCompile "mezz.jei:jei_1.12.2:4.15.0.275"
     deobfCompile "applecore:AppleCore:1.12.2-3.1.0"
     deobfCompile "team.chisel.ctm:CTM:MC1.12+"
     deobfCompile "com.azanor.baubles:Baubles:1.12-1.5.2"

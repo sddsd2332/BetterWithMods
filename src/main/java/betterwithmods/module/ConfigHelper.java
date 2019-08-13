@@ -13,6 +13,8 @@ package betterwithmods.module;
 import betterwithmods.util.StackIngredient;
 import com.google.common.collect.Maps;
 import com.google.gson.JsonObject;
+import net.minecraft.block.Block;
+import net.minecraft.block.state.IBlockState;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
 import net.minecraft.item.crafting.Ingredient;
@@ -25,10 +27,8 @@ import net.minecraftforge.fml.common.registry.ForgeRegistries;
 import net.minecraftforge.oredict.OreDictionary;
 import net.minecraftforge.oredict.OreIngredient;
 
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Set;
+import javax.annotation.Nullable;
+import java.util.*;
 import java.util.function.BooleanSupplier;
 import java.util.stream.Collectors;
 
@@ -127,6 +127,30 @@ public class ConfigHelper {
             return new ResourceLocation(split[0], split[1]);
         }
         return null;
+    }
+
+    public static Collection<IBlockState> statesFromString(String name) {
+        String[] split = name.split(":");
+
+        if (split.length > 1) {
+            int meta = 0;
+            if (split.length > 2) {
+                if (split[2].equalsIgnoreCase("*"))
+                    meta = OreDictionary.WILDCARD_VALUE;
+                else
+                    meta = Integer.parseInt(split[2]);
+            }
+            Block block = ForgeRegistries.BLOCKS.getValue(new ResourceLocation(split[0], split[1]));
+            if (block != null) {
+                if(meta == OreDictionary.WILDCARD_VALUE) {
+                    return block.getBlockState().getValidStates();
+                } else {
+                    return Collections.singleton(block.getStateFromMeta(meta));
+                }
+            }
+        }
+        return Collections.emptySet();
+
     }
 
     public static ItemStack stackFromString(String name) {

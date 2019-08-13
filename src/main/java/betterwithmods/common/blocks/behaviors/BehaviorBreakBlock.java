@@ -1,6 +1,7 @@
 package betterwithmods.common.blocks.behaviors;
 
 import betterwithmods.api.tile.dispenser.IBehaviorCollect;
+import betterwithmods.common.blocks.BlockBDispenser;
 import net.minecraft.block.Block;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.dispenser.IBlockSource;
@@ -17,8 +18,11 @@ import java.util.List;
 public class BehaviorBreakBlock implements IBehaviorCollect {
     @Override
     public NonNullList<ItemStack> collect(IBlockSource source) {
-        NonNullList<ItemStack> list = getDrops(source.getWorld(), source.getBlockPos(), source.getBlockState(), 0);
-        breakBlock(source.getWorld(), source.getBlockState(), source.getBlockPos());
+        NonNullList<ItemStack> list = NonNullList.create();
+        if (BlockBDispenser.permitState(source.getBlockState())) {
+            list = getDrops(source.getWorld(), source.getBlockPos(), source.getBlockState(), 0);
+            breakBlock(source.getWorld(), source.getBlockState(), source.getBlockPos());
+        }
         return list;
     }
 

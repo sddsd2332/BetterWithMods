@@ -59,7 +59,7 @@ public class BehaviorDefaultDispenseBlock extends BehaviorDefaultDispenseItem {
             Block block = ((ItemBlock) item).getBlock();
             boolean blockAcross = !world.isAirBlock(check.offset(facing));
             IBlockState state = block.getStateForPlacement(world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), stack.getItemDamage(), fake, fake.getActiveHand());
-            if (block.canPlaceBlockAt(world, check)) {
+            if (BlockBDispenser.permitState(state) && block.canPlaceBlockAt(world, check)) {
                 if (itemblock.placeBlockAt(stack, fake, world, check, facing, getX(facing, blockAcross), getY(facing, blockAcross), getZ(facing, blockAcross), state)) {
                     world.playSound(null, check, state.getBlock().getSoundType(state, world, check, fake).getPlaceSound(), SoundCategory.BLOCKS, 0.7F, 1.0F);
                     stack.shrink(1);

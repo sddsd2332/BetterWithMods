@@ -1,6 +1,7 @@
 package betterwithmods.module.gameplay;
 
 import betterwithmods.common.BWMBlocks;
+import betterwithmods.common.blocks.BlockBDispenser;
 import betterwithmods.common.blocks.BlockBUD;
 import betterwithmods.common.blocks.BlockDetector;
 import betterwithmods.common.blocks.BlockHemp;
@@ -28,9 +29,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 
-import java.util.Arrays;
-import java.util.List;
-import java.util.Objects;
+import java.util.*;
 import java.util.stream.Collectors;
 
 /**
@@ -43,9 +42,12 @@ public class Gameplay extends Module {
     public static boolean kidFriendly, disableBlastingOilEvents;
     public static float cauldronNormalSpeedFactor, cauldronStokedSpeedFactor, cauldronMultipleFiresFactor;
 
+    public static String[] blockDispenserWhitelistConfig,blockDispenserBlacklistConfig;
+
     public static boolean dropHempSeeds;
     public static List<String> blacklistDamageSources;
     private String[] waterwheelFluidConfig;
+    public static Set<IBlockState> blockDispenserWhitelist, blockDispenserBlacklist;
 
     @Override
     public void addFeatures() {
@@ -93,6 +95,8 @@ public class Gameplay extends Module {
                 "outOfWorld"
         }));
 
+        blockDispenserWhitelistConfig =  ConfigHelper.loadPropStringList("Block Dispenser Whitelist", name, "Whitelist for Block Dispenser actions. Empty is ignored", new String[0]);
+        blockDispenserBlacklistConfig =  ConfigHelper.loadPropStringList("Block Dispenser Blacklist", name, "Blacklist for Block Dispenser actions. Empty is ignored", new String[0]);
         super.setupConfig();
     }
 
@@ -106,10 +110,15 @@ public class Gameplay extends Module {
         }
     }
 
+
+
     @Override
     public void postInit(FMLPostInitializationEvent event) {
         super.postInit(event);
         Arrays.stream(waterwheelFluidConfig).map(FluidRegistry::getFluid).filter(Objects::nonNull).collect(Collectors.toList()).forEach(fluid -> TileEntityWaterwheel.registerWater(fluid.getBlock()));
+
+        blockDispenserWhitelist = Arrays.stream(blockDispenserWhitelistConfig).map(ConfigHelper::statesFromString).flatMap(Collection::stream).collect(Collectors.toSet());
+        blockDispenserBlacklist = Arrays.stream(blockDispenserBlacklistConfig).map(ConfigHelper::statesFromString).flatMap(Collection::stream).collect(Collectors.toSet());
 
         //Set blacklist for Buddy Block detection
         BlockBUD.BLACKLIST = new SetBlockIngredient(
