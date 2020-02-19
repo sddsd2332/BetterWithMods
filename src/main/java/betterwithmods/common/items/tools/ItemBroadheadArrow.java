@@ -31,13 +31,13 @@ import java.util.List;
 @Mod.EventBusSubscriber(modid = BWMod.MODID)
 public class ItemBroadheadArrow extends ItemArrow {
 
-    @SideOnly(Side.CLIENT)
+    /*@SideOnly(Side.CLIENT) //What the fuck was mike smoking
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
         super.addInformation(stack, worldIn, tooltip, flagIn);
         tooltip.add(I18n.format("item.bwm:broadhead_arrow.tooltip.0"));
         tooltip.add(I18n.format("item.bwm:broadhead_arrow.tooltip.1"));
-    }
+    }*/
 
     @Override
     public EntityArrow createArrow(World worldIn, ItemStack stack, EntityLivingBase shooter) {
