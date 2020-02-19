@@ -32,7 +32,7 @@ public class TileEntityBucket extends TileFluid implements ITickable {
 
     @Override
     public boolean hasFluid(EnumFacing facing) {
-        return true;
+        return facing != EnumFacing.DOWN;
     }
 
 

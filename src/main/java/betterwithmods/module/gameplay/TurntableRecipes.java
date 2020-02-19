@@ -1,5 +1,6 @@
 package betterwithmods.module.gameplay;
 
+import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWRegistry;
 import betterwithmods.common.blocks.BlockUnfiredPottery;
 import betterwithmods.common.registry.TurntableRotationManager;
@@ -10,6 +11,10 @@ import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
+import net.minecraft.util.EnumFacing;
+import net.minecraft.util.Rotation;
+import net.minecraft.util.math.BlockPos;
+import net.minecraft.world.World;
 import net.minecraftforge.fml.common.event.FMLInitializationEvent;
 
 /**
@@ -45,7 +50,23 @@ public class TurntableRecipes extends Feature {
             IBlockState state = world.getBlockState(pos);
             return state.getValue(BlockLever.FACING).getFacing().getAxis().isVertical();
         });
+        TurntableRotationManager.addRotationHandler(BWMBlocks.SAW, new AdvancedRotation());
+        TurntableRotationManager.addRotationHandler(BWMBlocks.BELLOWS, new AdvancedRotation());
         TurntableRotationManager.addRotationBlacklist(block -> block instanceof BlockPistonExtension);
         TurntableRotationManager.addRotationHandler(block -> block instanceof BlockPistonBase, (world, pos) -> !world.getBlockState(pos).getValue(BlockPistonBase.EXTENDED));
+    }
+
+    private static class AdvancedRotation implements TurntableRotationManager.IRotation {
+        @Override
+        public boolean isValid(World world, BlockPos pos) {
+            return true;
+        }
+
+        @Override
+        public boolean rotate(World world, BlockPos pos, Rotation rotation) {
+            IBlockState state = world.getBlockState(pos);
+            Block block = state.getBlock();
+            return block.rotateBlock(world,pos, EnumFacing.UP);
+        }
     }
 }

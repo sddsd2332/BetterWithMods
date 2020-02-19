@@ -6,18 +6,26 @@ import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.blocks.mechanical.BlockPump;
 import betterwithmods.common.blocks.tile.TileBasic;
 import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.ITickable;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.common.capabilities.Capability;
+import net.minecraftforge.fluids.Fluid;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
+import net.minecraftforge.fluids.capability.CapabilityFluidHandler;
+import net.minecraftforge.fluids.capability.IFluidHandler;
 
 import javax.annotation.Nonnull;
 
 /**
  * Created by primetoxinz on 7/24/17.
  */
-public class TilePump extends TileBasic implements IMechanicalPower {
+public class TilePump extends TileBasic implements IMechanicalPower, ITickable {
     private int power;
+    private int ticks;
 
     public void onChanged() {
         int power = calculateInput();
@@ -88,5 +96,24 @@ public class TilePump extends TileBasic implements IMechanicalPower {
     @Override
     public BlockPos getBlockPos() {
         return super.getPos();
+    }
+
+    @Override
+    public void update() {
+        if (ticks > 10) {
+            if(this.power > 0 && hasWaterToPump(world, pos)) {
+                TileEntity top = world.getTileEntity(pos);
+                if(top != null && top.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN)){
+                    IFluidHandler fluidHandler = top.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
+                    fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 100),true);
+                }
+            }
+            ticks = 0;
+        }
+        ticks++;
+    }
+
+    private boolean hasWaterToPump(World world, BlockPos pos) {
+        return BlockPump.hasWaterToPump(world, pos);
     }
 }
