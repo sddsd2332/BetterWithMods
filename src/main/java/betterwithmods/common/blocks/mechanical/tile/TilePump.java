@@ -5,6 +5,7 @@ import betterwithmods.api.capabilities.CapabilityMechanicalPower;
 import betterwithmods.api.tile.IMechanicalPower;
 import betterwithmods.common.blocks.mechanical.BlockPump;
 import betterwithmods.common.blocks.tile.TileBasic;
+import betterwithmods.module.gameplay.Gameplay;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -100,7 +101,7 @@ public class TilePump extends TileBasic implements IMechanicalPower, ITickable {
 
     @Override
     public void update() {
-        if (ticks > 10) {
+        if (ticks > 10 && Gameplay.pumpFillsContainers) {
             if(this.power > 0 && hasWaterToPump(world, pos)) {
                 TileEntity top = world.getTileEntity(pos);
                 if(top != null && top.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN)){

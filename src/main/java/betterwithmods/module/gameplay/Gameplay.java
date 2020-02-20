@@ -48,6 +48,7 @@ public class Gameplay extends Module {
     public static List<String> blacklistDamageSources;
     private String[] waterwheelFluidConfig;
     public static Set<IBlockState> blockDispenserWhitelist, blockDispenserBlacklist;
+    public static boolean pumpFillsContainers;
 
     @Override
     public void addFeatures() {
@@ -85,6 +86,7 @@ public class Gameplay extends Module {
         waterwheelFluidConfig = ConfigHelper.loadPropStringList("Waterwheel fluids", name, "Additional Fluids which will allow the Waterwheel to turn and screw pump to pump, format fluid_name. (Vanilla water will always work)", new String[]{
                 "swamp_water"
         });
+        pumpFillsContainers = loadPropBool("Pump Fills Tanks","Whether pumps can fill tanks above the output with water.", true);
 
         blacklistDamageSources = Lists.newArrayList(ConfigHelper.loadPropStringList("Blasting oil damage source blacklist", name, "Disallow these damage sources from disturbing blasting oil", new String[]{
                 "drown",
