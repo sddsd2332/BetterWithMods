@@ -1,5 +1,6 @@
 package betterwithmods.common.blocks.tile;
 
+import betterwithmods.common.blocks.mechanical.tile.TileEntityWaterwheel;
 import betterwithmods.common.fluid.FluidTankRestricted;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.init.Blocks;
@@ -12,7 +13,7 @@ import net.minecraftforge.fluids.FluidRegistry;
 import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidTank;
 
-public class TileEntityBucket extends TileFluid implements ITickable {
+public class TileEntityBucket extends TileFluid /*implements ITickable*/ {
     private int ticks;
 
     @Override
@@ -36,22 +37,24 @@ public class TileEntityBucket extends TileFluid implements ITickable {
     }
 
 
-    private boolean isWater(IBlockState state) {
-        return state.getBlock() == Blocks.WATER || state.getBlock() == Blocks.FLOWING_WATER;
+    public boolean isWater(IBlockState state) {
+        return TileEntityWaterwheel.isWater(state);
     }
 
-    @Override
+    /*@Override
     public void update() {
         if (!isFull() && ticks > 100) {
-            for (EnumFacing face : EnumFacing.HORIZONTALS) {
-                if (isWater(world.getBlockState(pos.offset(face)))) {
-                    if (fill(new FluidStack(FluidRegistry.WATER, Fluid.BUCKET_VOLUME), true)) {
-                        break;
-                    }
-                }
-            }
+            fillFromSurrounding();
             ticks = 0;
         }
         ticks++;
+    }*/
+
+    public void fillFromSurrounding() {
+        for (EnumFacing face : EnumFacing.HORIZONTALS) {
+            if (isWater(world.getBlockState(pos.offset(face)))) {
+                fill(new FluidStack(FluidRegistry.WATER, getCapacity() / 4), true);
+            }
+        }
     }
 }

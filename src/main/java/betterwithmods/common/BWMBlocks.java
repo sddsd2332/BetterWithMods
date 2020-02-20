@@ -30,6 +30,17 @@ import java.util.Objects;
 
 public final class BWMBlocks {
     public static final Material POTTERY = new Material(MapColor.STONE);
+    public static final Material MATERIAL_ROPE = new Material(MapColor.WOOD) {
+        @Override
+        public boolean isSolid() {
+            return false;
+        }
+
+        @Override
+        public boolean blocksLight() {
+            return false;
+        }
+    };
 
     public static final Block ANCHOR = new BlockAnchor().setRegistryName("anchor");
     public static final Block ROPE = new BlockRope().setRegistryName("rope");

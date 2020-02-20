@@ -103,7 +103,7 @@ public class TilePump extends TileBasic implements IMechanicalPower, ITickable {
     public void update() {
         if (ticks > 10 && Gameplay.pumpFillsContainers) {
             if(this.power > 0 && hasWaterToPump(world, pos)) {
-                TileEntity top = world.getTileEntity(pos);
+                TileEntity top = world.getTileEntity(pos.up());
                 if(top != null && top.hasCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN)){
                     IFluidHandler fluidHandler = top.getCapability(CapabilityFluidHandler.FLUID_HANDLER_CAPABILITY, EnumFacing.DOWN);
                     fluidHandler.fill(new FluidStack(FluidRegistry.WATER, 100),true);

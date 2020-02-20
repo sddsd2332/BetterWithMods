@@ -23,7 +23,7 @@ public class BlockRope extends BWMBlock {
     private static final AxisAlignedBB ROPE_AABB = new AxisAlignedBB(0.4375F, 0.0F, 0.4375F, 0.5625F, 1.0F, 0.5625F);
 
     public BlockRope() {
-        super(Material.CIRCUITS);
+        super(BWMBlocks.MATERIAL_ROPE);
         setSoundType(SoundType.PLANT);
         this.setHardness(0.5F);
     }

@@ -1,6 +1,7 @@
 package betterwithmods.common.entity;
 
 import betterwithmods.BWMod;
+import betterwithmods.api.tile.IRopeConnector;
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
 import betterwithmods.module.GlobalConfig;
@@ -296,7 +297,7 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                 BlockPos blockPos = pos.add(entry.getKey());
                 IBlockState state = entry.getValue();
                 if (state.getBlock().canPlaceBlockAt(getEntityWorld(), blockPos)) {
-
+                    IBlockState previousState = getEntityWorld().getBlockState(blockPos);
                     getEntityWorld().setBlockState(blockPos, state, 3);
                     if (tiles.containsKey(entry.getKey())) {
                         TileEntity tile = getEntityWorld().getTileEntity(blockPos);
@@ -305,6 +306,10 @@ public class EntityExtendingRope extends Entity implements IEntityAdditionalSpaw
                             tile.readFromNBT(tag);
                             tile.setPos(blockPos);
                         }
+                    }
+                    Block block = state.getBlock();
+                    if(block instanceof IRopeConnector) {
+                        ((IRopeConnector) block).onLand(getEntityWorld(),blockPos,previousState);
                     }
                     blocks.remove(entry.getKey());
                     tiles.remove(entry.getKey());

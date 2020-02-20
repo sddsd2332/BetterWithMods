@@ -11,4 +11,8 @@ public interface IRopeConnector {
     default boolean canMovePlatforms(World world, BlockPos pos) {
         return true;
     }
+
+    default void onLand(World world, BlockPos pos, IBlockState previousState) {
+        //NOOP
+    }
 }

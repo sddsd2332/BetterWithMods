@@ -17,6 +17,8 @@ import net.minecraft.util.EnumHand;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
+import net.minecraftforge.fluids.FluidRegistry;
+import net.minecraftforge.fluids.FluidStack;
 import net.minecraftforge.fluids.FluidUtil;
 import net.minecraftforge.fml.relauncher.Side;
 import net.minecraftforge.fml.relauncher.SideOnly;
@@ -85,6 +87,16 @@ public class BlockBucket extends BWMBlock implements IRopeConnector {
     @Override
     public boolean canMovePlatforms(World world, BlockPos pos) {
         return false;
+    }
+
+    @Override
+    public void onLand(World world, BlockPos pos, IBlockState previousState) {
+        TileEntityBucket bucket = (TileEntityBucket) world.getTileEntity(pos);
+        if(bucket != null) {
+            if(bucket.isWater(previousState))
+                bucket.fill(new FluidStack(FluidRegistry.WATER, 1000), true);
+            bucket.fillFromSurrounding();
+        }
     }
 
     @Override

@@ -51,6 +51,9 @@ public class TileEntityWaterwheel extends TileAxleGenerator {
         return isVanillaWater(state) || isForgeFluid(state.getBlock()) || WATER_BLOCKS.containsKey(state.getBlock());
     }
 
+    public static boolean isWater(IBlockState state) {
+        return isVanillaWater(state) || isForgeFluid(state.getBlock()) || WATER_BLOCKS.containsKey(state.getBlock());
+    }
 
     public IWaterCurrent getCurrentHandler(IBlockState state) {
         if (isVanillaWater(state))
