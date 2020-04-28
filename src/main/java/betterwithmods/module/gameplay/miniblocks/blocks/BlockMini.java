@@ -18,6 +18,7 @@ import net.minecraft.creativetab.CreativeTabs;
 import net.minecraft.entity.Entity;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.player.EntityPlayer;
+import net.minecraft.init.Blocks;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
@@ -179,12 +180,24 @@ public abstract class BlockMini extends BlockRotate implements IRenderRotationPl
 
     @Override
     public boolean isFlammable(IBlockAccess world, BlockPos pos, EnumFacing face) {
-        return getTile(world, pos).map(t -> t.getState().getBlock().isFlammable(world, pos, face)).orElse(false);
+        return getTile(world, pos).map(t -> {
+            try {
+                return t.getState().getBlock().isFlammable(world, pos, face);
+            } catch (IllegalArgumentException e) { // Likely BoP crash
+                return Blocks.PLANKS.isFlammable(world, pos, face);
+            }
+        }).orElse(false);
     }
 
     @Override
     public int getFireSpreadSpeed(IBlockAccess world, BlockPos pos, EnumFacing face) {
-        return getTile(world, pos).map(t -> t.getState().getBlock().getFireSpreadSpeed(world, pos, face)).orElse(5);
+        return getTile(world, pos).map(t -> {
+            try {
+                return t.getState().getBlock().getFireSpreadSpeed(world, pos, face);
+            } catch (IllegalArgumentException e) { // Again, likely BoP crash
+                return Blocks.PLANKS.getFireSpreadSpeed(world, pos, face);
+            }
+        }).orElse(5);
     }
 
     @Override
@@ -192,6 +205,8 @@ public abstract class BlockMini extends BlockRotate implements IRenderRotationPl
         return getTile(world, pos).map(t -> {
             try {
                 return t.getState().getBlock().getFlammability(world, pos, face);
+            } catch (IllegalArgumentException e) { // Same, BoP crash, yes, I know there's already a catch down there
+                return Blocks.PLANKS.getFlammability(world, pos, face);
             } catch (Exception e) {
                 return null;
             }
