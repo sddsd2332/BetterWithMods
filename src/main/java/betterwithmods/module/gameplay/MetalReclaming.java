@@ -95,8 +95,8 @@ public class MetalReclaming extends Feature {
 
             BWRegistry.CRUCIBLE.addStokedRecipe(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.CHAIN_MAIL), new ItemStack(Items.IRON_NUGGET, 4));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_HELMET, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 20));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 32));
-            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 28));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_LEGGINGS, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 28));
+            BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_CHESTPLATE, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 32));
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.CHAINMAIL_BOOTS, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_NUGGET, 16));
 
             BWRegistry.CRUCIBLE.addStokedRecipe(new ItemStack(Items.SHIELD, 1, OreDictionary.WILDCARD_VALUE), new ItemStack(Items.IRON_INGOT, 1));

@@ -11,6 +11,7 @@ import betterwithmods.common.items.ItemMaterial;
 import betterwithmods.common.registry.crafting.ChoppingRecipe;
 import betterwithmods.common.registry.crafting.RecipeArmorDye;
 import betterwithmods.module.Feature;
+import betterwithmods.module.hardcore.crafting.HCLumber;
 import net.minecraft.init.Blocks;
 import net.minecraft.init.Items;
 import net.minecraft.item.ItemStack;
@@ -82,6 +83,7 @@ public class CraftingRecipes extends Feature {
 
     @Override
     public void postInit(FMLPostInitializationEvent event) {
+        if(HCLumber.axeBarkAmount > 0 || HCLumber.axePlankAmount > 0 || HCLumber.axeSawDustAmount > 0)
         for (IRecipe recipe : BWOreDictionary.logRecipes) {
             ItemStack plank = recipe.getRecipeOutput();
             BWOreDictionary.woods.stream().filter(w -> w.getPlank(4).isItemEqual(plank) && hasLog(recipe, w.getLog(1))).forEach(wood ->
