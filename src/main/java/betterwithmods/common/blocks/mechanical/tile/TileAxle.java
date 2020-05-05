@@ -53,10 +53,10 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
 
         for (EnumFacing facing : getDirections()) {
             BlockPos offset = pos.offset(facing);
-            IMechanicalPower mech = BWMAPI.IMPLEMENTATION.getMechanicalPower(world, offset, facing);
+            IMechanicalPower mech = BWMAPI.IMPLEMENTATION.getMechanicalPower(world, offset, facing.getOpposite());
             if (mech != null) {
 
-                IAxle axle = BWMAPI.IMPLEMENTATION.getAxle(world, offset, facing);
+                IAxle axle = BWMAPI.IMPLEMENTATION.getAxle(world, offset, facing.getOpposite());
                 if (axle != null) {
                     if (isFacing(axle)) {
                         byte next = axle.getSignal();
