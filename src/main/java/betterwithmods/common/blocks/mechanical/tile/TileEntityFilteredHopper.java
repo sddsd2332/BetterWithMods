@@ -15,6 +15,7 @@ import betterwithmods.common.blocks.tile.SimpleStackHandler;
 import betterwithmods.common.blocks.tile.TileEntityVisibleInventory;
 import betterwithmods.common.registry.HopperFilter;
 import betterwithmods.common.registry.HopperInteractions;
+import betterwithmods.module.gameplay.HopperRecipes;
 import betterwithmods.util.InvUtils;
 import betterwithmods.util.WorldUtils;
 import net.minecraft.block.Block;
@@ -40,8 +41,6 @@ import javax.annotation.Nullable;
 import java.util.Optional;
 
 public class TileEntityFilteredHopper extends TileEntityVisibleInventory implements IMechanicalPower, IProgressSource {
-
-    private final int STACK_SIZE = 8;
     public SimpleStackHandler filter;
     public IHopperFilter hopperFilter = HopperFilter.NONE;
 
@@ -122,12 +121,12 @@ public class TileEntityFilteredHopper extends TileEntityVisibleInventory impleme
             if (slot != -1) {
                 ItemStack stack = inventory.getStackInSlot(slot);
                 if (inv.isPresent()) {
-                    if (InvUtils.canInsert(inv.get(), stack, STACK_SIZE)) {
-                        ItemStack insert = InvUtils.insert(inv.get(), stack, STACK_SIZE, false);
-                        stack.shrink(STACK_SIZE - insert.getCount());
+                    if (InvUtils.canInsert(inv.get(), stack, HopperRecipes.itemsPerTick)) {
+                        ItemStack insert = InvUtils.insert(inv.get(), stack, HopperRecipes.itemsPerTick, false);
+                        stack.shrink(HopperRecipes.itemsPerTick - insert.getCount());
                     }
                 } else if (canDropIntoBlock(pos.down())) {
-                    InvUtils.spawnStack(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack.splitStack(STACK_SIZE), 10);
+                    InvUtils.spawnStack(world, pos.getX() + 0.5, pos.getY() - 0.5, pos.getZ() + 0.5, stack.splitStack(HopperRecipes.itemsPerTick), 10);
                 }
             }
             ejectCounter = 0;

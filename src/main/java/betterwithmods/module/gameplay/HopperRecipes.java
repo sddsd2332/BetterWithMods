@@ -32,6 +32,7 @@ import net.minecraftforge.oredict.OreIngredient;
 public class HopperRecipes extends Feature {
     public static boolean brimstoneFiltering;
     public static boolean useSelfFiltering;
+    public static int itemsPerTick;
 
     public HopperRecipes() {
         canDisable = false;
@@ -42,6 +43,7 @@ public class HopperRecipes extends Feature {
     public void setupConfig() {
         brimstoneFiltering = loadPropBool("Glowstone Filtering", "Passing glowstone through a soulsand filter makes brimstone.", false);
         useSelfFiltering = loadPropBool("Self Filtering", "Allow the Hopper to filter by the item in the filter slot.", false);
+        itemsPerTick = loadPropInt("Items Per Tick", "How many items should be moved by the hopper every tick.", 8);
     }
 
     @Override
