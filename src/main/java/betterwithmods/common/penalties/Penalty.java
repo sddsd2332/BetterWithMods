@@ -50,6 +50,11 @@ public class Penalty<T extends Number & Comparable> implements Comparable<Penalt
         return (IAttributeInstance<Float>) getAttribute(attribute);
     }
 
+    @SuppressWarnings("unchecked")
+    public IAttributeInstance<String> getString(Attribute<String> attribute) {
+        return (IAttributeInstance<String>) getAttribute(attribute);
+    }
+
     public String getName() {
         return name;
     }

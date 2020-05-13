@@ -34,6 +34,11 @@ public class BWSounds {
     @GameRegistry.ObjectHolder("betterwithmods:block.mechanical.overpower")
     public static SoundEvent MECHANICAL_OVERPOWER = null;
 
+    @GameRegistry.ObjectHolder("betterwithmods:ambient.gloom")
+    public static SoundEvent GLOOM = null;
+    @GameRegistry.ObjectHolder("betterwithmods:ambient.spook")
+    public static SoundEvent SPOOK = null;
+
     @SubscribeEvent
     public static void registerSounds(RegistryEvent.Register<SoundEvent> event) {
         event.getRegistry().register(registerSound("block.wood.creak"));
@@ -46,7 +51,8 @@ public class BWSounds {
         event.getRegistry().register(registerSound("block.saw.cut"));
         event.getRegistry().register(registerSound("block.mechanical.overpower"));
         event.getRegistry().register(registerSound("entity.player.oof"));
-
+        event.getRegistry().register(registerSound("ambient.gloom"));
+        event.getRegistry().register(registerSound("ambient.spook"));
     }
 
     public static SoundEvent registerSound(String soundName) {

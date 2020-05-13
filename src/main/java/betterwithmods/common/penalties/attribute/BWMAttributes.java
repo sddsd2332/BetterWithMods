@@ -8,7 +8,8 @@ import org.apache.commons.lang3.Range;
 public class BWMAttributes {
 
     public static Attribute<Boolean> JUMP, SWIM, HEAL, SPRINT, ATTACK, PAIN, GRUE;
-    public static Attribute<Float> SPEED, SPOOKED;
+    public static Attribute<Float> SPEED, SPOOKED, DAMAGE;
+    public static Attribute<String> SOUND, SOUND_SPOOKED;
 
     public static void registerAttributes() {
         JUMP = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "jump"), true).setDescription("Can the player jump with this penalty active?");
@@ -21,6 +22,10 @@ public class BWMAttributes {
 
         SPEED = new FloatAttribute(new ResourceLocation(BWMod.MODID, "speed"), 1f).setDescription("Speed modifier when this penalty is active. (Multiplies the player's existing speed)");
         SPOOKED = new FloatAttribute(new ResourceLocation(BWMod.MODID, "spooked"), 0f).setDescription("Does the player start to go insane when this is active?");
+        DAMAGE = new FloatAttribute(new ResourceLocation(BWMod.MODID, "damage"), 0f).setDescription("How much damage does the player take when this is active?");
+
+        SOUND = new StringAttribute(new ResourceLocation(BWMod.MODID, "sound"), "").setDescription("Which sound event to play when this is active?");
+        SOUND_SPOOKED = new StringAttribute(new ResourceLocation(BWMod.MODID, "sound_spooked"), "").setDescription("Which sound event to play when spooked?");
     }
 
     public static boolean isCustom(String category) {
@@ -33,11 +38,17 @@ public class BWMAttributes {
         return new AttributeInstance<>(parent, value);
     }
 
+    public static AttributeInstance<String> getStringAttribute(IAttribute<String> parent, String category, String penalty, String desc, String defaultValue) {
+
+        String value = isCustom(category) ? ConfigHelper.loadPropString(parent.getRegistryName().getPath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
+        return new AttributeInstance<>(parent, value);
+    }
+
+
     public static AttributeInstance<Float> getFloatAttribute(IAttribute<Float> parent, String category, String penalty, String desc, Float defaultValue) {
         float value = isCustom(category) ? (float) ConfigHelper.loadPropDouble(parent.getRegistryName().getPath(), String.join(".", category, penalty), desc, defaultValue) : defaultValue;
         return new AttributeInstance<>(parent, value);
     }
-
 
     public static <T extends Number & Comparable> Range<T> getRange(String category, String penalty, String desc, Range<T> defaultValue) {
         if (isCustom(category)) {

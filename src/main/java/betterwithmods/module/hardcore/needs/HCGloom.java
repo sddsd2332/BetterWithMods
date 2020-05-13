@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.BWMod;
 import betterwithmods.common.BWRegistry;
+import betterwithmods.common.BWSounds;
 import betterwithmods.common.damagesource.BWDamageSource;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
@@ -50,7 +51,6 @@ import java.util.Set;
  * Created by primetoxinz on 5/13/17.
  */
 public class HCGloom extends Feature {
-    private static final List<SoundEvent> sounds = Lists.newArrayList(SoundEvents.ENTITY_LIGHTNING_THUNDER, SoundEvents.ENTITY_ENDERMEN_TELEPORT, SoundEvents.ENTITY_ENDERMEN_SCREAM, SoundEvents.ENTITY_SILVERFISH_AMBIENT, SoundEvents.ENTITY_WOLF_GROWL);
     @CapabilityInject(Gloom.class)
     public static Capability<Gloom> GLOOM_CAPABILITY;
     public static GloomPenalties PENALTIES;
@@ -132,6 +132,7 @@ public class HCGloom extends Feature {
 
         EntityPlayer player = e.player;
         World world = player.getEntityWorld();
+        GloomPenalty penalty = PENALTIES.getPenalty(player);
 
         if (!PlayerHelper.isSurvival(player) || !dimensionWhitelist.contains(world.provider.getDimension()))
             return;
@@ -158,7 +159,7 @@ public class HCGloom extends Feature {
             if (world.getTotalWorldTime() % 40 == 0) {
                 if (world.rand.nextInt(2) == 0) {
                     if (BWRegistry.PENALTY_HANDLERS.attackedByGrue(player)) {
-                        player.attackEntityFrom(BWDamageSource.gloom, 2);
+                        player.attackEntityFrom(BWDamageSource.gloom, BWRegistry.PENALTY_HANDLERS.getDamage(player));
                     }
                 }
             }
@@ -171,11 +172,16 @@ public class HCGloom extends Feature {
             GloomPenalty most = PENALTIES.getMostSevere();
 
             if (world.rand.nextDouble() <= spooked) {
-                player.playSound(SoundEvents.AMBIENT_CAVE, 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
+                SoundEvent sound = SoundEvent.REGISTRY.getObject(new ResourceLocation(penalty.getString(BWMAttributes.SOUND).getValue()));
+                if(sound != null)
+                    player.playSound(sound, 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
 
                 if (most != null && (spooked >= (most.getFloat(BWMAttributes.SPOOKED).getValue()))) {
-                    if (world.rand.nextInt(5) == 0)
-                        player.playSound(sounds.get(world.rand.nextInt(sounds.size())), 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
+                    if (world.rand.nextInt(5) == 0) {
+                        SoundEvent soundSpook = SoundEvent.REGISTRY.getObject(new ResourceLocation(penalty.getString(BWMAttributes.SOUND_SPOOKED).getValue()));
+                        if(soundSpook != null)
+                            player.playSound(soundSpook, 0.7F, 0.8F + world.rand.nextFloat() * 0.2F);
+                    }
                     player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, 100, 1, false, false));
                 }
             }

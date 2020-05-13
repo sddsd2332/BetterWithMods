@@ -52,6 +52,10 @@ public class PenaltyHandlerRegistry extends HashSet<PenaltyHandler<?, ?>> {
         return booleanAttributes(player, BWMAttributes.GRUE).anyMatch(p);
     }
 
+    public float getDamage(@Nonnull EntityPlayer player) {
+        return floatAttributes(player, BWMAttributes.DAMAGE).reduce((a, b) -> a + b).orElse(0f);
+    }
+
     @SuppressWarnings("unchecked")
     private Stream<Penalty<?>> handlers(@Nonnull EntityPlayer player) {
         return (Stream<Penalty<?>>) stream().map(handler -> handler.getPenalty(player)).filter(Objects::nonNull);
