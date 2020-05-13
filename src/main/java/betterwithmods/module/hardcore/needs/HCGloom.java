@@ -7,6 +7,7 @@ import betterwithmods.common.damagesource.BWDamageSource;
 import betterwithmods.common.penalties.GloomPenalties;
 import betterwithmods.common.penalties.GloomPenalty;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
+import betterwithmods.common.penalties.attribute.PotionTemplate;
 import betterwithmods.module.Feature;
 import betterwithmods.network.BWNetwork;
 import betterwithmods.network.messages.MessageGloom;
@@ -162,6 +163,7 @@ public class HCGloom extends Feature {
                         player.attackEntityFrom(BWDamageSource.gloom, BWRegistry.PENALTY_HANDLERS.getDamage(player));
                     }
                 }
+                BWRegistry.PENALTY_HANDLERS.potionAttributes(player, BWMAttributes.POTION).forEach(x -> player.addPotionEffect(x.createEffect()));
             }
         }
 

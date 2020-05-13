@@ -5,11 +5,14 @@ import betterwithmods.module.ConfigHelper;
 import net.minecraft.util.ResourceLocation;
 import org.apache.commons.lang3.Range;
 
+import java.util.Arrays;
+
 public class BWMAttributes {
 
     public static Attribute<Boolean> JUMP, SWIM, HEAL, SPRINT, ATTACK, PAIN, GRUE;
     public static Attribute<Float> SPEED, SPOOKED, DAMAGE;
     public static Attribute<String> SOUND, SOUND_SPOOKED;
+    public static Attribute<PotionTemplate[]> POTION;
 
     public static void registerAttributes() {
         JUMP = new BooleanAttribute(new ResourceLocation(BWMod.MODID, "jump"), true).setDescription("Can the player jump with this penalty active?");
@@ -26,6 +29,8 @@ public class BWMAttributes {
 
         SOUND = new StringAttribute(new ResourceLocation(BWMod.MODID, "sound"), "").setDescription("Which sound event to play when this is active?");
         SOUND_SPOOKED = new StringAttribute(new ResourceLocation(BWMod.MODID, "sound_spooked"), "").setDescription("Which sound event to play when spooked?");
+
+        POTION = new PotionAttribute(new ResourceLocation(BWMod.MODID, "potion"), new PotionTemplate[0]).setDescription("Which potions to apply when this is active?");
     }
 
     public static boolean isCustom(String category) {
@@ -50,6 +55,17 @@ public class BWMAttributes {
         return new AttributeInstance<>(parent, value);
     }
 
+    public static AttributeInstance<PotionTemplate[]> getPotionAttribute(IAttribute<PotionTemplate[]> parent, String category, String penalty, String desc, PotionTemplate[] defaultValue) {
+        PotionTemplate[] value = isCustom(category) ? loadPotionList(parent, category, penalty, desc, defaultValue) : defaultValue;
+        return new AttributeInstance<>(parent, value);
+    }
+
+    private static PotionTemplate[] loadPotionList(IAttribute<PotionTemplate[]> parent, String category, String penalty, String desc, PotionTemplate[] defaultValue) {
+        String[] templateList = Arrays.stream(defaultValue).map(PotionTemplate::serialize).toArray(String[]::new);
+        String[] stringList = ConfigHelper.loadPropStringList(parent.getRegistryName().getPath(), String.join(".", category, penalty), desc, templateList);
+        return Arrays.stream(stringList).map(PotionTemplate::deserialize).toArray(PotionTemplate[]::new);
+    }
+
     public static <T extends Number & Comparable> Range<T> getRange(String category, String penalty, String desc, Range<T> defaultValue) {
         if (isCustom(category)) {
             Number max = defaultValue.getMaximum(), min = defaultValue.getMinimum();
@@ -67,5 +83,4 @@ public class BWMAttributes {
         }
         return null;
     }
-
 }

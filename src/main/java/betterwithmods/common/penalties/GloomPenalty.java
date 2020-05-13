@@ -1,6 +1,7 @@
 package betterwithmods.common.penalties;
 
 import betterwithmods.common.penalties.attribute.BWMAttributes;
+import betterwithmods.common.penalties.attribute.PotionTemplate;
 import org.apache.commons.lang3.Range;
 
 public class GloomPenalty extends Penalty<Integer> {
@@ -11,7 +12,8 @@ public class GloomPenalty extends Penalty<Integer> {
                 BWMAttributes.SPOOKED.fromConfig(category,name,spooked),
                 BWMAttributes.SOUND.fromConfig(category,name,sound),
                 BWMAttributes.SOUND_SPOOKED.fromConfig(category,name,sound_spooked),
-                BWMAttributes.DAMAGE.fromConfig(category,name,damage)
+                BWMAttributes.DAMAGE.fromConfig(category,name,damage),
+                BWMAttributes.POTION.fromConfig(category,name,new PotionTemplate[0])
         );
     }
 

@@ -3,6 +3,7 @@ package betterwithmods.common.penalties;
 import betterwithmods.common.penalties.attribute.Attribute;
 import betterwithmods.common.penalties.attribute.IAttribute;
 import betterwithmods.common.penalties.attribute.IAttributeInstance;
+import betterwithmods.common.penalties.attribute.PotionTemplate;
 import com.google.common.collect.Maps;
 import org.apache.commons.lang3.Range;
 
@@ -53,6 +54,11 @@ public class Penalty<T extends Number & Comparable> implements Comparable<Penalt
     @SuppressWarnings("unchecked")
     public IAttributeInstance<String> getString(Attribute<String> attribute) {
         return (IAttributeInstance<String>) getAttribute(attribute);
+    }
+
+    @SuppressWarnings("unchecked")
+    public IAttributeInstance<PotionTemplate[]> getPotion(Attribute<PotionTemplate[]> attribute) {
+        return (IAttributeInstance<PotionTemplate[]>) getAttribute(attribute);
     }
 
     public String getName() {

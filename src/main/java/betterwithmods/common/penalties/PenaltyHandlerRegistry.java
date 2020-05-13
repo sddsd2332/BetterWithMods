@@ -3,12 +3,13 @@ package betterwithmods.common.penalties;
 import betterwithmods.common.penalties.attribute.Attribute;
 import betterwithmods.common.penalties.attribute.BWMAttributes;
 import betterwithmods.common.penalties.attribute.IAttributeInstance;
+import betterwithmods.common.penalties.attribute.PotionTemplate;
 import net.minecraft.entity.player.EntityPlayer;
 
 import javax.annotation.Nonnull;
-import java.util.HashSet;
-import java.util.Objects;
+import java.util.*;
 import java.util.function.Predicate;
+import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 public class PenaltyHandlerRegistry extends HashSet<PenaltyHandler<?, ?>> {
@@ -56,6 +57,10 @@ public class PenaltyHandlerRegistry extends HashSet<PenaltyHandler<?, ?>> {
         return floatAttributes(player, BWMAttributes.DAMAGE).reduce((a, b) -> a + b).orElse(0f);
     }
 
+    public Iterable<PotionTemplate> getPotionEffects(@Nonnull EntityPlayer player) {
+        return potionAttributes(player, BWMAttributes.POTION).collect(Collectors.toList());
+    }
+
     @SuppressWarnings("unchecked")
     private Stream<Penalty<?>> handlers(@Nonnull EntityPlayer player) {
         return (Stream<Penalty<?>>) stream().map(handler -> handler.getPenalty(player)).filter(Objects::nonNull);
@@ -67,6 +72,10 @@ public class PenaltyHandlerRegistry extends HashSet<PenaltyHandler<?, ?>> {
 
     public Stream<Float> floatAttributes(EntityPlayer player, Attribute<Float> attribute) {
         return handlers(player).map(penalty -> penalty.getFloat(attribute)).filter(Objects::nonNull).map(IAttributeInstance::getValue);
+    }
+
+    public Stream<PotionTemplate> potionAttributes(EntityPlayer player, Attribute<PotionTemplate[]> attribute) {
+        return handlers(player).map(penalty -> penalty.getPotion(attribute)).filter(Objects::nonNull).map(IAttributeInstance::getValue).flatMap(Arrays::stream);
     }
 
 }
