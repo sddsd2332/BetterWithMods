@@ -63,6 +63,7 @@ public class HCBuoy extends CompatFeature {
         buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.SOUL_DUST).getMetadata(), 1.0F);
         buoyancy.put(BWMItems.MATERIAL, ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.NETHER_SLUDGE).getMetadata(), 1.0F);
         buoyancy.put(BWMItems.DYNAMITE, 1.0F);
+        buoyancy.put(BWMItems.DYNAMITE_BUNDLE, 1.0F);
         buoyancy.put(BWMItems.STUMP_REMOVER, 1.0F);
         buoyancy.put(BWMItems.CREEPER_OYSTER, 1.0F);
         buoyancy.put(BWMItems.AXLE_GENERATOR, 1.0F);

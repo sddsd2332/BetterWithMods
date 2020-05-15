@@ -2,10 +2,7 @@ package betterwithmods.proxy;
 
 import betterwithmods.BWMod;
 import betterwithmods.api.client.IColorable;
-import betterwithmods.client.BWStateMapper;
-import betterwithmods.client.ClientEventHandler;
-import betterwithmods.client.ColorHandlers;
-import betterwithmods.client.ResourceProxy;
+import betterwithmods.client.*;
 import betterwithmods.client.model.ModelKiln;
 import betterwithmods.client.model.render.RenderUtils;
 import betterwithmods.client.render.*;
@@ -30,8 +27,11 @@ import betterwithmods.module.hardcore.needs.HCGloom;
 import betterwithmods.module.hardcore.world.stumping.HCStumping;
 import betterwithmods.module.hardcore.world.stumping.PlacedCapability;
 import betterwithmods.util.ReflectionLib;
+import net.minecraft.block.material.Material;
 import net.minecraft.block.state.IBlockState;
 import net.minecraft.client.Minecraft;
+import net.minecraft.client.particle.ParticleLava;
+import net.minecraft.client.particle.ParticleManager;
 import net.minecraft.client.renderer.ItemMeshDefinition;
 import net.minecraft.client.renderer.block.model.ModelResourceLocation;
 import net.minecraft.client.renderer.block.statemap.StateMapperBase;
@@ -46,8 +46,11 @@ import net.minecraft.item.Item;
 import net.minecraft.item.ItemBlock;
 import net.minecraft.item.ItemStack;
 import net.minecraft.tileentity.TileEntityFurnace;
+import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.ColorizerGrass;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.BiomeColorHelper;
@@ -68,6 +71,7 @@ import net.minecraftforge.fml.relauncher.ReflectionHelper;
 import net.minecraftforge.fml.relauncher.Side;
 
 import javax.annotation.Nonnull;
+import java.util.Collection;
 import java.util.List;
 import java.util.UUID;
 
@@ -164,7 +168,7 @@ public class ClientProxy implements IProxy {
     }
 
     private void initRenderers() {
-        RenderingRegistry.registerEntityRenderingHandler(EntityDynamite.class, manager -> new RenderSnowball<>(manager, BWMItems.DYNAMITE, Minecraft.getMinecraft().getRenderItem()));
+        RenderingRegistry.registerEntityRenderingHandler(EntityDynamite.class, manager -> new RenderDynamite(manager, Minecraft.getMinecraft().getRenderItem()));
         RenderingRegistry.registerEntityRenderingHandler(EntityUrn.class, RenderUrn::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityMiningCharge.class, RenderMiningCharge::new);
         RenderingRegistry.registerEntityRenderingHandler(EntityExtendingRope.class, RenderExtendingRope::new);
@@ -236,6 +240,47 @@ public class ClientProxy implements IProxy {
         PlacedCapability capability = HCStumping.getCapability(world);
         if (capability != null) {
             capability.addAll(pos);
+        }
+    }
+
+    @Override
+    public void createExplosionParticles(Vec3d center, float size, Collection<BlockPos> affectedPositions) {
+        World world = Minecraft.getMinecraft().world;
+        ParticleManager particleManager = Minecraft.getMinecraft().effectRenderer;
+        BlockPos blockpos = new BlockPos(center);
+        double x = center.x;
+        double y = center.y;
+        double z = center.z;
+        for (BlockPos pos : affectedPositions) {
+            double xRandom = blockpos.getX() + world.rand.nextDouble();
+            double yRandom = blockpos.getY() + world.rand.nextDouble();
+            double zRandom = blockpos.getZ() + world.rand.nextDouble();
+            double dx = xRandom - x;
+            double dy = yRandom - y;
+            double dz = zRandom - z;
+            double distance = MathHelper.sqrt(dx * dx + dy * dy + dz * dz);
+            dx /= distance;
+            dy /= distance;
+            dz /= distance;
+            double velocity = 0.5D / (distance / size + 0.1D);
+            velocity *= (world.rand.nextDouble() * world.rand.nextDouble() + 0.3);
+            dx *= velocity;
+            dy *= velocity;
+            dz *= velocity;
+            IBlockState state = world.getBlockState(pos);
+
+            if(state.getMaterial() == Material.WATER) { //Water shockwave to show the range of the dynamite
+                particleManager.addEffect(new ParticleBubbleFast(world,(xRandom + x) / 2.0D, (yRandom + y) / 2.0D, (zRandom + z) / 2.0D, dx, dy, dz));
+                particleManager.addEffect(new ParticleBubbleFast(world, xRandom, yRandom, zRandom, dx, dy, dz));
+                world.spawnParticle(EnumParticleTypes.WATER_BUBBLE,pos.getX() + world.rand.nextDouble(), pos.getY() + world.rand.nextDouble(), pos.getZ() + world.rand.nextDouble(), dx, dy, dz);
+            } else {
+                world.spawnParticle(EnumParticleTypes.EXPLOSION_NORMAL, (xRandom + x) / 2.0D, (yRandom + y) / 2.0D, (zRandom + z) / 2.0D, dx, dy, dz);
+                world.spawnParticle(EnumParticleTypes.SMOKE_NORMAL, xRandom, yRandom, zRandom, dx, dy, dz);
+            }
+
+            if(state.getMaterial() == Material.LAVA) {
+                world.spawnParticle(EnumParticleTypes.LAVA,pos.getX() + world.rand.nextDouble(),pos.getY() + world.rand.nextDouble(), pos.getZ() + world.rand.nextDouble(),0,0,0);
+            }
         }
     }
 

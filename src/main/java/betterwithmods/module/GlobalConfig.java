@@ -2,6 +2,7 @@ package betterwithmods.module;
 
 import betterwithmods.client.gui.GuiStatus;
 import betterwithmods.common.blocks.BlockHemp;
+import betterwithmods.common.items.ItemDynamite;
 import net.minecraftforge.fluids.Fluid;
 
 public final class GlobalConfig {
@@ -24,6 +25,11 @@ public final class GlobalConfig {
         BlockHemp.fertileModifier = ConfigHelper.loadPropDouble("Fertile Modifier", "Hemp", "Modifies Hemp Growth Chance when planted on Fertile Farmland", 1.33);
         BlockHemp.lampModifier = ConfigHelper.loadPropDouble("Light Block Modifier", "Hemp", "Modifies Hemp Growth Chance when a Light Block is two blocks above the Hemp", 1.5D);
         BlockHemp.neighborModifier = ConfigHelper.loadPropDouble("Neighbor Modifier", "Hemp", "Modifies Hemp Growth Chance for each other crop next to it ", 1.1D);
+
+        ItemDynamite.needsOffhand = ConfigHelper.loadPropBool("Needs Offhand Igniter", "Dynamite", "Must hold flint and steel in the offhand instead of anywhere in your inventory to ignire dynamite.", false);
+        ItemDynamite.bloodThrow = ConfigHelper.loadPropBool("Blood Throw", "Dynamite", "Hold ignited dynamite in hand before throwing.", true);
+        ItemDynamite.newtonianThrow = ConfigHelper.loadPropBool("Newtonian Throw", "Dynamite", "Thrown dynamite is affected by thrower's velocity. Disable this if another mod provides this feature.", true);
+        ItemDynamite.dispenseLit = ConfigHelper.loadPropBool("Light Fuse When Dispensed", "Dynamite", "Dynamite dispensed by dispensers have their fuse lit.", true);
 
         waterBottleAmount = ConfigHelper.loadPropInt("Water Bottle Fluid amount", category, "The amount of fluid contained in a glass bottle", "", Fluid.BUCKET_VOLUME / 3, 0, Fluid.BUCKET_VOLUME);
     }

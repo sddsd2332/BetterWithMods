@@ -14,6 +14,7 @@ import betterwithmods.common.blocks.behaviors.BehaviorDiodeDispense;
 import betterwithmods.common.blocks.behaviors.BehaviorSilkTouch;
 import betterwithmods.common.entity.*;
 import betterwithmods.common.entity.item.EntityFallingBlockCustom;
+import betterwithmods.common.items.ItemDynamite;
 import betterwithmods.common.penalties.PenaltyHandlerRegistry;
 import betterwithmods.common.potion.BWPotion;
 import betterwithmods.common.potion.PotionSlowfall;
@@ -205,8 +206,10 @@ public class BWRegistry {
     }
 
     public static void registerBlockDispenserBehavior() {
-        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(BWMItems.DYNAMITE, new DispenserBehaviorDynamite());
-        BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(BWMItems.DYNAMITE, new DispenserBehaviorDynamite());
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(BWMItems.DYNAMITE, new DispenserBehaviorDynamite(ItemDynamite.dispenseLit));
+        BlockDispenser.DISPENSE_BEHAVIOR_REGISTRY.putObject(BWMItems.DYNAMITE_BUNDLE, new DispenserBehaviorDynamite(ItemDynamite.dispenseLit));
+        BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(BWMItems.DYNAMITE, new DispenserBehaviorDynamite(ItemDynamite.dispenseLit));
+        BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(BWMItems.DYNAMITE_BUNDLE, new DispenserBehaviorDynamite(ItemDynamite.dispenseLit));
         BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Items.REPEATER, new BehaviorDiodeDispense());
         BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Items.COMPARATOR, new BehaviorDiodeDispense());
         BlockBDispenser.BLOCK_DISPENSER_REGISTRY.putObject(Items.CLAY_BALL, new DispenserBlockOverride(BlockUnfiredPottery.getStack(BlockUnfiredPottery.EnumType.BRICK)));

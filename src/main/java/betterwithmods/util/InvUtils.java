@@ -11,6 +11,7 @@ import net.minecraft.item.crafting.Ingredient;
 import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.util.EnumFacing;
+import net.minecraft.util.EnumHand;
 import net.minecraft.util.NonNullList;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.math.AxisAlignedBB;
@@ -257,7 +258,6 @@ public class InvUtils {
         }
         return ItemStack.EMPTY;
     }
-
 
     public static int getRandomOccupiedStackInRange(IItemHandler inv, int minSlot, int maxSlot) {
         List<Integer> list = Lists.newArrayList();
@@ -685,5 +685,15 @@ public class InvUtils {
             }
         }
         return true;
+    }
+
+    public static EnumHand otherHand(EnumHand hand) {
+        switch (hand) {
+            default:
+            case MAIN_HAND:
+                return EnumHand.OFF_HAND;
+            case OFF_HAND:
+                return EnumHand.MAIN_HAND;
+        }
     }
 }
