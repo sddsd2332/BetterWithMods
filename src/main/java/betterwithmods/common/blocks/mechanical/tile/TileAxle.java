@@ -33,6 +33,8 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
     private byte signal;
     private int power;
 
+    private boolean dirty;
+
     public static List<IAxleTick> tickHandlers = Lists.newArrayList();
 
     public TileAxle() {
@@ -46,7 +48,6 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
     }
 
     public void onChanged() {
-
         byte findSignal = 0;
         int findPower = 0;
         int sources = 0;
@@ -108,7 +109,7 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
         }
         if (newSignal != this.signal)
             setSignal(newSignal);
-        markDirty();
+        dirty = true;
     }
 
 
@@ -222,6 +223,7 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
                 world.neighborChanged(pos.offset(facing), getBlockType(), pos);
             }
         }
+        dirty = false;
     }
 
     public int getPower() {
@@ -252,6 +254,8 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
     public void update() {
         if(!tickHandlers.isEmpty())
             tickHandlers.forEach(t -> t.tick(world, pos, this));
+        if(dirty)
+            markDirty();
     }
 }
 
