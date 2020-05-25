@@ -356,6 +356,7 @@ item.bwm:material.poison_sac.name=Poison Sac
 item.bwm:donut.name=Donut
 item.bwm:knife.name=Iron Knife
 item.bwm:dynamite.name=Dynamite
+item.bwm:dynamite_bundle.name=Bundle of Dynamite
 item.bwm:fertilizer.name=Fertilizer
 item.bwm:creeper_oyster.name=Creeper Oyster
 item.bwm:creeper_oyster_kf.name=Creeper Fuse
@@ -453,6 +454,8 @@ enchantment.level.-1=
 bwm.infernalenchanter=Infernal Enchanter
 
 lore.bwm:dynamite=Dwarven Fishing Pole
+lore.bwm:dynamite_bundle=Dwarven Fishing Net
+lore.bwm:dynamite_blood=Hold to ignite, release to throw.
 
 material.hellfire=Hellfire
 material.hellfire.ability=Molten

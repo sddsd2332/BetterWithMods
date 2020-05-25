@@ -155,7 +155,7 @@ public class ItemDynamite extends Item {
     @SideOnly(Side.CLIENT)
     @Override
     public void addInformation(ItemStack stack, @Nullable World worldIn, List<String> tooltip, ITooltipFlag flagIn) {
-        tooltip.add(I18n.format("lore.bwm:dynamite"));
+        tooltip.add(I18n.format("lore.bwm:"+getRegistryName().getPath()));
         if(bloodThrow)
             tooltip.add(I18n.format("lore.bwm:dynamite_blood"));
     }
