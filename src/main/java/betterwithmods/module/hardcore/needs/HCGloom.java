@@ -29,6 +29,7 @@ import net.minecraft.util.EnumFacing;
 import net.minecraft.util.ResourceLocation;
 import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.World;
 import net.minecraftforge.client.event.FOVUpdateEvent;
 import net.minecraftforge.common.capabilities.Capability;
@@ -126,6 +127,11 @@ public class HCGloom extends Feature {
             setGloomTick((EntityPlayerMP) e.player, 0);
     }
 
+    private BlockPos getHeadPosition(EntityPlayer player) {
+        Vec3d pos = new Vec3d(player.posX,player.posY + player.getEyeHeight(),player.posZ);
+        return new BlockPos(pos);
+    }
+
     @SubscribeEvent
     public void inDarkness(TickEvent.PlayerTickEvent e) {
         if (e.phase == TickEvent.Phase.START)
@@ -143,7 +149,7 @@ public class HCGloom extends Feature {
             EntityPlayerMP playermp = (EntityPlayerMP) player;
 
             if (!world.isRemote) {
-                BlockPos head = playermp.getPosition().up();
+                BlockPos head = getHeadPosition(playermp);
                 int light = world.getLight(head, true);
                 int tick = getGloomTime(playermp);
                 if (PlayerHelper.isHolding(playermp, gloomOverrideItems))
