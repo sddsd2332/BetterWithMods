@@ -5,16 +5,20 @@ import betterwithmods.module.Feature;
 import betterwithmods.util.EntityUtils;
 import net.minecraft.entity.EntityCreature;
 import net.minecraft.entity.EntityLiving;
+import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.entity.SharedMonsterAttributes;
 import net.minecraft.entity.ai.EntityAIPanic;
 import net.minecraft.entity.passive.AbstractHorse;
 import net.minecraft.entity.passive.EntityAnimal;
 import net.minecraft.entity.passive.EntityTameable;
+import net.minecraft.util.DamageSource;
 import net.minecraft.util.math.AxisAlignedBB;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.RayTraceResult;
 import net.minecraft.util.math.Vec3d;
 import net.minecraftforge.event.entity.EntityJoinWorldEvent;
+import net.minecraftforge.event.entity.living.LivingAttackEvent;
+import net.minecraftforge.event.entity.living.LivingDamageEvent;
 import net.minecraftforge.event.entity.living.LivingSetAttackTargetEvent;
 import net.minecraftforge.event.world.BlockEvent;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -59,8 +63,10 @@ public class ImprovedFlee extends Feature {
             AxisAlignedBB box = event.getPlacedBlock().getBoundingBox(event.getWorld(), event.getPos()).offset(event.getPos()).grow(10);
             for (EntityAnimal animal : event.getWorld().getEntitiesWithinAABB(EntityAnimal.class, box)) {
                 if (cantBeScared(animal)) continue;
-                if (canSeeBlock(event.getPos(), animal))
+                if (canSeeBlock(event.getPos(), animal)) {
                     animal.setRevengeTarget(event.getPlayer());
+                    doGroupFlee(event.getPlayer(),animal);
+                }
             }
         }
     }
@@ -73,24 +79,50 @@ public class ImprovedFlee extends Feature {
             AxisAlignedBB box = event.getState().getBoundingBox(event.getWorld(), event.getPos()).offset(event.getPos()).grow(10);
             for (EntityAnimal animal : event.getWorld().getEntitiesWithinAABB(EntityAnimal.class, box)) {
                 if (cantBeScared(animal)) continue;
-                if (canSeeBlock(event.getPos(), animal))
+                if (canSeeBlock(event.getPos(), animal)) {
                     animal.setRevengeTarget(event.getPlayer());
+                    doGroupFlee(event.getPlayer(),animal);
+                }
             }
         }
     }
 
     @SubscribeEvent
+    public void onEntityDamage(LivingDamageEvent event) {
+        EntityLivingBase target = getProperSource(event.getSource());
+        EntityLivingBase entity = event.getEntityLiving();
+        if (target != null && entity instanceof EntityAnimal) {
+            doGroupFlee(target, (EntityAnimal) entity);
+        }
+    }
+
+    private EntityLivingBase getProperSource(DamageSource source) {
+        if(source.getImmediateSource() instanceof EntityLivingBase)
+            return (EntityLivingBase) source.getImmediateSource();
+        else if(source.getTrueSource() instanceof EntityLivingBase)
+            return (EntityLivingBase) source.getTrueSource();
+        else
+            return null;
+    }
+
+    @SubscribeEvent
     public void onGroupFlee(LivingSetAttackTargetEvent event) {
+        EntityLivingBase target = event.getTarget();
+        EntityLivingBase entity = event.getEntityLiving();
+        if (target != null && entity instanceof EntityAnimal) {
+            doGroupFlee(target, (EntityAnimal) entity);
+        }
+    }
+
+    private void doGroupFlee(EntityLivingBase target, EntityAnimal entity) {
         if (!groupFlee)
             return;
-        if (event.getTarget() != null && event.getEntityLiving() instanceof EntityAnimal) {
-            EntityAnimal a = (EntityAnimal) event.getEntityLiving();
-            AxisAlignedBB box = new AxisAlignedBB(a.posX, a.posY, a.posZ, a.posX + 1, a.posY + 1, a.posZ + 1).grow(10);
-            for (EntityAnimal animal : a.getEntityWorld().getEntitiesWithinAABB(EntityAnimal.class, box, entity -> entity != null && entity != a && entity.getRevengeTarget() == null)) {
-                if (cantBeScared(animal)) continue;
-                if (animal.canEntityBeSeen(a)) {
-                    animal.setRevengeTarget(event.getTarget());
-                }
+        EntityAnimal a = entity;
+        AxisAlignedBB box = new AxisAlignedBB(a.posX, a.posY, a.posZ, a.posX + 1, a.posY + 1, a.posZ + 1).grow(10);
+        for (EntityAnimal animal : a.getEntityWorld().getEntitiesWithinAABB(EntityAnimal.class, box, e -> e != null && e != a && e.getRevengeTarget() == null)) {
+            if (cantBeScared(animal)) continue;
+            if (animal.canEntityBeSeen(a)) {
+                animal.setRevengeTarget(target);
             }
         }
     }
