@@ -157,6 +157,8 @@ public class HCBeacons extends Feature {
                         return stack.getItem() instanceof ItemBlock && ((ItemBlock) stack.getItem()).getBlock().isBeaconBase(null, null, null);
                     } catch (NullPointerException e) {
                         return false;
+                    } catch (IllegalArgumentException e) { //Fuck Kotlin
+                        return true;
                     }
                 }))));
 
