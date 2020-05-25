@@ -9,6 +9,7 @@ import betterwithmods.common.blocks.mechanical.tile.TileEntityFilteredHopper;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityMill;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityPulley;
 import betterwithmods.common.blocks.mechanical.tile.TileEntityTurntable;
+import betterwithmods.module.GlobalConfig;
 import betterwithmods.util.InvUtils;
 import net.minecraft.block.SoundType;
 import net.minecraft.block.material.Material;
@@ -149,7 +150,9 @@ public class BlockMechMachines extends BWMBlock implements IBlockActive, IMultiV
 
     @Override
     public boolean isOpaqueCube(IBlockState state) {
-        return state.getValue(TYPE).getSolidity();
+        if(GlobalConfig.blocksAreOpaque)
+            return state.getValue(TYPE).getSolidity();
+        return false;
     }
 
     @Override

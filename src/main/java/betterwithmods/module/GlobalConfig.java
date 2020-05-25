@@ -11,6 +11,8 @@ public final class GlobalConfig {
 
     public static int waterBottleAmount;
 
+    public static boolean blocksAreOpaque;
+
     public static void initGlobalConfig() {
         String category = "_global";
 
@@ -20,6 +22,8 @@ public final class GlobalConfig {
         maxPlatformBlocks = ConfigHelper.loadPropInt("Max Platform Blocks", category, "Max blocks a platform can have", 128);
 
         ConfigHelper.needsRestart = ConfigHelper.allNeedRestart = false;
+
+        blocksAreOpaque = ConfigHelper.loadPropBool("Blocks Are Opaque", category, "Whether BWM blocks that are normally opaque should be opaque. Disable for more flexibility when replacing models.", true);
 
         BlockHemp.growthChance = ConfigHelper.loadPropDouble("Growth Chance", "Hemp", "Hemp has a 1/X chance of growing where X is this value, the following modifiers divide this value", 15D);
         BlockHemp.fertileModifier = ConfigHelper.loadPropDouble("Fertile Modifier", "Hemp", "Modifies Hemp Growth Chance when planted on Fertile Farmland", 1.33);
