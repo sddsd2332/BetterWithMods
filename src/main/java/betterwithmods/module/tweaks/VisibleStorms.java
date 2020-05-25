@@ -12,6 +12,7 @@ import net.minecraft.entity.Entity;
 import net.minecraft.entity.player.EntityPlayer;
 import net.minecraft.util.EnumParticleTypes;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.MathHelper;
 import net.minecraft.world.World;
 import net.minecraft.world.biome.Biome;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
@@ -149,9 +150,9 @@ public class VisibleStorms extends Feature {
         World world = entity.world;
         BlockPos pos = entity.getPosition();
         Color desiredcolor = new Color(
-                Math.min(fogEvent.getRed(),1.0f),
-                Math.min(fogEvent.getGreen(),1.0f),
-                Math.min(fogEvent.getBlue(),1.0f)
+                MathHelper.clamp(fogEvent.getRed(), 0.0f,1.0f),
+                MathHelper.clamp(fogEvent.getGreen(),0.0f,1.0f),
+                MathHelper.clamp(fogEvent.getBlue(),0.0f,1.0f)
         );
 
         if (world.isRaining()) {
@@ -177,7 +178,7 @@ public class VisibleStorms extends Feature {
                     totalweight += 1;
                 }
             }
-            desiredcolor = new Color(Math.min(red / totalweight,1.0f), Math.min(green / totalweight,1.0f), Math.min(blue / totalweight,1.0f));
+            desiredcolor = new Color(MathHelper.clamp(red / totalweight,0.0f,1.0f), MathHelper.clamp(green / totalweight,0.0f,1.0f), MathHelper.clamp(blue / totalweight,0.0f,1.0f));
             fogEvent.setRed(currentRed / 255.0f);
             fogEvent.setGreen(currentGreen / 255.0f);
             fogEvent.setBlue(currentBlue / 255.0f);
