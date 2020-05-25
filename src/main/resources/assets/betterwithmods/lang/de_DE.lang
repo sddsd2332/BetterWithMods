@@ -11,7 +11,7 @@ tile.bwm:steel_broken_gearbox.name=Kaputtes Stählernes Getriebe
 
 tile.bwm:single_machine.0.name=Mühlstein
 tile.bwm:single_machine.1.name=Flaschenzug
-tile.bwm:single_machine.2.name=Gefilterter Trichter
+tile.bwm:single_machine.2.name=Filternder Trichter
 tile.bwm:single_machine.3.name=Drehscheibe
 tile.bwm:pane.0.name=Gitter
 tile.bwm:pane.1.name=Latten
@@ -41,7 +41,7 @@ tile.bwm:saw.name=Säge
 tile.bwm:steel_anvil.name=Amboss aus seelengeschiedetem Stahl
 tile.bwm:aesthetic.0.name=Schneidebrett
 tile.bwm:aesthetic.1.name=Blutiges Schneidebrett
-tile.bwm:aesthetic.2.name=Gehärtete Nether-Schlacke
+tile.bwm:aesthetic.2.name=Gehärteter Nether-Ton
 tile.bwm:aesthetic.3.name=Block aus Konzentriertem Höllenfeuer
 tile.bwm:aesthetic.4.name=Seil-Block
 tile.bwm:aesthetic.5.name=Feuerstein-Block
@@ -52,6 +52,7 @@ tile.bwm:aesthetic.9.name=Polzerungs-Block
 tile.bwm:aesthetic.10.name=Seifen-Block
 tile.bwm:aesthetic.11.name=Mist-Block
 tile.bwm:aesthetic.12.name=Gewobener Block
+tile.bwm:aesthetic.13.name=Netherkohleblock
 tile.bwm:advanced_bellows.name=Automatischer Blasebalg
 
 tile.bwm:steel_block.name=Block aus seelengeschiedetem Stahl
@@ -83,7 +84,7 @@ tile.bwm:vase.6.name=Pinke Vase
 tile.bwm:vase.7.name=Graue Vase
 tile.bwm:vase.8.name=Hellgraue Vase
 tile.bwm:vase.9.name=Türkise Vase
-tile.bwm:vase.10.name=Lilane Vase
+tile.bwm:vase.10.name=Violette Vase
 tile.bwm:vase.11.name=Blaue Vase
 tile.bwm:vase.12.name=Braune Vase
 tile.bwm:vase.13.name=Grüne Vase
@@ -100,7 +101,7 @@ tile.bwm:candle.6.name=Pinke Kerze
 tile.bwm:candle.7.name=Graue Kerze
 tile.bwm:candle.8.name=Hellgraue Kerze
 tile.bwm:candle.9.name=Türkise Kerze
-tile.bwm:candle.10.name=Lilane Kerze
+tile.bwm:candle.10.name=Violette Kerze
 tile.bwm:candle.11.name=Blaue Kerze
 tile.bwm:candle.12.name=Braune Kerze
 tile.bwm:candle.13.name=Grüne Kerze
@@ -135,18 +136,21 @@ tile.bwm:lens.name=Fokuslinse
 tile.bwm:vine_trap.name=Rebenfalle
 
 tile.bwm:booster.name=Mechanische Beschleunigungsschiene
+tile.detector_rail_wood.name=Hölzerne Detektorschiene
+tile.bwm:detector_rail_stone.name=Steinerne Detektorschiene
+tile.bwm:detector_rail_steel.name=Detektorschiene aus seelengeschmiedetem Stahl
 
-tile.bwm:siding_rock.name=Fassade
-tile.bwm:siding_wood.name=Fassade
-tile.bwm:siding_iron.name=Fassade
+tile.bwm:siding_rock.name=Fassade: %s
+tile.bwm:siding_wood.name=Fassade: %s
+tile.bwm:siding_iron.name=Fassade: %s
 
-tile.bwm:moulding_rock.name=Kante
-tile.bwm:moulding_wood.name=Kante
-tile.bwm:moulding_iron.name=Kante
+tile.bwm:moulding_rock.name=Kante: %s
+tile.bwm:moulding_wood.name=Kante: %s
+tile.bwm:moulding_iron.name=Kante: %s
 
-tile.bwm:corner_rock.name=Ecke
-tile.bwm:corner_wood.name=Ecke
-tile.bwm:corner_iron.name=Ecke
+tile.bwm:corner_rock.name=Ecke: %s
+tile.bwm:corner_wood.name=Ecke: %s
+tile.bwm:corner_iron.name=Ecke: %s
 
 tile.bwm:wood_siding.0.name=Eichenholzfassade
 tile.bwm:wood_siding.1.name=Fichtenholzfassade
@@ -196,21 +200,21 @@ tile.bwm:stone_corner.4.name=Ziegelecke
 tile.bwm:stone_corner.5.name=Sandsteinecke
 tile.bwm:stone_corner.6.name=Quarzecke
 
-tile.bwm:wood_table.0.name=Eichenholz Tisch
-tile.bwm:wood_table.1.name=Fichtenholz Tisch
-tile.bwm:wood_table.2.name=Birkenholz Tisch
-tile.bwm:wood_table.3.name=Tropenholz Tisch
-tile.bwm:wood_table.4.name=Akazienholz Tisch
-tile.bwm:wood_table.5.name=Schwarzeichenholz Tisch
-tile.bwm:wood_table.6.name=Blutholz Tisch
+tile.bwm:wood_table.0.name=Eichenholztisch
+tile.bwm:wood_table.1.name=Fichtenholztisch
+tile.bwm:wood_table.2.name=Birkenholztisch
+tile.bwm:wood_table.3.name=Tropenholztisch
+tile.bwm:wood_table.4.name=Akazienholztisch
+tile.bwm:wood_table.5.name=Schwarzeichenholztisch
+tile.bwm:wood_table.6.name=Blutholztisch
 
-tile.bwm:wood_bench.0.name=Eichenholz Bank
-tile.bwm:wood_bench.1.name=Fichtenholz Bank
-tile.bwm:wood_bench.2.name=Birkenholz Bank
-tile.bwm:wood_bench.3.name=Tropenholz Bank
-tile.bwm:wood_bench.4.name=Akazienholz Bank
-tile.bwm:wood_bench.5.name=Schwarzeichenholz Bank
-tile.bwm:wood_bench.6.name=Blutholz Bank
+tile.bwm:wood_bench.0.name=Eichenholzbank
+tile.bwm:wood_bench.1.name=Fichtenholzbank
+tile.bwm:wood_bench.2.name=Birkenholzbank
+tile.bwm:wood_bench.3.name=Tropenholzbank
+tile.bwm:wood_bench.4.name=Akazienholzbank
+tile.bwm:wood_bench.5.name=Schwarzeichenholzbank
+tile.bwm:wood_bench.6.name=Blutholzbank
 
 tile.bwm:debarked_old.0.name=Entrindeter Eichenstamm
 tile.bwm:debarked_old.1.name=Entrindeter Fichenstamm
@@ -221,6 +225,7 @@ tile.bwm:debarked_new.1.name=Entrindeter Schwarzeichenstamm
 
 tile.bwm:block_dispenser.name=Blockspender
 tile.bwm:companion_cube.name=Begleiterkubus
+tile.bwm:long_friend.name=Long Friend
 
 tile.bwm:bamboo_chime.0.name=Eichen-Bambus Windspiel
 tile.bwm:bamboo_chime.1.name=Fichten-Bambus Windspiel
@@ -234,8 +239,7 @@ tile.bwm:metal_chime.2.name=Birken Windspiel
 tile.bwm:metal_chime.3.name=Tropen Windspiel
 tile.bwm:metal_chime.4.name=Akazien Windspiel
 tile.bwm:metal_chime.5.name=Schwarzeichen Windspiel
-tile.bwm:immersive_axle.name=Behandelte Axe
-tile.bwm:buddy_block.name=Kumpel Block
+tile.bwm:buddy_block.name=Kumpelblock
 tile.bwm:creative_generator.name=Kreativer mechanischer Generator
 tile.bwm:light.name=Gewächshauslicht
 tile.bwm:platform.name=Plattform
@@ -268,25 +272,13 @@ tile.bwm:stake.name=Pflock
 tile.bwm:iron_wall.name=Eisenwall
 tile.bwm:nether_growth.name=Nether-Groth-Sporen
 
-tile.bwm:ie_siding.0.name=Horizontale Behandelte Holzfassade
-tile.bwm:ie_moulding.0.name=Horizontale Behandelte Holzkante
-tile.bwm:ie_corner.0.name=Horizontale Behandelte Holzecke
-
-tile.bwm:ie_siding.1.name=Verticale Behandelte Holzfassade
-tile.bwm:ie_moulding.1.name=Verticale Behandelte Holzkante
-tile.bwm:ie_corner.1.name=Verticale Behandelte Holzecke
-
-tile.bwm:ie_siding.2.name=Verpackte Behandelte Holzfassade
-tile.bwm:ie_moulding.2.name=Verpackte Behandelte Holzkante
-tile.bwm:ie_corner.2.name=Verpackte Behandelte Holzecke
-
 tile.bwm:steel_saw.name=Säge aus Seelengeschiedetem Stahl
 
 tile.bwm:blood_log.name=Blutholz
 tile.bwm:blood_leaves.name=Blutblätter
 tile.bwm:blood_sapling.name=Blutsetzling
 
-tile.bwm:nether_clay.name=Nether-Schlacke-Block
+tile.bwm:nether_clay.name=Nethertonblock
 
 tile.bwm:cobble.0.name=Granit-Pflasterstein
 tile.bwm:cobble.1.name=Diorit-Pflasterstein
@@ -336,7 +328,7 @@ item.bwm:material.leather_cut.name=Geschnittenes Leder
 item.bwm:material.tanned_leather_cut.name=Geschnittenes Leder (Gegerbt)
 item.bwm:material.scoured_leather_cut.name=Geschnittenes Leder (Gereinigt)
 item.bwm:material.redstone_latch.name=Redstone Verriegelung
-item.bwm:material.nether_sludge.name=Nether-Slacke
+item.bwm:material.nether_sludge.name=Nether-Schlamm
 item.bwm:material.flour.name=Mehl
 item.bwm:material.haft.name=Heft
 item.bwm:material.soul_dust.name=Seelenstaub
@@ -395,6 +387,7 @@ item.bwm:bat_wing.name=Fledermausflügel
 item.bwm:cooked_bat_wing.name=Gebratener Feldermausflügel
 
 item.bwm:manual.name="Better With Mods" Benutzerhandbuch
+item.bwm:manual.subtitle=Ein Leitfaden für all Ihre mechanischen Bedürfnisse
 
 item.bwm:axle_generator.windmill.name=Windrad
 item.bwm:axle_generator.waterwheel.name=Wasserrad
@@ -430,6 +423,12 @@ item.bwm:leather_tanned_chest.name=Gegerbter Waffenrock
 item.bwm:leather_tanned_pants.name=Gegerbte Hose
 item.bwm:leather_tanned_boots.name=Gegerbte Stiefel
 
+item.bwm:wool_helmet.name=Wollmütze
+item.bwm:wool_chest.name=Wollhemd
+item.bwm:wool_pants.name=Wollhose
+item.bwm:wool_boots.name=Wollsocken
+
+
 item.bwm:composite_bow.name=Kompositbogen
 item.bwm:broadhead_arrow.name=Breitkopfpfeil
 
@@ -439,6 +438,7 @@ item.bwm:breeding_harness_kf.name=Beschränkung
 item.bwm:arcane_scroll.name=Arkane Schriftrolle
 
 item.bwm:stump_remover.name=Stumpfentferner
+item.bwm:stump_remover_kf.name=Stumpfentferner
 
 item.bwm:gravel_pile.name=Kieshaufen
 item.bwm:dirt_pile.name=Erdhaufen
@@ -465,15 +465,19 @@ message.bwm:async.enabled=Asynchroner Timer aktiviert
 message.bwm:async.disabled=Asynchroner Timer deaktiviert
 message.bwm:async.unavailable=Unmöglich den Asynchronen Timer zu Starten: In der Welt schreitet die Zeit nicht voran.
 
+bwm.message.spawn_beacon.already_set=Spawn bereits gesetzt
+bwm.message.spawn_beacon.set=Spawn an diesen Ort gesetzt
+
 inv.cauldron.name=Kessel
 inv.cauldron.stoked.name=Angefachter Kessel
 inv.crucible.name=Tiegel
 inv.crucible.stoked.name=Angefachter Tiegel
-inv.filtered_hopper.name=Gefilteter Trichter
+inv.filtered_hopper.name=Filternder Trichter
 inv.mill.name=Mühlstein
 inv.bwm.dispenser.name=Blockspender
 inv.saw.name=Säge
 inv.kiln.name=Töpferofen
+inv.kiln.stoked.name=Angefachter Töpferofen
 inv.pulley.name=Flaschenzug
 inv.turntable.name=Drehscheibe
 inv.steel_anvil.name=Amboss aus seelengeschiedetem Stahl
@@ -492,11 +496,12 @@ fluid.betterwithmods:hellfire.name=Geschmolzenes Höllenfeuer
 material.soulforged_steel.name=Seelengeschiedeter Stahl
 material.hellfire.name=Höllenfeuer
 modifier.mending.name=Reparatur
-modifier.mending.desc=??oKillsteal!??r Absorbiert Erfahrung, um seine Werkzeuge zu raparieren.
+modifier.mending.desc=??oGeklauter Kill!??r Absorbiert Erfahrung, um Werkzeuge zu reparieren.
 
 entity.entity_sheared_creeper.name=Geschorener Creeper
 entity.bwm_jungle_spider.name=Tropenspinne
 entity.extending_rope.name=Bewegende Plattform
+entity.longboi.name=Longboi
 tile.bwm:single_machine=Mechanische Maschine
 
 subtitles.bwm.wood.creak=Holz knarrt
@@ -505,7 +510,11 @@ subtitles.bwm.wood.bellow=Blasebalg bläst
 subtitles.bwm.wood.chime=Hölzernes Windspiel
 subtitles.bwm.metal.chime=Metallenes Windspiel
 subtitles.bwm.oof=Uff
-death.attack.growth=%s wurde vom Wachstum verschlungen.
+subtitles.bwm.millstone.netherrack=Schreie der Verdammten
+subtitle.bwm.saw.cut=Sägeschnitte
+subtitle.bwm.mechanical.overpower=Mechanisches Gerät überlastet
+subtitles.bwm.bloodwood.break=Block zerstört
+death.attack.growth=%s wurde von einem Groth verschlungen.
 death.attack.gloom=%s wurde vom Grue gegessen.
 death.attack.saw=%s hat seine Finger verloren.
 death.attack.steel_saw.0=Wurde zu einer %s-Fassade.
@@ -525,13 +534,44 @@ bwm.message.needs_deep_water=Das Wasser ist nicht tief genug.
 
 bwm.message.waterwheel.0=Nicht genug Platz für das Wasserrad. Eine 5x5-Fläche wird benötigt.
 bwm.message.windmill.0=Nicht genug Platz für das Windrad. Eine 13x13-Fläche wird benötigt.
-bwm.message.vertical_windmill.0=Nicht genug Platz für das Windrad. Eine 9x7x9-Quader wird benötigt.
+bwm.message.vertical_windmill.0=Nicht genug Platz für das Windrad. Ein 9x7x9-Quader wird benötigt.
 bwm.message.vertical_windmill.1=Zu wenig vertikale Achsen. (Benötigt 7).
 
 bwm.config.hardcore.tooltip=Hardcore Features
 bwm.config.debug.tooltip=Debug-Info für bestimmte Features
 bwm.config.vanilla_tweaks.tooltip=Änderungen, wie Vanilla Minecraft funktioniert
 bwm.config.pulley.tooltip=Einschränkungen für die Plattformen des Seilzugs 
+bwm.hcfurnace.cook_time.tooltip=Kochzeit: %s Sekunden (%s Items)
+
+bwm.random_output.tooltip=Zählen Sie: %s-%s
+bwm.chance_output.tooltip=Chance: %d%%%
+
+bwm.millstone_blocked.message=Blockiert
+bwm.millstone_blocked.tooltip=Der Mühlstein hat zu viele feste Blöcke um sich herum.
+
+bwm.fat_penalty.none=
+bwm.fat_penalty.plump=Pummelig
+bwm.fat_penalty.chubby=Dicklich
+bwm.fat_penalty.fat=Fett
+bwm.fat_penalty.obese=Fettleibig
+bwm.gloom_penalty.none=
+bwm.gloom_penalty.gloom=Düster
+bwm.gloom_penalty.dread=Angst
+bwm.gloom_penalty.terror=Terror
+
+bwm.hunger_penalty.none=
+bwm.hunger_penalty.peckish=Ungesättigt
+bwm.hunger_penalty.hungry=Hungrig
+bwm.hunger_penalty.famished=Untergewichtig
+bwm.hunger_penalty.starving=Abgezehrt
+bwm.hunger_penalty.dying=Aushungernd
+
+bwm.health_penalty.none=
+bwm.health_penalty.hurt=Geprellt
+bwm.health_penalty.injured=Verletzt
+bwm.health_penalty.wounded=Verwundet
+bwm.health_penalty.crippled=Verkrüppelt
+bwm.health_penalty.dying=Sterbend
 
 bwm.effect.slow_fall=Langsamer Fall
 bwm.effect.true_sight=Wahrheitssicht
@@ -545,20 +585,102 @@ config.sync.ok=Änderungen erfolgreich. Bei Problemen bitte an die Server-Admins
 
 tile.bed.tooRestless=Du bist zu aufgedreht, um zu schlafen.
 
-tooltip.rotate_with_hand.name=Umschalt-Click mit zwei leeren Händen um den Block zu rotieren.
-tooltip.chime.name=Gibt ein Redstone-Signal aus, wenn es regnet, oder wenn eine Entity hindurchläuft.
-tooltip.gearbox.name=Getriebe gehen kaputt, wenn das Windrad sich zu schnell dreht. Schalte das es mit einem Redstone-Signal aus, um das zu verhindern!
-tooltip.broken_gearbox.name=Getriebe gehen kaputt, wenn das Windrad sich zu schnell dreht. Schalte das es mit einem Redstone-Signal aus, um das zu verhindern!
-tooltip.windmill.name=Windräder drehen sich um Regen und im Sturm schneller. Passe also auf deine Getriebe auf!
-tooltip.bwm_book.name=Das Buch des einzelnen.
+tooltip.rotate_with_hand.name=Umschalt-Click mit zwei leeren Händen, um den Block zu rotieren.
+tooltip.chime.name=Gibt ein Redstone-Signal aus, wenn es regnet, oder wenn etwas hindurchläuft.
+tooltip.gearbox.name=Die Getriebe gehen kaputt, wenn das Windrad sich zu schnell dreht. Schalte es mit einem Redstone-Signal aus, um das zu verhindern!
+tooltip.broken_gearbox.name=Die Getriebe gehen kaputt, wenn das Windrad sich zu schnell dreht. Schalte es mit einem Redstone-Signal aus, um das zu verhindern!
+tooltip.windmill.name=Windräder drehen sich im Regen und im Sturm schneller. Passe also auf Deine Getriebe auf!
+tooltip.bwm_book.name=Das Buch des Einzelnen.
 
 
-bwm.manual.message=Sie haben ein "Better With Mods"-Handbuch erhalten. Diese Mod mag anders sein, als du es erwatest. Bitte lese die Einführung.
+bwm.manual.message=Du hast ein "Better With Mods"-Handbuch erhalten. Diese Mod mag anders sein, als Du es erwartest. Bitte lies die Einführung.
+bwm.manual.warning.missing.block=Bild fehlt: %s
 
-bwm.manual.home=Home
+bwm.manual.home=Startseite
 bwm.manual.blocks=Blöcke
-bwm.manual.items=Gegenstände
+bwm.manual.items=Items
 bwm.manual.mechanical=Mechanische Energie
-bwm.manual.error.0=Document nicht gefunden:
-bwm.manual.error.1=Bitte melden sie dies
-bwm.manual.error.2=Wärenddessen, versuch das
+bwm.manual.error.0=Dokument nicht gefunden:
+bwm.manual.error.1=Bitte diesen %s melden
+bwm.manual.error.2=In der Zwischenzeit versuch das %s
+
+
+bwm.got.feverdream=Du konntest nie einschlafen, in Deiner Schlaflosigkeit hast Du einige Notizen gekritzelt. Nur was bedeuten sie?
+
+bwm.enchantment.type.armor=Rüstung
+bwm.enchantment.type.armor_feet=Stiefel
+bwm.enchantment.type.armor_head=Helm
+bwm.enchantment.type.armor_chest=Brustpanzer
+bwm.enchantment.type.weapon=Waffe
+bwm.enchantment.type.digger=Ausgräber
+bwm.enchantment.type.bow=Bogen
+bwm.enchantment.type.breakable=Werkzeuge
+bwm.enchantment.type.fishing_rod=Angel
+bwm.enchantment.type.all=Alles
+
+advancement.betterwithmods.crucible.desc=Hexen in Sicht
+advancement.betterwithmods.cauldron.desc=Keine Hexe in Sicht
+advancement.betterwithmods.turntable.desc=You Spin Me Right Round...
+advancement.betterwithmods.screw_pump.desc=Auf und auf
+advancement.betterwithmods.companion_cube.desc=Er wird Dich durch die Testkammern begleiten.
+advancement.betterwithmods.anchor.desc=Fühlst Du Dich an etwas gebunden?
+advancement.betterwithmods.millstone.desc=Wie kann ich das schneller machen?
+advancement.betterwithmods.hibachi.desc=Bitte verwende mehr als eine
+advancement.betterwithmods.kiln.desc=Wird es hier drinnen heiß, oder bin das nur ich?
+advancement.betterwithmods.infernal_enchanter.desc=tu dolor unius crustulum
+advancement.betterwithmods.bloody_chopping_block.desc=Diesmal kein Drachen, der Dich rettet
+advancement.betterwithmods.vertical_windmill.desc=Wind nicht enthalten!
+advancement.betterwithmods.hellfire_dust.desc=Nur eine Prise Höllenfeuer hinzufügen
+advancement.betterwithmods.light.desc=Aziz Licht!
+advancement.betterwithmods.concentrated_hellfire.desc=Konzentriertes HöllenfeuerPVP
+advancement.betterwithmods.desc=Besser als ungeleitet zu beginnen
+advancement.betterwithmods.plated_armor.name=Plattierte Panzerung
+advancement.betterwithmods.plated_armor.desc=Der einzige Schaden, den Du erleiden wirst, ist emotionaler Natur
+advancement.betterwithmods.dynamite.desc=Hillbilly-Fischen
+advancement.betterwithmods.soul_urn.desc=Großmutter?
+advancement.betterwithmods.library.name=Konstruiere eine unmenschliche Bibliothek
+advancement.betterwithmods.library.desc=Schhhhhhhhhhh!
+advancement.betterwithmods.rope.desc=Du weißt, was zu tun ist
+advancement.betterwithmods.wooden_gearbox.desc=Was kann schief gehen?
+advancement.betterwithmods.wooden_axle.desc=Unendliche Kraftübertragung
+advancement.betterwithmods.hemp_seed.desc=Besser als Zauberbohnen
+advancement.betterwithmods.refined_tools.name=Verbesserte Werkzeuge
+advancement.betterwithmods.refined_tools.desc=Härter, besser, schneller, stärker!
+advancement.betterwithmods.siding_wood.desc=Holzschnitt für alle!
+advancement.betterwithmods.steel_ingot.desc=Einfach Kohlenstoff hinzufügen!
+advancement.betterwithmods.saw.desc=Willst Du ein Spiel spielen?
+advancement.betterwithmods.bellows.desc=Versuch das nicht zu Hause!
+advancement.betterwithmods.blood_wood.desc=Holz braucht Blut
+advancement.betterwithmods.ender_spectacles.desc=Schaue durch meine Augen!
+advancement.betterwithmods.moulding_wood.desc=Haus Flipper
+advancement.betterwithmods.filtered_hopper.desc=Hält Miste aus deiner Kiste
+advancement.betterwithmods.hand_crank.desc=Bist Du auch verrückt, Bruder?
+advancement.betterwithmods.whitestone.desc=Gereinigter Stein
+advancement.betterwithmods.buddy_block.desc=Hergestellt in China
+advancement.betterwithmods.horizontal_windmill.desc=Wasser, Erde, Feuer, ___
+advancement.betterwithmods.waterwheel.desc=Muss zusätzliche Wasserräder konstruieren
+advancement.betterwithmods.planter.name=Pflanzer
+advancement.betterwithmods.planter.desc=Eine Pflanze retten, einen Veganer essen
+advancement.betterwithmods.tanned_leather.desc=Während der Produktion wurden keine echten Kühe verletzt.
+advancement.betterwithmods.hemp.desc=420 Zünd es an
+advancement.betterwithmods.detector.desc=Wer beobachtet die Beobachter?
+advancement.betterwithmods.glue.desc=Das Pferdchen?
+advancement.betterwithmods.urn.desc=Das ist die Urne!
+advancement.betterwithmods.block_dispenser.desc=Start einer Hanfspenderei
+advancement.betterwithmods.table_wood.desc=Nicht ganz der von König Athur, aber er wird reichen
+advancement.betterwithmods.wood_gear.desc=Vorsicht vor Splittern
+advancement.betterwithmods.platform.desc=Zuverlässiger als Flüche
+advancement.betterwithmods.composite_bow.desc=Peng Peng
+advancement.betterwithmods.pulley.desc=Fühlst Du sich zu etwas hingezogen?
+advancement.betterwithmods.mining_charge.desc=Feuer im Loch!
+advancement.betterwithmods.steel_anvil.desc=Ein echter Amboss für echte Schmiede
+advancement.betterwithmods.corner_wood.desc=Verstecken in einer Ecke
+advancement.betterwithmods.wool_armor.desc=Mit Großmutters Liebe gemacht
+advancement.betterwithmods.tanned_leather_armor.name=Lederrüstung
+advancement.betterwithmods.tanned_leather_armor.desc=Ein Geschenk von einem freundlichen alten Mann
+advancement.betterwithmods.well_bucket.desc=Eimer geht nach oben, Eimer geht nach unten. Das kann man nicht erklären!
+advancement.betterwithmods.steel_bellows.desc=So Metall!
+advancement.betterwithmods.overpower_hopper.name=Kuscheliger Freund
+advancement.betterwithmods.overpower_hopper.desc=Gib Deinem Trichter ein Redstone-Signal das nächste Mal
+advancement.betterwithmods.explosive_recipe.name=Lege es in den falschen Topf!
+advancement.betterwithmods.explosive_recipe.desc=Es war viel zu heiß!
