@@ -1,6 +1,5 @@
 package betterwithmods.module.tweaks;
 
-import betterwithmods.library.event.EntityDropEquipmentEvent;
 import betterwithmods.module.Feature;
 import net.minecraft.enchantment.EnchantmentHelper;
 import net.minecraft.entity.EntityLiving;
@@ -8,8 +7,6 @@ import net.minecraft.entity.item.EntityItem;
 import net.minecraft.entity.monster.EntityZombie;
 import net.minecraft.inventory.EntityEquipmentSlot;
 import net.minecraft.item.ItemStack;
-import net.minecraftforge.event.entity.EntityEvent;
-import net.minecraftforge.event.entity.EntityJoinWorldEvent;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -61,16 +58,6 @@ public class EquipmentDrop extends Feature {
                         }
                     }
                 }
-            }
-        }
-    }
-
-    @SubscribeEvent
-    public void onEquipmentDrop(EntityDropEquipmentEvent e) {
-        if (e.getEntity() instanceof EntityLiving) {
-            EntityLiving entity = (EntityLiving) e.getEntity();
-            if (entity instanceof EntityZombie) {
-                //e.setCanceled(true); //Reeeeee he didn't do it
             }
         }
     }
