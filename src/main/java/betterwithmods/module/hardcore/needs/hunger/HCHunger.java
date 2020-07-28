@@ -179,7 +179,7 @@ public class HCHunger extends CompatFeature {
         FoodHelper.registerFood(new ItemStack(PUMPKIN_SEEDS), 1);
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
 
-        Map<ItemStack, FoodValues> hungerOverrides = loadFoodMap("Food hunger overrides", configCategory, "Allow modifying food values with hchunger, format with each value after the ; being optional, item=hunger;fat;alwaysEdible", new String[0]);
+        Map<ItemStack, FoodValues> hungerOverrides = loadFoodMap("Food hunger overrides", configCategory, "Allow modifying food values with hchunger, format with each value after the ; being optional, item=hunger;fat;alwaysEdible. An example is minecraft:cooked_beef=8;1.166;false", new String[0]);
         for(Map.Entry<ItemStack,FoodValues> e: hungerOverrides.entrySet()) {
             FoodHelper.registerFood(e.getKey(), e.getValue(), false);
         }
