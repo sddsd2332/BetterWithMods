@@ -65,6 +65,7 @@ public class MillRecipe extends BulkRecipe {
 
     public MillRecipe setTicks(int ticks) {
         this.ticks = ticks;
+        return this;
     }
 
 }
