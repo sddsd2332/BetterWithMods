@@ -63,7 +63,7 @@ public class MillRecipe extends BulkRecipe {
         return ticks;
     }
 
-    public void setTicks(int ticks) {
+    public MillRecipe setTicks(int ticks) {
         this.ticks = ticks;
     }
 
