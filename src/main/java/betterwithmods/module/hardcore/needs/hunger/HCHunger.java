@@ -179,7 +179,7 @@ public class HCHunger extends CompatFeature {
         FoodHelper.registerFood(new ItemStack(PUMPKIN_SEEDS), 1);
         ((IEdibleBlock) Blocks.CAKE).setEdibleAtMaxHunger(true);
 
-        Map<ItemStack, FoodValues> hungerOverrides = loadFoodMap("Food hunger overrides", configCategory, "Allow modifying food values with hchunger, format with each value after the ; being optional, item=hunger;fat;alwaysEdible", new String[0]);
+        Map<ItemStack, FoodValues> hungerOverrides = loadFoodMap("Food hunger overrides", configCategory, "Allow modifying food values with hchunger, format with each value after the ; being optional, item=hunger;fat;alwaysEdible. An example is minecraft:cooked_beef=8;1.166;false", new String[0]);
         for(Map.Entry<ItemStack,FoodValues> e: hungerOverrides.entrySet()) {
             FoodHelper.registerFood(e.getKey(), e.getValue(), false);
         }
@@ -377,16 +377,17 @@ public class HCHunger extends CompatFeature {
 
     public static Pair<FoodValues, Boolean> loadFoodValue(String value) {
 
-        String[] v = value.split(":");
+        String[] v = value.split(";");
 
-        int hunger = 0, fat = 0;
+        int hunger = 0;
+        float fat = 0.0f;
         boolean alwaysEdible = false;
 
         if (v.length > 0)
             hunger = Integer.parseInt(v[0]);
 
         if (v.length > 1)
-            fat = Integer.parseInt(v[1]);
+            fat = Float.parseFloat(v[1]);
 
         if (v.length > 2)
             alwaysEdible = Boolean.parseBoolean(v[2]);
