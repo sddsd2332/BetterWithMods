@@ -74,23 +74,21 @@ public class BlastingOilEvent {
         if (world.isRemote || event.phase != TickEvent.Phase.END)
             return;
 
-        synchronized (world.loadedEntityList) {
-            items = world.loadedEntityList.stream().filter(e -> e instanceof EntityItem && ((EntityItem) e).getItem().isItemEqual(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BLASTING_OIL))).map(e -> (EntityItem) e).collect(Collectors.toList());
-        }
-        HashSet<EntityItem> toRemove = new HashSet<>();
+        items = world.getEntities(EntityItem.class, e -> e.getItem().isItemEqual(ItemMaterial.getMaterial(ItemMaterial.EnumMaterial.BLASTING_OIL)));
+
         items.forEach(item -> {
             boolean ground = item.onGround;
             if (item.isBurning() || (ground && Math.abs(item.posY - highestPoint.getOrDefault(item, item.posY)) > 2.0)) {
                 int count = item.getItem().getCount();
                 if (count > 0) {
                     world.createExplosion(item, item.posX, item.posY + item.height / 16, item.posZ, (float) (Math.sqrt(count / 5) / 2.5 + 1), true);
-                    toRemove.add(item);
+                    highestPoint.remove(item);
                     item.setDead();
+                    return;
                 }
             }
             if (item.motionY > 0 || !highestPoint.containsKey(item))
                 highestPoint.put(item, item.posY);
         });
-        toRemove.forEach(highestPoint::remove);
     }
 }
