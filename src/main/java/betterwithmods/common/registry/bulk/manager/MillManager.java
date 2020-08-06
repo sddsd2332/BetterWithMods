@@ -59,6 +59,46 @@ public class MillManager extends CraftingManagerBulk<MillRecipe> {
         return addMillRecipe(StackIngredient.fromStacks(input), output);
     }
 
+    public MillRecipe addMillRecipe(List<Ingredient> inputs, List<ItemStack> outputs, SoundEvent type, int ticks) {
+        return addRecipe(new MillRecipe(inputs, outputs).setSound(type).setTicks(ticks));
+    }
+
+    public MillRecipe addMillRecipe(List<Ingredient> inputs, List<ItemStack> outputs, int ticks) {
+        return addRecipe(new MillRecipe(inputs, outputs).setTicks(ticks));
+    }
+
+    public MillRecipe addMillRecipe(Ingredient input, List<ItemStack> outputs, SoundEvent type, int ticks) {
+        return addMillRecipe(Lists.newArrayList(input), outputs, type, ticks);
+    }
+
+    public MillRecipe addMillRecipe(Ingredient input, ItemStack output, SoundEvent type, int ticks) {
+        return addMillRecipe(Lists.newArrayList(input), Lists.newArrayList(output), type, ticks);
+    }
+
+    public MillRecipe addMillRecipe(ItemStack input, List<ItemStack> outputs, SoundEvent type, int ticks) {
+        return addMillRecipe(StackIngredient.fromStacks(input), outputs, type, ticks);
+    }
+
+    public MillRecipe addMillRecipe(ItemStack input, ItemStack output, SoundEvent type, int ticks) {
+        return addMillRecipe(StackIngredient.fromStacks(input), output, type, ticks);
+    }
+
+    public MillRecipe addMillRecipe(Ingredient input, List<ItemStack> outputs, int ticks) {
+        return addMillRecipe(Lists.newArrayList(input), outputs, ticks);
+    }
+
+    public MillRecipe addMillRecipe(Ingredient input, ItemStack output, int ticks) {
+        return addMillRecipe(Lists.newArrayList(input), Lists.newArrayList(output), ticks);
+    }
+
+    public MillRecipe addMillRecipe(ItemStack input, List<ItemStack> outputs, int ticks) {
+        return addMillRecipe(StackIngredient.fromStacks(input), outputs, ticks);
+    }
+
+    public MillRecipe addMillRecipe(ItemStack input, ItemStack output, int ticks) {
+        return addMillRecipe(StackIngredient.fromStacks(input), output, ticks);
+    }
+
     @Override
     public boolean canCraft(MillRecipe recipe, TileEntity tile, ItemStackHandler inv) {
         if (recipe != null && tile instanceof TileEntityMill) {
