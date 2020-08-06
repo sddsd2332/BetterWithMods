@@ -13,6 +13,7 @@ import net.minecraft.nbt.NBTTagCompound;
 import net.minecraft.nbt.NBTUtil;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.tileentity.TileEntity;
+import net.minecraft.tileentity.TileEntityFurnace;
 import net.minecraft.util.EnumFacing;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.text.translation.I18n;
@@ -103,5 +104,33 @@ public class ItemMini extends ItemBlock {
             }
         }
         return I18n.translateToLocalFormatted(this.getTranslationKey(stack) + ".name", type);
+    }
+
+    @Override
+    public int getItemBurnTime(ItemStack stack) {
+        if (!(((ItemMini) stack.getItem()).getBlock() instanceof BlockMini))
+            return super.getItemBurnTime(itemStack);
+
+        BlockMini miniblock = (BlockMini) ((ItemMini) stack.getItem()).getBlock();
+
+        int divisor = 2;
+        MiniType type = MiniType.fromBlock(miniblock);
+
+        if (type == MiniType.MOULDING)
+            divisor = 4;
+        else if (type == MiniType.CORNER)
+            divisor = 8;
+
+        if (super.getItemBurnTime(itemStack) != -1)
+            return super.getItemBurnTime(itemStack) / divisor;
+
+        NBTTagCompound tag = stack.getSubCompound("texture");
+        if (tag != null) {
+            IBlockState state = NBTUtil.readBlockState(tag);
+            ItemStack derivedBlock = new ItemStack(state.getBlock(), 1, state.getBlock().getMetaFromState(state));
+            return TileEntityFurnace.getItemBurnTime(derivedBlock) / divisor;
+        }
+
+        return -1;
     }
 }
