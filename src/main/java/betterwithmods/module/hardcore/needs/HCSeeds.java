@@ -32,6 +32,7 @@ import java.util.function.Predicate;
 public class HCSeeds extends Feature {
     private static final Random RANDOM = new Random();
     public static Set<ItemStack> SEED_BLACKLIST;
+    public static Set<ItemStack> EXCEPTIONS;
     public static Set<IBlockState> BLOCKS_TO_STOP = Sets.newHashSet();
     private static boolean stopZombieCropLoot;
 
@@ -49,12 +50,13 @@ public class HCSeeds extends Feature {
     public void setupConfig() {
         stopZombieCropLoot = loadPropBool("Stop Zombie Crop Loot", "Stops Zombies from dropping potatoes or carrots", true);
         SEED_BLACKLIST = Sets.newHashSet(loadItemStackList("Seed Blacklist", "Blacklist seeds from being dropped when tilling grass. Defaulted to Wheat seeds for HCVillages.", new ItemStack[]{new ItemStack(Items.WHEAT_SEEDS)}));
+        EXCEPTIONS = Sets.newHashSet(loadItemStackList("Exceptions", "Blacklist seeds from being affected by HCSeeds, meaning they will drop from tall grass normally.", new ItemStack[]{}));
     }
 
     @SubscribeEvent
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         if (STOP_SEEDS.test(event.getState()))
-            event.getDrops().clear();
+            event.getDrops().removeIf(x -> !EXCEPTIONS.contains(x));
     }
 
     public NonNullList<ItemStack> getDrops(boolean isGrass, int fortune) {
