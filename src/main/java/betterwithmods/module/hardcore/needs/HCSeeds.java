@@ -56,7 +56,11 @@ public class HCSeeds extends Feature {
     @SubscribeEvent
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         if (STOP_SEEDS.test(event.getState()))
-            event.getDrops().removeIf(x -> !EXCEPTIONS.contains(x));
+            event.getDrops().removeIf(this::isReplaceable);
+    }
+
+    private boolean isReplaceable(ItemStack stack) {
+        return EXCEPTIONS.stream().noneMatch(s -> InvUtils.matches(s, stack));
     }
 
     public NonNullList<ItemStack> getDrops(boolean isGrass, int fortune) {
