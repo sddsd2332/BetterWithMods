@@ -15,6 +15,7 @@ import net.minecraft.util.SoundEvent;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.world.World;
 import net.minecraftforge.event.entity.player.PlayerInteractEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.EventPriority;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
@@ -38,7 +39,7 @@ public class GrassPath extends Feature {
     }
 
     @Override
-    public void setupConfig() {
+    public void postInit(FMLPostInitializationEvent event) {
         SHOVEL_BLACKLIST = loadItemStackList("Shovel Blacklist", "Blacklist an item for being able to make grass paths", new String[]{"psi:cad"});
     }
 
