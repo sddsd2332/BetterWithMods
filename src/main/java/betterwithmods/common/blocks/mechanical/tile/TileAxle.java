@@ -109,6 +109,7 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
         }
         if (newSignal != this.signal)
             setSignal(newSignal);
+        ((BlockAxle) getBlockType()).setActive(world, pos, getPower() > 0);
         dirty = true;
     }
 
@@ -152,7 +153,7 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
     @Override
     public int getMechanicalOutput(EnumFacing facing) {
         if (facing.getAxis() == getAxis()) {
-            IAxle axle = BWMAPI.IMPLEMENTATION.getAxle(world, pos.offset(facing), facing);
+            IAxle axle = BWMAPI.IMPLEMENTATION.getAxle(world, pos.offset(facing), facing.getOpposite());
             if (axle != null && axle.getSignal() > this.getSignal())
                 return 0;
             return power;
@@ -217,7 +218,6 @@ public class TileAxle extends TileBasic implements IAxle, ITickable {
     @Override
     public void markDirty() {
         super.markDirty();
-        ((BlockAxle) getBlockType()).setActive(world, pos, getPower() > 0);
         for (EnumFacing facing : getDirections()) {
             if (!BWMAPI.IMPLEMENTATION.isAxle(world, pos.offset(facing), facing.getOpposite())) {
                 world.neighborChanged(pos.offset(facing), getBlockType(), pos);
