@@ -109,7 +109,7 @@ public class ItemMini extends ItemBlock {
     @Override
     public int getItemBurnTime(ItemStack stack) {
         if (!(((ItemMini) stack.getItem()).getBlock() instanceof BlockMini))
-            return super.getItemBurnTime(itemStack);
+            return super.getItemBurnTime(stack);
 
         BlockMini miniblock = (BlockMini) ((ItemMini) stack.getItem()).getBlock();
 
@@ -121,8 +121,8 @@ public class ItemMini extends ItemBlock {
         else if (type == MiniType.CORNER)
             divisor = 8;
 
-        if (super.getItemBurnTime(itemStack) != -1)
-            return super.getItemBurnTime(itemStack) / divisor;
+        if (super.getItemBurnTime(stack) != -1)
+            return super.getItemBurnTime(stack) / divisor;
 
         NBTTagCompound tag = stack.getSubCompound("texture");
         if (tag != null) {
