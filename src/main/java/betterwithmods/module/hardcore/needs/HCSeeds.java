@@ -2,6 +2,7 @@ package betterwithmods.module.hardcore.needs;
 
 import betterwithmods.common.BWMBlocks;
 import betterwithmods.common.BWOreDictionary;
+import betterwithmods.common.blocks.BWMBlock;
 import betterwithmods.module.Feature;
 import betterwithmods.util.InvUtils;
 import com.google.common.collect.Sets;
@@ -18,6 +19,7 @@ import net.minecraft.world.World;
 import net.minecraftforge.event.entity.living.LivingDropsEvent;
 import net.minecraftforge.event.entity.player.UseHoeEvent;
 import net.minecraftforge.event.world.BlockEvent;
+import net.minecraftforge.fml.common.event.FMLPostInitializationEvent;
 import net.minecraftforge.fml.common.eventhandler.Event;
 import net.minecraftforge.fml.common.eventhandler.SubscribeEvent;
 
@@ -32,6 +34,7 @@ import java.util.function.Predicate;
 public class HCSeeds extends Feature {
     private static final Random RANDOM = new Random();
     public static Set<ItemStack> SEED_BLACKLIST;
+    public static Set<ItemStack> EXCEPTIONS;
     public static Set<IBlockState> BLOCKS_TO_STOP = Sets.newHashSet();
     private static boolean stopZombieCropLoot;
 
@@ -48,13 +51,22 @@ public class HCSeeds extends Feature {
     @Override
     public void setupConfig() {
         stopZombieCropLoot = loadPropBool("Stop Zombie Crop Loot", "Stops Zombies from dropping potatoes or carrots", true);
+    }
+
+    @Override
+    public void postInit(FMLPostInitializationEvent event) {
         SEED_BLACKLIST = Sets.newHashSet(loadItemStackList("Seed Blacklist", "Blacklist seeds from being dropped when tilling grass. Defaulted to Wheat seeds for HCVillages.", new ItemStack[]{new ItemStack(Items.WHEAT_SEEDS)}));
+        EXCEPTIONS = Sets.newHashSet(loadItemStackList("Exceptions", "Blacklist seeds from being affected by HCSeeds, meaning they will drop from tall grass normally.", new ItemStack[]{new ItemStack(Items.WHEAT_SEEDS)}));
     }
 
     @SubscribeEvent
     public void onHarvest(BlockEvent.HarvestDropsEvent event) {
         if (STOP_SEEDS.test(event.getState()))
-            event.getDrops().clear();
+            event.getDrops().removeIf(this::isReplaceable);
+    }
+
+    private boolean isReplaceable(ItemStack stack) {
+        return EXCEPTIONS.stream().noneMatch(s -> InvUtils.matches(s, stack));
     }
 
     public NonNullList<ItemStack> getDrops(boolean isGrass, int fortune) {
