@@ -90,7 +90,7 @@ public class HCChickens extends Feature {
 
     @SubscribeEvent
     public void onEntityInteract(PlayerInteractEvent.EntityInteract event) {
-        if (SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving) {
+        if (!event.getWorld().isRemote && SEEDS.apply(event.getItemStack()) && event.getTarget() instanceof EntityLiving) {
             EggLayer layer = getLayer(event.getTarget());
             if (layer != null) {
                 event.setCanceled(true);

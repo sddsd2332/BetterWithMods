@@ -46,7 +46,7 @@ public class EasyBreeding extends Feature {
 
     @SubscribeEvent
     public void addEntityAI(EntityJoinWorldEvent event) {
-        if (event.getEntity() instanceof EntityLivingBase) {
+        if (!event.getWorld().isRemote && event.getEntity() instanceof EntityLivingBase) {
             EntityLivingBase entity = (EntityLivingBase) event.getEntity();
             if (entity instanceof EntityAnimal) {
                 EntityAnimal animal = ((EntityAnimal) entity);
